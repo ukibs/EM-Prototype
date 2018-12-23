@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1347693450630458014
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1347693450630458008}
+  - component: {fileID: 1347693450630458015}
+  m_Layer: 0
+  m_Name: Prov HUD
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1347693450630458008
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347693450630458014}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.38897818, y: 1.2168622, z: -2.812962}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1347693450630458015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347693450630458014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22cec53f5278c954894b845a09fcdf09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  guiSkin: {fileID: 11400000, guid: 0d7ecdc8ac800f94491b1d5df3fbf883, type: 2}
+  crossTexture: {fileID: 2800000, guid: fd175b746696ae045bc76117bcf6a6e0, type: 3}
+  diamondsTexture: {fileID: 2800000, guid: c4f9870224055bd4983500d29768eba0, type: 3}
+  chargeTexture: {fileID: 2800000, guid: e3d0ff31924015d4a923c058090e8be0, type: 3}
+  playerShieldTexture: {fileID: 2800000, guid: 363cd9e084b68e74588ef95eb00167df, type: 3}
+  playerHealthTexture: {fileID: 2800000, guid: 67ee8361b4fc5924293ee6dcae9ada30, type: 3}
+  enemyChasisTexture: {fileID: 2800000, guid: 9d5d6ce2ecad855448c8d4392c05225f, type: 3}
+  enemyCoreTexture: {fileID: 2800000, guid: 9be74790b4a9b2f41bb96490059435ec, type: 3}
+  jumpTexture: {fileID: 2800000, guid: 86d8e40aae556594085414191d64a8c6, type: 3}
+  sprintTexture: {fileID: 2800000, guid: 342767d2bca4d854191e77312ebae1c2, type: 3}
+  pulseAttackIcon: {fileID: 2800000, guid: 83d3de51e99ff0140b0c47e3cd891611, type: 3}
+  rapidFireIcon: {fileID: 2800000, guid: ffdcd310a8ac189429d0a41c2c8c8c87, type: 3}
+  cannonIcon: {fileID: 2800000, guid: 3a1b868140ce9dd468766af67387ae20, type: 3}
+  sphereDefenseTexture: {fileID: 2800000, guid: 094175ff16bcf6047a424336970a282c,
+    type: 3}
