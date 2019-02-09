@@ -3,12 +3,22 @@ guid: 8e88685afaff6e5498b706c02bd1a0da
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
+    100000: Canon
+    100002: //RootNode
+    100004: Turret
+    400000: Canon
+    400002: //RootNode
+    400004: Turret
     2100000: No Name
-    2300000: //RootNode
-    3300000: //RootNode
+    2300000: Canon
+    2300002: //RootNode
+    2300004: Turret
+    3300000: Canon
+    3300002: //RootNode
+    3300004: Turret
     4300000: T-34
+    4300002: Turret
+    4300004: Canon
   externalObjects: {}
   materials:
     importMaterials: 1

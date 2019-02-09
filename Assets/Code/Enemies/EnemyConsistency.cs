@@ -42,7 +42,9 @@ public class EnemyConsistency : MonoBehaviour {
         impactInfoManager = FindObjectOfType<ImpactInfoManager>();
         currentChasisHealth = maxChasisHealth;
         currentCoreHealth = maxCoreHealth;
+        //
         levelManager = FindObjectOfType<ProvLevelManager>();
+        //if(levelManager)
 	}
 	
 	// Update is called once per frame
@@ -54,37 +56,39 @@ public class EnemyConsistency : MonoBehaviour {
         }
 	}
 
-    //void OnCollisionEnter(Collision collision)
-    //{
-    //    // Trataremos de forma diferente los impactos de las balas y el resto
-    //    Bullet bullet = collision.collider.GetComponent<Bullet>();
+    void OnCollisionEnter(Collision collision)
+    {
+        // Trataremos de forma diferente los impactos de las balas y el resto
+        Bullet bullet = collision.collider.GetComponent<Bullet>();
 
-    //    //
-    //    string bulletConfimation = (bullet != null) ? "Yes" : "No";
-    //    Debug.Log(collision.collider.gameObject.name + ", has bullet component: " + bulletConfimation);
+        //
+        string bulletConfimation = (bullet != null) ? "Yes" : "No";
+        Debug.Log(collision.collider.gameObject.name + ", has bullet component: " + bulletConfimation);
 
-    //    // Si lo que nos ha golpeado no tiene rigidbody 
-    //    // hemos chocado con el escenario
-    //    // así que usamos el nuestro
-    //    Rigidbody rb = collision.collider.GetComponent<Rigidbody>();
-    //    if (rb == null)
-    //        rb = GetComponent<Rigidbody>();
-    //    //
-    //    float impactForce = collision.relativeVelocity.magnitude * rb.mass;
+        // Si lo que nos ha golpeado no tiene rigidbody 
+        // hemos chocado con el escenario
+        // así que usamos el nuestro
+        Rigidbody rb = collision.collider.GetComponent<Rigidbody>();
+        if (rb == null)
+            rb = GetComponent<Rigidbody>();
+        //
+        float impactForce = collision.relativeVelocity.magnitude * rb.mass;
 
-    //    if (bullet == null && impactForce > defense)
-    //        ReceiveImpact(impactForce, collision.contacts[0].point);
-    //    // 
-    //    else if(bullet != null && impactForce > frontArmor)
-    //    {
-    //        //CheckImpactedPart(collision.collider);
-    //        ReceiveInternalImpact(impactForce, collision.contacts[0].point);
-    //    }
-            
-    //    //else if(collision.contacts[0].point != null)
-    //    //    impactInfoManager.SendImpactInfo(collision.contacts[0].point, impactForce, "No damage");
-        
-    //}
+        if (bullet == null)
+            ReceiveImpact(impactForce, collision.contacts[0].point);
+        // 
+        else if (bullet != null)
+        {
+            //CheckImpactedPart(collision.collider);
+            //collision.col
+            Debug.Log("Impacto de bala donde no debería");
+            //ReceiveInternalImpact(impactForce, collision.contacts[0].point);
+        }
+
+        //else if(collision.contacts[0].point != null)
+        //    impactInfoManager.SendImpactInfo(collision.contacts[0].point, impactForce, "No damage");
+
+    }
 
     /// <summary>
     /// df
@@ -99,9 +103,9 @@ public class EnemyConsistency : MonoBehaviour {
         damageReceived = Mathf.Max(damageReceived, 0);
         //
         Debug.Log(damageReceived + " damage received");
-        //Debug.Log("Received body impact with " + impactForce + " force. " + damageReceived + " damage received");
+        Debug.Log("Received body impact with " + impactForce + " force. " + damageReceived + " damage received");
         //
-        currentChasisHealth -= impactForce - defense;
+        currentChasisHealth -= damageReceived;
         ManageDamage(impactForce, point);
         
     }
@@ -143,21 +147,17 @@ public class EnemyConsistency : MonoBehaviour {
             // Cambio de cara
             face.GetComponent<MeshRenderer>().material = deadFaceMaterial;
 
-            //Chequamos y quitamos
-            EnemyTurret enemyTurret = GetComponent<EnemyTurret>();
-            if (enemyTurret != null)
-                Destroy(enemyTurret);
-
-            EnemyGroundBody enemyGroundVehicle = GetComponent<EnemyGroundBody>();
-            if (enemyGroundVehicle != null)
-                Destroy(enemyGroundVehicle);
+            //
+            DeactivateStuff();
+            
             //
             GameObject explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
             Destroy(explosion, 10);
             //
             GameObject smoke = Instantiate(smokePrefab, transform);
             //
-            levelManager.AnnotateKill();
+            if(levelManager != null)
+                levelManager.AnnotateKill();
             //
             Destroy(this);
         }
@@ -165,5 +165,41 @@ public class EnemyConsistency : MonoBehaviour {
         {
             //impactInfoManager.SendImpactInfo(point, damageReceived);
         }
+    }
+
+    void DeactivateStuff()
+    {
+        //Chequamos y quitamos
+        EnemyTurret enemyTurret = GetComponent<EnemyTurret>();
+        if (enemyTurret != null)
+        {
+            for (int i = 0; i < enemyTurret.weapons.Length; i++)
+            {
+                EnemyWeapon nextWeapon = enemyTurret.weapons[i].GetComponent<EnemyWeapon>();
+                if (nextWeapon)
+                {
+                    Destroy(nextWeapon);
+                }
+            }
+            //
+            Destroy(enemyTurret);
+        }
+            
+
+        EnemyGroundBody enemyGroundVehicle = GetComponent<EnemyGroundBody>();
+        if (enemyGroundVehicle != null)
+        {
+            for(int i = 0; i < enemyGroundVehicle.weapons.Length; i++)
+            {
+                EnemyWeapon nextWeapon = enemyGroundVehicle.weapons[i].GetComponent<EnemyWeapon>();
+                if (nextWeapon)
+                {
+                    Destroy(nextWeapon);
+                }
+            }
+            //
+            Destroy(enemyGroundVehicle);
+        }
+            
     }
 }

@@ -12,7 +12,12 @@ public class InputManager : MonoBehaviour {
     bool fireButton;
     bool fireButtonDown;
     Vector2 mouseMovement = new Vector2();
+
     bool switchWeaponButton;
+    bool switchDefenseButton;
+    bool switchJumpButton;
+    bool switchSprintButton;
+
     bool markObjectiveButton;
     //bool switchObjectiveButton;   // Este lo aplicaremos más adelante
     bool defenseButton;
@@ -38,12 +43,18 @@ public class InputManager : MonoBehaviour {
     public bool FireButton { get { return fireButton; } }
     public bool FireButtonDown { get { return fireButtonDown; } }
     public Vector2 MouseMovement { get { return mouseMovement; } }
-    public bool SwitchWeaponButton { get { return switchWeaponButton; } }
+    
     public bool MarkObjectiveButton { get { return markObjectiveButton; } }
     public bool DefenseButton { get { return defenseButton; } }
     public Vector2 RightStickAxis { get { return rightStickAxis; } }
     public Vector2 CrossAxis { get { return crossAxis; } }
     public bool MenuButton { get { return menuButton; } }
+
+    //
+    public bool SwitchWeaponButton { get { return switchWeaponButton; } }
+    public bool SwitchDefenseButton { get { return switchDefenseButton; } }
+    public bool SwitchJumpButton { get { return switchJumpButton; } }
+    public bool SwitchSprintButton { get { return switchSprintButton; } }
 
     //
     public bool ChangeAttackDown { get { return changeAttackDown; } }
@@ -84,8 +95,12 @@ public class InputManager : MonoBehaviour {
 
         markObjectiveButton = Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Joystick1Button5) /* R1 */;
 
-        // switchWeaponButton = Input.GetKeyDown(KeyCode.Keypad1) || Input.GetAxisRaw("Cross Horizontal") > 0.2f;
+        // Switch buttons
         switchWeaponButton = Input.GetKeyDown(KeyCode.Alpha1) || changeAttackDown;
+        switchDefenseButton = Input.GetKeyDown(KeyCode.Alpha2) || changeDefenseDown;
+        switchJumpButton = Input.GetKeyDown(KeyCode.Alpha3) || changeJumpDown;
+        switchSprintButton = Input.GetKeyDown(KeyCode.Alpha4) || changeSprintDown;
+
 
         defenseButton = Input.GetKey(KeyCode.Mouse1) || Input.GetKey(KeyCode.Joystick1Button3) /* Gamepad Y*/;
 

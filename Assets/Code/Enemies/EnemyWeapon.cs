@@ -25,6 +25,9 @@ public class EnemyWeapon : MonoBehaviour
     public float shootForce = 10;
     public float muzzleSpeed = 500;
 
+    //
+    public bool debugging = false;
+
     public ShootCalculation shootCalculation = ShootCalculation.MuzzleSpeed;
     public Vector2 maxRotationOffset;
     public GameObject shootParticlesPrefab;
@@ -33,13 +36,24 @@ public class EnemyWeapon : MonoBehaviour
     private RobotControl player;
     private Rigidbody playerRB;
     private float timeFromLastShoot;
+    //
+    private Quaternion originalRotation;
+    private Vector2 originalRotationXY;
 
     // Start is called before the first frame update
     void Start()
     {
         player = FindObjectOfType<RobotControl>();
         playerRB = player.GetComponent<Rigidbody>();
-        shootPoint = transform.Find("Barrel/Shoot Point");
+        //
+        shootPoint = transform.Find("Shoot Point");
+        if(shootPoint == null)
+            shootPoint = transform.Find("Barrel/Shoot Point");
+        //
+        originalRotation = transform.rotation;
+        originalRotationXY = new Vector2(transform.localEulerAngles.x, transform.localEulerAngles.y);
+        //
+        //if(originalRotation)
     }
 
     // Update is called once per frame
@@ -59,6 +73,15 @@ public class EnemyWeapon : MonoBehaviour
         }
     }
 
+    private void OnGUI()
+    {
+        //
+        if (debugging)
+        {
+
+        }
+    }
+
     private void OnDrawGizmos()
     {
         //
@@ -75,7 +98,47 @@ public class EnemyWeapon : MonoBehaviour
     {
         Vector3 anticipatedPlayerPosition = GeneralFunctions.AnticipatePlayerPositionForAiming(
             transform.position, player.transform.position, playerRB.velocity, muzzleSpeed, dt);
-        transform.rotation = GeneralFunctions.UpdateRotation(transform, player.transform.position, rotationSpeed.y, dt, Vector3.right);
+        // Rotamos
+        // En Y
+        Vector3 previousRotationY = transform.localEulerAngles;
+        transform.rotation = GeneralFunctions.UpdateRotationWithConstraits(transform, player.transform.position, rotationSpeed.y, dt,
+            originalRotationXY.y, maxRotationOffset.y, Vector3.up);
+
+        ConstrainRotation(previousRotationY);
+        // En X
+        //Vector3 previousRotationX = transform.localEulerAngles;
+        //transform.rotation = GeneralFunctions.UpdateRotationWithConstraits(transform, player.transform.position, rotationSpeed.y, dt,
+        //    originalRotationXY.y, maxRotationOffset.y, Vector3.right);
+
+        //ConstrainRotation(previousRotationX);
+        //
+
+
+    }
+
+    void ConstrainRotation(Vector3 previousRotation)
+    {
+        // Y acotamos la rotación a los límites
+        // X
+        float constrainedX = transform.localEulerAngles.x;
+
+        if (Mathf.Abs(previousRotation.x - constrainedX) > 180)
+            constrainedX += 360 * Mathf.Sign(previousRotation.x - constrainedX);
+
+        constrainedX = Mathf.Clamp(constrainedX,
+            originalRotationXY.x - maxRotationOffset.x, originalRotationXY.x + maxRotationOffset.x);
+        // Y
+        float constrainedY = transform.localEulerAngles.y;
+
+        if (Mathf.Abs(previousRotation.y - constrainedY) > 180)
+            constrainedY += 360 * Mathf.Sign(previousRotation.y - constrainedY);
+
+        constrainedY = Mathf.Clamp(constrainedY,
+            originalRotationXY.y - maxRotationOffset.y, originalRotationXY.y + maxRotationOffset.y);
+        // Apaño maño
+        if (Mathf.Abs(constrainedY - 360) < 1) constrainedY = 359;
+        //
+        transform.localEulerAngles = new Vector3(constrainedX, constrainedY, transform.localEulerAngles.z);
     }
 
     void UpdateShooting(float dt)

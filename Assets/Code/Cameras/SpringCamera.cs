@@ -24,6 +24,8 @@ public class SpringCamera : MonoBehaviour {
 
     private float originalY;
     private float currentOffsetY = 0;
+
+    private Vector3 targetPos;
     #endregion
 
     #region Properties
@@ -46,7 +48,7 @@ public class SpringCamera : MonoBehaviour {
 		transform.position = idealPos;
 
 		//To look at the palyer
-		Vector3 targetPos = targetPlayer.TransformPoint (targetOffset);
+		targetPos = targetPlayer.TransformPoint (targetOffset);
 		transform.LookAt (targetPos, targetPlayer.up);
 
         //
@@ -63,14 +65,17 @@ public class SpringCamera : MonoBehaviour {
 	void FixedUpdate () {
 		float dt = Time.deltaTime;
         // Correction from the mouse movement
-        if (currentTarget == targetPlayer)
-            UpdateRotation(dt);
+        //if (currentTarget == targetPlayer)
+        //UpdateRotation(dt);
         // TODO: Hacerlo de forma menos guarra
-        else if (currentTarget.GetComponent<EnemyConsistency>() == null)
+        //else 
+        if (currentTarget.GetComponent<EnemyConsistency>() == null)
             SwitchTarget();
 
         UpdateMovement (dt);
+        UpdateUp(targetPlayer.up);
         CheckSwitchAndEnemies();
+        CheckDontEnterInsideScenario();
 	}
 	#endregion
 
@@ -100,7 +105,7 @@ public class SpringCamera : MonoBehaviour {
         transform.position = idealPos - distanceToPoint;
 
         //To look at the indicated point
-        Vector3 targetPos = currentTarget.TransformPoint(targetOffset);
+        targetPos = currentTarget.TransformPoint(targetOffset);
         transform.LookAt(targetPos, Vector3.up);
     }
 
@@ -161,6 +166,30 @@ public class SpringCamera : MonoBehaviour {
         }
         // In any case
         targetOffset.y = 0;
+    }
+
+    /// <summary>
+    /// Coming soon
+    /// </summary>
+    /// <param name="directionAndForce"></param>
+    public void ShakeCamera(Vector3 directionAndForce)
+    {
+
+    }
+
+    public void UpdateUp(Vector3 newUp)
+    {
+        transform.rotation = Quaternion.LookRotation(transform.forward, newUp);
+    }
+
+    void CheckDontEnterInsideScenario()
+    {
+        Vector3 directionToCheck = transform.position - targetPos;
+        RaycastHit hitInfo;
+        if (Physics.Raycast(targetPos, directionToCheck, out hitInfo, directionToCheck.magnitude))
+        {
+            transform.position = Vector3.Lerp(transform.position, hitInfo.point, 0.8f);
+        }
     }
     #endregion
 }

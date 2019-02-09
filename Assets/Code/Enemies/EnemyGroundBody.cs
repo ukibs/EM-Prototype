@@ -19,8 +19,8 @@ public class EnemyGroundBody : MonoBehaviour
     public float motorForce = 200.0f;
     [Tooltip("Rotatin in degrees per second.")]
     public float rotationSpeed = 90;
-    public EnemyTurret[] turrets;
-    public EnemyWeapon[] weapons;
+    public EnemyTurret[] turrets;   // TODO: QUe las busque él
+    public EnemyWeapon[] weapons;   // TODO: Que la busque él
     public Actions[] behaviour;     // Luego trabajaremos bien esto
 
     private RobotControl player;
@@ -35,6 +35,9 @@ public class EnemyGroundBody : MonoBehaviour
     {
         player = FindObjectOfType<RobotControl>();
         rb = GetComponent<Rigidbody>();
+        //
+        turrets = GetComponentsInChildren<EnemyTurret>();
+        weapons = GetComponentsInChildren<EnemyWeapon>();
     }
 
     // Update is called once per frame
@@ -62,17 +65,17 @@ public class EnemyGroundBody : MonoBehaviour
             switch (currentAction)
             {
                 case Actions.FacingPlayer:
-                    transform.rotation = GeneralFunctions.UpdateRotation(transform, player.transform.position, rotationSpeed, dt);
+                    transform.rotation = GeneralFunctions.UpdateRotation2(transform, player.transform.position, rotationSpeed, dt);
                     break;
                 case Actions.GoingToPlayer:
                     //transform.rotation = Quaternion.LookRotation(playerDirection);
-                    transform.rotation = GeneralFunctions.UpdateRotation(transform, player.transform.position, rotationSpeed, dt);
+                    transform.rotation = GeneralFunctions.UpdateRotation2(transform, player.transform.position, rotationSpeed, dt);
                     GiveItGas();
                     break;
                 case Actions.EncirclingPlayer:
                     Vector3 playerCross = Vector3.Cross(playerDirection, Vector3.up);
                     //transform.rotation = Quaternion.LookRotation(playerCross);
-                    transform.rotation = GeneralFunctions.UpdateRotation(transform, playerCross, rotationSpeed, dt);
+                    transform.rotation = GeneralFunctions.UpdateRotation2(transform, playerCross, rotationSpeed, dt);
                     GiveItGas();
                     break;
             }
