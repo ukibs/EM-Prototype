@@ -23,6 +23,8 @@ public class ShovelManager : MonoBehaviour {
 
     public float timeLerping = 0.2f;
     public Transform shovelParent;
+    // TODO: Ir poniendo el resto
+    [Tooltip("Positions order: 1.Original, 2.Sprint, 3.Jump, 4.PulseAttack, 5.RapidFire, 6.Canon, 7.SphericDefense")]
     public Transform[] shovelPositionsParents;
 
     #endregion
