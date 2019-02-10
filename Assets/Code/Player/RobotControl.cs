@@ -75,6 +75,7 @@ public class RobotControl : MonoBehaviour {
     public Transform chargedProyectilePoint;
     public GameObject chargingProjectile;       // Habrá que pulir como manejamos esto
     public GameObject sphericShield;
+    public GameObject frontShield;
 
     // De momento lo ponemos aqui
     public GameObject shootParticlePrefab;
@@ -367,6 +368,7 @@ public class RobotControl : MonoBehaviour {
 
                 case DefenseMode.Front:
                     // TODO: Crear escudo frontal
+                    frontShield.SetActive(true);
                     break;
             }
             
@@ -393,6 +395,7 @@ public class RobotControl : MonoBehaviour {
 
                 case DefenseMode.Front:
                     // TODO: Crear escudo frontal
+                    frontShield.SetActive(false);
                     break;
             }
         }
