@@ -112,6 +112,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &62993739 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4273155539732585775, guid: 074060208b8b3dc4aaac2a85aa901e7d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1031853851}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &130338804
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -169,6 +175,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114977535009352440, guid: dce071d467828bb4c9a14517ca83afb9,
         type: 3}
+      propertyPath: shovelPositionsParents.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114977535009352440, guid: dce071d467828bb4c9a14517ca83afb9,
+        type: 3}
       propertyPath: shovelPositionsParents.Array.data[0]
       value: 
       objectReference: {fileID: 935181935}
@@ -202,6 +213,21 @@ PrefabInstance:
       propertyPath: shovelPositionsParents.Array.data[6]
       value: 
       objectReference: {fileID: 1132935331}
+    - target: {fileID: 114977535009352440, guid: dce071d467828bb4c9a14517ca83afb9,
+        type: 3}
+      propertyPath: shovelPositionsParents.Array.data[7]
+      value: 
+      objectReference: {fileID: 62993739}
+    - target: {fileID: 114977535009352440, guid: dce071d467828bb4c9a14517ca83afb9,
+        type: 3}
+      propertyPath: shovelPositionsParents.Array.data[8]
+      value: 
+      objectReference: {fileID: 1230040972}
+    - target: {fileID: 114977535009352440, guid: dce071d467828bb4c9a14517ca83afb9,
+        type: 3}
+      propertyPath: shovelPositionsParents.Array.data[9]
+      value: 
+      objectReference: {fileID: 358384093}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dce071d467828bb4c9a14517ca83afb9, type: 3}
 --- !u!1 &167356458
@@ -417,6 +443,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad5eb71616bc40548ac28aaeeb62e433, type: 3}
+--- !u!4 &358384093 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5891454432067981120, guid: 074060208b8b3dc4aaac2a85aa901e7d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1031853851}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &567726357 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4684655251245000, guid: 074060208b8b3dc4aaac2a85aa901e7d,
@@ -757,6 +789,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4706725264526760, guid: dce071d467828bb4c9a14517ca83afb9,
     type: 3}
   m_PrefabInstance: {fileID: 130338804}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1230040972 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1426343876610045335, guid: 074060208b8b3dc4aaac2a85aa901e7d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1031853851}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1273937099
 GameObject:

@@ -13,6 +13,11 @@ enum ShovelPostures
     RapidFire,
     Canon,
     SphericDefense,
+    Smash,
+    Adherence,
+    FrontalDefense,
+    ParticleCascade,
+    PiercingShot,
 
     Count
 }
@@ -104,8 +109,10 @@ public class ShovelManager : MonoBehaviour {
                         case SprintMode.Normal:
                             currentShovelPosture = ShovelPostures.Sprint;
                             break;
-                            // TODO: Hacer el de adeherencia
-                            //case SprintMode.
+                        // TODO: Hacer el de adeherencia
+                        case SprintMode.Adherence:
+                            currentShovelPosture = ShovelPostures.Adherence;
+                            break;
                     }
                     
                     break;
@@ -117,7 +124,7 @@ public class ShovelManager : MonoBehaviour {
                             break;
                         case JumpMode.Smash:
                             // TODO: Hacer el de smash
-                            currentShovelPosture = ShovelPostures.Jump;
+                            currentShovelPosture = ShovelPostures.Smash;
                             break;
                     }
                     
@@ -134,6 +141,12 @@ public class ShovelManager : MonoBehaviour {
                         case AttackMode.Canon:
                             currentShovelPosture = ShovelPostures.Canon;
                             break;
+                        case AttackMode.ParticleCascade:
+                            currentShovelPosture = ShovelPostures.ParticleCascade;
+                            break;
+                        case AttackMode.Piercing:
+                            currentShovelPosture = ShovelPostures.PiercingShot;
+                            break;
                     }
                     break;
                 case ActionCharguing.Defense:
@@ -144,7 +157,7 @@ public class ShovelManager : MonoBehaviour {
                             break;
                         case DefenseMode.Front:
                             // TODO: Hacer el frontal
-                            currentShovelPosture = ShovelPostures.SphericDefense;
+                            currentShovelPosture = ShovelPostures.FrontalDefense;
                             break;
                     }
                     break;

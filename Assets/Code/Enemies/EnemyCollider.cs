@@ -12,7 +12,10 @@ public class EnemyCollider : MonoBehaviour
 
     private EnemyConsistency body;
 
-    public float Armor { get { return armor; } }
+    public float Armor {
+        get { return armor; }
+        set { armor = value; }
+    }
 
     // Start is called before the first frame update
     void Start()

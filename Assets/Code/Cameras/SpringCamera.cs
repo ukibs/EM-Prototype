@@ -186,7 +186,8 @@ public class SpringCamera : MonoBehaviour {
     {
         Vector3 directionToCheck = transform.position - targetPos;
         RaycastHit hitInfo;
-        if (Physics.Raycast(targetPos, directionToCheck, out hitInfo, directionToCheck.magnitude))
+        // Ignoramos la layer Enemy(9)
+        if (Physics.Raycast(targetPos, directionToCheck, out hitInfo, directionToCheck.magnitude, 9))
         {
             transform.position = Vector3.Lerp(transform.position, hitInfo.point, 0.8f);
         }

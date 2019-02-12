@@ -139,7 +139,10 @@ public class EnemyConsistency : MonoBehaviour {
         if (currentChasisHealth <= 0 || currentCoreHealth <= 0)
         {
             //
-            impactInfoManager.SendImpactInfo(point, damageReceived, "Enemy destroyed");
+            if (impactInfoManager != null)
+                impactInfoManager.SendImpactInfo(point, damageReceived, "Enemy destroyed");
+            else
+                Debug.Log("Impact info manager is null. Check it");
 
             //Debug.Log("Enemy " + transform.name + " destroyed. Impact force " + impactForce);
             //gameObject.SetActive(false);

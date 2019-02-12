@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7367024963227304099}
   - component: {fileID: 6702758595833844858}
   - component: {fileID: 2203267524328772362}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Top Armor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ GameObject:
   - component: {fileID: 8598555531598002189}
   - component: {fileID: 1567929363998414414}
   - component: {fileID: 5809858578137696145}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,7 +146,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6957394977790657123}
   - component: {fileID: 1960708763361285527}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: QF 6 Hotchkiss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -204,7 +204,7 @@ GameObject:
   - component: {fileID: 3849703665355443694}
   - component: {fileID: 6054038702369737538}
   - component: {fileID: 1522501344001246480}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -280,7 +280,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5871098228883092551}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Mark-1 M
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -312,7 +312,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1957146844117366048}
   - component: {fileID: 5194455812772949796}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: QF 6 Hotchkiss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -370,7 +370,7 @@ GameObject:
   - component: {fileID: 6497889252073839417}
   - component: {fileID: 3757912317992086793}
   - component: {fileID: 8789729519455256888}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Mouth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -447,7 +447,7 @@ GameObject:
   - component: {fileID: 5316859543440461989}
   - component: {fileID: 1823861756123973806}
   - component: {fileID: 2217602195196364087}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bottom Armor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -505,7 +505,7 @@ GameObject:
   - component: {fileID: 6911338398969470828}
   - component: {fileID: 4817229807304266442}
   - component: {fileID: 2784237689870913066}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Side Right  Armor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -563,7 +563,7 @@ GameObject:
   - component: {fileID: 7525894714548940572}
   - component: {fileID: 1244615728421046828}
   - component: {fileID: 4953849739313434259}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Front Armor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -621,7 +621,7 @@ GameObject:
   - component: {fileID: 2539365379639436130}
   - component: {fileID: 6719899309695364561}
   - component: {fileID: 6818911530421355821}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -697,7 +697,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1512525549463362995}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Shoot Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -728,7 +728,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8445169212372603145}
   - component: {fileID: 8501828811705097370}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: QF 6 Hotchkiss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -786,7 +786,7 @@ GameObject:
   - component: {fileID: 71238305428314009}
   - component: {fileID: 5478940410657115713}
   - component: {fileID: 3630948256316275129}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Side Left Armor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -844,7 +844,7 @@ GameObject:
   - component: {fileID: 5427739213188296481}
   - component: {fileID: 8859285286935177499}
   - component: {fileID: 8771898417846030803}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Rear Armor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -905,7 +905,7 @@ GameObject:
   - component: {fileID: 6764408909847473518}
   - component: {fileID: 6202794933872882991}
   - component: {fileID: 206584544334362019}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1050,7 +1050,7 @@ GameObject:
   - component: {fileID: 7442654867562471229}
   - component: {fileID: 7795869435530676214}
   - component: {fileID: 3439308237978836771}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1125,7 +1125,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 208566468550762163}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Shoot Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1155,7 +1155,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3336420923258908791}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Face
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1187,7 +1187,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4259713051824240212}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Shoot Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}

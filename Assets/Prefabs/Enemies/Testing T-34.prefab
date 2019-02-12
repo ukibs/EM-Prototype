@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 54789320500156716}
   - component: {fileID: 114460236071579144}
   - component: {fileID: 6135600842825683132}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -160,7 +160,7 @@ GameObject:
   - component: {fileID: 114622226089391676}
   - component: {fileID: 2138323256116753753}
   - component: {fileID: 2771863692817031738}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -345,8 +345,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4437628594104500}
-  m_Layer: 0
-  m_Name: T-34
+  m_Layer: 9
+  m_Name: Testing T-34
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -388,6 +388,7 @@ MonoBehaviour:
     type: 3}
   shootForce: 10
   muzzleSpeed: 840
+  debugging: 0
   shootCalculation: 1
   maxRotationOffset: {x: 0, y: 0}
   shootParticlesPrefab: {fileID: 1837716235657633640, guid: 61c9e81fe8e7c0a40a345df35440fcab,
@@ -403,7 +404,7 @@ GameObject:
   - component: {fileID: 1683108914946881204}
   - component: {fileID: 7922931692407055295}
   - component: {fileID: 6511718605779127931}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bottom Armor (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -461,7 +462,7 @@ GameObject:
   - component: {fileID: 5626245356365190143}
   - component: {fileID: 2923931674352155016}
   - component: {fileID: 5782253307215878188}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Body Face
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -538,7 +539,7 @@ GameObject:
   - component: {fileID: 4421311219164972606}
   - component: {fileID: 7447339396361890502}
   - component: {fileID: 5987362771981408693}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Top Armor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -596,7 +597,7 @@ GameObject:
   - component: {fileID: 155707519018552294}
   - component: {fileID: 2294016815770616855}
   - component: {fileID: 5378828991821184674}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Side Armor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -654,7 +655,7 @@ GameObject:
   - component: {fileID: 2847782827039630360}
   - component: {fileID: 3008721970987849271}
   - component: {fileID: 7110770053027432929}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Rear Armor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -721,6 +722,7 @@ MonoBehaviour:
     type: 3}
   shootForce: 10
   muzzleSpeed: 840
+  debugging: 0
   shootCalculation: 1
   maxRotationOffset: {x: 0, y: 45}
   shootParticlesPrefab: {fileID: 1837716235657633640, guid: 61c9e81fe8e7c0a40a345df35440fcab,
@@ -736,7 +738,7 @@ GameObject:
   - component: {fileID: 4622931598716351593}
   - component: {fileID: 8043188623951108335}
   - component: {fileID: 2062104194158631433}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bottom Armor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -794,7 +796,7 @@ GameObject:
   - component: {fileID: 4701265133526131376}
   - component: {fileID: 3837223064588187632}
   - component: {fileID: 5243822441571988400}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Front Armor (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -852,7 +854,7 @@ GameObject:
   - component: {fileID: 1682924614151345061}
   - component: {fileID: 797304340245397953}
   - component: {fileID: 8842342165755278865}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Side Armor (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -910,7 +912,7 @@ GameObject:
   - component: {fileID: 267065673740225801}
   - component: {fileID: 8252495236817375557}
   - component: {fileID: 1764789246997797051}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Top Armor (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -968,7 +970,7 @@ GameObject:
   - component: {fileID: 5817075012825002989}
   - component: {fileID: 8050376936734204442}
   - component: {fileID: 6126280203014314356}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Turret Face
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1054,6 +1056,7 @@ MonoBehaviour:
     type: 3}
   shootForce: 10
   muzzleSpeed: 680
+  debugging: 0
   shootCalculation: 1
   maxRotationOffset: {x: 0, y: 0}
   shootParticlesPrefab: {fileID: 1837716235657633640, guid: 61c9e81fe8e7c0a40a345df35440fcab,
@@ -1069,7 +1072,7 @@ GameObject:
   - component: {fileID: 6890391190574607671}
   - component: {fileID: 7048676719747049644}
   - component: {fileID: 3645727015832874390}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Rear Armor (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1127,7 +1130,7 @@ GameObject:
   - component: {fileID: 918267214233085570}
   - component: {fileID: 4378634405224566122}
   - component: {fileID: 4637310401086859041}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Front Armor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1185,6 +1188,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Machine Gun Axis (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3966273005905096001, guid: 05ba054d223e45648a838a4e7afe1c4f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4808530254149539920, guid: 05ba054d223e45648a838a4e7afe1c4f,
         type: 3}
@@ -1281,6 +1289,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Barrel
       objectReference: {fileID: 0}
+    - target: {fileID: 4776326695157082940, guid: 05ba054d223e45648a838a4e7afe1c4f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2987037097374784157, guid: 05ba054d223e45648a838a4e7afe1c4f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05ba054d223e45648a838a4e7afe1c4f, type: 3}
 --- !u!4 &6559341470656800188 stripped
@@ -1306,6 +1324,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Machine Gun Axis
+      objectReference: {fileID: 0}
+    - target: {fileID: 3966273005905096001, guid: 05ba054d223e45648a838a4e7afe1c4f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4808530254149539920, guid: 05ba054d223e45648a838a4e7afe1c4f,
         type: 3}
@@ -1392,6 +1415,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Barrel
       objectReference: {fileID: 0}
+    - target: {fileID: 4776326695157082940, guid: 05ba054d223e45648a838a4e7afe1c4f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2987037097374784157, guid: 05ba054d223e45648a838a4e7afe1c4f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05ba054d223e45648a838a4e7afe1c4f, type: 3}
 --- !u!1 &27391727750668865 stripped
@@ -1417,6 +1450,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Canon Axis
+      objectReference: {fileID: 0}
+    - target: {fileID: 3966273005905096001, guid: 05ba054d223e45648a838a4e7afe1c4f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4808530254149539920, guid: 05ba054d223e45648a838a4e7afe1c4f,
         type: 3}
@@ -1477,6 +1515,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Barrel
+      objectReference: {fileID: 0}
+    - target: {fileID: 4776326695157082940, guid: 05ba054d223e45648a838a4e7afe1c4f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2987037097374784157, guid: 05ba054d223e45648a838a4e7afe1c4f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05ba054d223e45648a838a4e7afe1c4f, type: 3}

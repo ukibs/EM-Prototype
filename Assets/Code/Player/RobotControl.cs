@@ -9,9 +9,9 @@ public enum AttackMode
     Pulse,
     Canon,
     RapidFire,
-    //ParticleCascade,
+    ParticleCascade,
     //Sharpnel,
-    //Piercing,
+    Piercing,
 
     Count
 }
@@ -71,6 +71,7 @@ public class RobotControl : MonoBehaviour {
     public GameObject releasingPulseEmitter;
     public GameObject bulletPrefab;
     public GameObject cannonBallPrefab;
+    public GameObject piercingProyectilePrefab;
     public Transform[] machineGunPoints;
     public Transform chargedProyectilePoint;
     public GameObject chargingProjectile;       // Habrá que pulir como manejamos esto
@@ -341,7 +342,6 @@ public class RobotControl : MonoBehaviour {
                     break;
             }
             
-
             chargedAmount = 0;
             actionCharging = ActionCharguing.None;
         }
@@ -463,6 +463,12 @@ public class RobotControl : MonoBehaviour {
                     releasingPulseEmitter.SetActive(false);
                     chargingPulseEmitter.SetActive(true);
                     break;
+                case AttackMode.Canon:
+                    //chargingCanonProyectile.SetActive(false);
+                    break;
+                case AttackMode.Piercing:
+                    //chargingPiercingProyectile.SetActive(false);
+                    break;
             }
         }            
         else if (inputManager.FireButton && actionCharging == ActionCharguing.Attack)
@@ -472,6 +478,10 @@ public class RobotControl : MonoBehaviour {
             if (attackMode == AttackMode.RapidFire)
             {
                 RapidFireAttack(dt);
+            }
+            else if (attackMode == AttackMode.ParticleCascade)
+            {
+                ParticleCascadeAttack();
             }
             else
             {
@@ -492,7 +502,12 @@ public class RobotControl : MonoBehaviour {
                     PulseAttack();
                     break;
                 case AttackMode.Canon:
-                    CharguedProyectileAttack(dt);                   
+                    //chargingCanonProyectile.SetActive(false);
+                    CharguedProyectileAttack(cannonBallPrefab, dt);                   
+                    break;
+                case AttackMode.Piercing:
+                    //chargingCanonProyectile.SetActive(true);
+                    CharguedProyectileAttack(piercingProyectilePrefab, dt);
                     break;
                 // Ya haremos el resto
             }
@@ -534,6 +549,10 @@ public class RobotControl : MonoBehaviour {
         rb.AddForce(-transform.forward * gameManager.pulseForce);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dt"></param>
     void RapidFireAttack(float dt)
     {
         if (chargedAmount >= gameManager.rapidFireRate / 60)
@@ -567,26 +586,6 @@ public class RobotControl : MonoBehaviour {
     /// </summary>
     void ParticleCascadeAttack()
     {
-        /*if(chargedAmount >= machineGunCadency / 60)
-        {
-            for(int i = 0; i < machineGunPoints.Length; i++)
-            {
-                //GameObject newBullet = Instantiate(bulletPrefab, machineGunPoints[i].position, machineGunPoints[i].rotation);
-                //Rigidbody newBulletRB = newBullet.GetComponent<Rigidbody>();
-                //newBulletRB.AddForce(transform.forward * 300, ForceMode.Impulse);
-
-                Vector3 shootForward = (!cameraControl.TargetingPlayer) ?
-                    (cameraControl.CurrentTarget.position - machineGunPoints[i].position).normalized :
-                    machineGunPoints[i].forward;
-
-                // Para chequyear
-                Quaternion shootRotation = Quaternion.LookRotation(cameraControl.CurrentTarget.position - machineGunPoints[i].position);
-
-                GeneralFunctions.ShootProjectile(bulletPrefab, machineGunPoints[i].position,
-                    shootRotation, shootForward, 0.2f);
-            }
-            chargedAmount -= machineGunCadency / 60;
-        }*/
 
         // De momento tiro por frame. Es super rápida
         // Nota: En realidad 60 disparos por segundo tampoco es tanto
@@ -614,24 +613,27 @@ public class RobotControl : MonoBehaviour {
                 if (enemyCollider != null)
                 {
                     //Debug.Log("On enemy");
-                    EnemyConsistency mainBody = enemyCollider.GetComponentInParent<EnemyConsistency>();
-                    if(mainBody != null)
-                    {
-                        //
-                        float impactDistance = (hitInfo.point - machineGunPoints[i].position).magnitude;
-                        // El 50 lo meteremos como parametro
-                        float particleDensity = 1600;  // kg/m3
-                        float particleInitialVolume = 1 * Mathf.Pow(10, -9); // un milímetro cúbico
-                        float particleRelativeVolume = 1 - (impactDistance / 50); // Tenemos en cuenta que se va desintegrando por el camnio
-                        float particleMass = particleDensity * particleInitialVolume * particleRelativeVolume;
-                        float particleAcceleration = Mathf.Pow(3000, 2); // Tenemos en cuenta que el proyectil frena en seco al impactar
-                        float heatBonus = 3f;    // Este me lo invento un poco. Lo investigaremos
-                        float impactForce = particleMass * particleAcceleration / 2 * heatBonus;
-                        //Debug.Log("Sand impact force: " + impactForce + ". Mass: " + particleMass + ". Acceleration: " + particleAcceleration);
-                        // TODO: Trabajar también velocidad relativa
-                        mainBody.ReceiveInternalImpact(impactForce, hitInfo.point, enemyCollider.armor);
-                    }
-                    
+                    //EnemyConsistency mainBody = enemyCollider.GetComponentInParent<EnemyConsistency>();
+                    //if(mainBody != null)
+                    //{
+                    //    //
+                    //    float impactDistance = (hitInfo.point - machineGunPoints[i].position).magnitude;
+                    //    // El 50 lo meteremos como parametro
+                    //    float particleDensity = 1600;  // kg/m3
+                    //    float particleInitialVolume = 1 * Mathf.Pow(10, -9); // un milímetro cúbico
+                    //    float particleRelativeVolume = 1 - (impactDistance / 50); // Tenemos en cuenta que se va desintegrando por el camnio
+                    //    float particleMass = particleDensity * particleInitialVolume * particleRelativeVolume;
+                    //    float particleAcceleration = Mathf.Pow(3000, 2); // Tenemos en cuenta que el proyectil frena en seco al impactar
+                    //    float heatBonus = 3f;    // Este me lo invento un poco. Lo investigaremos
+                    //    float impactForce = particleMass * particleAcceleration / 2 * heatBonus;
+                    //    //Debug.Log("Sand impact force: " + impactForce + ". Mass: " + particleMass + ". Acceleration: " + particleAcceleration);
+                    //    // TODO: Trabajar también velocidad relativa
+                    //    mainBody.ReceiveInternalImpact(impactForce, hitInfo.point, enemyCollider.armor);
+                    //}
+
+                    // Vamos a hacer que pele armadura
+                    enemyCollider.Armor--;
+
                 }
                 else
                 {
@@ -648,7 +650,7 @@ public class RobotControl : MonoBehaviour {
     /// <summary>
     /// 
     /// </summary>
-    void CharguedProyectileAttack(float dt)
+    void CharguedProyectileAttack(GameObject proyectilePrefab, float dt)
     {
         //GameObject newBullet = Instantiate(cannonBallPrefab, chargedProyectilePoint.position, chargedProyectilePoint.rotation);
         //Rigidbody newBulletRB = newBullet.GetComponent<Rigidbody>();
@@ -657,7 +659,7 @@ public class RobotControl : MonoBehaviour {
         float proyectileMuzzleSpeed = gameManager.canonBaseMuzzleSpeed * chargedAmount + gameManager.canonBaseMuzzleSpeed;
         float proyectileMass = gameManager.canonBaseProyectileMass * chargedAmount * 10 + gameManager.canonBaseProyectileMass;
         //
-        GeneralFunctions.ShootProjectile(cannonBallPrefab, chargedProyectilePoint.position, chargedProyectilePoint.rotation,
+        GeneralFunctions.ShootProjectile(proyectilePrefab, chargedProyectilePoint.position, chargedProyectilePoint.rotation,
             chargedProyectilePoint.forward, proyectileMuzzleSpeed, dt, ShootCalculation.MuzzleSpeed);
     }
 

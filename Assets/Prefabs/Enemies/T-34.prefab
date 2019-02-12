@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6591055921079770903}
   - component: {fileID: 6156755984769700829}
   - component: {fileID: 6486452375576225569}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4336090854293029402}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: T-34
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 4826816582494197950}
   - component: {fileID: 6643552600828200747}
   - component: {fileID: 1351301969720803061}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Canon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 7670797953698044120}
   - component: {fileID: 7260083586851636156}
   - component: {fileID: 5395366777663045923}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}

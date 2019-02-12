@@ -27,6 +27,8 @@ public class ProvisionalHUD : MonoBehaviour {
     public Texture pulseAttackIcon;
     public Texture rapidFireIcon;
     public Texture cannonIcon;
+    public Texture particleCascadeIcon;
+    public Texture piercingIcon;
 
     //Defense ones
     public Texture sphereDefenseTexture;
@@ -89,6 +91,8 @@ public class ProvisionalHUD : MonoBehaviour {
                 case AttackMode.Pulse: iconToUse = pulseAttackIcon; break;
                 case AttackMode.RapidFire: iconToUse = rapidFireIcon; break;
                 case AttackMode.Canon: iconToUse = cannonIcon; break;
+                case AttackMode.ParticleCascade: iconToUse = particleCascadeIcon; break;
+                case AttackMode.Piercing: iconToUse = piercingIcon; break;
             }
             GUI.DrawTexture(new Rect(Screen.width - 100, Screen.height - 150, 100, 100), iconToUse);
         }
@@ -197,7 +201,8 @@ public class ProvisionalHUD : MonoBehaviour {
             enemyCoreHealthForBar = Mathf.Clamp01(enemyCoreHealthForBar);
             GUI.DrawTexture(new Rect(Screen.width / 2 + 150, Screen.height / 2 - 30, enemyCoreHealthForBar * 100f, 20), enemyCoreTexture);
             GUI.Label(new Rect(Screen.width / 2 + 150, Screen.height / 2 - 30, 100f, 20), " " + enemyConsistency.CurrentCoreHealth);
-            //
+            // TODO: Sacar distancia
+
             
             // Raycast para sacar el blindaje a tiro
             RaycastHit hitInfo;
