@@ -190,6 +190,14 @@ public class EnemyWeapon : MonoBehaviour
 
     bool PlayerOnSight()
     {
-        return true;
+        RaycastHit hitInfo;
+        Vector3 playerDirection = player.transform.position - shootPoint.transform.position;
+        if (Physics.Raycast(shootPoint.transform.position, playerDirection, out hitInfo, playerDirection.magnitude))
+        {
+            RobotControl robotControl = hitInfo.transform.GetComponent<RobotControl>();
+            if (robotControl != null)
+                return true;
+        }
+        return false;
     }
 }

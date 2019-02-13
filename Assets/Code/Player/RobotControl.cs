@@ -503,11 +503,11 @@ public class RobotControl : MonoBehaviour {
                     break;
                 case AttackMode.Canon:
                     //chargingCanonProyectile.SetActive(false);
-                    CharguedProyectileAttack(cannonBallPrefab, dt);                   
+                    CharguedProyectileAttack(cannonBallPrefab, gameManager.canonBaseMuzzleSpeed, dt);                   
                     break;
                 case AttackMode.Piercing:
                     //chargingCanonProyectile.SetActive(true);
-                    CharguedProyectileAttack(piercingProyectilePrefab, dt);
+                    CharguedProyectileAttack(piercingProyectilePrefab, gameManager.piercingBaseMuzzleSpeed, dt);
                     break;
                 // Ya haremos el resto
             }
@@ -650,17 +650,18 @@ public class RobotControl : MonoBehaviour {
     /// <summary>
     /// 
     /// </summary>
-    void CharguedProyectileAttack(GameObject proyectilePrefab, float dt)
+    void CharguedProyectileAttack(GameObject proyectilePrefab, float proyectileMuzzleSpeed, float dt)
     {
         //GameObject newBullet = Instantiate(cannonBallPrefab, chargedProyectilePoint.position, chargedProyectilePoint.rotation);
         //Rigidbody newBulletRB = newBullet.GetComponent<Rigidbody>();
         //newBulletRB.AddForce(transform.forward * (10000 * chargedAmount + 1000), ForceMode.Impulse);
         //
-        float proyectileMuzzleSpeed = gameManager.canonBaseMuzzleSpeed * chargedAmount + gameManager.canonBaseMuzzleSpeed;
-        float proyectileMass = gameManager.canonBaseProyectileMass * chargedAmount * 10 + gameManager.canonBaseProyectileMass;
+        float shootMuzzleSpeed = proyectileMuzzleSpeed * chargedAmount + proyectileMuzzleSpeed;
+        // TODO: Coger la masa del game manager
+        //float proyectileMass = gameManager.canonBaseProyectileMass * chargedAmount * 10 + gameManager.canonBaseProyectileMass;
         //
         GeneralFunctions.ShootProjectile(proyectilePrefab, chargedProyectilePoint.position, chargedProyectilePoint.rotation,
-            chargedProyectilePoint.forward, proyectileMuzzleSpeed, dt, ShootCalculation.MuzzleSpeed);
+            chargedProyectilePoint.forward, shootMuzzleSpeed, dt, ShootCalculation.MuzzleSpeed);
     }
 
     #endregion

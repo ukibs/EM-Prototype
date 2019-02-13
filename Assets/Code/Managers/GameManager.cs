@@ -37,7 +37,9 @@ public class GameManager : MonoBehaviour
     public float canonBaseMuzzleSpeed = 1000;
     public float canonBaseProyectileMass = 0.00001f;
     public float rapidFireRate = 1;
-    public int rapidFireMuzzleSpeed = 3000;
+    public float rapidFireMuzzleSpeed = 1000;
+    public float piercingBaseMuzzleSpeed = 2000;
+    public float piercingBaseProyectileMass = 0.00001f;
     //
     public float movementForce = 5;
     public float jumpForce = 10;

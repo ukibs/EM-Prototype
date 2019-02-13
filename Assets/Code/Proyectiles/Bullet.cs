@@ -20,7 +20,7 @@ public class Bullet : MonoBehaviour {
 	void FixedUpdate () {
         //
         float dt = Time.deltaTime;
-        // TODO: Meter checkeo de raycast para cuando va a toda leche
+        // TODO: Hacer que vaya cambiando la orientación acorde a la trayectoria
         //
         float distanceToMoveThisStep = rb.velocity.magnitude * dt;
         //

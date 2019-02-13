@@ -26,6 +26,8 @@ public class SpringCamera : MonoBehaviour {
     private float currentOffsetY = 0;
 
     private Vector3 targetPos;
+
+    private bool changeAllowed = true;
     #endregion
 
     #region Properties
@@ -75,13 +77,21 @@ public class SpringCamera : MonoBehaviour {
         UpdateMovement (dt);
         UpdateUp(targetPlayer.up);
         CheckSwitchAndEnemies();
+        SwitchBetweenEnemies();
+
         CheckDontEnterInsideScenario();
 	}
-	#endregion
 
-	#region Methods
-	//
-	void UpdateMovement(float dt){
+    private void OnGUI()
+    {
+        GUI.Label(new Rect(10, Screen.height - 30, 150, 20), "Change allowed: " + changeAllowed);
+    }
+
+    #endregion
+
+    #region Methods
+    //
+    void UpdateMovement(float dt){
 		//To move to its postion respect to the player
 		Vector3 idealPos = targetPlayer.position + 
 			idealOffset.x * targetPlayer.right + 
@@ -119,8 +129,18 @@ public class SpringCamera : MonoBehaviour {
         currentOffsetY = Mathf.Clamp(currentOffsetY, -maxLowerOffsetY, maxUpperOffsetY);
         targetOffset.y = originalY + currentOffsetY;
     }
-    
+
     //
+    void AdjustToEnemyMovement()
+    {
+        //currentTarget
+    }
+    
+    /// <summary>
+    /// Cambiamos entre player y enemigos
+    /// En caso de enemigo, coge al más cercano al cnetro de la vista
+    /// Y si no al más cercano en el mundo
+    /// </summary>
     void CheckSwitchAndEnemies()
     {
         if (inputManager.MarkObjectiveButton)
@@ -128,22 +148,93 @@ public class SpringCamera : MonoBehaviour {
             // TODO: Hacer que vaya cambiando de enemigo
             if(currentTarget == targetPlayer)
             {
+                // Que coja el más cercano al centro de la vista
+                // De no haber, que coja el más cercano tal cual
                 EnemyConsistency[] enemies = FindObjectsOfType<EnemyConsistency>();
-                float minDistance = Mathf.Infinity;
-                foreach (EnemyConsistency enemy in enemies)
+                int nearestScreenEnemy = -1;
+                int nearestWorldEnemy = -1;
+                float minScreenDistance = Mathf.Infinity;
+                float minWorldDistance = Mathf.Infinity;
+                //foreach (EnemyConsistency enemy in enemies)
+                for(int i = 0; i < enemies.Length; i++)
                 {
-                    float enemyDistance = (transform.position - enemy.transform.position).sqrMagnitude;
-                    if (enemyDistance < minDistance)
+                    // Distancia al centro de pantalla
+                    Vector3 posInScreen = cameraComponent.WorldToViewportPoint(enemies[i].transform.position);
+                    // float distanceToCenter = Mathf.Sqrt(Mathf.Pow(posInScreen.x - 0.05f, 2) + Mathf.Pow(posInScreen.y - 0.05f, 2));
+                    float distanceToCenter = Mathf.Pow(posInScreen.x - 0.05f, 2) + Mathf.Pow(posInScreen.y - 0.05f, 2);
+                    bool inScreen = posInScreen.x >= 0 && posInScreen.x <= 1 && posInScreen.y >= 0 && posInScreen.y <= 1;
+                    if (inScreen && distanceToCenter < minScreenDistance)
                     {
-                        SwitchTarget(enemy.transform);
-                        minDistance = enemyDistance;
+                        minScreenDistance = distanceToCenter;
+                        nearestScreenEnemy = i;
+                    }
+                    // Distancia al player
+                    float enemyDistance = (transform.position - enemies[i].transform.position).sqrMagnitude;
+                    if (enemyDistance < minWorldDistance)
+                    {
+                        
+                        minWorldDistance = enemyDistance;
+                        nearestWorldEnemy = i;
                     }
                 }
+                // The nearest enemy to the screen center if there is
+                if(nearestScreenEnemy != -1)
+                    SwitchTarget(enemies[nearestScreenEnemy].transform);
+                // And the nearest in world if not
+                else if(nearestWorldEnemy != -1)
+                    SwitchTarget(enemies[nearestWorldEnemy].transform);
             }
             else
             {
                 SwitchTarget(null);
             }
+        }
+    }
+
+    /// <summary>
+    /// Cambia la vista entre enemigos
+    /// Cambia al más cercano en cordenadas de pantalla respecto al dirección elegida
+    /// </summary>
+    void SwitchBetweenEnemies()
+    {
+        Vector2 rightAxis = inputManager.RightStickAxis;
+        // Mientras el jugador no haga un buen movimiento de joystick que no haga nada
+        if(currentTarget != targetPlayer && rightAxis.magnitude > 0.5f && changeAllowed == true)
+        {
+            //
+            float axisAngle = Mathf.Atan2(rightAxis.y, rightAxis.x);
+            //
+            EnemyConsistency[] enemies = FindObjectsOfType<EnemyConsistency>();
+            float minimalAngle = 180;
+            int nearestEnemy = -1;
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                // Vamos a probar cercanía por ángulo
+                Vector3 enemyViewPortCoordinates = cameraComponent.WorldToViewportPoint(enemies[i].transform.position);
+                Vector2 coordinatesFromScreenCenter = new Vector2(enemyViewPortCoordinates.x - 0.5f, enemyViewPortCoordinates.y - 0.5f);
+                // Ahora sacamos el angulo
+                float angle = Mathf.Atan2(coordinatesFromScreenCenter.y, coordinatesFromScreenCenter.x);
+                //
+                float angleOffset = Mathf.Abs(axisAngle - angle);
+                if (angleOffset < minimalAngle)
+                {
+                    minimalAngle = angleOffset;
+                    nearestEnemy = i;
+                }
+            }
+            //
+            currentTarget = enemies[nearestEnemy].transform;
+            changeAllowed = false;
+        }
+        else if (rightAxis.magnitude > 0.5f)
+        {
+            // TODO: Hacer esto menos guarro
+            // Aqui nada
+            // Lo ponemos para que no entre en el else
+        }
+        else
+        {
+            changeAllowed = true;
         }
     }
 
