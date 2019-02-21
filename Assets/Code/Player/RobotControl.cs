@@ -7,8 +7,8 @@ public enum AttackMode
     Invalid = -1,
 
     Pulse,
-    Canon,
     RapidFire,
+    Canon,    
     ParticleCascade,
     //Sharpnel,
     Piercing,
@@ -251,11 +251,24 @@ public class RobotControl : MonoBehaviour {
         directionZ = Vector3.ProjectOnPlane(directionZ, currentUp).normalized;
         directionX = Vector3.ProjectOnPlane(directionX, currentUp).normalized;
 
-        //
+        // TODO: Incluir otros casos como defensa frontal
         if(actionCharging == ActionCharguing.Attack)
         {
+            // Si no targetea al player
+            // Osea un enemigo
+            // Puesto aqui por si sacamos más casos (cinematicas por ejemplo)
             if (!cameraControl.TargetingPlayer)
-                transform.LookAt(cameraControl.CurrentTarget, currentUp);
+            {
+                // TODO: Hcaer esto más optimizado
+                EnemyConsistency enemyConsistency = cameraControl.CurrentTarget.GetComponent<EnemyConsistency>();
+                Vector3 targetPoint = cameraControl.CurrentTarget.position; 
+                if(enemyConsistency != null)
+                {
+                    targetPoint += enemyConsistency.centralPointOffset;
+                }
+                //
+                transform.LookAt(targetPoint, currentUp);
+            }                
             else
                 transform.LookAt(transform.position + cameraControl.transform.forward, currentUp);
         }
@@ -570,7 +583,18 @@ public class RobotControl : MonoBehaviour {
                 //shootForward = machineGunPoints[i].forward;
 
                 // Para chequyear
-                Quaternion shootRotation = Quaternion.LookRotation(cameraControl.CurrentTarget.position - machineGunPoints[i].position);
+                EnemyConsistency enemyConsistency = cameraControl.CurrentTarget.GetComponent<EnemyConsistency>();
+                Vector3 targetPoint = cameraControl.CurrentTarget.position;
+                if (enemyConsistency != null)
+                {
+                    targetPoint += enemyConsistency.centralPointOffset;
+                }
+                else
+                {
+                    Debug.Log("Failing to get target EnemyConsistency");
+                }
+                //
+                Quaternion shootRotation = Quaternion.LookRotation(targetPoint - machineGunPoints[i].position);
 
                 float muzzleSpeed = gameManager.rapidFireMuzzleSpeed;
                 GeneralFunctions.ShootProjectile(bulletPrefab, machineGunPoints[i].position,
@@ -596,8 +620,15 @@ public class RobotControl : MonoBehaviour {
                 (cameraControl.CurrentTarget.position - machineGunPoints[i].position).normalized :
                 machineGunPoints[i].forward;
 
-            // Para chequyear
-            Quaternion shootRotation = Quaternion.LookRotation(cameraControl.CurrentTarget.position - machineGunPoints[i].position);
+            // TODO: Hcaer más optimo
+            EnemyConsistency enemyConsistency = cameraControl.CurrentTarget.GetComponent<EnemyConsistency>();
+            Vector3 targetPoint = cameraControl.CurrentTarget.position;
+            if (enemyConsistency != null)
+            {
+                targetPoint += enemyConsistency.centralPointOffset;
+            }
+            //
+            Quaternion shootRotation = Quaternion.LookRotation(targetPoint - machineGunPoints[i].position);
 
             // TODO: Mover esto a general functions
             // Lo haremos con raycast

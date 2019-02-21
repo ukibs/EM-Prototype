@@ -108,7 +108,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1384305692945588329}
   m_LocalRotation: {x: 0.000000021855694, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4096549711844375194}
@@ -202,7 +202,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxChasisHealth: 100
   maxCoreHealth: 500
-  defense: 10
+  defense: 200
+  centralPointOffset: {x: 0, y: 2, z: 0}
   face: {fileID: 492244941124902166}
   deadFaceMaterial: {fileID: 2100000, guid: faa0059e123f2b04d8d07acd9d8e5f0e, type: 2}
   explosionPrefab: {fileID: 5943001922578116903, guid: ed5e3facd419e5046b1f6e142784e330,
@@ -715,7 +716,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6375232300260678733}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.39999998, z: 0.45000076}
+  m_LocalPosition: {x: 0, y: 1.3, z: 0.45000076}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7670797953698044120}
@@ -737,6 +738,7 @@ MonoBehaviour:
   maxChasisHealth: 100
   maxCoreHealth: 200
   defense: 10
+  centralPointOffset: {x: 0, y: 1, z: 0}
   face: {fileID: 8801667719878461444}
   deadFaceMaterial: {fileID: 2100000, guid: faa0059e123f2b04d8d07acd9d8e5f0e, type: 2}
   explosionPrefab: {fileID: 5943001922578116903, guid: ed5e3facd419e5046b1f6e142784e330,

@@ -93,6 +93,7 @@ public class InputManager : MonoBehaviour {
 
         fireButtonDown = Input.GetKeyDown(KeyCode.Joystick1Button1) || Input.GetKeyDown(KeyCode.Mouse0);
 
+        // TODO: Chequear en mando
         markObjectiveButton = Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Joystick1Button5) /* R1 */;
 
         // Switch buttons

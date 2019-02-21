@@ -8,8 +8,10 @@ public class EnemyConsistency : MonoBehaviour {
 
     public float maxChasisHealth = 100.0f; // 
     public float maxCoreHealth = 100.0f; //
-    [Tooltip("Defense against impacts.")]
+    [Tooltip("Defense against non bullet impacts.")]
     public float defense = 10;   // The minimal physic strength to start receiving an effect
+    [Tooltip("Adjustment for models which central point is deviated")]
+    public Vector3 centralPointOffset = new Vector3(0,1,0);
 
     public GameObject face;
     public Material deadFaceMaterial;
@@ -102,8 +104,10 @@ public class EnemyConsistency : MonoBehaviour {
         float damageReceived = impactForce - defense;
         damageReceived = Mathf.Max(damageReceived, 0);
         //
-        Debug.Log(damageReceived + " damage received");
-        Debug.Log("Received body impact with " + impactForce + " force. " + damageReceived + " damage received");
+
+        //Debug.Log(damageReceived + " damage received");
+        if(damageReceived > 0)
+        Debug.Log(gameObject.name + " received body impact with " + impactForce + " force. " + damageReceived + " damage received");
         //
         currentChasisHealth -= damageReceived;
         ManageDamage(impactForce, point);

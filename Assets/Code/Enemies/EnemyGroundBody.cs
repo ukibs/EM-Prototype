@@ -65,17 +65,17 @@ public class EnemyGroundBody : MonoBehaviour
             switch (currentAction)
             {
                 case Actions.FacingPlayer:
-                    transform.rotation = GeneralFunctions.UpdateRotation2(transform, player.transform.position, rotationSpeed, dt);
+                    transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed, dt);
                     break;
                 case Actions.GoingToPlayer:
                     //transform.rotation = Quaternion.LookRotation(playerDirection);
-                    transform.rotation = GeneralFunctions.UpdateRotation2(transform, player.transform.position, rotationSpeed, dt);
+                    transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed, dt);
                     GiveItGas();
                     break;
                 case Actions.EncirclingPlayer:
                     Vector3 playerCross = Vector3.Cross(playerDirection, Vector3.up);
                     //transform.rotation = Quaternion.LookRotation(playerCross);
-                    transform.rotation = GeneralFunctions.UpdateRotation2(transform, playerCross, rotationSpeed, dt);
+                    transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, playerCross, rotationSpeed, dt);
                     GiveItGas();
                     break;
             }

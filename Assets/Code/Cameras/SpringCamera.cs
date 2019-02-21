@@ -28,6 +28,9 @@ public class SpringCamera : MonoBehaviour {
     private Vector3 targetPos;
 
     private bool changeAllowed = true;
+    //
+    private EnemyConsistency currentEnemy;
+
     #endregion
 
     #region Properties
@@ -72,7 +75,12 @@ public class SpringCamera : MonoBehaviour {
         // TODO: Hacerlo de forma menos guarra
         //else 
         if (currentTarget.GetComponent<EnemyConsistency>() == null)
-            SwitchTarget();
+        {
+            //if(!SwitchBetweenEnemies())
+            //    SwitchTarget();
+            SwitchBetweenEnemies();
+        }
+            
 
         UpdateMovement (dt);
         UpdateUp(targetPlayer.up);
@@ -116,6 +124,8 @@ public class SpringCamera : MonoBehaviour {
 
         //To look at the indicated point
         targetPos = currentTarget.TransformPoint(targetOffset);
+        if (currentEnemy != null)
+            targetPos += currentEnemy.centralPointOffset;
         transform.LookAt(targetPos, Vector3.up);
     }
 
@@ -179,13 +189,22 @@ public class SpringCamera : MonoBehaviour {
                 }
                 // The nearest enemy to the screen center if there is
                 if(nearestScreenEnemy != -1)
+                {
+                    currentEnemy = enemies[nearestScreenEnemy];
                     SwitchTarget(enemies[nearestScreenEnemy].transform);
+                }
+                    
                 // And the nearest in world if not
                 else if(nearestWorldEnemy != -1)
+                {
+                    currentEnemy = enemies[nearestWorldEnemy];
                     SwitchTarget(enemies[nearestWorldEnemy].transform);
+                }
+                    
             }
             else
             {
+                currentEnemy = null;
                 SwitchTarget(null);
             }
         }
@@ -195,7 +214,7 @@ public class SpringCamera : MonoBehaviour {
     /// Cambia la vista entre enemigos
     /// Cambia al más cercano en cordenadas de pantalla respecto al dirección elegida
     /// </summary>
-    void SwitchBetweenEnemies()
+    bool SwitchBetweenEnemies()
     {
         Vector2 rightAxis = inputManager.RightStickAxis;
         // Mientras el jugador no haga un buen movimiento de joystick que no haga nada
@@ -205,6 +224,10 @@ public class SpringCamera : MonoBehaviour {
             float axisAngle = Mathf.Atan2(rightAxis.y, rightAxis.x);
             //
             EnemyConsistency[] enemies = FindObjectsOfType<EnemyConsistency>();
+            //
+            if (enemies.Length == 0)
+                return false;
+            //
             float minimalAngle = 180;
             int nearestEnemy = -1;
             for (int i = 0; i < enemies.Length; i++)
@@ -223,6 +246,7 @@ public class SpringCamera : MonoBehaviour {
                 }
             }
             //
+            currentEnemy = enemies[nearestEnemy];
             currentTarget = enemies[nearestEnemy].transform;
             changeAllowed = false;
         }
@@ -236,6 +260,7 @@ public class SpringCamera : MonoBehaviour {
         {
             changeAllowed = true;
         }
+        return true;
     }
 
     /// <summary>

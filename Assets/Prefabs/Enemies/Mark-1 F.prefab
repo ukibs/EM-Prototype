@@ -1031,8 +1031,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxChasisHealth: 100
-  maxCoreHealth: 1000
-  defense: 10
+  maxCoreHealth: 100
+  defense: 100
+  centralPointOffset: {x: 0, y: 3, z: 0}
   face: {fileID: 8438318046569397788}
   deadFaceMaterial: {fileID: 2100000, guid: faa0059e123f2b04d8d07acd9d8e5f0e, type: 2}
   explosionPrefab: {fileID: 5943001922578116903, guid: ed5e3facd419e5046b1f6e142784e330,

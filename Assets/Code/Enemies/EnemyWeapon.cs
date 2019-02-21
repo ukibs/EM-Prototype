@@ -100,51 +100,56 @@ public class EnemyWeapon : MonoBehaviour
             transform.position, player.transform.position, playerRB.velocity, muzzleSpeed, dt);
         // Rotamos
         // En Y
-        Vector3 previousRotationY = transform.localEulerAngles;
-        transform.rotation = GeneralFunctions.UpdateRotationWithConstraits(transform, player.transform.position, rotationSpeed.y, dt,
-            originalRotationXY.y, maxRotationOffset.y, Vector3.up);
-
-        ConstrainRotation(previousRotationY);
-        // En X
-        //Vector3 previousRotationX = transform.localEulerAngles;
+        //Vector3 previousRotationY = transform.localEulerAngles;
         //transform.rotation = GeneralFunctions.UpdateRotationWithConstraits(transform, player.transform.position, rotationSpeed.y, dt,
-        //    originalRotationXY.y, maxRotationOffset.y, Vector3.right);
+        //    originalRotationXY.y, maxRotationOffset.y, Vector3.up);
+        //transform.rotation = GeneralFunctions.UpdateRotation2(transform, player.transform.position, rotationSpeed.y, dt, Vector3.up);
 
-        //ConstrainRotation(previousRotationX);
+        //ConstrainRotation(previousRotationY);
+        //// En X
+        Vector3 previousRotationX = transform.localEulerAngles;
+        transform.rotation = GeneralFunctions.UpdateRotation(transform, player.transform.position, rotationSpeed.y, dt, Vector3.right);
+        //transform.rotation = GeneralFunctions.UpdateRotation2(transform, player.transform.position, rotationSpeed.y, dt, Vector3.right);
+
+        ConstrainRotation(previousRotationX);
         //
-
-
     }
 
+    //
     void ConstrainRotation(Vector3 previousRotation)
     {
         // Y acotamos la rotación a los límites
         // X
         float constrainedX = transform.localEulerAngles.x;
 
-        if (Mathf.Abs(previousRotation.x - constrainedX) > 180)
-            constrainedX += 360 * Mathf.Sign(previousRotation.x - constrainedX);
+        if (constrainedX > 180)
+            constrainedX -= 360;
 
         constrainedX = Mathf.Clamp(constrainedX,
             originalRotationXY.x - maxRotationOffset.x, originalRotationXY.x + maxRotationOffset.x);
+
         // Y
         float constrainedY = transform.localEulerAngles.y;
 
-        if (Mathf.Abs(previousRotation.y - constrainedY) > 180)
-            constrainedY += 360 * Mathf.Sign(previousRotation.y - constrainedY);
+        //if (Mathf.Abs(previousRotation.y - constrainedY) > 180)
+        //    constrainedY += 360 * Mathf.Sign(previousRotation.y - constrainedY);
+        if (constrainedY > 180)
+            constrainedY -= 360;
 
         constrainedY = Mathf.Clamp(constrainedY,
             originalRotationXY.y - maxRotationOffset.y, originalRotationXY.y + maxRotationOffset.y);
-        // Apaño maño
-        if (Mathf.Abs(constrainedY - 360) < 1) constrainedY = 359;
+        // Apaño maño (para cuando acotamos en el 0 exacto, que se pone tonto)
+        if (Mathf.Abs(constrainedY - 360) < 0.1) constrainedY = 359.9f;
         //
+        // Debug.Log("Constrained angles: x - " + constrainedX + ", y - " + constrainedY);
         transform.localEulerAngles = new Vector3(constrainedX, constrainedY, transform.localEulerAngles.z);
     }
 
     void UpdateShooting(float dt)
     {
         // Vamos a chequear ambas para que no se pongan a duspara como locos
-        if (PlayerOnSight() && PlayerInTheSight())
+        // TODO: QUe no disparen cuando vayan a darle a un aliado
+        if (PlayerOnSight() && PlayerInTheSight() && !ComradeInPath())
         {
             timeFromLastShoot += dt;
             if (timeFromLastShoot >= 1 / rateOfFire)
@@ -161,6 +166,28 @@ public class EnemyWeapon : MonoBehaviour
                 timeFromLastShoot -= 1 / rateOfFire;
             }
         }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    bool ComradeInPath()
+    {
+        RaycastHit hitInfo;
+
+        if (Physics.Raycast(shootPoint.position, shootPoint.forward, out hitInfo))
+        {
+            EnemyCollider enemyCollider = hitInfo.transform.GetComponent<EnemyCollider>();
+            if (enemyCollider != null)
+            {
+                Debug.Log("Comrade " + enemyCollider.gameObject.name + " in path");
+                return true;
+            }
+                
+        }
+
+        return false;
     }
 
     /// <summary>

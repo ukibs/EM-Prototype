@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class TerrainManager : MonoBehaviour
 {
-    public GameObject blockPrefab;
-    public int squareSize = 5;
+    public GameObject[] blockPrefabs;
+    public int[] blockFrequencies;
+    public int squareSize = 7;
+    public float blockSize = 200; // TODO: Ponlo donde toque
 
     private Transform playerTransform;
 
-    private GameObject[] activeBlocks;
+    //private GameObject[] activeBlocks;
+    private GameObject[,] activeBlocksMatrix;
     private int centralBlock;
     private int halfMinusOne;
 
@@ -17,9 +20,11 @@ public class TerrainManager : MonoBehaviour
     void Start()
     {
         //
-        activeBlocks = new GameObject[squareSize * squareSize];
-        centralBlock = (activeBlocks.Length - 1) / 2;
+        //activeBlocks = new GameObject[squareSize * squareSize];
+        activeBlocksMatrix = new GameObject[squareSize, squareSize];
+        //centralBlock = (activeBlocks.Length - 1) / 2;
         halfMinusOne = (squareSize - 1) / 2;
+        centralBlock = halfMinusOne;
         //
         playerTransform = FindObjectOfType<RobotControl>().transform;
         //
@@ -28,45 +33,199 @@ public class TerrainManager : MonoBehaviour
             for (int j = 0; j < squareSize; j++)
             {
                 Vector3 nextPosition = new Vector3(i * 200 - (200 * halfMinusOne), 0, j * 200 - (200 * halfMinusOne));
-                activeBlocks[i * squareSize + j] = Instantiate(blockPrefab, nextPosition, Quaternion.identity);
+                // TODO: Meter la variación acorde a la frecuencia
+                // Que el central de todos sea el 1º, para asegurarnos de que el player no aparece dentro de un bloque
+                GameObject prefabToUse;
+                if (i == centralBlock && j == centralBlock)
+                    prefabToUse = blockPrefabs[0];
+                else
+                    prefabToUse = blockPrefabs[(int)Random.Range(0, blockPrefabs.Length)];
+                // And put it
+                activeBlocksMatrix[i, j] = Instantiate(prefabToUse, nextPosition, Quaternion.identity);
             }
         }
+        // Recordar que el orden es de - x a + x, y con y igual
     }
 
     // Update is called once per frame
     void Update()
     {
-        CheckAndMoveBlocks();
+        // TODO: QUe no haga el chequeo a cada frame
+        //CheckAndMoveAllBlocks();
+
+        //
+        if (CheckIfPlayerOverCentralBlock())
+        {
+            MoveFarestBlocks(PlayerOffsetFromCentralBlockInUnits());
+        }
     }
 
     //
-    void CheckAndMoveBlocks()
+    bool CheckIfPlayerOverCentralBlock()
     {
-        // Prueba guarra
-        // TODO: Manejar las cirbas con parámetro
-        Vector3 playerOffsetFromCentralBlock = playerTransform.position - activeBlocks[centralBlock].transform.position;
-        if (Mathf.Abs(playerOffsetFromCentralBlock.x) > 100 || Mathf.Abs(playerOffsetFromCentralBlock.z) > 100)
+        Vector3 playerOffsetFromCentralBlock = playerTransform.position - activeBlocksMatrix[centralBlock, centralBlock].transform.position;
+        return (Mathf.Abs(playerOffsetFromCentralBlock.x) > 100 || Mathf.Abs(playerOffsetFromCentralBlock.z) > 100);
+    }
+
+    //
+    Vector2 PlayerOffsetFromCentralBlockInUnits()
+    {
+        Vector2 offsetInUnits = Vector2.zero;
+        Vector3 playerOffsetFromCentralBlock = playerTransform.position - activeBlocksMatrix[centralBlock, centralBlock].transform.position;
+        // Esto debería dar -1, 0, 1
+        offsetInUnits.x = (int)(playerOffsetFromCentralBlock.x / 100);
+        offsetInUnits.y = (int)(playerOffsetFromCentralBlock.z / 100);
+
+        return offsetInUnits;
+    }
+
+    //
+    //void CheckAndMoveAllBlocks()
+    //{
+    //    // Prueba guarra
+    //    // TODO: Manejar las cirbas con parámetro
+    //    Vector3 playerOffsetFromCentralBlock = playerTransform.position - activeBlocksMatrix[centralBlock, centralBlock].transform.position;
+    //    if (Mathf.Abs(playerOffsetFromCentralBlock.x) > 100 || Mathf.Abs(playerOffsetFromCentralBlock.z) > 100)
+    //    {
+    //        //
+    //        //Vector3 playerCoordinateToBlocks = new Vector3(playerTransform.position.x, 0, playerTransform.position.z);
+    //        Vector3 nextCenterForBlocks = activeBlocksMatrix[centralBlock, centralBlock].transform.position;
+    //        //
+    //        if (playerOffsetFromCentralBlock.x > 100) nextCenterForBlocks.x += 200;
+    //        if (playerOffsetFromCentralBlock.x < -100) nextCenterForBlocks.x -= 200;
+    //        if (playerOffsetFromCentralBlock.z > 100) nextCenterForBlocks.z += 200;
+    //        if (playerOffsetFromCentralBlock.z < -100) nextCenterForBlocks.z -= 200;
+    //        //
+    //        //Debug.Log(nextCenterForBlocks + ", " + playerOffsetFromCentralBlock);
+    //        //
+    //        for (int i = 0; i < squareSize; i++)
+    //        {
+    //            for (int j = 0; j < squareSize; j++)
+    //            {
+    //                Vector3 nextPosition = new Vector3(i * 200 - (200 * halfMinusOne) + nextCenterForBlocks.x, 0, 
+    //                                                    j * 200 - (200 * halfMinusOne) + nextCenterForBlocks.z);
+    //                activeBlocksMatrix[i,j].transform.position = nextPosition;
+    //            }
+    //        }
+    //    }
+    //}
+
+    //
+    void MoveFarestBlocks(Vector2 playerOffsetInUnits)
+    {
+        // 
+        GameObject[,] newActiveBlocksOrder = new GameObject[squareSize, squareSize];
+        // Primero ver que bloques se quedan lejos con el offset
+        // activeBlocks[i * squareSize + j]
+        // ej: x = -1, los bloques de la derecha, los mandamos a la izquierda
+        //     x = 1, 0 -> n-1
+        //     x = -1, n-1 -> 0
+        //     x = 0, nada 
+        //Vector2 sidesToDisplace = -playerOffsetInUnits;
+
+        //fsdf
+        //
+        int sideToGet;
+        int sideToPut;
+        //
+        int start;
+        int end;
+        
+        // Para el offset en Y
+        if(playerOffsetInUnits.y != 0)
         {
-            //
-            //Vector3 playerCoordinateToBlocks = new Vector3(playerTransform.position.x, 0, playerTransform.position.z);
-            Vector3 nextCenterForBlocks = activeBlocks[centralBlock].transform.position;
-            //
-            if (playerOffsetFromCentralBlock.x > 100) nextCenterForBlocks.x += 200;
-            if (playerOffsetFromCentralBlock.x < -100) nextCenterForBlocks.x -= 200;
-            if (playerOffsetFromCentralBlock.z > 100) nextCenterForBlocks.z += 200;
-            if (playerOffsetFromCentralBlock.z < -100) nextCenterForBlocks.z -= 200;
-            //
-            //Debug.Log(nextCenterForBlocks + ", " + playerOffsetFromCentralBlock);
-            //
+            int displacementY = (int)playerOffsetInUnits.y;
+            sideToGet = 0;
+            sideToPut = 0;
+            start = 0;
+            end = squareSize;
+            switch (displacementY)
+            {
+                case -1:
+                    //     x = -1, n-1 -> 0
+                    sideToGet = squareSize - 1;
+                    sideToPut = 0;
+                    start++;
+                    break;
+                case 1:
+                    //     x = 1, 0 -> n-1
+                    
+                    sideToGet = 0;
+                    sideToPut = squareSize - 1;
+                    end--;
+                    break;
+            }
+            // Colocamos el que hemos cabiado
             for (int i = 0; i < squareSize; i++)
             {
-                for (int j = 0; j < squareSize; j++)
+                //
+                newActiveBlocksOrder[i, sideToPut] = activeBlocksMatrix[i, sideToGet];
+                //
+                Vector3 blockNewPosition = newActiveBlocksOrder[i, sideToPut].transform.position;
+                blockNewPosition.z += 200 * squareSize * displacementY;
+                newActiveBlocksOrder[i, sideToPut].transform.position = blockNewPosition;
+            }
+            // Y el resto
+            // TODO: Decidimos cual es x y cual y para cambiarlo abajo
+            for (int i = 0; i < squareSize; i++)
+            {
+                for (int j = start; j < end; j++)
                 {
-                    Vector3 nextPosition = new Vector3(i * 200 - (200 * halfMinusOne) + nextCenterForBlocks.x, 0, 
-                                                        j * 200 - (200 * halfMinusOne) + nextCenterForBlocks.z);
-                    activeBlocks[i * squareSize + j].transform.position = nextPosition;
+                    newActiveBlocksOrder[i, j] = activeBlocksMatrix[i, j + displacementY];
                 }
             }
         }
+
+        // Para el offset en X
+        if (playerOffsetInUnits.x != 0)
+        {
+            int displacementX = (int)playerOffsetInUnits.x;
+            sideToGet = 0;
+            sideToPut = 0;
+            start = 0;
+            end = squareSize;
+            switch (displacementX)
+            {
+                case -1:
+                    //     x = -1, n-1 -> 0
+                    sideToGet = squareSize - 1;
+                    sideToPut = 0;
+                    start++;
+                    break;
+                case 1:
+                    //     x = 1, 0 -> n-1
+
+                    sideToGet = 0;
+                    sideToPut = squareSize - 1;
+                    end--;
+                    break;
+            }
+            // Colocamos el que hemos cabiado
+            for (int i = 0; i < squareSize; i++)
+            {
+                //
+                newActiveBlocksOrder[sideToPut, i] = activeBlocksMatrix[sideToGet, i];
+                //
+                Vector3 blockNewPosition = newActiveBlocksOrder[sideToPut, i].transform.position;
+                blockNewPosition.x += 200 * squareSize * displacementX;
+                newActiveBlocksOrder[sideToPut, i].transform.position = blockNewPosition;
+            }
+            // Y el resto
+            // TODO: Decidimos cual es x y cual y para cambiarlo abajo
+            for (int i = start; i < end; i++)
+            {
+                for (int j = 0; j < squareSize; j++)
+                {
+                    newActiveBlocksOrder[i, j] = activeBlocksMatrix[i + displacementX, j];
+                }
+            }
+        }
+
+        //
+        activeBlocksMatrix = newActiveBlocksOrder;
+        // Y marcmos el nuevo bloque central
+        //centralBlock = activeBlocksMatrix 
     }
+
+    // TODO: Función para mandar todo de vuelta al centro cuando se aleje demasiado de éste
 }

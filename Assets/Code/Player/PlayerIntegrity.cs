@@ -24,6 +24,10 @@ public class PlayerIntegrity : MonoBehaviour
     private float currentShield;
     private ImpactInfoManager impactInfoManager;
     private GameManager gameManager;
+    private Rigidbody bodyRB;
+
+    //
+    Vector3 previousStepRbVelocity;
 
     #region Properties
 
@@ -40,6 +44,7 @@ public class PlayerIntegrity : MonoBehaviour
         currentShield = maxShield;
         impactInfoManager = FindObjectOfType<ImpactInfoManager>();
         gameManager = FindObjectOfType<GameManager>();
+        bodyRB = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -52,10 +57,25 @@ public class PlayerIntegrity : MonoBehaviour
         currentShield = Mathf.Clamp(currentShield, 0, maxShield);
         currentHealth += dt * healthRegenerationRate;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        //
+        previousStepRbVelocity = bodyRB.velocity;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
+        // TODO: Manejar cada masa por separado a la hora de echar las cuentas
+        // No es lo mismo golpear una masa 1000 estatica que ser atropellado por ella
+        // Así que empieza a mirar formulas de como se aplica
+
+        // Nota extra importante
+        // La fuerza del impacto depende de la aceleración, no de la velocidad
+        // Animalico
+
+        Vector3 playerDecceleration = bodyRB.velocity - previousStepRbVelocity;
+        // De momento calculamos la fuerza a lo bruto
+        // Sin tener en cuenta angulo de colisión
+        float playerImpactForce = playerDecceleration.sqrMagnitude * bodyRB.mass;
+
         Vector3 relativeVelocity = collision.relativeVelocity;
         Collider collider = collision.collider;
         GameObject gameObject = collider.gameObject;

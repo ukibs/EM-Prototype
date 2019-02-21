@@ -11,11 +11,13 @@ enum ShovelPostures
     Jump,
     PulseAttack,
     RapidFire,
+
     Canon,
     SphericDefense,
     Smash,
     Adherence,
     FrontalDefense,
+
     ParticleCascade,
     PiercingShot,
 
@@ -29,7 +31,9 @@ public class ShovelManager : MonoBehaviour {
     public float timeLerping = 0.2f;
     public Transform shovelParent;
     // TODO: Ir poniendo el resto
-    [Tooltip("Positions order: 1.Original, 2.Sprint, 3.Jump, 4.PulseAttack, 5.RapidFire, 6.Canon, 7.SphericDefense")]
+    [Tooltip("Positions order: 1.Original, 2.Sprint, 3.Jump, 4.PulseAttack, 5.RapidFire, " +
+        "6.Canon, 7.SphericDefense, 8. Smash, 9. Adherence, 10. FrontalDefense, " +
+        "10. Particle Cascade, 11. Piercing Shot")]
     public Transform[] shovelPositionsParents;
 
     #endregion
