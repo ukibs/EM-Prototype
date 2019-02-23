@@ -16,6 +16,7 @@ public enum Actions
 public class EnemyGroundBody : MonoBehaviour
 {
     public float timeBetweenActionChecking = 1.0f;
+    // TODO: Hacer una forma que podamos controlar la velocidad de los vehículos
     public float motorForce = 200.0f;
     [Tooltip("Rotatin in degrees per second.")]
     public float rotationSpeed = 90;
@@ -38,6 +39,13 @@ public class EnemyGroundBody : MonoBehaviour
         //
         turrets = GetComponentsInChildren<EnemyTurret>();
         weapons = GetComponentsInChildren<EnemyWeapon>();
+
+        // Vamos a hacer que se ignoren las colisiones entre el vehículo y su torreta
+        for(int i = 0; i < turrets.Length; i++)
+        {
+            Physics.IgnoreCollision(GetComponent<Collider>(), turrets[i].GetComponent<Collider>());
+        }
+        
     }
 
     // Update is called once per frame

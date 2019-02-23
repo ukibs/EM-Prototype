@@ -356,7 +356,7 @@ MonoBehaviour:
   muzzleSpeed: 744
   debugging: 0
   shootCalculation: 1
-  maxRotationOffset: {x: 15, y: 15}
+  maxRotationOffset: {x: 20, y: 15}
   shootParticlesPrefab: {fileID: 1837716235657633640, guid: 61c9e81fe8e7c0a40a345df35440fcab,
     type: 3}
 --- !u!1 &3061802905102944523

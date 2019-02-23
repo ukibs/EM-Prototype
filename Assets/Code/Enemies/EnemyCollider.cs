@@ -20,7 +20,12 @@ public class EnemyCollider : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Cogemos el componente cuerpo del padre
         body = transform.parent.GetComponent<EnemyConsistency>();
+        // Para casos en los que el body solo tiene un collider
+        // y por tanto lo lleva integrado
+        if(body == null)
+            body = GetComponent<EnemyConsistency>();
     }
     
     private void OnCollisionEnter(Collision collision)
@@ -30,7 +35,7 @@ public class EnemyCollider : MonoBehaviour
 
         //
         string bulletConfimation = (bullet != null) ? "Yes" : "No";
-        Debug.Log(collision.collider.gameObject.name + ", has bullet component: " + bulletConfimation);
+        //Debug.Log(collision.collider.gameObject.name + ", has bullet component: " + bulletConfimation);
 
         // Si lo que nos ha golpeado no tiene rigidbody 
         // hemos chocado con el escenario
@@ -70,6 +75,8 @@ public class EnemyCollider : MonoBehaviour
         // Chequeamos que siga vivo
         if(body != null)
         {
+            //
+            //impactInfoManager.SendImpactInfo(impactPoint, impactForce, "No damage");
             //
             body.ReceiveInternalImpact(impactForce, impactPoint, armor);
         }

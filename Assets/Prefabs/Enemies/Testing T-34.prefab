@@ -118,6 +118,7 @@ MonoBehaviour:
   maxChasisHealth: 1000
   maxCoreHealth: 100
   defense: 500
+  centralPointOffset: {x: 0, y: 1, z: 0}
   face: {fileID: 1067760113133009820}
   deadFaceMaterial: {fileID: 2100000, guid: faa0059e123f2b04d8d07acd9d8e5f0e, type: 2}
   explosionPrefab: {fileID: 5943001922578116903, guid: ed5e3facd419e5046b1f6e142784e330,
@@ -278,6 +279,7 @@ MonoBehaviour:
   maxChasisHealth: 500
   maxCoreHealth: 50
   defense: 200
+  centralPointOffset: {x: 0, y: 1, z: 0}
   face: {fileID: 7497809140649157453}
   deadFaceMaterial: {fileID: 2100000, guid: faa0059e123f2b04d8d07acd9d8e5f0e, type: 2}
   explosionPrefab: {fileID: 5943001922578116903, guid: ed5e3facd419e5046b1f6e142784e330,

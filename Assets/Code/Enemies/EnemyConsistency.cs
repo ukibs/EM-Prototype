@@ -35,6 +35,10 @@ public class EnemyConsistency : MonoBehaviour {
     public float CurrentCoreHealth { get { return currentCoreHealth; } }
 
     public float Defense { get { return defense; } }
+    public bool IsAlive
+    {
+        get { return currentChasisHealth > 0 && CurrentCoreHealth > 0; }
+    }
 
     #endregion
 
@@ -47,6 +51,8 @@ public class EnemyConsistency : MonoBehaviour {
         //
         levelManager = FindObjectOfType<ProvLevelManager>();
         //if(levelManager)
+
+        
 	}
 	
 	// Update is called once per frame
@@ -60,12 +66,15 @@ public class EnemyConsistency : MonoBehaviour {
 
     void OnCollisionEnter(Collision collision)
     {
+        //
+        if (!IsAlive)
+            return;
         // Trataremos de forma diferente los impactos de las balas y el resto
         Bullet bullet = collision.collider.GetComponent<Bullet>();
 
         //
         string bulletConfimation = (bullet != null) ? "Yes" : "No";
-        Debug.Log(collision.collider.gameObject.name + ", has bullet component: " + bulletConfimation);
+        //Debug.Log(collision.collider.gameObject.name + ", has bullet component: " + bulletConfimation);
 
         // Si lo que nos ha golpeado no tiene rigidbody 
         // hemos chocado con el escenario
@@ -81,8 +90,11 @@ public class EnemyConsistency : MonoBehaviour {
         // 
         else if (bullet != null)
         {
+            // TODO: Hacer bien el checkeo para las balas que colisionan
+            // en vez de activar la función
+
             //CheckImpactedPart(collision.collider);
-            //collision.col
+            //collision.collider
             Debug.Log("Impacto de bala donde no debería");
             //ReceiveInternalImpact(impactForce, collision.contacts[0].point);
         }
@@ -101,13 +113,16 @@ public class EnemyConsistency : MonoBehaviour {
     public void ReceiveImpact(float impactForce, Vector3 point)
     {
         //
+        if (!IsAlive)
+            return;
+        //
         float damageReceived = impactForce - defense;
         damageReceived = Mathf.Max(damageReceived, 0);
         //
 
         //Debug.Log(damageReceived + " damage received");
-        if(damageReceived > 0)
-        Debug.Log(gameObject.name + " received body impact with " + impactForce + " force. " + damageReceived + " damage received");
+        //if(damageReceived > 0)
+        //Debug.Log(gameObject.name + " received body impact with " + impactForce + " force. " + damageReceived + " damage received");
         //
         currentChasisHealth -= damageReceived;
         ManageDamage(impactForce, point);
@@ -126,11 +141,20 @@ public class EnemyConsistency : MonoBehaviour {
         damageReceived = Mathf.Max(damageReceived, 0);
         //
         if(damageReceived > 0)
-        Debug.Log("Received bullet impact with " + impactForce + " force against " + sideArmor + " armor. " 
+        {
+            Debug.Log("Received bullet impact with " + impactForce + " force against " + sideArmor + " armor. "
             + damageReceived + " damage received");
-        //
-        currentCoreHealth -= damageReceived;
-        ManageDamage(impactForce, point);
+            //
+            currentCoreHealth -= damageReceived;
+            ManageDamage(impactForce, point);
+
+            impactInfoManager.SendImpactInfo(point, impactForce);
+        }
+        else
+        {
+            impactInfoManager.SendImpactInfo(point, impactForce, "No damage");
+        }
+        
     }
 
     /// <summary>

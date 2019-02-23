@@ -107,7 +107,7 @@ public class InputManager : MonoBehaviour {
 
         menuButton = Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Joystick1Button7) /* Gamepad Start*/;
 
-        rightStickAxis = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Right Vertical"));
+        rightStickAxis = new Vector2(Input.GetAxisRaw("Right Horizontal"), Input.GetAxisRaw("Right Vertical"));
         
     }
 

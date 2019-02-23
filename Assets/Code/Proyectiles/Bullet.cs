@@ -37,6 +37,10 @@ public class Bullet : MonoBehaviour {
 
     void OnCollisionEnter(Collision collision)
     {
+        //
+        EnemyCollider enemyCollider = collision.collider.GetComponent<EnemyCollider>();
+        if (enemyCollider != null)
+            enemyCollider.ReceiveBulletImpact(rb, collision.contacts[0].point);
         //Debug.Log(collision.collider.gameObject.name + " impacted with " + collision.relativeVelocity + " speed.");
         //Debug.Log(collision.collider.gameObject.gameObject.name + " impacted with " + collision.relativeVelocity +
         //    " speed and " + rb.mass +

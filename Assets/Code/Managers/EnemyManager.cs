@@ -32,7 +32,12 @@ public class EnemyManager : MonoBehaviour
         //
         if(timeFromLastSpawn >= timeBetweenSpawns)
         {
-            SpawnEnemies(continuousGroupToSpawnSize);
+            //
+            int activeEnemies = FindObjectsOfType<EnemyConsistency>().Length;
+            //
+            if(activeEnemies < maxEnemiesInAction)
+                SpawnEnemies(continuousGroupToSpawnSize);
+            // Si no que vuelva a empezar a contrar y ya
             timeFromLastSpawn -= timeBetweenSpawns;
         }
     }

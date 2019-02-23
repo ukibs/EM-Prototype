@@ -588,6 +588,7 @@ public class RobotControl : MonoBehaviour {
                 if (enemyConsistency != null)
                 {
                     targetPoint += enemyConsistency.centralPointOffset;
+                    Debug.Log("Applying central point offset");
                 }
                 else
                 {

@@ -608,7 +608,7 @@ MonoBehaviour:
   - {fileID: 3326227640253247155, guid: f90644bdac5d8924fbad91a92cde6c44, type: 3}
   - {fileID: 3326227640253247155, guid: a6ea28f7bba66814c94750eff1f7c8d9, type: 3}
   blockFrequencies: 
-  squareSize: 7
+  squareSize: 9
   blockSize: 200
 --- !u!114 &1202333121
 MonoBehaviour:
@@ -649,15 +649,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefabsToUse:
-  - {fileID: 2636961323837238040, guid: 2afea6a990fa1b84093e2df7a11e5b6e, type: 3}
-  - {fileID: 2636961323837238040, guid: 74ef12058cb6452428c469c6481752af, type: 3}
+  - {fileID: 8329669763865831805, guid: aa2e2cc1b4e8b274fbcf804f3150973c, type: 3}
+  - {fileID: 8329669763865831805, guid: aa2e2cc1b4e8b274fbcf804f3150973c, type: 3}
   - {fileID: 1855539494821730081, guid: ca3ac9391a0c2e343b4e847610721693, type: 3}
-  initialGroupToSpawnSize: 010000000100000001000000
-  continuousGroupToSpawnSize: 010000000100000001000000
+  initialGroupToSpawnSize: 010000000300000001000000
+  continuousGroupToSpawnSize: 010000000300000001000000
   maxEnemiesInAction: 10
   timeBetweenSpawns: 10
-  minSpawnDistance: 100
-  maxSpawnDistance: 200
+  minSpawnDistance: 200
+  maxSpawnDistance: 400
 --- !u!82 &1202333124
 AudioSource:
   m_ObjectHideFlags: 0
@@ -857,7 +857,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1202333119}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 51f174490895ffb45b302d767d546e2e, type: 3}
   m_Name: 

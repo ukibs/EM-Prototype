@@ -50,7 +50,7 @@ public class EnemyWeapon : MonoBehaviour
         if(shootPoint == null)
             shootPoint = transform.Find("Barrel/Shoot Point");
         //
-        originalRotation = transform.rotation;
+        originalRotation = transform.localRotation;
         originalRotationXY = new Vector2(transform.localEulerAngles.x, transform.localEulerAngles.y);
         //
         //if(originalRotation)
@@ -107,22 +107,23 @@ public class EnemyWeapon : MonoBehaviour
 
         //ConstrainRotation(previousRotationY);
         //// En X
-        Vector3 previousRotationX = transform.localEulerAngles;
+        // Vector3 previousRotationX = transform.localEulerAngles;
         transform.rotation = GeneralFunctions.UpdateRotation(transform, player.transform.position, rotationSpeed.y, dt, Vector3.right);
         //transform.rotation = GeneralFunctions.UpdateRotation2(transform, player.transform.position, rotationSpeed.y, dt, Vector3.right);
 
-        ConstrainRotation(previousRotationX);
+        //ConstrainRotationInEuler(previousRotationX);
+        ConstrainRotation();
         //
     }
 
     //
-    void ConstrainRotation(Vector3 previousRotation)
+    void ConstrainRotationInEuler(Vector3 previousRotation)
     {
         // Y acotamos la rotación a los límites
         // X
         float constrainedX = transform.localEulerAngles.x;
 
-        if (constrainedX > 180)
+        if (Mathf.Abs(constrainedX - originalRotationXY.x) > 180)
             constrainedX -= 360;
 
         constrainedX = Mathf.Clamp(constrainedX,
@@ -133,7 +134,7 @@ public class EnemyWeapon : MonoBehaviour
 
         //if (Mathf.Abs(previousRotation.y - constrainedY) > 180)
         //    constrainedY += 360 * Mathf.Sign(previousRotation.y - constrainedY);
-        if (constrainedY > 180)
+        if (Mathf.Abs(constrainedY - originalRotationXY.y) > 180)
             constrainedY -= 360;
 
         constrainedY = Mathf.Clamp(constrainedY,
@@ -145,6 +146,23 @@ public class EnemyWeapon : MonoBehaviour
         transform.localEulerAngles = new Vector3(constrainedX, constrainedY, transform.localEulerAngles.z);
     }
 
+    //
+    void ConstrainRotation()
+    {
+        // Convert the rotation Cosntraints to radians
+        Quaternion rotationConstrains = Quaternion.Euler(maxRotationOffset.x, maxRotationOffset.y, 0);
+        //
+        Quaternion constrainedRotation = transform.localRotation;
+        //
+        constrainedRotation.x = Mathf.Clamp(constrainedRotation.x, originalRotation.x - rotationConstrains.x,
+                                                originalRotation.x + rotationConstrains.x);
+        constrainedRotation.y = Mathf.Clamp(constrainedRotation.y, originalRotation.y - rotationConstrains.y,
+                                                originalRotation.y + rotationConstrains.y);
+        //
+        transform.localRotation = constrainedRotation;
+    }
+
+    //
     void UpdateShooting(float dt)
     {
         // Vamos a chequear ambas para que no se pongan a duspara como locos
