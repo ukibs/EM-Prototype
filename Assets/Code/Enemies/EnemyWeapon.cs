@@ -108,7 +108,7 @@ public class EnemyWeapon : MonoBehaviour
         //ConstrainRotation(previousRotationY);
         //// En X
         // Vector3 previousRotationX = transform.localEulerAngles;
-        transform.rotation = GeneralFunctions.UpdateRotation(transform, player.transform.position, rotationSpeed.y, dt, Vector3.right);
+        transform.rotation = GeneralFunctions.UpdateRotation(transform, player.transform.position, rotationSpeed.y, dt);
         //transform.rotation = GeneralFunctions.UpdateRotation2(transform, player.transform.position, rotationSpeed.y, dt, Vector3.right);
 
         //ConstrainRotationInEuler(previousRotationX);

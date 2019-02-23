@@ -43,9 +43,8 @@ public static class GeneralFunctions
     /// <param name="objective"></param>
     /// <param name="rotationSpeed"></param>
     /// <param name="dt"></param>
-    /// <param name="axis"></param>
     /// <returns></returns>
-    public static Quaternion UpdateRotation(Transform self, Vector3 objective, float rotationSpeed, float dt, Vector3 axis = new Vector3())
+    public static Quaternion UpdateRotation(Transform self, Vector3 objective, float rotationSpeed, float dt)
     {
 
         Vector3 directionToDestination = objective - self.position;
@@ -58,8 +57,17 @@ public static class GeneralFunctions
         float rotationToDestinationAngle;
         rotationToDestination.ToAngleAxis( out rotationToDestinationAngle, out rotationToDestinationAxis );
 
-
-        Quaternion rotationToApply = Quaternion.AngleAxis( rotationSpeed * dt, rotationToDestinationAxis);
+        // TODO: Trabajar con el offset para que no se pase
+        Quaternion rotationToApply;
+        if (rotationToDestinationAngle < rotationSpeed * dt)
+        {
+            rotationToApply = Quaternion.AngleAxis(rotationToDestinationAngle, rotationToDestinationAxis);
+        }
+        else
+        {
+            rotationToApply = Quaternion.AngleAxis(rotationSpeed * dt, rotationToDestinationAxis);
+        }
+        
 
         self.rotation = rotationToApply * self.rotation;
 
