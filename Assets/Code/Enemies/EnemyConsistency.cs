@@ -201,6 +201,7 @@ public class EnemyConsistency : MonoBehaviour {
     void DeactivateStuff()
     {
         //Chequamos y quitamos
+        // Torretas
         EnemyTurret enemyTurret = GetComponent<EnemyTurret>();
         if (enemyTurret != null)
         {
@@ -216,7 +217,7 @@ public class EnemyConsistency : MonoBehaviour {
             Destroy(enemyTurret);
         }
             
-
+        // Cuerpo
         EnemyGroundBody enemyGroundVehicle = GetComponent<EnemyGroundBody>();
         if (enemyGroundVehicle != null)
         {
@@ -231,6 +232,12 @@ public class EnemyConsistency : MonoBehaviour {
             //
             Destroy(enemyGroundVehicle);
         }
-            
+
+        // Propulsor
+        EnemyPropulsion enemyPropulsion = GetComponent<EnemyPropulsion>();
+        if(enemyPropulsion != null)
+        {
+            Destroy(enemyPropulsion);
+        }
     }
 }
