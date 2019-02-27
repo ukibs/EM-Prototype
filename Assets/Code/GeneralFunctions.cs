@@ -114,7 +114,7 @@ public static class GeneralFunctions
     /// <param name="referenceWeaponMuzzleSpeed"></param>
     /// <param name="dt"></param>
     /// <returns></returns>
-    public static Vector3 AnticipatePlayerPositionForAiming(Vector3 selfPosition, Vector3 objectivePosition, 
+    public static Vector3 AnticipateObjectivePositionForAiming(Vector3 selfPosition, Vector3 objectivePosition, 
     Vector3 objectiveVelocity, float referenceWeaponMuzzleSpeed, float dt)
     {
         Vector3 playerFutureEstimatedPosition = new Vector3();
@@ -133,5 +133,33 @@ public static class GeneralFunctions
 
 
         return currentRotation;
+    }
+
+    /// <summary>
+    /// 1940 Navy's formula for armor penetration
+    /// No es perfecta pero nos vale de momento
+    /// OJO: No se tiene en cuenta el angulo
+    /// Cuando lo hagamos habrá que hacerlo aparte
+    /// </summary>
+    /// <param name="tShellWeight"></param>
+    /// <param name="mmShellDiameter"></param>
+    /// <param name="msShellVelocity"></param>
+    /// <returns></returns>
+    public static float Navy1940PenetrationCalc(float tShellWeight, float mmShellDiameter, float msShellVelocity)
+    {
+        //
+        float poundToKg = 2.2f;
+        float inchToMm = 0.04f;
+        float feetToM = 3.28f;
+        float tToKg = 1000;
+        //
+        float functionConstant = 0.000469f;
+        float weightPow = 0.556f;
+        float diameterPow = -0.6521f;
+        float velocityPow = 1.1001f;
+
+        return functionConstant * Mathf.Pow(tShellWeight * poundToKg * tToKg, weightPow) 
+            * Mathf.Pow(mmShellDiameter * inchToMm, diameterPow)
+            * Mathf.Pow(msShellVelocity * feetToM, velocityPow);
     }
 }

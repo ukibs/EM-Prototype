@@ -66,19 +66,19 @@ public class EnemyCollider : MonoBehaviour
     /// <param name="impactPoint"></param>
     public void ReceiveBulletImpact(Rigidbody bulletRb, Vector3 impactPoint)
     {
-        //
-        // TODO: Revisar velocidades relativas
-        //Vector3 relativeVelocity = bulletRb.velocity - rb.velocity;
-        float impactForce = bulletRb.velocity.magnitude * bulletRb.mass;
-        // Pasamos julios
-        impactForce *= 1000;
+        
         // Chequeamos que siga vivo
         if(body != null)
         {
             //
-            //impactInfoManager.SendImpactInfo(impactPoint, impactForce, "No damage");
+            // TODO: Revisar velocidades relativas
+            Bullet bulletData = bulletRb.transform.GetComponent<Bullet>();
+            float diameter = bulletData.diameter;
+
+            float penetrationValue = GeneralFunctions.Navy1940PenetrationCalc(bulletRb.mass, diameter, bulletRb.velocity.magnitude);
+            float penetrationResult = Mathf.Max(penetrationValue - armor, 0);
             //
-            body.ReceiveInternalImpact(impactForce, impactPoint, armor);
+            body.ReceiveInternalImpact(penetrationResult, impactPoint);
         }
         
     }

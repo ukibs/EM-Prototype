@@ -36,9 +36,9 @@ public class EnemyGroundBody : MonoBehaviour
     {
         player = FindObjectOfType<RobotControl>();
         rb = GetComponent<Rigidbody>();
-        //
-        turrets = GetComponentsInChildren<EnemyTurret>();
-        weapons = GetComponentsInChildren<EnemyWeapon>();
+        // TODO: Revisar porque no las pilla
+        //turrets = GetComponentsInChildren<EnemyTurret>();
+        //weapons = GetComponentsInChildren<EnemyWeapon>();
 
         // Vamos a hacer que se ignoren las colisiones entre el vehículo y su torreta
         for(int i = 0; i < turrets.Length; i++)

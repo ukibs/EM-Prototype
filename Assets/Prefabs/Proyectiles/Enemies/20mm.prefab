@@ -122,6 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cca406881df4e634db8e1b9dc80de919, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  diameter: 20
   lifeTime: 1
   impactParticlesPrefab: {fileID: 1837716235657633640, guid: 61c9e81fe8e7c0a40a345df35440fcab,
     type: 3}

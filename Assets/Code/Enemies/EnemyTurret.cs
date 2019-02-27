@@ -78,7 +78,7 @@ public class EnemyTurret : MonoBehaviour
     {
         //
         //transform.rotation = GeneralFunctions.UpdateRotation(transform, player.transform.position, turretRotationSpeed, dt);
-        Vector3 anticipatedPlayerPosition = GeneralFunctions.AnticipatePlayerPositionForAiming(
+        Vector3 anticipatedPlayerPosition = GeneralFunctions.AnticipateObjectivePositionForAiming(
             transform.position, player.transform.position, playerRB.velocity, weapons[0].muzzleSpeed, dt);
         transform.rotation = GeneralFunctions.UpdateRotation(transform, anticipatedPlayerPosition, turretRotationSpeed, dt);
     }

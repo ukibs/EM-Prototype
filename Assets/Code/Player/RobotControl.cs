@@ -143,7 +143,7 @@ public class RobotControl : MonoBehaviour {
         {
             //
             float dt = Time.deltaTime;
-            AxisMotion();
+            AxisMotion(dt);
             JumpMotion();
             //
             CheckActionChange();
@@ -169,7 +169,7 @@ public class RobotControl : MonoBehaviour {
     /// <summary>
     /// 
     /// </summary>
-    void AxisMotion()
+    void AxisMotion(float dt)
     {
         // First check sprint
         float sprintMultiplier = 1;
@@ -251,8 +251,10 @@ public class RobotControl : MonoBehaviour {
         directionZ = Vector3.ProjectOnPlane(directionZ, currentUp).normalized;
         directionX = Vector3.ProjectOnPlane(directionX, currentUp).normalized;
 
-        // TODO: Incluir otros casos como defensa frontal
-        if(actionCharging == ActionCharguing.Attack)
+        // En estos casos el player estará encarado con el objetivo
+        if(actionCharging == ActionCharguing.Attack || 
+            (actionCharging == ActionCharguing.Defense && defenseMode == DefenseMode.Front) ||
+            (actionCharging == ActionCharguing.Jump && jumpMode == JumpMode.Smash))
         {
             // Si no targetea al player
             // Osea un enemigo
@@ -265,6 +267,10 @@ public class RobotControl : MonoBehaviour {
                 if(enemyConsistency != null)
                 {
                     targetPoint += enemyConsistency.centralPointOffset;
+                    // TODO: Sacar un índice del arma actualmente equipada para usar su muzzle speed en la función de atnicpar
+                    //Rigidbody enemyRb = enemyConsistency.transform.GetComponent<Rigidbody>();
+                    //Vector3 enemyEstimatedPosition = 
+                    //    GeneralFunctions.AnticipateObjectivePositionForAiming(transform.position, targetPoint, enemyRb.velocity, , dt);
                 }
                 //
                 transform.LookAt(targetPoint, currentUp);
@@ -601,6 +607,7 @@ public class RobotControl : MonoBehaviour {
                 GeneralFunctions.ShootProjectile(bulletPrefab, machineGunPoints[i].position,
                     shootRotation, shootForward, muzzleSpeed, dt, ShootCalculation.MuzzleSpeed);
             }
+            // TODO: Revisar por qué no hace esto
             chargedAmount -= gameManager.rapidFireRate / 60;
         }
     }

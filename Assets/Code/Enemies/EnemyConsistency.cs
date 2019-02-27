@@ -134,25 +134,26 @@ public class EnemyConsistency : MonoBehaviour {
     /// </summary>
     /// <param name="impactForce"></param>
     /// <param name="point"></param>
-    public void ReceiveInternalImpact(float impactForce, Vector3 point, float sideArmor)
+    public void ReceiveInternalImpact(float penetrationResult, Vector3 point)
     {
         //
-        float damageReceived = impactForce - sideArmor;
-        damageReceived = Mathf.Max(damageReceived, 0);
+        float damageReceived = penetrationResult;
+        //float damageReceived = GeneralFunctions.Navy1940PenetrationCalc();
+        //damageReceived = Mathf.Max(damageReceived, 0);
         //
         if(damageReceived > 0)
         {
-            Debug.Log("Received bullet impact with " + impactForce + " force against " + sideArmor + " armor. "
-            + damageReceived + " damage received");
+            //Debug.Log("Received bullet impact with " + impactForce + " force against " + sideArmor + " armor. "
+            //+ damageReceived + " damage received");
             //
             currentCoreHealth -= damageReceived;
-            ManageDamage(impactForce, point);
+            ManageDamage(penetrationResult, point);
 
-            impactInfoManager.SendImpactInfo(point, impactForce);
+            //impactInfoManager.SendImpactInfo(point, impactForce);
         }
         else
         {
-            impactInfoManager.SendImpactInfo(point, impactForce, "No damage");
+            //impactInfoManager.SendImpactInfo(point, impactForce, "No damage");
         }
         
     }

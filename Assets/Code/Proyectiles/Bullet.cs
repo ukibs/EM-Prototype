@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour {
 
+    // Seguramente metamos también la velocidad de salid
+
+    [Tooltip("Diameter in mm")]
+    public float diameter;
     [Tooltip("Short for quick bullets long for artillery and other slow ones")]
     public float lifeTime = 10;
     public GameObject impactParticlesPrefab;
+
+    // TODO: Decidir si implementamos el funcionamiendo de misil aqui como opción (impulso constante en vez de inicial)
 
     private Rigidbody rb;
 
@@ -20,7 +26,10 @@ public class Bullet : MonoBehaviour {
 	void FixedUpdate () {
         //
         float dt = Time.deltaTime;
-        // TODO: Hacer que vaya cambiando la orientación acorde a la trayectoria
+        // Hacemos que vaya cambiando la orientación acorde a la trayectoria
+        // Ahora que estamos haciendo probatinas con esfericas no se notará
+        // TODO: Chequear cuando tengamos balas más definidas
+        transform.LookAt(rb.velocity);
         //
         float distanceToMoveThisStep = rb.velocity.magnitude * dt;
         //
@@ -35,7 +44,7 @@ public class Bullet : MonoBehaviour {
         }
 	}
 
-    void OnCollisionEnter(Collision collision)
+    protected virtual void OnCollisionEnter(Collision collision)
     {
         //
         EnemyCollider enemyCollider = collision.collider.GetComponent<EnemyCollider>();

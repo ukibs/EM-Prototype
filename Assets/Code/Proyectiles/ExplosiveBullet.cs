@@ -4,22 +4,21 @@ using UnityEngine;
 
 public class ExplosiveBullet : Bullet
 {
-    // Start is called before the first frame update
-    void Start()
+
+    public float explosionRange;
+    public float explosionForce;
+    public float explosionDamage;
+    
+    // TODO: Decidir si usamos fragmentos
+
+    protected override void OnCollisionEnter(Collision collision)
     {
-        
+
+        base.OnCollisionEnter(collision);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void GenerateExplosion()
     {
-        
-    }
 
-    // Más adelante desactivaremos
-    // Lo aplicarmeos entocnes
-    private void OnDestroy()
-    {
-        
     }
 }

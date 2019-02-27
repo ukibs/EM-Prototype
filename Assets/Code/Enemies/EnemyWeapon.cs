@@ -96,7 +96,7 @@ public class EnemyWeapon : MonoBehaviour
 
     void UpdateCanonRotation(Vector3 playerDirection, float dt)
     {
-        Vector3 anticipatedPlayerPosition = GeneralFunctions.AnticipatePlayerPositionForAiming(
+        Vector3 anticipatedPlayerPosition = GeneralFunctions.AnticipateObjectivePositionForAiming(
             transform.position, player.transform.position, playerRB.velocity, muzzleSpeed, dt);
         // Rotamos
         // En Y
@@ -146,7 +146,7 @@ public class EnemyWeapon : MonoBehaviour
         transform.localEulerAngles = new Vector3(constrainedX, constrainedY, transform.localEulerAngles.z);
     }
 
-    //
+    // TODO: Mover a funciones generales
     void ConstrainRotation()
     {
         // Convert the rotation Cosntraints to radians

@@ -650,7 +650,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefabsToUse:
   - {fileID: 8329669763865831805, guid: aa2e2cc1b4e8b274fbcf804f3150973c, type: 3}
-  - {fileID: 8329669763865831805, guid: aa2e2cc1b4e8b274fbcf804f3150973c, type: 3}
+  - {fileID: 8329669763865831805, guid: 1476ef15dd263e74cb8f6f4e7a54bda4, type: 3}
   - {fileID: 1855539494821730081, guid: ca3ac9391a0c2e343b4e847610721693, type: 3}
   initialGroupToSpawnSize: 010000000300000001000000
   continuousGroupToSpawnSize: 010000000300000001000000
