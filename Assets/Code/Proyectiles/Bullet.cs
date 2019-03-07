@@ -14,16 +14,17 @@ public class Bullet : MonoBehaviour {
 
     // TODO: Decidir si implementamos el funcionamiendo de misil aqui como opción (impulso constante en vez de inicial)
 
-    private Rigidbody rb;
+    protected Rigidbody rb;
 
 	// Use this for initialization
-	void Start () {
-        Destroy(gameObject, 10);
+	protected virtual void Start () {
+        Debug.Log("Starting bullet");
         rb = GetComponent<Rigidbody>();
-	}
+        Destroy(gameObject, lifeTime);
+    }
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	protected void FixedUpdate () {
         //
         float dt = Time.deltaTime;
         // Hacemos que vaya cambiando la orientación acorde a la trayectoria
@@ -62,18 +63,19 @@ public class Bullet : MonoBehaviour {
         Destroy(gameObject, 0.5f);
     }
 
-    private void OnDrawGizmos()
+    protected void OnDrawGizmos()
     {
-        
+        if(rb != null)
+        {
             Debug.DrawRay(transform.position, rb.velocity * Time.deltaTime, Color.blue);
             //Vector3 playerDirection = player.transform.position - transform.position;
             //Debug.DrawRay(transform.position, playerDirection, Color.red);
-
+        }
     }
 
     #region Methods
 
-    void GenerateImpact(RaycastHit raycastInfo, float dt)
+    protected void GenerateImpact(RaycastHit raycastInfo, float dt)
     {
         // Chequeamos si ha impactado a un enemigo y aplicamos lo necesario
         EnemyCollider enemyCollider = raycastInfo.collider.GetComponent<EnemyCollider>();

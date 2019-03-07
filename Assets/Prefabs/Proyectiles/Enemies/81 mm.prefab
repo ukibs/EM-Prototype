@@ -230,7 +230,4 @@ MonoBehaviour:
   lifeTime: 10
   impactParticlesPrefab: {fileID: 5943001922578116903, guid: ed5e3facd419e5046b1f6e142784e330,
     type: 3}
-  explosionRange: 0
-  explosionForce: 0
-  explosionDamage: 0
-  explosiveLoad: 0
+  explosiveLoad: 3.81

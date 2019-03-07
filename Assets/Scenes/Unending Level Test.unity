@@ -559,6 +559,11 @@ PrefabInstance:
       propertyPath: targetPlayer
       value: 
       objectReference: {fileID: 1499354175}
+    - target: {fileID: 7084162388066454428, guid: 6b0f3bdb3b0c3784b91c731f429bb866,
+        type: 3}
+      propertyPath: transitionTimeBetweenEnemies
+      value: 0.3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b0f3bdb3b0c3784b91c731f429bb866, type: 3}
 --- !u!4 &732800077 stripped
@@ -618,7 +623,7 @@ MonoBehaviour:
   - {fileID: 3326227640253247155, guid: f90644bdac5d8924fbad91a92cde6c44, type: 3}
   - {fileID: 3326227640253247155, guid: a6ea28f7bba66814c94750eff1f7c8d9, type: 3}
   blockFrequencies: 
-  squareSize: 9
+  squareSize: 15
   blockSize: 200
 --- !u!114 &1202333121
 MonoBehaviour:
@@ -1063,6 +1068,11 @@ PrefabInstance:
       propertyPath: objective
       value: 
       objectReference: {fileID: 830894321}
+    - target: {fileID: 5019856785704499300, guid: 75e718a921d944945af2e86bb3bc77d3,
+        type: 3}
+      propertyPath: transitionTimeBetweenEnemies
+      value: 0.3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75e718a921d944945af2e86bb3bc77d3, type: 3}
 --- !u!1001 &2103859935
