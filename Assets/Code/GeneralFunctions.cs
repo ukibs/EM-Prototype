@@ -128,6 +128,40 @@ public static class GeneralFunctions
         return playerFutureEstimatedPosition;
     }
 
+    /// <summary>
+    /// Gives the height the rpoyectile will lose due to gravity before reaching its objective
+    /// </summary>
+    /// <param name="startPoint"></param>
+    /// <param name="objectivePoint"></param>
+    /// <param name="muzzleSpeed"></param>
+    /// <returns></returns>
+    public static float GetProyectileFallToObjective(Vector3 startPoint, Vector3 objectivePoint, float muzzleSpeed)
+    {
+        // TODO: Revisar que haga falta (o no) la velocidad inicial (en Y)
+        // La podemos sacar con la muzzleSpeed y la dirección hacia el objetivo
+        Vector3 distanceToObjective = objectivePoint - startPoint;
+
+        // Con esto podemos sacar la velocidad en y para estimar
+        Vector3 directionToObjective = distanceToObjective.normalized;
+        Vector3 proyectile3dSpeed = directionToObjective * muzzleSpeed;
+
+        float secondsToObjective = distanceToObjective.magnitude / muzzleSpeed;
+        //float fallInThatTime = (proyectile3dSpeed.y * secondsToObjective) + 
+        //    -9.81f * Mathf.Pow(secondsToObjective,2) / 2;
+        float fallInThatTime = -9.81f * Mathf.Pow(secondsToObjective, 2) / 2;
+
+        return fallInThatTime;
+    }
+
+    public static float GetDeviationAngle(Vector3 origin, Vector3 objective)
+    {
+        // De momento solo en el eje x
+        
+
+        return 0;
+    }
+
+    // TODO: hacerlo aqui
     public static Quaternion ConstrainRotation(Quaternion currentRotation, Quaternion originalRotation, Vector2 maxRotationOffset)
     {
 
@@ -158,8 +192,11 @@ public static class GeneralFunctions
         float diameterPow = -0.6521f;
         float velocityPow = 1.1001f;
 
+        // = $H$24*POW(B6*$F$21/1000;$H$21) * POW(D6*$F$22;$H$22) * POW(F6*$F$23;$H$23)/$F$22
+
         return functionConstant * Mathf.Pow(tShellWeight * poundToKg * tToKg, weightPow) 
             * Mathf.Pow(mmShellDiameter * inchToMm, diameterPow)
-            * Mathf.Pow(msShellVelocity * feetToM, velocityPow);
+            * Mathf.Pow(msShellVelocity * feetToM, velocityPow)
+            / inchToMm;
     }
 }

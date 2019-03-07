@@ -12,9 +12,20 @@ public enum ShootCalculation
     Count
 }
 
+public enum TypeOfFire
+{
+    Invalid = -1,
+
+    Direct,
+    Indirect,
+
+    Count
+}
+
 public class EnemyWeapon : MonoBehaviour
 {
     public bool mainWeapon;
+    // TODO: Ver si dejamos solo una al final
     public Vector2 rotationSpeed = new Vector2(0, 30);
     [Tooltip("Bullets per second.")]
     public float rateOfFire = 2;    // Bullets per second
@@ -24,6 +35,8 @@ public class EnemyWeapon : MonoBehaviour
     // Probablemente guardemos estos valores en la balas
     public float shootForce = 10;
     public float muzzleSpeed = 500;
+    //
+    public TypeOfFire typeOfFire = TypeOfFire.Direct;
 
     //
     public bool debugging = false;
@@ -85,66 +98,76 @@ public class EnemyWeapon : MonoBehaviour
     private void OnDrawGizmos()
     {
         //
-        if (player != null)
-        {
-            Debug.DrawRay(transform.position, transform.forward * 10, Color.blue);
-            Vector3 playerDirection = player.transform.position - transform.position;
-            Debug.DrawRay(transform.position, playerDirection, Color.red);
-        }
+        //if (player != null)
+        //{
+        //    Debug.DrawRay(transform.position, transform.forward * 10, Color.blue);
+        //    Vector3 playerDirection = player.transform.position - transform.position;
+        //    Debug.DrawRay(transform.position, playerDirection, Color.red);
+        //}
 
     }
 
     void UpdateCanonRotation(Vector3 playerDirection, float dt)
     {
+        // TODO: Mirar como hacer fuego indirecto
+        // Mirar angulo, si por debajo de 45
+        // Debería haber otro por encima válido
         Vector3 anticipatedPlayerPosition = GeneralFunctions.AnticipateObjectivePositionForAiming(
-            transform.position, player.transform.position, playerRB.velocity, muzzleSpeed, dt);
+            shootPoint.position, player.transform.position, playerRB.velocity, muzzleSpeed, dt);
+        // Gravity
+        anticipatedPlayerPosition.y -= GeneralFunctions.GetProyectileFallToObjective(shootPoint.position, anticipatedPlayerPosition, muzzleSpeed);
+
+        // And check if direct or indirect fire
+        if (typeOfFire == TypeOfFire.Indirect)
+        {
+            // TODO: Probar con el vector normalizado
+            // Lo que nos importa es la dirección
+            Vector3 playerDirNormalized = anticipatedPlayerPosition.normalized;
+            float angle = Mathf.Acos(playerDirNormalized.y) * Mathf.Rad2Deg;
+            //
+            angle = 90 - angle;
+            playerDirNormalized.y = Mathf.Cos(angle);
+
+        }
+
         // Rotamos
-        // En Y
-        //Vector3 previousRotationY = transform.localEulerAngles;
-        //transform.rotation = GeneralFunctions.UpdateRotationWithConstraits(transform, player.transform.position, rotationSpeed.y, dt,
-        //    originalRotationXY.y, maxRotationOffset.y, Vector3.up);
-        //transform.rotation = GeneralFunctions.UpdateRotation2(transform, player.transform.position, rotationSpeed.y, dt, Vector3.up);
-
-        //ConstrainRotation(previousRotationY);
-        //// En X
-        // Vector3 previousRotationX = transform.localEulerAngles;
-        transform.rotation = GeneralFunctions.UpdateRotation(transform, player.transform.position, rotationSpeed.y, dt);
-        //transform.rotation = GeneralFunctions.UpdateRotation2(transform, player.transform.position, rotationSpeed.y, dt, Vector3.right);
-
-        //ConstrainRotationInEuler(previousRotationX);
+        // TODO: Ver como manejar la velocidad de rotación
+        transform.rotation = GeneralFunctions.UpdateRotation(transform, anticipatedPlayerPosition, rotationSpeed.x, dt);
+        //transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, anticipatedPlayerPosition, rotationSpeed.y, dt, Vector3.right);
+        // TODO: Hacerlo en general functions
         ConstrainRotation();
         //
     }
 
     //
-    void ConstrainRotationInEuler(Vector3 previousRotation)
-    {
-        // Y acotamos la rotación a los límites
-        // X
-        float constrainedX = transform.localEulerAngles.x;
+    //void ConstrainRotationInEuler(Vector3 previousRotation)
+    //{
+    //    // Y acotamos la rotación a los límites
+    //    // X
+    //    float constrainedX = transform.localEulerAngles.x;
 
-        if (Mathf.Abs(constrainedX - originalRotationXY.x) > 180)
-            constrainedX -= 360;
+    //    if (Mathf.Abs(constrainedX - originalRotationXY.x) > 180)
+    //        constrainedX -= 360;
 
-        constrainedX = Mathf.Clamp(constrainedX,
-            originalRotationXY.x - maxRotationOffset.x, originalRotationXY.x + maxRotationOffset.x);
+    //    constrainedX = Mathf.Clamp(constrainedX,
+    //        originalRotationXY.x - maxRotationOffset.x, originalRotationXY.x + maxRotationOffset.x);
 
-        // Y
-        float constrainedY = transform.localEulerAngles.y;
+    //    // Y
+    //    float constrainedY = transform.localEulerAngles.y;
 
-        //if (Mathf.Abs(previousRotation.y - constrainedY) > 180)
-        //    constrainedY += 360 * Mathf.Sign(previousRotation.y - constrainedY);
-        if (Mathf.Abs(constrainedY - originalRotationXY.y) > 180)
-            constrainedY -= 360;
+    //    //if (Mathf.Abs(previousRotation.y - constrainedY) > 180)
+    //    //    constrainedY += 360 * Mathf.Sign(previousRotation.y - constrainedY);
+    //    if (Mathf.Abs(constrainedY - originalRotationXY.y) > 180)
+    //        constrainedY -= 360;
 
-        constrainedY = Mathf.Clamp(constrainedY,
-            originalRotationXY.y - maxRotationOffset.y, originalRotationXY.y + maxRotationOffset.y);
-        // Apaño maño (para cuando acotamos en el 0 exacto, que se pone tonto)
-        if (Mathf.Abs(constrainedY - 360) < 0.1) constrainedY = 359.9f;
-        //
-        // Debug.Log("Constrained angles: x - " + constrainedX + ", y - " + constrainedY);
-        transform.localEulerAngles = new Vector3(constrainedX, constrainedY, transform.localEulerAngles.z);
-    }
+    //    constrainedY = Mathf.Clamp(constrainedY,
+    //        originalRotationXY.y - maxRotationOffset.y, originalRotationXY.y + maxRotationOffset.y);
+    //    // Apaño maño (para cuando acotamos en el 0 exacto, que se pone tonto)
+    //    if (Mathf.Abs(constrainedY - 360) < 0.1) constrainedY = 359.9f;
+    //    //
+    //    // Debug.Log("Constrained angles: x - " + constrainedX + ", y - " + constrainedY);
+    //    transform.localEulerAngles = new Vector3(constrainedX, constrainedY, transform.localEulerAngles.z);
+    //}
 
     // TODO: Mover a funciones generales
     void ConstrainRotation()

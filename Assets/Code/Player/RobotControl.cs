@@ -593,8 +593,18 @@ public class RobotControl : MonoBehaviour {
                 Vector3 targetPoint = cameraControl.CurrentTarget.position;
                 if (enemyConsistency != null)
                 {
+                    // Anticipamos posicion del enemigo
+                    // TODO: Hacer esto menos guarro
+                    Rigidbody enemyRb = enemyConsistency.transform.GetComponent<Rigidbody>();
+                    targetPoint = GeneralFunctions.AnticipateObjectivePositionForAiming(machineGunPoints[i].position, 
+                        targetPoint, enemyRb.velocity,
+                        gameManager.rapidFireMuzzleSpeed, dt);
+                    //Añaidmos compensación de caida
+                    targetPoint.y += GeneralFunctions.GetProyectileFallToObjective(machineGunPoints[i].position, targetPoint, 
+                        gameManager.rapidFireMuzzleSpeed);
+                    // TODO: Sacarlo en globales
                     targetPoint += enemyConsistency.centralPointOffset;
-                    Debug.Log("Applying central point offset");
+                    //Debug.Log("Applying central point offset");
                 }
                 else
                 {

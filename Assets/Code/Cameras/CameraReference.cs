@@ -6,18 +6,25 @@ public class CameraReference : MonoBehaviour {
 
     public Transform objective;
     public float rotationSpeed = 90.0f;
+    public float transitionTimeBetweenEnemies = 0.3f;
 
-    private Vector2 previousMousePosition;
+    //private Vector2 previousMousePosition;
     private SpringCamera cameraControl;
     private InputManager inputManager;
     private RobotControl playerControl;
 
+    private Transform previousObjective;
+    private Quaternion previousObjectiveRotation;
+    private float transitionProgression = 0;
+
 	// Use this for initialization
 	void Start () {
-        previousMousePosition = Input.mousePosition;
+        //previousMousePosition = Input.mousePosition;
         cameraControl = FindObjectOfType<SpringCamera>();
         inputManager = FindObjectOfType<InputManager>();
         playerControl = FindObjectOfType<RobotControl>();
+        //
+        transitionProgression = transitionTimeBetweenEnemies;
 	}
 	
 	// Update is called once per frame
@@ -59,7 +66,27 @@ public class CameraReference : MonoBehaviour {
         }
         else
         {
-            transform.LookAt(cameraControl.CurrentTarget);
+            // Transición gradual entre objetivos para no marear al player
+            // TODO: Chequear si es necesaria aqui también
+            // Probablemente valga con tenerla en la cámara
+            if(transitionProgression < transitionTimeBetweenEnemies)
+            {
+                Quaternion enemyDirection = Quaternion.LookRotation(cameraControl.CurrentTarget.position - transform.position);
+                transform.rotation = Quaternion.Slerp(previousObjectiveRotation, enemyDirection, 
+                    transitionProgression / transitionTimeBetweenEnemies);
+                transitionProgression += dt;
+            }
+            else if(previousObjective == cameraControl.CurrentTarget)
+            {
+                transform.LookAt(cameraControl.CurrentTarget);
+            }
+            // Aquí hacemos la transición
+            else
+            {
+                transitionProgression = 0;
+                previousObjective = cameraControl.CurrentTarget;
+                previousObjectiveRotation = transform.rotation;
+            }
         }
         
     }

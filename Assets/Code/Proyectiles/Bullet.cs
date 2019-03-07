@@ -41,6 +41,7 @@ public class Bullet : MonoBehaviour {
             //transform.position = raycastInfo.point;
             GenerateImpact(raycastInfo, dt);
             // TODO: Aplicar fuerzas
+
         }
 	}
 
@@ -60,7 +61,16 @@ public class Bullet : MonoBehaviour {
         //
         Destroy(gameObject, 0.5f);
     }
-   
+
+    private void OnDrawGizmos()
+    {
+        
+            Debug.DrawRay(transform.position, rb.velocity * Time.deltaTime, Color.blue);
+            //Vector3 playerDirection = player.transform.position - transform.position;
+            //Debug.DrawRay(transform.position, playerDirection, Color.red);
+
+    }
+
     #region Methods
 
     void GenerateImpact(RaycastHit raycastInfo, float dt)

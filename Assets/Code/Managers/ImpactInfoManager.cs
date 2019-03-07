@@ -41,7 +41,8 @@ public class ImpactInfoManager : MonoBehaviour {
     public void SendImpactInfo(Vector3 point, float force)
     {
         ImpactInfo newImpactInfo = new ImpactInfo();
-        newImpactInfo.info = force + " N";
+        //newImpactInfo.info = force + " N";
+        newImpactInfo.info = (int)force + "";
         newImpactInfo.position = point;
         impactInfoList.Add(newImpactInfo);
     }

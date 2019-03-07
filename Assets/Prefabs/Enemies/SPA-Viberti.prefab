@@ -469,7 +469,7 @@ MonoBehaviour:
   turrets:
   - {fileID: 5340031350559413623}
   weapons: []
-  behaviour: 0200000000000000
+  behaviour: 0100000000000000
 --- !u!54 &603831889292898140
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -74,6 +74,7 @@ public class InputManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        // TODO: Separar flechas del teclado de los ejes normales (wasd)
         stickAxis.x = Input.GetAxisRaw("Horizontal");
         stickAxis.y = Input.GetAxisRaw("Vertical");
         stickAxis.Normalize();

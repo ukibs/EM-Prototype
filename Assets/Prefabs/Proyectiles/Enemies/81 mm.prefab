@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 23462816310163632}
   - component: {fileID: 135684469493321500}
   - component: {fileID: 54382493756508544}
-  - component: {fileID: 114133439628236704}
-  - component: {fileID: 3210826463883438631}
+  - component: {fileID: 9117681019564218694}
+  - component: {fileID: 7574757208218839598}
   m_Layer: 0
-  m_Name: CanonBall
+  m_Name: 81 mm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 1952744711831650}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.064329624, y: 1.6700001, z: -2.72}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -102,31 +102,15 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1952744711831650}
   serializedVersion: 2
-  m_Mass: 0.0005
-  m_Drag: 0.3
+  m_Mass: 0.01
+  m_Drag: 0.04
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &114133439628236704
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1952744711831650}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cca406881df4e634db8e1b9dc80de919, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  diameter: 20
-  lifeTime: 10
-  impactParticlesPrefab: {fileID: 1837716235657633640, guid: 61c9e81fe8e7c0a40a345df35440fcab,
-    type: 3}
---- !u!96 &3210826463883438631
+--- !u!96 &9117681019564218694
 TrailRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
@@ -136,7 +120,7 @@ TrailRenderer:
   m_GameObject: {fileID: 1952744711831650}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 0
@@ -144,7 +128,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c3cb610691c01ac408b812bac0b31d29, type: 2}
+  - {fileID: 2100000, guid: 557ee4b6af5c672498b6f9e6b2b87e08, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -172,8 +156,8 @@ TrailRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.0130729675
-        value: 0.5
+        time: 0.03750992
+        value: 0.5468807
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -181,8 +165,8 @@ TrailRenderer:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.39215687
-        value: 0.06666669
+        time: 0.7687683
+        value: 0.021972656
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -228,5 +212,25 @@ TrailRenderer:
     shadowBias: 0.5
     generateLightingData: 0
   m_MinVertexDistance: 0.1
-  m_Autodestruct: 0
+  m_Autodestruct: 1
   m_Emitting: 1
+--- !u!114 &7574757208218839598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952744711831650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 572550190cd4af2498fb84d9f37d3c61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  diameter: 81
+  lifeTime: 10
+  impactParticlesPrefab: {fileID: 5943001922578116903, guid: ed5e3facd419e5046b1f6e142784e330,
+    type: 3}
+  explosionRange: 0
+  explosionForce: 0
+  explosionDamage: 0
+  explosiveLoad: 0

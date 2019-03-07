@@ -13,8 +13,9 @@ public enum Actions
     Count
 }
 
-public class EnemyGroundBody : MonoBehaviour
+public class EnemyBodyBehaviour : MonoBehaviour
 {
+
     public float timeBetweenActionChecking = 1.0f;
     // TODO: Hacer una forma que podamos controlar la velocidad de los vehículos
     public float motorForce = 200.0f;
@@ -24,15 +25,14 @@ public class EnemyGroundBody : MonoBehaviour
     public EnemyWeapon[] weapons;   // TODO: Que la busque él
     public Actions[] behaviour;     // Luego trabajaremos bien esto
 
-    private RobotControl player;
-    private Rigidbody rb;
+    protected RobotControl player;
+    protected Rigidbody rb;
 
-    private Actions currentAction = Actions.GoingToPlayer;
-    private float timeFromLastCheck = 0;
-    private bool touchingSomething;
+    protected Actions currentAction = Actions.GoingToPlayer;
+    protected float timeFromLastCheck = 0;
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         player = FindObjectOfType<RobotControl>();
         rb = GetComponent<Rigidbody>();
@@ -41,31 +41,32 @@ public class EnemyGroundBody : MonoBehaviour
         //weapons = GetComponentsInChildren<EnemyWeapon>();
 
         // Vamos a hacer que se ignoren las colisiones entre el vehículo y su torreta
-        for(int i = 0; i < turrets.Length; i++)
+        // TODO: Ver como hacerlo con las torretas que tienen coliders como hijos
+        for (int i = 0; i < turrets.Length; i++)
         {
             Physics.IgnoreCollision(GetComponent<Collider>(), turrets[i].GetComponent<Collider>());
         }
-        
+
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         //
         float dt = Time.deltaTime;
-        
+
         // Primero que el player siga vivo, si no mal
-        if(player != null)
+        if (player != null)
         {
             //
             timeFromLastCheck += dt;
-            if(timeFromLastCheck > timeBetweenActionChecking)
+            if (timeFromLastCheck > timeBetweenActionChecking)
             {
-                //CheckActionToDo();
+                CheckActionToDo();
                 DecideActionToDo();
                 timeFromLastCheck -= timeBetweenActionChecking;
             }
-            
+
             //
             Vector3 playerDirection = player.transform.position - transform.position;
             playerDirection.y = 0.0f;
@@ -87,7 +88,7 @@ public class EnemyGroundBody : MonoBehaviour
                     GiveItGas();
                     break;
             }
-            
+
             // Damp para que no se desmadren
             //float dampForce = 10.0f;
             //rb.velocity = rb.velocity * ( 1 - dampForce * dt);
@@ -106,31 +107,10 @@ public class EnemyGroundBody : MonoBehaviour
 
     //}
 
-    void GiveItGas()
-    {
-        // Y movemos con el rigidvody
-        if (touchingSomething && HasGroundUnderneath())
-            rb.AddForce(transform.forward * motorForce, ForceMode.Impulse);
-        // Lo negamos hasta el próximo chqueo de colisón
-        touchingSomething = false;
-    }
-
-    private void OnCollisionStay(Collision collision)
-    {
-        touchingSomething = true;
-    }
-
-    #region Methods
-
-    bool HasGroundUnderneath()
-    {
         //
-        if(Physics.Raycast(transform.position, -transform.up, 2f))
-        {
-            return true;
-        }
-        //
-        return false;
+    protected virtual void GiveItGas()
+    {
+        
     }
 
     /// <summary>
@@ -139,7 +119,7 @@ public class EnemyGroundBody : MonoBehaviour
     void DecideActionToDo()
     {
         //
-        for(int i = 0; i < behaviour.Length; i++)
+        for (int i = 0; i < behaviour.Length; i++)
         {
             switch (behaviour[i])
             {
@@ -174,7 +154,7 @@ public class EnemyGroundBody : MonoBehaviour
     {
         // De momento aqui snecillo, luego nos curramos más la IA
         float distanceToPlayer = (transform.position - player.transform.position).magnitude; // Ya veremos si hacemos sqrt magnitude para ahorrar
-        
+
         // Si está lo bastante cerca que corra a su alrededor
         // TODO: Que funcione con un parámetro
         if (HasRemainingTurrets() && distanceToPlayer < MainWeaponsMinRange())
@@ -196,7 +176,7 @@ public class EnemyGroundBody : MonoBehaviour
     {
         bool hasReaminingTurrets = false;
 
-        if(turrets.Length > 0)
+        if (turrets.Length > 0)
         {
             for (int i = 0; i < turrets.Length; i++)
             {
@@ -206,7 +186,7 @@ public class EnemyGroundBody : MonoBehaviour
                 }
             }
         }
-        
+
         return hasReaminingTurrets;
     }
 
@@ -228,34 +208,4 @@ public class EnemyGroundBody : MonoBehaviour
 
         return minRange;
     }
-
-    //
-    //void UpdateRotation(float dt)
-    //{
-    //    //First to know the direction
-    //    Vector3 forward = transform.forward.normalized;
-    //    Vector3 pointDirection = (player.transform.position - transform.position).normalized;
-    //    float forwardAngle = Mathf.Atan2(forward.z, forward.x);
-    //    float pDAnlge = Mathf.Atan2(pointDirection.z, pointDirection.x);
-    //    float offset = (pDAnlge - forwardAngle) * Mathf.Rad2Deg;
-        
-
-    //    //A fix for when the number overflows the half circle
-    //    if (Mathf.Abs(offset) > 180.0f)
-    //    {
-    //        offset -= 360.0f * Mathf.Sign(offset);
-    //    }
-
-    //    //And apply turning or check to move
-    //    if (Mathf.Abs(offset) < rotationSpeed * dt)
-    //    {
-    //        transform.Rotate(0.0f, -offset, 0.0f);
-    //    }
-    //    else
-    //    {
-    //        transform.Rotate(0.0f, rotationSpeed * Mathf.Sign(-offset) * dt, 0.0f);
-    //    }
-    //}
-
-    #endregion
 }

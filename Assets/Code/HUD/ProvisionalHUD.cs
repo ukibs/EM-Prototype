@@ -8,6 +8,7 @@ public class ProvisionalHUD : MonoBehaviour {
     public GUISkin guiSkin;
 
     public Texture crossTexture;
+    public Texture enemyMarkerTexture;
     public Texture diamondsTexture;
 
     // Color Textures
@@ -185,6 +186,12 @@ public class ProvisionalHUD : MonoBehaviour {
     //
     void EnemyStats()
     {
+        // Empezamos pintando el marcardor en la posición del enemigo en patnalla
+        Vector3 enemyScreenPosition = Camera.main.WorldToViewportPoint(cameraControl.CurrentTarget.position);
+        GUI.DrawTexture(new Rect(
+            enemyScreenPosition.x * Screen.width - 50,
+            Screen.height - enemyScreenPosition.y * Screen.height - 50, 100, 100), 
+            enemyMarkerTexture);
         //
         EnemyConsistency enemyConsistency = cameraControl.CurrentTarget.GetComponent<EnemyConsistency>();
         //

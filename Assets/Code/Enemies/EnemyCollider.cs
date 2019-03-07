@@ -30,11 +30,19 @@ public class EnemyCollider : MonoBehaviour
     
     private void OnCollisionEnter(Collision collision)
     {
+        //Que no esté muerto
+        if (body == null)
+            return;
+
         // Trataremos de forma diferente los impactos de las balas y el resto
         Bullet bullet = collision.collider.GetComponent<Bullet>();
 
+        //Debugueo
+        //if (bullet != null)
+        //    Debug.Log("Bullet collision detected by EnemyCollider");
+
         //
-        string bulletConfimation = (bullet != null) ? "Yes" : "No";
+        //string bulletConfimation = (bullet != null) ? "Yes" : "No";
         //Debug.Log(collision.collider.gameObject.name + ", has bullet component: " + bulletConfimation);
 
         // Si lo que nos ha golpeado no tiene rigidbody 
@@ -49,10 +57,11 @@ public class EnemyCollider : MonoBehaviour
         if (bullet == null && impactForce > body.Defense)
             body.ReceiveImpact(impactForce, collision.contacts[0].point);
         // 
-        else if (bullet != null && impactForce > armor)
+        else if (bullet != null)
         {
             //CheckImpactedPart(collision.collider);
-            body.ReceiveInternalImpact(impactForce, collision.contacts[0].point, armor);
+            Debug.Log("Bullet collision detected by EnemyCollider");
+            body.ReceiveInternalImpact(impactForce, collision.contacts[0].point);
         }
 
         //else if(collision.contacts[0].point != null)
@@ -76,6 +85,8 @@ public class EnemyCollider : MonoBehaviour
             float diameter = bulletData.diameter;
 
             float penetrationValue = GeneralFunctions.Navy1940PenetrationCalc(bulletRb.mass, diameter, bulletRb.velocity.magnitude);
+            //Debug.Log("Penetration value: " + penetrationValue + ", mass: " + bulletRb.mass + 
+            //    ", diameter: " + diameter + ", velocity: " + bulletRb.velocity.magnitude);
             float penetrationResult = Mathf.Max(penetrationValue - armor, 0);
             //
             body.ReceiveInternalImpact(penetrationResult, impactPoint);

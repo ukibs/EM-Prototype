@@ -60,50 +60,11 @@ public class EnemyConsistency : MonoBehaviour {
 		// Cheqeo extra de salida de escenario
         if(transform.position.y < -10)
         {
-            ManageDamage(currentChasisHealth, transform.position);
+            //ManageDamage(currentChasisHealth, transform.position);
+            Destroy(gameObject);
         }
 	}
-
-    void OnCollisionEnter(Collision collision)
-    {
-        //
-        if (!IsAlive)
-            return;
-        // Trataremos de forma diferente los impactos de las balas y el resto
-        Bullet bullet = collision.collider.GetComponent<Bullet>();
-
-        //
-        string bulletConfimation = (bullet != null) ? "Yes" : "No";
-        //Debug.Log(collision.collider.gameObject.name + ", has bullet component: " + bulletConfimation);
-
-        // Si lo que nos ha golpeado no tiene rigidbody 
-        // hemos chocado con el escenario
-        // así que usamos el nuestro
-        Rigidbody rb = collision.collider.GetComponent<Rigidbody>();
-        if (rb == null)
-            rb = GetComponent<Rigidbody>();
-        //
-        float impactForce = collision.relativeVelocity.magnitude * rb.mass;
-
-        if (bullet == null)
-            ReceiveImpact(impactForce, collision.contacts[0].point);
-        // 
-        else if (bullet != null)
-        {
-            // TODO: Hacer bien el checkeo para las balas que colisionan
-            // en vez de activar la función
-
-            //CheckImpactedPart(collision.collider);
-            //collision.collider
-            Debug.Log("Impacto de bala donde no debería");
-            //ReceiveInternalImpact(impactForce, collision.contacts[0].point);
-        }
-
-        //else if(collision.contacts[0].point != null)
-        //    impactInfoManager.SendImpactInfo(collision.contacts[0].point, impactForce, "No damage");
-
-    }
-
+    
     /// <summary>
     /// df
     /// TODO: Revisar manejo de 
@@ -219,19 +180,19 @@ public class EnemyConsistency : MonoBehaviour {
         }
             
         // Cuerpo
-        EnemyGroundBody enemyGroundVehicle = GetComponent<EnemyGroundBody>();
-        if (enemyGroundVehicle != null)
+        EnemyBodyBehaviour enemyBodyBehaviour = GetComponent<EnemyBodyBehaviour>();
+        if (enemyBodyBehaviour != null)
         {
-            for(int i = 0; i < enemyGroundVehicle.weapons.Length; i++)
+            for(int i = 0; i < enemyBodyBehaviour.weapons.Length; i++)
             {
-                EnemyWeapon nextWeapon = enemyGroundVehicle.weapons[i].GetComponent<EnemyWeapon>();
+                EnemyWeapon nextWeapon = enemyBodyBehaviour.weapons[i].GetComponent<EnemyWeapon>();
                 if (nextWeapon)
                 {
                     Destroy(nextWeapon);
                 }
             }
             //
-            Destroy(enemyGroundVehicle);
+            Destroy(enemyBodyBehaviour);
         }
 
         // Propulsor

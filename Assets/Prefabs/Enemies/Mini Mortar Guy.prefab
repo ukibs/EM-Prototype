@@ -103,8 +103,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3489589995344119213}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0.98}
-  m_LocalScale: {x: 0.2, y: 1, z: 0.2}
+  m_LocalPosition: {x: 0, y: 0, z: 0.4}
+  m_LocalScale: {x: 0.3, y: 0.5, z: 0.3}
   m_Children:
   - {fileID: 571541668431554471}
   m_Father: {fileID: 344718758145318843}
@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: 344718758145318843}
   - component: {fileID: 8682708634131207666}
   m_Layer: 0
-  m_Name: Breda Model 35
+  m_Name: Mini Mortar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -179,14 +179,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3666936230647106248}
-  m_LocalRotation: {x: 0.30070576, y: 0, z: 0, w: 0.953717}
-  m_LocalPosition: {x: 0, y: 0, z: 0.53}
+  m_LocalRotation: {x: 0.3007059, y: -0, z: -0, w: -0.953717}
+  m_LocalPosition: {x: 0, y: 0.42, z: 0.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3831316989015668178}
   m_Father: {fileID: 6463235873329286248}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 35, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 325, y: 0, z: 0}
 --- !u!114 &8682708634131207666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,12 +201,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainWeapon: 1
   rotationSpeed: {x: 90, y: 0}
-  rateOfFire: 4
+  rateOfFire: 0.2
   range: 1000
-  proyectilePrefab: {fileID: 1952744711831650, guid: 90ed44b7bb6cd0043974157c2d3d663c,
+  proyectilePrefab: {fileID: 1952744711831650, guid: 26fce5c02b6515141b9f776294c65557,
     type: 3}
   shootForce: 10
-  muzzleSpeed: 840
+  muzzleSpeed: 100
+  typeOfFire: 1
   debugging: 0
   shootCalculation: 1
   maxRotationOffset: {x: 45, y: 0}
@@ -333,8 +334,8 @@ GameObject:
   - component: {fileID: 3630732972441102469}
   - component: {fileID: 5958470458916068140}
   - component: {fileID: 89467284137208039}
+  - component: {fileID: 975316061675269868}
   - component: {fileID: 603831889292898140}
-  - component: {fileID: 5744197045790495158}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -451,6 +452,25 @@ MonoBehaviour:
     type: 3}
   smokePrefab: {fileID: 8862507873891533857, guid: da0d1a9d3dcb39947a9a3509f9c44795,
     type: 3}
+--- !u!114 &975316061675269868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7079315618913130039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b2edf791af6db54eae16cfb51344716, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBetweenActionChecking: 1
+  motorForce: 3
+  rotationSpeed: 90
+  turrets:
+  - {fileID: 5340031350559413623}
+  weapons: []
+  behaviour: 0200000000000000
 --- !u!54 &603831889292898140
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -467,26 +487,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5744197045790495158
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7079315618913130039}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6368e762ff6ed0c4fa979ab27c86348a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeBetweenActionChecking: 1
-  motorForce: 5
-  rotationSpeed: 90
-  turrets:
-  - {fileID: 5340031350559413623}
-  weapons: []
-  behaviour: 0100000000000000
-  idealHeight: 100
 --- !u!1 &8247260933096117118
 GameObject:
   m_ObjectHideFlags: 0
@@ -519,7 +519,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8247260933096117118}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.13, z: 0}
+  m_LocalPosition: {x: 0, y: 1.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4767773912445784906}
@@ -663,7 +663,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: -0.5, z: 0}
   m_Axis: {x: 0, y: 1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: -1.3583332, z: 0}
+  m_ConnectedAnchor: {x: 0, y: 0.49999997, z: 0}
   m_UseSpring: 0
   m_Spring:
     spring: 0
@@ -697,7 +697,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6067959653711933594}
   m_Layer: 0
-  m_Name: FlyingDude Test
+  m_Name: Mini Mortar Guy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

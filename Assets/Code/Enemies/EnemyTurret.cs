@@ -6,7 +6,6 @@ public class EnemyTurret : MonoBehaviour
 {
     // TODO: Que los pille automaticamente
     public EnemyWeapon[] weapons;
-    //public Transform[] sideWeapons;
     public float turretRotationSpeed = 90.0f;
     public float maxRotationOffset;
     
@@ -60,27 +59,15 @@ public class EnemyTurret : MonoBehaviour
     #endregion
 
     #region Methods
-
-    //Vector3 AnticipatePlayerPositionForShooting(float dt)
-    //{
-    //    Vector3 playerFutureEstimatedPosition = new Vector3();
-
-    //    // Determinamos la distancia para ver cuanto anticipar en función de nuestra muzzle speed
-    //    float distanceToPlayer = (player.transform.position - transform.position).magnitude;
-    //    float timeForBulletToReachPlayer = weapons[0].muzzleSpeed / distanceToPlayer * dt;
-
-    //    playerFutureEstimatedPosition = player.transform.position + (playerRB.velocity * timeForBulletToReachPlayer);
-
-    //    return playerFutureEstimatedPosition;
-    //}
-
+    
     void UpdateTurretRotation(Vector3 playerDirection, float dt)
     {
         //
         //transform.rotation = GeneralFunctions.UpdateRotation(transform, player.transform.position, turretRotationSpeed, dt);
         Vector3 anticipatedPlayerPosition = GeneralFunctions.AnticipateObjectivePositionForAiming(
             transform.position, player.transform.position, playerRB.velocity, weapons[0].muzzleSpeed, dt);
-        transform.rotation = GeneralFunctions.UpdateRotation(transform, anticipatedPlayerPosition, turretRotationSpeed, dt);
+        //transform.rotation = GeneralFunctions.UpdateRotation(transform, anticipatedPlayerPosition, turretRotationSpeed, dt);
+        transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, anticipatedPlayerPosition, turretRotationSpeed, dt);
     }
 
     /// <summary>

@@ -2,32 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-/// <summary>
-/// Code for enemy flyers
-/// For now we will make a copter like propulsor
-/// </summary>
-public class EnemyPropulsion : MonoBehaviour
+public class EnemySustentedAirBody : EnemyBodyBehaviour
 {
     // De momento global
     // Problablemente la hagamos respecto al player
     public float idealHeight = 100;
 
-    private Rigidbody rb;
-
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
-        rb = GetComponent<Rigidbody>();
         // Ñapa
         transform.position = new Vector3(transform.position.x, idealHeight, transform.position.z);
+        //
+        base.Start();
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
+        //
         float offsetFromIdealHeight = idealHeight - transform.position.y;
-        if(offsetFromIdealHeight > 0)
+        if (offsetFromIdealHeight > 0)
             rb.AddForce(Vector3.up * offsetFromIdealHeight, ForceMode.Impulse);
+    }
+
+    protected override void GiveItGas()
+    {
+        rb.AddForce(transform.forward * motorForce, ForceMode.Impulse);
     }
 }

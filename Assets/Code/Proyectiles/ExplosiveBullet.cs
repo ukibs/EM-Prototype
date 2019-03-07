@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class ExplosiveBullet : Bullet
 {
-
+    // Genereic ones
     public float explosionRange;
     public float explosionForce;
     public float explosionDamage;
+
+    // Realistic ones
+    public float explosiveLoad;
     
     // TODO: Decidir si usamos fragmentos
 
