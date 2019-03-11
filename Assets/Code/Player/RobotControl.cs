@@ -281,7 +281,7 @@ public class RobotControl : MonoBehaviour {
         else
             transform.LookAt(transform.position + directionX + directionZ, currentUp);
 
-        //
+        // TODO: Tener en cuenta velocity actual
         Vector3 forceDirection = (directionX + directionZ).normalized;
         rb.AddForce( forceDirection * gameManager.movementForce * sprintMultiplier, ForceMode.Impulse);
 

@@ -84,6 +84,7 @@ public class SpringCamera : MonoBehaviour {
         {
             //if(!SwitchBetweenEnemies())
             //    SwitchTarget();
+            Debug.Log("Enemy down, switching to next");
             SwitchBetweenEnemies(Vector2.zero);
         }
             
@@ -94,7 +95,7 @@ public class SpringCamera : MonoBehaviour {
         CheckSwitchAndEnemies();
         CheckRightAxis();
 
-        CheckDontEnterInsideScenario();
+        //CheckDontEnterInsideScenario();
 	}
 
     private void OnGUI()
@@ -107,24 +108,24 @@ public class SpringCamera : MonoBehaviour {
     private void OnDrawGizmos()
     {
         //
-        Transform[] nearestEnemies = GetNearestEnemiesInScreenAndWorld();
-        if(nearestEnemies != null)
-        {
-            Vector3 enemyDirection;
-            // Del centro de la pantalla al enemigo mas cercano a esta
-            if (nearestEnemies[0] != null)
-            {
-                enemyDirection = nearestEnemies[0].position - transform.forward;
-                Debug.DrawRay(transform.forward + transform.position, enemyDirection, Color.blue);
-            }
+        //Transform[] nearestEnemies = GetNearestEnemiesInScreenAndWorld();
+        //if(nearestEnemies != null)
+        //{
+        //    Vector3 enemyDirection;
+        //    // Del centro de la pantalla al enemigo mas cercano a esta
+        //    if (nearestEnemies[0] != null)
+        //    {
+        //        enemyDirection = nearestEnemies[0].position - transform.forward;
+        //        Debug.DrawRay(transform.forward + transform.position, enemyDirection, Color.blue);
+        //    }
 
-            // Del player al enemigo mas cercano
-            enemyDirection = nearestEnemies[1].position - transform.position;
-            Debug.DrawRay(transform.position, enemyDirection, Color.green);
+        //    // Del player al enemigo mas cercano
+        //    enemyDirection = nearestEnemies[1].position - transform.position;
+        //    Debug.DrawRay(transform.position, enemyDirection, Color.green);
 
-            //
-            Debug.DrawRay(transform.position, transform.forward * 50, Color.red);
-        }
+        //    //
+        //    Debug.DrawRay(transform.position, transform.forward * 50, Color.red);
+        //}
         
     }
 
@@ -155,30 +156,38 @@ public class SpringCamera : MonoBehaviour {
         distanceToPoint = Vector3.ClampMagnitude(distanceToPoint, maxDistancePlayer);
         transform.position = idealPos - distanceToPoint;
 
-        //To look at the indicated point
-        //targetPos = currentTarget.TransformPoint(targetOffset);
-        //if (currentEnemy != null)
-        //    targetPos += currentEnemy.centralPointOffset;
-        //transform.LookAt(targetPos, Vector3.up);
+        
     }
 
     void UpdateRotation(float dt)
     {
+        //To look at the indicated point
+        if (currentTarget == targetPlayer)
+            targetPos = currentTarget.TransformPoint(targetOffset);
+        else
+            targetPos = currentTarget.position;
+        // TODO: Revisar esto
+        if (currentEnemy != null)
+            targetPos += currentEnemy.centralPointOffset;
         // Transición gradual entre objetivos para no marear al player
         if (transitionProgression < transitionTimeBetweenEnemies)
         {
-            Quaternion enemyDirection = Quaternion.LookRotation(currentTarget.position - transform.position);
+            Quaternion enemyDirection = Quaternion.LookRotation(targetPos - transform.position);
             transform.rotation = Quaternion.Slerp(previousObjectiveRotation, enemyDirection,
                 transitionProgression / transitionTimeBetweenEnemies);
             transitionProgression += dt;
         }
         else if (previousObjective == currentTarget)
         {
-            transform.LookAt(currentTarget);
+
+            transform.LookAt(targetPos);
         }
         // Aquí hacemos la transición
         else
         {
+            //
+            //Debug.Log("Switching objective");
+            //
             transitionProgression = 0;
             previousObjective = currentTarget;
             previousObjectiveRotation = transform.rotation;
@@ -189,6 +198,8 @@ public class SpringCamera : MonoBehaviour {
     // En proporcion a la velocidad del proyectil actual
     void AdjustToEnemyMovement()
     {
+        //
+        
         //currentTarget
     }
 
@@ -215,10 +226,14 @@ public class SpringCamera : MonoBehaviour {
             // Distancia al centro de pantalla
             Vector3 posInScreen = cameraComponent.WorldToViewportPoint(enemies[i].transform.position);
             // float distanceToCenter = Mathf.Sqrt(Mathf.Pow(posInScreen.x - 0.05f, 2) + Mathf.Pow(posInScreen.y - 0.05f, 2));
-            float distanceToCenter = Mathf.Pow(posInScreen.x - 0.05f, 2) + Mathf.Pow(posInScreen.y - 0.05f, 2);
+            float distanceToCenter = Mathf.Pow(posInScreen.x - 0.5f, 2) + Mathf.Pow(posInScreen.y - 0.5f, 2);
             //bool inScreen = posInScreen.x >= 0 && posInScreen.x <= 1 && posInScreen.y >= 0 && posInScreen.y <= 1;
             //bool inScreen = posInScreen.z > 0;
-            bool inScreen = posInScreen.x >= 0 && posInScreen.x <= 1 && posInScreen.y >= 0 && posInScreen.y <= 1 && posInScreen.z > 0;
+            bool inScreen = posInScreen.x >= 0 && posInScreen.x <= 1 && 
+                posInScreen.y >= 0 && posInScreen.y <= 1 && 
+                posInScreen.z > 0;
+            //
+            //Debug.Log(enemies[i].transform.name + ", in " + posInScreen);
             if (inScreen && distanceToCenter < minScreenDistance)
             {
                 minScreenDistance = distanceToCenter;
@@ -249,9 +264,14 @@ public class SpringCamera : MonoBehaviour {
     /// </summary>
     void CheckSwitchAndEnemies()
     {
+        //
+        //Transform previousTarget = currentTarget;
+        //
         if (inputManager.MarkObjectiveButton)
         {
-            // TODO: Hacer que vaya cambiando de enemigo
+            // TODO: Mirar por qué a veces no lo pilla
+            Debug.Log("Mark button down");
+            // 
             if(currentTarget == targetPlayer)
             {
                 Transform[] nearestEnemies = GetNearestEnemiesInScreenAndWorld();
@@ -260,12 +280,14 @@ public class SpringCamera : MonoBehaviour {
                 if(nearestEnemies[0] != null)
                 {
                     SwitchTarget(nearestEnemies[0]);
+                    //Debug.Log("Switching from " + previousObjective + " to " + currentTarget + " in screen");
                 }
                     
                 // And the nearest in world if not
                 else if(nearestEnemies[1] != null)
                 {
                     SwitchTarget(nearestEnemies[1]);
+                    //Debug.Log("Switching from " + previousObjective + " to " + currentTarget + " in world");
                 }
                     
             }
@@ -320,6 +342,7 @@ public class SpringCamera : MonoBehaviour {
         //
         if (enemies.Length == 0)
         {
+            Debug.Log("No active enemies");
             SwitchTarget();
             return;
         }
@@ -334,7 +357,7 @@ public class SpringCamera : MonoBehaviour {
             Vector3 enemyViewPortCoordinates = cameraComponent.WorldToViewportPoint(enemies[i].transform.position);
             Vector2 coordinatesFromScreenCenter = new Vector2(enemyViewPortCoordinates.x - 0.5f, enemyViewPortCoordinates.y - 0.5f);
             // Con angulo en este caso
-            if (rightAxis.magnitude != 0)
+            if (rightAxis.magnitude > 0.1f)
             {
                 // Ahora sacamos el angulo
                 float angle = Mathf.Atan2(coordinatesFromScreenCenter.y, coordinatesFromScreenCenter.x);
@@ -348,7 +371,8 @@ public class SpringCamera : MonoBehaviour {
             }
             else // Con distancia en elk otro
             {
-                //TODO: Asegurarnos primero de que esté en pantalla
+                //Debug.Log("Checking if enemy on screen before killing one, pos: " + enemyViewPortCoordinates);
+                // Nos asegurarnos primero de que esté en pantalla
                 bool inScreen = enemyViewPortCoordinates.x >= 0 && enemyViewPortCoordinates.x <= 1 && 
                     enemyViewPortCoordinates.y >= 0 && enemyViewPortCoordinates.y <= 1 && 
                     enemyViewPortCoordinates.z > 0;
@@ -367,6 +391,7 @@ public class SpringCamera : MonoBehaviour {
         }
         else
         {
+            Debug.Log("No more enemies in screen");
             SwitchTarget();
         }
     }
@@ -381,15 +406,15 @@ public class SpringCamera : MonoBehaviour {
         if (newTarget == null)
         {
             currentTarget = targetPlayer;
-            targetOffset.x = 3;
+            //targetOffset.x = 3;
         }
         else
         {
             currentTarget = newTarget;
-            targetOffset.x = 0;
+            //targetOffset.x = 0;
         }
         // In any case
-        targetOffset.y = 0;
+        //targetOffset.y = 0;
     }
 
     /// <summary>

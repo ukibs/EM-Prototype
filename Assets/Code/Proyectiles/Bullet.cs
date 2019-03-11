@@ -18,7 +18,7 @@ public class Bullet : MonoBehaviour {
 
 	// Use this for initialization
 	protected virtual void Start () {
-        Debug.Log("Starting bullet");
+        //Debug.Log("Starting bullet");
         rb = GetComponent<Rigidbody>();
         Destroy(gameObject, lifeTime);
     }

@@ -9,6 +9,7 @@ public class ProvisionalHUD : MonoBehaviour {
 
     public Texture crossTexture;
     public Texture enemyMarkerTexture;
+    public Texture enemyInScreenTexture;
     public Texture diamondsTexture;
 
     // Color Textures
@@ -66,6 +67,9 @@ public class ProvisionalHUD : MonoBehaviour {
 
         //
         PlayerHealthAndShields();
+
+        //
+        MarkEnemiesOnScreen();
 
         // Abilities diamond and icons
         GUI.DrawTexture(new Rect(Screen.width - 200, Screen.height - 200, 200, 200), diamondsTexture);
@@ -229,7 +233,34 @@ public class ProvisionalHUD : MonoBehaviour {
         }
         else
         {
-            cameraControl.SwitchTarget(null);
+            // TODO: Revisar si quería ahcef esto aqui
+            //cameraControl.SwitchTarget(null);
+        }
+    }
+
+    //
+    void MarkEnemiesOnScreen()
+    {
+        //
+        EnemyConsistency[] enemies = FindObjectsOfType<EnemyConsistency>();
+        if (enemies.Length == 0)
+            return;
+        //
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            // Distancia al centro de pantalla
+            Vector3 posInScreen =  Camera.main.WorldToViewportPoint(enemies[i].transform.position);
+            bool inScreen = posInScreen.x >= 0 && posInScreen.x <= 1 &&
+                posInScreen.y >= 0 && posInScreen.y <= 1 &&
+                posInScreen.z > 0;
+            //
+            if (inScreen)
+            {
+                GUI.DrawTexture(new Rect(
+                    posInScreen.x * Screen.width - 15,
+                    Screen.height - posInScreen.y * Screen.height - 50, 30, 30),
+                    enemyInScreenTexture);
+            }
         }
     }
 }
