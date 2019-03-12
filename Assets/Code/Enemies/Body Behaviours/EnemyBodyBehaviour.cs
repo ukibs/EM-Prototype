@@ -44,7 +44,12 @@ public class EnemyBodyBehaviour : MonoBehaviour
         // TODO: Ver como hacerlo con las torretas que tienen coliders como hijos
         for (int i = 0; i < turrets.Length; i++)
         {
-            Physics.IgnoreCollision(GetComponent<Collider>(), turrets[i].GetComponent<Collider>());
+            // Torretas con un collider (en la propia torreta)
+            Collider turretCollider = GetComponent<Collider>();
+            if(turretCollider != null)
+                Physics.IgnoreCollision(turretCollider, turrets[i].GetComponent<Collider>());
+            // Torreteas con varios colliders (en los hijos)
+            // TODO: Hacerlo
         }
 
     }

@@ -84,7 +84,7 @@ public class SpringCamera : MonoBehaviour {
         {
             //if(!SwitchBetweenEnemies())
             //    SwitchTarget();
-            Debug.Log("Enemy down, switching to next");
+            //Debug.Log("Enemy down, switching to next");
             SwitchBetweenEnemies(Vector2.zero);
         }
             

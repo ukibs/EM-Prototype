@@ -207,6 +207,7 @@ MonoBehaviour:
     type: 3}
   shootForce: 10
   muzzleSpeed: 840
+  typeOfFire: 0
   debugging: 0
   shootCalculation: 1
   maxRotationOffset: {x: 45, y: 0}
@@ -465,7 +466,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!114 &5744197045790495158
 MonoBehaviour:
@@ -480,8 +481,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBetweenActionChecking: 1
-  motorForce: 5
-  rotationSpeed: 90
+  motorForce: 1
+  rotationSpeed: 135
   turrets:
   - {fileID: 5340031350559413623}
   weapons: []
@@ -634,7 +635,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapons:
   - {fileID: 8682708634131207666}
-  turretRotationSpeed: 90
+  turretRotationSpeed: 135
   maxRotationOffset: 0
 --- !u!54 &435814303862840698
 Rigidbody:

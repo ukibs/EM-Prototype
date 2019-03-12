@@ -272,6 +272,21 @@ public class RobotControl : MonoBehaviour {
                     //Vector3 enemyEstimatedPosition = 
                     //    GeneralFunctions.AnticipateObjectivePositionForAiming(transform.position, targetPoint, enemyRb.velocity, , dt);
                 }
+                // TODO: Hcaer esto más optimizado
+                Rigidbody enemyRigidbody = cameraControl.CurrentTarget.GetComponent<Rigidbody>();
+                if(enemyRigidbody != null)
+                {
+                    // TODO: Sacar la muzzle speed del arma equipada
+                    switch (attackMode)
+                    {
+                        case AttackMode.RapidFire:
+                            break;
+                    }
+                    //
+                    targetPoint = GeneralFunctions.AnticipateObjectivePositionForAiming(
+                        transform.position, targetPoint, enemyRigidbody.velocity, 1500, dt);
+                }
+                
                 //
                 transform.LookAt(targetPoint, currentUp);
             }                
@@ -596,9 +611,10 @@ public class RobotControl : MonoBehaviour {
                     // Anticipamos posicion del enemigo
                     // TODO: Hacer esto menos guarro
                     Rigidbody enemyRb = enemyConsistency.transform.GetComponent<Rigidbody>();
-                    targetPoint = GeneralFunctions.AnticipateObjectivePositionForAiming(machineGunPoints[i].position, 
-                        targetPoint, enemyRb.velocity,
-                        gameManager.rapidFireMuzzleSpeed, dt);
+                    if(enemyRb != null)
+                        targetPoint = GeneralFunctions.AnticipateObjectivePositionForAiming(machineGunPoints[i].position, 
+                            targetPoint, enemyRb.velocity,
+                            gameManager.rapidFireMuzzleSpeed, dt);
                     //Añaidmos compensación de caida
                     targetPoint.y += GeneralFunctions.GetProyectileFallToObjective(machineGunPoints[i].position, targetPoint, 
                         gameManager.rapidFireMuzzleSpeed);

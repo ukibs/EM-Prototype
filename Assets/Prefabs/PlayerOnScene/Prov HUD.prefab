@@ -50,6 +50,8 @@ MonoBehaviour:
   enemyInScreenTexture: {fileID: 2800000, guid: b01b57f3fd7e5c940bbcf4d8f12bd54d,
     type: 3}
   diamondsTexture: {fileID: 2800000, guid: c4f9870224055bd4983500d29768eba0, type: 3}
+  shieldDamageTexture: {fileID: 2800000, guid: 969d79137caee724c9050dcbd6c991a8, type: 3}
+  hullDamageTexture: {fileID: 2800000, guid: 021dce26599f7ac42a94f1f3f10b37fd, type: 3}
   chargeTexture: {fileID: 2800000, guid: e3d0ff31924015d4a923c058090e8be0, type: 3}
   playerShieldTexture: {fileID: 2800000, guid: 363cd9e084b68e74588ef95eb00167df, type: 3}
   playerHealthTexture: {fileID: 2800000, guid: 67ee8361b4fc5924293ee6dcae9ada30, type: 3}

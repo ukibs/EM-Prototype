@@ -11,6 +11,8 @@ public class ProvisionalHUD : MonoBehaviour {
     public Texture enemyMarkerTexture;
     public Texture enemyInScreenTexture;
     public Texture diamondsTexture;
+    public Texture shieldDamageTexture;
+    public Texture hullDamageTexture;
 
     // Color Textures
     public Texture chargeTexture;
@@ -35,12 +37,16 @@ public class ProvisionalHUD : MonoBehaviour {
     //Defense ones
     public Texture sphereDefenseTexture;
 
+    //
+    public float damageIndicatorLifeTime = 0.5f;
+
     private RobotControl robotControl;
     private Camera mainCamera;
     private ImpactInfoManager impactInfoManager;
     private SpringCamera cameraControl;
     private GameManager gameManager;
     private PlayerIntegrity playerIntegrity;
+    private List<DamageIndicator> damageIndicators;
 
 	// Use this for initialization
 	void Start () {
@@ -50,11 +56,15 @@ public class ProvisionalHUD : MonoBehaviour {
         cameraControl = mainCamera.GetComponent<SpringCamera>();
         gameManager = FindObjectOfType<GameManager>();
         playerIntegrity = FindObjectOfType<PlayerIntegrity>();
+        damageIndicators = new List<DamageIndicator>(20);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+        //
+        float dt = Time.deltaTime;
+        //
+        UpdateDamageIndicators(dt);
 	}
 
     private void OnGUI()
@@ -142,6 +152,9 @@ public class ProvisionalHUD : MonoBehaviour {
                     Screen.height - impactInfoManager.ImpactInfoList[i].screenPosition.y + 10, 100, 100), 
                     impactInfoManager.ImpactInfoList[i].extraInfo, guiSkin.label);
         }
+
+        //
+        DrawDamageIndicators();
     }
 
     //
@@ -263,4 +276,74 @@ public class ProvisionalHUD : MonoBehaviour {
             }
         }
     }
+
+    //
+    public void AddDamageIndicator(float angle, DamageType damageType)
+    {
+        DamageIndicator newDamageIndicator = new DamageIndicator();
+        newDamageIndicator.angle = angle;
+        newDamageIndicator.damageType = damageType;
+        //
+        damageIndicators.Add(newDamageIndicator);
+    }
+
+    //
+    void UpdateDamageIndicators(float dt)
+    {
+        for(int i = 0; i < damageIndicators.Count; i++)
+        {
+            damageIndicators[i].timeAlive += dt;
+            // Luego metemos parámetro bien
+            if (damageIndicators[i].timeAlive >= damageIndicatorLifeTime)
+                damageIndicators.RemoveAt(i);
+        }
+    }
+
+    //
+    private void DrawDamageIndicators()
+    {
+        GUI.BeginGroup(new Rect(0, 0, Screen.width, Screen.height));
+        for (int i = 0; i < damageIndicators.Count; i++)
+        {
+            Vector2 pivotPoint = new Vector2(Screen.width / 2, Screen.height / 2);
+            GUIUtility.RotateAroundPivot(damageIndicators[i].angle, pivotPoint);
+            //
+            Texture textureToUse = shieldDamageTexture;
+            switch (damageIndicators[i].damageType)
+            {
+                case DamageType.Shield:
+                    textureToUse = shieldDamageTexture;
+                    break;
+                case DamageType.Hull:
+                    textureToUse = hullDamageTexture;
+                    break;
+            }
+            //
+            float alpha = damageIndicators[i].timeAlive / damageIndicatorLifeTime;
+            GUI.color = new Color(1,1,1,alpha);
+            //
+            GUI.DrawTexture(new Rect(Screen.width / 2 - 50, Screen.height * 3/4, 100, 100), textureToUse);
+        }
+        GUI.EndGroup();
+        //
+        GUI.color = new Color(1, 1, 1, 1);
+    }
+}
+
+public enum DamageType
+{
+    Invalid = -1,
+
+    Shield,
+    Hull,
+
+    Count
+}
+
+public class DamageIndicator
+{
+    public float angle;
+    public float timeAlive;
+    public float alpha;
+    public DamageType damageType;
 }

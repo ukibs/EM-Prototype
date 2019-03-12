@@ -21,6 +21,8 @@ public class EnemySustentedAirBody : EnemyBodyBehaviour
     protected override void Update()
     {
         //
+        base.Update();
+        //
         float offsetFromIdealHeight = idealHeight - transform.position.y;
         if (offsetFromIdealHeight > 0)
             rb.AddForce(Vector3.up * offsetFromIdealHeight, ForceMode.Impulse);

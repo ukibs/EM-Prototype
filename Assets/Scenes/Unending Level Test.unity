@@ -664,13 +664,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefabsToUse:
-  - {fileID: 8329669763865831805, guid: 6cae011391e68224bb27cf7f3b12ae09, type: 3}
-  - {fileID: 8329669763865831805, guid: 6cae011391e68224bb27cf7f3b12ae09, type: 3}
-  - {fileID: 8329669763865831805, guid: 6cae011391e68224bb27cf7f3b12ae09, type: 3}
-  initialGroupToSpawnSize: 030000000300000001000000
-  continuousGroupToSpawnSize: 010000000300000001000000
-  maxEnemiesInAction: 10
-  timeBetweenSpawns: 10
+  - {fileID: 1855539494821730081, guid: ca3ac9391a0c2e343b4e847610721693, type: 3}
+  initialGroupToSpawnSize: 01000000
+  continuousGroupToSpawnSize: 01000000
+  maxEnemiesInAction: 30
+  timeBetweenSpawns: 100
   minSpawnDistance: 200
   maxSpawnDistance: 400
 --- !u!82 &1202333124
@@ -1141,6 +1139,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347693450630458015, guid: 0f92d9c73e3b55d4fae6526741753dd6,
+        type: 3}
+      propertyPath: damageIndicatorLifeTime
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f92d9c73e3b55d4fae6526741753dd6, type: 3}
