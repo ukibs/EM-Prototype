@@ -666,9 +666,9 @@ MonoBehaviour:
   enemyPrefabsToUse:
   - {fileID: 8329669763865831805, guid: 1476ef15dd263e74cb8f6f4e7a54bda4, type: 3}
   - {fileID: 8329669763865831805, guid: ad3ed2759885ede43924299467c114d5, type: 3}
-  initialGroupToSpawnSize: 0500000001000000
-  continuousGroupToSpawnSize: 0500000001000000
-  maxEnemiesInAction: 30
+  initialGroupToSpawnSize: 0a00000002000000
+  continuousGroupToSpawnSize: 0a00000002000000
+  maxEnemiesInAction: 100
   timeBetweenSpawns: 10
   minSpawnDistance: 200
   maxSpawnDistance: 400

@@ -122,15 +122,15 @@ public static class GeneralFunctions
         // Determinamos la distancia para ver cuanto anticipar en función de nuestra muzzle speed
         float distanceToPlayer = (objectivePosition - selfPosition).magnitude;
         // Let's check the calculations
-        float timeWithoutDrag = referenceWeaponMuzzleSpeed / distanceToPlayer * dt;
+        float timeWithoutDrag = distanceToPlayer / referenceWeaponMuzzleSpeed;
         Vector3 objectivePositionWithEstimation = objectivePosition + (objectiveVelocity * timeWithoutDrag);
         // TODO: Sacar posición del objetivo con ese tiempo
-        float timeWithDrag = EstimateFlyingTimeWithDrag(selfPosition, objectivePosition, referenceWeaponMuzzleSpeed, 0.1f);
+        float timeWithDrag = EstimateFlyingTimeWithDrag(selfPosition, objectivePositionWithEstimation, referenceWeaponMuzzleSpeed, 0.1f);
         // Debug.Log("Time without drag: " + timeWithoutDrag + ", with drag: " + timeWithDrag);
         float timeForBulletToReachPlayer = timeWithDrag * 1;
 
         //playerFutureEstimatedPosition = objectivePosition + (objectiveVelocity * timeForBulletToReachPlayer);
-        playerFutureEstimatedPosition = objectivePositionWithEstimation + (objectiveVelocity * timeForBulletToReachPlayer);
+        playerFutureEstimatedPosition = objectivePosition + (objectiveVelocity * timeForBulletToReachPlayer);
 
         return playerFutureEstimatedPosition;
     }
