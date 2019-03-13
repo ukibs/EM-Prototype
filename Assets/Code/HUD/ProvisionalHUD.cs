@@ -10,6 +10,8 @@ public class ProvisionalHUD : MonoBehaviour {
     public Texture crossTexture;
     public Texture enemyMarkerTexture;
     public Texture enemyInScreenTexture;
+    public Texture targetedEnemyEstimatedFuturePositionTexture;
+    public Texture testingVelocityIcon;
     public Texture diamondsTexture;
     public Texture shieldDamageTexture;
     public Texture hullDamageTexture;
@@ -142,7 +144,7 @@ public class ProvisionalHUD : MonoBehaviour {
 
             //Vector3 screenCoordinates = mainCamera.WorldToScreenPoint(impactInfoManager.ImpactInfoList[i].position);
 
-            //
+            // Datos del impact info manager
             GUI.Label(new Rect(impactInfoManager.ImpactInfoList[i].screenPosition.x,
                 Screen.height - impactInfoManager.ImpactInfoList[i].screenPosition.y, 
                 100, 100), impactInfoManager.ImpactInfoList[i].info, guiSkin.label);
@@ -203,45 +205,72 @@ public class ProvisionalHUD : MonoBehaviour {
     //
     void EnemyStats()
     {
-        // Empezamos pintando el marcardor en la posición del enemigo en patnalla
-        Vector3 enemyScreenPosition = Camera.main.WorldToViewportPoint(cameraControl.CurrentTarget.position);
-        GUI.DrawTexture(new Rect(
-            enemyScreenPosition.x * Screen.width - 50,
-            Screen.height - enemyScreenPosition.y * Screen.height - 50, 100, 100), 
-            enemyMarkerTexture);
+        
         //
-        EnemyConsistency enemyConsistency = cameraControl.CurrentTarget.GetComponent<EnemyConsistency>();
+        EnemyConsistency enemyConsistency = EnemyAnalyzer.enemyConsistency;
         //
         if (enemyConsistency != null)
         {
-            //EnemyConsistency enemyConsistency = cameraControl.CurrentTarget.GetComponent<EnemyConsistency>();
-            //
+            // Empezamos pintando el marcardor en la posición del enemigo en patnalla
+            Vector3 enemyScreenPosition = Camera.main.WorldToViewportPoint(cameraControl.CurrentTarget.position);
+            GUI.DrawTexture(new Rect(
+                enemyScreenPosition.x * Screen.width - 50,
+                Screen.height - enemyScreenPosition.y * Screen.height - 50, 100, 100),
+                enemyMarkerTexture);
+
+            // Marcador de posición estimada del enemigo
+            Vector3 anticipatedPositionInScreen = mainCamera.WorldToViewportPoint(EnemyAnalyzer.estimatedToHitPosition);
+            GUI.DrawTexture(new Rect(
+                anticipatedPositionInScreen.x * Screen.width - 5,
+                Screen.height - anticipatedPositionInScreen.y * Screen.height - 5, 10, 10),
+                targetedEnemyEstimatedFuturePositionTexture);
+
+            // Testing con la velocity
+            Vector3 rbDirection1 = EnemyAnalyzer.enemyTransform.position + (EnemyAnalyzer.enemyRb.velocity * 1);
+            rbDirection1 = mainCamera.WorldToViewportPoint(rbDirection1);
+            GUI.DrawTexture(new Rect(
+                rbDirection1.x * Screen.width - 5,
+                Screen.height - rbDirection1.y * Screen.height - 5, 10, 10),
+                testingVelocityIcon);
+            Vector3 rbDirection2 = EnemyAnalyzer.enemyTransform.position + (EnemyAnalyzer.enemyRb.velocity * 2);
+            rbDirection2 = mainCamera.WorldToViewportPoint(rbDirection2);
+            GUI.DrawTexture(new Rect(
+                rbDirection2.x * Screen.width - 5,
+                Screen.height - rbDirection2.y * Screen.height - 5, 10, 10),
+                testingVelocityIcon);
+
+
+            // Barra de vida (chasis)
             float enemyChasisHealthForBar = enemyConsistency.CurrentChasisHealth / enemyConsistency.maxChasisHealth;
             enemyChasisHealthForBar = Mathf.Clamp01(enemyChasisHealthForBar);
             GUI.DrawTexture(new Rect(Screen.width / 2 + 150, Screen.height / 2 - 50, enemyChasisHealthForBar * 100f, 20), enemyChasisTexture);
             GUI.Label(new Rect(Screen.width / 2 + 150, Screen.height / 2 - 50, 100f, 20), " " + enemyConsistency.CurrentChasisHealth);
-            //
+            // Barra de vida (core)
             float enemyCoreHealthForBar = enemyConsistency.CurrentCoreHealth / enemyConsistency.maxCoreHealth;
             enemyCoreHealthForBar = Mathf.Clamp01(enemyCoreHealthForBar);
             GUI.DrawTexture(new Rect(Screen.width / 2 + 150, Screen.height / 2 - 30, enemyCoreHealthForBar * 100f, 20), enemyCoreTexture);
             GUI.Label(new Rect(Screen.width / 2 + 150, Screen.height / 2 - 30, 100f, 20), " " + enemyConsistency.CurrentCoreHealth);
+
+            
+            
             // TODO: Sacar distancia
 
             
             // Raycast para sacar el blindaje a tiro
-            RaycastHit hitInfo;
-            if (Physics.Raycast(cameraControl.transform.position, cameraControl.transform.forward, out hitInfo))
-            {
-                //Debug.Log(hitInfo.transform.name);
-                EnemyCollider enemyCollider = hitInfo.collider.GetComponent<EnemyCollider>();
-                //Debug.Log("Enemy collider: " + enemyCollider);
-                if (enemyCollider != null)
-                {
+            // Lo quitamos de momento a ver como afecta al performance
+            //RaycastHit hitInfo;
+            //if (Physics.Raycast(cameraControl.transform.position, cameraControl.transform.forward, out hitInfo))
+            //{
+            //    //Debug.Log(hitInfo.transform.name);
+            //    EnemyCollider enemyCollider = hitInfo.collider.GetComponent<EnemyCollider>();
+            //    //Debug.Log("Enemy collider: " + enemyCollider);
+            //    if (enemyCollider != null)
+            //    {
                     
-                    GUI.Label(new Rect(Screen.width / 2 + 150, Screen.height / 2, 100, 20), "Armor: " + enemyCollider.armor, guiSkin.label);
+            //        GUI.Label(new Rect(Screen.width / 2 + 150, Screen.height / 2, 100, 20), "Armor: " + enemyCollider.armor, guiSkin.label);
 
-                }
-            }
+            //    }
+            //}
             
         }
         else
@@ -249,12 +278,16 @@ public class ProvisionalHUD : MonoBehaviour {
             // TODO: Revisar si quería ahcef esto aqui
             //cameraControl.SwitchTarget(null);
         }
+
+        // TODO: Punto de estimada posición futura de enemuigo
+        //robotControl.
     }
 
     //
     void MarkEnemiesOnScreen()
     {
         //
+        // TODO: Cogerlo por refencia del manager apropiado cuando lo tengamos listo
         EnemyConsistency[] enemies = FindObjectsOfType<EnemyConsistency>();
         if (enemies.Length == 0)
             return;
@@ -323,6 +356,8 @@ public class ProvisionalHUD : MonoBehaviour {
             GUI.color = new Color(1,1,1,alpha);
             //
             GUI.DrawTexture(new Rect(Screen.width / 2 - 50, Screen.height * 3/4, 100, 100), textureToUse);
+            //
+            GUIUtility.RotateAroundPivot(-damageIndicators[i].angle, pivotPoint);
         }
         GUI.EndGroup();
         //

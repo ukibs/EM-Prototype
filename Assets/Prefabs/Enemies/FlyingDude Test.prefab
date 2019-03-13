@@ -202,7 +202,7 @@ MonoBehaviour:
   mainWeapon: 1
   rotationSpeed: {x: 90, y: 0}
   rateOfFire: 4
-  range: 1000
+  range: 300
   proyectilePrefab: {fileID: 1952744711831650, guid: 90ed44b7bb6cd0043974157c2d3d663c,
     type: 3}
   shootForce: 10
@@ -460,7 +460,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7079315618913130039}
   serializedVersion: 2
-  m_Mass: 4.5
+  m_Mass: 3
   m_Drag: 0.1
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -481,7 +481,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBetweenActionChecking: 1
-  motorForce: 1
+  motorForce: 1.5
   rotationSpeed: 135
   turrets:
   - {fileID: 5340031350559413623}

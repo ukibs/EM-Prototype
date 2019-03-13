@@ -106,12 +106,7 @@ public class PlayerIntegrity : MonoBehaviour
                     break;
             }
         }
-        //
-        Vector3 impactDirection = contactPoint - transform.position;
-        impactDirection = collidingRB.velocity.normalized;
-        // impactDirection.y = 0;
-        float impactAngle = Vector3.Angle(Camera.main.transform.forward, impactDirection);
-
+        
         //
         Rigidbody rb = collidingRB;
         
@@ -121,6 +116,13 @@ public class PlayerIntegrity : MonoBehaviour
         if (rb == null)
             rb = GetComponent<Rigidbody>();
         Vector3 impactSpeed = rb.velocity;
+
+        //
+        Vector3 impactDirection = contactPoint - transform.position;
+        impactDirection = rb.velocity.normalized;
+        // impactDirection.y = 0;
+        float impactAngle = Vector3.SignedAngle(Camera.main.transform.forward, impactDirection, transform.up);
+
         //
         float impactForce = impactSpeed.magnitude * rb.mass;
         

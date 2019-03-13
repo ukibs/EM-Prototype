@@ -9,6 +9,7 @@ public enum Actions
     GoingToPlayer,
     EncirclingPlayer,
     FacingPlayer,
+    Fleeing,
 
     Count
 }
@@ -65,7 +66,8 @@ public class EnemyBodyBehaviour : MonoBehaviour
         {
             //
             timeFromLastCheck += dt;
-            if (timeFromLastCheck > timeBetweenActionChecking)
+            // Si huyen qe no chequeen mas acciones
+            if (timeFromLastCheck > timeBetweenActionChecking && currentAction != Actions.Fleeing)
             {
                 CheckActionToDo();
                 DecideActionToDo();
@@ -92,6 +94,10 @@ public class EnemyBodyBehaviour : MonoBehaviour
                     transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, playerCross, rotationSpeed, dt);
                     GiveItGas();
                     break;
+                case Actions.Fleeing:
+                    transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, -playerDirection, rotationSpeed, dt);
+                    GiveItGas();
+                    break;
             }
 
             // Damp para que no se desmadren
@@ -100,19 +106,19 @@ public class EnemyBodyBehaviour : MonoBehaviour
         }
     }
 
-    //private void OnDrawGizmos()
-    //{
-    //    //
-    //    if (player != null)
-    //    {
-    //        Debug.DrawRay(transform.position, transform.forward * 5, Color.blue);
-    //        Vector3 playerDirection = player.transform.position - transform.position;
-    //        Debug.DrawRay(transform.position, playerDirection, Color.red);
-    //    }
-
-    //}
-
+    private void OnDrawGizmos()
+    {
         //
+        if (player != null)
+        {
+            Debug.DrawRay(transform.position, rb.velocity, Color.blue);
+            //Vector3 playerDirection = player.transform.position - transform.position;
+            //Debug.DrawRay(transform.position, playerDirection, Color.red);
+        }
+
+    }
+
+    //
     protected virtual void GiveItGas()
     {
         
@@ -129,7 +135,8 @@ public class EnemyBodyBehaviour : MonoBehaviour
             switch (behaviour[i])
             {
                 case Actions.EncirclingPlayer:
-                    if (HasRemainingTurrets())
+                    Vector3 playerDistance = player.transform.position - transform.position;
+                    if (HasRemainingTurrets() && playerDistance.magnitude < MainWeaponsMinRange())
                     {
                         // Añadiremos también que le queden armas
                         currentAction = behaviour[i];
@@ -177,7 +184,7 @@ public class EnemyBodyBehaviour : MonoBehaviour
     /// 
     /// </summary>
     /// <returns></returns>
-    bool HasRemainingTurrets()
+    protected bool HasRemainingTurrets()
     {
         bool hasReaminingTurrets = false;
 

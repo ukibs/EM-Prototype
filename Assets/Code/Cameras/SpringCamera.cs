@@ -80,7 +80,8 @@ public class SpringCamera : MonoBehaviour {
         //UpdateRotation(dt);
         // TODO: Hacerlo de forma menos guarra
         //else 
-        if (currentTarget != targetPlayer && currentTarget.GetComponent<EnemyConsistency>() == null)
+        if (currentTarget != targetPlayer && EnemyAnalyzer.enemyConsistency == null)
+            //currentTarget.GetComponent<EnemyConsistency>() == null)
         {
             //if(!SwitchBetweenEnemies())
             //    SwitchTarget();
@@ -90,6 +91,7 @@ public class SpringCamera : MonoBehaviour {
             
 
         UpdateMovement (dt);
+        AdjustToEnemyMovement(dt);
         UpdateRotation(dt);
         UpdateUp(targetPlayer.up);
         CheckSwitchAndEnemies();
@@ -161,14 +163,17 @@ public class SpringCamera : MonoBehaviour {
 
     void UpdateRotation(float dt)
     {
-        //To look at the indicated point
+        // To look at the indicated point
+        // Si el target es el player el objetivo viene determinado por los controloes
         if (currentTarget == targetPlayer)
             targetPos = currentTarget.TransformPoint(targetOffset);
-        else
-            targetPos = currentTarget.position;
+        // Si no este es ajusatado en AdjustToEnemyMovement
+        //else
+        //    targetPos = currentTarget.position;
+
         // TODO: Revisar esto
-        if (currentEnemy != null)
-            targetPos += currentEnemy.centralPointOffset;
+        //if (currentEnemy != null)
+        //    targetPos += currentEnemy.centralPointOffset;
         // Transición gradual entre objetivos para no marear al player
         if (transitionProgression < transitionTimeBetweenEnemies)
         {
@@ -196,11 +201,25 @@ public class SpringCamera : MonoBehaviour {
 
     // TODO: Hacer que la cámara se enfoque en el punto que va a ocupar el enemigo
     // En proporcion a la velocidad del proyectil actual
-    void AdjustToEnemyMovement()
+    // Será aqui donde trabajemos el fijado
+    void AdjustToEnemyMovement(float dt)
     {
         //
-        
-        //currentTarget
+        if (!EnemyAnalyzer.isActive)
+            return;
+        // Empezamos cogiendo la posición del enemigo
+        Vector3 targetPoint = EnemyAnalyzer.enemyTransform.TransformPoint(EnemyAnalyzer.enemyConsistency.centralPointOffset);
+        // TODO: Sacar un índice del arma actualmente equipada para usar su muzzle speed en la función de atnicpar
+        Rigidbody enemyRigidbody = EnemyAnalyzer.enemyRb;
+        // Determinamos donde va a estar cuando el proyectil llegue a él
+        EnemyAnalyzer.estimatedToHitPosition = GeneralFunctions.AnticipateObjectivePositionForAiming(
+            transform.position, targetPoint, enemyRigidbody.velocity, 1500, dt);
+        // Determinamos el 
+        // TODO: Coger el punto de disparo del plauer
+        EnemyAnalyzer.estimatedToHitPosition.y += GeneralFunctions.GetProyectileFallToObjective(transform.position,
+            EnemyAnalyzer.estimatedToHitPosition, 1500);
+            //
+        targetPos = EnemyAnalyzer.estimatedToHitPosition;
     }
 
     /// <summary>
@@ -386,8 +405,9 @@ public class SpringCamera : MonoBehaviour {
         //
         if(nearestEnemy > -1)
         {
-            currentEnemy = enemies[nearestEnemy];
-            currentTarget = enemies[nearestEnemy].transform;
+            //currentEnemy = enemies[nearestEnemy];
+            //currentTarget = enemies[nearestEnemy].transform;
+            SwitchTarget(enemies[nearestEnemy].transform);
         }
         else
         {
@@ -406,11 +426,14 @@ public class SpringCamera : MonoBehaviour {
         if (newTarget == null)
         {
             currentTarget = targetPlayer;
+            EnemyAnalyzer.Release();
             //targetOffset.x = 3;
         }
         else
         {
+            // TODO: Sustituirlo del todo
             currentTarget = newTarget;
+            EnemyAnalyzer.Assign(newTarget);
             //targetOffset.x = 0;
         }
         // In any case
@@ -442,4 +465,31 @@ public class SpringCamera : MonoBehaviour {
         }
     }
     #endregion
+}
+
+// De momento lo hacemos aqui
+// Ya que solo es uno a la vez vamos a hacerlo estático
+public static class EnemyAnalyzer
+{
+    public static Transform enemyTransform;
+    public static Rigidbody enemyRb;
+    public static EnemyConsistency enemyConsistency;
+    public static Vector3 estimatedToHitPosition;
+    public static bool isActive = false;
+
+    public static void Assign(Transform enemyReference)
+    {
+        enemyTransform = enemyReference;
+        enemyRb = enemyReference.GetComponent<Rigidbody>();
+        enemyConsistency = enemyReference.GetComponent<EnemyConsistency>();
+        isActive = true;
+    }
+
+    public static void Release()
+    {
+        enemyTransform = null;
+        enemyRb = null;
+        enemyConsistency = null;
+        isActive = false;
+    }
 }

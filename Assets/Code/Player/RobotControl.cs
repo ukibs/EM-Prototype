@@ -101,6 +101,9 @@ public class RobotControl : MonoBehaviour {
     private bool applyingDamping = true;
     private bool adhering = false;
 
+    // Testeo
+    private bool paused = false;
+
     #region Properties
 
     public float ChargedAmount { get { return chargedAmount; } }
@@ -149,13 +152,37 @@ public class RobotControl : MonoBehaviour {
             CheckActionChange();
             CheckAndFire(dt);
             CheckDefense();
-        }        
+        }
+        //
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            //Debug.Log("Triynig to pause");
+            if (!paused)
+            {
+                Time.timeScale = 0;
+                paused = true;
+            }
+            else
+            {
+                Time.timeScale = 1;
+                paused = false;
+            }
+        }
     }
 
     private void OnGUI()
     {
         //GUI.Label(new Rect(20, Screen.height - 30, 200, 20), previousChargeAmount + ", " + chargeAmount);
         //GUI.Label(new Rect(20, Screen.height - 30, 200, 20), actionCharging + ", " + chargedAmount);
+    }
+
+    private void OnDrawGizmos()
+    {
+       
+        //Debug.DrawRay(transform.position, rb.velocity, Color.blue);
+        //Vector3 playerDirection = player.transform.position - transform.position;
+        Debug.DrawRay(transform.position, transform.forward * 300, Color.red);
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -261,34 +288,36 @@ public class RobotControl : MonoBehaviour {
             // Puesto aqui por si sacamos más casos (cinematicas por ejemplo)
             if (!cameraControl.TargetingPlayer)
             {
-                // TODO: Hcaer esto más optimizado
-                EnemyConsistency enemyConsistency = cameraControl.CurrentTarget.GetComponent<EnemyConsistency>();
-                Vector3 targetPoint = cameraControl.CurrentTarget.position; 
-                if(enemyConsistency != null)
-                {
-                    targetPoint += enemyConsistency.centralPointOffset;
-                    // TODO: Sacar un índice del arma actualmente equipada para usar su muzzle speed en la función de atnicpar
-                    //Rigidbody enemyRb = enemyConsistency.transform.GetComponent<Rigidbody>();
-                    //Vector3 enemyEstimatedPosition = 
-                    //    GeneralFunctions.AnticipateObjectivePositionForAiming(transform.position, targetPoint, enemyRb.velocity, , dt);
-                }
-                // TODO: Hcaer esto más optimizado
-                Rigidbody enemyRigidbody = cameraControl.CurrentTarget.GetComponent<Rigidbody>();
-                if(enemyRigidbody != null)
-                {
-                    // TODO: Sacar la muzzle speed del arma equipada
-                    switch (attackMode)
-                    {
-                        case AttackMode.RapidFire:
-                            break;
-                    }
-                    //
-                    targetPoint = GeneralFunctions.AnticipateObjectivePositionForAiming(
-                        transform.position, targetPoint, enemyRigidbody.velocity, 1500, dt);
-                }
+                //// TODO: Hcaer esto más optimizado
+                //EnemyConsistency enemyConsistency = cameraControl.CurrentTarget.GetComponent<EnemyConsistency>();
+                //Vector3 targetPoint = cameraControl.CurrentTarget.position; 
+                //if(enemyConsistency != null)
+                //{
+                //    targetPoint += enemyConsistency.centralPointOffset;
+                //    // TODO: Sacar un índice del arma actualmente equipada para usar su muzzle speed en la función de atnicpar
+                //    //Rigidbody enemyRb = enemyConsistency.transform.GetComponent<Rigidbody>();
+                //    //Vector3 enemyEstimatedPosition = 
+                //    //    GeneralFunctions.AnticipateObjectivePositionForAiming(transform.position, targetPoint, enemyRb.velocity, , dt);
+                //}
+                //// TODO: Hcaer esto más optimizado
+                ////Rigidbody enemyRigidbody = cameraControl.CurrentTarget.GetComponent<Rigidbody>();
+                //Rigidbody enemyRigidbody = EnemyAnalyzer.enemyRb;
+                //if (enemyRigidbody != null)
+                //{
+                //    // TODO: Sacar la muzzle speed del arma equipada
+                //    switch (attackMode)
+                //    {
+                //        case AttackMode.RapidFire:
+                //            break;
+                //    }
+                //    // TODO: Hacerlo mejor ahora que lo tenemos en estático
+                //    EnemyAnalyzer.estimatedToHitPosition = GeneralFunctions.AnticipateObjectivePositionForAiming(
+                //        transform.position, targetPoint, enemyRigidbody.velocity, 1500, dt);
+                //    targetPoint = EnemyAnalyzer.estimatedToHitPosition;
+                //}
                 
                 //
-                transform.LookAt(targetPoint, currentUp);
+                transform.LookAt(EnemyAnalyzer.estimatedToHitPosition, currentUp);
             }                
             else
                 transform.LookAt(transform.position + cameraControl.transform.forward, currentUp);
@@ -529,7 +558,7 @@ public class RobotControl : MonoBehaviour {
                 case AttackMode.Pulse:
                     chargingPulseEmitter.SetActive(false);
                     releasingPulseEmitter.SetActive(true);
-                    //
+                    // TODO: Revisar este get component
                     ParticleSystem particleSystem = releasingPulseEmitter.GetComponent<ParticleSystem>();
                     particleSystem.Play();
                     //
@@ -569,6 +598,8 @@ public class RobotControl : MonoBehaviour {
             if(Vector3.Angle(pointFromPlayer, transform.forward) < coneRadius)
             {
                 // And rigidbody check
+                // TODO: Revisar este también
+                // Aunque este va a ser más dificil simplificarlo
                 Rigidbody objectRb = objectsInRadius[i].transform.GetComponent<Rigidbody>();
                 if (objectRb)
                 {
@@ -593,39 +624,17 @@ public class RobotControl : MonoBehaviour {
         {
             for (int i = 0; i < machineGunPoints.Length; i++)
             {
-                GameObject newBullet = Instantiate(bulletPrefab, machineGunPoints[i].position, machineGunPoints[i].rotation);
-                Rigidbody newBulletRB = newBullet.GetComponent<Rigidbody>();
-                newBulletRB.AddForce(transform.forward * 300, ForceMode.Impulse);
-
+                // 
                 Vector3 shootForward = (!cameraControl.TargetingPlayer) ?
-                    (cameraControl.CurrentTarget.position - machineGunPoints[i].position).normalized :
+                    (EnemyAnalyzer.estimatedToHitPosition - machineGunPoints[i].position).normalized :
                     machineGunPoints[i].forward;
+                
                 //
-                //shootForward = machineGunPoints[i].forward;
-
-                // Para chequyear
-                EnemyConsistency enemyConsistency = cameraControl.CurrentTarget.GetComponent<EnemyConsistency>();
-                Vector3 targetPoint = cameraControl.CurrentTarget.position;
-                if (enemyConsistency != null)
-                {
-                    // Anticipamos posicion del enemigo
-                    // TODO: Hacer esto menos guarro
-                    Rigidbody enemyRb = enemyConsistency.transform.GetComponent<Rigidbody>();
-                    if(enemyRb != null)
-                        targetPoint = GeneralFunctions.AnticipateObjectivePositionForAiming(machineGunPoints[i].position, 
-                            targetPoint, enemyRb.velocity,
-                            gameManager.rapidFireMuzzleSpeed, dt);
-                    //Añaidmos compensación de caida
-                    targetPoint.y += GeneralFunctions.GetProyectileFallToObjective(machineGunPoints[i].position, targetPoint, 
-                        gameManager.rapidFireMuzzleSpeed);
-                    // TODO: Sacarlo en globales
-                    targetPoint += enemyConsistency.centralPointOffset;
-                    //Debug.Log("Applying central point offset");
-                }
+                Vector3 targetPoint;
+                if (EnemyAnalyzer.isActive)
+                    targetPoint = EnemyAnalyzer.estimatedToHitPosition;
                 else
-                {
-                    Debug.Log("Failing to get target EnemyConsistency");
-                }
+                    targetPoint = cameraControl.CurrentTarget.position;
                 //
                 Quaternion shootRotation = Quaternion.LookRotation(targetPoint - machineGunPoints[i].position);
 
@@ -655,7 +664,7 @@ public class RobotControl : MonoBehaviour {
                 machineGunPoints[i].forward;
 
             // TODO: Hcaer más optimo
-            EnemyConsistency enemyConsistency = cameraControl.CurrentTarget.GetComponent<EnemyConsistency>();
+            EnemyConsistency enemyConsistency = EnemyAnalyzer.enemyConsistency;
             Vector3 targetPoint = cameraControl.CurrentTarget.position;
             if (enemyConsistency != null)
             {
@@ -674,6 +683,7 @@ public class RobotControl : MonoBehaviour {
             if (Physics.Raycast(machineGunPoints[i].position, shootForward, out hitInfo, 50))
             {
                 //Debug.Log("Impact on" + hitInfo.collider.name);
+                // Este va a ser más complicado de aligerar
                 EnemyCollider enemyCollider = hitInfo.collider.GetComponent<EnemyCollider>();
                 if (enemyCollider != null)
                 {
@@ -717,9 +727,6 @@ public class RobotControl : MonoBehaviour {
     /// </summary>
     void CharguedProyectileAttack(GameObject proyectilePrefab, float proyectileMuzzleSpeed, float dt)
     {
-        //GameObject newBullet = Instantiate(cannonBallPrefab, chargedProyectilePoint.position, chargedProyectilePoint.rotation);
-        //Rigidbody newBulletRB = newBullet.GetComponent<Rigidbody>();
-        //newBulletRB.AddForce(transform.forward * (10000 * chargedAmount + 1000), ForceMode.Impulse);
         //
         float shootMuzzleSpeed = proyectileMuzzleSpeed * chargedAmount + proyectileMuzzleSpeed;
         // TODO: Coger la masa del game manager
@@ -732,3 +739,4 @@ public class RobotControl : MonoBehaviour {
     #endregion
 
 }
+

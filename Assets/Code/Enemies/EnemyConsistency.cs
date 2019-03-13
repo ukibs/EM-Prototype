@@ -26,6 +26,7 @@ public class EnemyConsistency : MonoBehaviour {
     private float currentChasisHealth;
     private float currentCoreHealth;
     private ProvLevelManager levelManager;
+    private Rigidbody rb;
 
     #endregion
 
@@ -52,7 +53,8 @@ public class EnemyConsistency : MonoBehaviour {
         levelManager = FindObjectOfType<ProvLevelManager>();
         //if(levelManager)
 
-        
+        // De momento para klos voladores mas que nada
+        rb = GetComponent<Rigidbody>();
 	}
 	
 	// Update is called once per frame
@@ -151,6 +153,10 @@ public class EnemyConsistency : MonoBehaviour {
             //
             if(levelManager != null)
                 levelManager.AnnotateKill();
+            // Esto para los voladores mas que nada
+            rb.constraints = RigidbodyConstraints.None;
+            //
+            //Destroy(rb, 10);
             //
             Destroy(this);
         }

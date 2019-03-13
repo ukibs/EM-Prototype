@@ -664,11 +664,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefabsToUse:
-  - {fileID: 1855539494821730081, guid: ca3ac9391a0c2e343b4e847610721693, type: 3}
-  initialGroupToSpawnSize: 01000000
-  continuousGroupToSpawnSize: 01000000
+  - {fileID: 8329669763865831805, guid: 1476ef15dd263e74cb8f6f4e7a54bda4, type: 3}
+  - {fileID: 8329669763865831805, guid: ad3ed2759885ede43924299467c114d5, type: 3}
+  initialGroupToSpawnSize: 0500000001000000
+  continuousGroupToSpawnSize: 0500000001000000
   maxEnemiesInAction: 30
-  timeBetweenSpawns: 100
+  timeBetweenSpawns: 10
   minSpawnDistance: 200
   maxSpawnDistance: 400
 --- !u!82 &1202333124
@@ -1145,6 +1146,16 @@ PrefabInstance:
       propertyPath: damageIndicatorLifeTime
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1347693450630458015, guid: 0f92d9c73e3b55d4fae6526741753dd6,
+        type: 3}
+      propertyPath: targetedEnemyEstimatedFuturePositionTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: 9d5d6ce2ecad855448c8d4392c05225f, type: 3}
+    - target: {fileID: 1347693450630458015, guid: 0f92d9c73e3b55d4fae6526741753dd6,
+        type: 3}
+      propertyPath: testingVelocityIcon
+      value: 
+      objectReference: {fileID: 2800000, guid: e3d0ff31924015d4a923c058090e8be0, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f92d9c73e3b55d4fae6526741753dd6, type: 3}
 --- !u!1001 &2132092245

@@ -121,9 +121,16 @@ public static class GeneralFunctions
 
         // Determinamos la distancia para ver cuanto anticipar en función de nuestra muzzle speed
         float distanceToPlayer = (objectivePosition - selfPosition).magnitude;
-        float timeForBulletToReachPlayer = referenceWeaponMuzzleSpeed / distanceToPlayer * dt;
+        // Let's check the calculations
+        float timeWithoutDrag = referenceWeaponMuzzleSpeed / distanceToPlayer * dt;
+        Vector3 objectivePositionWithEstimation = objectivePosition + (objectiveVelocity * timeWithoutDrag);
+        // TODO: Sacar posición del objetivo con ese tiempo
+        float timeWithDrag = EstimateFlyingTimeWithDrag(selfPosition, objectivePosition, referenceWeaponMuzzleSpeed, 0.1f);
+        // Debug.Log("Time without drag: " + timeWithoutDrag + ", with drag: " + timeWithDrag);
+        float timeForBulletToReachPlayer = timeWithDrag * 1;
 
-        playerFutureEstimatedPosition = objectivePosition + (objectiveVelocity * timeForBulletToReachPlayer);
+        //playerFutureEstimatedPosition = objectivePosition + (objectiveVelocity * timeForBulletToReachPlayer);
+        playerFutureEstimatedPosition = objectivePositionWithEstimation + (objectiveVelocity * timeForBulletToReachPlayer);
 
         return playerFutureEstimatedPosition;
     }
@@ -153,6 +160,18 @@ public static class GeneralFunctions
         return fallInThatTime;
     }
 
+    // El drag seguramente funcione como el dump
+    // TODO: Averiguarlo
+    public static float EstimateFlyingTimeWithDrag(Vector3 startPoint, Vector3 objectivePoint, float muzzleSPeed, float proyectileDrag)
+    {
+        // TODO: Pillar a Anontio por banda
+        // t = ln(1-(d*k/v0))/-k
+        Vector3 distance = objectivePoint - startPoint;
+        float travelTime = Mathf.Log(1 - (distance.magnitude * proyectileDrag / muzzleSPeed)) / -proyectileDrag;
+        return travelTime;
+    }
+
+    // TODO: Recordar lo que quería ahcer con esta función
     public static float GetDeviationAngle(Vector3 origin, Vector3 objective)
     {
         // De momento solo en el eje x

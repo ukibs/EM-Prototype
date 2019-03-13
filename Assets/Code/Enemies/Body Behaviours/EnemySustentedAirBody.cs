@@ -22,10 +22,16 @@ public class EnemySustentedAirBody : EnemyBodyBehaviour
     {
         //
         base.Update();
-        //
-        float offsetFromIdealHeight = idealHeight - transform.position.y;
+        // Que se mantengan a cierta altura por encima del prota
+        float offsetFromIdealHeight;
+        if (HasRemainingTurrets())
+            offsetFromIdealHeight = idealHeight + player.transform.position.y - transform.position.y;
+        else
+            offsetFromIdealHeight = player.transform.position.y - transform.position.y;
         if (offsetFromIdealHeight > 0)
-            rb.AddForce(Vector3.up * offsetFromIdealHeight, ForceMode.Impulse);
+            rb.AddForce(Vector3.up * motorForce, ForceMode.Impulse);
+        // Chequear si está muerto
+        //if()
     }
 
     protected override void GiveItGas()
