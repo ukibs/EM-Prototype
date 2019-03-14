@@ -73,20 +73,42 @@ public class PlayerIntegrity : MonoBehaviour
         // La fuerza del impacto depende de la aceleración, no de la velocidad
         // Animalico
 
-        Vector3 playerDecceleration = bodyRB.velocity - previousStepRbVelocity;
+        //Vector3 playerDecceleration = bodyRB.velocity - previousStepRbVelocity;
         // De momento calculamos la fuerza a lo bruto
         // Sin tener en cuenta angulo de colisión
-        float playerImpactForce = playerDecceleration.sqrMagnitude * bodyRB.mass;
+        //float playerImpactForce = playerDecceleration.sqrMagnitude * bodyRB.mass;
 
         Vector3 relativeVelocity = collision.relativeVelocity;
         ContactPoint collisionPoint = collision.GetContact(0);
         Collider collider = collision.collider;
         GameObject gameObject = collider.gameObject;
         Rigidbody collidingRB = collision.rigidbody;
-        ReceiveImpact(collisionPoint.point, gameObject, collidingRB);
+        Bullet bulletComponent = gameObject.GetComponent<Bullet>();
+        //if (bulletComponent == null)
+            ReceiveImpact(collisionPoint.point, gameObject, collidingRB);
+        //else
+        //    ReceiveProyectileImpact(bulletComponent, collidingRB, collisionPoint.point);
     }
 
     #region Methods
+
+    //public void ReceiveProyectileImpact(Bullet proyectileData, Rigidbody proyectileRb, Vector3 impactPoint)
+    //{
+    //    //
+    //    float diameter = proyectileData.diameter;
+
+    //    float penetrationValue = GeneralFunctions.Navy1940PenetrationCalc(proyectileRb.mass, diameter, proyectileRb.velocity.magnitude);
+    //    //Debug.Log("Penetration value: " + penetrationValue + ", mass: " + bulletRb.mass + 
+    //    //    ", diameter: " + diameter + ", velocity: " + bulletRb.velocity.magnitude);
+    //    float penetrationResult = Mathf.Max(penetrationValue - armor, 0);
+    //    //
+    //    Vector3 impactDirection = impactPoint - transform.position;
+    //    // Cogemos el angulo para indicar en el HUD
+    //    float impactAngle = Vector3.SignedAngle(Camera.main.transform.forward, impactDirection, transform.up);
+    //    //
+    //    SufferDamage(impactDamage, impactAngle);
+
+    //}
 
     public void ReceiveImpact(Vector3 contactPoint, GameObject otherGameObject, Rigidbody collidingRB)
     {
@@ -107,36 +129,32 @@ public class PlayerIntegrity : MonoBehaviour
             }
         }
         
-        //
-        Rigidbody rb = collidingRB;
-        
+        // COgemos los dos rigidbodies
+        Rigidbody otherRb = collidingRB;
+
         //
         Bullet bulletComponent = otherGameObject.GetComponent<Bullet>();
-        // Si el impacto no tiene rigidbody (escenario) usamos el nuestro para el chequeo
-        if (rb == null)
-            rb = GetComponent<Rigidbody>();
-        Vector3 impactSpeed = rb.velocity;
+
+        // Esto tiene pinta de petar en el start
+        // Lo montaremos bien para que no pase
+        float totalImpactForce = 0;
+        if (bodyRB != null)
+            totalImpactForce = GeneralFunctions.GetCollisionForce(bodyRB, otherRb);
 
         //
         Vector3 impactDirection = contactPoint - transform.position;
-        impactDirection = rb.velocity.normalized;
-        // impactDirection.y = 0;
+        //impactDirection = otherRb.velocity.normalized;
+        // Cogemos el angulo para indicar en el HUD
         float impactAngle = Vector3.SignedAngle(Camera.main.transform.forward, impactDirection, transform.up);
 
         //
-        float impactForce = impactSpeed.magnitude * rb.mass;
-        
-        // Si no es bala adaptamos el peso a las toneladas
-        if(bulletComponent != null)
-            impactForce *= 1000;
-
-        //
-        float impactDamage = Mathf.Max(impactForce - extraDefense, 0);
+        float impactDamage = Mathf.Max(totalImpactForce - extraDefense, 0);
         //
         //Debug.Log("Player impacted by " + gameObject.name + " with a speed of " + relativeVelocity.magnitude + 
         //    "and a mass of " + rb.mass + ". " + impactForce + "J impactForce.");
-        //
-        impactInfoManager.SendImpactInfo(transform.position, impactForce);
+        
+        // De momento no visualizamos info del daño que recibimos
+        // impactInfoManager.SendImpactInfo(transform.position, totalImpactForce);
         //
         SufferDamage(impactDamage, impactAngle);
     }

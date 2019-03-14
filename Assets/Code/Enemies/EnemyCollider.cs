@@ -11,6 +11,7 @@ public class EnemyCollider : MonoBehaviour
     // Y otras propiedades en el futuro
 
     private EnemyConsistency body;
+    private Rigidbody bodyRb;
 
     public float Armor {
         get { return armor; }
@@ -26,6 +27,8 @@ public class EnemyCollider : MonoBehaviour
         // y por tanto lo lleva integrado
         if(body == null)
             body = GetComponent<EnemyConsistency>();
+        //
+        bodyRb = body.GetComponent<Rigidbody>();
     }
     
     private void OnCollisionEnter(Collision collision)
@@ -44,22 +47,16 @@ public class EnemyCollider : MonoBehaviour
         //
         //string bulletConfimation = (bullet != null) ? "Yes" : "No";
         //Debug.Log(collision.collider.gameObject.name + ", has bullet component: " + bulletConfimation);
-
-        // Si lo que nos ha golpeado no tiene rigidbody 
-        // hemos chocado con el escenario
-        // así que usamos el nuestro
-        Rigidbody rb = collision.collider.GetComponent<Rigidbody>();
-        if (rb == null)
-            rb = GetComponent<Rigidbody>();
+        
         //
-        float impactForce = collision.relativeVelocity.magnitude * rb.mass;
+        Rigidbody otherRb = collision.collider.GetComponent<Rigidbody>();
+        float impactForce = GeneralFunctions.GetCollisionForce(bodyRb, otherRb);
 
         if (bullet == null && impactForce > body.Defense)
             body.ReceiveImpact(impactForce, collision.contacts[0].point);
         // 
         else if (bullet != null)
         {
-            //CheckImpactedPart(collision.collider);
             Debug.Log("Bullet collision detected by EnemyCollider");
             body.ReceiveInternalImpact(impactForce, collision.contacts[0].point);
         }

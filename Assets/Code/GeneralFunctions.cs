@@ -124,12 +124,11 @@ public static class GeneralFunctions
         // Let's check the calculations
         float timeWithoutDrag = distanceToPlayer / referenceWeaponMuzzleSpeed;
         Vector3 objectivePositionWithEstimation = objectivePosition + (objectiveVelocity * timeWithoutDrag);
-        // TODO: Sacar posición del objetivo con ese tiempo
+        //
         float timeWithDrag = EstimateFlyingTimeWithDrag(selfPosition, objectivePositionWithEstimation, referenceWeaponMuzzleSpeed, 0.1f);
         // Debug.Log("Time without drag: " + timeWithoutDrag + ", with drag: " + timeWithDrag);
         float timeForBulletToReachPlayer = timeWithDrag * 1;
-
-        //playerFutureEstimatedPosition = objectivePosition + (objectiveVelocity * timeForBulletToReachPlayer);
+        
         playerFutureEstimatedPosition = objectivePosition + (objectiveVelocity * timeForBulletToReachPlayer);
 
         return playerFutureEstimatedPosition;
@@ -160,8 +159,14 @@ public static class GeneralFunctions
         return fallInThatTime;
     }
 
-    // El drag seguramente funcione como el dump
-    // TODO: Averiguarlo
+    /// <summary>
+    /// Estimates the time the proyectile will need to reach its objectives having account on the drag
+    /// </summary>
+    /// <param name="startPoint"></param>
+    /// <param name="objectivePoint"></param>
+    /// <param name="muzzleSPeed"></param>
+    /// <param name="proyectileDrag"></param>
+    /// <returns></returns>
     public static float EstimateFlyingTimeWithDrag(Vector3 startPoint, Vector3 objectivePoint, float muzzleSPeed, float proyectileDrag)
     {
         // TODO: Pillar a Anontio por banda
@@ -217,5 +222,20 @@ public static class GeneralFunctions
             * Mathf.Pow(mmShellDiameter * inchToMm, diameterPow)
             * Mathf.Pow(msShellVelocity * feetToM, velocityPow)
             / inchToMm;
+    }
+
+    //
+    public static float GetCollisionForce(Rigidbody selfRb, Rigidbody otherRb)
+    {
+        // El otherRb puede ser nulo
+        float otherImpactForce = 0;
+        if (otherRb != null)
+            otherImpactForce = otherRb.velocity.magnitude * otherRb.mass;
+        // El propio no puede serlo
+        float selfImpactForce = selfRb.velocity.magnitude * selfRb.mass;
+
+        //
+        float impactForce = otherImpactForce + selfImpactForce;
+        return impactForce;
     }
 }

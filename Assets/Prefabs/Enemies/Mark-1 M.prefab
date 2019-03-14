@@ -188,6 +188,7 @@ MonoBehaviour:
     type: 3}
   shootForce: 10
   muzzleSpeed: 554
+  typeOfFire: 0
   debugging: 0
   shootCalculation: 1
   maxRotationOffset: {x: 10, y: 45}
@@ -354,6 +355,7 @@ MonoBehaviour:
     type: 3}
   shootForce: 10
   muzzleSpeed: 554
+  typeOfFire: 0
   debugging: 0
   shootCalculation: 1
   maxRotationOffset: {x: 15, y: 15}
@@ -770,6 +772,7 @@ MonoBehaviour:
     type: 3}
   shootForce: 10
   muzzleSpeed: 554
+  typeOfFire: 0
   debugging: 0
   shootCalculation: 1
   maxRotationOffset: {x: 10, y: 45}
@@ -1030,9 +1033,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9f760979ab2521429985b0a447da57f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxChasisHealth: 100
-  maxCoreHealth: 100
-  defense: 100
+  maxChasisHealth: 300
+  maxCoreHealth: 300
+  defense: 50
   centralPointOffset: {x: 0, y: 3, z: 0}
   face: {fileID: 8438318046569397788}
   deadFaceMaterial: {fileID: 2100000, guid: faa0059e123f2b04d8d07acd9d8e5f0e, type: 2}

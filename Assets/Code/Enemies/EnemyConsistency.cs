@@ -66,7 +66,22 @@ public class EnemyConsistency : MonoBehaviour {
             Destroy(gameObject);
         }
 	}
-    
+
+    // Lo ponemos para ver que falla con las colisiones entre cuerpos
+    // Ojo que alguna la pillará por duplicado
+    private void OnCollisionEnter(Collision collision)
+    {
+        // Estas no las queremos chequear aqui
+        Bullet bullet = collision.collider.GetComponent<Bullet>();
+        if(bullet == null)
+        {
+            //
+            Rigidbody otherRb = collision.collider.GetComponent<Rigidbody>();
+            float impactForce = GeneralFunctions.GetCollisionForce(rb, otherRb);
+            ReceiveImpact(impactForce, collision.contacts[0].point);
+        }
+    }
+
     /// <summary>
     /// df
     /// TODO: Revisar manejo de 

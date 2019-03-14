@@ -289,7 +289,7 @@ public class SpringCamera : MonoBehaviour {
         if (inputManager.MarkObjectiveButton)
         {
             // TODO: Mirar por qué a veces no lo pilla
-            Debug.Log("Mark button down");
+            //Debug.Log("Mark button down");
             // 
             if(currentTarget == targetPlayer)
             {
