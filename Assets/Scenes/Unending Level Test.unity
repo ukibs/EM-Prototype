@@ -664,9 +664,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefabsToUse:
-  - {fileID: 2636961323837238040, guid: 2afea6a990fa1b84093e2df7a11e5b6e, type: 3}
-  initialGroupToSpawnSize: 01000000
-  continuousGroupToSpawnSize: 01000000
+  - {fileID: 8329669763865831805, guid: ad3ed2759885ede43924299467c114d5, type: 3}
+  - {fileID: 8329669763865831805, guid: 1476ef15dd263e74cb8f6f4e7a54bda4, type: 3}
+  - {fileID: 8329669763865831805, guid: 1476ef15dd263e74cb8f6f4e7a54bda4, type: 3}
+  initialGroupToSpawnSize: 010000000a0000000a000000
+  continuousGroupToSpawnSize: 010000000a0000000a000000
   maxEnemiesInAction: 100
   timeBetweenSpawns: 10
   minSpawnDistance: 200

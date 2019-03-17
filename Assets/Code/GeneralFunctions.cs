@@ -227,6 +227,11 @@ public static class GeneralFunctions
     //
     public static float GetCollisionForce(Rigidbody selfRb, Rigidbody otherRb)
     {
+        // Ponemos esto para evitar errores
+        // Pero esto no dbería ocurrir
+        if (selfRb == null)
+            return 0;
+
         // El otherRb puede ser nulo
         float otherImpactForce = 0;
         if (otherRb != null)

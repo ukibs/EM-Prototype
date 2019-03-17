@@ -137,6 +137,8 @@ public class RobotControl : MonoBehaviour {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 #endif
+        //
+        PlayerReference.Initiate(gameObject);
     }
 	
 	// Update is called once per frame
@@ -288,34 +290,6 @@ public class RobotControl : MonoBehaviour {
             // Puesto aqui por si sacamos más casos (cinematicas por ejemplo)
             if (!cameraControl.TargetingPlayer)
             {
-                //// TODO: Hcaer esto más optimizado
-                //EnemyConsistency enemyConsistency = cameraControl.CurrentTarget.GetComponent<EnemyConsistency>();
-                //Vector3 targetPoint = cameraControl.CurrentTarget.position; 
-                //if(enemyConsistency != null)
-                //{
-                //    targetPoint += enemyConsistency.centralPointOffset;
-                //    // TODO: Sacar un índice del arma actualmente equipada para usar su muzzle speed en la función de atnicpar
-                //    //Rigidbody enemyRb = enemyConsistency.transform.GetComponent<Rigidbody>();
-                //    //Vector3 enemyEstimatedPosition = 
-                //    //    GeneralFunctions.AnticipateObjectivePositionForAiming(transform.position, targetPoint, enemyRb.velocity, , dt);
-                //}
-                //// TODO: Hcaer esto más optimizado
-                ////Rigidbody enemyRigidbody = cameraControl.CurrentTarget.GetComponent<Rigidbody>();
-                //Rigidbody enemyRigidbody = EnemyAnalyzer.enemyRb;
-                //if (enemyRigidbody != null)
-                //{
-                //    // TODO: Sacar la muzzle speed del arma equipada
-                //    switch (attackMode)
-                //    {
-                //        case AttackMode.RapidFire:
-                //            break;
-                //    }
-                //    // TODO: Hacerlo mejor ahora que lo tenemos en estático
-                //    EnemyAnalyzer.estimatedToHitPosition = GeneralFunctions.AnticipateObjectivePositionForAiming(
-                //        transform.position, targetPoint, enemyRigidbody.velocity, 1500, dt);
-                //    targetPoint = EnemyAnalyzer.estimatedToHitPosition;
-                //}
-                
                 //
                 transform.LookAt(EnemyAnalyzer.estimatedToHitPosition, currentUp);
             }                
@@ -398,10 +372,18 @@ public class RobotControl : MonoBehaviour {
                 case JumpMode.Smash:
                     // Le damos un mínimo de base
                     // TODO: Añadir icono
-                    // TODO: No aplicar el damp cuando se esté ejecutando
+                    // TODO: Clacular bien la dirección
+                    // TODO: Aplicar más fuerza y probar
                     Vector3 cameraForward = cameraControl.transform.forward;
                     applyingDamping = false;
-                    rb.AddForce(cameraForward * (gameManager.jumpForce * chargedAmount + gameManager.jumpForce * 10), ForceMode.Impulse);
+                    Vector3 currentVelocity = rb.velocity;
+                    // Revisar: Podría ser el player.forward
+                    Vector3 desiredDirection = (!cameraControl.TargetingPlayer) ? 
+                        (cameraControl.CurrentTarget.position - transform.position) 
+                        : cameraForward;
+                    // TODO: Revisar
+                    Vector3 compensatedDirection = (desiredDirection - currentVelocity).normalized;
+                    rb.AddForce(compensatedDirection * (gameManager.jumpForce * chargedAmount + gameManager.jumpForce * 10), ForceMode.Impulse);
                     break;
             }
             
@@ -740,3 +722,21 @@ public class RobotControl : MonoBehaviour {
 
 }
 
+// Referencia estática al player para que no haya qye estar haciento 
+// GetComponent y FindObjectOfType todo el rato
+// Le tenemos aqui de momento
+public static class PlayerReference
+{
+    public static Transform playerTransform;
+    public static Rigidbody playerRb;
+    public static PlayerIntegrity playerIntegrity;
+    public static bool isAlive;
+
+    public static void Initiate(GameObject playerGO)
+    {
+        playerTransform = playerGO.transform;
+        playerRb = playerGO.GetComponent<Rigidbody>();
+        playerIntegrity = playerGO.GetComponent<PlayerIntegrity>();
+        isAlive = true;
+    }
+}
