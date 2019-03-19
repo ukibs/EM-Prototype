@@ -1,18 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Xml;
+using System.Xml.Serialization;
 
 // De momento lo manejamos con esto
-public enum GameProgression
-{
-    Invalid = -1,
+//public enum GameProgression
+//{
+//    Invalid = -1,
 
-    FirstIntro,
-    FirstFight,
-    DiscoveringMap,
+//    FirstIntro,
+//    FirstFight,
+//    DiscoveringMap,
 
-    Count
-}
+//    Count
+//}
 
 /// <summary>
 /// Manager del juego en general
@@ -56,10 +58,14 @@ public class GameManager : MonoBehaviour
 
     #region Private Attributes
 
-    private LevelStatus[] levelsStatus;
+    //private LevelStatus[] levelsStatus;
     private int currentExperience = 0;
     // TODO: Decidir como manejar esto
     private int gameProgression = 0;
+    // Usaremos -1 para diferenciar el infinito del resto
+    private int currentLevel = 0;
+    //
+    private LevelInfo[] levelsInfo;
 
     #endregion
 
@@ -67,6 +73,7 @@ public class GameManager : MonoBehaviour
 
     public int CurrentExperience { get { return currentExperience; } }
     public int GameProgression { get { return gameProgression; } }
+    //public int CurrentLevel { set { currentLevel = value; } }
 
     #endregion
 
@@ -87,14 +94,18 @@ public class GameManager : MonoBehaviour
 
         //Set SoundManager to DontDestroyOnLoad so that it won't be destroyed when reloading our scene.
         DontDestroyOnLoad(gameObject);
+        //
+        gameProgression = PlayerPrefs.GetInt("Game Progression", 0);
     }
 
     private void Start()
     {
         // De momento dos niveles
-        levelsStatus = new LevelStatus[2];
-        //
-
+        //levelsStatus = new LevelStatus[2];
+        // TODO: Que lea un XML (o documento de otro tipo)
+        // para cargar la info de los niveles
+        if(levelsInfo == null)
+            GetLevelsInfoFromXML();
     }
 
     #endregion
@@ -113,8 +124,107 @@ public class GameManager : MonoBehaviour
 
     public void ProgressInGame()
     {
-        gameProgression++;
+        if(currentLevel == gameProgression && gameProgression < levelsInfo.Length - 1)
+        {
+            gameProgression++;
+            //
+            PlayerPrefs.SetInt("Game Progression", gameProgression);
+            //
+            Debug.Log("Progressing: Current game progression: " + gameProgression);
+        }
+    }
+
+    public void SelectLevel(int levelNumber)
+    {
+        currentLevel = levelNumber;
     }
 
     #endregion
+
+    #region XML Functions
+
+    public void GetLevelsInfoFromXML()
+    {
+        //
+        Debug.Log("Getting levels info: Current game progression: " + gameProgression);
+        //
+        XmlDocument xml_d;
+        XmlNodeList xmlLevelsInfo;
+        TextAsset textasset = (TextAsset)Resources.Load("LevelInfo", typeof(TextAsset));
+        xml_d = new XmlDocument();
+        xml_d.LoadXml(textasset.text);
+        xmlLevelsInfo = xml_d.GetElementsByTagName("LEVEL");
+        // Preparamos el levels info
+        levelsInfo = new LevelInfo[xmlLevelsInfo.Count];
+        // Y vamos cargando los datos
+        for(int i = 0; i < xmlLevelsInfo.Count; i++)
+        {
+            XmlNode node = xmlLevelsInfo.Item(i);
+            XmlNodeList levelData = node.ChildNodes;
+            levelsInfo[i] = new LevelInfo();
+            // Victory condition
+            string victoryConditionString = levelData.Item(0).InnerText;
+            switch (victoryConditionString)
+            {
+                case "Kill Any": levelsInfo[i].victoryCondition = VictoryCondition.DefeatAnyEnemy; break;
+            }
+            //
+            levelsInfo[i].enemiesToDefeat = int.Parse(levelData.Item(1).InnerText);
+            //
+            levelsInfo[i].attackActionsAvailable = int.Parse(levelData.Item(2).InnerText);
+            levelsInfo[i].defenseActionsAvailable = int.Parse(levelData.Item(3).InnerText);
+            levelsInfo[i].sprintActionsAvailable = int.Parse(levelData.Item(4).InnerText);
+            levelsInfo[i].jumpActionsAvailable = int.Parse(levelData.Item(5).InnerText);
+            //
+            XmlNodeList xmlEnemies = levelData.Item(6).ChildNodes;
+            string[] enemiesNames = new string[xmlEnemies.Count];
+            XmlNodeList xmlAmounts = levelData.Item(7).ChildNodes;
+            int[] enemiesAmounts = new int[xmlEnemies.Count];
+            levelsInfo[i].enemiesToUse = new GameObject[xmlEnemies.Count];
+            levelsInfo[i].enemiesToSpawn = new int[xmlEnemies.Count];
+            //
+            for (int j = 0; j < xmlEnemies.Count; j++)
+            {
+                enemiesNames[j] = xmlEnemies.Item(j).InnerText;
+                levelsInfo[i].enemiesToUse[j] = Resources.Load("Prefabs/Enemies/" + enemiesNames[j]) as GameObject;
+                enemiesAmounts[j] = int.Parse(xmlAmounts.Item(j).InnerText);
+                levelsInfo[i].enemiesToSpawn[j] = enemiesAmounts[j];
+            }
+            // And done
+
+        }
+    }
+
+    // Llamada desde el level manager
+    public LevelInfo GetCurrentLevelInfo()
+    {
+        if (currentLevel > -1)
+        {
+            //
+            if (levelsInfo == null)
+                GetLevelsInfoFromXML();
+            //
+            return levelsInfo[currentLevel];
+        }            
+        else
+            return null;
+    }
+
+    #endregion
+}
+
+public class LevelInfo
+{
+    //
+    public VictoryCondition victoryCondition;
+    public int enemiesToDefeat;
+    public string enemyIdentifier;
+    //
+    public int attackActionsAvailable;
+    public int defenseActionsAvailable;
+    public int jumpActionsAvailable;
+    public int sprintActionsAvailable;
+    //
+    public GameObject[] enemiesToUse;
+    public int[] enemiesToSpawn;
 }

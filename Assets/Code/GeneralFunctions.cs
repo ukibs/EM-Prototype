@@ -218,10 +218,15 @@ public static class GeneralFunctions
 
         // = $H$24*POW(B6*$F$21/1000;$H$21) * POW(D6*$F$22;$H$22) * POW(F6*$F$23;$H$23)/$F$22
 
-        return functionConstant * Mathf.Pow(tShellWeight * poundToKg * tToKg, weightPow) 
+        float result = functionConstant * Mathf.Pow(tShellWeight * poundToKg * tToKg, weightPow)
             * Mathf.Pow(mmShellDiameter * inchToMm, diameterPow)
             * Mathf.Pow(msShellVelocity * feetToM, velocityPow)
             / inchToMm;
+
+        // AJuste manual
+        result *= 0.75f;
+
+        return result;
     }
 
     //

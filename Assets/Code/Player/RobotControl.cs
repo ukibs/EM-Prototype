@@ -109,10 +109,19 @@ public class RobotControl : MonoBehaviour {
     public float ChargedAmount { get { return chargedAmount; } }
     public ActionCharguing CurrentActionCharging { get { return actionCharging; } }
 
-    public AttackMode ActiveAttackMode { get { return attackMode; } }
-    public DefenseMode ActiveDefenseMode { get { return defenseMode; } }
-    public SprintMode ActiveSprintMode { get { return sprintMode; } }
-    public JumpMode ActiveJumpMode { get { return jumpMode; } }
+    public AttackMode ActiveAttackMode {
+        get { return attackMode; }
+    }
+    public DefenseMode ActiveDefenseMode {
+        get { return defenseMode; }
+    }
+    public SprintMode ActiveSprintMode {
+        get { return sprintMode; }
+    }
+    public JumpMode ActiveJumpMode {
+        get { return jumpMode; }
+        set { jumpMode = value; }
+    }
 
     public bool InPlay {
         get { return inPlay; }
@@ -202,73 +211,78 @@ public class RobotControl : MonoBehaviour {
     {
         // First check sprint
         float sprintMultiplier = 1;
-        RaycastHit adherencePoint;
         Vector3 currentUp = Vector3.up;
-        if (inputManager.SprintButton && actionCharging == ActionCharguing.None)
+        //
+        if (gameManager.unlockedJumpActions > 0)
         {
-            switch (sprintMode)
-            {
-                case SprintMode.Normal:
-                    actionCharging = ActionCharguing.Sprint;
-                    break;
-                case SprintMode.Adherence:
-                    // Let's check if there are a surface near
-                    if(AdherenceCheck(out adherencePoint) != false)
-                    {
-                        // Trabajamos con el punto y la normal
-                        //adherencePoint.normal
-                        actionCharging = ActionCharguing.Sprint;
-                        SetNewUp(adherencePoint.point, adherencePoint.normal);
-                        currentUp = adherencePoint.normal;
-                        chargedAmount = 1;
-                        adhering = true;
-                        //cameraControl.
-                        Debug.Log("Adherence point found");
-                    }
-                    break;
-            }
-        }            
-        else if(inputManager.SprintButton && actionCharging == ActionCharguing.Sprint)
-        {
-            switch (sprintMode)
-            {
-                case SprintMode.Normal:
-                    // De momento el multiplicador irá de 1 a 2
-                    chargedAmount += Time.deltaTime;
-                    chargedAmount = Mathf.Min(chargedAmount, gameManager.maxCharge);
-                    sprintMultiplier += chargedAmount;
-                    break;
-                case SprintMode.Adherence:
-                    if (AdherenceCheck(out adherencePoint) != false)
-                    {
-                        // Trabajamos con el punto y la normal
-                        //adherencePoint.normal
-                        SetNewUp(adherencePoint.point, adherencePoint.normal);
-                        currentUp = adherencePoint.normal;
-                        Vector3 gravityForce = Vector3.up * -rb.velocity.y;
-                        Vector3 adherenceForce = -transform.up * 1;
-                        rb.AddForce(gravityForce + adherenceForce, ForceMode.Impulse);
-                        //chargedAmount = 1;
-                        //cameraControl.
-                        Debug.Log("Adherenring to something");
-                    }
-                    else
-                    {
-                        Debug.Log("Adherenrce lost");
-                        chargedAmount = 0;
-                        actionCharging = ActionCharguing.None;
-                        adhering = false;
-                    }
-                    
-                    break;
-            }
+            RaycastHit adherencePoint;
             
-        }
-        else if(chargedAmount > 0 && actionCharging == ActionCharguing.Sprint)
-        {
-            chargedAmount = 0;
-            actionCharging = ActionCharguing.None;
-            adhering = false;
+            if (inputManager.SprintButton && actionCharging == ActionCharguing.None)
+            {
+                switch (sprintMode)
+                {
+                    case SprintMode.Normal:
+                        actionCharging = ActionCharguing.Sprint;
+                        break;
+                    case SprintMode.Adherence:
+                        // Let's check if there are a surface near
+                        if (AdherenceCheck(out adherencePoint) != false)
+                        {
+                            // Trabajamos con el punto y la normal
+                            //adherencePoint.normal
+                            actionCharging = ActionCharguing.Sprint;
+                            SetNewUp(adherencePoint.point, adherencePoint.normal);
+                            currentUp = adherencePoint.normal;
+                            chargedAmount = 1;
+                            adhering = true;
+                            //cameraControl.
+                            Debug.Log("Adherence point found");
+                        }
+                        break;
+                }
+            }
+            else if (inputManager.SprintButton && actionCharging == ActionCharguing.Sprint)
+            {
+                switch (sprintMode)
+                {
+                    case SprintMode.Normal:
+                        // De momento el multiplicador irá de 1 a 2
+                        chargedAmount += Time.deltaTime;
+                        chargedAmount = Mathf.Min(chargedAmount, gameManager.maxCharge);
+                        sprintMultiplier += chargedAmount;
+                        break;
+                    case SprintMode.Adherence:
+                        if (AdherenceCheck(out adherencePoint) != false)
+                        {
+                            // Trabajamos con el punto y la normal
+                            //adherencePoint.normal
+                            SetNewUp(adherencePoint.point, adherencePoint.normal);
+                            currentUp = adherencePoint.normal;
+                            Vector3 gravityForce = Vector3.up * -rb.velocity.y;
+                            Vector3 adherenceForce = -transform.up * 1;
+                            rb.AddForce(gravityForce + adherenceForce, ForceMode.Impulse);
+                            //chargedAmount = 1;
+                            //cameraControl.
+                            Debug.Log("Adherenring to something");
+                        }
+                        else
+                        {
+                            Debug.Log("Adherenrce lost");
+                            chargedAmount = 0;
+                            actionCharging = ActionCharguing.None;
+                            adhering = false;
+                        }
+
+                        break;
+                }
+
+            }
+            else if (chargedAmount > 0 && actionCharging == ActionCharguing.Sprint)
+            {
+                chargedAmount = 0;
+                actionCharging = ActionCharguing.None;
+                adhering = false;
+            }
         }
 
         // And then the axis
@@ -291,7 +305,10 @@ public class RobotControl : MonoBehaviour {
             if (!cameraControl.TargetingPlayer)
             {
                 //
-                transform.LookAt(EnemyAnalyzer.estimatedToHitPosition, currentUp);
+                // TODO: Agregarlo al stimated
+                Vector3 pointToLook = transform.TransformPoint(EnemyAnalyzer.enemyConsistency.centralPointOffset);
+                //Vector3 pointToLook = EnemyAnalyzer.estimatedToHitPosition;
+                transform.LookAt(pointToLook, currentUp);
             }                
             else
                 transform.LookAt(transform.position + cameraControl.transform.forward, currentUp);
@@ -347,6 +364,9 @@ public class RobotControl : MonoBehaviour {
     /// </summary>
     void JumpMotion()
     {
+        //
+        if (gameManager.unlockedJumpActions == 0)
+            return;
         // De momento solo hacia arriba
         // Luego trabajaremos más direcciones
         if (inputManager.JumpButton && actionCharging == ActionCharguing.None)
@@ -398,6 +418,9 @@ public class RobotControl : MonoBehaviour {
     /// </summary>
     void CheckDefense()
     {
+        //
+        if (gameManager.unlockedDefenseActions == 0)
+            return;
         // De momento solo hacia arriba
         // Luego trabajaremos más direcciones
         if (inputManager.DefenseButton && actionCharging == ActionCharguing.None && gameManager.unlockedDefenseActions > 0)
@@ -496,6 +519,9 @@ public class RobotControl : MonoBehaviour {
     void CheckAndFire(float dt)
     {
         //
+        if (gameManager.unlockedAttackActions == 0)
+            return;
+        //
         if (inputManager.FireButton && actionCharging == ActionCharguing.None && gameManager.unlockedAttackActions > 0)
         {
             actionCharging = ActionCharguing.Attack;
@@ -571,7 +597,9 @@ public class RobotControl : MonoBehaviour {
         float coneReach = 20.0f;
         float pulseForceToApply = (gameManager.pulseForce * chargedAmount + gameManager.pulseForce);
         // First sphere check
+        // Receurda, golpea colliders
         RaycastHit[] objectsInRadius = Physics.SphereCastAll(transform.position, coneReach, transform.forward, coneReach);
+        //Collider[] Physics.OverlapSphere
         for(int i = 0; i < objectsInRadius.Length; i++)
         {
             //Then angle check
@@ -583,12 +611,22 @@ public class RobotControl : MonoBehaviour {
                 // TODO: Revisar este también
                 // Aunque este va a ser más dificil simplificarlo
                 Rigidbody objectRb = objectsInRadius[i].transform.GetComponent<Rigidbody>();
+                EnemyCollider enemyCollider = objectsInRadius[i].transform.GetComponent<EnemyCollider>();
                 if (objectRb)
                 {
+                    Debug.Log(objectRb.transform.name);
                     // Then send them to fly
                     // Nota, tener en cuenta también la distancia para aplicar la fureza
-                    Vector3 forceDirection = objectsInRadius[i].transform.position - transform.position;
-                    objectRb.AddForce(forceDirection * pulseForceToApply, ForceMode.Impulse);
+                    //Vector3 forceDirection = objectsInRadius[i].transform.position - transform.position;
+                    pointFromPlayer = objectRb.transform.position - transform.position;
+                    objectRb.AddForce(pointFromPlayer.normalized * pulseForceToApply, ForceMode.Impulse);
+                }
+                //
+                else if(enemyCollider != null)
+                {
+                    objectRb = enemyCollider.GetComponentInParent<Rigidbody>();
+                    pointFromPlayer = objectRb.transform.position - transform.position;
+                    objectRb.AddForce(pointFromPlayer.normalized * pulseForceToApply, ForceMode.Impulse);
                 }
             }
         }
@@ -730,6 +768,7 @@ public static class PlayerReference
     public static Transform playerTransform;
     public static Rigidbody playerRb;
     public static PlayerIntegrity playerIntegrity;
+    public static RobotControl playerControl;
     public static bool isAlive;
 
     public static void Initiate(GameObject playerGO)
@@ -737,6 +776,7 @@ public static class PlayerReference
         playerTransform = playerGO.transform;
         playerRb = playerGO.GetComponent<Rigidbody>();
         playerIntegrity = playerGO.GetComponent<PlayerIntegrity>();
+        playerControl = playerGO.GetComponent<RobotControl>();
         isAlive = true;
     }
 }

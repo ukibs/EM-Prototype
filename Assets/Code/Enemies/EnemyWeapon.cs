@@ -57,7 +57,8 @@ public class EnemyWeapon : MonoBehaviour
     void Start()
     {
         player = FindObjectOfType<RobotControl>();
-        playerRB = player.GetComponent<Rigidbody>();
+        if(player != null)
+            playerRB = player.GetComponent<Rigidbody>();
         //
         shootPoint = transform.Find("Shoot Point");
         if(shootPoint == null)

@@ -19,7 +19,8 @@ public class EnemyTurret : MonoBehaviour
     void Start()
     {
         player = FindObjectOfType<RobotControl>();
-        playerRB = player.GetComponent<Rigidbody>();
+        if(player != null)
+            playerRB = player.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame

@@ -11,6 +11,7 @@ public class EnemyManager : MonoBehaviour
     public float timeBetweenSpawns = 10;
     public float minSpawnDistance = 100;
     public float maxSpawnDistance = 200;
+    public int spawnLimit = -1;
 
     private float timeFromLastSpawn = 0;
     private Transform playerTransform;
@@ -29,6 +30,11 @@ public class EnemyManager : MonoBehaviour
         //
         float dt = Time.deltaTime;
         timeFromLastSpawn += dt;
+        //
+        if(spawnLimit > -1)
+        {
+
+        }
         //
         if(timeFromLastSpawn >= timeBetweenSpawns)
         {
@@ -69,5 +75,15 @@ public class EnemyManager : MonoBehaviour
                 GameObject nextEnemy = Instantiate(enemyPrefabsToUse[i], pointForGroupSpawn, Quaternion.identity);
             }
         }
+    }
+
+    public void InitiateManager(GameObject[] enemiesPrefabs, int[] enemiesToSpawn)
+    {
+        //
+        enemyPrefabsToUse = enemiesPrefabs;
+        initialGroupToSpawnSize = enemiesToSpawn;
+        continuousGroupToSpawnSize = enemiesToSpawn;
+        // Vigilar que no salte dos veces
+        SpawnEnemies(initialGroupToSpawnSize);
     }
 }

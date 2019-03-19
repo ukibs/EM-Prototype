@@ -83,42 +83,8 @@ public class ProvisionalHUD : MonoBehaviour {
         //
         MarkEnemiesOnScreen();
 
-        // Abilities diamond and icons
-        GUI.DrawTexture(new Rect(Screen.width - 200, Screen.height - 200, 200, 200), diamondsTexture);
-        Texture iconToUse = null;
-
-        // Jump ones
-        if(gameManager.unlockedJumpActions > 0)
-        {
-            GUI.DrawTexture(new Rect(Screen.width - 150, Screen.height - 100, 100, 100), jumpTexture);
-        }
-
-        //Sprint ones
-        if(gameManager.unlockedSprintActions > 0)
-        {
-            GUI.DrawTexture(new Rect(Screen.width - 200, Screen.height - 150, 100, 100), sprintTexture);
-        }
-
-        // Attack ones
-        if (gameManager.unlockedAttackActions > 0)
-        {
-            AttackMode attackMode = robotControl.ActiveAttackMode;
-            switch (attackMode)
-            {
-                case AttackMode.Pulse: iconToUse = pulseAttackIcon; break;
-                case AttackMode.RapidFire: iconToUse = rapidFireIcon; break;
-                case AttackMode.Canon: iconToUse = cannonIcon; break;
-                case AttackMode.ParticleCascade: iconToUse = particleCascadeIcon; break;
-                case AttackMode.Piercing: iconToUse = piercingIcon; break;
-            }
-            GUI.DrawTexture(new Rect(Screen.width - 100, Screen.height - 150, 100, 100), iconToUse);
-        }
-
-        //Defense ones
-        if(gameManager.unlockedDefenseActions > 0)
-        {
-            GUI.DrawTexture(new Rect(Screen.width - 150, Screen.height - 200, 100, 100), sphereDefenseTexture);
-        }
+        //
+        DrawAbilityIcons();
 
         //
         if (!cameraControl.TargetingPlayer)
@@ -157,6 +123,46 @@ public class ProvisionalHUD : MonoBehaviour {
 
         //
         DrawDamageIndicators();
+    }
+
+    void DrawAbilityIcons()
+    {
+        // Abilities diamond and icons
+        GUI.DrawTexture(new Rect(Screen.width - 200, Screen.height - 200, 200, 200), diamondsTexture);
+        Texture iconToUse = null;
+
+        // Jump ones
+        if (gameManager.unlockedJumpActions > 0)
+        {
+            GUI.DrawTexture(new Rect(Screen.width - 150, Screen.height - 100, 100, 100), jumpTexture);
+        }
+
+        //Sprint ones
+        if (gameManager.unlockedSprintActions > 0)
+        {
+            GUI.DrawTexture(new Rect(Screen.width - 200, Screen.height - 150, 100, 100), sprintTexture);
+        }
+
+        // Attack ones
+        if (gameManager.unlockedAttackActions > 0)
+        {
+            AttackMode attackMode = robotControl.ActiveAttackMode;
+            switch (attackMode)
+            {
+                case AttackMode.Pulse: iconToUse = pulseAttackIcon; break;
+                case AttackMode.RapidFire: iconToUse = rapidFireIcon; break;
+                case AttackMode.Canon: iconToUse = cannonIcon; break;
+                case AttackMode.ParticleCascade: iconToUse = particleCascadeIcon; break;
+                case AttackMode.Piercing: iconToUse = piercingIcon; break;
+            }
+            GUI.DrawTexture(new Rect(Screen.width - 100, Screen.height - 150, 100, 100), iconToUse);
+        }
+
+        //Defense ones
+        if (gameManager.unlockedDefenseActions > 0)
+        {
+            GUI.DrawTexture(new Rect(Screen.width - 150, Screen.height - 200, 100, 100), sphereDefenseTexture);
+        }
     }
 
     //
