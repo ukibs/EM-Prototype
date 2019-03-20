@@ -42,6 +42,10 @@ public class ProvisionalHUD : MonoBehaviour {
     //
     public float damageIndicatorLifeTime = 0.5f;
 
+    // Controls
+    public Texture keyboardControls;
+    public Texture gamepadControls;
+
     private RobotControl robotControl;
     private Camera mainCamera;
     private ImpactInfoManager impactInfoManager;
@@ -94,12 +98,42 @@ public class ProvisionalHUD : MonoBehaviour {
         }
 
         //
+        DrawImpactInfo();
+
+        //
+        DrawDamageIndicators();
+
+        //
+        if (GameControl.paused)
+        {
+            DrawControls();
+        }
+    }
+
+    //
+    void DrawControls()
+    {
+        //Detect controllers on the beggining
+        if (Input.GetJoystickNames().Length > 0 && Input.GetJoystickNames()[0] != "" )
+        {
+            GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), gamepadControls);
+        }
+        else
+        {
+            GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), keyboardControls);
+        }
+    }
+
+    //
+    void DrawImpactInfo()
+    {
+        //
         for (int i = 0; i < impactInfoManager.ImpactInfoList.Count; i++)
         {
             //
             if (impactInfoManager.ImpactInfoList[i].screenPosition.x == -100)
             {
-                impactInfoManager.ImpactInfoList[i].screenPosition = 
+                impactInfoManager.ImpactInfoList[i].screenPosition =
                     mainCamera.WorldToScreenPoint(impactInfoManager.ImpactInfoList[i].position);
                 // Clamp them
                 //impactInfoManager.ImpactInfoList[i].screenPosition.x =
@@ -112,19 +146,17 @@ public class ProvisionalHUD : MonoBehaviour {
 
             // Datos del impact info manager
             GUI.Label(new Rect(impactInfoManager.ImpactInfoList[i].screenPosition.x,
-                Screen.height - impactInfoManager.ImpactInfoList[i].screenPosition.y, 
+                Screen.height - impactInfoManager.ImpactInfoList[i].screenPosition.y,
                 100, 100), impactInfoManager.ImpactInfoList[i].info, guiSkin.label);
 
-            if(impactInfoManager.ImpactInfoList[i].extraInfo != null)
-                GUI.Label(new Rect(impactInfoManager.ImpactInfoList[i].screenPosition.x, 
-                    Screen.height - impactInfoManager.ImpactInfoList[i].screenPosition.y + 10, 100, 100), 
+            if (impactInfoManager.ImpactInfoList[i].extraInfo != null)
+                GUI.Label(new Rect(impactInfoManager.ImpactInfoList[i].screenPosition.x,
+                    Screen.height - impactInfoManager.ImpactInfoList[i].screenPosition.y + 10, 100, 100),
                     impactInfoManager.ImpactInfoList[i].extraInfo, guiSkin.label);
         }
-
-        //
-        DrawDamageIndicators();
     }
 
+    //
     void DrawAbilityIcons()
     {
         // Abilities diamond and icons

@@ -102,7 +102,7 @@ public class RobotControl : MonoBehaviour {
     private bool adhering = false;
 
     // Testeo
-    private bool paused = false;
+    //private bool paused = false;
 
     #region Properties
 
@@ -111,12 +111,15 @@ public class RobotControl : MonoBehaviour {
 
     public AttackMode ActiveAttackMode {
         get { return attackMode; }
+        set { attackMode = value; }
     }
     public DefenseMode ActiveDefenseMode {
         get { return defenseMode; }
+        set { defenseMode = value; }
     }
     public SprintMode ActiveSprintMode {
         get { return sprintMode; }
+        set { sprintMode = value; }
     }
     public JumpMode ActiveJumpMode {
         get { return jumpMode; }
@@ -164,19 +167,19 @@ public class RobotControl : MonoBehaviour {
             CheckAndFire(dt);
             CheckDefense();
         }
-        //
+        // TODO: Controlarlo mejor
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             //Debug.Log("Triynig to pause");
-            if (!paused)
+            if (!GameControl.paused)
             {
                 Time.timeScale = 0;
-                paused = true;
+                GameControl.paused = true;
             }
             else
             {
                 Time.timeScale = 1;
-                paused = false;
+                GameControl.paused = false;
             }
         }
     }
@@ -287,6 +290,10 @@ public class RobotControl : MonoBehaviour {
 
         // And then the axis
         Vector2 movementAxis = inputManager.StickAxis;
+        //
+        if (applyingDamping == false && movementAxis.magnitude > Mathf.Epsilon)
+            applyingDamping = true;
+        //
         Vector3 directionZ = mainCamera.forward * movementAxis.y;
         Vector3 directionX = mainCamera.right * movementAxis.x;
 
@@ -306,8 +313,8 @@ public class RobotControl : MonoBehaviour {
             {
                 //
                 // TODO: Agregarlo al stimated
-                Vector3 pointToLook = transform.TransformPoint(EnemyAnalyzer.enemyConsistency.centralPointOffset);
-                //Vector3 pointToLook = EnemyAnalyzer.estimatedToHitPosition;
+                //Vector3 pointToLook = transform.TransformPoint(EnemyAnalyzer.enemyConsistency.centralPointOffset);
+                Vector3 pointToLook = EnemyAnalyzer.estimatedToHitPosition;
                 transform.LookAt(pointToLook, currentUp);
             }                
             else
@@ -403,7 +410,7 @@ public class RobotControl : MonoBehaviour {
                         : cameraForward;
                     // TODO: Revisar
                     Vector3 compensatedDirection = (desiredDirection - currentVelocity).normalized;
-                    rb.AddForce(compensatedDirection * (gameManager.jumpForce * chargedAmount + gameManager.jumpForce * 10), ForceMode.Impulse);
+                    rb.AddForce(compensatedDirection * (gameManager.jumpForce * chargedAmount + gameManager.jumpForce) * 10, ForceMode.Impulse);
                     break;
             }
             
@@ -779,4 +786,11 @@ public static class PlayerReference
         playerControl = playerGO.GetComponent<RobotControl>();
         isAlive = true;
     }
+}
+
+//
+public static class GameControl
+{
+    public static bool paused;
+    //public static float 
 }

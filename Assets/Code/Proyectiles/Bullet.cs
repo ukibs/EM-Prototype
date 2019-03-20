@@ -11,6 +11,7 @@ public class Bullet : MonoBehaviour {
     [Tooltip("Short for quick bullets long for artillery and other slow ones")]
     public float lifeTime = 10;
     public GameObject impactParticlesPrefab;
+    public GameObject bulletHolePrefab;
 
     // TODO: Decidir si implementamos el funcionamiendo de misil aqui como opción (impulso constante en vez de inicial)
 
@@ -50,14 +51,16 @@ public class Bullet : MonoBehaviour {
     {
         //
         EnemyCollider enemyCollider = collision.collider.GetComponent<EnemyCollider>();
+        ContactPoint collisionPoint = collision.GetContact(0);
         if (enemyCollider != null)
-            enemyCollider.ReceiveBulletImpact(rb, collision.contacts[0].point);
+            enemyCollider.ReceiveBulletImpact(rb, collisionPoint.point);
         //Debug.Log(collision.collider.gameObject.name + " impacted with " + collision.relativeVelocity + " speed.");
         //Debug.Log(collision.collider.gameObject.gameObject.name + " impacted with " + collision.relativeVelocity +
         //    " speed and " + rb.mass +
         //        " mass. With a total force of " + (rb.velocity.magnitude * rb.mass) + ".");
         //
         GameObject impactParticles = Instantiate(impactParticlesPrefab, transform.position, Quaternion.identity);
+        SpawnBulletHole(collisionPoint.point, collisionPoint.normal, collision.gameObject);
         Destroy(impactParticles, 2);
         //
         Destroy(gameObject, 0.5f);
@@ -100,9 +103,21 @@ public class Bullet : MonoBehaviour {
         }
         //
         GameObject impactParticles = Instantiate(impactParticlesPrefab, raycastInfo.point, Quaternion.identity);
+        SpawnBulletHole(raycastInfo.point, raycastInfo.normal, raycastInfo.collider.gameObject);
         Destroy(impactParticles, 2);
         //
         Destroy(gameObject, dt);
+    }
+
+    // TODO: Emparentarlo con el objeto impactado
+    void SpawnBulletHole(Vector3 point, Vector3 normal, GameObject objectToParent)
+    {
+        GameObject newBulletHole = Instantiate(bulletHolePrefab, point, Quaternion.identity);
+        newBulletHole.transform.rotation = Quaternion.LookRotation(newBulletHole.transform.forward, normal);
+        // TODO: Que no se peguen a EM (al menos mientras le quede escudo)
+        PlayerIntegrity playerIntegrity = objectToParent.GetComponent<PlayerIntegrity>();
+        if(playerIntegrity == null)
+            newBulletHole.transform.SetParent(objectToParent.transform);
     }
 
     #endregion

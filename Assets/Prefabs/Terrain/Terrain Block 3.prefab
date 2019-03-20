@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 115002573895725085}
   m_Layer: 0
   m_Name: Rock (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -101,7 +101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 182231823908150193}
   m_Layer: 0
-  m_Name: Terrain Block 1
+  m_Name: Terrain Block 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 4173340092033038544}
   m_Layer: 0
   m_Name: Rock (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -230,7 +230,7 @@ GameObject:
   - component: {fileID: 7118862515398233271}
   m_Layer: 0
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -321,7 +321,7 @@ GameObject:
   - component: {fileID: 6061129188063905645}
   m_Layer: 0
   m_Name: Rock
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295

@@ -70,6 +70,8 @@ MonoBehaviour:
   sphereDefenseTexture: {fileID: 2800000, guid: 094175ff16bcf6047a424336970a282c,
     type: 3}
   damageIndicatorLifeTime: 1
+  keyboardControls: {fileID: 2800000, guid: 47d09ea007cdd2d43b83fde139df457c, type: 3}
+  gamepadControls: {fileID: 2800000, guid: e6935174e51be4446b4769c546f1d1c8, type: 3}
 --- !u!114 &72231465
 MonoBehaviour:
   m_ObjectHideFlags: 0

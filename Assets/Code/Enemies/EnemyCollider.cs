@@ -6,6 +6,8 @@ public class EnemyCollider : MonoBehaviour
 {
     [Tooltip("Armor thickness on this side")]
     public float armor = 10;
+    // Ñapa
+    public bool groundFiendly = false;
 
     // TODO: Manejar dureza de material
     // Y otras propiedades en el futuro
@@ -35,6 +37,9 @@ public class EnemyCollider : MonoBehaviour
     {
         //Que no esté muerto
         if (body == null)
+            return;
+        //
+        if (collision.transform.tag == "Ground" && groundFiendly)
             return;
 
         // Trataremos de forma diferente los impactos de las balas y el resto

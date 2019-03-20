@@ -42,12 +42,22 @@ public class ProvLevelManager : MonoBehaviour
         enemiesToDestroy = levelInfo.enemiesToDefeat;
         // Esto habrá que manejarlo de otro modo
         // Forzamos provisonalmente que se equipen las asignadas
+        //
         gameManager.unlockedAttackActions = levelInfo.attackActionsAvailable;
+        if (gameManager.unlockedAttackActions > 1)
+            PlayerReference.playerControl.ActiveAttackMode = (AttackMode)(gameManager.unlockedAttackActions - 1);
+        //
         gameManager.unlockedDefenseActions = levelInfo.defenseActionsAvailable;
+        if (gameManager.unlockedJumpActions > 1)
+            PlayerReference.playerControl.ActiveDefenseMode = (DefenseMode)(gameManager.unlockedDefenseActions - 1);
+        //
         gameManager.unlockedJumpActions = levelInfo.jumpActionsAvailable;
         if (gameManager.unlockedJumpActions > 1)
-            PlayerReference.playerControl.ActiveJumpMode = (JumpMode)(gameManager.unlockedJumpActions-1);
+            PlayerReference.playerControl.ActiveJumpMode = (JumpMode)(gameManager.unlockedJumpActions - 1);
+        //
         gameManager.unlockedSprintActions = levelInfo.sprintActionsAvailable;
+        if (gameManager.unlockedJumpActions > 1)
+            PlayerReference.playerControl.ActiveSprintMode = (SprintMode)(gameManager.unlockedSprintActions - 1);
         //
         enemyManager.InitiateManager(levelInfo.enemiesToUse, levelInfo.enemiesToSpawn);
         //
