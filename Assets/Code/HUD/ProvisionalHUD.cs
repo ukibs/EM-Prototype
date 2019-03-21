@@ -13,6 +13,7 @@ public class ProvisionalHUD : MonoBehaviour {
     public Texture targetedEnemyEstimatedFuturePositionTexture;
     public Texture testingVelocityIcon;
     public Texture diamondsTexture;
+    public Texture diamondsBackgroundTexture;
     public Texture shieldDamageTexture;
     public Texture hullDamageTexture;
 
@@ -160,6 +161,7 @@ public class ProvisionalHUD : MonoBehaviour {
     void DrawAbilityIcons()
     {
         // Abilities diamond and icons
+        GUI.DrawTexture(new Rect(Screen.width - 200, Screen.height - 200, 200, 200), diamondsBackgroundTexture);
         GUI.DrawTexture(new Rect(Screen.width - 200, Screen.height - 200, 200, 200), diamondsTexture);
         Texture iconToUse = null;
 
@@ -279,15 +281,15 @@ public class ProvisionalHUD : MonoBehaviour {
 
 
             // Barra de vida (chasis)
-            float enemyChasisHealthForBar = enemyConsistency.CurrentChasisHealth / enemyConsistency.maxChasisHealth;
-            enemyChasisHealthForBar = Mathf.Clamp01(enemyChasisHealthForBar);
-            GUI.DrawTexture(new Rect(Screen.width / 2 + 150, Screen.height / 2 - 50, enemyChasisHealthForBar * 100f, 20), enemyChasisTexture);
-            GUI.Label(new Rect(Screen.width / 2 + 150, Screen.height / 2 - 50, 100f, 20), " " + enemyConsistency.CurrentChasisHealth);
+            //float enemyChasisHealthForBar = enemyConsistency.CurrentChasisHealth / enemyConsistency.maxChasisHealth;
+            //enemyChasisHealthForBar = Mathf.Clamp01(enemyChasisHealthForBar);
+            //GUI.DrawTexture(new Rect(Screen.width / 2 + 150, Screen.height / 2 - 50, enemyChasisHealthForBar * 100f, 20), enemyChasisTexture);
+            //GUI.Label(new Rect(Screen.width / 2 + 150, Screen.height / 2 - 50, 100f, 20), " " + enemyConsistency.CurrentChasisHealth);
             // Barra de vida (core)
-            float enemyCoreHealthForBar = enemyConsistency.CurrentCoreHealth / enemyConsistency.maxCoreHealth;
+            float enemyCoreHealthForBar = enemyConsistency.CurrentHealth / enemyConsistency.maxHealth;
             enemyCoreHealthForBar = Mathf.Clamp01(enemyCoreHealthForBar);
             GUI.DrawTexture(new Rect(Screen.width / 2 + 150, Screen.height / 2 - 30, enemyCoreHealthForBar * 100f, 20), enemyCoreTexture);
-            GUI.Label(new Rect(Screen.width / 2 + 150, Screen.height / 2 - 30, 100f, 20), " " + enemyConsistency.CurrentCoreHealth);
+            GUI.Label(new Rect(Screen.width / 2 + 150, Screen.height / 2 - 30, 100f, 20), " " + enemyConsistency.CurrentHealth);
 
             
             

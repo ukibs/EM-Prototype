@@ -26,8 +26,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1430406513762067737}
   m_LocalRotation: {x: -0.000000021855694, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.94, z: 0.39}
-  m_LocalScale: {x: 1.2, y: 0.3, z: 4.5}
+  m_LocalPosition: {x: 0, y: 1.85, z: 0.39}
+  m_LocalScale: {x: 1.2, y: 0.6, z: 4.5}
   m_Children: []
   m_Father: {fileID: 4252427797486916070}
   m_RootOrder: 8
@@ -181,7 +181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainWeapon: 1
-  rotationSpeed: {x: 0, y: 90}
+  rotationSpeed: {x: 45, y: 45}
   rateOfFire: 7.5
   range: 1000
   proyectilePrefab: {fileID: 1952744711831650, guid: 31df4c767d65d9d498e4208ecc90cbc5,
@@ -191,7 +191,7 @@ MonoBehaviour:
   typeOfFire: 0
   debugging: 0
   shootCalculation: 1
-  maxRotationOffset: {x: 10, y: 45}
+  maxRotationOffset: {x: 10, y: 30}
   shootParticlesPrefab: {fileID: 1837716235657633640, guid: 61c9e81fe8e7c0a40a345df35440fcab,
     type: 3}
 --- !u!1 &2296958880007927208
@@ -348,7 +348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainWeapon: 1
-  rotationSpeed: {x: 0, y: 90}
+  rotationSpeed: {x: 45, y: 45}
   rateOfFire: 7.5
   range: 1000
   proyectilePrefab: {fileID: 1952744711831650, guid: 31df4c767d65d9d498e4208ecc90cbc5,
@@ -464,8 +464,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3377732120879947861}
   m_LocalRotation: {x: -0.000000021855694, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.44, z: 0.06}
-  m_LocalScale: {x: 1.2, y: 0.3, z: 4}
+  m_LocalPosition: {x: 0, y: 0.7, z: 0.06}
+  m_LocalScale: {x: 1.2, y: 0.6, z: 4}
   m_Children: []
   m_Father: {fileID: 4252427797486916070}
   m_RootOrder: 9
@@ -765,7 +765,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainWeapon: 1
-  rotationSpeed: {x: 0, y: 90}
+  rotationSpeed: {x: 45, y: 45}
   rateOfFire: 7.5
   range: 1000
   proyectilePrefab: {fileID: 1952744711831650, guid: 31df4c767d65d9d498e4208ecc90cbc5,
@@ -775,7 +775,7 @@ MonoBehaviour:
   typeOfFire: 0
   debugging: 0
   shootCalculation: 1
-  maxRotationOffset: {x: 10, y: 45}
+  maxRotationOffset: {x: 10, y: 30}
   shootParticlesPrefab: {fileID: 1837716235657633640, guid: 61c9e81fe8e7c0a40a345df35440fcab,
     type: 3}
 --- !u!1 &6850613151982025685
@@ -1013,7 +1013,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBetweenActionChecking: 1
-  motorForce: 200
+  motorForce: 30
   rotationSpeed: 30
   turrets: []
   weapons:
@@ -1033,9 +1033,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9f760979ab2521429985b0a447da57f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxChasisHealth: 300
-  maxCoreHealth: 300
-  defense: 50
+  maxHealth: 1000
+  defense: 500
   centralPointOffset: {x: 0, y: 2, z: 0}
   face: {fileID: 8438318046569397788}
   deadFaceMaterial: {fileID: 2100000, guid: faa0059e123f2b04d8d07acd9d8e5f0e, type: 2}

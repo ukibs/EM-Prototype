@@ -430,6 +430,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   armor: 5
+  groundFiendly: 0
 --- !u!114 &89467284137208039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -442,9 +443,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9f760979ab2521429985b0a447da57f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxChasisHealth: 50
-  maxCoreHealth: 50
-  defense: 50
+  maxHealth: 50
+  defense: 10
   centralPointOffset: {x: 0, y: 0, z: 0}
   face: {fileID: 3761027861496665805}
   deadFaceMaterial: {fileID: 2100000, guid: faa0059e123f2b04d8d07acd9d8e5f0e, type: 2}
@@ -599,6 +599,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   armor: 5
+  groundFiendly: 0
 --- !u!114 &3920790811720450900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -611,9 +612,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9f760979ab2521429985b0a447da57f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxChasisHealth: 20
-  maxCoreHealth: 20
-  defense: 20
+  maxHealth: 30
+  defense: 5
   centralPointOffset: {x: 0, y: 0, z: 0}
   face: {fileID: 3487739277684594591}
   deadFaceMaterial: {fileID: 2100000, guid: faa0059e123f2b04d8d07acd9d8e5f0e, type: 2}

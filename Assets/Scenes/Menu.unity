@@ -542,6 +542,11 @@ PrefabInstance:
       propertyPath: pulseForce
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 155386306854847304, guid: d437e3429b62a62418fa4d4d41b0096e,
+        type: 3}
+      propertyPath: rapidFireRate
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d437e3429b62a62418fa4d4d41b0096e, type: 3}
 --- !u!1 &1379158841

@@ -167,21 +167,7 @@ public class RobotControl : MonoBehaviour {
             CheckAndFire(dt);
             CheckDefense();
         }
-        // TODO: Controlarlo mejor
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            //Debug.Log("Triynig to pause");
-            if (!GameControl.paused)
-            {
-                Time.timeScale = 0;
-                GameControl.paused = true;
-            }
-            else
-            {
-                Time.timeScale = 1;
-                GameControl.paused = false;
-            }
-        }
+        
     }
 
     private void OnGUI()
@@ -216,7 +202,7 @@ public class RobotControl : MonoBehaviour {
         float sprintMultiplier = 1;
         Vector3 currentUp = Vector3.up;
         //
-        if (gameManager.unlockedJumpActions > 0)
+        if (gameManager.unlockedSprintActions > 0)
         {
             RaycastHit adherencePoint;
             
@@ -621,7 +607,7 @@ public class RobotControl : MonoBehaviour {
                 EnemyCollider enemyCollider = objectsInRadius[i].transform.GetComponent<EnemyCollider>();
                 if (objectRb)
                 {
-                    Debug.Log(objectRb.transform.name);
+                    //Debug.Log(objectRb.transform.name);
                     // Then send them to fly
                     // Nota, tener en cuenta también la distancia para aplicar la fureza
                     //Vector3 forceDirection = objectsInRadius[i].transform.position - transform.position;
@@ -647,7 +633,7 @@ public class RobotControl : MonoBehaviour {
     /// <param name="dt"></param>
     void RapidFireAttack(float dt)
     {
-        if (chargedAmount >= gameManager.rapidFireRate / 60)
+        if (chargedAmount >= 1 / gameManager.rapidFireRate)
         {
             for (int i = 0; i < machineGunPoints.Length; i++)
             {
@@ -670,7 +656,7 @@ public class RobotControl : MonoBehaviour {
                     shootRotation, shootForward, muzzleSpeed, dt, ShootCalculation.MuzzleSpeed);
             }
             // TODO: Revisar por qué no hace esto
-            chargedAmount -= gameManager.rapidFireRate / 60;
+            chargedAmount -= 1 / gameManager.rapidFireRate;
         }
     }
 

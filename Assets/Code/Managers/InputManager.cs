@@ -32,6 +32,10 @@ public class InputManager : MonoBehaviour {
     //
     private Vector2 previousMousePosition;
     private Vector2 previousCrossAxis;
+    //
+    private bool pauseButton;
+    // Ahora revisamos donde meterla
+    private float rightAxisSensivity = 1.0f;
 
     #endregion
 
@@ -61,6 +65,19 @@ public class InputManager : MonoBehaviour {
     public bool ChangeDefenseDown { get { return changeDefenseDown; } }
     public bool ChangeSprintDown { get { return changeSprintDown; } }
     public bool ChangeJumpDown { get { return changeJumpDown; } }
+
+    //
+    public bool PauseButton { get { return pauseButton; } }
+
+    // Probalbemente aqui
+    public float RightAxisSensivity
+    {
+        get { return rightAxisSensivity; }
+        set
+        {
+            rightAxisSensivity = value;
+        }
+    }
 
     #endregion
 
@@ -110,7 +127,11 @@ public class InputManager : MonoBehaviour {
 
         // Stick derecho
         rightStickAxis = new Vector2(Input.GetAxisRaw("Right Horizontal"), Input.GetAxisRaw("Right Vertical"));
-        
+
+        //
+        pauseButton = Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Joystick1Button7);
+
+
     }
 
     void UpdateMouseMovement()

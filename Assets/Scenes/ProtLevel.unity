@@ -861,6 +861,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17562b036706cc4c93498c61301fde7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  guiSkin: {fileID: 11400000, guid: 0d7ecdc8ac800f94491b1d5df3fbf883, type: 2}
 --- !u!114 &1941905309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -897,6 +898,8 @@ MonoBehaviour:
   - {fileID: 3326227640253247155, guid: e805da38f2157cf44bd8ebbbe826ba67, type: 3}
   - {fileID: 3326227640253247155, guid: f90644bdac5d8924fbad91a92cde6c44, type: 3}
   - {fileID: 3326227640253247155, guid: a6ea28f7bba66814c94750eff1f7c8d9, type: 3}
-  blockFrequencies: 
+  - {fileID: 6767483043771959620, guid: 4d89a9e3bd7e7914c803a93a276799b2, type: 3}
+  - {fileID: 1781217798136379078, guid: a29bd4f96f2d4f24280d189da1bef920, type: 3}
+  blockFrequencies: 0300000003000000030000000100000001000000
   squareSize: 11
   blockSize: 200

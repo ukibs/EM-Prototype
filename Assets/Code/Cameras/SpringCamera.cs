@@ -23,6 +23,7 @@ public class SpringCamera : MonoBehaviour {
     private Transform currentTarget;
     private Camera cameraComponent;
     private InputManager inputManager;
+    private GameManager gameManager;
 
     private float originalY;
     //private float currentOffsetY = 0;
@@ -70,6 +71,9 @@ public class SpringCamera : MonoBehaviour {
         inputManager = FindObjectOfType<InputManager>();
         //
         originalY = targetOffset.y;
+
+        //
+        gameManager = FindObjectOfType<GameManager>();
     }
 	
 	// Update is called once per frame
@@ -207,6 +211,12 @@ public class SpringCamera : MonoBehaviour {
         //
         if (!EnemyAnalyzer.isActive)
             return;
+        //
+        if(EnemyAnalyzer.enemyConsistency == null)
+        {
+            EnemyAnalyzer.Release();
+            return;
+        }
         // Empezamos cogiendo la posición del enemigo
         Vector3 targetPoint = EnemyAnalyzer.enemyTransform.TransformPoint(EnemyAnalyzer.enemyConsistency.centralPointOffset);
         // TODO: Sacar un índice del arma actualmente equipada para usar su muzzle speed en la función de atnicpar
@@ -217,7 +227,7 @@ public class SpringCamera : MonoBehaviour {
         // Determinamos el 
         // TODO: Coger el punto de disparo del plauer
         EnemyAnalyzer.estimatedToHitPosition.y += GeneralFunctions.GetProyectileFallToObjective(transform.position,
-            EnemyAnalyzer.estimatedToHitPosition, 1500);
+            EnemyAnalyzer.estimatedToHitPosition, gameManager.rapidFireMuzzleSpeed);
             //
         targetPos = EnemyAnalyzer.estimatedToHitPosition;
     }
@@ -294,6 +304,10 @@ public class SpringCamera : MonoBehaviour {
             if(currentTarget == targetPlayer)
             {
                 Transform[] nearestEnemies = GetNearestEnemiesInScreenAndWorld();
+
+                // Ñapa
+                if (nearestEnemies == null)
+                    return;
 
                 // The nearest enemy to the screen center if there is
                 if(nearestEnemies[0] != null)
@@ -411,7 +425,7 @@ public class SpringCamera : MonoBehaviour {
         }
         else
         {
-            Debug.Log("No more enemies in screen");
+            //Debug.Log("No more enemies in screen");
             SwitchTarget();
         }
     }

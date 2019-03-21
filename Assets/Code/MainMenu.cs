@@ -14,6 +14,9 @@ public class MainMenu : MonoBehaviour
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
+        //
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     // Update is called once per frame

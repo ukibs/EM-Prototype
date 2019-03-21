@@ -27,9 +27,17 @@ public class TerrainManager : MonoBehaviour
         centralBlock = halfMinusOne;
         //
         playerTransform = FindObjectOfType<RobotControl>().transform;
-        //
-        for(int i = 0; i < squareSize; i++)
+        // Establecemos relación de frecuencias
+        int totalSum = 0;
+        for (int i = 0; i < blockFrequencies.Length; i++)
         {
+            // TODO: Aplicar esto bien
+            totalSum += blockFrequencies[i];
+        }
+        //
+        for (int i = 0; i < squareSize; i++)
+        {
+            //
             for (int j = 0; j < squareSize; j++)
             {
                 Vector3 nextPosition = new Vector3(i * 200 - (200 * halfMinusOne), 0, j * 200 - (200 * halfMinusOne));
@@ -39,7 +47,10 @@ public class TerrainManager : MonoBehaviour
                 if (i == centralBlock && j == centralBlock)
                     prefabToUse = blockPrefabs[0];
                 else
+                {
                     prefabToUse = blockPrefabs[(int)Random.Range(0, blockPrefabs.Length)];
+                }
+                    
                 // And put it
                 activeBlocksMatrix[i, j] = Instantiate(prefabToUse, nextPosition, Quaternion.identity);
             }

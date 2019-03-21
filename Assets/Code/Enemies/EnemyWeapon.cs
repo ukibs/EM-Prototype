@@ -178,9 +178,11 @@ public class EnemyWeapon : MonoBehaviour
         //
         Quaternion constrainedRotation = transform.localRotation;
         //
-        constrainedRotation.x = Mathf.Clamp(constrainedRotation.x, originalRotation.x - rotationConstrains.x,
+        constrainedRotation.x = Mathf.Clamp(constrainedRotation.x, 
+                                                originalRotation.x - rotationConstrains.x,
                                                 originalRotation.x + rotationConstrains.x);
-        constrainedRotation.y = Mathf.Clamp(constrainedRotation.y, originalRotation.y - rotationConstrains.y,
+        constrainedRotation.y = Mathf.Clamp(constrainedRotation.y, 
+                                                originalRotation.y - rotationConstrains.y,
                                                 originalRotation.y + rotationConstrains.y);
         //
         transform.localRotation = constrainedRotation;
@@ -223,7 +225,7 @@ public class EnemyWeapon : MonoBehaviour
             EnemyCollider enemyCollider = hitInfo.transform.GetComponent<EnemyCollider>();
             if (enemyCollider != null)
             {
-                Debug.Log("Comrade " + enemyCollider.gameObject.name + " in path");
+                // Debug.Log("Comrade " + enemyCollider.gameObject.name + " in path");
                 return true;
             }
                 

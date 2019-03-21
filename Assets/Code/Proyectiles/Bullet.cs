@@ -112,12 +112,15 @@ public class Bullet : MonoBehaviour {
     // TODO: Emparentarlo con el objeto impactado
     void SpawnBulletHole(Vector3 point, Vector3 normal, GameObject objectToParent)
     {
-        GameObject newBulletHole = Instantiate(bulletHolePrefab, point, Quaternion.identity);
-        newBulletHole.transform.rotation = Quaternion.LookRotation(newBulletHole.transform.forward, normal);
         // TODO: Que no se peguen a EM (al menos mientras le quede escudo)
         PlayerIntegrity playerIntegrity = objectToParent.GetComponent<PlayerIntegrity>();
-        if(playerIntegrity == null)
-            newBulletHole.transform.SetParent(objectToParent.transform);
+        // Error control vago
+        if (bulletHolePrefab == null || playerIntegrity != null )
+            return;
+            //
+        GameObject newBulletHole = Instantiate(bulletHolePrefab, point, Quaternion.identity);
+        newBulletHole.transform.rotation = Quaternion.LookRotation(newBulletHole.transform.forward, normal);
+        newBulletHole.transform.SetParent(objectToParent.transform);
     }
 
     #endregion

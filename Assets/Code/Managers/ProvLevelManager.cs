@@ -16,6 +16,10 @@ public enum VictoryCondition
 
 public class ProvLevelManager : MonoBehaviour
 {
+    //
+    public GUISkin guiSkin;
+
+    //
     private int enemiesToDestroy;
     private int enemiesDestroyed = 0;
 
@@ -24,6 +28,7 @@ public class ProvLevelManager : MonoBehaviour
     private GameManager gameManager;
     private EnemyManager enemyManager;
     private Fade fade;
+    private InputManager inputManager;
 
     private bool victory = false;
     private bool finished = false;
@@ -36,30 +41,32 @@ public class ProvLevelManager : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         enemyManager = GetComponent<EnemyManager>();
         fade = FindObjectOfType<Fade>();
+        inputManager = FindObjectOfType<InputManager>();
+
         // TODO: Pedir al game manager la info del nivel que toca
         LevelInfo levelInfo = gameManager.GetCurrentLevelInfo();
         victoryCondition = levelInfo.victoryCondition;
         enemiesToDestroy = levelInfo.enemiesToDefeat;
         // Esto habrá que manejarlo de otro modo
         // Forzamos provisonalmente que se equipen las asignadas
-        //
+        // Attack
         gameManager.unlockedAttackActions = levelInfo.attackActionsAvailable;
         if (gameManager.unlockedAttackActions > 1)
             PlayerReference.playerControl.ActiveAttackMode = (AttackMode)(gameManager.unlockedAttackActions - 1);
-        //
+        // Defense
         gameManager.unlockedDefenseActions = levelInfo.defenseActionsAvailable;
-        if (gameManager.unlockedJumpActions > 1)
+        if (gameManager.unlockedDefenseActions > 1)
             PlayerReference.playerControl.ActiveDefenseMode = (DefenseMode)(gameManager.unlockedDefenseActions - 1);
-        //
+        // Jump
         gameManager.unlockedJumpActions = levelInfo.jumpActionsAvailable;
         if (gameManager.unlockedJumpActions > 1)
             PlayerReference.playerControl.ActiveJumpMode = (JumpMode)(gameManager.unlockedJumpActions - 1);
-        //
+        // Sprint
         gameManager.unlockedSprintActions = levelInfo.sprintActionsAvailable;
-        if (gameManager.unlockedJumpActions > 1)
+        if (gameManager.unlockedSprintActions > 1)
             PlayerReference.playerControl.ActiveSprintMode = (SprintMode)(gameManager.unlockedSprintActions - 1);
         //
-        enemyManager.InitiateManager(levelInfo.enemiesToUse, levelInfo.enemiesToSpawn);
+        enemyManager.InitiateManager(levelInfo.enemiesToUse, levelInfo.enemiesToSpawn, levelInfo.maxActiveEnemies);
         //
         //switch (victoryCondition)
         //{
@@ -73,7 +80,7 @@ public class ProvLevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //
+        // Cuqluier botón estando muerto para volver al menu
         if(Input.anyKey && robotControl == null)
         {
             SceneManager.LoadScene("Menu");
@@ -83,16 +90,53 @@ public class ProvLevelManager : MonoBehaviour
         //
         if(finished && fade.alpha >= 1)
         {
-            //SceneManager.LoadScene("Map"); mongolin
+            //SceneManager.LoadScene("Map");
             SceneManager.LoadScene("Menu");
         }
+        //
+        CheckControls();
     }
 
     private void OnGUI()
     {
         // Ya lo haremos en el hud mas adelante
-        GUI.Label(new Rect(30, 100, 200, 20), "Enemies destroyed: " + enemiesDestroyed);
+        GUI.Label(new Rect(30, 100, 200, 30), "Enemies destroyed: " + enemiesDestroyed, guiSkin.label);
+        //
+        if (GameControl.paused)
+        {
+            GUI.Label(new Rect(Screen.width/2 - 150, Screen.height * 4/5, 300, 50), "A/Space to quit", guiSkin.customStyles[3]);
+        }
 
+    }
+
+    void CheckControls()
+    {
+        // TODO: Controlarlo mejor
+        if (inputManager.PauseButton)
+        {
+            //Debug.Log("Triynig to pause");
+            if (!GameControl.paused)
+            {
+                Time.timeScale = 0;
+                GameControl.paused = true;
+            }
+            else
+            {
+                Time.timeScale = 1;
+                GameControl.paused = false;
+            }
+        }
+        // TODO: Mirar a ver que falla
+        if(inputManager.JumpButton && GameControl.paused)
+        {
+            // Unpause
+            GameControl.paused = false;
+            Time.timeScale = 1;
+            //
+            EnemyAnalyzer.Release();
+            //
+            SceneManager.LoadScene("Menu");
+        }
     }
 
     void CheckVictory()

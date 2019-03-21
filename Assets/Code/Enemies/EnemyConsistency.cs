@@ -6,8 +6,8 @@ public class EnemyConsistency : MonoBehaviour {
 
     #region Public Attributes
 
-    public float maxChasisHealth = 100.0f; // 
-    public float maxCoreHealth = 100.0f; //
+    // public float maxChasisHealth = 100.0f; // 
+    public float maxHealth = 100.0f; //
     [Tooltip("Defense against non bullet impacts.")]
     public float defense = 10;   // The minimal physic strength to start receiving an effect
     [Tooltip("Adjustment for models which central point is deviated")]
@@ -23,22 +23,23 @@ public class EnemyConsistency : MonoBehaviour {
     #region Private Attributes
 
     private ImpactInfoManager impactInfoManager;
-    private float currentChasisHealth;
-    private float currentCoreHealth;
+    // private float currentChasisHealth;
+    private float currentHealth;
     private ProvLevelManager levelManager;
     private Rigidbody rb;
+    private Vector3 previousVelocity;
 
     #endregion
 
     #region Properties
 
-    public float CurrentChasisHealth { get { return currentChasisHealth;  } }
-    public float CurrentCoreHealth { get { return currentCoreHealth; } }
+    //public float CurrentChasisHealth { get { return currentChasisHealth;  } }
+    public float CurrentHealth { get { return currentHealth; } }
 
     public float Defense { get { return defense; } }
     public bool IsAlive
     {
-        get { return currentChasisHealth > 0 && CurrentCoreHealth > 0; }
+        get { return /*currentChasisHealth > 0 &&*/ CurrentHealth > 0; }
     }
 
     #endregion
@@ -47,8 +48,8 @@ public class EnemyConsistency : MonoBehaviour {
     // Use this for initialization
     void Start () {
         impactInfoManager = FindObjectOfType<ImpactInfoManager>();
-        currentChasisHealth = maxChasisHealth;
-        currentCoreHealth = maxCoreHealth;
+        //currentChasisHealth = maxChasisHealth;
+        currentHealth = maxHealth;
         //
         levelManager = FindObjectOfType<ProvLevelManager>();
         //if(levelManager)
@@ -67,19 +68,52 @@ public class EnemyConsistency : MonoBehaviour {
         }
 	}
 
+    //
+    void FixedUpdate()
+    {
+        // Guardamos la previa para chequear si ha habido un ostión
+        previousVelocity = rb.velocity;
+    }
+
     // Lo ponemos para ver que falla con las colisiones entre cuerpos
     // Ojo que alguna la pillará por duplicado
     private void OnCollisionEnter(Collision collision)
     {
         // Estas no las queremos chequear aqui
         Bullet bullet = collision.collider.GetComponent<Bullet>();
+        // Chequeamos diferencia de velocidades para ver si solo es fricción u hostiazo
+        Vector3 velocityOffset = previousVelocity - rb.velocity;
+        // De momento diferencia de 1
         if(bullet == null)
         {
             //
             Rigidbody otherRb = collision.collider.GetComponent<Rigidbody>();
             float impactForce = GeneralFunctions.GetCollisionForce(rb, otherRb);
-            ReceiveImpact(impactForce, collision.contacts[0].point);
+            if(otherRb != null || velocityOffset.magnitude > 2)
+            {
+                //Debug.Log("Hitting " + collision.transform.name + " with " + impactForce + " force");
+                ReceiveImpact(impactForce, collision.contacts[0].point);
+            }            
         }
+        // TODO: Está duplicado aqui y en EnemyCollider
+        // Ver como va
+        else
+        {
+            //Debug.Log("Procesado en EnemyConsistency");
+            EnemyCollider bodyPart = collision.GetContact(0).thisCollider.GetComponent<EnemyCollider>();
+            //Debug.Log("Collider: " + collision.collider);
+
+            float diameter = bullet.diameter;
+            Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
+
+            float penetrationValue = GeneralFunctions.Navy1940PenetrationCalc(bulletRb.mass, diameter, bulletRb.velocity.magnitude);
+            //Debug.Log("Penetration value: " + penetrationValue + ", mass: " + bulletRb.mass + 
+            //    ", diameter: " + diameter + ", velocity: " + bulletRb.velocity.magnitude);
+            float penetrationResult = Mathf.Max(penetrationValue - bodyPart.armor, 0);
+            //
+            ReceiveInternalImpact(penetrationResult, collision.GetContact(0).point);
+        }
+        
     }
 
     /// <summary>
@@ -102,7 +136,8 @@ public class EnemyConsistency : MonoBehaviour {
         //if(damageReceived > 0)
         //Debug.Log(gameObject.name + " received body impact with " + impactForce + " force. " + damageReceived + " damage received");
         //
-        currentChasisHealth -= damageReceived;
+        currentHealth -= damageReceived;
+        //currentChasisHealth -= damageReceived;
         ManageDamage(impactForce, point);
         
     }
@@ -124,10 +159,10 @@ public class EnemyConsistency : MonoBehaviour {
             //Debug.Log("Received bullet impact with " + impactForce + " force against " + sideArmor + " armor. "
             //+ damageReceived + " damage received");
             //
-            currentCoreHealth -= damageReceived;
+            currentHealth -= damageReceived;
             ManageDamage(penetrationResult, point);
 
-            //impactInfoManager.SendImpactInfo(point, impactForce);
+            impactInfoManager.SendImpactInfo(point, damageReceived);
         }
         else
         {
@@ -143,7 +178,7 @@ public class EnemyConsistency : MonoBehaviour {
     {
         // Si la vida cae a cero lo convertimos en un simple objeto con rigidbody
         // Le quitamos sus scripts de comportamiento, vamos
-        if (currentChasisHealth <= 0 || currentCoreHealth <= 0)
+        if (/*currentChasisHealth <= 0 || */currentHealth <= 0)
         {
             //
             if (impactInfoManager != null)
@@ -223,4 +258,5 @@ public class EnemyConsistency : MonoBehaviour {
             Destroy(enemyPropulsion);
         }
     }
+    
 }

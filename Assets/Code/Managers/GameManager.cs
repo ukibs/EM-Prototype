@@ -190,6 +190,8 @@ public class GameManager : MonoBehaviour
                 enemiesAmounts[j] = int.Parse(xmlAmounts.Item(j).InnerText);
                 levelsInfo[i].enemiesToSpawn[j] = enemiesAmounts[j];
             }
+            //
+            levelsInfo[i].maxActiveEnemies = int.Parse(levelData.Item(8).InnerText);
             // And done
 
         }
@@ -227,4 +229,6 @@ public class LevelInfo
     //
     public GameObject[] enemiesToUse;
     public int[] enemiesToSpawn;
+    //
+    public int maxActiveEnemies;
 }

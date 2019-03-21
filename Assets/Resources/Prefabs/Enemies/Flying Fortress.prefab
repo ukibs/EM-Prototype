@@ -123,8 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9f760979ab2521429985b0a447da57f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxChasisHealth: 20
-  maxCoreHealth: 20
+  maxHealth: 100
   defense: 20
   centralPointOffset: {x: 0, y: 0, z: 0}
   face: {fileID: 2719900914983450904}
@@ -381,8 +380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9f760979ab2521429985b0a447da57f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxChasisHealth: 20
-  maxCoreHealth: 20
+  maxHealth: 100
   defense: 20
   centralPointOffset: {x: 0, y: 0, z: 0}
   face: {fileID: 8385488114412278888}
@@ -535,6 +533,140 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1 &1933555776195628745
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5858896155482867265}
+  - component: {fileID: 5469057779558632801}
+  - component: {fileID: 6349423865928334673}
+  - component: {fileID: 7886610046994661383}
+  m_Layer: 0
+  m_Name: Belly armor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5858896155482867265
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1933555776195628745}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.45, z: 0}
+  m_LocalScale: {x: 1.0000001, y: 0.1, z: 0.8}
+  m_Children: []
+  m_Father: {fileID: 6283768700947871243}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &5469057779558632801
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1933555776195628745}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &6349423865928334673
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1933555776195628745}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7886610046994661383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1933555776195628745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 40
+--- !u!1 &2056021629523310652
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5997475940889020360}
+  - component: {fileID: 4779787014302525145}
+  - component: {fileID: 5520381547477914272}
+  - component: {fileID: 8591707505003512985}
+  m_Layer: 0
+  m_Name: Front armor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5997475940889020360
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056021629523310652}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.45}
+  m_LocalScale: {x: 1, y: 1, z: 0.1}
+  m_Children: []
+  m_Father: {fileID: 6283768700947871243}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &4779787014302525145
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056021629523310652}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &5520381547477914272
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056021629523310652}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8591707505003512985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056021629523310652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 20
 --- !u!1 &2338115604883331961
 GameObject:
   m_ObjectHideFlags: 0
@@ -658,8 +790,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9f760979ab2521429985b0a447da57f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxChasisHealth: 20
-  maxCoreHealth: 20
+  maxHealth: 100
   defense: 20
   centralPointOffset: {x: 0, y: 0, z: 0}
   face: {fileID: 1785680344190992421}
@@ -735,6 +866,73 @@ HingeJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!1 &2430415209595469963
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4777284751943870114}
+  - component: {fileID: 4846046006847040657}
+  - component: {fileID: 6027132259749803067}
+  - component: {fileID: 3116874986624420180}
+  m_Layer: 0
+  m_Name: Top armor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4777284751943870114
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2430415209595469963}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.45, z: 0}
+  m_LocalScale: {x: 1.0000001, y: 0.1, z: 0.8000001}
+  m_Children: []
+  m_Father: {fileID: 6283768700947871243}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &4846046006847040657
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2430415209595469963}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &6027132259749803067
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2430415209595469963}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3116874986624420180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2430415209595469963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 20
 --- !u!1 &2719900914983450904
 GameObject:
   m_ObjectHideFlags: 0
@@ -812,6 +1010,73 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1 &2795073531033610107
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9210618072656934526}
+  - component: {fileID: 4105842154805836020}
+  - component: {fileID: 5745744310453682701}
+  - component: {fileID: 9063545246068631604}
+  m_Layer: 0
+  m_Name: Side armor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9210618072656934526
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2795073531033610107}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.0000001, y: 0.8, z: 0.8}
+  m_Children: []
+  m_Father: {fileID: 6283768700947871243}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &4105842154805836020
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2795073531033610107}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &5745744310453682701
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2795073531033610107}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &9063545246068631604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2795073531033610107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 40
 --- !u!1 &3445861928196394596
 GameObject:
   m_ObjectHideFlags: 0
@@ -1608,6 +1873,11 @@ Transform:
   m_Children:
   - {fileID: 5428109086314820493}
   - {fileID: 5820692196042838874}
+  - {fileID: 5997475940889020360}
+  - {fileID: 5858896155482867265}
+  - {fileID: 6651406010881603438}
+  - {fileID: 4777284751943870114}
+  - {fileID: 9210618072656934526}
   m_Father: {fileID: 6067959653711933594}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1694,9 +1964,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9f760979ab2521429985b0a447da57f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxChasisHealth: 1000
-  maxCoreHealth: 1000
-  defense: 50
+  maxHealth: 1000
+  defense: 500
   centralPointOffset: {x: 0, y: 0, z: 0}
   face: {fileID: 3761027861496665805}
   deadFaceMaterial: {fileID: 2100000, guid: faa0059e123f2b04d8d07acd9d8e5f0e, type: 2}
@@ -1733,7 +2002,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBetweenActionChecking: 1
-  motorForce: 30
+  motorForce: 50
   rotationSpeed: 135
   turrets:
   - {fileID: 5340031350559413623}
@@ -1743,6 +2012,73 @@ MonoBehaviour:
   weapons: []
   behaviour: 0100000000000000
   idealHeight: 100
+--- !u!1 &7573125115552949373
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6651406010881603438}
+  - component: {fileID: 1688476951012511435}
+  - component: {fileID: 7222550486711204104}
+  - component: {fileID: 5067940859256721419}
+  m_Layer: 0
+  m_Name: Rear armor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6651406010881603438
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7573125115552949373}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.45}
+  m_LocalScale: {x: 1.0000001, y: 1.0000001, z: 0.10000001}
+  m_Children: []
+  m_Father: {fileID: 6283768700947871243}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &1688476951012511435
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7573125115552949373}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &7222550486711204104
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7573125115552949373}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5067940859256721419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7573125115552949373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 20
 --- !u!1 &8247260933096117118
 GameObject:
   m_ObjectHideFlags: 0
@@ -1866,8 +2202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9f760979ab2521429985b0a447da57f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxChasisHealth: 20
-  maxCoreHealth: 20
+  maxHealth: 100
   defense: 20
   centralPointOffset: {x: 0, y: 0, z: 0}
   face: {fileID: 3487739277684594591}
