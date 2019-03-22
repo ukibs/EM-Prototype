@@ -381,7 +381,7 @@ public class SpringCamera : MonoBehaviour {
         }
             
         //
-        float minimalAngle = 180;
+        float minimalMeasure = 180;
         float minimalDistance = Mathf.Infinity;
         int nearestEnemy = -1;
         for (int i = 0; i < enemies.Length; i++)
@@ -389,16 +389,25 @@ public class SpringCamera : MonoBehaviour {
             // Vamos a probar cercanía por ángulo
             Vector3 enemyViewPortCoordinates = cameraComponent.WorldToViewportPoint(enemies[i].transform.position);
             Vector2 coordinatesFromScreenCenter = new Vector2(enemyViewPortCoordinates.x - 0.5f, enemyViewPortCoordinates.y - 0.5f);
+            // TODO: Buscar un método mejor
             // Con angulo en este caso
-            if (rightAxis.magnitude > 0.1f)
+            if (rightAxis.magnitude > 0.05f)
             {
+                // Vamos a hacer un sistema de pesos angulo/distancia
                 // Ahora sacamos el angulo
                 float angle = Mathf.Atan2(coordinatesFromScreenCenter.y, coordinatesFromScreenCenter.x);
+                float distance = coordinatesFromScreenCenter.magnitude;
+                int inScreen = (enemyViewPortCoordinates.x >= 0 && enemyViewPortCoordinates.x <= 1 &&
+                    enemyViewPortCoordinates.y >= 0 && enemyViewPortCoordinates.y <= 1 &&
+                    enemyViewPortCoordinates.z > 0) ? 0 : 1;
                 //
                 float angleOffset = Mathf.Abs(axisAngle - angle);
-                if (angleOffset < minimalAngle)
+                //
+                float measure = angleOffset + (distance * 1) + (inScreen * 1000);
+                //
+                if (measure < minimalMeasure && enemies[i].transform != currentTarget)
                 {
-                    minimalAngle = angleOffset;
+                    minimalMeasure = measure;
                     nearestEnemy = i;
                 }
             }

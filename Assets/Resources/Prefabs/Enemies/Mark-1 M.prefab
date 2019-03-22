@@ -181,9 +181,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainWeapon: 1
-  rotationSpeed: {x: 0, y: 90}
+  rotationSpeed: {x: 90, y: 90}
   rateOfFire: 0.42
-  range: 1000
+  range: 100
   proyectilePrefab: {fileID: 1952744711831650, guid: c95a0d17cc5bb6445b3cee20845c3d50,
     type: 3}
   shootForce: 10
@@ -348,9 +348,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainWeapon: 1
-  rotationSpeed: {x: 0, y: 90}
+  rotationSpeed: {x: 90, y: 90}
   rateOfFire: 0.42
-  range: 1000
+  range: 100
   proyectilePrefab: {fileID: 1952744711831650, guid: c95a0d17cc5bb6445b3cee20845c3d50,
     type: 3}
   shootForce: 10
@@ -765,9 +765,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainWeapon: 1
-  rotationSpeed: {x: 0, y: 90}
+  rotationSpeed: {x: 90, y: 90}
   rateOfFire: 0.42
-  range: 1000
+  range: 100
   proyectilePrefab: {fileID: 1952744711831650, guid: c95a0d17cc5bb6445b3cee20845c3d50,
     type: 3}
   shootForce: 10

@@ -76,6 +76,7 @@ public class InputManager : MonoBehaviour {
         set
         {
             rightAxisSensivity = value;
+            rightAxisSensivity = Mathf.Clamp(rightAxisSensivity, 0.1f, 1);
         }
     }
 
@@ -126,7 +127,7 @@ public class InputManager : MonoBehaviour {
         menuButton = Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Joystick1Button7) /* Gamepad Start*/;
 
         // Stick derecho
-        rightStickAxis = new Vector2(Input.GetAxisRaw("Right Horizontal"), Input.GetAxisRaw("Right Vertical"));
+        rightStickAxis = new Vector2(Input.GetAxisRaw("Right Horizontal"), Input.GetAxisRaw("Right Vertical")) * rightAxisSensivity;
 
         //
         pauseButton = Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Joystick1Button7);

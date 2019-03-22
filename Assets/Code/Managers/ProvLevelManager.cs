@@ -104,9 +104,13 @@ public class ProvLevelManager : MonoBehaviour
         //
         if (GameControl.paused)
         {
+            //
             GUI.Label(new Rect(Screen.width/2 - 150, Screen.height * 4/5, 300, 50), "A/Space to quit", guiSkin.customStyles[3]);
+            // Metemos aqui sensibilidad
+            string formatedSensivity = inputManager.RightAxisSensivity.ToString("0.00");
+            GUI.Label(new Rect(Screen.width / 2 - 150, Screen.height * 4 / 5 + 100, 300, 50), 
+                "Camera sensivity: " + formatedSensivity, guiSkin.label);
         }
-
     }
 
     void CheckControls()
@@ -126,7 +130,7 @@ public class ProvLevelManager : MonoBehaviour
                 GameControl.paused = false;
             }
         }
-        // TODO: Mirar a ver que falla
+        // Para volver al menu
         if(inputManager.JumpButton && GameControl.paused)
         {
             // Unpause
@@ -136,6 +140,11 @@ public class ProvLevelManager : MonoBehaviour
             EnemyAnalyzer.Release();
             //
             SceneManager.LoadScene("Menu");
+        }
+        // 
+        if (GameControl.paused)
+        {
+            inputManager.RightAxisSensivity += inputManager.StickAxis.y * 0.01f;
         }
     }
 
