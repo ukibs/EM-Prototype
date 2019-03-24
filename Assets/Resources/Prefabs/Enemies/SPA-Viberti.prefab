@@ -430,7 +430,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   armor: 5
-  groundFiendly: 0
 --- !u!114 &89467284137208039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -470,7 +469,7 @@ MonoBehaviour:
   turrets:
   - {fileID: 5340031350559413623}
   weapons: []
-  behaviour: 0100000000000000
+  behaviour: 0200000000000000
 --- !u!54 &603831889292898140
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -598,7 +597,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   armor: 5
-  groundFiendly: 0
 --- !u!114 &3920790811720450900
 MonoBehaviour:
   m_ObjectHideFlags: 0
