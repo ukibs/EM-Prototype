@@ -120,6 +120,8 @@ public class Bullet : MonoBehaviour {
             //
         GameObject newBulletHole = Instantiate(bulletHolePrefab, point, Quaternion.identity);
         newBulletHole.transform.rotation = Quaternion.LookRotation(newBulletHole.transform.forward, normal);
+        // Lo movemos un pelin para evitar el z clipping
+        newBulletHole.transform.position += newBulletHole.transform.up * 0.01f;
         newBulletHole.transform.SetParent(objectToParent.transform);
     }
 

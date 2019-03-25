@@ -43,6 +43,10 @@ public class ProvisionalHUD : MonoBehaviour {
     //
     public float damageIndicatorLifeTime = 0.5f;
 
+    //
+    public Texture radarTexture;
+    // TODO: Meter texturas para diferenciar alturas
+
     // Controls
     public Texture keyboardControls;
     public Texture gamepadControls;
@@ -54,6 +58,10 @@ public class ProvisionalHUD : MonoBehaviour {
     private GameManager gameManager;
     private PlayerIntegrity playerIntegrity;
     private List<DamageIndicator> damageIndicators;
+    //
+    private Vector2 radarDimensions;
+    // De momento que sea un tercion del alto de la pantalla
+    private float radarProportion = 0.3f;
 
 	// Use this for initialization
 	void Start () {
@@ -64,6 +72,8 @@ public class ProvisionalHUD : MonoBehaviour {
         gameManager = FindObjectOfType<GameManager>();
         playerIntegrity = FindObjectOfType<PlayerIntegrity>();
         damageIndicators = new List<DamageIndicator>(20);
+        //
+        radarDimensions = new Vector2(Screen.height * radarProportion, Screen.height * radarProportion);
 	}
 	
 	// Update is called once per frame
@@ -103,6 +113,9 @@ public class ProvisionalHUD : MonoBehaviour {
 
         //
         DrawDamageIndicators();
+
+        //
+        DrawRadarWithEnemies();
 
         //
         if (GameControl.paused)
@@ -402,6 +415,50 @@ public class ProvisionalHUD : MonoBehaviour {
         GUI.EndGroup();
         //
         GUI.color = new Color(1, 1, 1, 1);
+    }
+
+    //
+    void DrawRadarWithEnemies()
+    {
+        //
+        // Igual pillamos el current up del player
+        // La camara, coño
+        float playerDirection = Vector3.SignedAngle(Vector3.forward, cameraControl.transform.forward, Vector3.up);
+        playerDirection *= Mathf.Deg2Rad;
+        //
+        float maxDetection = 300;
+        // Primero dibujamos el radar
+        GUI.DrawTexture(new Rect(0, Screen.height - radarDimensions.y, radarDimensions.x, radarDimensions.y), radarTexture);
+        // Y enemigos
+        // TODO: Cogerlo por refencia del manager apropiado cuando lo tengamos listo
+        EnemyConsistency[] enemies = FindObjectsOfType<EnemyConsistency>();
+        if (enemies.Length == 0)
+            return;
+        //
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            Vector3 offset = enemies[i].transform.position - playerIntegrity.transform.position;
+            // TODO: Sacar también altura
+            offset.y = 0;
+            float xzDistance = offset.magnitude;
+            if(xzDistance < maxDetection)
+            {
+                // Sacamos la posición para el radar
+                Vector2 posInRadar = new Vector2(offset.x * radarDimensions.x / maxDetection / 2 + (radarDimensions.x / 2),
+                                        offset.z * radarDimensions.y / maxDetection / 2 + (radarDimensions.y / 2));
+                // La adaptamos a la orientación del player
+                // Desde el centro del radar, animalicao
+                float radius = Mathf.Sqrt(Mathf.Pow(posInRadar.x - (radarDimensions.x/2), 2) 
+                                    + Mathf.Pow(posInRadar.y - (radarDimensions.y / 2), 2));
+                float angle = Mathf.Atan2(posInRadar.y - (radarDimensions.y / 2), 
+                                posInRadar.x - (radarDimensions.x / 2));
+                angle += playerDirection;
+                posInRadar.x = radius * Mathf.Cos(angle) + (radarDimensions.x / 2);
+                posInRadar.y = radius * Mathf.Sin(angle) + (radarDimensions.y / 2);
+                // Y dibujamos
+                GUI.DrawTexture(new Rect(posInRadar.x, Screen.height - posInRadar.y, 10, 10), enemyInScreenTexture);
+            }
+        }
     }
 }
 

@@ -284,7 +284,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   armor: 45
-  groundFiendly: 0
 --- !u!1 &1855539494821730081
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,7 +374,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   armor: 16
-  groundFiendly: 0
 --- !u!1 &1968387388898481244
 GameObject:
   m_ObjectHideFlags: 0
@@ -434,7 +432,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   armor: 16
-  groundFiendly: 0
 --- !u!1 &3371228412997059819
 GameObject:
   m_ObjectHideFlags: 0
@@ -493,7 +490,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   armor: 20
-  groundFiendly: 0
 --- !u!1 &4019904390560330432
 GameObject:
   m_ObjectHideFlags: 0
@@ -552,7 +548,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   armor: 15
-  groundFiendly: 0
 --- !u!1 &4161962801748651532
 GameObject:
   m_ObjectHideFlags: 0
@@ -611,7 +606,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   armor: 60
-  groundFiendly: 0
 --- !u!114 &4231909825282816397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -625,7 +619,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainWeapon: 0
-  rotationSpeed: {x: 0, y: 30}
+  rotationSpeed: {x: 30, y: 30}
   rateOfFire: 9.1
   range: 100
   proyectilePrefab: {fileID: 1952744711831650, guid: 0240db18423dc3243b9f3519cc1269eb,
@@ -635,7 +629,7 @@ MonoBehaviour:
   typeOfFire: 0
   debugging: 0
   shootCalculation: 1
-  maxRotationOffset: {x: 0, y: 0}
+  maxRotationOffset: {x: 30, y: 0}
   shootParticlesPrefab: {fileID: 1837716235657633640, guid: 61c9e81fe8e7c0a40a345df35440fcab,
     type: 3}
 --- !u!1 &5834233352710531043
@@ -773,7 +767,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   armor: 47
-  groundFiendly: 0
 --- !u!1 &6375232300260678733
 GameObject:
   m_ObjectHideFlags: 0
@@ -962,7 +955,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   armor: 30
-  groundFiendly: 0
 --- !u!114 &3964835194363186796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -976,7 +968,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainWeapon: 0
-  rotationSpeed: {x: 0, y: 30}
+  rotationSpeed: {x: 30, y: 30}
   rateOfFire: 9.1
   range: 100
   proyectilePrefab: {fileID: 1952744711831650, guid: 0240db18423dc3243b9f3519cc1269eb,
@@ -986,7 +978,7 @@ MonoBehaviour:
   typeOfFire: 0
   debugging: 0
   shootCalculation: 1
-  maxRotationOffset: {x: 0, y: 0}
+  maxRotationOffset: {x: 15, y: 15}
   shootParticlesPrefab: {fileID: 1837716235657633640, guid: 61c9e81fe8e7c0a40a345df35440fcab,
     type: 3}
 --- !u!1 &7900707528671927547
@@ -1047,7 +1039,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   armor: 52
-  groundFiendly: 0
 --- !u!1 &8375087318974229839
 GameObject:
   m_ObjectHideFlags: 0
@@ -1106,7 +1097,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   armor: 40
-  groundFiendly: 0
 --- !u!1 &8382149793125564294
 GameObject:
   m_ObjectHideFlags: 0
