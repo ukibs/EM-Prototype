@@ -25,14 +25,14 @@ public class SpringCamera : MonoBehaviour {
     private InputManager inputManager;
     private GameManager gameManager;
 
-    private float originalY;
+    //private float originalY;
     //private float currentOffsetY = 0;
 
     private Vector3 targetPos;
 
     private bool changeAllowed = true;
     //
-    private EnemyConsistency currentEnemy;
+    //private EnemyConsistency currentEnemy;
     //
     private Transform previousObjective;
     private Quaternion previousObjectiveRotation;
@@ -70,14 +70,20 @@ public class SpringCamera : MonoBehaviour {
         //
         inputManager = FindObjectOfType<InputManager>();
         //
-        originalY = targetOffset.y;
+        //originalY = targetOffset.y;
 
         //
         gameManager = FindObjectOfType<GameManager>();
     }
-	
-	// Update is called once per frame
-	void FixedUpdate () {
+
+    //
+    private void Update()
+    {
+        CheckSwitchAndEnemies();
+    }
+
+    // Update is called once per frame
+    void FixedUpdate () {
 		float dt = Time.deltaTime;
         // Correction from the mouse movement
         //if (currentTarget == targetPlayer)
@@ -98,7 +104,7 @@ public class SpringCamera : MonoBehaviour {
         AdjustToEnemyMovement(dt);
         UpdateRotation(dt);
         UpdateUp(targetPlayer.up);
-        CheckSwitchAndEnemies();
+        //CheckSwitchAndEnemies();
         CheckRightAxis();
 
         //CheckDontEnterInsideScenario();
@@ -295,11 +301,11 @@ public class SpringCamera : MonoBehaviour {
     {
         //
         //Transform previousTarget = currentTarget;
-        //
+        // Pilla vas pasadas en una
+        // TODO: Revisar bien chequeo
+        // O añadir boolean extra para que no se raye
         if (inputManager.MarkObjectiveButton)
         {
-            // TODO: Mirar por qué a veces no lo pilla
-            //Debug.Log("Mark button down");
             // 
             if(currentTarget == targetPlayer)
             {
@@ -326,7 +332,7 @@ public class SpringCamera : MonoBehaviour {
             }
             else
             {
-                currentEnemy = null;
+                //currentEnemy = null;
                 SwitchTarget(null);
             }
         }

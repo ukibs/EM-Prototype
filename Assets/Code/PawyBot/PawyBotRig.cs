@@ -20,7 +20,7 @@ public class PawyBotRig : MonoBehaviour {
     private Rigidbody[] postLegsRGs;
     private float originalLegRotX;
     private float originalLegRotY;
-    private Quaternion originalLegRot;
+    //private Quaternion originalLegRot;
     private float timeFromLastChange;
 
     // Use this for initialization
@@ -50,7 +50,7 @@ public class PawyBotRig : MonoBehaviour {
         //
         originalLegRotX = legs[0].rotation.x;
         originalLegRotY = legs[0].rotation.y;
-        originalLegRot = legs[0].rotation;
+        //originalLegRot = legs[0].rotation;
         //
         //UpdateLegsStatuses();
         //
@@ -63,7 +63,7 @@ public class PawyBotRig : MonoBehaviour {
         //
         float dt = Time.deltaTime;
         // De momento solo chequeamos la primera pata
-        float progressThisStep = legRotationSpeed * dt;
+        //float progressThisStep = legRotationSpeed * dt;
         //
         //CheckLegsStatuses(progressThisStep);
         

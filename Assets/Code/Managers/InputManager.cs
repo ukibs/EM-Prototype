@@ -30,7 +30,7 @@ public class InputManager : MonoBehaviour {
     private bool changeSprintDown;
     private bool changeJumpDown;
     //
-    private Vector2 previousMousePosition;
+    //private Vector2 previousMousePosition;
     private Vector2 previousCrossAxis;
     //
     private bool pauseButton;
@@ -85,7 +85,7 @@ public class InputManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        previousMousePosition = Input.mousePosition;
+        //previousMousePosition = Input.mousePosition;
 
     }
 	

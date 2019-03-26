@@ -63,7 +63,7 @@ public class EnemyManager : MonoBehaviour
             {
                 //Vector3 positionToSpawn = new Vector3(Random.Range(-groupToSpawnSize[i], groupToSpawnSize[i]) + pointForGroupSpawn.x, 1,
                 //                                        Random.Range(-groupToSpawnSize[i], groupToSpawnSize[i]) + pointForGroupSpawn.z);
-                Vector3 positionToSpawn = new Vector3(pointForGroupSpawn.x + (j*10), pointForGroupSpawn.y, pointForGroupSpawn.z);
+                Vector3 positionToSpawn = new Vector3(pointForGroupSpawn.x + (j*20), pointForGroupSpawn.y, pointForGroupSpawn.z);
                 //
                 //
                 //float spawnAngle = Random.Range(0, 360);
@@ -72,7 +72,8 @@ public class EnemyManager : MonoBehaviour
                 //Vector3 pointForGroupSpawn = new Vector3(groupSpawnPositionXY.x + playerTransform.position.x, 2,
                 //                                            groupSpawnPositionXY.y + playerTransform.position.z);
                 //
-                GameObject nextEnemy = Instantiate(enemyPrefabsToUse[i], positionToSpawn, Quaternion.identity);
+                //GameObject nextEnemy = 
+                    Instantiate(enemyPrefabsToUse[i], positionToSpawn, Quaternion.identity);
                 //GameObject nextEnemy = Instantiate(enemyPrefabsToUse[i], pointForGroupSpawn, Quaternion.identity);
             }
         }

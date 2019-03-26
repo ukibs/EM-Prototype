@@ -51,6 +51,10 @@ public class ProvLevelManager : MonoBehaviour
         // Forzamos provisonalmente que se equipen las asignadas
         // Attack
         gameManager.unlockedAttackActions = levelInfo.attackActionsAvailable;
+        // Control chorras para la Build
+        if (PlayerReference.playerControl == null)
+            PlayerReference.Initiate(FindObjectOfType<RobotControl>().gameObject);
+        //
         if (gameManager.unlockedAttackActions > 1)
             PlayerReference.playerControl.ActiveAttackMode = (AttackMode)(gameManager.unlockedAttackActions - 1);
         // Defense

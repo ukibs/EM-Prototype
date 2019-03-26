@@ -11,7 +11,7 @@ public class EnemyCollider : MonoBehaviour
     // Y otras propiedades en el futuro
 
     private EnemyConsistency body;
-    private Rigidbody bodyRb;
+    //private Rigidbody bodyRb;
 
     public float Armor {
         get { return armor; }
@@ -28,7 +28,7 @@ public class EnemyCollider : MonoBehaviour
         if(body == null)
             body = GetComponent<EnemyConsistency>();
         //
-        bodyRb = body.GetComponent<Rigidbody>();
+        //bodyRb = body.GetComponent<Rigidbody>();
     }
     
     //private void OnCollisionEnter(Collision collision)

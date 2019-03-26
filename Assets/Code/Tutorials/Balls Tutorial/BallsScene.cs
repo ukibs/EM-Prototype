@@ -55,7 +55,7 @@ public class BallsScene : MonoBehaviour
                                                     "Use this to defend yourself (lCtrl)",
                                                     "Clean the remaining balls",
                                                     "Yes! Now you are ready for action"};
-    private int currentHitsWithBallsInWalls = 10;
+    //private int currentHitsWithBallsInWalls = 10;
     private int generatedBallsInTrouble = 0;
 
     private int ballsToClean;
@@ -211,7 +211,7 @@ public class BallsScene : MonoBehaviour
         {
             case Step.JumpTesting:
                 checkPointsDone++;
-                TutorialPoint tutorialPoint = FindObjectOfType<TutorialPoint>();
+                //TutorialPoint tutorialPoint = FindObjectOfType<TutorialPoint>();
                 // Chequeamos que estén las dos
                 if (checkPointsDone == 3)
                 // Chequeamos que no queden

@@ -133,6 +133,14 @@ public class RobotControl : MonoBehaviour {
 
     public bool Adhering { get { return adhering; } }
 
+    public bool IsResting
+    {
+        get
+        {
+            return chargedAmount == 0 && rb.velocity.magnitude <= 1;
+        }
+    }
+
     #endregion
 
     // Use this for initialization
@@ -378,9 +386,9 @@ public class RobotControl : MonoBehaviour {
             {
                 case JumpMode.Normal:
                     // En ese caso hacer que tenga menos impulso que haciéndolo desde el suelo
-                    float floorMultiplier = (repulsor.IsOnFloor) ? 1 : 0.5f;
+                    float floorSupport = (repulsor.IsOnFloor) ? gameManager.jumpForce : 0;
                     // Le damos un mínimo de base
-                    rb.AddForce(Vector3.up * (gameManager.jumpForce * chargedAmount + gameManager.jumpForce * floorMultiplier), ForceMode.Impulse);
+                    rb.AddForce(Vector3.up * (gameManager.jumpForce * chargedAmount + floorSupport), ForceMode.Impulse);
                     break;
                 case JumpMode.Smash:
                     // Le damos un mínimo de base
@@ -684,7 +692,7 @@ public class RobotControl : MonoBehaviour {
                 targetPoint += enemyConsistency.centralPointOffset;
             }
             //
-            Quaternion shootRotation = Quaternion.LookRotation(targetPoint - machineGunPoints[i].position);
+            //Quaternion shootRotation = Quaternion.LookRotation(targetPoint - machineGunPoints[i].position);
 
             // TODO: Mover esto a general functions
             // Lo haremos con raycast

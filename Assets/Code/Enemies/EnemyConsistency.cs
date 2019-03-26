@@ -199,7 +199,8 @@ public class EnemyConsistency : MonoBehaviour {
             GameObject explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
             Destroy(explosion, 10);
             //
-            GameObject smoke = Instantiate(smokePrefab, transform);
+            //GameObject smoke = 
+                Instantiate(smokePrefab, transform);
             //
             if(levelManager != null)
                 levelManager.AnnotateKill();

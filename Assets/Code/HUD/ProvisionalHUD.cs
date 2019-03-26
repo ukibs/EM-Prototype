@@ -405,7 +405,7 @@ public class ProvisionalHUD : MonoBehaviour {
                     break;
             }
             //
-            float alpha = damageIndicators[i].timeAlive / damageIndicatorLifeTime;
+            float alpha = 1 - (damageIndicators[i].timeAlive / damageIndicatorLifeTime);
             GUI.color = new Color(1,1,1,alpha);
             //
             GUI.DrawTexture(new Rect(Screen.width / 2 - 50, Screen.height * 3/4, 100, 100), textureToUse);

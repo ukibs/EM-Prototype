@@ -15,7 +15,7 @@ public class PawyBot : MonoBehaviour {
     private Transform[] postLegs;
     private float originalLegRotX;
     private float originalLegRotY;
-    private Quaternion originalLegRot;
+    //private Quaternion originalLegRot;
 
     // Use this for initialization
     void Start()
@@ -37,7 +37,7 @@ public class PawyBot : MonoBehaviour {
         //
         originalLegRotX = legs[0].rotation.x;
         originalLegRotY = legs[0].rotation.y;
-        originalLegRot = legs[0].rotation;
+        //originalLegRot = legs[0].rotation;
     }
 
 	// Update is called once per frame

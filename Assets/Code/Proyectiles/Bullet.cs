@@ -16,6 +16,7 @@ public class Bullet : MonoBehaviour {
     // TODO: Decidir si implementamos el funcionamiendo de misil aqui como opción (impulso constante en vez de inicial)
 
     protected Rigidbody rb;
+    protected Vector3 previousPosition;
 
 	// Use this for initialization
 	protected virtual void Start () {
@@ -23,9 +24,14 @@ public class Bullet : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         Destroy(gameObject, lifeTime);
     }
-	
-	// Update is called once per frame
-	protected void FixedUpdate () {
+
+    protected void FixedUpdate()
+    {
+        previousPosition = transform.position;
+    }
+
+    // Update is called once per frame
+    protected void Update () {
         //
         float dt = Time.deltaTime;
         // Hacemos que vaya cambiando la orientación acorde a la trayectoria
@@ -33,64 +39,66 @@ public class Bullet : MonoBehaviour {
         // TODO: Chequear cuando tengamos balas más definidas
         transform.LookAt(rb.velocity);
         //
-        float distanceToMoveThisStep = rb.velocity.magnitude * dt;
-        //
-        RaycastHit raycastInfo;
-        // Nota: usar la dirección de la velocidad en vez del forward
-        if (Physics.Raycast(transform.position, transform.forward, out raycastInfo, distanceToMoveThisStep))
-        {
-            // Nota: Probar a hacer el impacto "a mano"
-            //transform.position = raycastInfo.point;
-            GenerateImpact(raycastInfo, dt);
-            // TODO: Aplicar fuerzas
-
-        }
+        CheckTravelDone(dt);
 	}
 
     protected virtual void OnCollisionEnter(Collision collision)
     {
-        //
+        // Chequeamos si hemos chocado con un enemigo o el player
+        // Y actuamos en consecuencia
         EnemyCollider enemyCollider = collision.collider.GetComponent<EnemyCollider>();
+        PlayerIntegrity playerIntegrity = collision.collider.GetComponent<PlayerIntegrity>();
         ContactPoint collisionPoint = collision.GetContact(0);
         if (enemyCollider != null)
             enemyCollider.ReceiveBulletImpact(rb, collisionPoint.point);
-        //Debug.Log(collision.collider.gameObject.name + " impacted with " + collision.relativeVelocity + " speed.");
-        //Debug.Log(collision.collider.gameObject.gameObject.name + " impacted with " + collision.relativeVelocity +
-        //    " speed and " + rb.mass +
-        //        " mass. With a total force of " + (rb.velocity.magnitude * rb.mass) + ".");
-        //
+        else if (playerIntegrity != null)
+            playerIntegrity.ReceiveImpact(collisionPoint.point, gameObject, rb);
+        // Ponemos las particulas y el agujero
         GameObject impactParticles = Instantiate(impactParticlesPrefab, transform.position, Quaternion.identity);
         SpawnBulletHole(collisionPoint.point, collisionPoint.normal, collision.gameObject);
+        //
         Destroy(impactParticles, 2);
         //
-        Destroy(gameObject, 0.5f);
+        Destroy(gameObject);
     }
 
     protected void OnDrawGizmos()
     {
         if(rb != null)
         {
-            Debug.DrawRay(transform.position, rb.velocity * Time.deltaTime, Color.blue);
+            //Debug.DrawRay(transform.position, rb.velocity * Time.deltaTime, Color.blue);
             //Vector3 playerDirection = player.transform.position - transform.position;
-            //Debug.DrawRay(transform.position, playerDirection, Color.red);
+            //Debug.DrawRay(transform.position, transform.forward * Time.deltaTime, Color.red);
+            Debug.DrawRay(previousPosition, rb.velocity * Time.deltaTime, Color.red);
         }
     }
 
     #region Methods
 
+    //
+    protected void CheckTravelDone(float dt)
+    {
+        //
+        float distanceToMoveThisStep = rb.velocity.magnitude * dt;
+        //
+        RaycastHit raycastInfo;
+        // Nota: usar la dirección de la velocidad en vez del forward
+        if (Physics.Raycast(previousPosition, rb.velocity, out raycastInfo, distanceToMoveThisStep))
+        {
+            GenerateImpact(raycastInfo, dt);
+            // TODO: Aplicar fuerzas
+
+        }
+    }
+
+    //
     protected void GenerateImpact(RaycastHit raycastInfo, float dt)
     {
         // Chequeamos si ha impactado a un enemigo y aplicamos lo necesario
         EnemyCollider enemyCollider = raycastInfo.collider.GetComponent<EnemyCollider>();
         if(enemyCollider != null)
         {
-            //Rigidbody enemyRB = enemyCollider.gameObject.GetComponent<Rigidbody>();
-            //enemyRB.AddForce(rb.velocity * rb.mass);
-
             enemyCollider.ReceiveBulletImpact(rb, raycastInfo.point);
-
-            //Debug.Log(enemyConsistency.gameObject.name + " impacted with " + rb.velocity + " speed and " + rb.mass + 
-            //    " mass. With a total force of " + (rb.velocity.magnitude * rb.mass) + ".");
         }
         // Y el player, joputa
         PlayerIntegrity playerIntegrity = raycastInfo.collider.GetComponent<PlayerIntegrity>();
@@ -99,7 +107,7 @@ public class Bullet : MonoBehaviour {
             playerIntegrity.ReceiveImpact(rb.velocity, gameObject, rb);
             //
             Rigidbody playerRB = playerIntegrity.gameObject.GetComponent<Rigidbody>();
-            rb.AddForce(rb.velocity * rb.mass);
+            playerRB.AddForce(rb.velocity * rb.mass, ForceMode.Impulse);
         }
         //
         GameObject impactParticles = Instantiate(impactParticlesPrefab, raycastInfo.point, Quaternion.identity);
@@ -109,10 +117,10 @@ public class Bullet : MonoBehaviour {
         Destroy(gameObject, dt);
     }
 
-    // TODO: Emparentarlo con el objeto impactado
+    // 
     void SpawnBulletHole(Vector3 point, Vector3 normal, GameObject objectToParent)
     {
-        // TODO: Que no se peguen a EM (al menos mientras le quede escudo)
+        // 
         PlayerIntegrity playerIntegrity = objectToParent.GetComponent<PlayerIntegrity>();
         // Error control vago
         if (bulletHolePrefab == null || playerIntegrity != null )

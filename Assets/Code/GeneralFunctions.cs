@@ -149,7 +149,7 @@ public static class GeneralFunctions
 
         // Con esto podemos sacar la velocidad en y para estimar
         Vector3 directionToObjective = distanceToObjective.normalized;
-        Vector3 proyectile3dSpeed = directionToObjective * muzzleSpeed;
+        //Vector3 proyectile3dSpeed = directionToObjective * muzzleSpeed;
 
         float secondsToObjective = distanceToObjective.magnitude / muzzleSpeed;
         //float fallInThatTime = (proyectile3dSpeed.y * secondsToObjective) + 

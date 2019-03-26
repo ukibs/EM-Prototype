@@ -96,6 +96,9 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         //
         gameProgression = PlayerPrefs.GetInt("Game Progression", 0);
+        //
+        if (levelsInfo == null)
+            GetLevelsInfoFromXML();
     }
 
     private void Start()
@@ -104,8 +107,8 @@ public class GameManager : MonoBehaviour
         //levelsStatus = new LevelStatus[2];
         // TODO: Que lea un XML (o documento de otro tipo)
         // para cargar la info de los niveles
-        if(levelsInfo == null)
-            GetLevelsInfoFromXML();
+        //if(levelsInfo == null)
+        //    GetLevelsInfoFromXML();
     }
 
     #endregion
@@ -146,7 +149,7 @@ public class GameManager : MonoBehaviour
     public void GetLevelsInfoFromXML()
     {
         //
-        Debug.Log("Getting levels info: Current game progression: " + gameProgression);
+        //Debug.Log("Getting levels info: Current game progression: " + gameProgression);
         //
         XmlDocument xml_d;
         XmlNodeList xmlLevelsInfo;
@@ -186,7 +189,10 @@ public class GameManager : MonoBehaviour
             for (int j = 0; j < xmlEnemies.Count; j++)
             {
                 enemiesNames[j] = xmlEnemies.Item(j).InnerText;
+                // Parece que da problemas leyendo esta parte en la versión compilada
+                // TODO: Averiguar que pasa
                 levelsInfo[i].enemiesToUse[j] = Resources.Load("Prefabs/Enemies/" + enemiesNames[j]) as GameObject;
+                //Debug.Log("Level " + i + ": " + levelsInfo[i].enemiesToUse[j]);
                 enemiesAmounts[j] = int.Parse(xmlAmounts.Item(j).InnerText);
                 levelsInfo[i].enemiesToSpawn[j] = enemiesAmounts[j];
             }

@@ -135,7 +135,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 58cf99dec53632940abc52a304648655, type: 2}
+  - {fileID: 2100000, guid: c3cb610691c01ac408b812bac0b31d29, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -384,7 +384,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 58cf99dec53632940abc52a304648655, type: 2}
+  - {fileID: 2100000, guid: c3cb610691c01ac408b812bac0b31d29, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -442,8 +442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9f760979ab2521429985b0a447da57f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxChasisHealth: 50
-  maxCoreHealth: 50
+  maxHealth: 100
   defense: 50
   centralPointOffset: {x: 0, y: 0, z: 0}
   face: {fileID: 3761027861496665805}
@@ -552,7 +551,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 58cf99dec53632940abc52a304648655, type: 2}
+  - {fileID: 2100000, guid: c3cb610691c01ac408b812bac0b31d29, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -610,8 +609,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9f760979ab2521429985b0a447da57f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxChasisHealth: 20
-  maxCoreHealth: 20
+  maxHealth: 100
   defense: 20
   centralPointOffset: {x: 0, y: 0, z: 0}
   face: {fileID: 3487739277684594591}

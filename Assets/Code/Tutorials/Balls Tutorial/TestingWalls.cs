@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class TestingWalls : MonoBehaviour
 {
-    BallsScene tutorialManager;
+    //BallsScene tutorialManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        tutorialManager = FindObjectOfType<BallsScene>();
+        //tutorialManager = FindObjectOfType<BallsScene>();
     }
 
     private void OnCollisionEnter(Collision collision)

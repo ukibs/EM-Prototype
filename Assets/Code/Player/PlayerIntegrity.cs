@@ -22,13 +22,16 @@ public class PlayerIntegrity : MonoBehaviour
     private RobotControl robotControl;
     private float currentHealth;
     private float currentShield;
-    private ImpactInfoManager impactInfoManager;
+    //private ImpactInfoManager impactInfoManager;
     private GameManager gameManager;
     private Rigidbody bodyRB;
     private ProvisionalHUD hud;
 
     //
-    Vector3 previousStepRbVelocity;
+    //Vector3 previousStepRbVelocity;
+
+    //
+    private bool shieldsDepleted = false;
 
     #region Properties
 
@@ -43,7 +46,7 @@ public class PlayerIntegrity : MonoBehaviour
         robotControl = GetComponent<RobotControl>();
         currentHealth = maxHealth;
         currentShield = maxShield;
-        impactInfoManager = FindObjectOfType<ImpactInfoManager>();
+        //impactInfoManager = FindObjectOfType<ImpactInfoManager>();
         gameManager = FindObjectOfType<GameManager>();
         bodyRB = GetComponent<Rigidbody>();
         hud = FindObjectOfType<ProvisionalHUD>();
@@ -55,12 +58,23 @@ public class PlayerIntegrity : MonoBehaviour
         //
         float dt = Time.deltaTime;
         // De momento hacemos que se recargen con el tiempo
-        currentShield += dt * shieldRegenerationRate;
-        currentShield = Mathf.Clamp(currentShield, 0, maxShield);
-        currentHealth += dt * healthRegenerationRate;
-        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        if (!shieldsDepleted)
+        {
+            currentShield += dt * shieldRegenerationRate;
+            currentShield = Mathf.Clamp(currentShield, 0, maxShield);
+        }
         //
-        previousStepRbVelocity = bodyRB.velocity;
+        if (shieldsDepleted && robotControl.IsResting)
+            shieldsDepleted = false;
+        //
+        if (robotControl.IsResting)
+        {
+            currentHealth += dt * healthRegenerationRate;
+            currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        }
+        
+        //
+        //previousStepRbVelocity = bodyRB.velocity;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -78,12 +92,12 @@ public class PlayerIntegrity : MonoBehaviour
         // Sin tener en cuenta angulo de colisión
         //float playerImpactForce = playerDecceleration.sqrMagnitude * bodyRB.mass;
 
-        Vector3 relativeVelocity = collision.relativeVelocity;
+        //Vector3 relativeVelocity = collision.relativeVelocity;
         ContactPoint collisionPoint = collision.GetContact(0);
         Collider collider = collision.collider;
         GameObject gameObject = collider.gameObject;
         Rigidbody collidingRB = collision.rigidbody;
-        Bullet bulletComponent = gameObject.GetComponent<Bullet>();
+        //Bullet bulletComponent = gameObject.GetComponent<Bullet>();
         //if (bulletComponent == null)
             ReceiveImpact(collisionPoint.point, gameObject, collidingRB);
         //else
@@ -138,20 +152,25 @@ public class PlayerIntegrity : MonoBehaviour
         // Esto tiene pinta de petar en el start
         // Lo montaremos bien para que no pase
         float totalImpactForce = 0;
-        if (bodyRB != null)
+        // TODO: Habrá que ver como manejar esto
+        if (bulletComponent != null)
+        {
+            //totalImpactForce = otherRb.velocity.magnitude * otherRb.mass * 100;
+            // Vamos a probar con la energía cinética
+            totalImpactForce = Mathf.Pow(otherRb.velocity.magnitude, 2) * otherRb.mass;
+        }
+        //
+        else if (bodyRB != null)
+        {
             totalImpactForce = GeneralFunctions.GetCollisionForce(bodyRB, otherRb);
-
+        }
         //
         Vector3 impactDirection = contactPoint - transform.position;
-        //impactDirection = otherRb.velocity.normalized;
         // Cogemos el angulo para indicar en el HUD
         float impactAngle = Vector3.SignedAngle(Camera.main.transform.forward, impactDirection, transform.up);
 
         //
         float impactDamage = Mathf.Max(totalImpactForce - extraDefense, 0);
-        //
-        //Debug.Log("Player impacted by " + gameObject.name + " with a speed of " + relativeVelocity.magnitude + 
-        //    "and a mass of " + rb.mass + ". " + impactForce + "J impactForce.");
         
         // De momento no visualizamos info del daño que recibimos
         // impactInfoManager.SendImpactInfo(transform.position, totalImpactForce);
@@ -159,18 +178,20 @@ public class PlayerIntegrity : MonoBehaviour
         SufferDamage(impactDamage, impactAngle);
     }
 
+    //
     void SufferDamage(float impactDamage, float impactAngle)
     {
         //
-        float damageToShields = Mathf.Max(impactDamage - shieldAbsortion, 0);
+        //float damageToShields = Mathf.Max(impactDamage - shieldAbsortion, 0);
         currentShield -= impactDamage;
         DamageType damageType;
         if (currentShield < 0)
         {
             // Recuerda que el escudo perdido sobrante llega como negativo
-            float damageToHealth = Mathf.Min(currentShield + armor, 0);
+            //float damageToHealth = Mathf.Min(currentShield + armor, 0);
             currentHealth += currentShield;
             currentShield = 0;
+            shieldsDepleted = true;
             damageType = DamageType.Hull;
         }
         else

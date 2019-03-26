@@ -51,7 +51,7 @@ public class EnemyWeapon : MonoBehaviour
     private float timeFromLastShoot;
     //
     private Quaternion originalRotation;
-    private Vector2 originalRotationXY;
+    //private Vector2 originalRotationXY;
 
     // Start is called before the first frame update
     void Start()
@@ -65,7 +65,7 @@ public class EnemyWeapon : MonoBehaviour
             shootPoint = transform.Find("Barrel/Shoot Point");
         //
         originalRotation = transform.localRotation;
-        originalRotationXY = new Vector2(transform.localEulerAngles.x, transform.localEulerAngles.y);
+        //originalRotationXY = new Vector2(transform.localEulerAngles.x, transform.localEulerAngles.y);
         //
         //if(originalRotation)
     }
