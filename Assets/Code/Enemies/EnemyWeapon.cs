@@ -179,11 +179,11 @@ public class EnemyWeapon : MonoBehaviour
                 //
                 timeFromLastShoot -= 1 / rateOfFire;
                 //
-                if (!enemyManager.IsFiringClipActive(shootingClip))
-                {
-                    enemyManager.AddClip(shootingClip);
+                //if (!enemyManager.IsFiringClipActive(shootingClip))
+                //{
+                //    enemyManager.AddClip(shootingClip);
                     GeneralFunctions.PlaySoundEffectWithoutOverlaping(audioSource, shootingClip);
-                }
+                //}
             }
         }
     }
