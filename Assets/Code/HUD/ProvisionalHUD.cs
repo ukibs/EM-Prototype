@@ -22,7 +22,7 @@ public class ProvisionalHUD : MonoBehaviour {
     public Texture playerShieldTexture;
     public Texture playerHealthTexture;
     public Texture enemyChasisTexture;
-    public Texture enemyCoreTexture;
+    public Texture enemyHealthTexture;
 
     // Jump ones
     public Texture jumpTexture;
@@ -62,6 +62,9 @@ public class ProvisionalHUD : MonoBehaviour {
     private Vector2 radarDimensions;
     // De momento que sea un tercion del alto de la pantalla
     private float radarProportion = 0.3f;
+    //
+    private float currentAlpha = 1;
+    private float fadeDirection = -1;
 
 	// Use this for initialization
 	void Start () {
@@ -89,8 +92,7 @@ public class ProvisionalHUD : MonoBehaviour {
         //
         GUI.DrawTexture(new Rect(Screen.width/2 - 50, Screen.height/2 - 50, 100, 100), crossTexture);
         
-        //
-        ChargeDrawing();
+        
 
         //
         PlayerHealthAndShields();
@@ -176,6 +178,9 @@ public class ProvisionalHUD : MonoBehaviour {
         // Abilities diamond and icons
         GUI.DrawTexture(new Rect(Screen.width - 200, Screen.height - 200, 200, 200), diamondsBackgroundTexture);
         GUI.DrawTexture(new Rect(Screen.width - 200, Screen.height - 200, 200, 200), diamondsTexture);
+        //
+        ChargeDrawing();
+        //
         Texture iconToUse = null;
 
         // Jump ones
@@ -247,9 +252,25 @@ public class ProvisionalHUD : MonoBehaviour {
     {
         //
         float barMaxLength = 300;
-        //
-        float shieldBarLenght = playerIntegrity.CurrentShield / playerIntegrity.maxShield * barMaxLength; 
-        GUI.DrawTexture(new Rect(30, 30, shieldBarLenght, 30), playerShieldTexture);
+        // Escudos
+        // Mientras le queden
+        if (playerIntegrity.CurrentShield > 0)
+        {
+            float shieldBarLenght = playerIntegrity.CurrentShield / playerIntegrity.maxShield * barMaxLength;
+            GUI.DrawTexture(new Rect(30, 30, shieldBarLenght, 30), playerShieldTexture);
+        }
+        // Cuando estén agotados
+        else
+        {
+            //
+            currentAlpha += fadeDirection * Time.deltaTime;
+            if (currentAlpha >= 1) fadeDirection = -1;
+            if (currentAlpha <= 0) fadeDirection = 1;
+            GUI.color = new Color(1, 1, 1, currentAlpha);
+            // De momento la referenciamos como enemyHelathTexture (color rojo)
+            GUI.DrawTexture(new Rect(30, 30, barMaxLength, 30), enemyHealthTexture);
+            GUI.color = new Color(1, 1, 1, 1);
+        }
         //
         float healthBarLenght = playerIntegrity.CurrentHealth / playerIntegrity.maxHealth * barMaxLength;
         GUI.DrawTexture(new Rect(30, 60, healthBarLenght, 30), playerHealthTexture);
@@ -301,7 +322,7 @@ public class ProvisionalHUD : MonoBehaviour {
             // Barra de vida (core)
             float enemyCoreHealthForBar = enemyConsistency.CurrentHealth / enemyConsistency.maxHealth;
             enemyCoreHealthForBar = Mathf.Clamp01(enemyCoreHealthForBar);
-            GUI.DrawTexture(new Rect(Screen.width / 2 + 150, Screen.height / 2 - 30, enemyCoreHealthForBar * 100f, 20), enemyCoreTexture);
+            GUI.DrawTexture(new Rect(Screen.width / 2 + 150, Screen.height / 2 - 30, enemyCoreHealthForBar * 100f, 20), enemyHealthTexture);
             GUI.Label(new Rect(Screen.width / 2 + 150, Screen.height / 2 - 30, 100f, 20), " " + enemyConsistency.CurrentHealth);
 
             

@@ -61,7 +61,7 @@ MonoBehaviour:
   playerShieldTexture: {fileID: 2800000, guid: 363cd9e084b68e74588ef95eb00167df, type: 3}
   playerHealthTexture: {fileID: 2800000, guid: 67ee8361b4fc5924293ee6dcae9ada30, type: 3}
   enemyChasisTexture: {fileID: 2800000, guid: 9d5d6ce2ecad855448c8d4392c05225f, type: 3}
-  enemyCoreTexture: {fileID: 2800000, guid: 9be74790b4a9b2f41bb96490059435ec, type: 3}
+  enemyHealthTexture: {fileID: 2800000, guid: 9be74790b4a9b2f41bb96490059435ec, type: 3}
   jumpTexture: {fileID: 2800000, guid: 86d8e40aae556594085414191d64a8c6, type: 3}
   sprintTexture: {fileID: 2800000, guid: 342767d2bca4d854191e77312ebae1c2, type: 3}
   pulseAttackIcon: {fileID: 2800000, guid: 83d3de51e99ff0140b0c47e3cd891611, type: 3}

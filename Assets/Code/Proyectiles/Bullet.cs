@@ -13,16 +13,24 @@ public class Bullet : MonoBehaviour {
     public GameObject impactParticlesPrefab;
     public GameObject bulletHolePrefab;
 
+    // De momento hacemos dos, para player y enemigo
+    // TODO: hacer un atrapado más general
+    public AudioClip impactOnPlayer;
+    public AudioClip impactOnEnemy;
+
     // TODO: Decidir si implementamos el funcionamiendo de misil aqui como opción (impulso constante en vez de inicial)
 
     protected Rigidbody rb;
     protected Vector3 previousPosition;
+    // TODO: hacer un atrapado más general
+    protected AudioSource audioSource;
 
 	// Use this for initialization
 	protected virtual void Start () {
         //Debug.Log("Starting bullet");
         rb = GetComponent<Rigidbody>();
         Destroy(gameObject, lifeTime);
+        audioSource = GetComponent<AudioSource>();
     }
 
     protected void FixedUpdate()
@@ -44,22 +52,9 @@ public class Bullet : MonoBehaviour {
 
     protected virtual void OnCollisionEnter(Collision collision)
     {
-        // Chequeamos si hemos chocado con un enemigo o el player
-        // Y actuamos en consecuencia
-        EnemyCollider enemyCollider = collision.collider.GetComponent<EnemyCollider>();
-        PlayerIntegrity playerIntegrity = collision.collider.GetComponent<PlayerIntegrity>();
-        ContactPoint collisionPoint = collision.GetContact(0);
-        if (enemyCollider != null)
-            enemyCollider.ReceiveBulletImpact(rb, collisionPoint.point);
-        else if (playerIntegrity != null)
-            playerIntegrity.ReceiveImpact(collisionPoint.point, gameObject, rb);
-        // Ponemos las particulas y el agujero
-        GameObject impactParticles = Instantiate(impactParticlesPrefab, transform.position, Quaternion.identity);
-        SpawnBulletHole(collisionPoint.point, collisionPoint.normal, collision.gameObject);
         //
-        Destroy(impactParticles, 2);
-        //
-        Destroy(gameObject);
+        // Debug.Log("Bullet collision with " + collision.collider.gameObject.name);
+        GenerateImpact(collision.collider, collision.GetContact(0).point, collision.GetContact(0).normal);
     }
 
     protected void OnDrawGizmos()
@@ -85,35 +80,43 @@ public class Bullet : MonoBehaviour {
         // Nota: usar la dirección de la velocidad en vez del forward
         if (Physics.Raycast(previousPosition, rb.velocity, out raycastInfo, distanceToMoveThisStep))
         {
-            GenerateImpact(raycastInfo, dt);
+            //
+            if (raycastInfo.collider.gameObject == gameObject)
+                //Debug.Log("Hit itself");
+                return;
+            //
+            Debug.Log("Bullet raycasting with " + raycastInfo.collider.gameObject.name);
+            GenerateImpact(raycastInfo.collider, raycastInfo.point, raycastInfo.normal, dt);
             // TODO: Aplicar fuerzas
 
         }
     }
 
     //
-    protected void GenerateImpact(RaycastHit raycastInfo, float dt)
+    protected void GenerateImpact(Collider collider, Vector3 hitPoint, Vector3 hitNormal, float dt = 0)
     {
         // Chequeamos si ha impactado a un enemigo y aplicamos lo necesario
-        EnemyCollider enemyCollider = raycastInfo.collider.GetComponent<EnemyCollider>();
+        EnemyCollider enemyCollider = collider.GetComponent<EnemyCollider>();
         if(enemyCollider != null)
         {
-            enemyCollider.ReceiveBulletImpact(rb, raycastInfo.point);
+            enemyCollider.ReceiveBulletImpact(rb, hitPoint);
+            GeneralFunctions.PlaySoundEffect(audioSource, impactOnEnemy);
         }
         // Y el player, joputa
-        PlayerIntegrity playerIntegrity = raycastInfo.collider.GetComponent<PlayerIntegrity>();
+        PlayerIntegrity playerIntegrity = collider.GetComponent<PlayerIntegrity>();
         if(playerIntegrity != null)
         {
             playerIntegrity.ReceiveImpact(rb.velocity, gameObject, rb);
+            GeneralFunctions.PlaySoundEffect(audioSource, impactOnPlayer);
             //
             Rigidbody playerRB = playerIntegrity.gameObject.GetComponent<Rigidbody>();
             playerRB.AddForce(rb.velocity * rb.mass, ForceMode.Impulse);
         }
         //
-        GameObject impactParticles = Instantiate(impactParticlesPrefab, raycastInfo.point, Quaternion.identity);
-        SpawnBulletHole(raycastInfo.point, raycastInfo.normal, raycastInfo.collider.gameObject);
+        GameObject impactParticles = Instantiate(impactParticlesPrefab, hitPoint, Quaternion.identity);
+        SpawnBulletHole(hitPoint, hitNormal, collider.gameObject);
         Destroy(impactParticles, 2);
-        //
+        // TODO: Ver por qué nos hacía falta esto
         Destroy(gameObject, dt);
     }
 

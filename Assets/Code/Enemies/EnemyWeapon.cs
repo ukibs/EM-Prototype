@@ -44,6 +44,8 @@ public class EnemyWeapon : MonoBehaviour
     public ShootCalculation shootCalculation = ShootCalculation.MuzzleSpeed;
     public Vector2 maxRotationOffset;
     public GameObject shootParticlesPrefab;
+    //
+    public AudioClip shootingClip;
 
     private Transform shootPoint;
     private RobotControl player;
@@ -52,6 +54,9 @@ public class EnemyWeapon : MonoBehaviour
     //
     private Quaternion originalRotation;
     //private Vector2 originalRotationXY;
+    //
+    private AudioSource audioSource;
+    private EnemyManager enemyManager;
 
     // Start is called before the first frame update
     void Start()
@@ -68,6 +73,10 @@ public class EnemyWeapon : MonoBehaviour
         //originalRotationXY = new Vector2(transform.localEulerAngles.x, transform.localEulerAngles.y);
         //
         //if(originalRotation)
+        //
+        audioSource = GetComponent<AudioSource>();
+        //
+        enemyManager = FindObjectOfType<EnemyManager>();
     }
 
     // Update is called once per frame
@@ -84,15 +93,6 @@ public class EnemyWeapon : MonoBehaviour
             UpdateCanonRotation(playerDirection, dt);
             //
             UpdateShooting(dt);
-        }
-    }
-
-    private void OnGUI()
-    {
-        //
-        if (debugging)
-        {
-
         }
     }
 
@@ -140,36 +140,6 @@ public class EnemyWeapon : MonoBehaviour
         //
     }
 
-    //
-    //void ConstrainRotationInEuler(Vector3 previousRotation)
-    //{
-    //    // Y acotamos la rotación a los límites
-    //    // X
-    //    float constrainedX = transform.localEulerAngles.x;
-
-    //    if (Mathf.Abs(constrainedX - originalRotationXY.x) > 180)
-    //        constrainedX -= 360;
-
-    //    constrainedX = Mathf.Clamp(constrainedX,
-    //        originalRotationXY.x - maxRotationOffset.x, originalRotationXY.x + maxRotationOffset.x);
-
-    //    // Y
-    //    float constrainedY = transform.localEulerAngles.y;
-
-    //    //if (Mathf.Abs(previousRotation.y - constrainedY) > 180)
-    //    //    constrainedY += 360 * Mathf.Sign(previousRotation.y - constrainedY);
-    //    if (Mathf.Abs(constrainedY - originalRotationXY.y) > 180)
-    //        constrainedY -= 360;
-
-    //    constrainedY = Mathf.Clamp(constrainedY,
-    //        originalRotationXY.y - maxRotationOffset.y, originalRotationXY.y + maxRotationOffset.y);
-    //    // Apaño maño (para cuando acotamos en el 0 exacto, que se pone tonto)
-    //    if (Mathf.Abs(constrainedY - 360) < 0.1) constrainedY = 359.9f;
-    //    //
-    //    // Debug.Log("Constrained angles: x - " + constrainedX + ", y - " + constrainedY);
-    //    transform.localEulerAngles = new Vector3(constrainedX, constrainedY, transform.localEulerAngles.z);
-    //}
-
     // TODO: Mover a funciones generales
     void ConstrainRotation()
     {
@@ -208,6 +178,12 @@ public class EnemyWeapon : MonoBehaviour
                 Instantiate(shootParticlesPrefab, shootPoint.position, Quaternion.identity);
                 //
                 timeFromLastShoot -= 1 / rateOfFire;
+                //
+                if (!enemyManager.IsFiringClipActive(shootingClip))
+                {
+                    enemyManager.AddClip(shootingClip);
+                    GeneralFunctions.PlaySoundEffectWithoutOverlaping(audioSource, shootingClip);
+                }
             }
         }
     }

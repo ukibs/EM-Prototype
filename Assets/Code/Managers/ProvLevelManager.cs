@@ -150,6 +150,20 @@ public class ProvLevelManager : MonoBehaviour
         {
             inputManager.RightAxisSensivity += inputManager.StickAxis.y * 0.01f;
         }
+        //
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            if (GameControl.bulletTime)
+            {
+                GameControl.bulletTime = false;
+                Time.timeScale = 1;
+            }
+            else
+            {
+                GameControl.bulletTime = true;
+                Time.timeScale = 0.1f;
+            }
+        }
     }
 
     void CheckVictory()

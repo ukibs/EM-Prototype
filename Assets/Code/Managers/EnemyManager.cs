@@ -16,12 +16,19 @@ public class EnemyManager : MonoBehaviour
     private float timeFromLastSpawn = 0;
     private Transform playerTransform;
 
+    // Vamos a manejarlo aqui de moemnto para no saturar el audio
+    private List<AudioClip> activeFiringClips;
+    private List<float> afcTimeActive;
+
     // Start is called before the first frame update
     void Start()
     {
         playerTransform = FindObjectOfType<RobotControl>().transform;
         //
         SpawnEnemies(initialGroupToSpawnSize);
+        //
+        activeFiringClips = new List<AudioClip>(10);
+        afcTimeActive = new List<float>(10);
     }
 
     // Update is called once per frame
@@ -45,6 +52,17 @@ public class EnemyManager : MonoBehaviour
                 SpawnEnemies(continuousGroupToSpawnSize);
             // Si no que vuelva a empezar a contrar y ya
             timeFromLastSpawn -= timeBetweenSpawns;
+        }
+        // Manejamos aqui los clips
+        for(int i = 0; i < activeFiringClips.Count; i++)
+        {
+            //
+            afcTimeActive[i] += dt;
+            if(afcTimeActive[i] >= activeFiringClips[i].length)
+            {
+                activeFiringClips.RemoveAt(i);
+                afcTimeActive.RemoveAt(i);
+            }
         }
     }
 
@@ -89,4 +107,16 @@ public class EnemyManager : MonoBehaviour
         // Vigilar que no salte dos veces
         SpawnEnemies(initialGroupToSpawnSize);
     }
+
+    public void AddClip(AudioClip firingClip)
+    {
+        activeFiringClips.Add(firingClip);
+        afcTimeActive.Add(0);
+    }
+
+    public bool IsFiringClipActive(AudioClip firingClip)
+    {
+        return activeFiringClips.Contains(firingClip);
+    }
 }
+

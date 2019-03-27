@@ -81,6 +81,13 @@ public class RobotControl : MonoBehaviour {
     // De momento lo ponemos aqui
     public GameObject shootParticlePrefab;
 
+    //
+    public AudioClip loadingClip;
+    public AudioClip releasingClip;
+    public AudioClip rapidFireClip;
+
+
+    //
     private Transform mainCamera;
     private Rigidbody rb;
 
@@ -100,6 +107,10 @@ public class RobotControl : MonoBehaviour {
     // De momento lo controlamos con un bool
     private bool applyingDamping = true;
     private bool adhering = false;
+    //
+    private int nextRapidFireSide = 0;
+    //
+    private AudioSource audioSource;
 
     // Testeo
     //private bool paused = false;
@@ -151,6 +162,7 @@ public class RobotControl : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         repulsor = GetComponent<Repulsor>();
         gameManager = FindObjectOfType<GameManager>();
+        audioSource = GetComponent<AudioSource>();
 
         //
 #if !UNITY_EDITOR
@@ -534,12 +546,15 @@ public class RobotControl : MonoBehaviour {
                 case AttackMode.Pulse:
                     releasingPulseEmitter.SetActive(false);
                     chargingPulseEmitter.SetActive(true);
+                    GeneralFunctions.PlaySoundEffect(audioSource, loadingClip);
                     break;
                 case AttackMode.Canon:
                     //chargingCanonProyectile.SetActive(false);
+                    GeneralFunctions.PlaySoundEffect(audioSource, loadingClip);
                     break;
                 case AttackMode.Piercing:
                     //chargingPiercingProyectile.SetActive(false);
+                    GeneralFunctions.PlaySoundEffect(audioSource, loadingClip);
                     break;
             }
         }            
@@ -549,6 +564,8 @@ public class RobotControl : MonoBehaviour {
             chargedAmount += Time.deltaTime;
             if (attackMode == AttackMode.RapidFire)
             {
+                
+                //
                 RapidFireAttack(dt);
             }
             else if (attackMode == AttackMode.ParticleCascade)
@@ -572,14 +589,20 @@ public class RobotControl : MonoBehaviour {
                     particleSystem.Play();
                     //
                     PulseAttack();
+                    //
+                    GeneralFunctions.PlaySoundEffect(audioSource, releasingClip);
                     break;
                 case AttackMode.Canon:
                     //chargingCanonProyectile.SetActive(false);
-                    CharguedProyectileAttack(cannonBallPrefab, gameManager.canonBaseMuzzleSpeed, dt);                   
+                    CharguedProyectileAttack(cannonBallPrefab, gameManager.canonBaseMuzzleSpeed, dt);
+                    //
+                    GeneralFunctions.PlaySoundEffect(audioSource, releasingClip);
                     break;
                 case AttackMode.Piercing:
                     //chargingCanonProyectile.SetActive(true);
                     CharguedProyectileAttack(piercingProyectilePrefab, gameManager.piercingBaseMuzzleSpeed, dt);
+                    //
+                    GeneralFunctions.PlaySoundEffect(audioSource, releasingClip);
                     break;
                 // Ya haremos el resto
             }
@@ -643,28 +666,30 @@ public class RobotControl : MonoBehaviour {
     {
         if (chargedAmount >= 1 / gameManager.rapidFireRate)
         {
-            for (int i = 0; i < machineGunPoints.Length; i++)
-            {
-                // 
-                Vector3 shootForward = (!cameraControl.TargetingPlayer) ?
-                    (EnemyAnalyzer.estimatedToHitPosition - machineGunPoints[i].position).normalized :
-                    machineGunPoints[i].forward;
+            //
+            Vector3 shootForward = (!cameraControl.TargetingPlayer) ?
+                (EnemyAnalyzer.estimatedToHitPosition - machineGunPoints[nextRapidFireSide].position).normalized :
+                machineGunPoints[nextRapidFireSide].forward;
                 
-                //
-                Vector3 targetPoint;
-                if (EnemyAnalyzer.isActive)
-                    targetPoint = EnemyAnalyzer.estimatedToHitPosition;
-                else
-                    targetPoint = cameraControl.CurrentTarget.position;
-                //
-                Quaternion shootRotation = Quaternion.LookRotation(targetPoint - machineGunPoints[i].position);
+            //
+            Vector3 targetPoint;
+            if (EnemyAnalyzer.isActive)
+                targetPoint = EnemyAnalyzer.estimatedToHitPosition;
+            else
+                targetPoint = cameraControl.CurrentTarget.position;
+            //
+            Quaternion shootRotation = Quaternion.LookRotation(targetPoint - machineGunPoints[nextRapidFireSide].position);
 
-                float muzzleSpeed = gameManager.rapidFireMuzzleSpeed;
-                GeneralFunctions.ShootProjectile(bulletPrefab, machineGunPoints[i].position,
-                    shootRotation, shootForward, muzzleSpeed, dt, ShootCalculation.MuzzleSpeed);
-            }
-            // TODO: Revisar por qué no hace esto
+            float muzzleSpeed = gameManager.rapidFireMuzzleSpeed;
+            GeneralFunctions.ShootProjectile(bulletPrefab, machineGunPoints[nextRapidFireSide].position,
+                shootRotation, shootForward, muzzleSpeed, dt, ShootCalculation.MuzzleSpeed);
+            // 
             chargedAmount -= 1 / gameManager.rapidFireRate;
+            //
+            nextRapidFireSide = (nextRapidFireSide) == 0 ? 1 : 0;
+            //
+            //
+            GeneralFunctions.PlaySoundEffect(audioSource, rapidFireClip);
         }
     }
 
@@ -786,5 +811,6 @@ public static class PlayerReference
 public static class GameControl
 {
     public static bool paused;
+    public static bool bulletTime;
     //public static float 
 }

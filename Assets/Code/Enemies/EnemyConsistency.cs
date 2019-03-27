@@ -17,6 +17,9 @@ public class EnemyConsistency : MonoBehaviour {
     public Material deadFaceMaterial;
     public GameObject explosionPrefab;
     public GameObject smokePrefab;
+    public AudioClip explosionClip;
+
+    
 
     #endregion
 
@@ -28,6 +31,7 @@ public class EnemyConsistency : MonoBehaviour {
     private ProvLevelManager levelManager;
     private Rigidbody rb;
     private Vector3 previousVelocity;
+    private AudioSource audioSource;
 
     #endregion
 
@@ -56,6 +60,8 @@ public class EnemyConsistency : MonoBehaviour {
 
         // De momento para klos voladores mas que nada
         rb = GetComponent<Rigidbody>();
+        //
+        audioSource = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -207,8 +213,14 @@ public class EnemyConsistency : MonoBehaviour {
             // Esto para los voladores mas que nada
             rb.constraints = RigidbodyConstraints.None;
             //
+            if(audioSource != null && explosionClip != null)
+            {
+                audioSource.clip = explosionClip;
+                audioSource.Play();
+            }
+            // TODO: Mirar como hacer para quitar el rigidody a los x segundos
             //Destroy(rb, 10);
-            //
+            // Destruimos el script pero dejamos el cuerpo
             Destroy(this);
         }
         else

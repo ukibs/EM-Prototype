@@ -229,7 +229,13 @@ public static class GeneralFunctions
         return result;
     }
 
-    //
+    /// <summary>
+    /// Get the collision force between two bodies
+    /// Remember, bullets go another way
+    /// </summary>
+    /// <param name="selfRb"></param>
+    /// <param name="otherRb"></param>
+    /// <returns></returns>
     public static float GetCollisionForce(Rigidbody selfRb, Rigidbody otherRb)
     {
         // Ponemos esto para evitar errores
@@ -247,5 +253,38 @@ public static class GeneralFunctions
         //
         float impactForce = otherImpactForce + selfImpactForce;
         return impactForce;
+    }
+
+    /// <summary>
+    /// Error proof sound function
+    /// Rememeber, it will avoid exceptions
+    /// Not guarantee to play
+    /// </summary>
+    /// <param name="audioSource"></param>
+    /// <param name="audioClip"></param>
+    public static void PlaySoundEffect(AudioSource audioSource, AudioClip audioClip)
+    {
+        if(audioSource != null && audioClip != null)
+        {
+            audioSource.clip = audioClip;
+            audioSource.Play();
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="audioSource"></param>
+    /// <param name="audioClip"></param>
+    public static void PlaySoundEffectWithoutOverlaping(AudioSource audioSource, AudioClip audioClip)
+    {
+        if (audioSource != null && audioClip != null)
+        {
+            if(!audioSource.isPlaying || audioClip != audioSource.clip)
+            {
+                audioSource.clip = audioClip;
+                audioSource.Play();
+            }            
+        }
     }
 }
