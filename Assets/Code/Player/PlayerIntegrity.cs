@@ -157,7 +157,8 @@ public class PlayerIntegrity : MonoBehaviour
         {
             //totalImpactForce = otherRb.velocity.magnitude * otherRb.mass * 100;
             // Vamos a probar con la energía cinética
-            totalImpactForce = Mathf.Pow(otherRb.velocity.magnitude, 2) * otherRb.mass;
+            // TODO: Volver a manejarlo en proyectile impact
+            totalImpactForce = GeneralFunctions.GetBodyKineticEnergy(otherRb);
         }
         //
         else if (bodyRB != null)

@@ -43,3 +43,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2b379994bfd86e49a50e236fafa5b9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unlockedJumpActions: 0
+  unlockedSprintActions: 0
+  unlockedAttackActions: 0
+  unlockedDefenseActions: 0
+  maxCharge: 1
+  pulseForce: 100
+  canonBaseMuzzleSpeed: 1000
+  canonBaseProyectileMass: 0.00001
+  rapidFireRate: 20
+  rapidFireMuzzleSpeed: 1000
+  piercingBaseMuzzleSpeed: 2000
+  piercingBaseProyectileMass: 0.00001
+  movementForce: 5
+  jumpForce: 10
+  sprintForce: 1
+  sphericShieldStrength: 100
+  maxShield: 10000
+  maxHealth: 1000
+  shieldAbsortion: 100
+  armor: 2000

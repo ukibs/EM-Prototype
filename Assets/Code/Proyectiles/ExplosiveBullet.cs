@@ -12,7 +12,11 @@ public enum ExplosiveType
     Count
 }
 
-public class ExplosiveBullet : Bullet
+/// <summary>
+/// Clase explosivo
+/// Lemetos como componente adjunto en vez de herenci
+/// </summary>
+public class ExplosiveBullet : MonoBehaviour
 {
     // Genereic ones
     //public float explosionRange;
@@ -28,27 +32,35 @@ public class ExplosiveBullet : Bullet
 
     // TODO: Decidir si usamos fragmentos
 
-    protected override void Start()
+    protected void Start()
     {
         
-        base.Start();
         // We calculate the force with the proportion of kilograms in TNT
-        explosionForce = explosiveLoad * 4184000;
+        //explosionForce = explosiveLoad * 4184000;
+        explosionForce = explosiveLoad * 4184;
         // Recordar que el peso de los rigidbodies lo medimos en toneladas
 
         // Tenemos en cuenta la disminución de la potencia con el cuadrado de la distancia para el alcance
         // explosiveForce / Mathf.Pow(distance, 2)
         explosionRange = Mathf.Sqrt(explosionForce);
+
+
     }
 
-    protected override void OnCollisionEnter(Collision collision)
-    {
+    //protected void OnCollisionEnter(Collision collision)
+    //{
+        
+    //    GenerateExplosion();
+    //}
 
-        base.OnCollisionEnter(collision);
+    // Se detona automáticamente al destruirse
+    // Al menos de momento
+    private void OnDestroy()
+    {
         GenerateExplosion();
     }
 
-    private void GenerateExplosion()
+    public void GenerateExplosion()
     {
         // De momento, por simplificar
         // Aparte de la fuerza
@@ -63,8 +75,9 @@ public class ExplosiveBullet : Bullet
             {
                 Vector3 directionAndDistance = affectedBodies[i].transform.position - transform.position;
                 float distanceToCount = Mathf.Max(directionAndDistance.magnitude, 1);
+                //Debug.Log();
                 // Recordar que el peso de los rigidbodies va en toneladas
-                nextBody.AddForce(directionAndDistance.normalized * explosionForce / Mathf.Pow(distanceToCount, 2) / 1000, ForceMode.Impulse);
+                // nextBody.AddForce(directionAndDistance.normalized * explosionForce / Mathf.Pow(distanceToCount, 2) / 1000, ForceMode.Impulse);
             }
 
             // TODO: Aplicar daños bien

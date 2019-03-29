@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 54382493756508544}
   - component: {fileID: 9117681019564218694}
   - component: {fileID: 7574757208218839598}
+  - component: {fileID: 5184397703864164841}
   m_Layer: 0
   m_Name: 81 mm
   m_TagString: Untagged
@@ -226,8 +227,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 572550190cd4af2498fb84d9f37d3c61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosiveLoad: 3.81
+--- !u!114 &5184397703864164841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952744711831650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cca406881df4e634db8e1b9dc80de919, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   diameter: 81
   lifeTime: 10
   impactParticlesPrefab: {fileID: 5943001922578116903, guid: ed5e3facd419e5046b1f6e142784e330,
     type: 3}
-  explosiveLoad: 3.81
+  bulletHolePrefab: {fileID: 1994357791592751295, guid: c9608cba5bbaa264f89f02fabf26b7e8,
+    type: 3}
+  impactOnPlayer: {fileID: 8300000, guid: 8b85b651924767f4e9888abd2aafc166, type: 3}
+  impactOnEnemy: {fileID: 8300000, guid: 8b85b651924767f4e9888abd2aafc166, type: 3}

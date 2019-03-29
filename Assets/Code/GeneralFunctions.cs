@@ -287,4 +287,35 @@ public static class GeneralFunctions
             }            
         }
     }
+
+    /// <summary>
+    /// Gives the kinetic energy of a rigidbody
+    /// </summary>
+    /// <param name="rb"></param>
+    /// <returns></returns>
+    public static float GetBodyKineticEnergy(Rigidbody rb)
+    {
+        float bodySpeed = rb.velocity.magnitude;
+        float bodyMass = rb.mass;
+
+        float bodyKE = bodyMass * Mathf.Pow(bodySpeed, 2) / 2;
+
+        return bodyKE;
+    }
+
+    /// <summary>
+    /// Gives the momentum of a rigidbody
+    /// TODO: Decidir si devolverlo como vector
+    /// </summary>
+    /// <param name="rb"></param>
+    /// <returns></returns>
+    public static float GetBodyMomentum(Rigidbody rb)
+    {
+        float bodySpeed = rb.velocity.magnitude;
+        float bodyMass = rb.mass;
+
+        float bodyMomentum = bodyMass * bodySpeed;
+
+        return bodyMomentum;
+    }
 }

@@ -63,16 +63,6 @@ public class EnemyConsistency : MonoBehaviour {
         //
         audioSource = GetComponent<AudioSource>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		// Cheqeo extra de salida de escenario
-        if(transform.position.y < -10)
-        {
-            //ManageDamage(currentChasisHealth, transform.position);
-            Destroy(gameObject);
-        }
-	}
 
     //
     void FixedUpdate()
@@ -80,6 +70,26 @@ public class EnemyConsistency : MonoBehaviour {
         // Guardamos la previa para chequear si ha habido un ostión
         previousVelocity = rb.velocity;
     }
+
+    // Update is called once per frame
+    void Update () {
+		// Cheqeo extra de salida de escenario
+        if(transform.position.y < -10)
+        {
+            //ManageDamage(currentChasisHealth, transform.position);
+            Destroy(gameObject);
+        }
+        // Vamos a probar esto
+        // De momento lo dejamos
+        // Pero ya veremos
+        if ((rb.velocity.magnitude - previousVelocity.magnitude) > 1)
+        {
+            float impactForce = GeneralFunctions.GetCollisionForce(rb, null);
+            ReceiveImpact(impactForce / 5, transform.position);
+        }
+    }
+
+    
 
     // Lo ponemos para ver que falla con las colisiones entre cuerpos
     // Ojo que alguna la pillará por duplicado
@@ -117,7 +127,7 @@ public class EnemyConsistency : MonoBehaviour {
             //    ", diameter: " + diameter + ", velocity: " + bulletRb.velocity.magnitude);
             float penetrationResult = Mathf.Max(penetrationValue - bodyPart.armor, 0);
             //
-            ReceiveInternalImpact(penetrationResult, collision.GetContact(0).point);
+            ReceiveProyectileImpact(penetrationResult, collision.GetContact(0).point, bulletRb);
         }
         
     }
@@ -153,18 +163,19 @@ public class EnemyConsistency : MonoBehaviour {
     /// </summary>
     /// <param name="impactForce"></param>
     /// <param name="point"></param>
-    public void ReceiveInternalImpact(float penetrationResult, Vector3 point)
+    public void ReceiveProyectileImpact(float penetrationResult, Vector3 point, Rigidbody proyectileRb)
     {
         //
         float damageReceived = penetrationResult;
         //float damageReceived = GeneralFunctions.Navy1940PenetrationCalc();
         //damageReceived = Mathf.Max(damageReceived, 0);
         //
-        if(damageReceived > 0)
+        if(penetrationResult > 0)
         {
             //Debug.Log("Received bullet impact with " + impactForce + " force against " + sideArmor + " armor. "
             //+ damageReceived + " damage received");
             //
+            damageReceived = GeneralFunctions.GetBodyKineticEnergy(proyectileRb);
             currentHealth -= damageReceived;
             ManageDamage(penetrationResult, point);
 
@@ -172,7 +183,8 @@ public class EnemyConsistency : MonoBehaviour {
         }
         else
         {
-            //impactInfoManager.SendImpactInfo(point, impactForce, "No damage");
+            penetrationResult = 0;
+            impactInfoManager.SendImpactInfo(point, penetrationResult, "No damage");
         }
         
     }

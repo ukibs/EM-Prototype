@@ -80,7 +80,7 @@ public class EnemyCollider : MonoBehaviour
             //    ", diameter: " + diameter + ", velocity: " + bulletRb.velocity.magnitude);
             float penetrationResult = Mathf.Max(penetrationValue - armor, 0);
             //
-            body.ReceiveInternalImpact(penetrationResult, impactPoint);
+            body.ReceiveProyectileImpact(penetrationResult, impactPoint, bulletRb);
         }
         
     }

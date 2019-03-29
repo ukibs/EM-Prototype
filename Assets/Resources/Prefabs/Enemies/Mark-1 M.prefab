@@ -1308,7 +1308,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBetweenActionChecking: 1
-  motorForce: 200
+  motorForce: 30
   rotationSpeed: 30
   turrets: []
   weapons:
@@ -1328,7 +1328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9f760979ab2521429985b0a447da57f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1000
+  maxHealth: 500
   defense: 500
   centralPointOffset: {x: 0, y: 2, z: 0}
   face: {fileID: 8438318046569397788}

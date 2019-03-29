@@ -95,11 +95,15 @@ public class Bullet : MonoBehaviour {
     //
     protected void GenerateImpact(Collider collider, Vector3 hitPoint, Vector3 hitNormal, float dt = 0)
     {
+        //
+        transform.position = hitPoint;
         // Chequeamos si ha impactado a un enemigo y aplicamos lo necesario
         EnemyCollider enemyCollider = collider.GetComponent<EnemyCollider>();
         if(enemyCollider != null)
         {
             enemyCollider.ReceiveBulletImpact(rb, hitPoint);
+            // TODO: Buscar otro sitio donde ponerlo
+            // Aquí no suena porque se destruye el objeto
             GeneralFunctions.PlaySoundEffect(audioSource, impactOnEnemy);
         }
         // Y el player, joputa

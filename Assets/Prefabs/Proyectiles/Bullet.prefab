@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   diameter: 5
-  lifeTime: 1
+  lifeTime: 2
   impactParticlesPrefab: {fileID: 1837716235657633640, guid: 61c9e81fe8e7c0a40a345df35440fcab,
     type: 3}
   bulletHolePrefab: {fileID: 1994357791592751295, guid: c9608cba5bbaa264f89f02fabf26b7e8,
