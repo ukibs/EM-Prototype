@@ -13,25 +13,17 @@ public class EnemyConsistency : MonoBehaviour {
     [Tooltip("Adjustment for models which central point is deviated")]
     public Vector3 centralPointOffset = new Vector3(0,1,0);
 
-    public GameObject face;
-    public Material deadFaceMaterial;
-    public GameObject explosionPrefab;
-    public GameObject smokePrefab;
-    public AudioClip explosionClip;
-
-    
-
     #endregion
 
     #region Private Attributes
 
-    private ImpactInfoManager impactInfoManager;
+    protected ImpactInfoManager impactInfoManager;
     // private float currentChasisHealth;
-    private float currentHealth;
-    private ProvLevelManager levelManager;
-    private Rigidbody rb;
-    private Vector3 previousVelocity;
-    private AudioSource audioSource;
+    protected float currentHealth;
+    protected ProvLevelManager levelManager;
+    protected Rigidbody rb;
+    protected Vector3 previousVelocity;
+    protected AudioSource audioSource;
 
     #endregion
 
@@ -50,7 +42,7 @@ public class EnemyConsistency : MonoBehaviour {
 
 
     // Use this for initialization
-    void Start () {
+    protected virtual void Start () {
         impactInfoManager = FindObjectOfType<ImpactInfoManager>();
         //currentChasisHealth = maxChasisHealth;
         currentHealth = maxHealth;
@@ -65,14 +57,14 @@ public class EnemyConsistency : MonoBehaviour {
 	}
 
     //
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         // Guardamos la previa para chequear si ha habido un ostión
         previousVelocity = rb.velocity;
     }
 
     // Update is called once per frame
-    void Update () {
+    protected virtual void Update () {
 		// Cheqeo extra de salida de escenario
         if(transform.position.y < -10)
         {
@@ -89,11 +81,11 @@ public class EnemyConsistency : MonoBehaviour {
         }
     }
 
-    
+
 
     // Lo ponemos para ver que falla con las colisiones entre cuerpos
     // Ojo que alguna la pillará por duplicado
-    private void OnCollisionEnter(Collision collision)
+    protected virtual void OnCollisionEnter(Collision collision)
     {
         // Estas no las queremos chequear aqui
         Bullet bullet = collision.collider.GetComponent<Bullet>();
@@ -166,7 +158,7 @@ public class EnemyConsistency : MonoBehaviour {
     public void ReceiveProyectileImpact(float penetrationResult, Vector3 point, Rigidbody proyectileRb)
     {
         //
-        float damageReceived = penetrationResult;
+        float damageReceived;
         //float damageReceived = GeneralFunctions.Navy1940PenetrationCalc();
         //damageReceived = Mathf.Max(damageReceived, 0);
         //
@@ -189,10 +181,40 @@ public class EnemyConsistency : MonoBehaviour {
         
     }
 
+    //
+    public void ReceiveSharpnelImpact(float penetrationResult, Vector3 point, FakeRB proyectileRb)
+    {
+        //
+        float damageReceived;
+        if (penetrationResult > 0)
+        {
+            damageReceived = GeneralFunctions.GetFakeBodyKineticEnergy(proyectileRb);
+            currentHealth -= damageReceived;
+            ManageDamage(penetrationResult, point);
+
+            impactInfoManager.SendImpactInfo(point, damageReceived);
+        }
+        else
+        {
+            penetrationResult = 0;
+            impactInfoManager.SendImpactInfo(point, penetrationResult, "No damage");
+        }
+
+    }
+
+    // Funcion provisional para trabajar impactos de metralla
+    public void ReceiveSharpnelImpact(float penetrationResult, Vector3 point, float sharpnelMass)
+    {
+        if(penetrationResult > 0)
+        {
+
+        }
+    }
+
     /// <summary>
     /// 
     /// </summary>
-    void ManageDamage(float damageReceived, Vector3 point)
+    protected virtual void ManageDamage(float damageReceived, Vector3 point)
     {
         // Si la vida cae a cero lo convertimos en un simple objeto con rigidbody
         // Le quitamos sus scripts de comportamiento, vamos
@@ -207,29 +229,17 @@ public class EnemyConsistency : MonoBehaviour {
             //Debug.Log("Enemy " + transform.name + " destroyed. Impact force " + impactForce);
             //gameObject.SetActive(false);
 
-            // Cambio de cara
-            face.GetComponent<MeshRenderer>().material = deadFaceMaterial;
+            
 
             //
             DeactivateStuff();
             
-            //
-            GameObject explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-            Destroy(explosion, 10);
-            //
-            //GameObject smoke = 
-                Instantiate(smokePrefab, transform);
-            //
+            
             if(levelManager != null)
                 levelManager.AnnotateKill();
             // Esto para los voladores mas que nada
             rb.constraints = RigidbodyConstraints.None;
-            //
-            if(audioSource != null && explosionClip != null)
-            {
-                audioSource.clip = explosionClip;
-                audioSource.Play();
-            }
+            
             // TODO: Mirar como hacer para quitar el rigidody a los x segundos
             //Destroy(rb, 10);
             // Destruimos el script pero dejamos el cuerpo
@@ -241,7 +251,7 @@ public class EnemyConsistency : MonoBehaviour {
         }
     }
 
-    void DeactivateStuff()
+    protected virtual void DeactivateStuff()
     {
         //Chequamos y quitamos
         // Torretas
@@ -261,19 +271,19 @@ public class EnemyConsistency : MonoBehaviour {
         }
             
         // Cuerpo
-        EnemyBodyBehaviour enemyBodyBehaviour = GetComponent<EnemyBodyBehaviour>();
-        if (enemyBodyBehaviour != null)
+        MekanoidBodyBehaviour mekanoidBodyBehaviour = GetComponent<MekanoidBodyBehaviour>();
+        if (mekanoidBodyBehaviour != null)
         {
-            for(int i = 0; i < enemyBodyBehaviour.weapons.Length; i++)
+            for(int i = 0; i < mekanoidBodyBehaviour.weapons.Length; i++)
             {
-                EnemyWeapon nextWeapon = enemyBodyBehaviour.weapons[i].GetComponent<EnemyWeapon>();
+                EnemyWeapon nextWeapon = mekanoidBodyBehaviour.weapons[i].GetComponent<EnemyWeapon>();
                 if (nextWeapon)
                 {
                     Destroy(nextWeapon);
                 }
             }
             //
-            Destroy(enemyBodyBehaviour);
+            Destroy(mekanoidBodyBehaviour);
         }
 
         // Propulsor

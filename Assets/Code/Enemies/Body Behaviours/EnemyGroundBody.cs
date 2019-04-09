@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 
-public class EnemyGroundBody : EnemyBodyBehaviour
+public class EnemyGroundBody : MekanoidBodyBehaviour
 {
     
     private bool touchingSomething;

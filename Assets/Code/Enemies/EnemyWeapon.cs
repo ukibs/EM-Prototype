@@ -56,7 +56,7 @@ public class EnemyWeapon : MonoBehaviour
     //private Vector2 originalRotationXY;
     //
     private AudioSource audioSource;
-    private EnemyManager enemyManager;
+    //private EnemyManager enemyManager;
 
     // Start is called before the first frame update
     void Start()
@@ -76,7 +76,7 @@ public class EnemyWeapon : MonoBehaviour
         //
         audioSource = GetComponent<AudioSource>();
         //
-        enemyManager = FindObjectOfType<EnemyManager>();
+        //enemyManager = FindObjectOfType<EnemyManager>();
     }
 
     // Update is called once per frame

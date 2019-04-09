@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySustentedAirBody : EnemyBodyBehaviour
+public class EnemySustentedAirBody : MekanoidBodyBehaviour
 {
     // De momento global
     // Problablemente la hagamos respecto al player

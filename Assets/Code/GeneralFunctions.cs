@@ -169,7 +169,6 @@ public static class GeneralFunctions
     /// <returns></returns>
     public static float EstimateFlyingTimeWithDrag(Vector3 startPoint, Vector3 objectivePoint, float muzzleSPeed, float proyectileDrag)
     {
-        // TODO: Pillar a Anontio por banda
         // t = ln(1-(d*k/v0))/-k
         Vector3 distance = objectivePoint - startPoint;
         float travelTime = Mathf.Log(1 - (distance.magnitude * proyectileDrag / muzzleSPeed)) / -proyectileDrag;
@@ -294,6 +293,16 @@ public static class GeneralFunctions
     /// <param name="rb"></param>
     /// <returns></returns>
     public static float GetBodyKineticEnergy(Rigidbody rb)
+    {
+        float bodySpeed = rb.velocity.magnitude;
+        float bodyMass = rb.mass;
+
+        float bodyKE = bodyMass * Mathf.Pow(bodySpeed, 2) / 2;
+
+        return bodyKE;
+    }
+
+    public static float GetFakeBodyKineticEnergy(FakeRB rb)
     {
         float bodySpeed = rb.velocity.magnitude;
         float bodyMass = rb.mass;

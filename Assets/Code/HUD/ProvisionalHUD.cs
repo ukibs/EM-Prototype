@@ -8,6 +8,10 @@ public class ProvisionalHUD : MonoBehaviour {
     public GUISkin guiSkin;
 
     public Texture crossTexture;
+    public Texture penetrationCrossRed;
+    public Texture penetrationCrossYellow;
+    public Texture penetrationCrossGreen;
+
     public Texture enemyMarkerTexture;
     public Texture enemyInScreenTexture;
     public Texture targetedEnemyEstimatedFuturePositionTexture;
@@ -90,7 +94,7 @@ public class ProvisionalHUD : MonoBehaviour {
     private void OnGUI()
     {
         //
-        GUI.DrawTexture(new Rect(Screen.width/2 - 50, Screen.height/2 - 50, 100, 100), crossTexture);
+        // GUI.DrawTexture(new Rect(Screen.width/2 - 50, Screen.height/2 - 50, 100, 100), crossTexture);
         
         
 
@@ -106,7 +110,7 @@ public class ProvisionalHUD : MonoBehaviour {
         //
         if (!cameraControl.TargetingPlayer)
         {
-            EnemyStats();
+            EnemyInfo();
             
         }
 
@@ -277,7 +281,7 @@ public class ProvisionalHUD : MonoBehaviour {
     }
 
     //
-    void EnemyStats()
+    void EnemyInfo()
     {
         
         //
@@ -325,27 +329,59 @@ public class ProvisionalHUD : MonoBehaviour {
             GUI.DrawTexture(new Rect(Screen.width / 2 + 150, Screen.height / 2 - 30, enemyCoreHealthForBar * 100f, 20), enemyHealthTexture);
             GUI.Label(new Rect(Screen.width / 2 + 150, Screen.height / 2 - 30, 100f, 20), " " + enemyConsistency.CurrentHealth);
 
-            
-            
-            // TODO: Sacar distancia
 
-            
+            // TODO: Sacar distancia
+            float distance = (playerIntegrity.transform.position - enemyConsistency.transform.position).magnitude;
+            int distanceToShow = (int)distance;
+            GUI.Label(new Rect(Screen.width / 2 + 150, Screen.height / 2, 150, 20), "Distance: " + distanceToShow, guiSkin.label);
+
+
             // Raycast para sacar el blindaje a tiro
             // Lo quitamos de momento a ver como afecta al performance
-            //RaycastHit hitInfo;
-            //if (Physics.Raycast(cameraControl.transform.position, cameraControl.transform.forward, out hitInfo))
-            //{
-            //    //Debug.Log(hitInfo.transform.name);
-            //    EnemyCollider enemyCollider = hitInfo.collider.GetComponent<EnemyCollider>();
-            //    //Debug.Log("Enemy collider: " + enemyCollider);
-            //    if (enemyCollider != null)
-            //    {
-                    
-            //        GUI.Label(new Rect(Screen.width / 2 + 150, Screen.height / 2, 100, 20), "Armor: " + enemyCollider.armor, guiSkin.label);
+            RaycastHit hitInfo;
+            if (Physics.Raycast(cameraControl.transform.position, cameraControl.transform.forward, out hitInfo))
+            {
+                //Debug.Log(hitInfo.transform.name);
+                EnemyCollider enemyCollider = hitInfo.collider.GetComponent<EnemyCollider>();
+                //Debug.Log("Enemy collider: " + enemyCollider);
+                if (enemyCollider != null)
+                {
 
-            //    }
-            //}
-            
+                    //GUI.Label(new Rect(Screen.width / 2 + 150, Screen.height / 2, 100, 20), "Armor: " + enemyCollider.armor, guiSkin.label);
+                    // Sacamos la info de penetración del arma equipada
+                    float penetrationCapacity = -1;
+                    switch (robotControl.ActiveAttackMode)
+                    {
+                        case AttackMode.RapidFire:
+                            Rigidbody rFProyectileBody = robotControl.bulletPrefab.GetComponent<Rigidbody>();
+                            Bullet rfProyectileData = robotControl.bulletPrefab.GetComponent<Bullet>();
+                            penetrationCapacity = GeneralFunctions.Navy1940PenetrationCalc(
+                                rFProyectileBody.mass, rfProyectileData.diameter, gameManager.rapidFireMuzzleSpeed);
+                            break;
+                        case AttackMode.Canon:
+                            Rigidbody cProyectileBody = robotControl.cannonBallPrefab.GetComponent<Rigidbody>();
+                            Bullet cProyectileData = robotControl.cannonBallPrefab.GetComponent<Bullet>();
+                            penetrationCapacity = GeneralFunctions.Navy1940PenetrationCalc(
+                                cProyectileBody.mass, cProyectileData.diameter, gameManager.rapidFireMuzzleSpeed);
+                            break;
+                    }
+                    //
+                    float penetrationStimatedResult = penetrationCapacity - enemyCollider.armor;
+                    //
+                    Texture textureToUse = null;
+                    //
+                    if (penetrationStimatedResult > 10)
+                        textureToUse = penetrationCrossGreen;
+                    else if (penetrationStimatedResult > 0)
+                        textureToUse = penetrationCrossYellow;
+                    else
+                        textureToUse = penetrationCrossRed;
+                    //
+                    if(textureToUse != null)
+                        GUI.DrawTexture(new Rect(Screen.width/2 - 25, Screen.height/2 - 25, 50, 50), textureToUse);
+                }
+            }
+
         }
         else
         {

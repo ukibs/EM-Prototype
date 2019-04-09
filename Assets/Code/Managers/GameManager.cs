@@ -16,6 +16,17 @@ using System.Xml.Serialization;
 //    Count
 //}
 
+// Selector provisional para cambiar entre bichos y mekanioides
+public enum WorkingWith
+{
+    Invalid = -1,
+
+    Mekanoids,
+    Bugs,
+
+    Count
+}
+
 /// <summary>
 /// Manager del juego en general
 /// Ya lo iremos ampliando
@@ -26,6 +37,9 @@ public class GameManager : MonoBehaviour
 
     //
     public static GameManager instance = null;
+
+    //
+    public WorkingWith workingWith = WorkingWith.Bugs;
 
     // Acciones desbloqueadas
     public int unlockedJumpActions = 0;
@@ -186,12 +200,14 @@ public class GameManager : MonoBehaviour
             levelsInfo[i].enemiesToUse = new GameObject[xmlEnemies.Count];
             levelsInfo[i].enemiesToSpawn = new int[xmlEnemies.Count];
             //
+            string currentEnemyFolder = (workingWith == WorkingWith.Bugs) ? "Bugs" : "Mekanoids";
+            //
             for (int j = 0; j < xmlEnemies.Count; j++)
             {
                 enemiesNames[j] = xmlEnemies.Item(j).InnerText;
                 // Parece que da problemas leyendo esta parte en la versión compilada
                 // TODO: Averiguar que pasa
-                levelsInfo[i].enemiesToUse[j] = Resources.Load("Prefabs/Enemies/" + enemiesNames[j]) as GameObject;
+                levelsInfo[i].enemiesToUse[j] = Resources.Load("Prefabs/Enemies/" + currentEnemyFolder + "/" + enemiesNames[j]) as GameObject;
                 //Debug.Log("Level " + i + ": " + levelsInfo[i].enemiesToUse[j]);
                 enemiesAmounts[j] = int.Parse(xmlAmounts.Item(j).InnerText);
                 levelsInfo[i].enemiesToSpawn[j] = enemiesAmounts[j];

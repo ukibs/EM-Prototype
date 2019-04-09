@@ -22,7 +22,7 @@ public class EnemyCollider : MonoBehaviour
     void Start()
     {
         // Cogemos el componente cuerpo del padre
-        body = transform.parent.GetComponent<EnemyConsistency>();
+        //body = transform.parent.GetComponent<EnemyConsistency>();
         // Para casos en los que el body solo tiene un collider
         // y por tanto lo lleva integrado
         if(body == null)
@@ -84,4 +84,26 @@ public class EnemyCollider : MonoBehaviour
         }
         
     }
+
+    // FUncion provisional para los fragmentos
+    public void ReceiveSharpnelImpact(FakeRB sharpnelRb, Vector3 impactPoint)
+    {
+        // Chequeamos que siga vivo
+        if (body != null)
+        {
+            //
+            // TODO: Revisar velocidades relativas
+            // Vamos a asumir un diametro para fragmentos
+            // De momento 10 mm
+            float diameter = 10;
+
+            float penetrationValue = GeneralFunctions.Navy1940PenetrationCalc(sharpnelRb.mass, diameter, sharpnelRb.velocity.magnitude);
+            //Debug.Log("Penetration value: " + penetrationValue + ", mass: " + bulletRb.mass + 
+            //    ", diameter: " + diameter + ", velocity: " + bulletRb.velocity.magnitude);
+            float penetrationResult = Mathf.Max(penetrationValue - armor, 0);
+            //
+            body.ReceiveSharpnelImpact(penetrationResult, impactPoint, sharpnelRb);
+        }
+    }
+
 }

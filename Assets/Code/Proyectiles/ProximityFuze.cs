@@ -5,7 +5,7 @@ using UnityEngine;
 public class ProximityFuze : MonoBehaviour
 {
     //
-    float detectionRadius;
+    public float detectionRadius;
     //
     private ExplosiveBullet explosiveBullet;
     // Start is called before the first frame update

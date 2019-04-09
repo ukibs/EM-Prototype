@@ -180,6 +180,12 @@ public class PlayerIntegrity : MonoBehaviour
     }
 
     //
+    public void ReceiveSharpnelImpact(Vector3 contactPoint, GameObject otherGameObject, FakeRB sharpnelRB)
+    {
+        Debug.Log("Receiving sharpnel impact");
+    }
+
+    //
     void SufferDamage(float impactDamage, float impactAngle)
     {
         //

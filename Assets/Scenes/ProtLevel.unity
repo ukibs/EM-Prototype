@@ -797,6 +797,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1347693450630458015, guid: 0f92d9c73e3b55d4fae6526741753dd6,
+        type: 3}
+      propertyPath: penetrationCrossRed
+      value: 
+      objectReference: {fileID: 2800000, guid: 4d77694c6732ea14da367a7db24b0679, type: 3}
+    - target: {fileID: 1347693450630458015, guid: 0f92d9c73e3b55d4fae6526741753dd6,
+        type: 3}
+      propertyPath: penetrationCrossYellow
+      value: 
+      objectReference: {fileID: 2800000, guid: 3a893c502125e47458a70c4b34f39c93, type: 3}
+    - target: {fileID: 1347693450630458015, guid: 0f92d9c73e3b55d4fae6526741753dd6,
+        type: 3}
+      propertyPath: penetrationCrossGreen
+      value: 
+      objectReference: {fileID: 2800000, guid: 0a5ed1d469a756040bf3d44f0403d313, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f92d9c73e3b55d4fae6526741753dd6, type: 3}
 --- !u!1 &1941905305

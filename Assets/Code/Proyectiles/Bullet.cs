@@ -24,6 +24,8 @@ public class Bullet : MonoBehaviour {
     protected Vector3 previousPosition;
     // TODO: hacer un atrapado más general
     protected AudioSource audioSource;
+    // Provisional, para que se destruya en ek explosivo en vez de en este
+    protected ExplosiveBullet explosiveBullet;
 
 	// Use this for initialization
 	protected virtual void Start () {
@@ -31,6 +33,8 @@ public class Bullet : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         Destroy(gameObject, lifeTime);
         audioSource = GetComponent<AudioSource>();
+        //
+        explosiveBullet = GetComponent<ExplosiveBullet>();
     }
 
     protected void FixedUpdate()
@@ -85,7 +89,7 @@ public class Bullet : MonoBehaviour {
                 //Debug.Log("Hit itself");
                 return;
             //
-            Debug.Log("Bullet raycasting with " + raycastInfo.collider.gameObject.name);
+            //Debug.Log("Bullet raycasting with " + raycastInfo.collider.gameObject.name);
             GenerateImpact(raycastInfo.collider, raycastInfo.point, raycastInfo.normal, dt);
             // TODO: Aplicar fuerzas
 
@@ -121,7 +125,8 @@ public class Bullet : MonoBehaviour {
         SpawnBulletHole(hitPoint, hitNormal, collider.gameObject);
         Destroy(impactParticles, 2);
         // TODO: Ver por qué nos hacía falta esto
-        Destroy(gameObject, dt);
+        if(explosiveBullet == null)
+            Destroy(gameObject, dt);
     }
 
     // 
