@@ -126,7 +126,7 @@ public class Bullet : MonoBehaviour {
         Destroy(impactParticles, 2);
         // TODO: Ver por qué nos hacía falta esto
         if(explosiveBullet == null)
-            Destroy(gameObject, dt);
+            Destroy(gameObject);
     }
 
     // 

@@ -130,23 +130,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
     /// </summary>
     protected virtual void DecideActionToDo()
     {
-        //
-        for (int i = 0; i < behaviour.Length; i++)
-        {
-            switch (behaviour[i])
-            {
-                case Actions.EncirclingPlayer:
-                    
-                    break;
-                case Actions.FacingPlayer:
-                    
-                    break;
-                case Actions.GoingToPlayer:
-                    // Esta no lleva condición
-                    currentAction = behaviour[i];
-                    return;
-            }
-        }
+        
     }
 
     /// <summary>
