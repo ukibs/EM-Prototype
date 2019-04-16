@@ -112,7 +112,13 @@ public class GameManager : MonoBehaviour
         gameProgression = PlayerPrefs.GetInt("Game Progression", 0);
         //
         if (levelsInfo == null)
-            GetLevelsInfoFromXML();
+        {
+            //
+            // GetLevelsInfoFromXML();
+            //
+            GetLevelInfoFromLevelData();
+        }
+            
     }
 
     private void Start()
@@ -214,6 +220,36 @@ public class GameManager : MonoBehaviour
             }
             //
             levelsInfo[i].maxActiveEnemies = int.Parse(levelData.Item(8).InnerText);
+            // And done
+
+        }
+    }
+
+    //
+    public void GetLevelInfoFromLevelData()
+    {
+        // Cargamos los scriptable objects que hemos creado
+        LevelData[] levelData = Resources.LoadAll<LevelData>("LevelData");
+        // Preparamos el levels info
+        levelsInfo = new LevelInfo[levelData.Length];
+        // Y vamos cargando los datos
+        for (int i = 0; i < levelData.Length; i++)
+        {
+            levelsInfo[i] = new LevelInfo();
+            // Victory condition
+            levelsInfo[i].victoryCondition = levelData[i].victoryCondition;
+            //
+            levelsInfo[i].enemiesToDefeat = levelData[i].numberToKill;
+            //
+            levelsInfo[i].attackActionsAvailable = levelData[i].unlockedAttackAbilities;
+            levelsInfo[i].defenseActionsAvailable = levelData[i].unlockedDefenseAbilities;
+            levelsInfo[i].sprintActionsAvailable = levelData[i].unlockedSprintAbilities;
+            levelsInfo[i].jumpActionsAvailable = levelData[i].unlockedJumpAbilities;
+            //
+            levelsInfo[i].enemiesToUse = levelData[i].enemiesToSpawn;
+            levelsInfo[i].enemiesToSpawn = levelData[i].amountToSpawn;
+            //
+            levelsInfo[i].maxActiveEnemies = levelData[i].maxActiveEnemies;
             // And done
 
         }

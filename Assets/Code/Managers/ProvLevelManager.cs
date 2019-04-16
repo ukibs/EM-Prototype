@@ -104,7 +104,7 @@ public class ProvLevelManager : MonoBehaviour
     private void OnGUI()
     {
         // Ya lo haremos en el hud mas adelante
-        GUI.Label(new Rect(30, 100, 200, 30), "Enemies destroyed: " + enemiesDestroyed, guiSkin.label);
+        GUI.Label(new Rect(30, 100, 200, 30), "Enemies destroyed: " + enemiesDestroyed + "/" + enemiesToDestroy, guiSkin.label);
         //
         if (GameControl.paused)
         {
