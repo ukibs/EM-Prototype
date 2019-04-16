@@ -23,18 +23,22 @@ public class Bullet : MonoBehaviour {
     protected Rigidbody rb;
     protected Vector3 previousPosition;
     // TODO: hacer un atrapado más general
-    protected AudioSource audioSource;
+    //protected AudioSource audioSource;
     // Provisional, para que se destruya en ek explosivo en vez de en este
     protected ExplosiveBullet explosiveBullet;
+    //
+    protected BulletSoundManager bulletSoundManager;
 
 	// Use this for initialization
 	protected virtual void Start () {
         //Debug.Log("Starting bullet");
         rb = GetComponent<Rigidbody>();
         Destroy(gameObject, lifeTime);
-        audioSource = GetComponent<AudioSource>();
+        //audioSource = GetComponent<AudioSource>();
         //
         explosiveBullet = GetComponent<ExplosiveBullet>();
+        //
+        bulletSoundManager = FindObjectOfType<BulletSoundManager>();
     }
 
     protected void FixedUpdate()
@@ -108,14 +112,16 @@ public class Bullet : MonoBehaviour {
             enemyCollider.ReceiveBulletImpact(rb, hitPoint);
             // TODO: Buscar otro sitio donde ponerlo
             // Aquí no suena porque se destruye el objeto
-            GeneralFunctions.PlaySoundEffect(audioSource, impactOnEnemy);
+            //GeneralFunctions.PlaySoundEffect(audioSource, impactOnEnemy);
+            bulletSoundManager.CreateAudioObject(impactOnEnemy, transform.position);
         }
         // Y el player, joputa
         PlayerIntegrity playerIntegrity = collider.GetComponent<PlayerIntegrity>();
         if(playerIntegrity != null)
         {
             playerIntegrity.ReceiveImpact(rb.velocity, gameObject, rb);
-            GeneralFunctions.PlaySoundEffect(audioSource, impactOnPlayer);
+            //GeneralFunctions.PlaySoundEffect(audioSource, impactOnPlayer);
+            bulletSoundManager.CreateAudioObject(impactOnPlayer, transform.position);
             //
             Rigidbody playerRB = playerIntegrity.gameObject.GetComponent<Rigidbody>();
             playerRB.AddForce(rb.velocity * rb.mass, ForceMode.Impulse);

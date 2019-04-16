@@ -79,12 +79,19 @@ public class SpringCamera : MonoBehaviour {
     //
     private void Update()
     {
+        //
+        float dt = Time.deltaTime;
+        //
         CheckSwitchAndEnemies();
+        //
+        
+        
     }
 
-    // Update is called once per frame
+    // Called before physics
     void FixedUpdate () {
-		float dt = Time.deltaTime;
+        // TODO: Cuidado con este dt
+        float dt = Time.deltaTime;
         // Correction from the mouse movement
         //if (currentTarget == targetPlayer)
         //UpdateRotation(dt);
@@ -98,9 +105,8 @@ public class SpringCamera : MonoBehaviour {
             //Debug.Log("Enemy down, switching to next");
             SwitchBetweenEnemies(Vector2.zero);
         }
-            
-
-        UpdateMovement (dt);
+        //
+        UpdateMovement(dt);
         AdjustToEnemyMovement(dt);
         UpdateRotation(dt);
         UpdateUp(targetPlayer.up);
@@ -229,7 +235,7 @@ public class SpringCamera : MonoBehaviour {
         Rigidbody enemyRigidbody = EnemyAnalyzer.enemyRb;
         // Determinamos donde va a estar cuando el proyectil llegue a él
         EnemyAnalyzer.estimatedToHitPosition = GeneralFunctions.AnticipateObjectivePositionForAiming(
-            transform.position, targetPoint, enemyRigidbody.velocity, 1500, dt);
+            transform.position, targetPoint, enemyRigidbody.velocity, 1000, dt);
         // Determinamos el 
         // TODO: Coger el punto de disparo del plauer
         EnemyAnalyzer.estimatedToHitPosition.y += GeneralFunctions.GetProyectileFallToObjective(transform.position,

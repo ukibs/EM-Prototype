@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 8023727017954889113}
   - component: {fileID: 5049361001197700567}
   m_Layer: 0
-  m_Name: Test Bug
+  m_Name: Test Worm
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -190,8 +190,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeBetweenActionChecking: 1
   rotationSpeed: 90
-  behaviour: 050000000400000000000000
-  maxSpeed: 5
+  behaviour: 050000000000000000000000
+  maxSpeed: 10
   minimalLungeDistance: 30
 --- !u!114 &216467392334234068
 MonoBehaviour:

@@ -248,6 +248,7 @@ public class GameManager : MonoBehaviour
             //
             levelsInfo[i].enemiesToUse = levelData[i].enemiesToSpawn;
             levelsInfo[i].enemiesToSpawn = levelData[i].amountToSpawn;
+            levelsInfo[i].timeBetweenSpawns = levelData[i].timeBetweenSpawns;
             //
             levelsInfo[i].maxActiveEnemies = levelData[i].maxActiveEnemies;
             // And done
@@ -287,6 +288,7 @@ public class LevelInfo
     //
     public GameObject[] enemiesToUse;
     public int[] enemiesToSpawn;
+    public float timeBetweenSpawns;
     //
     public int maxActiveEnemies;
 }

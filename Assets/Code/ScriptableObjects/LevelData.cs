@@ -17,6 +17,7 @@ public class LevelData : ScriptableObject
     //.
     public GameObject[] enemiesToSpawn;
     public int[] amountToSpawn;
+    public float timeBetweenSpawns;
     //
     public int maxActiveEnemies = 10;
 }

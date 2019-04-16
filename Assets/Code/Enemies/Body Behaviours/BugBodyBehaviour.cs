@@ -15,6 +15,8 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
     // Esto para los que hagan zig zag
     private float currentZigZagDirection = 0;
     private int currentZigZagVariation = 1;
+    //
+    private bool onFloor = true;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -32,7 +34,7 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
     //
     protected void OnCollisionEnter(Collision collision)
     {
-        
+        onFloor = true;
     }
 
     #region Methods
@@ -133,11 +135,12 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
     protected void Lunge()
     {
         //
-        if (HasGroundUnderneath())
+        if (HasGroundUnderneath() && onFloor)
         {
             Debug.Log("Performing lunge");
             Vector3 playerDirection = (player.transform.position - transform.position).normalized;
-            rb.AddForce(playerDirection * maxSpeed * 1, ForceMode.Impulse);
+            rb.AddForce(playerDirection * maxSpeed * 5, ForceMode.Impulse);
+            onFloor = false;
         }
     }
 

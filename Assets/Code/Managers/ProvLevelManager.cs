@@ -54,7 +54,8 @@ public class ProvLevelManager : MonoBehaviour
         // Control chorras para la Build
         if (PlayerReference.playerControl == null)
             PlayerReference.Initiate(FindObjectOfType<RobotControl>().gameObject);
-        //
+        // Control de habilidades del prota para el formato de niveekes de ka demo
+        // Attack
         if (gameManager.unlockedAttackActions > 1)
             PlayerReference.playerControl.ActiveAttackMode = (AttackMode)(gameManager.unlockedAttackActions - 1);
         // Defense
@@ -70,7 +71,7 @@ public class ProvLevelManager : MonoBehaviour
         if (gameManager.unlockedSprintActions > 1)
             PlayerReference.playerControl.ActiveSprintMode = (SprintMode)(gameManager.unlockedSprintActions - 1);
         //
-        enemyManager.InitiateManager(levelInfo.enemiesToUse, levelInfo.enemiesToSpawn, levelInfo.maxActiveEnemies);
+        enemyManager.InitiateManager(levelInfo.enemiesToUse, levelInfo.enemiesToSpawn, levelInfo.maxActiveEnemies, levelInfo.timeBetweenSpawns);
         //
         //switch (victoryCondition)
         //{

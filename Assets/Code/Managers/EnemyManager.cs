@@ -97,13 +97,14 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    public void InitiateManager(GameObject[] enemiesPrefabs, int[] enemiesToSpawn, int maxActiveEnemies)
+    public void InitiateManager(GameObject[] enemiesPrefabs, int[] enemiesToSpawn, int maxActiveEnemies, float timeBetweenSpawns)
     {
         //
         enemyPrefabsToUse = enemiesPrefabs;
         initialGroupToSpawnSize = enemiesToSpawn;
         continuousGroupToSpawnSize = enemiesToSpawn;
         maxEnemiesInAction = maxActiveEnemies;
+        this.timeBetweenSpawns = timeBetweenSpawns;
         // Vigilar que no salte dos veces
         SpawnEnemies(initialGroupToSpawnSize);
     }
