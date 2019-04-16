@@ -22,4 +22,5 @@ MonoBehaviour:
   enemiesToSpawn:
   - {fileID: 8096563443830030571, guid: 63f7a55d02361e7448d4b09d407ad549, type: 3}
   amountToSpawn: 0a000000
+  timeBetweenSpawns: 10
   maxActiveEnemies: 100

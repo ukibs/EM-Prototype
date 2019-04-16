@@ -14,11 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelNumber: 0
   victoryCondition: 1
-  numberToKill: 10
-  unlockedAttackAbilities: 0
-  unlockedDefenseAbilities: 0
-  unlockedJumpAbilities: 0
-  unlockedSprintAbilities: 0
-  enemiesToSpawn: []
-  amountToSpawn: 
-  maxActiveEnemies: 10
+  numberToKill: 1000
+  unlockedAttackAbilities: 2
+  unlockedDefenseAbilities: 1
+  unlockedJumpAbilities: 1
+  unlockedSprintAbilities: 1
+  enemiesToSpawn:
+  - {fileID: 4694978885907813565, guid: c9642f7a38bd0dd48b356c9cb5710d68, type: 3}
+  amountToSpawn: 05000000
+  timeBetweenSpawns: 10
+  maxActiveEnemies: 25
