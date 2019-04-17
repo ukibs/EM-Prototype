@@ -113,7 +113,7 @@ public class SpringCamera : MonoBehaviour {
         //CheckSwitchAndEnemies();
         CheckRightAxis();
 
-        //CheckDontEnterInsideScenario();
+        CheckDontEnterInsideScenario();
 	}
 
     private void OnGUI()
@@ -491,10 +491,14 @@ public class SpringCamera : MonoBehaviour {
 
     void CheckDontEnterInsideScenario()
     {
+        // TODO:
         Vector3 directionToCheck = transform.position - targetPos;
         RaycastHit hitInfo;
+        // Ponemos de momento el punto de inicio del raycast a 10 metros por delante de la cámara
+        float magnitudeToUse = 10;
+        Vector3 rayOrigin = transform.position + Vector3.ClampMagnitude(directionToCheck, magnitudeToUse);
         // Ignoramos la layer Enemy(9)
-        if (Physics.Raycast(targetPos, directionToCheck, out hitInfo, directionToCheck.magnitude, 9))
+        if (Physics.Raycast(rayOrigin, directionToCheck, out hitInfo, magnitudeToUse, 9))
         {
             transform.position = Vector3.Lerp(transform.position, hitInfo.point, 0.8f);
         }
