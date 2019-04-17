@@ -13,23 +13,23 @@ public class BulletSoundManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        audioObjects = new List<GameObject>(10);
+        //audioObjects = new List<GameObject>(10);
     }
 
     // Update is called once per frame
     void Update()
     {
         //
-        for(int i = 0; i < audioObjects.Count; i++)
-        {
-            GameObject nextObject = audioObjects[i];
-            AudioSource audioSource = nextObject.GetComponent<AudioSource>();
-            if (!audioSource.isPlaying)
-            {
-                audioObjects.Remove(nextObject);
-                Destroy(nextObject);
-            }
-        }
+        //for(int i = 0; i < audioObjects.Count; i++)
+        //{
+        //    GameObject nextObject = audioObjects[i];
+        //    AudioSource audioSource = nextObject.GetComponent<AudioSource>();
+        //    if (!audioSource.isPlaying)
+        //    {
+        //        Destroy(nextObject);
+        //        audioObjects.Remove(nextObject);
+        //    }
+        //}
     }
 
     public void CreateAudioObject(AudioClip clip, Vector3 position)
@@ -37,5 +37,7 @@ public class BulletSoundManager : MonoBehaviour
         GameObject newAudioObject = Instantiate(audioObjectPrefab, position, Quaternion.identity);
         AudioSource audioSource = newAudioObject.GetComponent<AudioSource>();
         audioSource.clip = clip;
+        Destroy(newAudioObject,clip.length);
+        audioSource.Play();
     }
 }

@@ -11,6 +11,7 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
 {
     public float maxSpeed = 10;
     public float minimalLungeDistance = 15;
+    public float minimalShootDistance = 100;
 
     // Esto para los que hagan zig zag
     private float currentZigZagDirection = 0;
@@ -78,6 +79,7 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
         //base.DecideActionToDo();
         //
         //Debug.Log("Decding action");
+        Vector3 playerDistance = player.transform.position - transform.position;
         for (int i = 0; i < behaviour.Length; i++)
         {
             switch (behaviour[i])
@@ -87,7 +89,6 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
                     currentAction = behaviour[i];
                     return;
                 case Actions.Lunging:
-                    Vector3 playerDistance = player.transform.position - transform.position;
                     if (playerDistance.magnitude < minimalLungeDistance)
                     {
                         currentAction = behaviour[i];
@@ -96,6 +97,12 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
                 case Actions.GoingToPlayer:
                     // Esta no lleva condición
                     currentAction = behaviour[i];
+                    return;
+                case Actions.EncirclingPlayerSideward:
+                    if (playerDistance.magnitude < minimalShootDistance)
+                    {
+                        currentAction = behaviour[i];
+                    }
                     return;
             }
         }
@@ -123,6 +130,10 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
                     }
                     movingDirection += transform.right * currentZigZagDirection;
                     movingDirection = movingDirection.normalized;
+                    break;
+                case Actions.EncirclingPlayerSideward:
+                    movingDirection = transform.right;
+                    speedMultiplier = 0.5f;
                     break;
             }
             //rb.velocity = movingDirection * maxSpeed * speedMultiplier;

@@ -7,7 +7,8 @@ public enum Actions
     Invalid = -1,
 
     GoingToPlayer,
-    EncirclingPlayer,
+    EncirclingPlayerForward,
+    EncirclingPlayerSideward,
     FacingPlayer,
     Fleeing,
     ZigZagingTowardsPlayer,
@@ -25,6 +26,8 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
     public float rotationSpeed = 90;
     
     public Actions[] behaviour;     // Luego trabajaremos bien esto
+
+    public EnemyWeapon[] weapons;   // TODO: Que la busque él
 
     protected RobotControl player;
     protected Rigidbody rb;
@@ -103,14 +106,17 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
                     transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed, dt);
                     break;
                 case Actions.GoingToPlayer:
-                    //transform.rotation = Quaternion.LookRotation(playerDirection);
                     transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed, dt);
                     Move();
                     break;
-                case Actions.EncirclingPlayer:
+                case Actions.EncirclingPlayerForward:
                     Vector3 playerCross = Vector3.Cross(playerDirection, Vector3.up);
                     //transform.rotation = Quaternion.LookRotation(playerCross);
                     transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, playerCross, rotationSpeed, dt);
+                    Move();
+                    break;
+                case Actions.EncirclingPlayerSideward:
+                    transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed, dt);
                     Move();
                     break;
                 case Actions.Fleeing:

@@ -192,7 +192,7 @@ public class EnemyConsistency : MonoBehaviour {
             currentHealth -= damageReceived;
             ManageDamage(penetrationResult, point);
 
-            impactInfoManager.SendImpactInfo(point, damageReceived);
+            //impactInfoManager.SendImpactInfo(point, damageReceived);
         }
         else
         {
@@ -247,7 +247,9 @@ public class EnemyConsistency : MonoBehaviour {
         }
         else
         {
-            //impactInfoManager.SendImpactInfo(point, damageReceived);
+            // Chequo provisional para que no de mal en el menu
+            if(impactInfoManager != null)
+                impactInfoManager.SendImpactInfo(point, damageReceived);
         }
     }
 
@@ -270,7 +272,7 @@ public class EnemyConsistency : MonoBehaviour {
             Destroy(enemyTurret);
         }
             
-        // Cuerpo
+        // Cuerpo (mekanoide)
         MekanoidBodyBehaviour mekanoidBodyBehaviour = GetComponent<MekanoidBodyBehaviour>();
         if (mekanoidBodyBehaviour != null)
         {
@@ -284,6 +286,22 @@ public class EnemyConsistency : MonoBehaviour {
             }
             //
             Destroy(mekanoidBodyBehaviour);
+        }
+
+        // Cuerpo (bicho)
+        BugBodyBehaviour bugBodyBehaviour = GetComponent<BugBodyBehaviour>();
+        if (bugBodyBehaviour != null)
+        {
+            for (int i = 0; i < bugBodyBehaviour.weapons.Length; i++)
+            {
+                EnemyWeapon nextWeapon = bugBodyBehaviour.weapons[i].GetComponent<EnemyWeapon>();
+                if (nextWeapon)
+                {
+                    Destroy(nextWeapon);
+                }
+            }
+            //
+            Destroy(bugBodyBehaviour);
         }
 
         // Propulsor

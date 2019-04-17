@@ -6,8 +6,9 @@ public class MekanoidBodyBehaviour : EnemyBaseBodyBehaviour
 {
     // TODO: Hacer una forma que podamos controlar la velocidad de los vehículos
     public float motorForce = 200.0f;
+    // De momento no, pero igual movemos las torretas al base
     public EnemyTurret[] turrets;   // TODO: QUe las busque él
-    public EnemyWeapon[] weapons;   // TODO: Que la busque él
+    
 
     // Start is called before the first frame update
     protected override void Start()
@@ -74,7 +75,7 @@ public class MekanoidBodyBehaviour : EnemyBaseBodyBehaviour
         {
             switch (behaviour[i])
             {
-                case Actions.EncirclingPlayer:
+                case Actions.EncirclingPlayerForward:
                     Vector3 playerDistance = player.transform.position - transform.position;
                     if (HasRemainingTurrets() && playerDistance.magnitude < MainWeaponsMinRange())
                     {
@@ -111,7 +112,7 @@ public class MekanoidBodyBehaviour : EnemyBaseBodyBehaviour
         // TODO: Que funcione con un parámetro
         if (HasRemainingTurrets() && distanceToPlayer < MainWeaponsMinRange())
         {
-            currentAction = Actions.EncirclingPlayer;
+            currentAction = Actions.EncirclingPlayerForward;
         }
         // Si no que vaya hacia él
         else
