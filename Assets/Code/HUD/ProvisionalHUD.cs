@@ -8,11 +8,14 @@ public class ProvisionalHUD : MonoBehaviour {
     public GUISkin guiSkin;
 
     public Texture crossTexture;
-    public Texture penetrationCrossRed;
-    public Texture penetrationCrossYellow;
-    public Texture penetrationCrossGreen;
+    //public Texture penetrationCrossRed;
+    //public Texture penetrationCrossYellow;
+    //public Texture penetrationCrossGreen;
 
-    public Texture enemyMarkerTexture;
+    public Texture enemyMarkerTextureRed;
+    public Texture enemyMarkerTextureYellow;
+    public Texture enemyMarkerTextureGreen;
+
     public Texture enemyInScreenTexture;
     public Texture targetedEnemyEstimatedFuturePositionTexture;
     public Texture testingVelocityIcon;
@@ -289,13 +292,6 @@ public class ProvisionalHUD : MonoBehaviour {
         //
         if (enemyConsistency != null)
         {
-            // Empezamos pintando el marcardor en la posición del enemigo en patnalla
-            Vector3 enemyScreenPosition = Camera.main.WorldToViewportPoint(cameraControl.CurrentTarget.position);
-            GUI.DrawTexture(new Rect(
-                enemyScreenPosition.x * Screen.width - 50,
-                Screen.height - enemyScreenPosition.y * Screen.height - 50, 100, 100),
-                enemyMarkerTexture);
-
             // Marcador de posición estimada del enemigo
             Vector3 anticipatedPositionInScreen = mainCamera.WorldToViewportPoint(EnemyAnalyzer.estimatedToHitPosition);
             GUI.DrawTexture(new Rect(
@@ -339,7 +335,8 @@ public class ProvisionalHUD : MonoBehaviour {
             // Raycast para sacar el blindaje a tiro
             // Lo quitamos de momento a ver como afecta al performance
             RaycastHit hitInfo;
-            if (Physics.Raycast(cameraControl.transform.position, cameraControl.transform.forward, out hitInfo))
+            Vector3 enemyDirection = EnemyAnalyzer.enemyTransform.position - cameraControl.transform.position;
+            if (Physics.Raycast(cameraControl.transform.position, enemyDirection, out hitInfo, enemyDirection.magnitude))
             {
                 //Debug.Log(hitInfo.transform.name);
                 EnemyCollider enemyCollider = hitInfo.collider.GetComponent<EnemyCollider>();
@@ -371,14 +368,22 @@ public class ProvisionalHUD : MonoBehaviour {
                     Texture textureToUse = null;
                     //
                     if (penetrationStimatedResult > 10)
-                        textureToUse = penetrationCrossGreen;
+                        textureToUse = enemyMarkerTextureGreen;
                     else if (penetrationStimatedResult > 0)
-                        textureToUse = penetrationCrossYellow;
+                        textureToUse = enemyMarkerTextureYellow;
                     else
-                        textureToUse = penetrationCrossRed;
+                        textureToUse = enemyMarkerTextureRed;
                     //
                     if(textureToUse != null)
-                        GUI.DrawTexture(new Rect(Screen.width/2 - 25, Screen.height/2 - 25, 50, 50), textureToUse);
+                    {
+                        // Empezamos pintando el marcardor en la posición del enemigo en patnalla
+                        Vector3 enemyScreenPosition = Camera.main.WorldToViewportPoint(cameraControl.CurrentTarget.position);
+                        GUI.DrawTexture(new Rect(
+                            enemyScreenPosition.x * Screen.width - 50,
+                            Screen.height - enemyScreenPosition.y * Screen.height - 50, 100, 100),
+                            textureToUse);
+                    }
+                    //GUI.DrawTexture(new Rect(Screen.width/2 - 25, Screen.height/2 - 25, 50, 50), textureToUse);
                 }
             }
 
