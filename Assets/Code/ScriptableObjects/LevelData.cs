@@ -20,4 +20,20 @@ public class LevelData : ScriptableObject
     public float timeBetweenSpawns;
     //
     public int maxActiveEnemies = 10;
+
+
+    ///////// implement form here /////////
+    /*
+     TERRAIN
+     - max terrain pieces in level
+     - terrain pieces to use in the level (types)
+        - minimum piees (type) used in level
+        - ratio of each terrain piece
+
+     ENEMIES
+     - enemy types used in level
+        - max number of enemy type in level
+        - spamed enemy type per wave
+        - time between waves of enemy type
+    */
 }
