@@ -20,6 +20,55 @@ public class TerrainManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // De momento nada
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        // TODO: QUe no haga el chequeo a cada frame
+        //CheckAndMoveAllBlocks();
+
+        //
+        if (CheckIfPlayerOverCentralBlock())
+        {
+            MoveFarestBlocks(PlayerOffsetFromCentralBlockInUnits());
+        }
+    }
+
+    //
+    bool CheckIfPlayerOverCentralBlock()
+    {
+        Vector3 playerOffsetFromCentralBlock = playerTransform.position - activeBlocksMatrix[centralBlock, centralBlock].transform.position;
+        return (Mathf.Abs(playerOffsetFromCentralBlock.x) > 100 || Mathf.Abs(playerOffsetFromCentralBlock.z) > 100);
+    }
+
+    //
+    Vector2 PlayerOffsetFromCentralBlockInUnits()
+    {
+        Vector2 offsetInUnits = Vector2.zero;
+        Vector3 playerOffsetFromCentralBlock = playerTransform.position - activeBlocksMatrix[centralBlock, centralBlock].transform.position;
+        // Esto debería dar -1, 0, 1
+        offsetInUnits.x = (int)(playerOffsetFromCentralBlock.x / 100);
+        offsetInUnits.y = (int)(playerOffsetFromCentralBlock.z / 100);
+
+        return offsetInUnits;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="levelInfo"></param>
+    public void InitiateManager(LevelInfo levelInfo)
+    {
+        blockPrefabs = levelInfo.terrainPrefabs;
+        blockFrequencies = levelInfo.terrainRatio;
+        AllocateTerrain();
+    }
+
+    //
+    void AllocateTerrain()
+    {
         //
         //activeBlocks = new GameObject[squareSize * squareSize];
         activeBlocksMatrix = new GameObject[squareSize, squareSize];
@@ -63,75 +112,6 @@ public class TerrainManager : MonoBehaviour
         }
         // Recordar que el orden es de - x a + x, y con y igual
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        // TODO: QUe no haga el chequeo a cada frame
-        //CheckAndMoveAllBlocks();
-
-        //
-        if (CheckIfPlayerOverCentralBlock())
-        {
-            MoveFarestBlocks(PlayerOffsetFromCentralBlockInUnits());
-        }
-    }
-
-    //
-    bool CheckIfPlayerOverCentralBlock()
-    {
-        Vector3 playerOffsetFromCentralBlock = playerTransform.position - activeBlocksMatrix[centralBlock, centralBlock].transform.position;
-        return (Mathf.Abs(playerOffsetFromCentralBlock.x) > 100 || Mathf.Abs(playerOffsetFromCentralBlock.z) > 100);
-    }
-
-    //
-    Vector2 PlayerOffsetFromCentralBlockInUnits()
-    {
-        Vector2 offsetInUnits = Vector2.zero;
-        Vector3 playerOffsetFromCentralBlock = playerTransform.position - activeBlocksMatrix[centralBlock, centralBlock].transform.position;
-        // Esto debería dar -1, 0, 1
-        offsetInUnits.x = (int)(playerOffsetFromCentralBlock.x / 100);
-        offsetInUnits.y = (int)(playerOffsetFromCentralBlock.z / 100);
-
-        return offsetInUnits;
-    }
-
-    internal void InitiateManager(LevelInfo levelInfo)
-    {
-        blockPrefabs = levelInfo.terrainPrefabs;
-        blockFrequencies = levelInfo.terrainRatio;
-    }
-
-    //
-    //void CheckAndMoveAllBlocks()
-    //{
-    //    // Prueba guarra
-    //    // TODO: Manejar las cirbas con parámetro
-    //    Vector3 playerOffsetFromCentralBlock = playerTransform.position - activeBlocksMatrix[centralBlock, centralBlock].transform.position;
-    //    if (Mathf.Abs(playerOffsetFromCentralBlock.x) > 100 || Mathf.Abs(playerOffsetFromCentralBlock.z) > 100)
-    //    {
-    //        //
-    //        //Vector3 playerCoordinateToBlocks = new Vector3(playerTransform.position.x, 0, playerTransform.position.z);
-    //        Vector3 nextCenterForBlocks = activeBlocksMatrix[centralBlock, centralBlock].transform.position;
-    //        //
-    //        if (playerOffsetFromCentralBlock.x > 100) nextCenterForBlocks.x += 200;
-    //        if (playerOffsetFromCentralBlock.x < -100) nextCenterForBlocks.x -= 200;
-    //        if (playerOffsetFromCentralBlock.z > 100) nextCenterForBlocks.z += 200;
-    //        if (playerOffsetFromCentralBlock.z < -100) nextCenterForBlocks.z -= 200;
-    //        //
-    //        //Debug.Log(nextCenterForBlocks + ", " + playerOffsetFromCentralBlock);
-    //        //
-    //        for (int i = 0; i < squareSize; i++)
-    //        {
-    //            for (int j = 0; j < squareSize; j++)
-    //            {
-    //                Vector3 nextPosition = new Vector3(i * 200 - (200 * halfMinusOne) + nextCenterForBlocks.x, 0, 
-    //                                                    j * 200 - (200 * halfMinusOne) + nextCenterForBlocks.z);
-    //                activeBlocksMatrix[i,j].transform.position = nextPosition;
-    //            }
-    //        }
-    //    }
-    //}
 
     //
     void MoveFarestBlocks(Vector2 playerOffsetInUnits)

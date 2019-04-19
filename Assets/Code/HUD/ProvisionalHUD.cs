@@ -300,18 +300,18 @@ public class ProvisionalHUD : MonoBehaviour {
                 targetedEnemyEstimatedFuturePositionTexture);
 
             // Testing con la velocity
-            Vector3 rbDirection1 = EnemyAnalyzer.enemyTransform.position + (EnemyAnalyzer.enemyRb.velocity * 1);
-            rbDirection1 = mainCamera.WorldToViewportPoint(rbDirection1);
-            GUI.DrawTexture(new Rect(
-                rbDirection1.x * Screen.width - 5,
-                Screen.height - rbDirection1.y * Screen.height - 5, 10, 10),
-                testingVelocityIcon);
-            Vector3 rbDirection2 = EnemyAnalyzer.enemyTransform.position + (EnemyAnalyzer.enemyRb.velocity * 2);
-            rbDirection2 = mainCamera.WorldToViewportPoint(rbDirection2);
-            GUI.DrawTexture(new Rect(
-                rbDirection2.x * Screen.width - 5,
-                Screen.height - rbDirection2.y * Screen.height - 5, 10, 10),
-                testingVelocityIcon);
+            //Vector3 rbDirection1 = EnemyAnalyzer.enemyTransform.position + (EnemyAnalyzer.enemyRb.velocity * 1);
+            //rbDirection1 = mainCamera.WorldToViewportPoint(rbDirection1);
+            //GUI.DrawTexture(new Rect(
+            //    rbDirection1.x * Screen.width - 5,
+            //    Screen.height - rbDirection1.y * Screen.height - 5, 10, 10),
+            //    testingVelocityIcon);
+            //Vector3 rbDirection2 = EnemyAnalyzer.enemyTransform.position + (EnemyAnalyzer.enemyRb.velocity * 2);
+            //rbDirection2 = mainCamera.WorldToViewportPoint(rbDirection2);
+            //GUI.DrawTexture(new Rect(
+            //    rbDirection2.x * Screen.width - 5,
+            //    Screen.height - rbDirection2.y * Screen.height - 5, 10, 10),
+            //    testingVelocityIcon);
 
 
             // Barra de vida (chasis)

@@ -53,12 +53,14 @@ public class WormBodyBehaviour : BugBodyBehaviour
             grounded = true;
             bodyCollider.size = new Vector3(1, 0.1f, 1);
             bodyCollider.center = new Vector3(0, 0.5f, 0);
+            bodyConsistency.centralPointOffset = new Vector3(0, 0.45f, 0);
         }
         else
         {
             grounded = false;
             bodyCollider.size = Vector3.one;
             bodyCollider.center = Vector3.zero;
+            bodyConsistency.centralPointOffset = Vector3.zero;
         }
     }
 

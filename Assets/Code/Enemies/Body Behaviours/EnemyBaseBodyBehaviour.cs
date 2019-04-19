@@ -35,12 +35,14 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
     protected Actions currentAction = Actions.GoingToPlayer;
     protected float timeFromLastCheck = 0;
 
+    protected EnemyConsistency bodyConsistency;
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
         player = FindObjectOfType<RobotControl>();
         rb = GetComponent<Rigidbody>();
-        
+        bodyConsistency = GetComponent<EnemyConsistency>();
     }
 
     // Update is called once per frame
