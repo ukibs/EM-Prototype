@@ -80,11 +80,20 @@ public class EnemyManager : MonoBehaviour
             Vector3 pointForGroupSpawn = new Vector3(groupSpawnPositionXY.x + playerTransform.position.x, 1,
                                                         groupSpawnPositionXY.y + playerTransform.position.z);
             //
+            float memberSpawnAngle = 360 / groupToSpawnSize[i];
+            float meberSpawnRadius = 10;
+            //
             for (int j = 0; j < groupToSpawnSize[i]; j++)
             {
+                // 
+                float memberSpawnCoordinates = memberSpawnAngle * j;
+                Vector2 memberSpawnPositionXY = new Vector2(Mathf.Cos(memberSpawnCoordinates) * meberSpawnRadius, 
+                                                            Mathf.Sin(memberSpawnCoordinates) * meberSpawnRadius);
+
                 //Vector3 positionToSpawn = new Vector3(Random.Range(-groupToSpawnSize[i], groupToSpawnSize[i]) + pointForGroupSpawn.x, 1,
                 //                                        Random.Range(-groupToSpawnSize[i], groupToSpawnSize[i]) + pointForGroupSpawn.z);
-                Vector3 positionToSpawn = new Vector3(pointForGroupSpawn.x + (j*20), pointForGroupSpawn.y, pointForGroupSpawn.z);
+                Vector3 positionToSpawn = new Vector3(pointForGroupSpawn.x + memberSpawnPositionXY.x, 
+                    pointForGroupSpawn.y, pointForGroupSpawn.z + memberSpawnPositionXY.y);
                 //
                 //
                 //float spawnAngle = Random.Range(0, 360);
