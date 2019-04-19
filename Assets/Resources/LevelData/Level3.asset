@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c63d98343d9016a43a08df7f70932119, type: 3}
-  m_Name: Level1
+  m_Name: Level3
   m_EditorClassIdentifier: 
   levelInfo:
     victoryCondition: 0
@@ -21,13 +21,14 @@ MonoBehaviour:
     sprintActionsAvailable: 1
     enemiesToUse:
     - {fileID: 8096563443830030571, guid: 63f7a55d02361e7448d4b09d407ad549, type: 3}
-    enemiesToSpawn: 05000000
+    enemiesToSpawn: 01000000
     timeBetweenSpawns:
-    - 10
-    maxActiveEnemies: 1e000000
+    - 1
+    maxActiveEnemies: 00000000
     terrainPrefabs:
-    - {fileID: 3326227640253247155, guid: e805da38f2157cf44bd8ebbbe826ba67, type: 3}
     - {fileID: 3326227640253247155, guid: 38934e844622a9041911d6bf240a4b65, type: 3}
-    terrainRatio: 0000000000000000000000000000000000000000
+    - {fileID: 3326227640253247155, guid: 1faf0654ea7511b4889b35ba3e120d34, type: 3}
+    - {fileID: 3326227640253247155, guid: cee649da1f6f3c6418e08952112853d4, type: 3}
+    terrainRatio: 000000000000000000000000
     terrainMax: 
     terrainMin: 

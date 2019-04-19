@@ -108,9 +108,9 @@ public class InputManager : MonoBehaviour {
         jumpButton = Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Joystick1Button0) /* Gamepad A*/;
 
         //fireButton = Input.GetAxisRaw("Fire1"); /* Gamepad B, aún no*/
-        fireButton = Input.GetKey(KeyCode.Joystick1Button1) || Input.GetKey(KeyCode.Mouse0);
+        fireButton = Input.GetAxisRaw("Cross Triggers") > 0 || Input.GetKey(KeyCode.Mouse0);
 
-        fireButtonDown = Input.GetKeyDown(KeyCode.Joystick1Button1) || Input.GetKeyDown(KeyCode.Mouse0);
+        fireButtonDown = Input.GetAxisRaw("Cross Triggers") > 0 || Input.GetKeyDown(KeyCode.Mouse0);
 
         // TODO: Chequear en mando
         markObjectiveButton = Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Joystick1Button5) /* R1 */;
