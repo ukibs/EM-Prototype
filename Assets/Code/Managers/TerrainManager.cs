@@ -51,9 +51,14 @@ public class TerrainManager : MonoBehaviour
                 {
                     prefabToUse = blockPrefabs[(int)UnityEngine.Random.Range(0, blockPrefabs.Length)];
                 }
-                    
+
+                //
+                int yRotation = UnityEngine.Random.Range(0, 4) * 90;
+                //Vector3 eulerToUse = 
+                //Quaternion rotationToUse = Quaternion.LookRotation(Vector3.forward, Vector3.up);
                 // And put it
                 activeBlocksMatrix[i, j] = Instantiate(prefabToUse, nextPosition, Quaternion.identity);
+                activeBlocksMatrix[i, j].transform.eulerAngles = new Vector3(0, yRotation, 0);
             }
         }
         // Recordar que el orden es de - x a + x, y con y igual
