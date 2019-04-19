@@ -89,10 +89,10 @@ GameObject:
   - component: {fileID: 8637862083956146052}
   - component: {fileID: 6101046890558484487}
   - component: {fileID: 2067501712768912131}
-  - component: {fileID: 8096563443830030572}
   - component: {fileID: 216467392334234068}
   - component: {fileID: 8023727017954889113}
-  - component: {fileID: 5049361001197700567}
+  - component: {fileID: 6392689114824422278}
+  - component: {fileID: 4258767867355741457}
   m_Layer: 0
   m_Name: Test Worm
   m_TagString: Enemy
@@ -176,23 +176,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 64
   m_CollisionDetection: 0
---- !u!114 &8096563443830030572
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8096563443830030571}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeaff7f72f6b4b944a77e9d6881e9a96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeBetweenActionChecking: 1
-  rotationSpeed: 90
-  behaviour: 050000000000000000000000
-  maxSpeed: 10
-  minimalLungeDistance: 30
 --- !u!114 &216467392334234068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,8 +204,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   armor: 5
---- !u!136 &5049361001197700567
-CapsuleCollider:
+--- !u!114 &6392689114824422278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8096563443830030571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ff7a2f11d17bba48ad996cb73fbfbcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBetweenActionChecking: 1
+  rotationSpeed: 90
+  behaviour: 060000000500000000000000
+  weapons: []
+  maxSpeed: 10
+  minimalLungeDistance: 30
+  minimalShootDistance: 100
+--- !u!65 &4258767867355741457
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -231,7 +233,6 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 2
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}

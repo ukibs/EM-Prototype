@@ -14,10 +14,10 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
     public float minimalShootDistance = 100;
 
     // Esto para los que hagan zig zag
-    private float currentZigZagDirection = 0;
-    private int currentZigZagVariation = 1;
+    protected float currentZigZagDirection = 0;
+    protected int currentZigZagVariation = 1;
     //
-    private bool onFloor = true;
+    protected bool onFloor = true;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -33,7 +33,7 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
     }
 
     //
-    protected void OnCollisionEnter(Collision collision)
+    protected virtual void OnCollisionEnter(Collision collision)
     {
         onFloor = true;
     }
@@ -136,8 +136,8 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
                     speedMultiplier = 0.5f;
                     break;
             }
-            //rb.velocity = movingDirection * maxSpeed * speedMultiplier;
-            rb.AddForce(movingDirection * maxSpeed * speedMultiplier);
+            rb.velocity = movingDirection * maxSpeed * speedMultiplier;
+            //rb.AddForce(movingDirection * maxSpeed * speedMultiplier);
         }
         
     }
@@ -148,21 +148,17 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
         //
         if (HasGroundUnderneath() && onFloor)
         {
-            Debug.Log("Performing lunge");
+            //Debug.Log("Performing lunge");
             Vector3 playerDirection = (player.transform.position - transform.position).normalized;
-            rb.AddForce(playerDirection * maxSpeed * 5, ForceMode.Impulse);
+            //rb.AddForce(playerDirection * maxSpeed * 5, ForceMode.Impulse);
+            rb.velocity = playerDirection * maxSpeed * 5;
             onFloor = false;
         }
     }
 
     // De momento usamos este aqui
-    bool HasGroundUnderneath()
+    protected bool HasGroundUnderneath()
     {
-        //
-        //if (Physics.Raycast(transform.position, -transform.up, 2f))
-        //{
-        //    return true;
-        //}
         // TODO: Declararlo public en generales
         Vector3 heightFromFloor = new Vector3(0, -0.55f, 0);
         Collider[] possibleFloor  = Physics.OverlapBox(transform.TransformPoint(heightFromFloor), new Vector3(1, 0.1f, 1));
