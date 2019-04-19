@@ -21,6 +21,7 @@ public class EnemyConsistency : MonoBehaviour {
     // private float currentChasisHealth;
     protected float currentHealth;
     protected ProvLevelManager levelManager;
+    protected EnemyManager enemyManager;
     protected Rigidbody rb;
     protected Vector3 previousVelocity;
     protected AudioSource audioSource;
@@ -48,6 +49,7 @@ public class EnemyConsistency : MonoBehaviour {
         currentHealth = maxHealth;
         //
         levelManager = FindObjectOfType<ProvLevelManager>();
+        enemyManager = FindObjectOfType<EnemyManager>();
         //if(levelManager)
 
         // De momento para klos voladores mas que nada
@@ -237,6 +239,8 @@ public class EnemyConsistency : MonoBehaviour {
             
             if(levelManager != null)
                 levelManager.AnnotateKill();
+            if (enemyManager != null)
+                enemyManager.SubtractOne(gameObject);
             // Esto para los voladores mas que nada
             rb.constraints = RigidbodyConstraints.None;
             

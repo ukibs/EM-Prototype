@@ -61,7 +61,7 @@ public class Bullet : MonoBehaviour {
     protected virtual void OnCollisionEnter(Collision collision)
     {
         //
-        Debug.Log("Bullet collision with " + collision.collider.gameObject.name);
+        //Debug.Log("Bullet collision with " + collision.collider.gameObject.name);
         GenerateImpact(collision.collider, collision.GetContact(0).point, collision.GetContact(0).normal);
     }
 
@@ -93,7 +93,7 @@ public class Bullet : MonoBehaviour {
                 //Debug.Log("Hit itself");
                 return;
             //
-            Debug.Log("Bullet raycasting with " + raycastInfo.collider.gameObject.name);
+            //Debug.Log("Bullet raycasting with " + raycastInfo.collider.gameObject.name);
             GenerateImpact(raycastInfo.collider, raycastInfo.point, raycastInfo.normal, dt);
             // TODO: Aplicar fuerzas
 

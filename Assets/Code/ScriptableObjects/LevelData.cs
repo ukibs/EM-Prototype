@@ -6,20 +6,26 @@ using UnityEngine;
 public class LevelData : ScriptableObject
 {
     //
-    public int levelNumber;
-    public VictoryCondition victoryCondition = VictoryCondition.DefeatAnyEnemy;
-    public int numberToKill = 10;
+    public LevelInfo levelInfo;
     //
-    public int unlockedAttackAbilities = 0;
-    public int unlockedDefenseAbilities = 0;
-    public int unlockedJumpAbilities = 0;
-    public int unlockedSprintAbilities = 0;
-    //.
-    public GameObject[] enemiesToSpawn;
-    public int[] amountToSpawn;
-    public float timeBetweenSpawns;
-    //
-    public int maxActiveEnemies = 10;
+    //public int levelNumber;
+    //public VictoryCondition victoryCondition = VictoryCondition.DefeatAnyEnemy;
+    //public int numberToKill = 10;
+    ////
+    //public int unlockedAttackAbilities = 0;
+    //public int unlockedDefenseAbilities = 0;
+    //public int unlockedJumpAbilities = 0;
+    //public int unlockedSprintAbilities = 0;
+    ////.
+    //public GameObject[] enemiesToSpawn;
+    //public int[] amountToSpawn;
+    //public float[] timeBetweenSpawns;
+    //public int[] maxActiveEnemies;
+    ////
+    //public GameObject[] terrainPrefabs;
+    //public int[] terrainRation;
+    //public int[] terrainMax;
+    //public int[] terrainMin;
 
 
     ///////// implement form here /////////
@@ -36,4 +42,28 @@ public class LevelData : ScriptableObject
         - spamed enemy type per wave
         - time between waves of enemy type
     */
+}
+
+[System.Serializable]
+public class LevelInfo
+{
+    //
+    public VictoryCondition victoryCondition;
+    public int enemiesToDefeat;
+    //public string enemyIdentifier;
+    //
+    public int attackActionsAvailable;
+    public int defenseActionsAvailable;
+    public int jumpActionsAvailable;
+    public int sprintActionsAvailable;
+    //
+    public GameObject[] enemiesToUse;
+    public int[] enemiesToSpawn;
+    public float[] timeBetweenSpawns;
+    public int[] maxActiveEnemies;
+    //
+    public GameObject[] terrainPrefabs;
+    public int[] terrainRatio;
+    public int[] terrainMax;
+    public int[] terrainMin;
 }

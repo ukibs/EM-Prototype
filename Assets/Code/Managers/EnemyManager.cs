@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,13 +8,14 @@ public class EnemyManager : MonoBehaviour
     public GameObject[] enemyPrefabsToUse;
     public int[] initialGroupToSpawnSize;
     public int[] continuousGroupToSpawnSize;
-    public int maxEnemiesInAction;
-    public float timeBetweenSpawns = 10;
+    public int[] maxEnemiesInAction;
+    public float[] timeBetweenSpawns;
     public float minSpawnDistance = 100;
     public float maxSpawnDistance = 200;
     public int spawnLimit = -1;
 
-    private float timeFromLastSpawn = 0;
+    private float[] timeFromLastSpawn;
+    private int[] activeEnemies;
     private Transform playerTransform;
 
     // Vamos a manejarlo aqui de moemnto para no saturar el audio
@@ -23,6 +25,7 @@ public class EnemyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //
         playerTransform = FindObjectOfType<RobotControl>().transform;
         //
         SpawnEnemies(initialGroupToSpawnSize);
@@ -36,22 +39,22 @@ public class EnemyManager : MonoBehaviour
     {
         //
         float dt = Time.deltaTime;
-        timeFromLastSpawn += dt;
         //
-        if(spawnLimit > -1)
-        {
-
-        }
-        //
-        if(timeFromLastSpawn >= timeBetweenSpawns)
+        for (int i = 0; i < enemyPrefabsToUse.Length; i++)
         {
             //
-            int activeEnemies = FindObjectsOfType<EnemyConsistency>().Length;
+            timeFromLastSpawn[i] += dt;
             //
-            if(activeEnemies < maxEnemiesInAction)
-                SpawnEnemies(continuousGroupToSpawnSize);
-            // Si no que vuelva a empezar a contrar y ya
-            timeFromLastSpawn -= timeBetweenSpawns;
+            if (timeFromLastSpawn[i] >= timeBetweenSpawns[i])
+            {
+                //
+                //int activeEnemies = FindObjectsOfType<EnemyConsistency>().Length;
+                //
+                if (activeEnemies[i] < maxEnemiesInAction[i])
+                    SpawnEnemies(continuousGroupToSpawnSize);
+                // Si no que vuelva a empezar a contrar y ya
+                timeFromLastSpawn[i] -= timeBetweenSpawns[i];
+            }
         }
         // Manejamos aqui los clips
         for(int i = 0; i < activeFiringClips.Count; i++)
@@ -71,8 +74,8 @@ public class EnemyManager : MonoBehaviour
         for(int i = 0; i < enemyPrefabsToUse.Length; i++)
         {
             //
-            float spawnAngle = Random.Range(0, 360);
-            float spawnRadius = Random.Range(minSpawnDistance, maxSpawnDistance);
+            float spawnAngle = UnityEngine.Random.Range(0, 360);
+            float spawnRadius = UnityEngine.Random.Range(minSpawnDistance, maxSpawnDistance);
             Vector2 groupSpawnPositionXY = new Vector2(Mathf.Cos(spawnAngle) * spawnRadius, Mathf.Sin(spawnAngle) * spawnRadius);
             Vector3 pointForGroupSpawn = new Vector3(groupSpawnPositionXY.x + playerTransform.position.x, 1,
                                                         groupSpawnPositionXY.y + playerTransform.position.z);
@@ -94,17 +97,22 @@ public class EnemyManager : MonoBehaviour
                     Instantiate(enemyPrefabsToUse[i], positionToSpawn, Quaternion.identity);
                 //GameObject nextEnemy = Instantiate(enemyPrefabsToUse[i], pointForGroupSpawn, Quaternion.identity);
             }
+            //
+            activeEnemies[i] += groupToSpawnSize[i];
         }
     }
 
-    public void InitiateManager(GameObject[] enemiesPrefabs, int[] enemiesToSpawn, int maxActiveEnemies, float timeBetweenSpawns)
+    public void InitiateManager(LevelInfo levelInfo)
     {
         //
-        enemyPrefabsToUse = enemiesPrefabs;
-        initialGroupToSpawnSize = enemiesToSpawn;
-        continuousGroupToSpawnSize = enemiesToSpawn;
-        maxEnemiesInAction = maxActiveEnemies;
-        this.timeBetweenSpawns = timeBetweenSpawns;
+        enemyPrefabsToUse = levelInfo.enemiesToUse;
+        initialGroupToSpawnSize = levelInfo.enemiesToSpawn;
+        continuousGroupToSpawnSize = levelInfo.enemiesToSpawn;
+        maxEnemiesInAction = levelInfo.maxActiveEnemies;
+        this.timeBetweenSpawns = levelInfo.timeBetweenSpawns;
+        //
+        activeEnemies = new int[enemyPrefabsToUse.Length];
+        timeFromLastSpawn = new float[enemyPrefabsToUse.Length];
         // Vigilar que no salte dos veces
         SpawnEnemies(initialGroupToSpawnSize);
     }
@@ -118,6 +126,18 @@ public class EnemyManager : MonoBehaviour
     public bool IsFiringClipActive(AudioClip firingClip)
     {
         return activeFiringClips.Contains(firingClip);
+    }
+
+    public void SubtractOne(GameObject gameObject)
+    {
+        //NOTA: Esto 
+        string[] prefabName = gameObject.name.Split('(');
+        //
+        for(int i = 0; i < enemyPrefabsToUse.Length; i++)
+        {
+            if (prefabName[0].Equals(enemyPrefabsToUse[i].name))
+                activeEnemies[i]--;
+        }
     }
 }
 

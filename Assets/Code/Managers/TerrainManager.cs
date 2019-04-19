@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -48,7 +49,7 @@ public class TerrainManager : MonoBehaviour
                     prefabToUse = blockPrefabs[0];
                 else
                 {
-                    prefabToUse = blockPrefabs[(int)Random.Range(0, blockPrefabs.Length)];
+                    prefabToUse = blockPrefabs[(int)UnityEngine.Random.Range(0, blockPrefabs.Length)];
                 }
                     
                 // And put it
@@ -88,6 +89,12 @@ public class TerrainManager : MonoBehaviour
         offsetInUnits.y = (int)(playerOffsetFromCentralBlock.z / 100);
 
         return offsetInUnits;
+    }
+
+    internal void InitiateManager(LevelInfo levelInfo)
+    {
+        blockPrefabs = levelInfo.terrainPrefabs;
+        blockFrequencies = levelInfo.terrainRatio;
     }
 
     //

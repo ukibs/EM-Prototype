@@ -27,6 +27,7 @@ public class ProvLevelManager : MonoBehaviour
     private VictoryCondition victoryCondition;
     private GameManager gameManager;
     private EnemyManager enemyManager;
+    private TerrainManager terrainManager;
     private Fade fade;
     private InputManager inputManager;
 
@@ -40,6 +41,7 @@ public class ProvLevelManager : MonoBehaviour
         robotControl = FindObjectOfType<RobotControl>();
         gameManager = FindObjectOfType<GameManager>();
         enemyManager = GetComponent<EnemyManager>();
+        terrainManager = GetComponent<TerrainManager>();
         fade = FindObjectOfType<Fade>();
         inputManager = FindObjectOfType<InputManager>();
 
@@ -71,7 +73,9 @@ public class ProvLevelManager : MonoBehaviour
         if (gameManager.unlockedSprintActions > 1)
             PlayerReference.playerControl.ActiveSprintMode = (SprintMode)(gameManager.unlockedSprintActions - 1);
         //
-        enemyManager.InitiateManager(levelInfo.enemiesToUse, levelInfo.enemiesToSpawn, levelInfo.maxActiveEnemies, levelInfo.timeBetweenSpawns);
+        enemyManager.InitiateManager(levelInfo);
+        //
+        terrainManager.InitiateManager(levelInfo);
         //
         //switch (victoryCondition)
         //{
@@ -217,6 +221,7 @@ public class ProvLevelManager : MonoBehaviour
     {
         // TODO: Impelemntar filtro de enemigos
         if (victoryCondition == VictoryCondition.DefeatAllEnemies) { }
+        //
         enemiesDestroyed++;
     }
 }

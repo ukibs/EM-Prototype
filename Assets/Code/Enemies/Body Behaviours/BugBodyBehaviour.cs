@@ -179,17 +179,17 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
     }
 
     // TODO: Hacerlo bien
-    bool AnyOfItsColliders(Collider colliderToCheck)
-    {
-        Collider[] bodyColliders = null;
+    //bool AnyOfItsColliders(Collider colliderToCheck)
+    //{
+    //    Collider[] bodyColliders = null;
 
-        for(int i = 0; i < bodyColliders.Length; i++)
-        {
-            return true;
-        }
+    //    for(int i = 0; i < bodyColliders.Length; i++)
+    //    {
+    //        return true;
+    //    }
 
-        return false;
-    }
+    //    return false;
+    //}
 
     #endregion
 }
