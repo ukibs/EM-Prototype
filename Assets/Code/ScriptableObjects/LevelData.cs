@@ -59,6 +59,7 @@ public class LevelInfo
     //
     public GameObject[] enemiesToUse;
     public int[] enemiesToSpawn;
+    public int[] enemySpawnIncrement;
     public float[] timeBetweenSpawns;
     public int[] maxActiveEnemies;
     //
