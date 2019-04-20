@@ -20,8 +20,8 @@ public class EnemyManager : MonoBehaviour
     private Transform playerTransform;
 
     // Vamos a manejarlo aqui de moemnto para no saturar el audio
-    private List<AudioClip> activeFiringClips;
-    private List<float> afcTimeActive;
+    //private List<AudioClip> activeFiringClips;
+    //private List<float> afcTimeActive;
 
     public int[] ActiveEnemies { get { return activeEnemies; } }
 
@@ -31,10 +31,10 @@ public class EnemyManager : MonoBehaviour
         //
         playerTransform = FindObjectOfType<RobotControl>().transform;
         //
-        SpawnEnemies(initialGroupToSpawnSize);
+        //SpawnEnemies(initialGroupToSpawnSize);
         //
-        activeFiringClips = new List<AudioClip>(10);
-        afcTimeActive = new List<float>(10);
+        //activeFiringClips = new List<AudioClip>(10);
+        //afcTimeActive = new List<float>(10);
     }
 
     // Update is called once per frame
@@ -60,16 +60,16 @@ public class EnemyManager : MonoBehaviour
             }
         }
         // Manejamos aqui los clips
-        for(int i = 0; i < activeFiringClips.Count; i++)
-        {
-            //
-            afcTimeActive[i] += dt;
-            if(afcTimeActive[i] >= activeFiringClips[i].length)
-            {
-                activeFiringClips.RemoveAt(i);
-                afcTimeActive.RemoveAt(i);
-            }
-        }
+        //for(int i = 0; i < activeFiringClips.Count; i++)
+        //{
+        //    //
+        //    afcTimeActive[i] += dt;
+        //    if(afcTimeActive[i] >= activeFiringClips[i].length)
+        //    {
+        //        activeFiringClips.RemoveAt(i);
+        //        afcTimeActive.RemoveAt(i);
+        //    }
+        //}
     }
 
     //
@@ -135,17 +135,17 @@ public class EnemyManager : MonoBehaviour
     }
 
     //
-    public void AddClip(AudioClip firingClip)
-    {
-        activeFiringClips.Add(firingClip);
-        afcTimeActive.Add(0);
-    }
+    //public void AddClip(AudioClip firingClip)
+    //{
+    //    activeFiringClips.Add(firingClip);
+    //    afcTimeActive.Add(0);
+    //}
 
-    //
-    public bool IsFiringClipActive(AudioClip firingClip)
-    {
-        return activeFiringClips.Contains(firingClip);
-    }
+    ////
+    //public bool IsFiringClipActive(AudioClip firingClip)
+    //{
+    //    return activeFiringClips.Contains(firingClip);
+    //}
 
     //
     public void SubtractOne(GameObject gameObject)

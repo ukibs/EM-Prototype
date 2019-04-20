@@ -21,13 +21,14 @@ MonoBehaviour:
     sprintActionsAvailable: 1
     enemiesToUse:
     - {fileID: 8096563443830030571, guid: 63f7a55d02361e7448d4b09d407ad549, type: 3}
-    enemiesToSpawn: 05000000
+    enemiesToSpawn: 1a000000
+    enemySpawnIncrement: 03000000
     timeBetweenSpawns:
     - 10
     maxActiveEnemies: 1e000000
     terrainPrefabs:
     - {fileID: 3326227640253247155, guid: e805da38f2157cf44bd8ebbbe826ba67, type: 3}
     - {fileID: 3326227640253247155, guid: 38934e844622a9041911d6bf240a4b65, type: 3}
-    terrainRatio: 0000000000000000000000000000000000000000
-    terrainMax: 
-    terrainMin: 
+    terrainRatio: 010000000a000000
+    terrainMax: 0000000032000000
+    terrainMin: 0a0000000a000000
