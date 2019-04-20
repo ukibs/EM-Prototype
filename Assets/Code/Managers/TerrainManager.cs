@@ -7,6 +7,8 @@ public class TerrainManager : MonoBehaviour
 {
     public GameObject[] blockPrefabs;
     public int[] blockFrequencies;
+    public int[] minBlockAmounts;
+    public int[] maxBlockAmounts;
     public int squareSize = 7;
     public float blockSize = 200; // TODO: Ponlo donde toque
 
@@ -16,6 +18,7 @@ public class TerrainManager : MonoBehaviour
     private GameObject[,] activeBlocksMatrix;
     private int centralBlock;
     private int halfMinusOne;
+    private int[] currentBlockAmounts;
 
     // Start is called before the first frame update
     void Start()
@@ -63,6 +66,8 @@ public class TerrainManager : MonoBehaviour
     {
         blockPrefabs = levelInfo.terrainPrefabs;
         blockFrequencies = levelInfo.terrainRatio;
+        minBlockAmounts = levelInfo.terrainMin;
+        maxBlockAmounts = levelInfo.terrainMax;
         AllocateTerrain();
     }
 
@@ -77,12 +82,16 @@ public class TerrainManager : MonoBehaviour
         centralBlock = halfMinusOne;
         //
         playerTransform = FindObjectOfType<RobotControl>().transform;
+        //
+        currentBlockAmounts = new int[blockFrequencies.Length];
         // Establecemos relación de frecuencias
-        int totalSum = 0;
+        int[] freqSuccesion = new int[blockFrequencies.Length];
+        int accumulated = 0;
         for (int i = 0; i < blockFrequencies.Length; i++)
         {
             // TODO: Aplicar esto bien
-            totalSum += blockFrequencies[i];
+            freqSuccesion[i] = blockFrequencies[i] + accumulated;
+            accumulated += blockFrequencies[i];
         }
         //
         for (int i = 0; i < squareSize; i++)
@@ -98,7 +107,30 @@ public class TerrainManager : MonoBehaviour
                     prefabToUse = blockPrefabs[0];
                 else
                 {
-                    prefabToUse = blockPrefabs[(int)UnityEngine.Random.Range(0, blockPrefabs.Length)];
+                    //
+                    int decideIndex = UnityEngine.Random.Range(0, accumulated);
+                    //
+                    for(int k = 0; k < freqSuccesion.Length; k++)
+                    {
+                        if(decideIndex <= freqSuccesion[k])
+                        {
+                            decideIndex = k;
+                            break;
+                        }
+                    }
+                    //
+                    //prefabToUse = blockPrefabs[(int)UnityEngine.Random.Range(0, blockPrefabs.Length)];
+                    // Chequeo de máximo
+                    // 0 como parámetros de control si tiene max 0 se ignora
+                    if(currentBlockAmounts[decideIndex] >= maxBlockAmounts[decideIndex] &&
+                        maxBlockAmounts[decideIndex] > 0)
+                    {
+                        j--;
+                        continue;
+                    }
+                    //
+                    prefabToUse = blockPrefabs[decideIndex];
+                    currentBlockAmounts[decideIndex]++;
                 }
 
                 //
@@ -111,6 +143,15 @@ public class TerrainManager : MonoBehaviour
             }
         }
         // Recordar que el orden es de - x a + x, y con y igual
+        //
+        for(int i = 0; i < currentBlockAmounts.Length; i++)
+        {
+            if(currentBlockAmounts[i] < minBlockAmounts[i])
+            {
+                //TODO: Aplicarlo bien
+                Debug.Log("Minimo incumplido");
+            }
+        }
     }
 
     //

@@ -295,8 +295,8 @@ public class ProvisionalHUD : MonoBehaviour {
             // Marcador de posición estimada del enemigo
             Vector3 anticipatedPositionInScreen = mainCamera.WorldToViewportPoint(EnemyAnalyzer.estimatedToHitPosition);
             GUI.DrawTexture(new Rect(
-                anticipatedPositionInScreen.x * Screen.width - 5,
-                Screen.height - anticipatedPositionInScreen.y * Screen.height - 5, 10, 10),
+                anticipatedPositionInScreen.x * Screen.width - 2,
+                Screen.height - anticipatedPositionInScreen.y * Screen.height - 2, 4, 4),
                 targetedEnemyEstimatedFuturePositionTexture);
 
             // Testing con la velocity
@@ -335,7 +335,8 @@ public class ProvisionalHUD : MonoBehaviour {
             // Raycast para sacar el blindaje a tiro
             // Lo quitamos de momento a ver como afecta al performance
             RaycastHit hitInfo;
-            Vector3 enemyDirection = EnemyAnalyzer.enemyTransform.position - cameraControl.transform.position;
+            Vector3 enemyDirection = EnemyAnalyzer.enemyTransform.TransformPoint(EnemyAnalyzer.enemyConsistency.centralPointOffset) 
+                                    - cameraControl.transform.position;
             if (Physics.Raycast(cameraControl.transform.position, enemyDirection, out hitInfo, enemyDirection.magnitude))
             {
                 //Debug.Log(hitInfo.transform.name);
