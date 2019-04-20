@@ -111,6 +111,15 @@ public class ProvLevelManager : MonoBehaviour
         // Ya lo haremos en el hud mas adelante
         GUI.Label(new Rect(30, 100, 200, 30), "Enemies destroyed: " + enemiesDestroyed + "/" + enemiesToDestroy, guiSkin.label);
         //
+
+        // intento de que salgan los enemigos actuales por pantalla
+        //int totalActiveEnemies = 0;
+        //for (int i = 0; i < enemyManager.ActiveEnemies.Length; i++)
+        //    totalActiveEnemies += enemyManager.ActiveEnemies[i];
+        int totalActiveEnemies = FindObjectsOfType<EnemyConsistency>().Length;
+        GUI.Label(new Rect(Screen.width / 2 - 150, Screen.height * 4 / 5 + 50, 300, 50),
+           "Active Enemies: " + totalActiveEnemies, guiSkin.label);
+
         if (GameControl.paused)
         {
             //
@@ -119,6 +128,8 @@ public class ProvLevelManager : MonoBehaviour
             string formatedSensivity = inputManager.RightAxisSensivity.ToString("0.00");
             GUI.Label(new Rect(Screen.width / 2 - 150, Screen.height * 4 / 5 + 100, 300, 50), 
                 "Camera sensivity: " + formatedSensivity, guiSkin.label);
+           
+
         }
     }
 
