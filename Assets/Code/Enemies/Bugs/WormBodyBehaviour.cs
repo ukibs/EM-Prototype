@@ -6,6 +6,7 @@ public class WormBodyBehaviour : BugBodyBehaviour
 {
     //
     //public float groundingSpeed = 0.5f;
+    public float lungeSpeed;
     //
     //protected float groundedLevel = 1;
     protected bool grounded = false;
@@ -90,7 +91,7 @@ public class WormBodyBehaviour : BugBodyBehaviour
         {
             Debug.Log("Performing lunge");
             Vector3 playerDirection = (player.transform.position - transform.position).normalized;
-            rb.AddForce(playerDirection * maxSpeed * 5, ForceMode.Impulse);
+            rb.AddForce(playerDirection * lungeSpeed, ForceMode.Impulse);
             onFloor = false;
             lunging = true;
             SwitchGrounding();

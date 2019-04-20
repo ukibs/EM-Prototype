@@ -22,6 +22,8 @@ public class EnemyManager : MonoBehaviour
     private List<AudioClip> activeFiringClips;
     private List<float> afcTimeActive;
 
+    public int[] ActiveEnemies { get { return activeEnemies; } }
+
     // Start is called before the first frame update
     void Start()
     {
