@@ -23,12 +23,28 @@ public class WormBodyBehaviour : BugBodyBehaviour
         bodyCollider = GetComponent<BoxCollider>();
         //
         SwitchGrounding();
+        //
+        if (HasGroundUnderneath() && !grounded)
+        {
+            grounded = false;
+            SwitchGrounding();
+        }
+            
     }
     //
     protected override void Update()
     {
         base.Update();
 
+    }
+    //
+    private void OnCollisionStay(Collision collision)
+    {
+        if(collision.collider.tag.Equals("Sand") && !lunging && !HasGroundUnderneath())
+        {
+            grounded = false;
+            SwitchGrounding();
+        }
     }
     //
     protected override void OnCollisionEnter(Collision collision)
@@ -40,6 +56,11 @@ public class WormBodyBehaviour : BugBodyBehaviour
         {
             lunging = false;
             SwitchGrounding();
+        }
+        // TODO: Montarlo bien y asegurarse de que funciona
+        if(collision.collider.tag.Equals("Hard Terrain") && grounded)
+        {
+            Destroy(gameObject);
         }
     }
 
@@ -55,6 +76,8 @@ public class WormBodyBehaviour : BugBodyBehaviour
             bodyCollider.size = new Vector3(1, 0.1f, 1);
             bodyCollider.center = new Vector3(0, 0.5f, 0);
             bodyConsistency.centralPointOffset = new Vector3(0, 0.45f, 0);
+            transform.rotation = new Quaternion(0, transform.rotation.y, 0, transform.rotation.w);
+            rb.angularVelocity = Vector3.zero;
         }
         else
         {

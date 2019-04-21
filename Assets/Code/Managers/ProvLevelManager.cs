@@ -45,7 +45,8 @@ public class ProvLevelManager : MonoBehaviour
         fade = FindObjectOfType<Fade>();
         inputManager = FindObjectOfType<InputManager>();
 
-        // TODO: Pedir al game manager la info del nivel que toca
+        // 
+        //LevelInfo levelInfo = GeneralFunctions.DeepCopy<LevelInfo>(gameManager.GetCurrentLevelInfo());
         LevelInfo levelInfo = gameManager.GetCurrentLevelInfo();
         victoryCondition = levelInfo.victoryCondition;
         enemiesToDestroy = levelInfo.enemiesToDefeat;

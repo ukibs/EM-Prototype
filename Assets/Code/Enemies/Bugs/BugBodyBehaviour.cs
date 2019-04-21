@@ -55,12 +55,15 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
             switch (currentAction)
             {
                 case Actions.Lunging:
-                    transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed, dt);
+                    //transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed, dt);
                     Lunge();
                     break;
                 case Actions.ZigZagingTowardsPlayer:
-                    transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed, dt);
-                    Move();
+                    if (HasGroundUnderneath())
+                    {
+                        transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed, dt);
+                        Move();
+                    }
                     break;
             }
 

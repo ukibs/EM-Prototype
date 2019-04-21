@@ -5,7 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
-  - Ground
+  - Sand
+  - Hard Terrain
   layers:
   - Default
   - TransparentFX

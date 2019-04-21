@@ -120,6 +120,11 @@ public class EnemyConsistency : MonoBehaviour {
             //Debug.Log("Penetration value: " + penetrationValue + ", mass: " + bulletRb.mass + 
             //    ", diameter: " + diameter + ", velocity: " + bulletRb.velocity.magnitude);
             float penetrationResult = Mathf.Max(penetrationValue - bodyPart.armor, 0);
+            //Debug.Log(penetrationResult + ", " + penetrationValue + ", " + bodyPart.armor);
+            // Pasamos en qué proporción ha penetrado
+            if (penetrationResult > 0)
+                penetrationResult = 1 - (bodyPart.armor / penetrationValue);
+            //Debug.Log("Pen proportion: " + penetrationResult);
             //
             ReceiveProyectileImpact(penetrationResult, collision.GetContact(0).point, bulletRb);
         }
@@ -160,7 +165,7 @@ public class EnemyConsistency : MonoBehaviour {
     public void ReceiveProyectileImpact(float penetrationResult, Vector3 point, Rigidbody proyectileRb)
     {
         //
-        float damageReceived;
+        float damageReceived = 0;
         //float damageReceived = GeneralFunctions.Navy1940PenetrationCalc();
         //damageReceived = Mathf.Max(damageReceived, 0);
         //
@@ -169,16 +174,18 @@ public class EnemyConsistency : MonoBehaviour {
             //Debug.Log("Received bullet impact with " + impactForce + " force against " + sideArmor + " armor. "
             //+ damageReceived + " damage received");
             //
-            damageReceived = GeneralFunctions.GetBodyKineticEnergy(proyectileRb);
+            float kineticEnergy = GeneralFunctions.GetBodyKineticEnergy(proyectileRb);
+            damageReceived = kineticEnergy * penetrationResult;
+            //Debug.Log("Penetration result: " + penetrationResult + ", kinetic energy: " + kineticEnergy + ", damage received: " + damageReceived);
             currentHealth -= damageReceived;
-            ManageDamage(penetrationResult, point);
+            ManageDamage(damageReceived, point);
 
-            impactInfoManager.SendImpactInfo(point, damageReceived);
+            //impactInfoManager.SendImpactInfo(point, damageReceived);
         }
         else
         {
-            penetrationResult = 0;
-            impactInfoManager.SendImpactInfo(point, penetrationResult, "No damage");
+            //penetrationResult = 0;
+            impactInfoManager.SendImpactInfo(point, damageReceived, "No damage");
         }
         
     }
@@ -186,15 +193,15 @@ public class EnemyConsistency : MonoBehaviour {
     //
     public void ReceiveSharpnelImpact(float penetrationResult, Vector3 point, FakeRB proyectileRb)
     {
-        //
-        float damageReceived;
+        // TODO: Revisar esto
+        float damageReceived = 0;
         if (penetrationResult > 0)
         {
-            damageReceived = GeneralFunctions.GetFakeBodyKineticEnergy(proyectileRb);
+            damageReceived = GeneralFunctions.GetFakeBodyKineticEnergy(proyectileRb) * penetrationResult;
             currentHealth -= damageReceived;
             ManageDamage(penetrationResult, point);
 
-            //impactInfoManager.SendImpactInfo(point, damageReceived);
+            impactInfoManager.SendImpactInfo(point, damageReceived);
         }
         else
         {

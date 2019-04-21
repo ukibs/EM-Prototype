@@ -80,6 +80,10 @@ public class EnemyCollider : MonoBehaviour
             //Debug.Log("Penetration value: " + penetrationValue + ", mass: " + bulletRb.mass + 
             //    ", diameter: " + diameter + ", velocity: " + bulletRb.velocity.magnitude);
             float penetrationResult = Mathf.Max(penetrationValue - armor, 0);
+            // TODO: Unificar esta funcionalidad entre consistncy y collider
+            // Pasamos en qué proporción ha penetrado
+            if (penetrationResult > 0)
+                penetrationResult = 1 - (armor / penetrationValue);
             //
             body.ReceiveProyectileImpact(penetrationResult, impactPoint, bulletRb);
         }

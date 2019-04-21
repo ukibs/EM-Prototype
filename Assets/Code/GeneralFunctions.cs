@@ -1,5 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 public static class GeneralFunctions
@@ -326,5 +329,39 @@ public static class GeneralFunctions
         float bodyMomentum = bodyMass * bodySpeed;
 
         return bodyMomentum;
+    }
+
+    //
+    public static T DeepCopy<T>(T obj)
+    {
+
+        if (!typeof(T).IsSerializable)
+        {
+            throw new Exception("The source object must be serializable");
+
+        }
+
+        if (System.Object.ReferenceEquals(obj, null))
+        {
+            throw new Exception("The source object must not be null");
+        }
+
+        T result = default(T);
+
+        using (var memoryStream = new MemoryStream())
+        {
+            var formatter = new BinaryFormatter();
+
+            formatter.Serialize(memoryStream, obj);
+
+            memoryStream.Seek(0, SeekOrigin.Begin);
+
+            result = (T)formatter.Deserialize(memoryStream);
+
+            memoryStream.Close();
+        }
+
+        return result;
+
     }
 }
