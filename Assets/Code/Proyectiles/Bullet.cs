@@ -131,8 +131,14 @@ public class Bullet : MonoBehaviour {
         SpawnBulletHole(hitPoint, hitNormal, collider.gameObject);
         Destroy(impactParticles, 2);
         // TODO: Ver por qué nos hacía falta esto
+        // 
         if(explosiveBullet == null)
+        {
+            //
+            //Debug.Log("Not explosive component, destroying object");
             Destroy(gameObject);
+        }
+            
     }
 
     // 

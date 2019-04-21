@@ -1,0 +1,568 @@
+fileFormatVersion: 2
+guid: a090b409f3d3e1d47b896749ec2e1ac2
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Armor
+    100002: Body
+    100004: Head
+    100006: Leg_1
+    100008: Leg_2
+    100010: Leg_3
+    100012: Leg_4
+    100014: pCube1
+    100016: pCube10
+    100018: pCube11
+    100020: pCube12
+    100022: pCube13
+    100024: pCube14
+    100026: pCube15
+    100028: pCube2
+    100030: pCube7
+    100032: pCube8
+    100034: pCube9
+    100036: pCylinder1
+    100038: pPrism1
+    100040: pPrism1 1
+    100042: pPrism10
+    100044: pPrism10 1
+    100046: pPrism11
+    100048: pPrism11 1
+    100050: pPrism12
+    100052: pPrism12 1
+    100054: pPrism13
+    100056: pPrism13 1
+    100058: pPrism14
+    100060: pPrism14 1
+    100062: pPrism15
+    100064: pPrism15 1
+    100066: pPrism16
+    100068: pPrism16 1
+    100070: pPrism17
+    100072: pPrism17 1
+    100074: pPrism18
+    100076: pPrism18 1
+    100078: pPrism19
+    100080: pPrism19 1
+    100082: pPrism20
+    100084: pPrism20 1
+    100086: pPrism21
+    100088: pPrism21 1
+    100090: pPrism22
+    100092: pPrism22 1
+    100094: pPrism23
+    100096: pPrism23 1
+    100098: pPrism24
+    100100: pPrism24 1
+    100102: pPrism25
+    100104: pPrism25 1
+    100106: pPrism26
+    100108: pPrism26 1
+    100110: pPrism27
+    100112: pPrism27 1
+    100114: pPrism28
+    100116: pPrism28 1
+    100118: pPrism29
+    100120: pPrism29 1
+    100122: pPrism30
+    100124: pPrism30 1
+    100126: pPrism31
+    100128: pPrism31 1
+    100130: pPrism32
+    100132: pPrism32 1
+    100134: pPrism4
+    100136: pPrism4 1
+    100138: pPrism5
+    100140: pPrism5 1
+    100142: pPrism6
+    100144: pPrism6 1
+    100146: pPrism7
+    100148: pPrism7 1
+    100150: pPrism8
+    100152: pPrism8 1
+    100154: pPrism9
+    100156: pPrism9 1
+    100158: pPyramid1
+    100160: pPyramid2
+    100162: pSphere1
+    100164: pSphere10
+    100166: pSphere10 1
+    100168: pSphere11
+    100170: pSphere11 1
+    100172: pSphere12
+    100174: pSphere2
+    100176: pSphere3
+    100178: pSphere4
+    100180: pSphere5
+    100182: pSphere6
+    100184: pSphere7
+    100186: pSphere8
+    100188: pSphere8 1
+    100190: pSphere9
+    100192: pSphere9 1
+    100194: //RootNode
+    100196: Wing_1
+    100198: Wing_2
+    400000: Armor
+    400002: Body
+    400004: Head
+    400006: Leg_1
+    400008: Leg_2
+    400010: Leg_3
+    400012: Leg_4
+    400014: pCube1
+    400016: pCube10
+    400018: pCube11
+    400020: pCube12
+    400022: pCube13
+    400024: pCube14
+    400026: pCube15
+    400028: pCube2
+    400030: pCube7
+    400032: pCube8
+    400034: pCube9
+    400036: pCylinder1
+    400038: pPrism1
+    400040: pPrism1 1
+    400042: pPrism10
+    400044: pPrism10 1
+    400046: pPrism11
+    400048: pPrism11 1
+    400050: pPrism12
+    400052: pPrism12 1
+    400054: pPrism13
+    400056: pPrism13 1
+    400058: pPrism14
+    400060: pPrism14 1
+    400062: pPrism15
+    400064: pPrism15 1
+    400066: pPrism16
+    400068: pPrism16 1
+    400070: pPrism17
+    400072: pPrism17 1
+    400074: pPrism18
+    400076: pPrism18 1
+    400078: pPrism19
+    400080: pPrism19 1
+    400082: pPrism20
+    400084: pPrism20 1
+    400086: pPrism21
+    400088: pPrism21 1
+    400090: pPrism22
+    400092: pPrism22 1
+    400094: pPrism23
+    400096: pPrism23 1
+    400098: pPrism24
+    400100: pPrism24 1
+    400102: pPrism25
+    400104: pPrism25 1
+    400106: pPrism26
+    400108: pPrism26 1
+    400110: pPrism27
+    400112: pPrism27 1
+    400114: pPrism28
+    400116: pPrism28 1
+    400118: pPrism29
+    400120: pPrism29 1
+    400122: pPrism30
+    400124: pPrism30 1
+    400126: pPrism31
+    400128: pPrism31 1
+    400130: pPrism32
+    400132: pPrism32 1
+    400134: pPrism4
+    400136: pPrism4 1
+    400138: pPrism5
+    400140: pPrism5 1
+    400142: pPrism6
+    400144: pPrism6 1
+    400146: pPrism7
+    400148: pPrism7 1
+    400150: pPrism8
+    400152: pPrism8 1
+    400154: pPrism9
+    400156: pPrism9 1
+    400158: pPyramid1
+    400160: pPyramid2
+    400162: pSphere1
+    400164: pSphere10
+    400166: pSphere10 1
+    400168: pSphere11
+    400170: pSphere11 1
+    400172: pSphere12
+    400174: pSphere2
+    400176: pSphere3
+    400178: pSphere4
+    400180: pSphere5
+    400182: pSphere6
+    400184: pSphere7
+    400186: pSphere8
+    400188: pSphere8 1
+    400190: pSphere9
+    400192: pSphere9 1
+    400194: //RootNode
+    400196: Wing_1
+    400198: Wing_2
+    2100000: lambert2
+    2100002: lambert3
+    2100004: lambert4
+    2100006: lambert6
+    2100008: lambert5
+    2300000: pCube1
+    2300002: pCube10
+    2300004: pCube11
+    2300006: pCube12
+    2300008: pCube13
+    2300010: pCube14
+    2300012: pCube15
+    2300014: pCube2
+    2300016: pCube7
+    2300018: pCube8
+    2300020: pCube9
+    2300022: pCylinder1
+    2300024: pPrism1
+    2300026: pPrism1 1
+    2300028: pPrism10
+    2300030: pPrism10 1
+    2300032: pPrism11
+    2300034: pPrism11 1
+    2300036: pPrism12
+    2300038: pPrism12 1
+    2300040: pPrism13
+    2300042: pPrism13 1
+    2300044: pPrism14
+    2300046: pPrism14 1
+    2300048: pPrism15
+    2300050: pPrism15 1
+    2300052: pPrism16
+    2300054: pPrism16 1
+    2300056: pPrism17
+    2300058: pPrism17 1
+    2300060: pPrism18
+    2300062: pPrism18 1
+    2300064: pPrism19
+    2300066: pPrism19 1
+    2300068: pPrism20
+    2300070: pPrism20 1
+    2300072: pPrism21
+    2300074: pPrism21 1
+    2300076: pPrism22
+    2300078: pPrism22 1
+    2300080: pPrism23
+    2300082: pPrism23 1
+    2300084: pPrism24
+    2300086: pPrism24 1
+    2300088: pPrism25
+    2300090: pPrism25 1
+    2300092: pPrism26
+    2300094: pPrism26 1
+    2300096: pPrism27
+    2300098: pPrism27 1
+    2300100: pPrism28
+    2300102: pPrism28 1
+    2300104: pPrism29
+    2300106: pPrism29 1
+    2300108: pPrism30
+    2300110: pPrism30 1
+    2300112: pPrism31
+    2300114: pPrism31 1
+    2300116: pPrism32
+    2300118: pPrism32 1
+    2300120: pPrism4
+    2300122: pPrism4 1
+    2300124: pPrism5
+    2300126: pPrism5 1
+    2300128: pPrism6
+    2300130: pPrism6 1
+    2300132: pPrism7
+    2300134: pPrism7 1
+    2300136: pPrism8
+    2300138: pPrism8 1
+    2300140: pPrism9
+    2300142: pPrism9 1
+    2300144: pPyramid1
+    2300146: pPyramid2
+    2300148: pSphere1
+    2300150: pSphere10
+    2300152: pSphere10 1
+    2300154: pSphere11
+    2300156: pSphere11 1
+    2300158: pSphere12
+    2300160: pSphere2
+    2300162: pSphere3
+    2300164: pSphere4
+    2300166: pSphere5
+    2300168: pSphere6
+    2300170: pSphere7
+    2300172: pSphere8
+    2300174: pSphere8 1
+    2300176: pSphere9
+    2300178: pSphere9 1
+    3300000: pCube1
+    3300002: pCube10
+    3300004: pCube11
+    3300006: pCube12
+    3300008: pCube13
+    3300010: pCube14
+    3300012: pCube15
+    3300014: pCube2
+    3300016: pCube7
+    3300018: pCube8
+    3300020: pCube9
+    3300022: pCylinder1
+    3300024: pPrism1
+    3300026: pPrism1 1
+    3300028: pPrism10
+    3300030: pPrism10 1
+    3300032: pPrism11
+    3300034: pPrism11 1
+    3300036: pPrism12
+    3300038: pPrism12 1
+    3300040: pPrism13
+    3300042: pPrism13 1
+    3300044: pPrism14
+    3300046: pPrism14 1
+    3300048: pPrism15
+    3300050: pPrism15 1
+    3300052: pPrism16
+    3300054: pPrism16 1
+    3300056: pPrism17
+    3300058: pPrism17 1
+    3300060: pPrism18
+    3300062: pPrism18 1
+    3300064: pPrism19
+    3300066: pPrism19 1
+    3300068: pPrism20
+    3300070: pPrism20 1
+    3300072: pPrism21
+    3300074: pPrism21 1
+    3300076: pPrism22
+    3300078: pPrism22 1
+    3300080: pPrism23
+    3300082: pPrism23 1
+    3300084: pPrism24
+    3300086: pPrism24 1
+    3300088: pPrism25
+    3300090: pPrism25 1
+    3300092: pPrism26
+    3300094: pPrism26 1
+    3300096: pPrism27
+    3300098: pPrism27 1
+    3300100: pPrism28
+    3300102: pPrism28 1
+    3300104: pPrism29
+    3300106: pPrism29 1
+    3300108: pPrism30
+    3300110: pPrism30 1
+    3300112: pPrism31
+    3300114: pPrism31 1
+    3300116: pPrism32
+    3300118: pPrism32 1
+    3300120: pPrism4
+    3300122: pPrism4 1
+    3300124: pPrism5
+    3300126: pPrism5 1
+    3300128: pPrism6
+    3300130: pPrism6 1
+    3300132: pPrism7
+    3300134: pPrism7 1
+    3300136: pPrism8
+    3300138: pPrism8 1
+    3300140: pPrism9
+    3300142: pPrism9 1
+    3300144: pPyramid1
+    3300146: pPyramid2
+    3300148: pSphere1
+    3300150: pSphere10
+    3300152: pSphere10 1
+    3300154: pSphere11
+    3300156: pSphere11 1
+    3300158: pSphere12
+    3300160: pSphere2
+    3300162: pSphere3
+    3300164: pSphere4
+    3300166: pSphere5
+    3300168: pSphere6
+    3300170: pSphere7
+    3300172: pSphere8
+    3300174: pSphere8 1
+    3300176: pSphere9
+    3300178: pSphere9 1
+    4300000: pPrism1
+    4300002: pSphere8
+    4300004: pPrism5
+    4300006: pSphere10
+    4300008: pPrism7
+    4300010: pPrism4
+    4300012: pSphere9
+    4300014: pPrism6
+    4300016: pSphere11
+    4300018: pPrism8
+    4300020: pPrism1
+    4300022: pSphere8
+    4300024: pPrism5
+    4300026: pSphere10
+    4300028: pPrism7
+    4300030: pCube1
+    4300032: pCube2
+    4300034: pCube7
+    4300036: pCube8
+    4300038: pCube9
+    4300040: pCube10
+    4300042: pCube11
+    4300044: pCube12
+    4300046: pCube13
+    4300048: pCube14
+    4300050: pCube15
+    4300052: pSphere1
+    4300054: pSphere2
+    4300056: pSphere3
+    4300058: pSphere4
+    4300060: pSphere5
+    4300062: pSphere6
+    4300064: pSphere7
+    4300066: pCylinder1
+    4300068: pSphere12
+    4300070: pPrism4
+    4300072: pSphere9
+    4300074: pPrism6
+    4300076: pSphere11
+    4300078: pPrism8
+    4300080: pPrism11
+    4300082: pPrism28
+    4300084: pPrism27
+    4300086: pPrism32
+    4300088: pPrism31
+    4300090: pPrism30
+    4300092: pPrism24
+    4300094: pPrism23
+    4300096: pPrism26
+    4300098: pPrism25
+    4300100: pPrism22
+    4300102: pPrism29
+    4300104: pPrism21
+    4300106: pPrism20
+    4300108: pPrism19
+    4300110: pPrism18
+    4300112: pPrism17
+    4300114: pPrism16
+    4300116: pPrism15
+    4300118: pPrism13
+    4300120: pPrism14
+    4300122: pPrism10
+    4300124: pPrism12
+    4300126: pPrism9
+    4300128: pPyramid2
+    4300130: pPyramid1
+    4300132: pPrism11
+    4300134: pPrism28
+    4300136: pPrism27
+    4300138: pPrism32
+    4300140: pPrism31
+    4300142: pPrism30
+    4300144: pPrism24
+    4300146: pPrism23
+    4300148: pPrism26
+    4300150: pPrism25
+    4300152: pPrism22
+    4300154: pPrism29
+    4300156: pPrism21
+    4300158: pPrism20
+    4300160: pPrism19
+    4300162: pPrism18
+    4300164: pPrism17
+    4300166: pPrism16
+    4300168: pPrism15
+    4300170: pPrism13
+    4300172: pPrism14
+    4300174: pPrism10
+    4300176: pPrism12
+    4300178: pPrism9
+    7400000: Take 001
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 100
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

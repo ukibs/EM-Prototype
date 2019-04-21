@@ -175,7 +175,8 @@ public class EnemyWeapon : MonoBehaviour
                 //GeneralFunctions.ShootProjectile(proyectilePrefab, shootPoint.position,
                 //    shootPoint.rotation, shootPoint.forward, shootForce, dt);
                 //
-                Instantiate(shootParticlesPrefab, shootPoint.position, Quaternion.identity);
+                if(shootParticlesPrefab != null)
+                    Instantiate(shootParticlesPrefab, shootPoint.position, Quaternion.identity);
                 //
                 timeFromLastShoot -= 1 / rateOfFire;
                 //

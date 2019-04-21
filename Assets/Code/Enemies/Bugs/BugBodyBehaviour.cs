@@ -107,6 +107,12 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
                         currentAction = behaviour[i];
                     }
                     return;
+                case Actions.EncirclingPlayerForward:
+                    if (playerDistance.magnitude < minimalShootDistance)
+                    {
+                        currentAction = behaviour[i];
+                    }
+                    return;
             }
         }
     }
@@ -122,6 +128,7 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
             float speedMultiplier = 1;
             switch (currentAction)
             {
+                case Actions.EncirclingPlayerForward:
                 case Actions.GoingToPlayer:
                     // Aqui nada de momento porque ya es forward por defecto
                     break;

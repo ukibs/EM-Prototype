@@ -3,11 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Cuando lo usemos usaremos los ratios que usan el TNT como referencia (valor 1)
-public enum ExplosiveType
+public enum MixtureType
 {
     Invalid = -1,
 
     TNT,
+
+    Count
+}
+
+public enum ExplosiveType
+{
+    Invalid = -1,
+
+    SimpleArea,
+    Sharpnel,
 
     Count
 }
@@ -26,9 +36,11 @@ public class ExplosiveBullet : MonoBehaviour
     // Realistic ones
     [Tooltip("Explosive load in kg")]
     public float explosiveLoad;
+    //
+    public ExplosiveType explosiveType = ExplosiveType.SimpleArea;
 
-    private int fragmentsPerHeight = 4;
-    private int fragmentsPerWidth = 4;
+    public int fragmentsPerHeight = 4;
+    public int fragmentsPerWidth = 4;
     private float fragmentMass;
 
     private float explosionForce;
@@ -104,47 +116,24 @@ public class ExplosiveBullet : MonoBehaviour
                 // Coche de 1,8 toneladas, 150 kg de TNT, entre 10-15 metros de altura
                 nextBody.AddForce(directionAndDistance.normalized * forceToApply, ForceMode.Impulse);
                 
-                // Hacemos un falso RB
-                //FakeRB sharpnelRb = new FakeRB();
-
-                //// De momento vamos a decir que el fragmento tienen un 10º de la masa del proyectil
-                //sharpnelRb.mass = proyectileRb.mass / 10;
-                ////sharpnelRb.velocity = directionAndDistance * explosionForce;
-                //sharpnelRb.velocity = directionAndDistance * forceToApply;
-                //// TODO: Aplicar daños bien
-
-                //// 
-                //EnemyCollider enemyCollider = affectedBodies[i].GetComponent<EnemyCollider>();
-                //// TODO: Hacer solo aplique impacto a un collider por enemigo
-                //if (enemyCollider != null)
-                //{
-
-                //    //
-                //    Debug.Log("Sharpnel impacting in " + enemyCollider.transform.name + " with force " + sharpnelRb.Force);
-                //    enemyCollider.ReceiveSharpnelImpact(sharpnelRb, enemyCollider.transform.position);
-                //}
-
-                //PlayerIntegrity playerIntegrity = affectedBodies[i].GetComponent<PlayerIntegrity>();
-                //if (playerIntegrity != null)
-                //{
-
-                //    //
-                //    Vector3 impactPositionForDirection = playerIntegrity.transform.position - transform.position;
-                //    //
-                //    playerIntegrity.ReceiveSharpnelImpact(impactPositionForDirection, gameObject, sharpnelRb);
-
-                //}
             }
 
             
         }
         //
-        GenerateSharpnels();
+        //if(explosiveType == ExplosiveType.Sharpnel)
+            GenerateSharpnels();
         //
         Destroy(gameObject);
     }
     
+    //
+    public void SimpleExplosion()
+    {
 
+    }
+
+    //
     public void GenerateSharpnels()
     {
         //

@@ -491,7 +491,7 @@ public class SpringCamera : MonoBehaviour {
 
     void CheckDontEnterInsideScenario()
     {
-        // TODO:
+        // TODO: Trabajar que funcione mejor
         Vector3 directionToCheck = transform.position - targetPos;
         RaycastHit hitInfo;
         // Ponemos de momento el punto de inicio del raycast a 10 metros por delante de la cámara
