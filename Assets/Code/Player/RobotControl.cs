@@ -667,10 +667,11 @@ public class RobotControl : MonoBehaviour {
         if (chargedAmount >= 1 / gameManager.rapidFireRate)
         {
             // La calculamos desde los puntos de la ametralladora para más precision
-            EnemyAnalyzer.estimatedToHitPosition = GeneralFunctions.AnticipateObjectivePositionForAiming(
-            machineGunPoints[nextRapidFireSide].position, 
-            EnemyAnalyzer.enemyTransform.TransformPoint(EnemyAnalyzer.enemyConsistency.centralPointOffset), 
-            EnemyAnalyzer.enemyRb.velocity, gameManager.rapidFireMuzzleSpeed, dt);
+            if(EnemyAnalyzer.isActive)
+                EnemyAnalyzer.estimatedToHitPosition = GeneralFunctions.AnticipateObjectivePositionForAiming(
+                machineGunPoints[nextRapidFireSide].position, 
+                EnemyAnalyzer.enemyTransform.TransformPoint(EnemyAnalyzer.enemyConsistency.centralPointOffset), 
+                EnemyAnalyzer.enemyRb.velocity, gameManager.rapidFireMuzzleSpeed, dt);
             // Determinamos el 
             // TODO: Coger el punto de disparo del plauer
             EnemyAnalyzer.estimatedToHitPosition.y += GeneralFunctions.GetProyectileFallToObjective(transform.position,

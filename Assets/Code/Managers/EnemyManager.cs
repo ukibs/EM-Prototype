@@ -6,8 +6,8 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour
 {
     public GameObject[] enemyPrefabsToUse;
-    public int[] initialGroupToSpawnSize;
-    public int[] continuousGroupToSpawnSize;
+    //public int[] initialGroupToSpawnSize;
+    public int[] groupsToSpawnSizes;
     public int[] enemySpawnIncrement;
     public int[] maxEnemiesInAction;
     public float[] timeBetweenSpawns;
@@ -54,22 +54,11 @@ public class EnemyManager : MonoBehaviour
                 //int activeEnemies = FindObjectsOfType<EnemyConsistency>().Length;
                 //
                 if (activeEnemies[i] < maxEnemiesInAction[i])
-                    SpawnEnemies(continuousGroupToSpawnSize);
+                    SpawnEnemies(groupsToSpawnSizes);
                 // Si no que vuelva a empezar a contrar y ya
                 timeFromLastSpawn[i] -= timeBetweenSpawns[i];
             }
         }
-        // Manejamos aqui los clips
-        //for(int i = 0; i < activeFiringClips.Count; i++)
-        //{
-        //    //
-        //    afcTimeActive[i] += dt;
-        //    if(afcTimeActive[i] >= activeFiringClips[i].length)
-        //    {
-        //        activeFiringClips.RemoveAt(i);
-        //        afcTimeActive.RemoveAt(i);
-        //    }
-        //}
     }
 
     //
@@ -122,8 +111,9 @@ public class EnemyManager : MonoBehaviour
     {
         //
         enemyPrefabsToUse = levelInfo.enemiesToUse;
-        initialGroupToSpawnSize = levelInfo.enemiesToSpawn;
-        continuousGroupToSpawnSize = levelInfo.enemiesToSpawn;
+        //groupsToSpawnSizes = levelInfo.enemiesToSpawn.CopyTo(groupsToSpawnSizes);
+        groupsToSpawnSizes = new int[levelInfo.enemiesToSpawn.Length];
+        levelInfo.enemiesToSpawn.CopyTo(groupsToSpawnSizes, 0);
         enemySpawnIncrement = levelInfo.enemySpawnIncrement;
         maxEnemiesInAction = levelInfo.maxActiveEnemies;
         this.timeBetweenSpawns = levelInfo.timeBetweenSpawns;
@@ -131,21 +121,8 @@ public class EnemyManager : MonoBehaviour
         activeEnemies = new int[enemyPrefabsToUse.Length];
         timeFromLastSpawn = new float[enemyPrefabsToUse.Length];
         // Vigilar que no salte dos veces
-        SpawnEnemies(initialGroupToSpawnSize);
+        SpawnEnemies(groupsToSpawnSizes);
     }
-
-    //
-    //public void AddClip(AudioClip firingClip)
-    //{
-    //    activeFiringClips.Add(firingClip);
-    //    afcTimeActive.Add(0);
-    //}
-
-    ////
-    //public bool IsFiringClipActive(AudioClip firingClip)
-    //{
-    //    return activeFiringClips.Contains(firingClip);
-    //}
 
     //
     public void SubtractOne(GameObject gameObject)

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2365575445437022517}
   m_Layer: 0
   m_Name: Viga 1 (1)
-  m_TagString: Untagged
+  m_TagString: Hard Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 4115915312677151120}
   m_Layer: 0
   m_Name: Refrigeration Tower (2)
-  m_TagString: Untagged
+  m_TagString: Hard Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 5949641639300720174}
   m_Layer: 0
   m_Name: Viga 1 (1)
-  m_TagString: Untagged
+  m_TagString: Hard Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 117648276975257406}
   m_Layer: 0
   m_Name: Refrigeration Tower (1)
-  m_TagString: Untagged
+  m_TagString: Hard Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -262,7 +262,7 @@ GameObject:
   - component: {fileID: 4479317595321944792}
   m_Layer: 0
   m_Name: Viga 1
-  m_TagString: Untagged
+  m_TagString: Hard Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -353,7 +353,7 @@ GameObject:
   - component: {fileID: 491628159185133077}
   m_Layer: 0
   m_Name: Base
-  m_TagString: Untagged
+  m_TagString: Hard Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -445,7 +445,7 @@ GameObject:
   - component: {fileID: 7820314234786879349}
   m_Layer: 0
   m_Name: Viga 1 (2)
-  m_TagString: Untagged
+  m_TagString: Hard Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -533,7 +533,7 @@ GameObject:
   - component: {fileID: 454365873877752920}
   m_Layer: 0
   m_Name: Refrigeration Tower
-  m_TagString: Untagged
+  m_TagString: Hard Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -606,7 +606,7 @@ GameObject:
   - component: {fileID: 5473130018652304143}
   m_Layer: 0
   m_Name: Viga Suelo
-  m_TagString: Untagged
+  m_TagString: Hard Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -733,7 +733,7 @@ GameObject:
   - component: {fileID: 2112909397343303437}
   m_Layer: 0
   m_Name: Middle
-  m_TagString: Untagged
+  m_TagString: Hard Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -822,7 +822,7 @@ GameObject:
   - component: {fileID: 811294848333603901}
   m_Layer: 0
   m_Name: Viga (1)
-  m_TagString: Untagged
+  m_TagString: Hard Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -858,7 +858,7 @@ GameObject:
   - component: {fileID: 3149105881463370620}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Hard Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -946,7 +946,7 @@ GameObject:
   - component: {fileID: 7372503831874022900}
   m_Layer: 0
   m_Name: Viga
-  m_TagString: Untagged
+  m_TagString: Hard Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -982,7 +982,7 @@ GameObject:
   - component: {fileID: 4101972767741726128}
   m_Layer: 0
   m_Name: Top
-  m_TagString: Untagged
+  m_TagString: Hard Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1074,7 +1074,7 @@ GameObject:
   - component: {fileID: 8972831772627181518}
   m_Layer: 0
   m_Name: Viga 1 (1)
-  m_TagString: Untagged
+  m_TagString: Hard Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1165,7 +1165,7 @@ GameObject:
   - component: {fileID: 8736716708440445156}
   m_Layer: 0
   m_Name: Base
-  m_TagString: Untagged
+  m_TagString: Hard Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1257,7 +1257,7 @@ GameObject:
   - component: {fileID: 3649548237838816445}
   m_Layer: 0
   m_Name: Base
-  m_TagString: Untagged
+  m_TagString: Hard Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1349,7 +1349,7 @@ GameObject:
   - component: {fileID: 4379038634140714993}
   m_Layer: 0
   m_Name: Top
-  m_TagString: Untagged
+  m_TagString: Hard Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1441,7 +1441,7 @@ GameObject:
   - component: {fileID: 2354921297196297917}
   m_Layer: 0
   m_Name: Viga 1
-  m_TagString: Untagged
+  m_TagString: Hard Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1532,7 +1532,7 @@ GameObject:
   - component: {fileID: 1612431016625602677}
   m_Layer: 0
   m_Name: Middle
-  m_TagString: Untagged
+  m_TagString: Hard Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1624,7 +1624,7 @@ GameObject:
   - component: {fileID: 5857733897228936531}
   m_Layer: 0
   m_Name: Cube (1)
-  m_TagString: Untagged
+  m_TagString: Hard Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1715,7 +1715,7 @@ GameObject:
   - component: {fileID: 2564195392775805479}
   m_Layer: 0
   m_Name: Viga 1 (2)
-  m_TagString: Untagged
+  m_TagString: Hard Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1897,7 +1897,7 @@ GameObject:
   - component: {fileID: 4748843699643179010}
   m_Layer: 0
   m_Name: Viga 1
-  m_TagString: Untagged
+  m_TagString: Hard Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1988,7 +1988,7 @@ GameObject:
   - component: {fileID: 6330422455007988156}
   m_Layer: 0
   m_Name: Middle
-  m_TagString: Untagged
+  m_TagString: Hard Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2080,7 +2080,7 @@ GameObject:
   - component: {fileID: 6696464202636834718}
   m_Layer: 0
   m_Name: Top
-  m_TagString: Untagged
+  m_TagString: Hard Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2172,7 +2172,7 @@ GameObject:
   - component: {fileID: 1130125324575510372}
   m_Layer: 0
   m_Name: Viga 1 (2)
-  m_TagString: Untagged
+  m_TagString: Hard Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

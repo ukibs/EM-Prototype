@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  armor: 12
+  armor: 16
 --- !u!65 &5408177331135026441
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -239,7 +239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  armor: 12
+  armor: 16
 --- !u!1 &4442976437349935568
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,7 +334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  armor: 15
+  armor: 20
 --- !u!65 &4096002786849540539
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -769,7 +769,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  armor: 0
+  armor: 5
 --- !u!65 &6861572666122994156
 BoxCollider:
   m_ObjectHideFlags: 0

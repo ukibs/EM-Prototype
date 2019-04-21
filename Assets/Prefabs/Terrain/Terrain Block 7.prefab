@@ -2237,7 +2237,7 @@ GameObject:
   - component: {fileID: 7670714918923756650}
   m_Layer: 0
   m_Name: HiveStructure
-  m_TagString: Untagged
+  m_TagString: Hard Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
