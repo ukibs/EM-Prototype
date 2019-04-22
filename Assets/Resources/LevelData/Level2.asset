@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: Level2
   m_EditorClassIdentifier: 
   levelInfo:
-    victoryCondition: 0
+    victoryCondition: 1
     enemiesToDefeat: 100
     attackActionsAvailable: 2
     defenseActionsAvailable: 1
     jumpActionsAvailable: 1
     sprintActionsAvailable: 1
     enemiesToUse:
-    - {fileID: 8096563443830030571, guid: 63f7a55d02361e7448d4b09d407ad549, type: 3}
     - {fileID: 4694978885907813565, guid: c9642f7a38bd0dd48b356c9cb5710d68, type: 3}
-    enemiesToSpawn: 0500000002000000
-    enemySpawnIncrement: 0200000001000000
+    - {fileID: 4694978885907813565, guid: c9642f7a38bd0dd48b356c9cb5710d68, type: 3}
+    enemiesToSpawn: 0200000002000000
+    enemySpawnIncrement: 0000000000000000
     timeBetweenSpawns:
     - 15
     - 10
@@ -32,6 +32,7 @@ MonoBehaviour:
     - {fileID: 3326227640253247155, guid: a6ea28f7bba66814c94750eff1f7c8d9, type: 3}
     - {fileID: 3326227640253247155, guid: 29ed9fee3b49fe04793523d566926bed, type: 3}
     - {fileID: 3326227640253247155, guid: cee649da1f6f3c6418e08952112853d4, type: 3}
-    terrainRatio: 010000000100000001000000
-    terrainMax: 000000000000000000000000
-    terrainMin: 000000000000000000000000
+    - {fileID: 6767483043771959620, guid: 4d89a9e3bd7e7914c803a93a276799b2, type: 3}
+    terrainRatio: 01000000010000000300000001000000
+    terrainMax: 00000000000000000000000000000000
+    terrainMin: 00000000000000000000000000000000

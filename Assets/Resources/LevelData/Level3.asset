@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level3
   m_EditorClassIdentifier: 
   levelInfo:
-    victoryCondition: 0
+    victoryCondition: 1
     enemiesToDefeat: 1000
     attackActionsAvailable: 3
     defenseActionsAvailable: 1

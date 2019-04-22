@@ -132,7 +132,7 @@ public class EnemyManager : MonoBehaviour
         enemySpawnPoints = FindObjectsOfType<EnemySpawnPoint>();
         Debug.Log(" Spawn points: " + enemySpawnPoints.Length);
         // Vigilar que no salte dos veces
-        SpawnEnemies(groupsToSpawnSizes);
+        //SpawnEnemies(groupsToSpawnSizes);
     }
 
     //

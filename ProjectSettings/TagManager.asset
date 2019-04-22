@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - Sand
   - Hard Terrain
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -18,8 +19,8 @@ TagManager:
   - 
   - PostProcessing
   - Enemy
-  - 
-  - 
+  - LungingWorm
+  - Sand
   - 
   - 
   - 
