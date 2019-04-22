@@ -1,0 +1,261 @@
+fileFormatVersion: 2
+guid: baf227c5abb01eb44979e4ffd04480c6
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Armor
+    100002: Body
+    100004: Cannon
+    100006: //RootNode
+    100008: Head
+    100010: Leg_1
+    100012: Leg_2
+    100014: Leg_3
+    100016: Leg_4
+    100018: pCube1
+    100020: pCube10
+    100022: pCube11
+    100024: pCube12
+    100026: pCube8
+    100028: pCube9
+    100030: pPrism1
+    100032: pPrism1 1
+    100034: pPrism4
+    100036: pPrism4 1
+    100038: pPrism5
+    100040: pPrism5 1
+    100042: pPrism6
+    100044: pPrism6 1
+    100046: pPrism7
+    100048: pPrism7 1
+    100050: pPrism8
+    100052: pPrism8 1
+    100054: pSphere1
+    100056: pSphere10
+    100058: pSphere10 1
+    100060: pSphere11
+    100062: pSphere11 1
+    100064: pSphere2
+    100066: pSphere3
+    100068: pSphere8
+    100070: pSphere8 1
+    100072: pSphere9
+    100074: pSphere9 1
+    400000: Armor
+    400002: Body
+    400004: Cannon
+    400006: //RootNode
+    400008: Head
+    400010: Leg_1
+    400012: Leg_2
+    400014: Leg_3
+    400016: Leg_4
+    400018: pCube1
+    400020: pCube10
+    400022: pCube11
+    400024: pCube12
+    400026: pCube8
+    400028: pCube9
+    400030: pPrism1
+    400032: pPrism1 1
+    400034: pPrism4
+    400036: pPrism4 1
+    400038: pPrism5
+    400040: pPrism5 1
+    400042: pPrism6
+    400044: pPrism6 1
+    400046: pPrism7
+    400048: pPrism7 1
+    400050: pPrism8
+    400052: pPrism8 1
+    400054: pSphere1
+    400056: pSphere10
+    400058: pSphere10 1
+    400060: pSphere11
+    400062: pSphere11 1
+    400064: pSphere2
+    400066: pSphere3
+    400068: pSphere8
+    400070: pSphere8 1
+    400072: pSphere9
+    400074: pSphere9 1
+    2100000: lambert2
+    2100002: lambert3
+    2100004: lambert7
+    2100006: lambert5
+    2300000: Cannon
+    2300002: pCube1
+    2300004: pCube10
+    2300006: pCube11
+    2300008: pCube12
+    2300010: pCube8
+    2300012: pCube9
+    2300014: pPrism1
+    2300016: pPrism1 1
+    2300018: pPrism4
+    2300020: pPrism4 1
+    2300022: pPrism5
+    2300024: pPrism5 1
+    2300026: pPrism6
+    2300028: pPrism6 1
+    2300030: pPrism7
+    2300032: pPrism7 1
+    2300034: pPrism8
+    2300036: pPrism8 1
+    2300038: pSphere1
+    2300040: pSphere10
+    2300042: pSphere10 1
+    2300044: pSphere11
+    2300046: pSphere11 1
+    2300048: pSphere2
+    2300050: pSphere3
+    2300052: pSphere8
+    2300054: pSphere8 1
+    2300056: pSphere9
+    2300058: pSphere9 1
+    3300000: Cannon
+    3300002: pCube1
+    3300004: pCube10
+    3300006: pCube11
+    3300008: pCube12
+    3300010: pCube8
+    3300012: pCube9
+    3300014: pPrism1
+    3300016: pPrism1 1
+    3300018: pPrism4
+    3300020: pPrism4 1
+    3300022: pPrism5
+    3300024: pPrism5 1
+    3300026: pPrism6
+    3300028: pPrism6 1
+    3300030: pPrism7
+    3300032: pPrism7 1
+    3300034: pPrism8
+    3300036: pPrism8 1
+    3300038: pSphere1
+    3300040: pSphere10
+    3300042: pSphere10 1
+    3300044: pSphere11
+    3300046: pSphere11 1
+    3300048: pSphere2
+    3300050: pSphere3
+    3300052: pSphere8
+    3300054: pSphere8 1
+    3300056: pSphere9
+    3300058: pSphere9 1
+    4300000: pPrism1
+    4300002: pSphere8
+    4300004: pPrism5
+    4300006: pSphere10
+    4300008: pPrism7
+    4300010: pPrism4
+    4300012: pSphere9
+    4300014: pPrism6
+    4300016: pSphere11
+    4300018: pPrism8
+    4300020: pPrism1
+    4300022: pSphere8
+    4300024: pPrism5
+    4300026: pSphere10
+    4300028: pPrism7
+    4300030: pPrism4
+    4300032: pSphere9
+    4300034: pPrism6
+    4300036: pSphere11
+    4300038: pPrism8
+    4300040: pCube1
+    4300042: pCube8
+    4300044: pCube9
+    4300046: pCube10
+    4300048: pSphere1
+    4300050: pSphere2
+    4300052: pSphere3
+    4300054: pCube12
+    4300056: pCube11
+    4300058: Cannon
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 50
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

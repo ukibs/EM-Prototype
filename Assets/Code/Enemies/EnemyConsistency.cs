@@ -76,11 +76,11 @@ public class EnemyConsistency : MonoBehaviour {
         // Vamos a probar esto
         // De momento lo dejamos
         // Pero ya veremos
-        if ((rb.velocity.magnitude - previousVelocity.magnitude) > 1)
-        {
-            float impactForce = GeneralFunctions.GetCollisionForce(rb, null);
-            ReceiveImpact(impactForce / 5, transform.position);
-        }
+        //if ((rb.velocity.magnitude - previousVelocity.magnitude) > 1)
+        //{
+        //    float impactForce = GeneralFunctions.GetCollisionForce(rb, null);
+        //    ReceiveImpact(impactForce / 5, transform.position);
+        //}
     }
 
 

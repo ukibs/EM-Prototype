@@ -34,6 +34,10 @@ public class BulletSoundManager : MonoBehaviour
 
     public void CreateAudioObject(AudioClip clip, Vector3 position)
     {
+        //
+        if (clip == null)
+            return;
+        //
         GameObject newAudioObject = Instantiate(audioObjectPrefab, position, Quaternion.identity);
         AudioSource audioSource = newAudioObject.GetComponent<AudioSource>();
         audioSource.clip = clip;

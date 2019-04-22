@@ -22,6 +22,16 @@ public enum TypeOfFire
     Count
 }
 
+public enum FiringSystem
+{
+    Invalid = -1,
+
+    Autonomous,
+    ByOrder,
+
+    Count
+}
+
 public class EnemyWeapon : MonoBehaviour
 {
     public bool mainWeapon;
@@ -37,9 +47,11 @@ public class EnemyWeapon : MonoBehaviour
     public float muzzleSpeed = 500;
     //
     public TypeOfFire typeOfFire = TypeOfFire.Direct;
+    //
+    public FiringSystem firingSystem = FiringSystem.Autonomous;
 
     //
-    public bool debugging = false;
+    //public bool debugging = false;
 
     public ShootCalculation shootCalculation = ShootCalculation.MuzzleSpeed;
     public Vector2 maxRotationOffset;
@@ -92,7 +104,8 @@ public class EnemyWeapon : MonoBehaviour
             //
             UpdateCanonRotation(playerDirection, dt);
             //
-            UpdateShooting(dt);
+            if(firingSystem == FiringSystem.Autonomous)
+                UpdateShooting(dt);
         }
     }
 
@@ -168,25 +181,33 @@ public class EnemyWeapon : MonoBehaviour
             timeFromLastShoot += dt;
             if (timeFromLastShoot >= 1 / rateOfFire)
             {
-                //Debug.Log(shootPoint);
-                // TODO: Incluir shootCalculation
-                GeneralFunctions.ShootProjectile(proyectilePrefab, shootPoint.position,
-                    shootPoint.rotation, shootPoint.forward, muzzleSpeed, dt, ShootCalculation.MuzzleSpeed);
-                //GeneralFunctions.ShootProjectile(proyectilePrefab, shootPoint.position,
-                //    shootPoint.rotation, shootPoint.forward, shootForce, dt);
                 //
-                if(shootParticlesPrefab != null)
-                    Instantiate(shootParticlesPrefab, shootPoint.position, Quaternion.identity);
+                Shoot(dt);
                 //
                 timeFromLastShoot -= 1 / rateOfFire;
-                //
-                //if (!enemyManager.IsFiringClipActive(shootingClip))
-                //{
-                //    enemyManager.AddClip(shootingClip);
-                    GeneralFunctions.PlaySoundEffectWithoutOverlaping(audioSource, shootingClip);
-                //}
             }
         }
+    }
+
+    //
+    public void Shoot(float dt)
+    {
+        //Debug.Log(shootPoint);
+        // TODO: Incluir shootCalculation
+        GeneralFunctions.ShootProjectile(proyectilePrefab, shootPoint.position,
+            shootPoint.rotation, shootPoint.forward, muzzleSpeed, dt, ShootCalculation.MuzzleSpeed);
+        //GeneralFunctions.ShootProjectile(proyectilePrefab, shootPoint.position,
+        //    shootPoint.rotation, shootPoint.forward, shootForce, dt);
+        //
+        if (shootParticlesPrefab != null)
+            Instantiate(shootParticlesPrefab, shootPoint.position, Quaternion.identity);
+
+        //
+        //if (!enemyManager.IsFiringClipActive(shootingClip))
+        //{
+        //    enemyManager.AddClip(shootingClip);
+        GeneralFunctions.PlaySoundEffectWithoutOverlaping(audioSource, shootingClip);
+        //}
     }
 
     /// <summary>

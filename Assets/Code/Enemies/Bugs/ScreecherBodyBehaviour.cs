@@ -4,20 +4,26 @@ using UnityEngine;
 
 public class ScreecherBodyBehaviour : BugBodyBehaviour
 {
-    public float idealHeight = 150;
+    public float idealLoadingHeight = 150;
+    public float idealAttackHeight = 75;
     public float timeToChargeBall = 20;
+    //public float distanceFromPlayerCharguingBall = 300;
     public Transform loadingBall;
+    //public EnemyWeapon weapon;
 
     private float timeCharguingBall = 0;
+    private float currentIdealHeight = 0;
 
 
     // Start is called before the first frame update
     protected override void Start()
     {
         // Ñapa
-        transform.position = new Vector3(transform.position.x, idealHeight, transform.position.z);
+        transform.position = new Vector3(transform.position.x, idealLoadingHeight, transform.position.z);
         //
         base.Start();
+        //
+        currentIdealHeight = idealLoadingHeight;
     }
 
     // Update is called once per frame
@@ -29,8 +35,10 @@ public class ScreecherBodyBehaviour : BugBodyBehaviour
         float dt = Time.deltaTime;
         //
         timeCharguingBall += dt;
+        // Hardocdeamos el 2 que es la escala que usamos
+        loadingBall.transform.localScale = Vector3.one * (timeCharguingBall / timeToChargeBall) * 2;
         //
-        if(transform.position.y < idealHeight)
+        if(transform.position.y < currentIdealHeight)
             rb.AddForce(Vector3.up * maxSpeed, ForceMode.Impulse);
         //
         Move();
@@ -39,15 +47,42 @@ public class ScreecherBodyBehaviour : BugBodyBehaviour
     // Ahora trabajaremos aqui los comporatmientos
     #region Methods
 
-    //protected override void DecideActionToDo()
-    //{
-    //    base.DecideActionToDo();
-    //}
+    protected override void DecideActionToDo()
+    {
+        //base.DecideActionToDo();
+        //
+        if (timeCharguingBall >= timeToChargeBall)
+        {
+            //weapons[0].Shoot(Time.deltaTime);
+            currentAction = Actions.GoingToPlayer;
+            //distan
+            currentIdealHeight = idealAttackHeight;
+        }
+        else
+        {
+            currentAction = Actions.EncirclingPlayerForward;
+            currentIdealHeight = idealLoadingHeight;
+        }
+    }
 
-    //protected override void ExecuteCurrentAction(float dt)
-    //{
-    //    base.ExecuteCurrentAction(dt);
-    //}
+    //
+    protected override void ExecuteCurrentAction(float dt)
+    {
+        base.ExecuteCurrentAction(dt);
+        // Disparamos el arma principal del screecher
+        if (timeCharguingBall >= timeToChargeBall)
+        {
+            Vector3 playerDistance = player.transform.position - transform.position;
+            if (playerDistance.magnitude < minimalShootDistance)
+            {
+                weapons[0].Shoot(Time.deltaTime);
+                timeCharguingBall = 0;
+            }
+                
+        }
+        // En ambos casos
+        //Move();
+    }
 
     protected override void Move()
     {
