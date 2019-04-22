@@ -12,6 +12,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain Block 5
       objectReference: {fileID: 0}
+    - target: {fileID: 3326227640253247155, guid: f90644bdac5d8924fbad91a92cde6c44,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 182231823908150193, guid: f90644bdac5d8924fbad91a92cde6c44,
         type: 3}
       propertyPath: m_LocalPosition.x

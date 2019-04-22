@@ -12,6 +12,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Terrain Block 4
       objectReference: {fileID: 0}
+    - target: {fileID: 3326227640253247155, guid: a6ea28f7bba66814c94750eff1f7c8d9,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 182231823908150193, guid: a6ea28f7bba66814c94750eff1f7c8d9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -182,12 +187,12 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Hard Terrain
       objectReference: {fileID: 0}
-    - target: {fileID: 1445458332162829050, guid: a6ea28f7bba66814c94750eff1f7c8d9,
+    - target: {fileID: 4014678015915537369, guid: a6ea28f7bba66814c94750eff1f7c8d9,
         type: 3}
       propertyPath: m_TagString
       value: Hard Terrain
       objectReference: {fileID: 0}
-    - target: {fileID: 4014678015915537369, guid: a6ea28f7bba66814c94750eff1f7c8d9,
+    - target: {fileID: 1445458332162829050, guid: a6ea28f7bba66814c94750eff1f7c8d9,
         type: 3}
       propertyPath: m_TagString
       value: Hard Terrain
