@@ -62,10 +62,10 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
                 DecideActionToDo();
                 timeFromLastCheck -= timeBetweenActionChecking;
             }
-        }
-        
-        //
-        ExecuteCurrentAction(dt);
+
+            //
+            ExecuteCurrentAction(dt);
+        }        
         
     }
 

@@ -7,9 +7,8 @@ public class ScreecherBodyBehaviour : BugBodyBehaviour
     public float idealLoadingHeight = 150;
     public float idealAttackHeight = 75;
     public float timeToChargeBall = 20;
-    //public float distanceFromPlayerCharguingBall = 300;
+
     public Transform loadingBall;
-    //public EnemyWeapon weapon;
 
     private float timeCharguingBall = 0;
     private float currentIdealHeight = 0;

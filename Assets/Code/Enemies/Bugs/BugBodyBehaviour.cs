@@ -15,7 +15,7 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
 
     // Esto para los que hagan zig zag
     protected float currentZigZagDirection = 0;
-    protected int currentZigZagVariation = 1;
+    protected float currentZigZagVariation = 0.1f;
     //
     protected bool onFloor = true;
 
@@ -87,16 +87,8 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
         {
             switch (behaviour[i])
             {
-                case Actions.ZigZagingTowardsPlayer:
-                    // Esta de momento sin condición
-                    currentAction = behaviour[i];
-                    return;
-                case Actions.Lunging:
-                    if (playerDistance.magnitude < minimalLungeDistance)
-                    {
-                        currentAction = behaviour[i];
-                    }
-                    return;
+                
+                
                 case Actions.GoingToPlayer:
                     // Esta no lleva condición
                     currentAction = behaviour[i];

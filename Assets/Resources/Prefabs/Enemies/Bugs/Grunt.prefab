@@ -579,6 +579,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4694978885907813562}
+  - component: {fileID: 6138190016595843107}
   m_Layer: 9
   m_Name: Grunt
   m_TagString: Untagged
@@ -601,6 +602,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6138190016595843107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4694978885907813565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b746d2a913df734f839cdb1ffee5da5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyType: 1
 --- !u!1 &8017655411767073882
 GameObject:
   m_ObjectHideFlags: 0
@@ -870,6 +884,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4694978884287231175}
     m_Modifications:
+    - target: {fileID: 100006, guid: baf227c5abb01eb44979e4ffd04480c6, type: 3}
+      propertyPath: m_Name
+      value: Grunt
+      objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: baf227c5abb01eb44979e4ffd04480c6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -925,10 +943,6 @@ PrefabInstance:
     - target: {fileID: 400006, guid: baf227c5abb01eb44979e4ffd04480c6, type: 3}
       propertyPath: m_LocalScale.z
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 100006, guid: baf227c5abb01eb44979e4ffd04480c6, type: 3}
-      propertyPath: m_Name
-      value: Grunt
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: baf227c5abb01eb44979e4ffd04480c6, type: 3}

@@ -447,6 +447,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4780467702667514057}
+  - component: {fileID: 6119220220081203365}
   m_Layer: 0
   m_Name: Screecher_SpawnPoint
   m_TagString: Untagged
@@ -469,6 +470,19 @@ Transform:
   m_Father: {fileID: 182231823908150193}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6119220220081203365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3377543585792583349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c672f3771afc9b94985bad56a7bfb94a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyType: 2
 --- !u!1 &3480339906268557288
 GameObject:
   m_ObjectHideFlags: 0

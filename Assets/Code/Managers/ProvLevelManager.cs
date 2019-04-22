@@ -74,9 +74,9 @@ public class ProvLevelManager : MonoBehaviour
         if (gameManager.unlockedSprintActions > 1)
             PlayerReference.playerControl.ActiveSprintMode = (SprintMode)(gameManager.unlockedSprintActions - 1);
         //
-        enemyManager.InitiateManager(levelInfo);
-        //
         terrainManager.InitiateManager(levelInfo);
+        //
+        enemyManager.InitiateManager(levelInfo);
         //
         //switch (victoryCondition)
         //{

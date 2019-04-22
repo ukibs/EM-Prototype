@@ -18,6 +18,7 @@ public class EnemyManager : MonoBehaviour
     private float[] timeFromLastSpawn;
     private int[] activeEnemies;
     private Transform playerTransform;
+    private EnemySpawnPoint[] enemySpawnPoints;
 
     // Vamos a manejarlo aqui de moemnto para no saturar el audio
     //private List<AudioClip> activeFiringClips;
@@ -35,6 +36,7 @@ public class EnemyManager : MonoBehaviour
         //
         //activeFiringClips = new List<AudioClip>(10);
         //afcTimeActive = new List<float>(10);
+        
     }
 
     // Update is called once per frame
@@ -66,12 +68,18 @@ public class EnemyManager : MonoBehaviour
     {
         for(int i = 0; i < enemyPrefabsToUse.Length; i++)
         {
-            //
-            float spawnAngle = UnityEngine.Random.Range(0, 360);
-            float spawnRadius = UnityEngine.Random.Range(minSpawnDistance, maxSpawnDistance);
-            Vector2 groupSpawnPositionXY = new Vector2(Mathf.Cos(spawnAngle) * spawnRadius, Mathf.Sin(spawnAngle) * spawnRadius);
-            Vector3 pointForGroupSpawn = new Vector3(groupSpawnPositionXY.x + playerTransform.position.x, 1,
-                                                        groupSpawnPositionXY.y + playerTransform.position.z);
+            // Metodo viejo de spammeo
+            //float spawnAngle = UnityEngine.Random.Range(0, 360);
+            //float spawnRadius = UnityEngine.Random.Range(minSpawnDistance, maxSpawnDistance);
+            //Vector2 groupSpawnPositionXY = new Vector2(Mathf.Cos(spawnAngle) * spawnRadius, Mathf.Sin(spawnAngle) * spawnRadius);
+            //Vector3 pointForGroupSpawn = new Vector3(groupSpawnPositionXY.x + playerTransform.position.x, 1,
+            //                                            groupSpawnPositionXY.y + playerTransform.position.z);
+
+            //Metodo con spawn points
+            EnemyType typeToSpawn = enemyPrefabsToUse[i].GetComponent<EnemyIdentifier>().enemyType;
+            Debug.Log(typeToSpawn);
+            //Vector3 pointForGroupSpawn = GetNearestSpawnPointToPlayer(typeToSpawn).position;
+            Vector3 pointForGroupSpawn = GetRandomSpawmPointNearerThanX(typeToSpawn, 500).position;
             //
             float memberSpawnAngle = 360 / groupToSpawnSize[i];
             float meberSpawnRadius = 10;
@@ -120,6 +128,9 @@ public class EnemyManager : MonoBehaviour
         //
         activeEnemies = new int[enemyPrefabsToUse.Length];
         timeFromLastSpawn = new float[enemyPrefabsToUse.Length];
+        // Si se raya aqui lo mandamos al Initiate Manager
+        enemySpawnPoints = FindObjectsOfType<EnemySpawnPoint>();
+        Debug.Log(" Spawn points: " + enemySpawnPoints.Length);
         // Vigilar que no salte dos veces
         SpawnEnemies(groupsToSpawnSizes);
     }
@@ -135,6 +146,50 @@ public class EnemyManager : MonoBehaviour
             if (prefabName[0].Equals(enemyPrefabsToUse[i].name))
                 activeEnemies[i]--;
         }
+    }
+
+    //
+    Transform GetNearestSpawnPointToPlayer(EnemyType enemyTypeToSpawn)
+    {
+        Transform nearestSpawnPoint = null;
+        float nearestDistance = Mathf.Infinity;
+        //
+        for(int i = 0; i < enemySpawnPoints.Length; i++)
+        {
+            if(enemySpawnPoints[i].enemyType == enemyTypeToSpawn)
+            {
+                Vector3 distanceToPlayer = playerTransform.position - enemySpawnPoints[i].transform.position;
+                if(distanceToPlayer.magnitude < nearestDistance)
+                {
+                    nearestSpawnPoint = enemySpawnPoints[i].transform;
+                    nearestDistance = distanceToPlayer.magnitude;
+                }
+            }
+        }
+        //
+        return nearestSpawnPoint;
+    }
+
+    //
+    Transform GetRandomSpawmPointNearerThanX(EnemyType enemyTypeToSpawn, float maxDistance)
+    {
+        List<Transform> candidateSpawns = new List<Transform>(10);
+
+        for (int i = 0; i < enemySpawnPoints.Length; i++)
+        {
+            if (enemySpawnPoints[i].enemyType == enemyTypeToSpawn)
+            {
+                Vector3 distanceToPlayer = playerTransform.position - enemySpawnPoints[i].transform.position;
+                if (distanceToPlayer.magnitude < maxDistance)
+                {
+                    candidateSpawns.Add(enemySpawnPoints[i].transform);
+                }
+            }
+        }
+        //
+        int selectedSpawn = UnityEngine.Random.Range(0, candidateSpawns.Count);
+
+        return candidateSpawns[selectedSpawn];
     }
 }
 
