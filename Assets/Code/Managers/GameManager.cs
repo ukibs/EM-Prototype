@@ -48,12 +48,17 @@ public class GameManager : MonoBehaviour
     public int unlockedDefenseActions = 0;
     //
     public float maxCharge = 1;
-    //
+    // Armas
+    // Puslo
     public float pulseForce = 10;
+    // C´ñon
     public float canonBaseMuzzleSpeed = 1000;
-    public float canonBaseProyectileMass = 0.00001f;
+    //public float canonBaseProyectileMass = 0.00001f;
+    public float canonMinCharge = 0.5f;
+    // Fuego rapido
     public float rapidFireRate = 1;
     public float rapidFireMuzzleSpeed = 1000;
+    // Perforante
     public float piercingBaseMuzzleSpeed = 2000;
     public float piercingBaseProyectileMass = 0.00001f;
     //

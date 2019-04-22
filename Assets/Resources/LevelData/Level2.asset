@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelInfo:
     victoryCondition: 1
-    enemiesToDefeat: 100
-    attackActionsAvailable: 2
+    enemiesToDefeat: 20
+    attackActionsAvailable: 3
     defenseActionsAvailable: 1
     jumpActionsAvailable: 1
     sprintActionsAvailable: 1

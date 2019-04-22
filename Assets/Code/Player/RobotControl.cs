@@ -171,6 +171,20 @@ public class RobotControl : MonoBehaviour {
 #endif
         //
         PlayerReference.Initiate(gameObject);
+
+        // Asignamos en el player reference el rigidbody que corresponda
+        switch (attackMode)
+        {
+            case AttackMode.Pulse:
+                PlayerReference.currentProyectileRB = null;
+                break;
+            case AttackMode.RapidFire:
+                PlayerReference.currentProyectileRB = bulletPrefab.GetComponent<Rigidbody>();
+                break;
+            case AttackMode.Canon:
+                PlayerReference.currentProyectileRB = cannonBallPrefab.GetComponent<Rigidbody>();
+                break;
+        }
     }
 	
 	// Update is called once per frame
@@ -496,6 +510,19 @@ public class RobotControl : MonoBehaviour {
             attackMode = (attackMode == AttackMode.Count || 
                             (int)attackMode >= gameManager.unlockedAttackActions) ? 
                             AttackMode.Pulse : attackMode;
+            // Asignamos en el player reference el rigidbody que corresponda
+            switch (attackMode)
+            {
+                case AttackMode.Pulse:
+                    PlayerReference.currentProyectileRB = null;
+                    break;
+                case AttackMode.RapidFire:
+                    PlayerReference.currentProyectileRB = bulletPrefab.GetComponent<Rigidbody>();
+                    break;
+                case AttackMode.Canon:
+                    PlayerReference.currentProyectileRB = cannonBallPrefab.GetComponent<Rigidbody>();
+                    break;
+            }
         }
         // Defensive actions
         if (inputManager.SwitchDefenseButton && gameManager.unlockedDefenseActions > 0)
@@ -564,9 +591,13 @@ public class RobotControl : MonoBehaviour {
             chargedAmount += Time.deltaTime;
             if (attackMode == AttackMode.RapidFire)
             {
-                
+                if(chargedAmount < 1)
+                {
+                    //
+                    RapidFireAttack(dt);
+                }
                 //
-                RapidFireAttack(dt);
+                chargedAmount = Mathf.Min(chargedAmount, 1);
             }
             else if (attackMode == AttackMode.ParticleCascade)
             {
@@ -593,12 +624,17 @@ public class RobotControl : MonoBehaviour {
                     GeneralFunctions.PlaySoundEffect(audioSource, releasingClip);
                     break;
                 case AttackMode.Canon:
-                    //chargingCanonProyectile.SetActive(false);
-                    CharguedProyectileAttack(cannonBallPrefab, gameManager.canonBaseMuzzleSpeed, dt);
                     //
-                    GeneralFunctions.PlaySoundEffect(audioSource, releasingClip);
+                    if(chargedAmount >= gameManager.canonMinCharge)
+                    {
+                        //chargingCanonProyectile.SetActive(false);
+                        CharguedProyectileAttack(cannonBallPrefab, gameManager.canonBaseMuzzleSpeed, dt);
+                        //
+                        GeneralFunctions.PlaySoundEffect(audioSource, releasingClip);
+                    }                    
                     break;
                 case AttackMode.Piercing:
+                    // TODO: Este ya lo trabajaremos más adealnte
                     //chargingCanonProyectile.SetActive(true);
                     CharguedProyectileAttack(piercingProyectilePrefab, gameManager.piercingBaseMuzzleSpeed, dt);
                     //
@@ -693,8 +729,8 @@ public class RobotControl : MonoBehaviour {
             float muzzleSpeed = gameManager.rapidFireMuzzleSpeed;
             GeneralFunctions.ShootProjectile(bulletPrefab, machineGunPoints[nextRapidFireSide].position,
                 shootRotation, shootForward, muzzleSpeed, dt, ShootCalculation.MuzzleSpeed);
-            // 
-            chargedAmount -= 1 / gameManager.rapidFireRate;
+            // TODO: Vamos a aplicar el overheat aqui
+            //chargedAmount -= 1 / gameManager.rapidFireRate;
             //
             nextRapidFireSide = (nextRapidFireSide) == 0 ? 1 : 0;
             //
@@ -784,7 +820,8 @@ public class RobotControl : MonoBehaviour {
     void CharguedProyectileAttack(GameObject proyectilePrefab, float proyectileMuzzleSpeed, float dt)
     {
         //
-        float shootMuzzleSpeed = proyectileMuzzleSpeed * chargedAmount + proyectileMuzzleSpeed;
+        float shootMuzzleSpeed = proyectileMuzzleSpeed * chargedAmount;
+        //float shootMuzzleSpeed = proyectileMuzzleSpeed;
         // TODO: Coger la masa del game manager
         //float proyectileMass = gameManager.canonBaseProyectileMass * chargedAmount * 10 + gameManager.canonBaseProyectileMass;
         //
@@ -806,6 +843,10 @@ public static class PlayerReference
     public static PlayerIntegrity playerIntegrity;
     public static RobotControl playerControl;
     public static bool isAlive;
+
+    //
+    public static int currentAttackAction;
+    public static Rigidbody currentProyectileRB;
 
     public static void Initiate(GameObject playerGO)
     {

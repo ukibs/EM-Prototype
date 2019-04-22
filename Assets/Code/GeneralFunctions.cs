@@ -118,7 +118,7 @@ public static class GeneralFunctions
     /// <param name="dt"></param>
     /// <returns></returns>
     public static Vector3 AnticipateObjectivePositionForAiming(Vector3 selfPosition, Vector3 objectivePosition, 
-    Vector3 objectiveVelocity, float referenceWeaponMuzzleSpeed, float dt)
+    Vector3 objectiveVelocity, float referenceWeaponMuzzleSpeed, float dt, float proyectileDrag = 0.1f)
     {
         Vector3 playerFutureEstimatedPosition = new Vector3();
 
@@ -127,8 +127,8 @@ public static class GeneralFunctions
         // Let's check the calculations
         float timeWithoutDrag = distanceToPlayer / referenceWeaponMuzzleSpeed;
         Vector3 objectivePositionWithEstimation = objectivePosition + (objectiveVelocity * timeWithoutDrag);
-        //
-        float timeWithDrag = EstimateFlyingTimeWithDrag(selfPosition, objectivePositionWithEstimation, referenceWeaponMuzzleSpeed, 0.1f);
+        // TODO: Sacar el drag del proyectil
+        float timeWithDrag = EstimateFlyingTimeWithDrag(selfPosition, objectivePositionWithEstimation, referenceWeaponMuzzleSpeed, proyectileDrag);
         // Debug.Log("Time without drag: " + timeWithoutDrag + ", with drag: " + timeWithDrag);
         float timeForBulletToReachPlayer = timeWithDrag * 1;
         

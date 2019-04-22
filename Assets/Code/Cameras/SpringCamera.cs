@@ -234,8 +234,26 @@ public class SpringCamera : MonoBehaviour {
         // TODO: Sacar un índice del arma actualmente equipada para usar su muzzle speed en la función de atnicpar
         Rigidbody enemyRigidbody = EnemyAnalyzer.enemyRb;
         // Determinamos donde va a estar cuando el proyectil llegue a él
+        //
+        float proyectileMuzzleSpeed = 1000;
+        switch (PlayerReference.playerControl.ActiveAttackMode)
+        {
+            case AttackMode.RapidFire:
+                proyectileMuzzleSpeed = gameManager.rapidFireMuzzleSpeed;
+                break;
+            case AttackMode.Canon:
+                // Recordar que hasta 0.5 no dispara
+                // Y que a 0 se  vuelve majara
+                if(PlayerReference.playerControl.ChargedAmount > 0.5f)
+                    proyectileMuzzleSpeed = gameManager.canonBaseMuzzleSpeed * PlayerReference.playerControl.ChargedAmount;
+                break;
+        }
+        //
+        float dragToCheck = (PlayerReference.currentProyectileRB != null) ? PlayerReference.currentProyectileRB.drag : 0.1f;
+        //
         EnemyAnalyzer.estimatedToHitPosition = GeneralFunctions.AnticipateObjectivePositionForAiming(
-            transform.position, targetPoint, enemyRigidbody.velocity, 1000, dt);
+            transform.position, targetPoint, enemyRigidbody.velocity, proyectileMuzzleSpeed, dt,
+            dragToCheck);
         // Determinamos el 
         // TODO: Coger el punto de disparo del plauer
         EnemyAnalyzer.estimatedToHitPosition.y += GeneralFunctions.GetProyectileFallToObjective(transform.position,

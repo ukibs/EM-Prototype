@@ -138,8 +138,8 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
                     speedMultiplier = 0.5f;
                     break;
             }
-            rb.velocity = (movingDirection * maxSpeed * speedMultiplier) + Physics.gravity;
-            //rb.AddForce(movingDirection * maxSpeed * speedMultiplier);
+            //rb.velocity = (movingDirection * maxSpeed * speedMultiplier) + Physics.gravity;
+            rb.AddForce(movingDirection * maxSpeed * speedMultiplier);
         }
         
     }
