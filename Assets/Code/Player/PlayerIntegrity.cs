@@ -36,7 +36,13 @@ public class PlayerIntegrity : MonoBehaviour
     #region Properties
 
     public float CurrentHealth { get { return currentHealth; } }
-    public float CurrentShield { get { return currentShield; } }
+    public float CurrentShield {
+        get { return currentShield; }
+        set {
+            currentShield = value;
+            currentShield = Mathf.Min(currentShield, maxShield);
+        }
+    }
 
     #endregion
 
