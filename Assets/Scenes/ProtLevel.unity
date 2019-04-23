@@ -612,6 +612,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mannequins
       objectReference: {fileID: 0}
+    - target: {fileID: 1592854047108074, guid: 074060208b8b3dc4aaac2a85aa901e7d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4874034767583936, guid: 074060208b8b3dc4aaac2a85aa901e7d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 50.192535
@@ -877,10 +881,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefabsToUse: []
-  initialGroupToSpawnSize: 
-  continuousGroupToSpawnSize: 
-  maxEnemiesInAction: 3
-  timeBetweenSpawns: 10
+  groupsToSpawnSizes: 
+  enemySpawnIncrement: 
+  maxEnemiesInAction: 
+  timeBetweenSpawns: []
   minSpawnDistance: 100
   maxSpawnDistance: 200
   spawnLimit: -1
@@ -905,6 +909,8 @@ MonoBehaviour:
   - {fileID: 3326227640253247155, guid: 29ed9fee3b49fe04793523d566926bed, type: 3}
   - {fileID: 3326227640253247155, guid: cee649da1f6f3c6418e08952112853d4, type: 3}
   blockFrequencies: 0300000003000000030000000100000001000000
+  minBlockAmounts: 
+  maxBlockAmounts: 
   squareSize: 11
   blockSize: 200
 --- !u!82 &1941905311

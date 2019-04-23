@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 4258767867355741457}
   - component: {fileID: 8860258199808802194}
   m_Layer: 0
-  m_Name: Worm
+  m_Name: Worm_prefab
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -218,15 +218,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ff7a2f11d17bba48ad996cb73fbfbcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBetweenActionChecking: 1
-  rotationSpeed: 90
+  timeBetweenActionChecking: 0.5
+  rotationSpeed: 100
   behaviour: 060000000500000000000000
   weapons: []
-  maxSpeed: 15
-  minimalLungeDistance: 30
+  maxSpeed: 10
+  minimalLungeDistance: 40
   minimalShootDistance: 100
   lungeSpeed: 30
-  lungeCooldown: 2
+  lungeCooldown: 3
 --- !u!65 &4258767867355741457
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -234,7 +234,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8096563443830030571}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: c4bfbd41adc75b6408f306d2c2b74e37, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -260,10 +260,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4437317090939572432}
     m_Modifications:
-    - target: {fileID: 100036, guid: 5ddaab70086eff94b9441bee743238fe, type: 3}
-      propertyPath: m_Name
-      value: Wurm
-      objectReference: {fileID: 0}
     - target: {fileID: 400036, guid: 5ddaab70086eff94b9441bee743238fe, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -319,6 +315,10 @@ PrefabInstance:
     - target: {fileID: 400036, guid: 5ddaab70086eff94b9441bee743238fe, type: 3}
       propertyPath: m_LocalScale.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100036, guid: 5ddaab70086eff94b9441bee743238fe, type: 3}
+      propertyPath: m_Name
+      value: Wurm
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ddaab70086eff94b9441bee743238fe, type: 3}
