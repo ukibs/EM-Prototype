@@ -29,7 +29,12 @@ public enum ExplosiveType
 public class ExplosiveBullet : MonoBehaviour
 {
     // Genereic ones
-    //public float explosionRange;
+    [Tooltip("Manual stablished explosion range to use with simple explosion")]
+    public float simpleExplosionRange = 30;
+    public float simpleExplosionSharpnelSpeed = 2000;
+    // Esto lo miraremos con más deteniemiento en otro momento
+    //https://fas.org/man/dod-101/navy/docs/es310/warheads/Warheads.htm
+
     //public float explosionForce;
     //public float explosionDamage;
 
@@ -69,7 +74,10 @@ public class ExplosiveBullet : MonoBehaviour
 
         // Tenemos en cuenta la disminución de la potencia con el cuadrado de la distancia para el alcance
         // explosiveForce / Mathf.Pow(distance, 2)
-        explosionRange = Mathf.Sqrt(explosionForceOwnMeasure);
+        if (explosiveType == ExplosiveType.SimpleArea)
+            explosionRange = simpleExplosionRange;
+        else
+            explosionRange = Mathf.Sqrt(explosionForceOwnMeasure);
         //Debug.Log("Explosion range: " + explosionRange);
 
         // Vamos a asumir que la masa de cada fragmento es la fracción correspondiente del proyectil
@@ -147,8 +155,10 @@ public class ExplosiveBullet : MonoBehaviour
         FakeRB sharpnelRb = new FakeRB();
         // 
         sharpnelRb.mass = fragmentMass;
-        //sharpnelRb.velocity = directionAndDistance * explosionForce;
-        sharpnelRb.velocity = directionAndDistance.normalized * explosionForce;
+        //sharpnelRb.velocity = directionAndDistance.normalized * explosionForce;
+        //sharpnelRb.velocity = directionAndDistance.normalized * explosionForceOwnMeasure;
+        sharpnelRb.velocity = GeneralFunctions.GetVelocityWithDistanceAndDrag(simpleExplosionSharpnelSpeed, directionAndDistance.magnitude,
+                                0.5f, sharpnelRb.mass) * directionAndDistance.normalized;
         //
         EnemyCollider enemyCollider = affectedBody.GetComponent<EnemyCollider>();
         // TODO: Hacer solo aplique impacto a un collider por enemigo
@@ -164,7 +174,7 @@ public class ExplosiveBullet : MonoBehaviour
         if (playerIntegrity != null)
         {
             //
-            Debug.Log("Sharpnel impacting in player with force " + sharpnelRb.Force);
+            Debug.Log("Sharpnel impacting in player with mass " + sharpnelRb.mass + ", velocity " + sharpnelRb.velocity.magnitude + ", force " + sharpnelRb.Force);
             //
             Vector3 impactPositionForDirection = playerIntegrity.transform.position - transform.position;
             //
@@ -196,7 +206,7 @@ public class ExplosiveBullet : MonoBehaviour
                     // 
                     sharpnelRb.mass = fragmentMass;
                     //sharpnelRb.velocity = directionAndDistance * explosionForce;
-                    sharpnelRb.velocity = proyectileDirection * explosionForce;
+                    sharpnelRb.velocity = proyectileDirection * explosionForceOwnMeasure;
                     // TODO: Aplicar daños bien
                     Debug.Log("Fragment " + i + ", " + j + ", mass: " + sharpnelRb.mass + ", velocity magnitude: " + sharpnelRb.velocity.magnitude);
                     // 
@@ -243,7 +253,7 @@ public class FakeRB
     {
         get
         {
-            return mass * velocity.magnitude;
+            return mass * Mathf.Pow(velocity.magnitude, 2);
         }
     }
 }

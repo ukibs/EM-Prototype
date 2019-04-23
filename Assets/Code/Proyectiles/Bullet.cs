@@ -135,7 +135,7 @@ public class Bullet : MonoBehaviour {
         if(explosiveBullet == null)
         {
             //
-            Debug.Log("Not explosive component, destroying object");
+            //Debug.Log("Not explosive component, destroying object");
             Destroy(gameObject);
         }
             

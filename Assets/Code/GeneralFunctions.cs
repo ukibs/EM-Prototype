@@ -178,6 +178,14 @@ public static class GeneralFunctions
         return travelTime;
     }
 
+    public static float GetVelocityWithDistanceAndDrag(float initialVelocity, float distance, float drag, float proyectileMass)
+    {
+        float handheldArea = 0.0001f;
+        float exponentialPart = -1 * drag * handheldArea * distance * proyectileMass;
+        double velocityAtPoint = (initialVelocity * Math.Exp(exponentialPart));
+        return Convert.ToSingle(velocityAtPoint);
+    }
+
     // TODO: Recordar lo que quería ahcer con esta función
     public static float GetDeviationAngle(Vector3 origin, Vector3 objective)
     {

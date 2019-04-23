@@ -32,6 +32,7 @@ public class PlayerIntegrity : MonoBehaviour
 
     //
     private bool shieldsDepleted = false;
+    private float extraDefense = 0;
 
     #region Properties
 
@@ -85,20 +86,11 @@ public class PlayerIntegrity : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        // TODO: Manejar cada masa por separado a la hora de echar las cuentas
-        // No es lo mismo golpear una masa 1000 estatica que ser atropellado por ella
-        // Así que empieza a mirar formulas de como se aplica
-
-        // Nota extra importante
-        // La fuerza del impacto depende de la aceleración, no de la velocidad
-        // Animalico
-
         //Vector3 playerDecceleration = bodyRB.velocity - previousStepRbVelocity;
         // De momento calculamos la fuerza a lo bruto
         // Sin tener en cuenta angulo de colisión
         //float playerImpactForce = playerDecceleration.sqrMagnitude * bodyRB.mass;
-
-        //Vector3 relativeVelocity = collision.relativeVelocity;
+        
         ContactPoint collisionPoint = collision.GetContact(0);
         Collider collider = collision.collider;
         GameObject gameObject = collider.gameObject;
@@ -188,7 +180,24 @@ public class PlayerIntegrity : MonoBehaviour
     //
     public void ReceiveSharpnelImpact(Vector3 contactPoint, GameObject otherGameObject, FakeRB sharpnelRB)
     {
-        Debug.Log("Receiving sharpnel impact");
+        //Debug.Log("Receiving sharpnel impact");
+
+        // De momento solo trabajamos con el escudo esférico
+        float extraDefense = (robotControl.CurrentActionCharging == ActionCharguing.Defense) ? gameManager.sphericShieldStrength : 0;
+
+        //
+        float totalImpactForce = GeneralFunctions.GetFakeBodyKineticEnergy(sharpnelRB);
+
+        //
+        Vector3 impactDirection = contactPoint - transform.position;
+        // Cogemos el angulo para indicar en el HUD
+        float impactAngle = Vector3.SignedAngle(Camera.main.transform.forward, impactDirection, transform.up);
+
+        //
+        float impactDamage = Mathf.Max(totalImpactForce - extraDefense, 0);
+
+        // De momento no visualizamos info del daño que recibimos
+        SufferDamage(impactDamage, impactAngle);
     }
 
     //
