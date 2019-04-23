@@ -57,7 +57,7 @@ public class LevelInfo
     public int jumpActionsAvailable;
     public int sprintActionsAvailable;
     //
-    public GameObject[] enemiesToUse;
+    public GameObject[] enemyGroups;
     public int[] enemiesToSpawn;
     public int[] enemySpawnIncrement;
     public float[] timeBetweenSpawns;

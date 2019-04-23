@@ -192,7 +192,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 30
   defense: 50
-  centralPointOffset: {x: 0, y: 0.45, z: 0}
+  centralPointOffset: {x: 0, y: 0.5, z: 0}
 --- !u!114 &8023727017954889113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,7 +222,7 @@ MonoBehaviour:
   rotationSpeed: 90
   behaviour: 060000000500000000000000
   weapons: []
-  maxSpeed: 10
+  maxSpeed: 15
   minimalLungeDistance: 30
   minimalShootDistance: 100
   lungeSpeed: 30

@@ -161,7 +161,7 @@ public class WormBodyBehaviour : BugBodyBehaviour
         //
         if (HasGroundUnderneath() && grounded && !lunging)
         {
-            Debug.Log("Performing lunge");
+            //Debug.Log("Performing lunge");
             Vector3 playerDirection = (player.transform.position - transform.position).normalized;
             rb.AddForce(playerDirection * lungeSpeed, ForceMode.Impulse);
             onFloor = false;

@@ -22,12 +22,15 @@ public class EnemyCollider : MonoBehaviour
     void Start()
     {
         // Cogemos el componente cuerpo del padre
-        if(transform.parent != null)
-            body = transform.parent.GetComponent<EnemyConsistency>();
+        if (transform.parent != null)
+            //body = transform.parent.GetComponent<EnemyConsistency>();
+            body = transform.GetComponentInParent<EnemyConsistency>();
         // Para casos en los que el body solo tiene un collider
         // y por tanto lo lleva integrado
-        if(body == null)
+        if (body == null)
             body = GetComponent<EnemyConsistency>();
+
+        
         //
         //bodyRb = body.GetComponent<Rigidbody>();
     }

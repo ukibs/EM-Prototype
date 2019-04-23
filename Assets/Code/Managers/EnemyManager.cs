@@ -77,7 +77,7 @@ public class EnemyManager : MonoBehaviour
 
             //Metodo con spawn points
             EnemyType typeToSpawn = enemyPrefabsToUse[i].GetComponent<EnemyIdentifier>().enemyType;
-            Debug.Log(typeToSpawn);
+            //Debug.Log(typeToSpawn);
             //Vector3 pointForGroupSpawn = GetNearestSpawnPointToPlayer(typeToSpawn).position;
             Vector3 pointForGroupSpawn = GetRandomSpawmPointNearerThanX(typeToSpawn, 500).position;
             //
@@ -118,7 +118,7 @@ public class EnemyManager : MonoBehaviour
     public void InitiateManager(LevelInfo levelInfo)
     {
         //
-        enemyPrefabsToUse = levelInfo.enemiesToUse;
+        enemyPrefabsToUse = levelInfo.enemyGroups;
         //groupsToSpawnSizes = levelInfo.enemiesToSpawn.CopyTo(groupsToSpawnSizes);
         groupsToSpawnSizes = new int[levelInfo.enemiesToSpawn.Length];
         levelInfo.enemiesToSpawn.CopyTo(groupsToSpawnSizes, 0);
@@ -130,7 +130,7 @@ public class EnemyManager : MonoBehaviour
         timeFromLastSpawn = new float[enemyPrefabsToUse.Length];
         // Si se raya aqui lo mandamos al Initiate Manager
         enemySpawnPoints = FindObjectsOfType<EnemySpawnPoint>();
-        Debug.Log(" Spawn points: " + enemySpawnPoints.Length);
+        //Debug.Log(" Spawn points: " + enemySpawnPoints.Length);
         // Vigilar que no salte dos veces
         //SpawnEnemies(groupsToSpawnSizes);
     }

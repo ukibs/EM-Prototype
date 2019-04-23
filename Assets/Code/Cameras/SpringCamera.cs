@@ -419,6 +419,7 @@ public class SpringCamera : MonoBehaviour {
             // Vamos a probar cercanía por ángulo
             Vector3 enemyViewPortCoordinates = cameraComponent.WorldToViewportPoint(enemies[i].transform.position);
             Vector2 coordinatesFromScreenCenter = new Vector2(enemyViewPortCoordinates.x - 0.5f, enemyViewPortCoordinates.y - 0.5f);
+            EnemyConsistency enemyConsistency = enemies[i].GetComponent<EnemyConsistency>();
             // TODO: Buscar un método mejor
             // Con angulo en este caso
             if (rightAxis.magnitude > 0.05f)
@@ -434,8 +435,11 @@ public class SpringCamera : MonoBehaviour {
                 float angleOffset = Mathf.Abs(axisAngle - angle);
                 //
                 float measure = angleOffset + (distance * 1) + (inScreen * 1000);
+                
                 //
-                if (measure < minimalMeasure && enemies[i].transform != currentTarget)
+                if (measure < minimalMeasure && 
+                    enemies[i].transform != currentTarget &&
+                    EnemyOnSight(enemies[i].transform.TransformPoint(enemyConsistency.centralPointOffset)))
                 {
                     minimalMeasure = measure;
                     nearestEnemy = i;
@@ -448,7 +452,9 @@ public class SpringCamera : MonoBehaviour {
                 bool inScreen = enemyViewPortCoordinates.x >= 0 && enemyViewPortCoordinates.x <= 1 && 
                     enemyViewPortCoordinates.y >= 0 && enemyViewPortCoordinates.y <= 1 && 
                     enemyViewPortCoordinates.z > 0;
-                if (inScreen && coordinatesFromScreenCenter.magnitude < minimalDistance)
+                if (inScreen && 
+                    coordinatesFromScreenCenter.magnitude < minimalDistance &&
+                    EnemyOnSight(enemies[i].transform.TransformPoint(enemyConsistency.centralPointOffset)))
                 {
                     minimalDistance = coordinatesFromScreenCenter.magnitude;
                     nearestEnemy = i;
@@ -502,18 +508,41 @@ public class SpringCamera : MonoBehaviour {
 
     }
 
+    //
     public void UpdateUp(Vector3 newUp)
     {
         transform.rotation = Quaternion.LookRotation(transform.forward, newUp);
     }
 
+    //
+    bool EnemyOnSight(Vector3 enemyPosition)
+    {
+        //
+        RaycastHit hitInfo;
+        Vector3 direction = enemyPosition - transform.position;
+        //
+        if (Physics.Raycast(transform.position, direction, out hitInfo, direction.magnitude))
+        {
+            Debug.Log("Object 'on sight': " + hitInfo.transform);
+            EnemyCollider enemyCollider = hitInfo.transform.GetComponent<EnemyCollider>();
+            if (enemyCollider != null)
+                return true;
+            EnemyConsistency enemyConsistency = hitInfo.transform.GetComponent<EnemyConsistency>();
+            if (enemyConsistency != null)
+                return true;
+        }
+        //
+        return false;
+    }
+
+    //
     void CheckDontEnterInsideScenario()
     {
         // TODO: Trabajar que funcione mejor
         Vector3 directionToCheck = transform.position - targetPos;
         RaycastHit hitInfo;
         // Ponemos de momento el punto de inicio del raycast a 10 metros por delante de la cámara
-        float magnitudeToUse = 20;
+        float magnitudeToUse = 10;
         Vector3 rayOrigin = transform.position + Vector3.ClampMagnitude(directionToCheck, magnitudeToUse);
         // Ignoramos la layer Enemy(9)
         if (Physics.Raycast(rayOrigin, directionToCheck, out hitInfo, magnitudeToUse, 9))
