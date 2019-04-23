@@ -69,7 +69,7 @@ public class ExplosiveBullet : MonoBehaviour
 
         // Tenemos en cuenta la disminución de la potencia con el cuadrado de la distancia para el alcance
         // explosiveForce / Mathf.Pow(distance, 2)
-        explosionRange = Mathf.Sqrt(explosionForce);
+        explosionRange = Mathf.Sqrt(explosionForceOwnMeasure);
         //Debug.Log("Explosion range: " + explosionRange);
 
         // Vamos a asumir que la masa de cada fragmento es la fracción correspondiente del proyectil
@@ -96,6 +96,7 @@ public class ExplosiveBullet : MonoBehaviour
         // Aparte de la fuerza
         // Vamos a imaginar un impacto de fragmento por objetivo alcanzado
         Collider[] affectedBodies = Physics.OverlapSphere(transform.position, explosionRange);
+        //Debug.Log("Affected bodies by explosion: " + affectedBodies.Length);
         //
         for(int i = 0; i < affectedBodies.Length; i++)
         {
@@ -115,22 +116,61 @@ public class ExplosiveBullet : MonoBehaviour
                 // Ejemplo de despalzamiento por fuerza explosiva
                 // Coche de 1,8 toneladas, 150 kg de TNT, entre 10-15 metros de altura
                 nextBody.AddForce(directionAndDistance.normalized * forceToApply, ForceMode.Impulse);
-                
+                //
+                if(explosiveType == ExplosiveType.SimpleArea)
+                {
+                    SimpleExplosion(affectedBodies[i], directionAndDistance, distanceToCount, forceToApply);
+                }
             }
 
             
         }
         //
-        //if(explosiveType == ExplosiveType.Sharpnel)
-            GenerateSharpnels();
+        switch (explosiveType)
+        {
+            case ExplosiveType.Sharpnel:
+                GenerateSharpnels();
+                break;
+            //case ExplosiveType.SimpleArea:
+            //    SimpleExplosion(affectedBodies);
+            //    break;
+        }
+            
         //
         Destroy(gameObject);
     }
     
     //
-    public void SimpleExplosion()
+    public void SimpleExplosion(Collider affectedBody, Vector3 directionAndDistance, float distanceToCount, float forceToApply)
     {
+        // Hacemos un falso RB
+        FakeRB sharpnelRb = new FakeRB();
+        // 
+        sharpnelRb.mass = fragmentMass;
+        //sharpnelRb.velocity = directionAndDistance * explosionForce;
+        sharpnelRb.velocity = directionAndDistance.normalized * explosionForce;
+        //
+        EnemyCollider enemyCollider = affectedBody.GetComponent<EnemyCollider>();
+        // TODO: Hacer solo aplique impacto a un collider por enemigo
+        if (enemyCollider != null)
+        {
 
+            //
+            Debug.Log("Sharpnel impacting in " + enemyCollider.transform.name + " with force " + sharpnelRb.Force);
+            enemyCollider.ReceiveSharpnelImpact(sharpnelRb, enemyCollider.transform.position);
+        }
+
+        PlayerIntegrity playerIntegrity = affectedBody.GetComponent<PlayerIntegrity>();
+        if (playerIntegrity != null)
+        {
+            //
+            Debug.Log("Sharpnel impacting in player with force " + sharpnelRb.Force);
+            //
+            Vector3 impactPositionForDirection = playerIntegrity.transform.position - transform.position;
+            //
+            playerIntegrity.ReceiveSharpnelImpact(impactPositionForDirection, gameObject, sharpnelRb);
+
+        }
     }
 
     //
@@ -153,7 +193,6 @@ public class ExplosiveBullet : MonoBehaviour
                     Debug.Log(hit.transform.name);
                     // Hacemos un falso RB
                     FakeRB sharpnelRb = new FakeRB();
-
                     // 
                     sharpnelRb.mass = fragmentMass;
                     //sharpnelRb.velocity = directionAndDistance * explosionForce;

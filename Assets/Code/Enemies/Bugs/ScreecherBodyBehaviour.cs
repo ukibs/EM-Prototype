@@ -35,10 +35,17 @@ public class ScreecherBodyBehaviour : BugBodyBehaviour
         //
         timeCharguingBall += dt;
         // Hardocdeamos el 2 que es la escala que usamos
-        loadingBall.transform.localScale = Vector3.one * (timeCharguingBall / timeToChargeBall) * 2;
+        float ballScale = Mathf.Min((timeCharguingBall / timeToChargeBall) * 2, 2);
+        loadingBall.transform.localScale = Vector3.one * ballScale;
         //
         if(transform.position.y < currentIdealHeight)
+        {
+            //
+            float forceToAdd = maxSpeed * (1 - (transform.position.y / currentIdealHeight));
+            //
             rb.AddForce(Vector3.up * maxSpeed, ForceMode.Impulse);
+        }
+            
         //
         Move();
     }
