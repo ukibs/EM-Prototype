@@ -50,6 +50,11 @@ public class WormBodyBehaviour : BugBodyBehaviour
             grounded = false;
             SwitchGrounding();
         }
+        // TODO: Montarlo bien y asegurarse de que funciona
+        if (collision.collider.tag.Equals("Hard Terrain") && grounded)
+        {
+            Destroy(gameObject);
+        }
     }
     //
     protected override void OnCollisionEnter(Collision collision)
@@ -162,7 +167,10 @@ public class WormBodyBehaviour : BugBodyBehaviour
         if (HasGroundUnderneath() && grounded && !lunging)
         {
             //Debug.Log("Performing lunge");
-            Vector3 playerDirection = (player.transform.position - transform.position).normalized;
+            float estimatedFlyingTimeToPlayer = GeneralFunctions.EstimateFlyingTimeWithDrag(transform.position, player.transform.position,
+                lungeSpeed, rb.drag);
+            Vector3 estimatedPlayerPosition = player.transform.position + (PlayerReference.playerRb.velocity * estimatedFlyingTimeToPlayer);
+            Vector3 playerDirection = (estimatedPlayerPosition - transform.position).normalized;
             rb.AddForce(playerDirection * lungeSpeed, ForceMode.Impulse);
             onFloor = false;
             lunging = true;

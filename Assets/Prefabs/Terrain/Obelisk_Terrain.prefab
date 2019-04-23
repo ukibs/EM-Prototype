@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 3326227640253247155, guid: f90644bdac5d8924fbad91a92cde6c44,
         type: 3}
       propertyPath: m_Name
-      value: Terrain Block 5
+      value: Obelisk_Terrain
       objectReference: {fileID: 0}
     - target: {fileID: 3326227640253247155, guid: f90644bdac5d8924fbad91a92cde6c44,
         type: 3}
@@ -111,6 +111,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Hard Terrain
+      objectReference: {fileID: 0}
+    - target: {fileID: 4434999945291414791, guid: f90644bdac5d8924fbad91a92cde6c44,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f90644bdac5d8924fbad91a92cde6c44, type: 3}

@@ -1238,7 +1238,7 @@ GameObject:
   m_Component:
   - component: {fileID: 182231823908150193}
   m_Layer: 0
-  m_Name: Terrain Block 9
+  m_Name: ShiedCharge_Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1640,7 +1640,7 @@ GameObject:
   - component: {fileID: 7591822642858101457}
   - component: {fileID: 2148067788646172513}
   - component: {fileID: 7118862515398233271}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Ground
   m_TagString: Sand
   m_Icon: {fileID: 0}
@@ -5491,11 +5491,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4782728281024952610}
     m_Modifications:
-    - target: {fileID: 8862507873891533857, guid: ef65af2242700e44ebc0ccecad03e1f2,
-        type: 3}
-      propertyPath: m_Name
-      value: ShieldCollectable 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8001162521587287190, guid: ef65af2242700e44ebc0ccecad03e1f2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5560,6 +5555,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8862507873891533857, guid: ef65af2242700e44ebc0ccecad03e1f2,
+        type: 3}
+      propertyPath: m_Name
+      value: ShieldCollectable 1
       objectReference: {fileID: 0}
     - target: {fileID: 1287948789074870178, guid: ef65af2242700e44ebc0ccecad03e1f2,
         type: 3}

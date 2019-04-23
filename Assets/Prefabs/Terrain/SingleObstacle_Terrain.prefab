@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 182231823908150193}
   m_Layer: 0
-  m_Name: Terrain Block 2
+  m_Name: SingleObstacle_Terrain
   m_TagString: Hard Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 7591822642858101457}
   - component: {fileID: 2148067788646172513}
   - component: {fileID: 7118862515398233271}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Ground
   m_TagString: Sand
   m_Icon: {fileID: 0}
