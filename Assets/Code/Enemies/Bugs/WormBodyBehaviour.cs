@@ -145,6 +145,17 @@ public class WormBodyBehaviour : BugBodyBehaviour
     }
 
     //
+    protected override void Move()
+    {
+        //
+        if (grounded)
+        {
+            base.Move();
+        }
+        
+    }
+
+    //
     protected new void Lunge()
     {
         //
@@ -156,6 +167,10 @@ public class WormBodyBehaviour : BugBodyBehaviour
             onFloor = false;
             lunging = true;
             timeOnCooldown = 0;
+            // Vamos a cambiarle el comportamiento para que no se ponga a salta como un loco
+            // TODO: Hacerlo más limpio
+            currentAction = Actions.ZigZagingTowardsPlayer;
+            //
             SwitchGrounding();
         }
     }
