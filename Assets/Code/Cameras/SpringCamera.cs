@@ -29,6 +29,7 @@ public class SpringCamera : MonoBehaviour {
     //private float currentOffsetY = 0;
 
     private Vector3 targetPos;
+    private Vector3 positionWithoutCorrection;
 
     private bool changeAllowed = true;
     //
@@ -74,6 +75,8 @@ public class SpringCamera : MonoBehaviour {
 
         //
         gameManager = FindObjectOfType<GameManager>();
+        //
+        positionWithoutCorrection = transform.position;
     }
 
     //
@@ -158,7 +161,7 @@ public class SpringCamera : MonoBehaviour {
 			idealOffset.y * targetPlayer.up +
 			idealOffset.z * targetPlayer.forward;
 		
-		Vector3 positionOffset = idealPos - transform.position;
+		Vector3 positionOffset = idealPos - positionWithoutCorrection;
 
 		//Apply the damping
 		float dampFactor = Mathf.Max(1 - dampingK * dt, 0.0f);
@@ -167,12 +170,12 @@ public class SpringCamera : MonoBehaviour {
 		//Apply the spring
 		Vector3 accelSpring = springK * positionOffset;
         vel += accelSpring * dt;
-        transform.position += vel * dt;
+        positionWithoutCorrection += vel * dt;
 
         // Limit max distance
-        Vector3 distanceToPoint = idealPos - transform.position;
+        Vector3 distanceToPoint = idealPos - positionWithoutCorrection;
         distanceToPoint = Vector3.ClampMagnitude(distanceToPoint, maxDistancePlayer);
-        transform.position = idealPos - distanceToPoint;
+        positionWithoutCorrection = idealPos - distanceToPoint;
 
         
     }
@@ -523,7 +526,7 @@ public class SpringCamera : MonoBehaviour {
         //
         if (Physics.Raycast(transform.position, direction, out hitInfo, direction.magnitude))
         {
-            Debug.Log("Object 'on sight': " + hitInfo.transform);
+            //Debug.Log("Object 'on sight': " + hitInfo.transform);
             EnemyCollider enemyCollider = hitInfo.transform.GetComponent<EnemyCollider>();
             if (enemyCollider != null)
                 return true;
@@ -539,17 +542,24 @@ public class SpringCamera : MonoBehaviour {
     void CheckDontEnterInsideScenario()
     {
         //
-        targetPos = targetPlayer.TransformPoint(targetOffset);
+        //targetPos = targetPlayer.TransformPoint(targetOffset);
         // TODO: Trabajar que funcione mejor
-        Vector3 directionToCheck = transform.position - targetPos;
+        Vector3 directionToCheck = positionWithoutCorrection - targetPos;
         RaycastHit hitInfo;
         // Ponemos de momento el punto de inicio del raycast a 10 metros por delante de la cámara
-        float magnitudeToUse = 10;
-        Vector3 rayOrigin = transform.position + Vector3.ClampMagnitude(directionToCheck, magnitudeToUse);
-        // Ignoramos la layer Enemy(9)
-        if (Physics.Raycast(targetPos, directionToCheck, out hitInfo, magnitudeToUse))
+        float magnitudeToUse = Mathf.Min(20, directionToCheck.magnitude);
+        Vector3 rayOrigin = positionWithoutCorrection - Vector3.ClampMagnitude(directionToCheck, magnitudeToUse);
+        //
+        Debug.DrawRay(rayOrigin, directionToCheck, Color.cyan);
+        // TODO: Guardar lo posición en la que estaría de no ser corregida
+        // CHECK: Si filtrar o no la layer de enemy (9) (se salta también la arena por alguna razón)
+        if (Physics.Raycast(rayOrigin, directionToCheck, out hitInfo, magnitudeToUse))
         {
-            transform.position = Vector3.Lerp(transform.position, hitInfo.point, 1f);
+            transform.position = Vector3.Lerp(rayOrigin, hitInfo.point, 1f);
+        }
+        else
+        {
+            transform.position = positionWithoutCorrection;
         }
     }
     #endregion
