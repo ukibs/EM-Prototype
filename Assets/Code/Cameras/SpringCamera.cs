@@ -538,6 +538,8 @@ public class SpringCamera : MonoBehaviour {
     //
     void CheckDontEnterInsideScenario()
     {
+        //
+        targetPos = targetPlayer.TransformPoint(targetOffset);
         // TODO: Trabajar que funcione mejor
         Vector3 directionToCheck = transform.position - targetPos;
         RaycastHit hitInfo;
@@ -545,9 +547,9 @@ public class SpringCamera : MonoBehaviour {
         float magnitudeToUse = 10;
         Vector3 rayOrigin = transform.position + Vector3.ClampMagnitude(directionToCheck, magnitudeToUse);
         // Ignoramos la layer Enemy(9)
-        if (Physics.Raycast(rayOrigin, directionToCheck, out hitInfo, magnitudeToUse, 9))
+        if (Physics.Raycast(targetPos, directionToCheck, out hitInfo, magnitudeToUse))
         {
-            transform.position = Vector3.Lerp(transform.position, hitInfo.point, 0.7f);
+            transform.position = Vector3.Lerp(transform.position, hitInfo.point, 1f);
         }
     }
     #endregion
