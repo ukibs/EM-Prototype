@@ -16,7 +16,7 @@ MonoBehaviour:
     victoryCondition: 1
     enemiesToDefeat: 10
     attackActionsAvailable: 3
-    defenseActionsAvailable: 15
+    defenseActionsAvailable: 1
     jumpActionsAvailable: 1
     sprintActionsAvailable: 1
     enemyGroups:
