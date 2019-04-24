@@ -12,6 +12,7 @@ public class Bullet : MonoBehaviour {
     public float lifeTime = 10;
     public GameObject impactParticlesPrefab;
     public GameObject bulletHolePrefab;
+    public GameObject bulletHoleBugPrefab;
 
     // De momento hacemos dos, para player y enemigo
     // TODO: hacer un atrapado más general
@@ -151,8 +152,11 @@ public class Bullet : MonoBehaviour {
         // Error control vago
         if (bulletHolePrefab == null || playerIntegrity != null )
             return;
-            //
-        GameObject newBulletHole = Instantiate(bulletHolePrefab, point, Quaternion.identity);
+        //
+        EnemyCollider enemyCollider = objectToParent.GetComponent<EnemyCollider>();
+        GameObject prefabToUse = (enemyCollider != null) ? bulletHoleBugPrefab : bulletHolePrefab;
+        //
+        GameObject newBulletHole = Instantiate(prefabToUse, point, Quaternion.identity);
         newBulletHole.transform.rotation = Quaternion.LookRotation(newBulletHole.transform.forward, normal);
         // Lo movemos un pelin para evitar el z clipping
         newBulletHole.transform.position += newBulletHole.transform.up * 0.01f;

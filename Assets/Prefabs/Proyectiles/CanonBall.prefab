@@ -126,6 +126,12 @@ MonoBehaviour:
   lifeTime: 10
   impactParticlesPrefab: {fileID: 1837716235657633640, guid: 61c9e81fe8e7c0a40a345df35440fcab,
     type: 3}
+  bulletHolePrefab: {fileID: 1994357791592751295, guid: c9608cba5bbaa264f89f02fabf26b7e8,
+    type: 3}
+  bulletHoleBugPrefab: {fileID: 1994357791592751295, guid: fdcc40e32b9fb4f4ca7298a163243e98,
+    type: 3}
+  impactOnPlayer: {fileID: 8300000, guid: 9f5a5612171a33b4d9a431afb8ac8aca, type: 3}
+  impactOnEnemy: {fileID: 0}
 --- !u!96 &3210826463883438631
 TrailRenderer:
   serializedVersion: 2
