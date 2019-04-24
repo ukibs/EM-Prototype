@@ -16,7 +16,7 @@ public class ProvisionalHUD : MonoBehaviour {
     public Texture enemyMarkerTextureYellow;
     public Texture enemyMarkerTextureGreen;
 
-    public Texture enemyInScreenTexture;
+    public Texture[] enemyInScreenTextures;
     public Texture targetedEnemyEstimatedFuturePositionTexture;
     public Texture testingVelocityIcon;
     public Texture diamondsTexture;
@@ -418,10 +418,13 @@ public class ProvisionalHUD : MonoBehaviour {
             //
             if (inScreen)
             {
+                //
+                EnemyIdentifier enemyIdentifier = enemies[i].GetComponentInParent<EnemyIdentifier>();
+                //
                 GUI.DrawTexture(new Rect(
                     posInScreen.x * Screen.width - 15,
                     Screen.height - posInScreen.y * Screen.height - 50, 30, 30),
-                    enemyInScreenTexture);
+                    enemyInScreenTextures[(int)enemyIdentifier.enemyType]);
             }
         }
     }
@@ -519,7 +522,11 @@ public class ProvisionalHUD : MonoBehaviour {
                 posInRadar.x = radius * Mathf.Cos(angle) + (radarDimensions.x / 2);
                 posInRadar.y = radius * Mathf.Sin(angle) + (radarDimensions.y / 2);
                 // Y dibujamos
-                GUI.DrawTexture(new Rect(posInRadar.x, Screen.height - posInRadar.y, 10, 10), enemyInScreenTexture);
+                EnemyIdentifier enemyIdentifier = enemies[i].GetComponent<EnemyIdentifier>();
+                //
+                if(enemyIdentifier != null)
+                GUI.DrawTexture(new Rect(posInRadar.x, Screen.height - posInRadar.y, 10, 10), 
+                    enemyInScreenTextures[(int)enemyIdentifier.enemyType]);
             }
         }
     }

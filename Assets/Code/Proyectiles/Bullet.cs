@@ -113,7 +113,7 @@ public class Bullet : MonoBehaviour {
             // TODO: Buscar otro sitio donde ponerlo
             // Aquí no suena porque se destruye el objeto
             //GeneralFunctions.PlaySoundEffect(audioSource, impactOnEnemy);
-            bulletSoundManager.CreateAudioObject(impactOnEnemy, transform.position);
+            //bulletSoundManager.CreateAudioObject(impactOnEnemy, transform.position);
         }
         // Y el player, joputa
         PlayerIntegrity playerIntegrity = collider.GetComponent<PlayerIntegrity>();
@@ -121,11 +121,13 @@ public class Bullet : MonoBehaviour {
         {
             playerIntegrity.ReceiveImpact(rb.velocity, gameObject, rb);
             //GeneralFunctions.PlaySoundEffect(audioSource, impactOnPlayer);
-            bulletSoundManager.CreateAudioObject(impactOnPlayer, transform.position);
+            //bulletSoundManager.CreateAudioObject(impactOnPlayer, transform.position);
             //
             Rigidbody playerRB = playerIntegrity.gameObject.GetComponent<Rigidbody>();
             playerRB.AddForce(rb.velocity * rb.mass, ForceMode.Impulse);
         }
+        //
+        bulletSoundManager.CreateAudioObject(impactOnPlayer, transform.position);
         //
         GameObject impactParticles = Instantiate(impactParticlesPrefab, hitPoint, Quaternion.identity);
         SpawnBulletHole(hitPoint, hitNormal, collider.gameObject);

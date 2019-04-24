@@ -108,6 +108,7 @@ public class RobotControl : MonoBehaviour {
     private bool applyingDamping = true;
     private bool adhering = false;
     //
+    private float rapidFireCooldown = 0;
     private int nextRapidFireSide = 0;
     //
     private AudioSource audioSource;
@@ -700,7 +701,10 @@ public class RobotControl : MonoBehaviour {
     /// <param name="dt"></param>
     void RapidFireAttack(float dt)
     {
-        if (chargedAmount >= 1 / gameManager.rapidFireRate)
+        //
+        rapidFireCooldown += dt;
+        //
+        if (rapidFireCooldown >= 1 / gameManager.rapidFireRate)
         {
             // La calculamos desde los puntos de la ametralladora para más precision
             if(EnemyAnalyzer.isActive)
@@ -731,6 +735,7 @@ public class RobotControl : MonoBehaviour {
                 shootRotation, shootForward, muzzleSpeed, dt, ShootCalculation.MuzzleSpeed);
             // TODO: Vamos a aplicar el overheat aqui
             //chargedAmount -= 1 / gameManager.rapidFireRate;
+            rapidFireCooldown -= 1 / gameManager.rapidFireRate;
             //
             nextRapidFireSide = (nextRapidFireSide) == 0 ? 1 : 0;
             //
