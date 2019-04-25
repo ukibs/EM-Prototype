@@ -166,7 +166,7 @@ public class ExplosiveBullet : MonoBehaviour
         {
 
             //
-            Debug.Log("Sharpnel impacting in " + enemyCollider.transform.name + " with force " + sharpnelRb.Force);
+            //Debug.Log("Sharpnel impacting in " + enemyCollider.transform.name + " with force " + sharpnelRb.Force);
             enemyCollider.ReceiveSharpnelImpact(sharpnelRb, enemyCollider.transform.position);
         }
 

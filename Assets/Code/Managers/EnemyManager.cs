@@ -11,8 +11,8 @@ public class EnemyManager : MonoBehaviour
     public int[] enemySpawnIncrement;
     public int[] maxEnemiesInAction;
     public float[] timeBetweenSpawns;
-    public float minSpawnDistance = 100;
-    public float maxSpawnDistance = 200;
+    //public float minSpawnDistance = 100;
+    //public float maxSpawnDistance = 200;
     public int spawnLimit = -1;
 
     private float[] timeFromLastSpawn;
@@ -80,37 +80,46 @@ public class EnemyManager : MonoBehaviour
             //Debug.Log(typeToSpawn);
             //Vector3 pointForGroupSpawn = GetNearestSpawnPointToPlayer(typeToSpawn).position;
             Vector3 pointForGroupSpawn = GetRandomSpawmPointNearerThanX(typeToSpawn, 500).position;
+            
             //
-            float memberSpawnAngle = 360 / groupToSpawnSize[i];
-            float meberSpawnRadius = 10;
-            //
-            for (int j = 0; j < groupToSpawnSize[i]; j++)
+            if (groupToSpawnSize[i] > 0)
             {
-                // 
-                float memberSpawnCoordinates = memberSpawnAngle * j;
-                Vector2 memberSpawnPositionXY = new Vector2(Mathf.Cos(memberSpawnCoordinates) * meberSpawnRadius, 
-                                                            Mathf.Sin(memberSpawnCoordinates) * meberSpawnRadius);
+                //
+                float memberSpawnAngle = 360 / groupToSpawnSize[i];
+                float meberSpawnRadius = 10;
+                //
+                for (int j = 0; j < groupToSpawnSize[i]; j++)
+                {
+                    // 
+                    float memberSpawnCoordinates = memberSpawnAngle * j;
+                    Vector2 memberSpawnPositionXY = new Vector2(Mathf.Cos(memberSpawnCoordinates) * meberSpawnRadius,
+                                                                Mathf.Sin(memberSpawnCoordinates) * meberSpawnRadius);
 
-                //Vector3 positionToSpawn = new Vector3(Random.Range(-groupToSpawnSize[i], groupToSpawnSize[i]) + pointForGroupSpawn.x, 1,
-                //                                        Random.Range(-groupToSpawnSize[i], groupToSpawnSize[i]) + pointForGroupSpawn.z);
-                Vector3 positionToSpawn = new Vector3(pointForGroupSpawn.x + memberSpawnPositionXY.x, 
-                    pointForGroupSpawn.y, pointForGroupSpawn.z + memberSpawnPositionXY.y);
-                //
-                //
-                //float spawnAngle = Random.Range(0, 360);
-                //float spawnRadius = Random.Range(minSpawnDistance, maxSpawnDistance);
-                //Vector2 groupSpawnPositionXY = new Vector2(Mathf.Cos(spawnAngle) * spawnRadius, Mathf.Sin(spawnAngle) * spawnRadius);
-                //Vector3 pointForGroupSpawn = new Vector3(groupSpawnPositionXY.x + playerTransform.position.x, 2,
-                //                                            groupSpawnPositionXY.y + playerTransform.position.z);
-                //
-                //GameObject nextEnemy = 
+                    //Vector3 positionToSpawn = new Vector3(Random.Range(-groupToSpawnSize[i], groupToSpawnSize[i]) + pointForGroupSpawn.x, 1,
+                    //                                        Random.Range(-groupToSpawnSize[i], groupToSpawnSize[i]) + pointForGroupSpawn.z);
+                    Vector3 positionToSpawn = new Vector3(pointForGroupSpawn.x + memberSpawnPositionXY.x,
+                        pointForGroupSpawn.y, pointForGroupSpawn.z + memberSpawnPositionXY.y);
+                    //
+                    //
+                    //float spawnAngle = Random.Range(0, 360);
+                    //float spawnRadius = Random.Range(minSpawnDistance, maxSpawnDistance);
+                    //Vector2 groupSpawnPositionXY = new Vector2(Mathf.Cos(spawnAngle) * spawnRadius, Mathf.Sin(spawnAngle) * spawnRadius);
+                    //Vector3 pointForGroupSpawn = new Vector3(groupSpawnPositionXY.x + playerTransform.position.x, 2,
+                    //                                            groupSpawnPositionXY.y + playerTransform.position.z);
+                    //
+                    //GameObject nextEnemy = 
                     Instantiate(enemyPrefabsToUse[i], positionToSpawn, Quaternion.identity);
-                //GameObject nextEnemy = Instantiate(enemyPrefabsToUse[i], pointForGroupSpawn, Quaternion.identity);
+                    //GameObject nextEnemy = Instantiate(enemyPrefabsToUse[i], pointForGroupSpawn, Quaternion.identity);
+                }
+                //
+                activeEnemies[i] += groupToSpawnSize[i];
+                //
+                groupToSpawnSize[i] += enemySpawnIncrement[i];
             }
-            //
-            activeEnemies[i] += groupToSpawnSize[i];
-            //
-            groupToSpawnSize[i] += enemySpawnIncrement[i];
+            else
+            {
+                Debug.Log("Group depleted");
+            }
         }
     }
 
