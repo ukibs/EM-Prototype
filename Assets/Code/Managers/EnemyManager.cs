@@ -59,14 +59,14 @@ public class EnemyManager : MonoBehaviour
                 // TODO: Sacar solo el grupo determinado por el index
                 // Así estamos sacando a todos
                 if (activeEnemies[i] < maxEnemiesInAction[i])
-                    SpawnEnemies(groupsToSpawnSizes, i);
+                    SpawnEnemies(i);
                 
             }
         }
     }
 
     //
-    void SpawnEnemies(int[] groupToSpawnSize, int i)
+    void SpawnEnemies(int i)
     {
         //for(int i = 0; i < enemyPrefabsToUse.Length; i++)
         //{
@@ -84,13 +84,13 @@ public class EnemyManager : MonoBehaviour
             Vector3 pointForGroupSpawn = GetRandomSpawmPointNearerThanX(typeToSpawn, 500).position;
             
             //
-            if (groupToSpawnSize[i] > 0)
+            if (groupsToSpawnSizes[i] > 0)
             {
                 //
-                float memberSpawnAngle = 360 / groupToSpawnSize[i];
+                float memberSpawnAngle = 360 / groupsToSpawnSizes[i];
                 float meberSpawnRadius = 10;
                 //
-                for (int j = 0; j < groupToSpawnSize[i]; j++)
+                for (int j = 0; j < groupsToSpawnSizes[i]; j++)
                 {
                     // 
                     float memberSpawnCoordinates = memberSpawnAngle * j;
@@ -114,9 +114,9 @@ public class EnemyManager : MonoBehaviour
                     //GameObject nextEnemy = Instantiate(enemyPrefabsToUse[i], pointForGroupSpawn, Quaternion.identity);
                 }
                 //
-                activeEnemies[i] += groupToSpawnSize[i];
+                activeEnemies[i] += groupsToSpawnSizes[i];
                 //
-                groupToSpawnSize[i] += enemySpawnIncrement[i];
+                groupsToSpawnSizes[i] += enemySpawnIncrement[i];
             }
             else
             {

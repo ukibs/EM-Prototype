@@ -19,6 +19,10 @@ public class TerrainManager : MonoBehaviour
     private int centralBlock;
     private int halfMinusOne;
     private int[] currentBlockAmounts;
+    private Waypoint[] allWaypoints;
+
+    //
+    public Waypoint[] AllWaypoints { get { return allWaypoints; } }
 
     // Start is called before the first frame update
     void Start()
@@ -152,6 +156,12 @@ public class TerrainManager : MonoBehaviour
                 Debug.Log("Minimo incumplido");
             }
         }
+        //
+        allWaypoints = FindObjectsOfType<Waypoint>();
+        //Debug.Log("Total waypoints: " + allWaypoints.Length);
+        //
+        for (int i = 0; i < allWaypoints.Length; i++)
+            allWaypoints[i].GetNeighbours();
     }
 
     //

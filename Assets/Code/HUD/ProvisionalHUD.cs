@@ -52,6 +52,7 @@ public class ProvisionalHUD : MonoBehaviour {
 
     //
     public Texture radarTexture;
+    public float radarRange = 500;
     // TODO: Meter texturas para diferenciar alturas
 
     // Controls
@@ -491,8 +492,9 @@ public class ProvisionalHUD : MonoBehaviour {
         // La camara, coño
         float playerDirection = Vector3.SignedAngle(Vector3.forward, cameraControl.transform.forward, Vector3.up);
         playerDirection *= Mathf.Deg2Rad;
-        //
-        float maxDetection = 300;
+
+        // TODO: Decidir si dinámico el alcance del radar
+
         // Primero dibujamos el radar
         GUI.DrawTexture(new Rect(0, Screen.height - radarDimensions.y, radarDimensions.x, radarDimensions.y), radarTexture);
         // Y enemigos
@@ -507,11 +509,11 @@ public class ProvisionalHUD : MonoBehaviour {
             // TODO: Sacar también altura
             offset.y = 0;
             float xzDistance = offset.magnitude;
-            if(xzDistance < maxDetection)
+            if(xzDistance < radarRange)
             {
                 // Sacamos la posición para el radar
-                Vector2 posInRadar = new Vector2(offset.x * radarDimensions.x / maxDetection / 2 + (radarDimensions.x / 2),
-                                        offset.z * radarDimensions.y / maxDetection / 2 + (radarDimensions.y / 2));
+                Vector2 posInRadar = new Vector2(offset.x * radarDimensions.x / radarRange / 2 + (radarDimensions.x / 2),
+                                        offset.z * radarDimensions.y / radarRange / 2 + (radarDimensions.y / 2));
                 // La adaptamos a la orientación del player
                 // Desde el centro del radar, animalicao
                 float radius = Mathf.Sqrt(Mathf.Pow(posInRadar.x - (radarDimensions.x/2), 2) 
