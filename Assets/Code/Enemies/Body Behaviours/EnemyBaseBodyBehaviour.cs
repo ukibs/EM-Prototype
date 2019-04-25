@@ -36,6 +36,10 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
     protected float timeFromLastCheck = 0;
 
     protected EnemyConsistency bodyConsistency;
+    protected TerrainManager terrainManager;
+
+    // De momento lo hacemos con posiciones
+    protected Vector3[] pathToUse;
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -43,6 +47,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
         player = FindObjectOfType<RobotControl>();
         rb = GetComponent<Rigidbody>();
         bodyConsistency = GetComponent<EnemyConsistency>();
+        terrainManager = FindObjectOfType<TerrainManager>();
     }
 
     // Update is called once per frame

@@ -20,6 +20,7 @@ public class TerrainManager : MonoBehaviour
     private int halfMinusOne;
     private int[] currentBlockAmounts;
     private Waypoint[] allWaypoints;
+    private Waypoint nearestWaypointToPlayer;
 
     //
     public Waypoint[] AllWaypoints { get { return allWaypoints; } }
@@ -27,7 +28,8 @@ public class TerrainManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // De momento nada
+        // 
+        GetNearestWaypointToPlayer();
     }
 
     // Update is called once per frame
@@ -40,7 +42,54 @@ public class TerrainManager : MonoBehaviour
         if (CheckIfPlayerOverCentralBlock())
         {
             MoveFarestBlocks(PlayerOffsetFromCentralBlockInUnits());
+            // De momento lo hacemos aqui
+            // Pero seria bueno chequearlo aparte
+            GetNearestWaypointToPlayer();
         }
+    }
+
+    //
+    void GetNearestWaypointToPlayer()
+    {
+        // De momento vamos a pasar por todos los waypoints
+        // Mas adelante filtraremos los del bloque central
+        float nearestDistance = Mathf.Infinity;
+        for(int i = 0; i < allWaypoints.Length; i++)
+        {
+            Vector3 distanceToPlayer = playerTransform.position - allWaypoints[i].transform.position;
+            if(distanceToPlayer.magnitude < nearestDistance)
+            {
+                nearestDistance = distanceToPlayer.magnitude;
+                nearestWaypointToPlayer = allWaypoints[i];
+            }
+        }
+    }
+
+    //
+    public Waypoint GetNearestWaypointTo(Transform transformToCheck)
+    {
+        Waypoint nearestWaypoint = null;
+        float nearestDistance = Mathf.Infinity;
+        for (int i = 0; i < allWaypoints.Length; i++)
+        {
+            Vector3 distanceToPlayer = playerTransform.position - allWaypoints[i].transform.position;
+            if (distanceToPlayer.magnitude < nearestDistance)
+            {
+                nearestDistance = distanceToPlayer.magnitude;
+                nearestWaypoint = allWaypoints[i];
+            }
+        }
+        return nearestWaypoint;
+    }
+
+    //
+    public Vector3[] GetPathToPlayer(Transform playerSeeker)
+    {
+        Vector3[] pathToPlayer = null;
+        Waypoint playerSeekerWaypoint = GetNearestWaypointTo(playerSeeker);
+        //nearestWaypointToPlayer
+
+        return pathToPlayer;
     }
 
     //
@@ -73,6 +122,14 @@ public class TerrainManager : MonoBehaviour
         minBlockAmounts = levelInfo.terrainMin;
         maxBlockAmounts = levelInfo.terrainMax;
         AllocateTerrain();
+    }
+
+    //
+    void AssignNeighbours()
+    {
+        //
+        for (int i = 0; i < allWaypoints.Length; i++)
+            allWaypoints[i].GetNeighbours();
     }
 
     //
@@ -159,9 +216,7 @@ public class TerrainManager : MonoBehaviour
         //
         allWaypoints = FindObjectsOfType<Waypoint>();
         //Debug.Log("Total waypoints: " + allWaypoints.Length);
-        //
-        for (int i = 0; i < allWaypoints.Length; i++)
-            allWaypoints[i].GetNeighbours();
+        AssignNeighbours();
     }
 
     //
@@ -279,6 +334,8 @@ public class TerrainManager : MonoBehaviour
         activeBlocksMatrix = newActiveBlocksOrder;
         // Y marcmos el nuevo bloque central
         //centralBlock = activeBlocksMatrix 
+        //
+        AssignNeighbours();
     }
 
     // TODO: Función para mandar todo de vuelta al centro cuando se aleje demasiado de éste

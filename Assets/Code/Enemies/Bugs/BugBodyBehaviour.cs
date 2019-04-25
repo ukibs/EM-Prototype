@@ -90,8 +90,12 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
                 
                 
                 case Actions.GoingToPlayer:
+
                     // Esta no lleva condición
                     currentAction = behaviour[i];
+                    //
+                    pathToUse = terrainManager.GetPathToPlayer(transform);
+                    //TODO: Meter aqui el A*
                     return;
                 case Actions.EncirclingPlayerSideward:
                     if (playerDistance.magnitude < minimalShootDistance)

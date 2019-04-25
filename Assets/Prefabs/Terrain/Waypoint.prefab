@@ -43,5 +43,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8363e0206ddd5e44ebb9f5c15bffede6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDistanceToNeighbour: 300
-  currentNeighbors: []
+  maxDistanceToNeighbour: 150
