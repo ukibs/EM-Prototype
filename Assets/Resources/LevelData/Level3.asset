@@ -27,7 +27,7 @@ MonoBehaviour:
     timeBetweenSpawns:
     - 6
     - 10
-    maxActiveEnemies: 0300000006000000
+    maxActiveEnemies: 0400000006000000
     terrainPrefabs:
     - {fileID: 3326227640253247155, guid: a6ea28f7bba66814c94750eff1f7c8d9, type: 3}
     - {fileID: 6767483043771959620, guid: 4d89a9e3bd7e7914c803a93a276799b2, type: 3}
