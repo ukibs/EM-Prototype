@@ -504,7 +504,7 @@ MonoBehaviour:
   proyectilePrefab: {fileID: 3435305613530270036, guid: f49fb2424c3f30845aaebef24ff3e08b,
     type: 3}
   shootForce: 10
-  muzzleSpeed: 250
+  muzzleSpeed: 150
   typeOfFire: 0
   firingSystem: 1
   shootCalculation: 1

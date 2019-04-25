@@ -522,7 +522,7 @@ public class ProvisionalHUD : MonoBehaviour {
                 posInRadar.x = radius * Mathf.Cos(angle) + (radarDimensions.x / 2);
                 posInRadar.y = radius * Mathf.Sin(angle) + (radarDimensions.y / 2);
                 // Y dibujamos
-                EnemyIdentifier enemyIdentifier = enemies[i].GetComponent<EnemyIdentifier>();
+                EnemyIdentifier enemyIdentifier = enemies[i].GetComponentInParent<EnemyIdentifier>();
                 //
                 if(enemyIdentifier != null)
                 GUI.DrawTexture(new Rect(posInRadar.x, Screen.height - posInRadar.y, 10, 10), 

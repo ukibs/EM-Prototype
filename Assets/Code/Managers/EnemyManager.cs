@@ -52,22 +52,24 @@ public class EnemyManager : MonoBehaviour
             //
             if (timeFromLastSpawn[i] >= timeBetweenSpawns[i])
             {
-                //
-                //int activeEnemies = FindObjectsOfType<EnemyConsistency>().Length;
-                //
-                if (activeEnemies[i] < maxEnemiesInAction[i])
-                    SpawnEnemies(groupsToSpawnSizes);
                 // Si no que vuelva a empezar a contrar y ya
                 timeFromLastSpawn[i] -= timeBetweenSpawns[i];
+                //
+                //int activeEnemies = FindObjectsOfType<EnemyConsistency>().Length;
+                // TODO: Sacar solo el grupo determinado por el index
+                // Así estamos sacando a todos
+                if (activeEnemies[i] < maxEnemiesInAction[i])
+                    SpawnEnemies(groupsToSpawnSizes, i);
+                
             }
         }
     }
 
     //
-    void SpawnEnemies(int[] groupToSpawnSize)
+    void SpawnEnemies(int[] groupToSpawnSize, int i)
     {
-        for(int i = 0; i < enemyPrefabsToUse.Length; i++)
-        {
+        //for(int i = 0; i < enemyPrefabsToUse.Length; i++)
+        //{
             // Metodo viejo de spammeo
             //float spawnAngle = UnityEngine.Random.Range(0, 360);
             //float spawnRadius = UnityEngine.Random.Range(minSpawnDistance, maxSpawnDistance);
@@ -120,7 +122,7 @@ public class EnemyManager : MonoBehaviour
             {
                 Debug.Log("Group depleted");
             }
-        }
+        //}
     }
 
     //

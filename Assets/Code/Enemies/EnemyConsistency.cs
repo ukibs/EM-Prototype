@@ -303,9 +303,12 @@ public class EnemyConsistency : MonoBehaviour {
         BugBodyBehaviour bugBodyBehaviour = GetComponent<BugBodyBehaviour>();
         if (bugBodyBehaviour != null)
         {
+            // TODO: Algo esta fallando aqui
+            Debug.Log("Destroying " + transform.name + " body behaviour");
             for (int i = 0; i < bugBodyBehaviour.weapons.Length; i++)
             {
                 EnemyWeapon nextWeapon = bugBodyBehaviour.weapons[i].GetComponent<EnemyWeapon>();
+                Debug.Log("Destroying " + transform.name + " weapon " + nextWeapon.transform.name);
                 if (nextWeapon)
                 {
                     Destroy(nextWeapon);
