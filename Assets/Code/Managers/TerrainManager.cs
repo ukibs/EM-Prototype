@@ -29,7 +29,7 @@ public class TerrainManager : MonoBehaviour
     void Start()
     {
         // 
-        GetNearestWaypointToPlayer();
+        // GetNearestWaypointToPlayer();
     }
 
     // Update is called once per frame
@@ -44,7 +44,7 @@ public class TerrainManager : MonoBehaviour
             MoveFarestBlocks(PlayerOffsetFromCentralBlockInUnits());
             // De momento lo hacemos aqui
             // Pero seria bueno chequearlo aparte
-            GetNearestWaypointToPlayer();
+            // GetNearestWaypointToPlayer();
         }
     }
 
