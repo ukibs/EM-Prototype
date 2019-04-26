@@ -73,14 +73,12 @@ public class EnemyConsistency : MonoBehaviour {
             //ManageDamage(currentChasisHealth, transform.position);
             Destroy(gameObject);
         }
-        // Vamos a probar esto
-        // De momento lo dejamos
-        // Pero ya veremos
-        //if ((rb.velocity.magnitude - previousVelocity.magnitude) > 1)
-        //{
-        //    float impactForce = GeneralFunctions.GetCollisionForce(rb, null);
-        //    ReceiveImpact(impactForce / 5, transform.position);
-        //}
+        // Decidimos el daño físico por cambio en la velocidad
+        if ((rb.velocity.magnitude - previousVelocity.magnitude) > 3)
+        {
+            float impactForce = GeneralFunctions.GetCollisionForce(rb, null);
+            ReceiveImpact(impactForce, transform.position);
+        }
     }
 
 
@@ -92,18 +90,18 @@ public class EnemyConsistency : MonoBehaviour {
         // Estas no las queremos chequear aqui
         Bullet bullet = collision.collider.GetComponent<Bullet>();
         // Chequeamos diferencia de velocidades para ver si solo es fricción u hostiazo
-        Vector3 velocityOffset = previousVelocity - rb.velocity;
+        //Vector3 velocityOffset = previousVelocity - rb.velocity;
         // De momento diferencia de 1
         if(bullet == null)
         {
             //
-            Rigidbody otherRb = collision.collider.GetComponent<Rigidbody>();
-            float impactForce = GeneralFunctions.GetCollisionForce(rb, otherRb);
-            if(otherRb != null || velocityOffset.magnitude > 2)
-            {
-                //Debug.Log("Hitting " + collision.transform.name + " with " + impactForce + " force");
-                ReceiveImpact(impactForce, collision.contacts[0].point);
-            }            
+            //Rigidbody otherRb = collision.collider.GetComponent<Rigidbody>();
+            //float impactForce = GeneralFunctions.GetCollisionForce(rb, otherRb);
+            //if(otherRb != null || velocityOffset.magnitude > 2)
+            //{
+            //    //Debug.Log("Hitting " + collision.transform.name + " with " + impactForce + " force");
+            //    //ReceiveImpact(impactForce, collision.contacts[0].point);
+            //}            
         }
         // TODO: Está duplicado aqui y en EnemyCollider
         // Ver como va
@@ -216,7 +214,7 @@ public class EnemyConsistency : MonoBehaviour {
     {
         if(penetrationResult > 0)
         {
-
+            //FUCK
         }
     }
 

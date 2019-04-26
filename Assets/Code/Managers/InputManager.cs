@@ -113,10 +113,10 @@ public class InputManager : MonoBehaviour {
         fireButtonDown = Input.GetAxisRaw("Cross Triggers") > 0 || Input.GetKeyDown(KeyCode.Mouse0);
 
         // TODO: Chequear en mando
-        markObjectiveButton = Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Joystick1Button5) /* R1 */;
+        markObjectiveButton = Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Joystick1Button9) /* R3 */;
 
         // Switch buttons
-        switchWeaponButton = Input.GetKeyDown(KeyCode.Alpha1) || changeAttackDown;
+        switchWeaponButton = Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Joystick1Button1);
         switchDefenseButton = Input.GetKeyDown(KeyCode.Alpha2) || changeDefenseDown;
         switchJumpButton = Input.GetKeyDown(KeyCode.Alpha3) || changeJumpDown;
         switchSprintButton = Input.GetKeyDown(KeyCode.Alpha4) || changeSprintDown;

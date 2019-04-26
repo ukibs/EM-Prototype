@@ -24,6 +24,7 @@ public class SpringCamera : MonoBehaviour {
     private Camera cameraComponent;
     private InputManager inputManager;
     private GameManager gameManager;
+    private CameraReference cameraReference;
 
     //private float originalY;
     //private float currentOffsetY = 0;
@@ -77,6 +78,8 @@ public class SpringCamera : MonoBehaviour {
         gameManager = FindObjectOfType<GameManager>();
         //
         positionWithoutCorrection = transform.position;
+        //
+        cameraReference = FindObjectOfType<CameraReference>();
     }
 
     //
@@ -361,6 +364,7 @@ public class SpringCamera : MonoBehaviour {
             {
                 //currentEnemy = null;
                 SwitchTarget(null);
+                cameraReference.ResetEulerX();
             }
         }
     }
@@ -410,6 +414,7 @@ public class SpringCamera : MonoBehaviour {
         {
             Debug.Log("No active enemies");
             SwitchTarget();
+            cameraReference.ResetEulerX();
             return;
         }
             
@@ -475,6 +480,7 @@ public class SpringCamera : MonoBehaviour {
         {
             //Debug.Log("No more enemies in screen");
             SwitchTarget();
+            cameraReference.ResetEulerX();
         }
     }
 

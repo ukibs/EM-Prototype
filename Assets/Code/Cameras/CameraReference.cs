@@ -49,7 +49,7 @@ public class CameraReference : MonoBehaviour {
             //float amountToRotate = ((mouseMovement.x * 1/10) + (rightAxisMovement.x * 1)) * rotationSpeed * dt;
 #if UNITY_EDITOR
             float amountToRotateY = ((mouseMovement.x * 1) + (rightAxisMovement.x * 1)) * rotationSpeed * dt;
-            float amountToRotateX = ((-mouseMovement.y * 1) + (-rightAxisMovement.y * 1)) * rotationSpeed * dt;
+            float amountToRotateX = ((-mouseMovement.y * 1) + (rightAxisMovement.y * 1)) * rotationSpeed * dt;
 #else
             float amountToRotateY = ((mouseMovement.x * 10) + (rightAxisMovement.x * 1)) * rotationSpeed * dt;
             float amountToRotateX = ((-mouseMovement.y * 1) + (-rightAxisMovement.y * 1)) * rotationSpeed * dt;
@@ -58,9 +58,14 @@ public class CameraReference : MonoBehaviour {
             // Ajuste en el eje x
             if (!playerControl.Adhering)
             {
+                // Que no rtoe en z
                 Vector3 currentEulers = transform.eulerAngles;
                 currentEulers.z = 0;
                 transform.eulerAngles = currentEulers;
+                //
+                //Quaternion currentRotation = transform.rotation;
+                //currentRotation.x = Mathf.Clamp(currentRotation.x, -60 * Mathf.Deg2Rad, 30 * Mathf.Deg2Rad);
+                //transform.rotation = currentRotation;
             }
 
         }
@@ -91,6 +96,15 @@ public class CameraReference : MonoBehaviour {
         
     }
 
+    //
+    public void ResetEulerX()
+    {
+        Vector3 currentEulers = transform.eulerAngles;
+        currentEulers.x = 0;
+        transform.eulerAngles = currentEulers;
+    }
+
+    //
     public void UpdateUp(Vector3 newUp)
     {
         transform.rotation = Quaternion.LookRotation(transform.forward, newUp);
