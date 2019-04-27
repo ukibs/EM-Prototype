@@ -49,7 +49,7 @@ public class CameraReference : MonoBehaviour {
             //float amountToRotate = ((mouseMovement.x * 1/10) + (rightAxisMovement.x * 1)) * rotationSpeed * dt;
 #if UNITY_EDITOR
             float amountToRotateY = ((mouseMovement.x * 1) + (rightAxisMovement.x * 1)) * rotationSpeed * dt;
-            float amountToRotateX = ((-mouseMovement.y * 1) + (rightAxisMovement.y * 1)) * rotationSpeed * dt;
+            float amountToRotateX = ((mouseMovement.y * 1) + (rightAxisMovement.y * 1)) * rotationSpeed * dt;
 #else
             float amountToRotateY = ((mouseMovement.x * 10) + (rightAxisMovement.x * 1)) * rotationSpeed * dt;
             float amountToRotateX = ((-mouseMovement.y * 1) + (-rightAxisMovement.y * 1)) * rotationSpeed * dt;

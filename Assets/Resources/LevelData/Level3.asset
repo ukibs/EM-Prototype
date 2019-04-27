@@ -17,17 +17,15 @@ MonoBehaviour:
     enemiesToDefeat: 10
     attackActionsAvailable: 3
     defenseActionsAvailable: 1
-    jumpActionsAvailable: 1
+    jumpActionsAvailable: 2
     sprintActionsAvailable: 1
     enemyGroups:
     - {fileID: 8243630492665005111, guid: fac8381089c47c6409523ca6355013af, type: 3}
-    - {fileID: 8243630492665005111, guid: fac8381089c47c6409523ca6355013af, type: 3}
-    enemiesToSpawn: 0100000002000000
-    enemySpawnIncrement: 0000000000000000
+    enemiesToSpawn: 01000000
+    enemySpawnIncrement: 00000000
     timeBetweenSpawns:
-    - 6
-    - 10
-    maxActiveEnemies: 0400000006000000
+    - 1
+    maxActiveEnemies: 01000000
     terrainPrefabs:
     - {fileID: 3326227640253247155, guid: a6ea28f7bba66814c94750eff1f7c8d9, type: 3}
     - {fileID: 6767483043771959620, guid: 4d89a9e3bd7e7914c803a93a276799b2, type: 3}
