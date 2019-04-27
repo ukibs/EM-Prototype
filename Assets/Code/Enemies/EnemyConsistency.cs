@@ -72,6 +72,9 @@ public class EnemyConsistency : MonoBehaviour {
         {
             //ManageDamage(currentChasisHealth, transform.position);
             Destroy(gameObject);
+            //
+            if (enemyManager != null)
+                enemyManager.SubtractOne(gameObject);
         }
         // Decidimos el daño físico por cambio en la velocidad
         if ((rb.velocity.magnitude - previousVelocity.magnitude) > 3)

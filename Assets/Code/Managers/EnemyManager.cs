@@ -154,7 +154,7 @@ public class EnemyManager : MonoBehaviour
         //
         for(int i = 0; i < enemyPrefabsToUse.Length; i++)
         {
-            if (prefabName[0].Equals(enemyPrefabsToUse[i].name))
+            if (prefabName[i].Equals(enemyPrefabsToUse[i].name))
                 activeEnemies[i]--;
         }
     }
