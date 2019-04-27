@@ -13,6 +13,7 @@ public enum Actions
     Fleeing,
     ZigZagingTowardsPlayer,
     Lunging,
+    RetreatingFromPlayer,
 
     Count
 }
@@ -128,6 +129,10 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
                     break;
                 case Actions.Fleeing:
                     transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, -playerDirection, rotationSpeed, dt);
+                    Move();
+                    break;
+                case Actions.RetreatingFromPlayer:
+                    transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed, dt);
                     Move();
                     break;
             }

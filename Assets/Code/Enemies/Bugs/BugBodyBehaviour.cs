@@ -109,6 +109,12 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
                         currentAction = behaviour[i];
                     }
                     return;
+                case Actions.RetreatingFromPlayer:
+                    if (playerDistance.magnitude < minimalShootDistance)
+                    {
+                        currentAction = behaviour[i];
+                    }
+                    return;
             }
         }
     }
@@ -140,6 +146,10 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
                 case Actions.EncirclingPlayerSideward:
                     movingDirection = transform.right;
                     speedMultiplier = 0.5f;
+                    break;
+                case Actions.RetreatingFromPlayer:
+                    movingDirection = -transform.forward;
+                    speedMultiplier = 1f;
                     break;
             }
             //rb.velocity = (movingDirection * maxSpeed * speedMultiplier) + Physics.gravity;

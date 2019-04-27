@@ -25,6 +25,8 @@ public class EnemyConsistency : MonoBehaviour {
     protected Rigidbody rb;
     protected Vector3 previousVelocity;
     protected AudioSource audioSource;
+    //
+    protected int managerIndex;
 
     #endregion
 
@@ -37,6 +39,12 @@ public class EnemyConsistency : MonoBehaviour {
     public bool IsAlive
     {
         get { return /*currentChasisHealth > 0 &&*/ CurrentHealth > 0; }
+    }
+
+    //
+    public int ManagerIndex {
+        get { return managerIndex; }
+        set { managerIndex = value; }
     }
 
     #endregion
@@ -74,7 +82,7 @@ public class EnemyConsistency : MonoBehaviour {
             Destroy(gameObject);
             //
             if (enemyManager != null)
-                enemyManager.SubtractOne(gameObject);
+                enemyManager.SubtractOne(managerIndex);
         }
         // Decidimos el daño físico por cambio en la velocidad
         if ((rb.velocity.magnitude - previousVelocity.magnitude) > 3)
@@ -248,7 +256,7 @@ public class EnemyConsistency : MonoBehaviour {
             if(levelManager != null)
                 levelManager.AnnotateKill();
             if (enemyManager != null)
-                enemyManager.SubtractOne(gameObject);
+                enemyManager.SubtractOne(managerIndex);
             // Esto para los voladores mas que nada
             rb.constraints = RigidbodyConstraints.None;
             

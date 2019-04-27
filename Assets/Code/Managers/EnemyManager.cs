@@ -109,8 +109,14 @@ public class EnemyManager : MonoBehaviour
                     //Vector3 pointForGroupSpawn = new Vector3(groupSpawnPositionXY.x + playerTransform.position.x, 2,
                     //                                            groupSpawnPositionXY.y + playerTransform.position.z);
                     //
-                    //GameObject nextEnemy = 
-                    Instantiate(enemyPrefabsToUse[i], positionToSpawn, Quaternion.identity);
+                    GameObject nextEnemy = Instantiate(enemyPrefabsToUse[i], positionToSpawn, Quaternion.identity);
+                EnemyConsistency enemyConsistency = nextEnemy.GetComponent<EnemyConsistency>();
+                //
+                if (enemyConsistency == null)
+                    enemyConsistency = nextEnemy.GetComponentInChildren<EnemyConsistency>();
+                //
+                enemyConsistency.ManagerIndex = i;
+                
                     //GameObject nextEnemy = Instantiate(enemyPrefabsToUse[i], pointForGroupSpawn, Quaternion.identity);
                 }
                 //
@@ -147,29 +153,29 @@ public class EnemyManager : MonoBehaviour
     }
 
     //
-    public void SubtractOne(GameObject gameObject)
+    public void SubtractOne(int enemyIndex)
     {
         //NOTA: Esto 
         string[] prefabName = gameObject.name.Split('(');
         //
-        for(int i = 0; i < enemyPrefabsToUse.Length; i++)
-        {
+        //for(int i = 0; i < enemyPrefabsToUse.Length; i++)
+        //{
             //
             //Debug.Log("Checking enemy to subtract: " + prefabName[0] + ", " + enemyPrefabsToUse[i].name);
             //
-            if (prefabName[0].Equals(enemyPrefabsToUse[i].name))
-            {
+            //if (prefabName[0].Equals(enemyPrefabsToUse[i].name))
+            //{
                 //
-                activeEnemies[i]--;
+                activeEnemies[enemyIndex]--;
                 //
-                Debug.Log("Subtracting " + enemyPrefabsToUse[i].name);
+                Debug.Log("Subtracting " + enemyPrefabsToUse[enemyIndex].name);
                 //
-                return;
-            }
+                //return;
+        //    }
                 
-        }
+        //}
         //
-        Debug.Log("Subtracting: Name not matched");
+        //Debug.Log("Subtracting: Name not matched, " + prefabName[0]);
     }
 
     //

@@ -224,8 +224,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3418018241343256972}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.065, z: 0}
-  m_LocalScale: {x: 1.6543015, y: 1.3570399, z: 1.6543015}
+  m_LocalPosition: {x: 0, y: -0.065, z: -0.12}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4694978884287231175}
   m_RootOrder: 1
@@ -609,8 +609,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBetweenActionChecking: 1
-  rotationSpeed: 60
-  behaviour: 0200000000000000
+  rotationSpeed: 10
+  behaviour: 0700000000000000
   weapons:
   - {fileID: 7941179010727494988}
   maxSpeed: 10
@@ -1119,6 +1119,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4694978884287231175}
     m_Modifications:
+    - target: {fileID: 100006, guid: baf227c5abb01eb44979e4ffd04480c6, type: 3}
+      propertyPath: m_Name
+      value: Grunt
+      objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: baf227c5abb01eb44979e4ffd04480c6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1174,10 +1178,6 @@ PrefabInstance:
     - target: {fileID: 400006, guid: baf227c5abb01eb44979e4ffd04480c6, type: 3}
       propertyPath: m_LocalScale.z
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 100006, guid: baf227c5abb01eb44979e4ffd04480c6, type: 3}
-      propertyPath: m_Name
-      value: Grunt
       objectReference: {fileID: 0}
     - target: {fileID: 400024, guid: baf227c5abb01eb44979e4ffd04480c6, type: 3}
       propertyPath: m_LocalRotation.x

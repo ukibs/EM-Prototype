@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelInfo:
     victoryCondition: 1
-    enemiesToDefeat: 10
+    enemiesToDefeat: 1
     attackActionsAvailable: 3
     defenseActionsAvailable: 1
-    jumpActionsAvailable: 2
+    jumpActionsAvailable: 1
     sprintActionsAvailable: 1
     enemyGroups:
     - {fileID: 8243630492665005111, guid: fac8381089c47c6409523ca6355013af, type: 3}
