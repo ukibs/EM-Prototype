@@ -154,9 +154,22 @@ public class EnemyManager : MonoBehaviour
         //
         for(int i = 0; i < enemyPrefabsToUse.Length; i++)
         {
-            if (prefabName[i].Equals(enemyPrefabsToUse[i].name))
+            //
+            //Debug.Log("Checking enemy to subtract: " + prefabName[0] + ", " + enemyPrefabsToUse[i].name);
+            //
+            if (prefabName[0].Equals(enemyPrefabsToUse[i].name))
+            {
+                //
                 activeEnemies[i]--;
+                //
+                Debug.Log("Subtracting " + enemyPrefabsToUse[i].name);
+                //
+                return;
+            }
+                
         }
+        //
+        Debug.Log("Subtracting: Name not matched");
     }
 
     //

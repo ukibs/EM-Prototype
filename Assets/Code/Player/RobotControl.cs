@@ -5,9 +5,9 @@ using UnityEngine;
 public enum AttackMode
 {
     Invalid = -1,
-
-    Pulse,
+    
     RapidFire,
+    Pulse,
     Canon,    
     ParticleCascade,
     //Sharpnel,
@@ -91,7 +91,7 @@ public class RobotControl : MonoBehaviour {
     private Transform mainCamera;
     private Rigidbody rb;
 
-    private AttackMode attackMode = AttackMode.Pulse;
+    private AttackMode attackMode = (AttackMode)0;
     private DefenseMode defenseMode = DefenseMode.Spheric;
     private JumpMode jumpMode = JumpMode.Normal;
     private SprintMode sprintMode = SprintMode.Normal;
@@ -509,8 +509,8 @@ public class RobotControl : MonoBehaviour {
             //
             attackMode = (AttackMode)(int)attackMode + 1;
             attackMode = (attackMode == AttackMode.Count || 
-                            (int)attackMode >= gameManager.unlockedAttackActions) ? 
-                            AttackMode.Pulse : attackMode;
+                            (int)attackMode >= gameManager.unlockedAttackActions) ?
+                            (AttackMode)0 : attackMode;
             // Asignamos en el player reference el rigidbody que corresponda
             switch (attackMode)
             {

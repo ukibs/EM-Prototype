@@ -174,7 +174,7 @@ public class ExplosiveBullet : MonoBehaviour
         if (playerIntegrity != null)
         {
             //
-            Debug.Log("Sharpnel impacting in player with mass " + sharpnelRb.mass + ", velocity " + sharpnelRb.velocity.magnitude + ", force " + sharpnelRb.Force);
+            //Debug.Log("Sharpnel impacting in player with mass " + sharpnelRb.mass + ", velocity " + sharpnelRb.velocity.magnitude + ", force " + sharpnelRb.Force);
             //
             Vector3 impactPositionForDirection = playerIntegrity.transform.position - transform.position;
             //

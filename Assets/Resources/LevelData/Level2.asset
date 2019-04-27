@@ -15,7 +15,7 @@ MonoBehaviour:
   levelInfo:
     victoryCondition: 1
     enemiesToDefeat: 20
-    attackActionsAvailable: 1
+    attackActionsAvailable: 2
     defenseActionsAvailable: 0
     jumpActionsAvailable: 1
     sprintActionsAvailable: 1
