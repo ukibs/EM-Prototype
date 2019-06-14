@@ -16,7 +16,7 @@ public class DestructibleTerrain : MonoBehaviour
         // De momento chequeo simple
         // Quedetecte si es el gusano
         // Y si lo es se destruye
-        WormBehaviour wormBehaviour = collision.collider.GetComponentInParent<WormBehaviour>();
+        GigaWormBehaviour wormBehaviour = collision.collider.GetComponentInParent<GigaWormBehaviour>();
         //
         if(wormBehaviour != null)
         {

@@ -333,8 +333,7 @@ public class RobotControl : MonoBehaviour {
             if (!cameraControl.TargetingPlayer)
             {
                 //
-                // TODO: Agregarlo al stimated
-                //Vector3 pointToLook = transform.TransformPoint(EnemyAnalyzer.enemyConsistency.centralPointOffset);
+                // TODO: Ajustar el stimated para que pille bien 
                 Vector3 pointToLook = EnemyAnalyzer.estimatedToHitPosition;
                 transform.LookAt(pointToLook, currentUp);
             }                
@@ -707,10 +706,12 @@ public class RobotControl : MonoBehaviour {
         if (rapidFireCooldown >= 1 / gameManager.rapidFireRate)
         {
             // La calculamos desde los puntos de la ametralladora para más precision
-            if(EnemyAnalyzer.isActive)
+            // TODO: Revisar aqui tambien el cambio de centralPointOffset
+            if (EnemyAnalyzer.isActive)
                 EnemyAnalyzer.estimatedToHitPosition = GeneralFunctions.AnticipateObjectivePositionForAiming(
-                machineGunPoints[nextRapidFireSide].position, 
-                EnemyAnalyzer.enemyTransform.TransformPoint(EnemyAnalyzer.enemyConsistency.centralPointOffset), 
+                machineGunPoints[nextRapidFireSide].position,
+                EnemyAnalyzer.enemyTransform.position,
+                //EnemyAnalyzer.enemyTransform.TransformPoint(EnemyAnalyzer.enemyConsistency.centralPointOffset), 
                 EnemyAnalyzer.enemyRb.velocity, gameManager.rapidFireMuzzleSpeed, dt);
             // Determinamos el 
             // TODO: Coger el punto de disparo del plauer

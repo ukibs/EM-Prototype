@@ -32,6 +32,7 @@ public class CameraReference : MonoBehaviour {
 
         float dt = Time.deltaTime;
 
+        // TODO: Trabajar con el ideal position del Repulsor para evitar camara oscilando de forma incomoda
         transform.position = objective.position;
 
         UpdateRotation(dt);
@@ -40,9 +41,10 @@ public class CameraReference : MonoBehaviour {
 
 	}
 
+    // Para testeos
     private void OnGUI()
     {
-        GUI.Label(new Rect(20, 100, 200, 20), "Rotation x: " + transform.rotation.x * Mathf.Rad2Deg);
+        //GUI.Label(new Rect(20, 100, 200, 20), "Rotation x: " + transform.rotation.x * Mathf.Rad2Deg);
     }
 
     void UpdateRotation(float dt)

@@ -13,7 +13,7 @@ public enum WormStatus
     Count
 }
 
-public class WormBehaviour : MonoBehaviour
+public class GigaWormBehaviour : Targeteable
 {
 
     public float wanderingMovementSpeed = 10;
