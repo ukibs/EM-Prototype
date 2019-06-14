@@ -103,14 +103,14 @@ public class SpringCamera : MonoBehaviour {
         //UpdateRotation(dt);
         // TODO: Hacerlo de forma menos guarra
         //else 
-        if (currentTarget != targetPlayer && EnemyAnalyzer.enemyConsistency == null)
+        /*if (currentTarget != targetPlayer && EnemyAnalyzer.enemyConsistency == null)
             //currentTarget.GetComponent<EnemyConsistency>() == null)
         {
             //if(!SwitchBetweenEnemies())
             //    SwitchTarget();
             //Debug.Log("Enemy down, switching to next");
             SwitchBetweenEnemies(Vector2.zero);
-        }
+        }*/
         //
         UpdateMovement(dt);
         AdjustToEnemyMovement(dt);
@@ -122,11 +122,12 @@ public class SpringCamera : MonoBehaviour {
         CheckDontEnterInsideScenario();
 	}
 
+    // Para testeos
     private void OnGUI()
     {
         //GUI.Label(new Rect(10, Screen.height - 30, 150, 20), "Change allowed: " + changeAllowed);
         //
-        
+        GUI.Label(new Rect(10, Screen.height - 30, 300, 20), "Current target: " + currentTarget.name);
     }
 
     private void OnDrawGizmos()
@@ -200,13 +201,16 @@ public class SpringCamera : MonoBehaviour {
         if (transitionProgression < transitionTimeBetweenEnemies)
         {
             Quaternion enemyDirection = Quaternion.LookRotation(targetPos - transform.position);
+
             transform.rotation = Quaternion.Slerp(previousObjectiveRotation, enemyDirection,
                 transitionProgression / transitionTimeBetweenEnemies);
+
             transitionProgression += dt;
         }
         else if (previousObjective == currentTarget)
         {
-
+            // TODO: Revisar que falla con el estiamte position
+            //transform.LookAt(currentTarget.position);
             transform.LookAt(targetPos);
         }
         // Aquí hacemos la transición
@@ -229,16 +233,22 @@ public class SpringCamera : MonoBehaviour {
         //
         if (!EnemyAnalyzer.isActive)
             return;
-        //
-        if(EnemyAnalyzer.enemyConsistency == null)
+        // TODO: Crear metodo más felxible
+        // Trabajar no solo con enemy consistency
+        /*if(EnemyAnalyzer.enemyConsistency == null)
         {
             EnemyAnalyzer.Release();
             return;
-        }
+        }*/
+
+        // TODO: Hemos movido el centralPointOffset a Targeteable
         // Empezamos cogiendo la posición del enemigo
-        Vector3 targetPoint = EnemyAnalyzer.enemyTransform.TransformPoint(EnemyAnalyzer.enemyConsistency.centralPointOffset);
+        //Vector3 targetPoint = EnemyAnalyzer.enemyTransform.TransformPoint(EnemyAnalyzer.enemyConsistency.centralPointOffset);
+        Vector3 targetPoint = EnemyAnalyzer.enemyTransform.position;
+
         // TODO: Sacar un índice del arma actualmente equipada para usar su muzzle speed en la función de atnicpar
         Rigidbody enemyRigidbody = EnemyAnalyzer.enemyRb;
+
         // Determinamos donde va a estar cuando el proyectil llegue a él
         //
         float proyectileMuzzleSpeed = 1000;
@@ -276,9 +286,11 @@ public class SpringCamera : MonoBehaviour {
     {
         //
         Transform[] enemiesToReturn = new Transform[2];
+        // Recuerda, tiene que estar activo
+        Targeteable[] enemies = FindObjectsOfType<Targeteable>();
+        List<Targeteable> targeteableEnemies = FilterActiveTargeteables(enemies);
         //
-        EnemyConsistency[] enemies = FindObjectsOfType<EnemyConsistency>();
-        if (enemies.Length == 0)
+        if (targeteableEnemies.Count == 0)
             return null;
         //
         int nearestScreenEnemy = -1;
@@ -286,10 +298,10 @@ public class SpringCamera : MonoBehaviour {
         float minScreenDistance = Mathf.Infinity;
         float minWorldDistance = Mathf.Infinity;
         //
-        for (int i = 0; i < enemies.Length; i++)
+        for (int i = 0; i < targeteableEnemies.Count; i++)
         {
             // Distancia al centro de pantalla
-            Vector3 posInScreen = cameraComponent.WorldToViewportPoint(enemies[i].transform.position);
+            Vector3 posInScreen = cameraComponent.WorldToViewportPoint(targeteableEnemies[i].transform.position);
             // float distanceToCenter = Mathf.Sqrt(Mathf.Pow(posInScreen.x - 0.05f, 2) + Mathf.Pow(posInScreen.y - 0.05f, 2));
             float distanceToCenter = Mathf.Pow(posInScreen.x - 0.5f, 2) + Mathf.Pow(posInScreen.y - 0.5f, 2);
             //bool inScreen = posInScreen.x >= 0 && posInScreen.x <= 1 && posInScreen.y >= 0 && posInScreen.y <= 1;
@@ -298,17 +310,18 @@ public class SpringCamera : MonoBehaviour {
                 posInScreen.y >= 0 && posInScreen.y <= 1 && 
                 posInScreen.z > 0;
             //
-            EnemyConsistency enemyConsistency = enemies[i].GetComponent<EnemyConsistency>();
+            // TODO: Revisar para trabajar con Targeteable
+            //EnemyConsistency enemyConsistency = targeteableEnemies[i].GetComponent<EnemyConsistency>();
             //
             //Debug.Log(enemies[i].transform.name + ", in " + posInScreen);
             if (inScreen && distanceToCenter < minScreenDistance
-                 && EnemyOnSight(enemies[i].transform.TransformPoint(enemyConsistency.centralPointOffset)))
+                 && EnemyOnSight(targeteableEnemies[i].transform.TransformPoint(targeteableEnemies[i].centralPointOffset)))
             {
                 minScreenDistance = distanceToCenter;
                 nearestScreenEnemy = i;
             }
             // Distancia al player
-            float enemyDistance = (transform.position - enemies[i].transform.position).sqrMagnitude;
+            float enemyDistance = (transform.position - targeteableEnemies[i].transform.position).sqrMagnitude;
             if (enemyDistance < minWorldDistance)
             {
 
@@ -318,11 +331,26 @@ public class SpringCamera : MonoBehaviour {
         }
         //
         if(nearestScreenEnemy != -1)
-            enemiesToReturn[0] = enemies[nearestScreenEnemy].transform;
+            enemiesToReturn[0] = targeteableEnemies[nearestScreenEnemy].transform;
         //
-        enemiesToReturn[1] = enemies[nearestWorldEnemy].transform;
+        enemiesToReturn[1] = targeteableEnemies[nearestWorldEnemy].transform;
         //
         return enemiesToReturn;
+    }
+
+    //
+    public List<Targeteable> FilterActiveTargeteables(Targeteable[] candidates)
+    {
+        //
+        List<Targeteable> filteredTargeteables = new List<Targeteable>(candidates.Length);
+        //
+        for (int i = 0; i < candidates.Length; i++)
+        {
+            if (candidates[i].active)
+                filteredTargeteables.Add(candidates[i]);
+        }
+        //
+        return filteredTargeteables;
     }
     
     /// <summary>
@@ -411,9 +439,10 @@ public class SpringCamera : MonoBehaviour {
         if (rightAxis.magnitude != 0)
             axisAngle = Mathf.Atan2(rightAxis.y, rightAxis.x);
         //
-        EnemyConsistency[] enemies = FindObjectsOfType<EnemyConsistency>();
+        Targeteable[] enemies = FindObjectsOfType<Targeteable>();
+        List<Targeteable> targeteableEnemies = FilterActiveTargeteables(enemies);
         //
-        if (enemies.Length == 0)
+        if (targeteableEnemies.Count == 0)
         {
             Debug.Log("No active enemies");
             SwitchTarget();
@@ -425,12 +454,12 @@ public class SpringCamera : MonoBehaviour {
         float minimalMeasure = 180;
         float minimalDistance = Mathf.Infinity;
         int nearestEnemy = -1;
-        for (int i = 0; i < enemies.Length; i++)
+        for (int i = 0; i < targeteableEnemies.Count; i++)
         {
             // Vamos a probar cercanía por ángulo
-            Vector3 enemyViewPortCoordinates = cameraComponent.WorldToViewportPoint(enemies[i].transform.position);
+            Vector3 enemyViewPortCoordinates = cameraComponent.WorldToViewportPoint(targeteableEnemies[i].transform.position);
             Vector2 coordinatesFromScreenCenter = new Vector2(enemyViewPortCoordinates.x - 0.5f, enemyViewPortCoordinates.y - 0.5f);
-            EnemyConsistency enemyConsistency = enemies[i].GetComponent<EnemyConsistency>();
+            //EnemyConsistency enemyConsistency = targeteableEnemies[i].GetComponent<EnemyConsistency>();
             // TODO: Buscar un método mejor
             // Con angulo en este caso
             if (rightAxis.magnitude > 0.05f)
@@ -448,9 +477,9 @@ public class SpringCamera : MonoBehaviour {
                 float measure = angleOffset + (distance * 1) + (inScreen * 1000);
                 
                 //
-                if (measure < minimalMeasure && 
-                    enemies[i].transform != currentTarget &&
-                    EnemyOnSight(enemies[i].transform.TransformPoint(enemyConsistency.centralPointOffset)))
+                if (measure < minimalMeasure &&
+                    targeteableEnemies[i].transform != currentTarget &&
+                    EnemyOnSight(targeteableEnemies[i].transform.TransformPoint(targeteableEnemies[i].centralPointOffset)))
                 {
                     minimalMeasure = measure;
                     nearestEnemy = i;
@@ -465,7 +494,7 @@ public class SpringCamera : MonoBehaviour {
                     enemyViewPortCoordinates.z > 0;
                 if (inScreen && 
                     coordinatesFromScreenCenter.magnitude < minimalDistance &&
-                    EnemyOnSight(enemies[i].transform.TransformPoint(enemyConsistency.centralPointOffset)))
+                    EnemyOnSight(targeteableEnemies[i].transform.TransformPoint(targeteableEnemies[i].centralPointOffset)))
                 {
                     minimalDistance = coordinatesFromScreenCenter.magnitude;
                     nearestEnemy = i;
@@ -477,7 +506,7 @@ public class SpringCamera : MonoBehaviour {
         {
             //currentEnemy = enemies[nearestEnemy];
             //currentTarget = enemies[nearestEnemy].transform;
-            SwitchTarget(enemies[nearestEnemy].transform);
+            SwitchTarget(targeteableEnemies[nearestEnemy].transform);
         }
         else
         {
@@ -584,10 +613,15 @@ public static class EnemyAnalyzer
     public static Vector3 estimatedToHitPosition;
     public static bool isActive = false;
 
+    // TODO: Ajustarlo para que trabaje con casos sin rigidbody y/o enemyconsistency
     public static void Assign(Transform enemyReference)
     {
         enemyTransform = enemyReference;
         enemyRb = enemyReference.GetComponent<Rigidbody>();
+        // Chequeo extra
+        if(enemyRb == null)
+            enemyRb = enemyReference.GetComponentInParent<Rigidbody>();
+        //
         enemyConsistency = enemyReference.GetComponent<EnemyConsistency>();
         isActive = true;
     }

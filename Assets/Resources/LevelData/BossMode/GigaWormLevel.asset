@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c63d98343d9016a43a08df7f70932119, type: 3}
+  m_Name: Level
+  m_EditorClassIdentifier: 
+  levelInfo:
+    victoryCondition: 0
+    enemiesToDefeat: 0
+    attackActionsAvailable: 1
+    defenseActionsAvailable: 1
+    jumpActionsAvailable: 1
+    sprintActionsAvailable: 2
+    enemyGroups: []
+    enemiesToSpawn: 
+    enemySpawnIncrement: 
+    timeBetweenSpawns: []
+    maxActiveEnemies: 
+    terrainPrefabs:
+    - {fileID: 3326227640253247155, guid: e805da38f2157cf44bd8ebbbe826ba67, type: 3}
+    - {fileID: 1781217798136379078, guid: a29bd4f96f2d4f24280d189da1bef920, type: 3}
+    - {fileID: 6767483043771959620, guid: 4d89a9e3bd7e7914c803a93a276799b2, type: 3}
+    terrainRatio: 010000000a0000000a000000
+    terrainMax: 000000000000000000000000
+    terrainMin: 000000000000000000000000

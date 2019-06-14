@@ -114,8 +114,12 @@ public class ProvisionalHUD : MonoBehaviour {
         //
         if (!cameraControl.TargetingPlayer)
         {
-            EnemyInfo();
-            
+            // Vamos a trabajar para que maneje varios tipos de objetivo
+            // Enemy consistency (el viejo)
+            EnemyConsistency enemyConsistency = cameraControl.CurrentTarget.GetComponent<EnemyConsistency>();
+            if(enemyConsistency != null)
+                EnemyInfo();
+            // TODO: Hacerlo con weakpoints también
         }
 
         //
@@ -313,14 +317,8 @@ public class ProvisionalHUD : MonoBehaviour {
             //    rbDirection2.x * Screen.width - 5,
             //    Screen.height - rbDirection2.y * Screen.height - 5, 10, 10),
             //    testingVelocityIcon);
-
-
-            // Barra de vida (chasis)
-            //float enemyChasisHealthForBar = enemyConsistency.CurrentChasisHealth / enemyConsistency.maxChasisHealth;
-            //enemyChasisHealthForBar = Mathf.Clamp01(enemyChasisHealthForBar);
-            //GUI.DrawTexture(new Rect(Screen.width / 2 + 150, Screen.height / 2 - 50, enemyChasisHealthForBar * 100f, 20), enemyChasisTexture);
-            //GUI.Label(new Rect(Screen.width / 2 + 150, Screen.height / 2 - 50, 100f, 20), " " + enemyConsistency.CurrentChasisHealth);
-            // Barra de vida (core)
+            
+            // Barra de vida
             float enemyCoreHealthForBar = enemyConsistency.CurrentHealth / enemyConsistency.maxHealth;
             enemyCoreHealthForBar = Mathf.Clamp01(enemyCoreHealthForBar);
             GUI.DrawTexture(new Rect(Screen.width / 2 + 150, Screen.height / 2 - 30, enemyCoreHealthForBar * 100f, 20), enemyHealthTexture);
@@ -403,14 +401,17 @@ public class ProvisionalHUD : MonoBehaviour {
     //
     void MarkEnemiesOnScreen()
     {
-        //
+        // TODO: Hacerlo con Targeteable
         // TODO: Cogerlo por refencia del manager apropiado cuando lo tengamos listo
-        EnemyConsistency[] enemies = FindObjectsOfType<EnemyConsistency>();
+        Targeteable[] enemies = FindObjectsOfType<Targeteable>();
         if (enemies.Length == 0)
             return;
         //
         for (int i = 0; i < enemies.Length; i++)
         {
+            //
+            if (!enemies[i].active)
+                continue;
             // Distancia al centro de pantalla
             Vector3 posInScreen =  Camera.main.WorldToViewportPoint(enemies[i].transform.position);
             bool inScreen = posInScreen.x >= 0 && posInScreen.x <= 1 &&
@@ -425,7 +426,8 @@ public class ProvisionalHUD : MonoBehaviour {
                 GUI.DrawTexture(new Rect(
                     posInScreen.x * Screen.width - 15,
                     Screen.height - posInScreen.y * Screen.height - 50, 30, 30),
-                    enemyInScreenTextures[(int)enemyIdentifier.enemyType]);
+                    enemyInScreenTextures[0]);
+                //enemyInScreenTextures[(int)enemyIdentifier.enemyType]);
             }
         }
     }
@@ -499,7 +501,7 @@ public class ProvisionalHUD : MonoBehaviour {
         GUI.DrawTexture(new Rect(0, Screen.height - radarDimensions.y, radarDimensions.x, radarDimensions.y), radarTexture);
         // Y enemigos
         // TODO: Cogerlo por refencia del manager apropiado cuando lo tengamos listo
-        EnemyConsistency[] enemies = FindObjectsOfType<EnemyConsistency>();
+        Targeteable[] enemies = FindObjectsOfType<Targeteable>();
         if (enemies.Length == 0)
             return;
         //
@@ -511,6 +513,9 @@ public class ProvisionalHUD : MonoBehaviour {
             float xzDistance = offset.magnitude;
             if(xzDistance < radarRange)
             {
+                //
+                if (!enemies[i].active)
+                    continue;
                 // Sacamos la posición para el radar
                 Vector2 posInRadar = new Vector2(offset.x * radarDimensions.x / radarRange / 2 + (radarDimensions.x / 2),
                                         offset.z * radarDimensions.y / radarRange / 2 + (radarDimensions.y / 2));
