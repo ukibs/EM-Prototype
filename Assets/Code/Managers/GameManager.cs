@@ -26,6 +26,16 @@ public enum WorkingWith
 
     Count
 }
+// 
+public enum GameMode
+{
+    Invalid = -1,
+
+    Arcade,
+    Bosses,
+
+    Count
+}
 
 /// <summary>
 /// Manager del juego en general
@@ -37,6 +47,9 @@ public class GameManager : MonoBehaviour
 
     //
     public static GameManager instance = null;
+
+    //
+    public GameMode gameMode = GameMode.Bosses;
 
     //
     public WorkingWith workingWith = WorkingWith.Bugs;
@@ -170,95 +183,30 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region XML Functions
-
-    //public void GetLevelsInfoFromXML()
-    //{
-    //    //
-    //    //Debug.Log("Getting levels info: Current game progression: " + gameProgression);
-    //    //
-    //    XmlDocument xml_d;
-    //    XmlNodeList xmlLevelsInfo;
-    //    TextAsset textasset = (TextAsset)Resources.Load("LevelInfo", typeof(TextAsset));
-    //    xml_d = new XmlDocument();
-    //    xml_d.LoadXml(textasset.text);
-    //    xmlLevelsInfo = xml_d.GetElementsByTagName("LEVEL");
-    //    // Preparamos el levels info
-    //    levelsInfo = new LevelInfo[xmlLevelsInfo.Count];
-    //    // Y vamos cargando los datos
-    //    for(int i = 0; i < xmlLevelsInfo.Count; i++)
-    //    {
-    //        XmlNode node = xmlLevelsInfo.Item(i);
-    //        XmlNodeList levelData = node.ChildNodes;
-    //        levelsInfo[i] = new LevelInfo();
-    //        // Victory condition
-    //        string victoryConditionString = levelData.Item(0).InnerText;
-    //        switch (victoryConditionString)
-    //        {
-    //            case "Kill Any": levelsInfo[i].victoryCondition = VictoryCondition.DefeatAnyEnemy; break;
-    //        }
-    //        //
-    //        levelsInfo[i].enemiesToDefeat = int.Parse(levelData.Item(1).InnerText);
-    //        //
-    //        levelsInfo[i].attackActionsAvailable = int.Parse(levelData.Item(2).InnerText);
-    //        levelsInfo[i].defenseActionsAvailable = int.Parse(levelData.Item(3).InnerText);
-    //        levelsInfo[i].sprintActionsAvailable = int.Parse(levelData.Item(4).InnerText);
-    //        levelsInfo[i].jumpActionsAvailable = int.Parse(levelData.Item(5).InnerText);
-    //        //
-    //        XmlNodeList xmlEnemies = levelData.Item(6).ChildNodes;
-    //        string[] enemiesNames = new string[xmlEnemies.Count];
-    //        XmlNodeList xmlAmounts = levelData.Item(7).ChildNodes;
-    //        int[] enemiesAmounts = new int[xmlEnemies.Count];
-    //        levelsInfo[i].enemiesToUse = new GameObject[xmlEnemies.Count];
-    //        levelsInfo[i].enemiesToSpawn = new int[xmlEnemies.Count];
-    //        //
-    //        string currentEnemyFolder = (workingWith == WorkingWith.Bugs) ? "Bugs" : "Mekanoids";
-    //        //
-    //        for (int j = 0; j < xmlEnemies.Count; j++)
-    //        {
-    //            enemiesNames[j] = xmlEnemies.Item(j).InnerText;
-    //            // Parece que da problemas leyendo esta parte en la versión compilada
-    //            // TODO: Averiguar que pasa
-    //            levelsInfo[i].enemiesToUse[j] = Resources.Load("Prefabs/Enemies/" + currentEnemyFolder + "/" + enemiesNames[j]) as GameObject;
-    //            //Debug.Log("Level " + i + ": " + levelsInfo[i].enemiesToUse[j]);
-    //            enemiesAmounts[j] = int.Parse(xmlAmounts.Item(j).InnerText);
-    //            levelsInfo[i].enemiesToSpawn[j] = enemiesAmounts[j];
-    //        }
-    //        //
-    //        //levelsInfo[i].maxActiveEnemies = int.Parse(levelData.Item(8).InnerText);
-    //        // And done
-
-    //    }
-    //}
-
+    
     //
     public void GetLevelInfoFromLevelData()
     {
+        //
+        string modeFolder = "";
+        switch (gameMode)
+        {
+            case GameMode.Arcade:
+                modeFolder = "Arcade";
+                break;
+            case GameMode.Bosses:
+                modeFolder = "BossMode";
+                break;
+        }
+
         // Cargamos los scriptable objects que hemos creado
-        LevelData[] levelData = Resources.LoadAll<LevelData>("LevelData");
+        LevelData[] levelData = Resources.LoadAll<LevelData>("LevelData/" + modeFolder);
         // Preparamos el levels info
         levelsInfo = new LevelInfo[levelData.Length];
         // Y vamos cargando los datos
         for (int i = 0; i < levelData.Length; i++)
         {
-            //levelsInfo[i] = new LevelInfo();
             levelsInfo[i] = levelData[i].levelInfo;
-            // Victory condition
-            //levelsInfo[i].victoryCondition = levelData[i].victoryCondition;
-            ////
-            //levelsInfo[i].enemiesToDefeat = levelData[i].numberToKill;
-            ////
-            //levelsInfo[i].attackActionsAvailable = levelData[i].unlockedAttackAbilities;
-            //levelsInfo[i].defenseActionsAvailable = levelData[i].unlockedDefenseAbilities;
-            //levelsInfo[i].sprintActionsAvailable = levelData[i].unlockedSprintAbilities;
-            //levelsInfo[i].jumpActionsAvailable = levelData[i].unlockedJumpAbilities;
-            ////
-            //levelsInfo[i].enemiesToUse = levelData[i].enemiesToSpawn;
-            //levelsInfo[i].enemiesToSpawn = levelData[i].amountToSpawn;
-            //levelsInfo[i].timeBetweenSpawns = levelData[i].timeBetweenSpawns;
-            //
-            //levelsInfo[i].maxActiveEnemies = levelData[i].maxActiveEnemies;
-            // And done
-
         }
     }
 

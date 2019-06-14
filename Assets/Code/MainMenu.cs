@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
+
 public class MainMenu : MonoBehaviour
 {
     public string currentVersion = "0.2.1";
@@ -36,15 +38,28 @@ public class MainMenu : MonoBehaviour
         GUI.Label(new Rect(Screen.width * 1 / 8 + 100, Screen.height * 1 / 4 + 50, 200, 30), "Prototype " + currentVersion, guiSkin.label);
         //
         Vector2 buttonSize = new Vector2(300, 50);
-        //
-        for(int i = 0; i <= gameManager.GameProgression; i++)
+        // Depending on the gamne mode
+        switch (gameManager.gameMode)
         {
-            if (GUI.Button(new Rect(Screen.width * 1 / 8, Screen.height * 1 / 2 + (i * 50), buttonSize.x, buttonSize.y), "Level " + i, guiSkin.button))
-            {
-                gameManager.SelectLevel(i);
-                SceneManager.LoadScene("ProtLevel");
-            }
+            case GameMode.Arcade:
+                // Arcade levels
+                for (int i = 0; i <= gameManager.GameProgression; i++)
+                {
+                    if (GUI.Button(new Rect(Screen.width * 1 / 8, Screen.height * 1 / 2 + (i * 50), buttonSize.x, buttonSize.y), "Level " + i, guiSkin.button))
+                    {
+                        gameManager.SelectLevel(i);
+                        SceneManager.LoadScene("ProtLevel");
+                    }
+                }
+                break;
+            case GameMode.Bosses:
+                if (GUI.Button(new Rect(Screen.width * 1 / 8, Screen.height * 1 / 2 + 50, buttonSize.x, buttonSize.y), "Boss test ", guiSkin.button))
+                {
+                    SceneManager.LoadScene("ProtLevel BOSS");
+                }
+                break;
         }
+        
         
         //
         //if (GUI.Button(new Rect(Screen.width * 1/8, Screen.height * 1/2, buttonSize.x, buttonSize.y), "TUTORIAL", guiSkin.button)){

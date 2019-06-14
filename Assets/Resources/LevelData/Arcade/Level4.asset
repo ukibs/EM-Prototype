@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c63d98343d9016a43a08df7f70932119, type: 3}
+  m_Name: Level4
+  m_EditorClassIdentifier: 
+  levelInfo:
+    victoryCondition: 1
+    enemiesToDefeat: 50
+    attackActionsAvailable: 3
+    defenseActionsAvailable: 1
+    jumpActionsAvailable: 1
+    sprintActionsAvailable: 1
+    enemyGroups:
+    - {fileID: 8096563443830030571, guid: 63f7a55d02361e7448d4b09d407ad549, type: 3}
+    - {fileID: 4694978885907813565, guid: c9642f7a38bd0dd48b356c9cb5710d68, type: 3}
+    - {fileID: 8243630492665005111, guid: fac8381089c47c6409523ca6355013af, type: 3}
+    enemiesToSpawn: 060000000300000001000000
+    enemySpawnIncrement: 000000000000000000000000
+    timeBetweenSpawns:
+    - 5
+    - 8
+    - 10
+    maxActiveEnemies: 140000000a00000001000000
+    terrainPrefabs:
+    - {fileID: 6767483043771959620, guid: 4d89a9e3bd7e7914c803a93a276799b2, type: 3}
+    - {fileID: 3326227640253247155, guid: f90644bdac5d8924fbad91a92cde6c44, type: 3}
+    - {fileID: 3326227640253247155, guid: a6ea28f7bba66814c94750eff1f7c8d9, type: 3}
+    - {fileID: 3326227640253247155, guid: 1faf0654ea7511b4889b35ba3e120d34, type: 3}
+    - {fileID: 3326227640253247155, guid: cee649da1f6f3c6418e08952112853d4, type: 3}
+    - {fileID: 3326227640253247155, guid: 29ed9fee3b49fe04793523d566926bed, type: 3}
+    - {fileID: 3326227640253247155, guid: 38934e844622a9041911d6bf240a4b65, type: 3}
+    terrainRatio: 01000000020000000300000004000000030000000200000003000000
+    terrainMax: 00000000000000000000000000000000000000000000000000000000
+    terrainMin: 00000000000000000000000000000000000000000000000000000000

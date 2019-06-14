@@ -21,6 +21,7 @@ public class TerrainManager : MonoBehaviour
     private int[] currentBlockAmounts;
     private Waypoint[] allWaypoints;
     private Waypoint nearestWaypointToPlayer;
+    //private DestructibleTerrain[] destructibleTerrains;
 
     //
     public Waypoint[] AllWaypoints { get { return allWaypoints; } }
@@ -264,9 +265,10 @@ public class TerrainManager : MonoBehaviour
                     end--;
                     break;
             }
-            // Colocamos el que hemos cabiado
+            // Colocamos el que hemos cambiado
             for (int i = 0; i < squareSize; i++)
             {
+                // TODO: Añadir chequeo de terreno destruido para que lo resetee
                 //
                 newActiveBlocksOrder[i, sideToPut] = activeBlocksMatrix[i, sideToGet];
                 //

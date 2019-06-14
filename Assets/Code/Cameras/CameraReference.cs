@@ -40,6 +40,11 @@ public class CameraReference : MonoBehaviour {
 
 	}
 
+    private void OnGUI()
+    {
+        GUI.Label(new Rect(20, 100, 200, 20), "Rotation x: " + transform.rotation.x * Mathf.Rad2Deg);
+    }
+
     void UpdateRotation(float dt)
     {
         if (cameraControl.TargetingPlayer)
@@ -62,10 +67,13 @@ public class CameraReference : MonoBehaviour {
                 Vector3 currentEulers = transform.eulerAngles;
                 currentEulers.z = 0;
                 transform.eulerAngles = currentEulers;
-                //
-                //Quaternion currentRotation = transform.rotation;
-                //currentRotation.x = Mathf.Clamp(currentRotation.x, -60 * Mathf.Deg2Rad, 30 * Mathf.Deg2Rad);
-                //transform.rotation = currentRotation;
+                // Vamos a acotar la rotación en x
+                //OJO ñapa
+                Quaternion rotationConstraints = Quaternion.Euler(60, 30, 0);
+                Quaternion currentRotation = transform.rotation;
+                currentRotation.x = Mathf.Clamp(currentRotation.x, -rotationConstraints.x, rotationConstraints.y);
+                
+                transform.rotation = currentRotation;
             }
 
         }

@@ -1,5 +1,44 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &9141509886210366995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2202065965410187318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2994447881ad65408ce9fd1a46191dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyedPrefab: {fileID: 0}
+--- !u!114 &7961452422134041151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4932796121959863342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2994447881ad65408ce9fd1a46191dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyedPrefab: {fileID: 0}
+--- !u!114 &5396930853476214157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7479497268824968461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2994447881ad65408ce9fd1a46191dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyedPrefab: {fileID: 0}
 --- !u!1001 &8341739163290216439
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10,7 +49,7 @@ PrefabInstance:
     - target: {fileID: 3326227640253247155, guid: a6ea28f7bba66814c94750eff1f7c8d9,
         type: 3}
       propertyPath: m_Name
-      value: Terrain Block 4
+      value: Pillars_Terrain
       objectReference: {fileID: 0}
     - target: {fileID: 3326227640253247155, guid: a6ea28f7bba66814c94750eff1f7c8d9,
         type: 3}
@@ -199,3 +238,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6ea28f7bba66814c94750eff1f7c8d9, type: 3}
+--- !u!1 &2202065965410187318 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7875811438615388097, guid: a6ea28f7bba66814c94750eff1f7c8d9,
+    type: 3}
+  m_PrefabInstance: {fileID: 8341739163290216439}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4932796121959863342 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4014678015915537369, guid: a6ea28f7bba66814c94750eff1f7c8d9,
+    type: 3}
+  m_PrefabInstance: {fileID: 8341739163290216439}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7479497268824968461 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1445458332162829050, guid: a6ea28f7bba66814c94750eff1f7c8d9,
+    type: 3}
+  m_PrefabInstance: {fileID: 8341739163290216439}
+  m_PrefabAsset: {fileID: 0}

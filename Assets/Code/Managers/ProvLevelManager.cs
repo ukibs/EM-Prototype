@@ -45,38 +45,16 @@ public class ProvLevelManager : MonoBehaviour
         fade = FindObjectOfType<Fade>();
         inputManager = FindObjectOfType<InputManager>();
 
-        // 
-        //LevelInfo levelInfo = GeneralFunctions.DeepCopy<LevelInfo>(gameManager.GetCurrentLevelInfo());
-        LevelInfo levelInfo = gameManager.GetCurrentLevelInfo();
-        victoryCondition = levelInfo.victoryCondition;
-        enemiesToDestroy = levelInfo.enemiesToDefeat;
-        // Esto habrá que manejarlo de otro modo
-        // Forzamos provisonalmente que se equipen las asignadas
-        // Attack
-        gameManager.unlockedAttackActions = levelInfo.attackActionsAvailable;
-        // Control chorras para la Build
-        if (PlayerReference.playerControl == null)
-            PlayerReference.Initiate(FindObjectOfType<RobotControl>().gameObject);
-        // Control de habilidades del prota para el formato de niveekes de ka demo
-        // Attack
-        if (gameManager.unlockedAttackActions > 1)
-            PlayerReference.playerControl.ActiveAttackMode = (AttackMode)(gameManager.unlockedAttackActions - 1);
-        // Defense
-        gameManager.unlockedDefenseActions = levelInfo.defenseActionsAvailable;
-        if (gameManager.unlockedDefenseActions > 1)
-            PlayerReference.playerControl.ActiveDefenseMode = (DefenseMode)(gameManager.unlockedDefenseActions - 1);
-        // Jump
-        gameManager.unlockedJumpActions = levelInfo.jumpActionsAvailable;
-        if (gameManager.unlockedJumpActions > 1)
-            PlayerReference.playerControl.ActiveJumpMode = (JumpMode)(gameManager.unlockedJumpActions - 1);
-        // Sprint
-        gameManager.unlockedSprintActions = levelInfo.sprintActionsAvailable;
-        if (gameManager.unlockedSprintActions > 1)
-            PlayerReference.playerControl.ActiveSprintMode = (SprintMode)(gameManager.unlockedSprintActions - 1);
-        //
-        terrainManager.InitiateManager(levelInfo);
-        //
-        enemyManager.InitiateManager(levelInfo);
+        // In arcade mode we get the data from level info list
+        //if(gameManager.gameMode == GameMode.Arcade)
+            LoadLevelDataArcade();
+        // In boss mode...
+        /*else
+        {
+
+        }*/
+
+        
         //
         //switch (victoryCondition)
         //{
@@ -134,6 +112,55 @@ public class ProvLevelManager : MonoBehaviour
         }
     }
 
+    #region Methods
+
+    /// <summary>
+    /// Load the data from the correspondant level info
+    /// </summary>
+    void LoadLevelDataArcade()
+    {
+        // 
+        //LevelInfo levelInfo = GeneralFunctions.DeepCopy<LevelInfo>(gameManager.GetCurrentLevelInfo());
+        LevelInfo levelInfo = gameManager.GetCurrentLevelInfo();
+        victoryCondition = levelInfo.victoryCondition;
+        enemiesToDestroy = levelInfo.enemiesToDefeat;
+        // Esto habrá que manejarlo de otro modo
+        // Forzamos provisonalmente que se equipen las asignadas
+        // Attack
+        gameManager.unlockedAttackActions = levelInfo.attackActionsAvailable;
+        // Control chorras para la Build
+        if (PlayerReference.playerControl == null)
+            PlayerReference.Initiate(FindObjectOfType<RobotControl>().gameObject);
+        // Control de habilidades del prota para el formato de niveekes de ka demo
+        // Attack
+        if (gameManager.unlockedAttackActions > 1)
+            PlayerReference.playerControl.ActiveAttackMode = (AttackMode)(gameManager.unlockedAttackActions - 1);
+        // Defense
+        gameManager.unlockedDefenseActions = levelInfo.defenseActionsAvailable;
+        if (gameManager.unlockedDefenseActions > 1)
+            PlayerReference.playerControl.ActiveDefenseMode = (DefenseMode)(gameManager.unlockedDefenseActions - 1);
+        // Jump
+        gameManager.unlockedJumpActions = levelInfo.jumpActionsAvailable;
+        if (gameManager.unlockedJumpActions > 1)
+            PlayerReference.playerControl.ActiveJumpMode = (JumpMode)(gameManager.unlockedJumpActions - 1);
+        // Sprint
+        gameManager.unlockedSprintActions = levelInfo.sprintActionsAvailable;
+        if (gameManager.unlockedSprintActions > 1)
+            PlayerReference.playerControl.ActiveSprintMode = (SprintMode)(gameManager.unlockedSprintActions - 1);
+        //
+        terrainManager.InitiateManager(levelInfo);
+        //
+        if (enemyManager != null)
+            enemyManager.InitiateManager(levelInfo);
+    }
+
+    //
+    void LoadLevelDataBossMode()
+    {
+
+    }
+
+    //
     void CheckControls()
     {
         // TODO: Controlarlo mejor
@@ -236,4 +263,6 @@ public class ProvLevelManager : MonoBehaviour
         //
         enemiesDestroyed++;
     }
+
+    #endregion
 }

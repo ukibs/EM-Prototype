@@ -298,6 +298,7 @@ public class SpringCamera : MonoBehaviour {
                 posInScreen.y >= 0 && posInScreen.y <= 1 && 
                 posInScreen.z > 0;
             //
+            // TODO: Revisar para trabajar con Targeteable
             EnemyConsistency enemyConsistency = enemies[i].GetComponent<EnemyConsistency>();
             //
             //Debug.Log(enemies[i].transform.name + ", in " + posInScreen);
