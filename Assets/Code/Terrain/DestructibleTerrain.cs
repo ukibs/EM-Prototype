@@ -5,9 +5,15 @@ using UnityEngine;
 public class DestructibleTerrain : MonoBehaviour
 {
     //
-    public GameObject destroyedPrefab;
+    public GameObject brokenVersion;
     //
     private bool destroyed = false;
+    
+
+    private void Start()
+    {
+        //brokenVersion = transform.Find
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -21,6 +27,8 @@ public class DestructibleTerrain : MonoBehaviour
         if(wormBehaviour != null)
         {
             gameObject.SetActive(false);
+            if(brokenVersion != null)
+                brokenVersion.SetActive(true);
         }
         
     }
@@ -30,5 +38,7 @@ public class DestructibleTerrain : MonoBehaviour
     {
         // Aquí volveremos el elemento a su estado original
         gameObject.SetActive(true);
+        if (brokenVersion != null)
+            brokenVersion.SetActive(false);
     }
 }

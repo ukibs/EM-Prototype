@@ -713,10 +713,12 @@ public class RobotControl : MonoBehaviour {
                 EnemyAnalyzer.enemyTransform.position,
                 //EnemyAnalyzer.enemyTransform.TransformPoint(EnemyAnalyzer.enemyConsistency.centralPointOffset), 
                 EnemyAnalyzer.enemyRb.velocity, gameManager.rapidFireMuzzleSpeed, dt);
+
             // Determinamos el 
             // TODO: Coger el punto de disparo del plauer
             EnemyAnalyzer.estimatedToHitPosition.y += GeneralFunctions.GetProyectileFallToObjective(transform.position,
                 EnemyAnalyzer.estimatedToHitPosition, gameManager.rapidFireMuzzleSpeed);
+            
             //
             Vector3 shootForward = (!cameraControl.TargetingPlayer) ?
                 (EnemyAnalyzer.estimatedToHitPosition - machineGunPoints[nextRapidFireSide].position).normalized :

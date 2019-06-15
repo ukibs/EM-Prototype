@@ -658,7 +658,7 @@ GameObject:
   m_Component:
   - component: {fileID: 182231823908150193}
   m_Layer: 0
-  m_Name: Obelisk_terrain
+  m_Name: Obelisk_Terrain
   m_TagString: Hard Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1263,6 +1263,7 @@ GameObject:
   - component: {fileID: 601878489063150929}
   - component: {fileID: 4799340664615037005}
   - component: {fileID: 6061129188063905645}
+  - component: {fileID: 8090500621991721646}
   m_Layer: 0
   m_Name: Intact
   m_TagString: Ground
@@ -1342,6 +1343,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8090500621991721646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7875811438615388097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2994447881ad65408ce9fd1a46191dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  brokenVersion: {fileID: 7213522521037333882}
 --- !u!1 &8246287718926838753
 GameObject:
   m_ObjectHideFlags: 0
