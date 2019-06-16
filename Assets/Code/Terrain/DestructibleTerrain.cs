@@ -17,20 +17,24 @@ public class DestructibleTerrain : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        CheckAndDestroy(collision);        
+    }
+
+    public void CheckAndDestroy(Collision collision)
+    {
         //
-        Debug.Log("Colliding with " + collision.gameObject.name);
+        Debug.Log(transform.parent.name + " colliding with " + collision.gameObject.name);
         // De momento chequeo simple
         // Quedetecte si es el gusano
         // Y si lo es se destruye
         GigaWormBehaviour wormBehaviour = collision.collider.GetComponentInParent<GigaWormBehaviour>();
         //
-        if(wormBehaviour != null)
+        if (wormBehaviour != null)
         {
             gameObject.SetActive(false);
-            if(brokenVersion != null)
+            if (brokenVersion != null)
                 brokenVersion.SetActive(true);
         }
-        
     }
 
     // Llamaremos a esto cuando cambiemos la placa de sitio
