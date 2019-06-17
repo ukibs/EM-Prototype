@@ -106,6 +106,7 @@ public class Bullet : MonoBehaviour {
     {
         //
         transform.position = hitPoint;
+
         // Chequeamos si ha impactado a un enemigo y aplicamos lo necesario
         EnemyCollider enemyCollider = collider.GetComponent<EnemyCollider>();
         if(enemyCollider != null)
@@ -116,6 +117,7 @@ public class Bullet : MonoBehaviour {
             //GeneralFunctions.PlaySoundEffect(audioSource, impactOnEnemy);
             //bulletSoundManager.CreateAudioObject(impactOnEnemy, transform.position);
         }
+
         // Y el player, joputa
         PlayerIntegrity playerIntegrity = collider.GetComponent<PlayerIntegrity>();
         if(playerIntegrity != null)
@@ -127,9 +129,19 @@ public class Bullet : MonoBehaviour {
             Rigidbody playerRB = playerIntegrity.gameObject.GetComponent<Rigidbody>();
             playerRB.AddForce(rb.velocity * rb.mass, ForceMode.Impulse);
         }
-        //
+
+        // Weakpoints
+        // TODO: Gestionarlos mejor
+        WeakPoint weakPoint = collider.GetComponent<WeakPoint>();
+        if(weakPoint != null)
+        {
+            weakPoint.ReceiveBulletImpact();
+        }
+
+        // Efecto de sonido
         bulletSoundManager.CreateAudioObject(impactOnPlayer, transform.position);
-        //
+        
+        // Partículas
         GameObject impactParticles = Instantiate(impactParticlesPrefab, hitPoint, Quaternion.identity);
         SpawnBulletHole(hitPoint, hitNormal, collider.gameObject);
         Destroy(impactParticles, 2);
@@ -149,15 +161,20 @@ public class Bullet : MonoBehaviour {
     {
         // 
         PlayerIntegrity playerIntegrity = objectToParent.GetComponent<PlayerIntegrity>();
+        
         // Error control vago
         if (bulletHolePrefab == null || playerIntegrity != null )
             return;
-        //
+        
+        // Decidimos si crear agujero de bala o churrete de sangre
         EnemyCollider enemyCollider = objectToParent.GetComponent<EnemyCollider>();
-        GameObject prefabToUse = (enemyCollider != null) ? bulletHoleBugPrefab : bulletHolePrefab;
-        //
+        WeakPoint weakPoint = objectToParent.GetComponent<WeakPoint>();
+        GameObject prefabToUse = (enemyCollider != null || weakPoint != null) ? bulletHoleBugPrefab : bulletHolePrefab;
+        
+        // Y lo creamos
         GameObject newBulletHole = Instantiate(prefabToUse, point, Quaternion.identity);
         newBulletHole.transform.rotation = Quaternion.LookRotation(newBulletHole.transform.forward, normal);
+        
         // Lo movemos un pelin para evitar el z clipping
         newBulletHole.transform.position += newBulletHole.transform.up * 0.01f;
         newBulletHole.transform.SetParent(objectToParent.transform);

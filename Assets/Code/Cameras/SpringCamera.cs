@@ -98,19 +98,17 @@ public class SpringCamera : MonoBehaviour {
     void FixedUpdate () {
         // TODO: Cuidado con este dt
         float dt = Time.deltaTime;
-        // Correction from the mouse movement
-        //if (currentTarget == targetPlayer)
-        //UpdateRotation(dt);
-        // TODO: Hacerlo de forma menos guarra
-        //else 
-        /*if (currentTarget != targetPlayer && EnemyAnalyzer.enemyConsistency == null)
+        // 
+        if (currentTarget != targetPlayer && 
+            (EnemyAnalyzer.targeteable == null || EnemyAnalyzer.targeteable.active == false))
+            //if (currentTarget != targetPlayer && EnemyAnalyzer.enemyConsistency == null)
             //currentTarget.GetComponent<EnemyConsistency>() == null)
         {
             //if(!SwitchBetweenEnemies())
             //    SwitchTarget();
             //Debug.Log("Enemy down, switching to next");
             SwitchBetweenEnemies(Vector2.zero);
-        }*/
+        }
         //
         UpdateMovement(dt);
         AdjustToEnemyMovement(dt);
@@ -611,6 +609,7 @@ public static class EnemyAnalyzer
     public static Rigidbody enemyRb;
     public static EnemyConsistency enemyConsistency;
     public static Vector3 estimatedToHitPosition;
+    public static Targeteable targeteable;
     public static bool isActive = false;
 
     // TODO: Ajustarlo para que trabaje con casos sin rigidbody y/o enemyconsistency
@@ -623,6 +622,8 @@ public static class EnemyAnalyzer
             enemyRb = enemyReference.GetComponentInParent<Rigidbody>();
         //
         enemyConsistency = enemyReference.GetComponent<EnemyConsistency>();
+        //
+        targeteable = enemyReference.GetComponent<Targeteable>();
         isActive = true;
     }
 
