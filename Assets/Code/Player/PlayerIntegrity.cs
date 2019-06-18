@@ -67,8 +67,8 @@ public class PlayerIntegrity : MonoBehaviour
         // De momento hacemos que se recargen con el tiempo
         //if (!shieldsDepleted)
         //{
-        //    currentShield += dt * shieldRegenerationRate;
-        //    currentShield = Mathf.Clamp(currentShield, 0, maxShield);
+        currentShield += dt * shieldRegenerationRate;
+        currentShield = Mathf.Clamp(currentShield, 0, maxShield);
         //}
         ////
         //if (shieldsDepleted && robotControl.IsResting)
@@ -79,7 +79,7 @@ public class PlayerIntegrity : MonoBehaviour
         //    currentHealth += dt * healthRegenerationRate;
         //    currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         //}
-        
+
         //
         //previousStepRbVelocity = bodyRB.velocity;
     }

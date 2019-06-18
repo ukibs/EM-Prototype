@@ -25,6 +25,8 @@ public class GigaWormBehaviour : Targeteable
     public float underGroundHeight = -20;
     public float heightChangeSpeed = 5;
 
+    public Transform head;
+
     //
     public int exteriorWeakPoints;
     public int interiorWeakPoints;
@@ -37,7 +39,9 @@ public class GigaWormBehaviour : Targeteable
     private float currentTimeUnderground;
     private bool goesUnderground = false;
 
-    
+    private float currentSpeed = 0; 
+
+    public float CurrentSpeed { get { return currentSpeed; } }
 
     // TODO: En colisiones entre cuerpos
     // Tratar la inclinación de los cuerpos
@@ -48,8 +52,9 @@ public class GigaWormBehaviour : Targeteable
     void Start()
     {
         player = FindObjectOfType<RobotControl>();
-        Debug.Log("Player found? " + player);
+        //Debug.Log("Player found? " + player);
         rb = GetComponent<Rigidbody>();
+        currentSpeed = wanderingMovementSpeed;
     }
 
     // Update is called once per frame
@@ -77,21 +82,25 @@ public class GigaWormBehaviour : Targeteable
                     // Sacar la cruz
                     Vector3 playerCross = Vector3.Cross(playerDirection, Vector3.up);
                     //transform.rotation = Quaternion.LookRotation(playerCross);
-                    transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, playerCross, rotationSpeed, dt);
+                    head.rotation = GeneralFunctions.UpdateRotationInOneAxis(head, playerCross, rotationSpeed, dt);
+                }
+                else
+                {
+                    head.Rotate(Vector3.up * dt);
                 }
                 
                 // Velocity no sirve con kinematicos
                 //rb.velocity = transform.forward * 100;
                 //
-                transform.Translate(Vector3.forward * wanderingMovementSpeed * dt);
+                head.Translate(Vector3.forward * wanderingMovementSpeed * dt);
                 //Debug.Log("I'm wandering");
 
                 //
                 if (goesUnderground) 
                 {
                     //
-                    if(transform.position.y > underGroundHeight)
-                        transform.Translate(Vector3.up * heightChangeSpeed * dt * -1);
+                    if(head.position.y > underGroundHeight)
+                        head.Translate(Vector3.up * heightChangeSpeed * dt * -1);
                     //
                     currentTimeUnderground += dt;
                     if (currentTimeUnderground >= timeUnderground)
@@ -101,13 +110,15 @@ public class GigaWormBehaviour : Targeteable
                     }
                         
                 }
-                else if(!goesUnderground && transform.position.y < overGroundHeight)
+                else if(!goesUnderground && head.position.y < overGroundHeight)
                 {
-                    transform.Translate(Vector3.up * heightChangeSpeed * dt);
+                    head.Translate(Vector3.up * heightChangeSpeed * dt);
                 }
                 else if (exteriorWeakPoints == 0)
                 {
+                    // Aquí pasa a la fase de perseguir
                     currentState = WormStatus.Chasing;
+                    currentSpeed = chasingMovementSpeed;
                     active = true;
                     rotationSpeed *= 3;
                 }
@@ -119,13 +130,25 @@ public class GigaWormBehaviour : Targeteable
                 break;
             case WormStatus.Chasing:
                 // TODO: Que persiga al player
-                transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, playerDirection, rotationSpeed, dt);
-                transform.Translate(Vector3.forward * chasingMovementSpeed * dt);
+                head.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed, dt);
+                head.Translate(Vector3.forward * chasingMovementSpeed * dt);
                 // TODO: Que abra la boca cuando lo tenga cerca
                 // TODO: Que intente atraparlo de un mordisco (muerte mortísima)
                 // TODO: (En el script de collision del terreno de momento de momento)
                 //      Que pase a estado stun
                 break;
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        //
+        if (player != null)
+        {
+            //
+            Vector3 playerDirection = player.transform.position - transform.position;
+            //
+            Gizmos.DrawLine(transform.position, player.transform.position);
         }
     }
 

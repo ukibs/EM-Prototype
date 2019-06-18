@@ -11,12 +11,13 @@ public class WeakPoint : Targeteable
     #region Public Attibutes
 
     public float maxHealthPoints = 30;
+    public GigaWormBehaviour gigaWormBehaviour;
 
     #endregion
 
     #region Private Attributes
 
-    private GigaWormBehaviour gigaWormBehaviour;
+
     private float currentHealthPoints;
 
     #endregion
@@ -24,7 +25,7 @@ public class WeakPoint : Targeteable
     // Start is called before the first frame update
     void Start()
     {
-        gigaWormBehaviour = GetComponentInParent<GigaWormBehaviour>();
+        //gigaWormBehaviour = GetComponentInParent<GigaWormBehaviour>();
         currentHealthPoints = maxHealthPoints;
     }
 

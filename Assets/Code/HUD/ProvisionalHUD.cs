@@ -109,7 +109,7 @@ public class ProvisionalHUD : MonoBehaviour {
         MarkEnemiesOnScreen();
 
         //
-        DrawAbilityIcons();
+        // DrawAbilityIcons();
 
         //
         if (!cameraControl.TargetingPlayer)
@@ -129,7 +129,7 @@ public class ProvisionalHUD : MonoBehaviour {
         DrawDamageIndicators();
 
         //
-        DrawRadarWithEnemies();
+        // DrawRadarWithEnemies();
 
         //
         if (GameControl.paused)
@@ -263,13 +263,17 @@ public class ProvisionalHUD : MonoBehaviour {
     void PlayerHealthAndShields()
     {
         //
-        float barMaxLength = 300;
+        float barMaxLength = Screen.width * 1 / 2;
+        float barHeight = Screen.height * 1 / 24;
+        float generalStartPoint = Screen.width - (barMaxLength * 3 / 2);
         // Escudos
         // Mientras le queden
         if (playerIntegrity.CurrentShield > 0)
         {
             float shieldBarLenght = playerIntegrity.CurrentShield / playerIntegrity.maxShield * barMaxLength;
-            GUI.DrawTexture(new Rect(30, 30, shieldBarLenght, 30), playerShieldTexture);
+            // Que se centre la barra conforme se vacia/llena
+            float shieldStartPoint = generalStartPoint + ((barMaxLength - shieldBarLenght) / 2);
+            GUI.DrawTexture(new Rect(shieldStartPoint, 30, shieldBarLenght, barHeight), playerShieldTexture);
         }
         // Cuando estén agotados
         else
@@ -280,12 +284,14 @@ public class ProvisionalHUD : MonoBehaviour {
             if (currentAlpha <= 0) fadeDirection = 1;
             GUI.color = new Color(1, 1, 1, currentAlpha);
             // De momento la referenciamos como enemyHelathTexture (color rojo)
-            GUI.DrawTexture(new Rect(30, 30, barMaxLength, 30), enemyHealthTexture);
+            GUI.DrawTexture(new Rect(Screen.width * 1 / 8, 30, barMaxLength, barHeight), enemyHealthTexture);
             GUI.color = new Color(1, 1, 1, 1);
         }
-        //
+        // Y la vida
         float healthBarLenght = playerIntegrity.CurrentHealth / playerIntegrity.maxHealth * barMaxLength;
-        GUI.DrawTexture(new Rect(30, 60, healthBarLenght, 30), playerHealthTexture);
+        // Que se centre la barra conforme se vacia/llena
+        float healthStartPoint = generalStartPoint + ((barMaxLength - healthBarLenght) / 2);
+        GUI.DrawTexture(new Rect(healthStartPoint, 30 /*+ barHeight*/, healthBarLenght, barHeight), playerHealthTexture);
     }
 
     //

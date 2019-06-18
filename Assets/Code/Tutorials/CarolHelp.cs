@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class CarolHelp : MonoBehaviour
+/// <summary>
+/// Ayuda de carol para el nivel de prueba con enemigos
+/// </summary>
+public class CarolHelp : CarolBaseHelp
 {
     private enum Step
     {
@@ -19,24 +22,16 @@ public class CarolHelp : MonoBehaviour
         Count
     }
 
-    public AudioClip[] audioClips;
-    public float initialWait = 20;
-    public GUISkin gUISkin;
-
-    private AudioSource audioSource;
-    private GameManager gameManager;
-    private string[] helpMessages = new string[] { " Press Change weapon (right cross or 1)",
-                                                    " Press Escape to end the pain"};
+    
     private float timeFromLastCheck = 0;
     private Step currentStep;
     private InputManager inputManager;
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        base.Start();
         inputManager = FindObjectOfType<InputManager>();
-        gameManager = FindObjectOfType<GameManager>();
     }
 
     // Update is called once per frame

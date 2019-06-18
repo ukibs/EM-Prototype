@@ -282,6 +282,7 @@ public class TerrainManager : MonoBehaviour
             {
                 for (int j = start; j < end; j++)
                 {
+                    // TODO: Si vuelve a pasar mirar aqui
                     newActiveBlocksOrder[i, j] = activeBlocksMatrix[i, j + displacementY];
                 }
             }

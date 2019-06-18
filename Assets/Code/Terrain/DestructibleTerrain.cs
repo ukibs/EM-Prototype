@@ -27,14 +27,24 @@ public class DestructibleTerrain : MonoBehaviour
         // TODO: De momento chequeo simple
         // Quedetecte si es el gusano
         // Y si lo es se destruye
-        GigaWormBehaviour wormBehaviour = collision.collider.GetComponentInParent<GigaWormBehaviour>();
+        //GigaWormBehaviour wormBehaviour = collision.collider.GetComponentInParent<GigaWormBehaviour>();
         //
-        if (wormBehaviour != null)
+        //if (wormBehaviour != null)
+        //{
+        //    gameObject.SetActive(false);
+        //    if (brokenVersion != null)
+        //        brokenVersion.SetActive(true);
+        //}
+        // Con kinematicos
+        // Con suerte nos podremos quedar con este
+        Rigidbody colliderRb = collision.rigidbody;
+        if(colliderRb != null && colliderRb.isKinematic)
         {
             gameObject.SetActive(false);
             if (brokenVersion != null)
                 brokenVersion.SetActive(true);
         }
+
     }
 
     // Llamaremos a esto cuando cambiemos la placa de sitio
