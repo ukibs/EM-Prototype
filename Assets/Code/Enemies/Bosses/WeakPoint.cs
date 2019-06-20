@@ -19,6 +19,7 @@ public class WeakPoint : Targeteable
 
 
     private float currentHealthPoints;
+    private CarolBaseHelp carolBaseHelp;
 
     #endregion
 
@@ -27,6 +28,7 @@ public class WeakPoint : Targeteable
     {
         //gigaWormBehaviour = GetComponentInParent<GigaWormBehaviour>();
         currentHealthPoints = maxHealthPoints;
+        carolBaseHelp = FindObjectOfType<CarolBaseHelp>();
     }
 
     // Update is called once per frame
@@ -42,11 +44,12 @@ public class WeakPoint : Targeteable
 
     public void ReceiveBulletImpact()
     {
-        //
-        if(active == false && currentHealthPoints > 0)
+        // TODO: Cambiar la detección a proximidad
+        // Seguramente lo haga la propia Carol
+        /*if(active == false && currentHealthPoints > 0)
         {
             active = true;
-        }
+        }*/
         //
         if(currentHealthPoints > 0)
         {
@@ -54,6 +57,7 @@ public class WeakPoint : Targeteable
             if (currentHealthPoints <= 0)
             {
                 gigaWormBehaviour.LoseWeakPoint();
+                carolBaseHelp.WeakPointDestroyed();
                 //PlayerReference.
                 active = false;
                 //Destroy(this);

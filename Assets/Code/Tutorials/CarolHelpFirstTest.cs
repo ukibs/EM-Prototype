@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 /// <summary>
 /// Ayuda de carol para el nivel de prueba con enemigos
 /// </summary>
-public class CarolHelp : CarolBaseHelp
+public class CarolHelpFirstTest : CarolBaseHelp
 {
     private enum Step
     {
@@ -48,15 +48,15 @@ public class CarolHelp : CarolBaseHelp
         if(currentStep == Step.InitialWait)
         {
             timeFromLastCheck += dt;
-            if(timeFromLastCheck >= initialWait)
-            {
-                //
-                audioSource.clip = audioClips[(int)currentStep];
-                audioSource.Play();
-                //
-                currentStep++;
-                timeFromLastCheck = 0;
-            }
+            //if(timeFromLastCheck >= initialWait)
+            //{
+            //    //
+            //    audioSource.clip = audioClips[(int)currentStep];
+            //    audioSource.Play();
+            //    //
+            //    currentStep++;
+            //    timeFromLastCheck = 0;
+            //}
         }
         //
         if (!audioSource.isPlaying && 
@@ -65,7 +65,7 @@ public class CarolHelp : CarolBaseHelp
             //
             if (currentStep == Step.CarolProposeSomething) gameManager.unlockedAttackActions = 2;
             //
-            audioSource.clip = audioClips[(int)currentStep];
+            //audioSource.clip = audioClips[(int)currentStep];
             audioSource.Play();
             //
             currentStep++;
@@ -74,7 +74,7 @@ public class CarolHelp : CarolBaseHelp
         if(currentStep == Step.CarolOrder && inputManager.SwitchWeaponButton)
         {
             //
-            audioSource.clip = audioClips[(int)currentStep];
+            //audioSource.clip = audioClips[(int)currentStep];
             audioSource.Play();
             //
             currentStep++;
@@ -88,12 +88,12 @@ public class CarolHelp : CarolBaseHelp
         //
         if(currentStep == Step.CarolOrder)
         {
-            GUI.Label(textRect, helpMessages[0], gUISkin.label);
+            //GUI.Label(textRect, helpMessages[0], gUISkin.label);
         }
         //
         if (currentStep == Step.CarolCloses)
         {
-            GUI.Label(textRect, helpMessages[1], gUISkin.label);
+            //GUI.Label(textRect, helpMessages[1], gUISkin.label);
         }
         //
         GUI.Label(new Rect(Screen.width / 2 - 250, 50, 500, 20), "Press TAB to lock on enemies");
