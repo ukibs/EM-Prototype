@@ -17,6 +17,6 @@ public class CarolStep
     public HelpTrigger helpTrigger;
     public AudioClip audioClip;
     public string stepText;
-    [Tooltip("Para casos en los que se necesite más de un X")]
+    [Tooltip("Para casos en los que se necesite más de un X. También vale para temporizador")]
     public int amount = 0;
 }

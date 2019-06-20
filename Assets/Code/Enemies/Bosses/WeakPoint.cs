@@ -23,6 +23,8 @@ public class WeakPoint : Targeteable
 
     #endregion
 
+    public float CurrentHealthPoins { get { return currentHealthPoints; } }
+
     // Start is called before the first frame update
     void Start()
     {

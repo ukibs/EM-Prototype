@@ -38,7 +38,15 @@ public class CarolBaseHelp : MonoBehaviour
     // Ya sea tiempo o puntos destruidos
     protected float stepProgress = 0;
 
-    protected CarolStep CurrentStep { get { return carolStepObjects[currentStep].carolStep; } }
+    protected CarolStep CurrentStep {
+        get {
+            //
+            if (currentStep < carolStepObjects.Length)
+                return carolStepObjects[currentStep].carolStep;
+            else
+                return null;
+        }
+    }
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -148,7 +156,7 @@ public class CarolBaseHelp : MonoBehaviour
         for(int i = 0; i < hitColliders.Length; i++)
         {
             WeakPoint weakPoint = hitColliders[i].GetComponent<WeakPoint>();
-            if(weakPoint != null)
+            if(weakPoint != null && weakPoint.CurrentHealthPoins > 0)
             {
                 // Lo ponemos como activo para que pueda ser targeteado
                 // TODO: Poner nombre de variable más claro, coño
