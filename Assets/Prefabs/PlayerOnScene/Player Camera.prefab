@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7084162388066454430}
   - component: {fileID: 7084162388066454431}
   - component: {fileID: 7084162388066454428}
+  - component: {fileID: 4146675652635104323}
   m_Layer: 0
   m_Name: Player Camera
   m_TagString: MainCamera
@@ -101,5 +102,17 @@ MonoBehaviour:
   dampingK: 20
   targetOffset: {x: 3, y: 1, z: 0}
   maxDistancePlayer: 20
-  maxUpperOffsetY: 5
-  maxLowerOffsetY: 3
+  transitionTimeBetweenEnemies: 0.3
+--- !u!114 &4146675652635104323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7084162388066454424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: d982e879ff67b4d3fb6522d08c3cd5af, type: 2}

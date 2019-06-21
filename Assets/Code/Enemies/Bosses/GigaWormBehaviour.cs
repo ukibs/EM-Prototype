@@ -15,6 +15,29 @@ public enum WormStatus
 
 public class GigaWormBehaviour : Targeteable
 {
+    private enum SubmersionStatus
+    {
+        Invalid = -1,
+
+        Up,
+        GoingDown,
+        Down,
+        GoingUp,
+
+        Count
+    }
+
+    private enum MawStatus
+    {
+        Invalid = -1,
+
+        Closed,
+        Opening,
+        Opened,
+        Closing,
+
+        Count
+    }
 
     public float wanderingMovementSpeed = 10;
     public float chasingMovementSpeed = 10;
@@ -26,6 +49,9 @@ public class GigaWormBehaviour : Targeteable
     public float heightChangeSpeed = 5;
 
     public Transform head;
+    public Transform[] maws;
+    public float maxMawOpeningAngle = 45;
+    public float mawSpeed = 180;
 
     //
     public int exteriorWeakPoints;
@@ -39,7 +65,11 @@ public class GigaWormBehaviour : Targeteable
     private float currentTimeUnderground;
     private bool goesUnderground = false;
 
-    private float currentSpeed = 0; 
+    private float currentSpeed = 0;
+
+    //
+    private float currentMawOpeningStatus;
+    private MawStatus mawStatus = MawStatus.Closed;
 
     public float CurrentSpeed { get { return currentSpeed; } }
 
@@ -133,6 +163,7 @@ public class GigaWormBehaviour : Targeteable
                 head.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed, dt);
                 head.Translate(Vector3.forward * chasingMovementSpeed * dt);
                 // TODO: Que abra la boca cuando lo tenga cerca
+                UpdateMaw(playerDirection, dt);
                 // TODO: Que intente atraparlo de un mordisco (muerte mortísima)
                 // TODO: (En el script de collision del terreno de momento de momento)
                 //      Que pase a estado stun
@@ -149,6 +180,55 @@ public class GigaWormBehaviour : Targeteable
             Vector3 playerDirection = player.transform.position - transform.position;
             //
             Gizmos.DrawLine(transform.position, player.transform.position);
+        }
+    }
+
+    void UpdateMaw(Vector3 playerDirection, float dt)
+    {
+        //
+        float playerDistance = playerDirection.magnitude;
+        //
+        if(playerDistance < 100)
+        {
+            //
+            switch (mawStatus)
+            {
+                case MawStatus.Closing:
+                case MawStatus.Closed:
+                    mawStatus = MawStatus.Opening;
+                    break;
+            }
+        }
+        //
+        else if (playerDistance >= 100)
+        {
+            //
+            switch (mawStatus)
+            {
+                case MawStatus.Opening:
+                case MawStatus.Opened:
+                    mawStatus = MawStatus.Closing;
+                    break;
+            }
+        }
+        //
+        switch (mawStatus)
+        {
+            case MawStatus.Opening:
+                currentMawOpeningStatus -= mawSpeed * dt;
+                currentMawOpeningStatus = Mathf.Max(currentMawOpeningStatus, -maxMawOpeningAngle);
+                break;
+            case MawStatus.Closing:
+                currentMawOpeningStatus += mawSpeed * dt;
+                currentMawOpeningStatus = Mathf.Min(currentMawOpeningStatus, 0);
+                break;
+        }
+        //
+        for(int i = 0; i < maws.Length; i++)
+        {
+            Quaternion mawRotation = maws[i].localRotation;
+            mawRotation.x = currentMawOpeningStatus * Mathf.Deg2Rad;
+            maws[i].localRotation = mawRotation;
         }
     }
 

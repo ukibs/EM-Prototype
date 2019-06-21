@@ -266,6 +266,13 @@ public class ProvisionalHUD : MonoBehaviour {
         float barMaxLength = Screen.width * 1 / 2;
         float barHeight = Screen.height * 1 / 24;
         float generalStartPoint = Screen.width - (barMaxLength * 3 / 2);
+
+        // Y la vida
+        float healthBarLenght = playerIntegrity.CurrentHealth / playerIntegrity.maxHealth * barMaxLength;
+        // Que se centre la barra conforme se vacia/llena
+        float healthStartPoint = generalStartPoint + ((barMaxLength - healthBarLenght) / 2);
+        GUI.DrawTexture(new Rect(healthStartPoint, 30 /*+ barHeight*/, healthBarLenght, barHeight), playerHealthTexture);
+        
         // Escudos
         // Mientras le queden
         if (playerIntegrity.CurrentShield > 0)
@@ -287,11 +294,7 @@ public class ProvisionalHUD : MonoBehaviour {
             GUI.DrawTexture(new Rect(Screen.width * 1 / 8, 30, barMaxLength, barHeight), enemyHealthTexture);
             GUI.color = new Color(1, 1, 1, 1);
         }
-        // Y la vida
-        float healthBarLenght = playerIntegrity.CurrentHealth / playerIntegrity.maxHealth * barMaxLength;
-        // Que se centre la barra conforme se vacia/llena
-        float healthStartPoint = generalStartPoint + ((barMaxLength - healthBarLenght) / 2);
-        GUI.DrawTexture(new Rect(healthStartPoint, 30 /*+ barHeight*/, healthBarLenght, barHeight), playerHealthTexture);
+        
     }
 
     //
