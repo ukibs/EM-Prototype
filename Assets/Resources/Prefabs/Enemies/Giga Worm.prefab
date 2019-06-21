@@ -327,7 +327,7 @@ GameObject:
   - component: {fileID: 8929449962321612778}
   m_Layer: 0
   m_Name: pPyramid1
-  m_TagString: Untagged
+  m_TagString: Maw
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1312,7 +1312,7 @@ GameObject:
   - component: {fileID: 1449789728322230651}
   m_Layer: 0
   m_Name: pPyramid4
-  m_TagString: Untagged
+  m_TagString: Maw
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1496,7 +1496,7 @@ GameObject:
   - component: {fileID: 6438674505923447529}
   m_Layer: 0
   m_Name: pPyramid2
-  m_TagString: Untagged
+  m_TagString: Maw
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1588,7 +1588,7 @@ GameObject:
   - component: {fileID: 6348706089162884923}
   m_Layer: 0
   m_Name: pPyramid3
-  m_TagString: Untagged
+  m_TagString: Maw
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2292,7 +2292,7 @@ MonoBehaviour:
   - {fileID: 1597504152435758688}
   - {fileID: 8376155412291392943}
   maxMawOpeningAngle: 45
-  mawSpeed: 180
+  mawSpeed: 45
   exteriorWeakPoints: 3
   interiorWeakPoints: 0
 --- !u!54 &5111195260141930912

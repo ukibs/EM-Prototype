@@ -232,6 +232,16 @@ public class PlayerIntegrity : MonoBehaviour
         }
     }
 
+    // Automuerte por ciertos eventos
+    public void Die()
+    {
+        //
+        currentHealth = 0;
+        // Muerte
+        Debug.Log("YOU DIED, BITCH");
+        ManageDeath();
+    }
+
     void ManageDeath()
     {
         Repulsor repulsor = GetComponent<Repulsor>();

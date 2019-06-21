@@ -74,7 +74,7 @@ public class CarolBaseHelp : MonoBehaviour
 
     private void OnGUI()
     {
-        if(CurrentStep.stepText != "")
+        if(CurrentStep != null && CurrentStep.stepText != "")
         {
             //
             Rect textRect = new Rect(Screen.width / 2 - 250, Screen.height - 100, 500, 20);
@@ -86,6 +86,9 @@ public class CarolBaseHelp : MonoBehaviour
     //
     void CheckStepProgress(float dt)
     {
+        //
+        if (CurrentStep == null)
+            return;
         //
         switch (CurrentStep.helpTrigger)
         {
@@ -110,18 +113,28 @@ public class CarolBaseHelp : MonoBehaviour
         //
         currentStep++;
         stepProgress = 0;
-        PlayClip(CurrentStep.audioClip);
+        //
+        if(CurrentStep != null)
+            PlayClip(CurrentStep.audioClip);
     }
 
     //
     public void WeakPointDestroyed()
     {
+        
         //
+        if (CurrentStep == null)
+            return;
+        // TODO: Vigilar que el step sea de weakpoints
         stepProgress++;
+        //
+        Debug.Log("Weak point destroyed. " + stepProgress + CurrentStep.amount);
         // Si carol estaba esperando la destruccion de uno...
         //if (carolSteps[currentStep].helpTrigger == HelpTrigger.AwaitingTrigger)
-        if(CurrentStep.amount >= stepProgress)
+        if (stepProgress >= CurrentStep.amount)
         {
+            //
+            Debug.Log("Required weakpoints destroyed");
             NextStep();
         }
         // Probablemente trabajemos más casos

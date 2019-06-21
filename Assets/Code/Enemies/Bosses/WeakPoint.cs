@@ -33,12 +33,6 @@ public class WeakPoint : Targeteable
         carolBaseHelp = FindObjectOfType<CarolBaseHelp>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
         ReceiveBulletImpact();

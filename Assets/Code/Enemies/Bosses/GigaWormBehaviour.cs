@@ -71,6 +71,9 @@ public class GigaWormBehaviour : Targeteable
     private float currentMawOpeningStatus;
     private MawStatus mawStatus = MawStatus.Closed;
 
+    // Usaremos esta varaible para ver si dos o más mandíbulas están tocando al player cuando cierra la boca
+    private int mawsCollidingPlayer = 0;
+
     public float CurrentSpeed { get { return currentSpeed; } }
 
     // TODO: En colisiones entre cuerpos
@@ -98,16 +101,41 @@ public class GigaWormBehaviour : Targeteable
         //
         Vector3 playerDirection = player.transform.position - transform.position;
         //
+        UpdateBehaviour(playerDirection, dt);
+        // Lo reseteamos a cada step
+        mawsCollidingPlayer = 0;
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        CheckMawsCollision(collision);
+    }
+
+    private void OnDrawGizmos()
+    {
+        //
+        if (player != null)
+        {
+            //
+            Vector3 playerDirection = player.transform.position - transform.position;
+            //
+            Gizmos.DrawLine(transform.position, player.transform.position);
+        }
+    }
+
+    void UpdateBehaviour(Vector3 playerDirection, float dt)
+    {
+        //
         switch (currentState)
         {
             // Cuando está vagando por ahí
             case WormStatus.Wandering:
-                
+
                 float playerDistance = (transform.position - player.transform.position).magnitude;
-                
+
                 // Que rote alrededor del player si se aleja demasiado
                 // Así no se va a cuenca
-                if(playerDistance > 700)
+                if (playerDistance > 700)
                 {
                     // Sacar la cruz
                     Vector3 playerCross = Vector3.Cross(playerDirection, Vector3.up);
@@ -118,7 +146,7 @@ public class GigaWormBehaviour : Targeteable
                 {
                     head.Rotate(Vector3.up * dt);
                 }
-                
+
                 // Velocity no sirve con kinematicos
                 //rb.velocity = transform.forward * 100;
                 //
@@ -126,21 +154,21 @@ public class GigaWormBehaviour : Targeteable
                 //Debug.Log("I'm wandering");
 
                 //
-                if (goesUnderground) 
+                if (goesUnderground)
                 {
                     //
-                    if(head.position.y > underGroundHeight)
+                    if (head.position.y > underGroundHeight)
                         head.Translate(Vector3.up * heightChangeSpeed * dt * -1);
                     //
                     currentTimeUnderground += dt;
                     if (currentTimeUnderground >= timeUnderground)
                     {
                         goesUnderground = false;
-                        
+
                     }
-                        
+
                 }
-                else if(!goesUnderground && head.position.y < overGroundHeight)
+                else if (!goesUnderground && head.position.y < overGroundHeight)
                 {
                     head.Translate(Vector3.up * heightChangeSpeed * dt);
                 }
@@ -171,24 +199,30 @@ public class GigaWormBehaviour : Targeteable
         }
     }
 
-    private void OnDrawGizmos()
+    // TODO: Funciona, pero hay que revisar el modelado de la mandíbula
+    void CheckMawsCollision(Collision collision)
     {
         //
-        if (player != null)
+        if (mawStatus != MawStatus.Closing)
+            return;
+        //
+        PlayerIntegrity robotControl = collision.collider.GetComponent<PlayerIntegrity>();
+        if(collision.GetContact(0).thisCollider.tag == "Maw" && robotControl != null)
         {
-            //
-            Vector3 playerDirection = player.transform.position - transform.position;
-            //
-            Gizmos.DrawLine(transform.position, player.transform.position);
+            mawsCollidingPlayer++;
         }
+        //
+        if (mawsCollidingPlayer >= 2)
+            robotControl.Die();
     }
 
+    //
     void UpdateMaw(Vector3 playerDirection, float dt)
     {
         //
         float playerDistance = playerDirection.magnitude;
         //
-        if(playerDistance < 100)
+        if(playerDistance > 30 && playerDistance < 100)
         {
             //
             switch (mawStatus)
@@ -200,7 +234,7 @@ public class GigaWormBehaviour : Targeteable
             }
         }
         //
-        else if (playerDistance >= 100)
+        else if (playerDistance <= 30 || playerDistance >= 100)
         {
             //
             switch (mawStatus)
@@ -212,23 +246,40 @@ public class GigaWormBehaviour : Targeteable
             }
         }
         //
+        //int rotationDirection = 0;
         switch (mawStatus)
         {
             case MawStatus.Opening:
                 currentMawOpeningStatus -= mawSpeed * dt;
                 currentMawOpeningStatus = Mathf.Max(currentMawOpeningStatus, -maxMawOpeningAngle);
+                if (currentMawOpeningStatus <= -maxMawOpeningAngle)
+                    mawStatus = MawStatus.Opened;
+                //rotationDirection = -1;
                 break;
             case MawStatus.Closing:
                 currentMawOpeningStatus += mawSpeed * dt;
                 currentMawOpeningStatus = Mathf.Min(currentMawOpeningStatus, 0);
+                if (currentMawOpeningStatus >= maxMawOpeningAngle)
+                    mawStatus = MawStatus.Closed;
+                //rotationDirection = 1;
                 break;
         }
-        //
+        // Vamos a trabajar esto con euler ngles
         for(int i = 0; i < maws.Length; i++)
         {
-            Quaternion mawRotation = maws[i].localRotation;
-            mawRotation.x = currentMawOpeningStatus * Mathf.Deg2Rad;
-            maws[i].localRotation = mawRotation;
+            Vector3 mawRotation = maws[i].localEulerAngles;
+            // Ñapaaaa
+            switch (i)
+            {
+                case 0: mawRotation.x = currentMawOpeningStatus; break;
+                case 1: mawRotation.y = currentMawOpeningStatus; break;
+                case 2: mawRotation.x = -currentMawOpeningStatus; break;
+                case 3: mawRotation.y = -currentMawOpeningStatus; break;
+            }
+
+            maws[i].localEulerAngles = mawRotation;
+
+            //maws[i].Rotate(transform.right * rotationDirection * mawSpeed * dt);
         }
     }
 
