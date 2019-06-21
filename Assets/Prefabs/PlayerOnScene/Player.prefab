@@ -561,6 +561,7 @@ MonoBehaviour:
   healthRegenerationRate: 1000
   playerFace: {fileID: 7651396667440439992}
   playerDeadFace: {fileID: 2100000, guid: af711cfacaaddb24690be92970e4f048, type: 2}
+  shieldDepletionClip: {fileID: 8300000, guid: d4c6552cb2acee64884421743f617484, type: 3}
 --- !u!82 &2801720779828614617
 AudioSource:
   m_ObjectHideFlags: 0

@@ -18,6 +18,8 @@ public class PlayerIntegrity : MonoBehaviour
     //
     public GameObject playerFace;
     public Material playerDeadFace;
+    //
+    public AudioClip shieldDepletionClip;
 
     private RobotControl robotControl;
     private float currentHealth;
@@ -26,6 +28,7 @@ public class PlayerIntegrity : MonoBehaviour
     private GameManager gameManager;
     private Rigidbody bodyRB;
     private ProvisionalHUD hud;
+    private AudioSource audioSource;
 
     //
     //Vector3 previousStepRbVelocity;
@@ -57,6 +60,7 @@ public class PlayerIntegrity : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         bodyRB = GetComponent<Rigidbody>();
         hud = FindObjectOfType<ProvisionalHUD>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -215,6 +219,7 @@ public class PlayerIntegrity : MonoBehaviour
             currentShield = 0;
             shieldsDepleted = true;
             damageType = DamageType.Hull;
+            GeneralFunctions.PlaySoundEffect(audioSource, shieldDepletionClip);
         }
         else
         {
