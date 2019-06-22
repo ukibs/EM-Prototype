@@ -1356,6 +1356,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brokenVersion: {fileID: 7213522521037333882}
+  hardEnough: 1
 --- !u!1 &8246287718926838753
 GameObject:
   m_ObjectHideFlags: 0

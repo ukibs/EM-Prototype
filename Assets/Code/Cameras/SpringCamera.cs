@@ -125,7 +125,7 @@ public class SpringCamera : MonoBehaviour {
     {
         //GUI.Label(new Rect(10, Screen.height - 30, 150, 20), "Change allowed: " + changeAllowed);
         //
-        GUI.Label(new Rect(10, Screen.height - 30, 300, 20), "Current target: " + currentTarget.name);
+        //GUI.Label(new Rect(10, Screen.height - 30, 300, 20), "Current target: " + currentTarget.name);
     }
 
     private void OnDrawGizmos()

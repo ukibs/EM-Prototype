@@ -57,6 +57,15 @@ public class GigaWormBehaviour : Targeteable
     public int exteriorWeakPoints;
     public int interiorWeakPoints;
 
+    //
+    public Transform interiorEntrance;
+
+    //
+    public AudioClip exteriorWeakPointDestroyedClip;
+    public AudioClip allExteriorWeakPointDestroyedClip;
+    public AudioClip stunnedClip;
+    public AudioClip coreDamagedClip;
+
     private WormStatus currentState = WormStatus.Wandering;
     private RobotControl player;
     private Rigidbody rb;
@@ -74,6 +83,9 @@ public class GigaWormBehaviour : Targeteable
     // Usaremos esta varaible para ver si dos o más mandíbulas están tocando al player cuando cierra la boca
     private int mawsCollidingPlayer = 0;
 
+    //
+    private AudioSource audioSource;
+
     public float CurrentSpeed { get { return currentSpeed; } }
 
     // TODO: En colisiones entre cuerpos
@@ -88,6 +100,7 @@ public class GigaWormBehaviour : Targeteable
         //Debug.Log("Player found? " + player);
         rb = GetComponent<Rigidbody>();
         currentSpeed = wanderingMovementSpeed;
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -106,9 +119,20 @@ public class GigaWormBehaviour : Targeteable
         mawsCollidingPlayer = 0;
     }
 
+    // Mandibulas
     private void OnCollisionStay(Collision collision)
     {
         CheckMawsCollision(collision);
+    }
+
+    // Entrada de la boca
+    private void OnTriggerEnter(Collider other)
+    {
+        if(currentState == WormStatus.Stunned)
+        {
+            // Mandamos al player al interior del gusano
+            MovePlayerToInterior();
+        }
     }
 
     private void OnDrawGizmos()
@@ -300,8 +324,36 @@ public class GigaWormBehaviour : Targeteable
                 {
                     // Luego veremos si hacemos aqui el cambio al siguiente paso
                     //currentState
+                    GeneralFunctions.PlaySoundEffect(audioSource, exteriorWeakPointDestroyedClip);
+                }
+                else
+                {
+                    GeneralFunctions.PlaySoundEffect(audioSource, allExteriorWeakPointDestroyedClip);
                 }
                 break;
         }
+    }
+
+    //
+    public void ImpactWithTerrain(bool hardEnough)
+    {
+        //
+        if(mawStatus != MawStatus.Closed && hardEnough)
+        {
+            currentState = WormStatus.Stunned;
+            GeneralFunctions.PlaySoundEffect(audioSource, stunnedClip);
+        }
+    }
+
+    //
+    void MovePlayerToInterior()
+    {
+        player.transform.position = interiorEntrance.position;
+    }
+
+    // Eject the player to the exterior
+    void ShitPlayer()
+    {
+
     }
 }

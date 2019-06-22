@@ -6,6 +6,9 @@ public class DestructibleTerrain : MonoBehaviour
 {
     //
     public GameObject brokenVersion;
+    // TODO: Trabajar esto más en un futuro
+    // Con masa, densidad o lo que sea
+    public bool hardEnough = false;
     //
     private bool destroyed = false;
     
@@ -27,14 +30,12 @@ public class DestructibleTerrain : MonoBehaviour
         // TODO: De momento chequeo simple
         // Quedetecte si es el gusano
         // Y si lo es se destruye
-        //GigaWormBehaviour wormBehaviour = collision.collider.GetComponentInParent<GigaWormBehaviour>();
+        GigaWormBehaviour wormBehaviour = collision.collider.GetComponentInParent<GigaWormBehaviour>();
         //
-        //if (wormBehaviour != null)
-        //{
-        //    gameObject.SetActive(false);
-        //    if (brokenVersion != null)
-        //        brokenVersion.SetActive(true);
-        //}
+        if (wormBehaviour != null)
+        {
+            wormBehaviour.ImpactWithTerrain(hardEnough);
+        }
         // Con kinematicos
         // Con suerte nos podremos quedar con este
         Rigidbody colliderRb = collision.rigidbody;

@@ -98,11 +98,6 @@ public class ProvisionalHUD : MonoBehaviour {
     private void OnGUI()
     {
         //
-        // GUI.DrawTexture(new Rect(Screen.width/2 - 50, Screen.height/2 - 50, 100, 100), crossTexture);
-        
-        
-
-        //
         PlayerHealthAndShields();
 
         //
@@ -117,9 +112,15 @@ public class ProvisionalHUD : MonoBehaviour {
             // Vamos a trabajar para que maneje varios tipos de objetivo
             // Enemy consistency (el viejo)
             EnemyConsistency enemyConsistency = cameraControl.CurrentTarget.GetComponent<EnemyConsistency>();
-            if(enemyConsistency != null)
-                EnemyInfo();
+            if (enemyConsistency != null)
+                EnemyInfoEC();
             // TODO: Hacerlo con weakpoints también
+            else
+                EnemyInfoSimple();
+        }
+        else
+        {
+            ShowCross();
         }
 
         //
@@ -136,6 +137,9 @@ public class ProvisionalHUD : MonoBehaviour {
         {
             DrawControls();
         }
+
+        //
+        ShowPlayerSpeed();
     }
 
     //
@@ -298,7 +302,38 @@ public class ProvisionalHUD : MonoBehaviour {
     }
 
     //
-    void EnemyInfo()
+    void ShowPlayerSpeed()
+    {
+        float playerCurrentSpeed = PlayerReference.playerRb.velocity.magnitude;
+        playerCurrentSpeed *= 3.6f;
+        int playerSpeedInt = (int)playerCurrentSpeed;
+        GUI.Label(new Rect(30, Screen.height - 50, 200, 20), "Speed: " + playerSpeedInt + " km/h", guiSkin.label);
+    }
+
+    //
+    void ShowCross()
+    {
+        GUI.DrawTexture(new Rect(Screen.width / 2 - 50, Screen.height / 2 - 50, 100, 100), crossTexture);
+    }
+
+    //
+    void EnemyInfoSimple()
+    {
+        // TODO: Sacar distancia
+        float distance = (playerIntegrity.transform.position - EnemyAnalyzer.enemyTransform.position).magnitude;
+        int distanceToShow = (int)distance;
+        GUI.Label(new Rect(Screen.width / 2 + 150, Screen.height / 2, 150, 20), "Distance: " + distanceToShow, guiSkin.label);
+
+        // Empezamos pintando el marcardor en la posición del enemigo en patnalla
+        Vector3 enemyScreenPosition = Camera.main.WorldToViewportPoint(cameraControl.CurrentTarget.position);
+        GUI.DrawTexture(new Rect(
+            enemyScreenPosition.x * Screen.width - 50,
+            Screen.height - enemyScreenPosition.y * Screen.height - 50, 100, 100),
+            enemyMarkerTextureRed);
+    }
+
+    //
+    void EnemyInfoEC()
     {
         
         //
