@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   carolStep:
     helpTrigger: 2
-    audioClip: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: e1f510c2e45636841aee90c148db0bb1, type: 3}
     stepText: Search weak spots
     amount: 1
