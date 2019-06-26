@@ -9,12 +9,15 @@ public enum WormStatus
     Wandering,
     Chasing,
     Stunned,
+    Recovering,
 
     Count
 }
 
 public class GigaWormBehaviour : Targeteable
 {
+    #region Status Enums
+
     private enum SubmersionStatus
     {
         Invalid = -1,
@@ -39,6 +42,10 @@ public class GigaWormBehaviour : Targeteable
         Count
     }
 
+    #endregion
+
+    #region Public Attributes
+
     public float wanderingMovementSpeed = 10;
     public float chasingMovementSpeed = 10;
     public float rotationSpeed = 30;
@@ -58,13 +65,22 @@ public class GigaWormBehaviour : Targeteable
     public int interiorWeakPoints;
 
     //
+    public float timeUntilCompleteStun = 2;
+    public float completeStunRotation = 30;
+
+    //
     public Transform interiorEntrance;
+    public Transform exitPoint;
 
     //
     public AudioClip exteriorWeakPointDestroyedClip;
     public AudioClip allExteriorWeakPointDestroyedClip;
     public AudioClip stunnedClip;
     public AudioClip coreDamagedClip;
+
+    #endregion
+
+    #region Private Attributes
 
     private WormStatus currentState = WormStatus.Wandering;
     private RobotControl player;
@@ -84,9 +100,18 @@ public class GigaWormBehaviour : Targeteable
     private int mawsCollidingPlayer = 0;
 
     //
+    private bool playerOut = true;
+
+    //
     private AudioSource audioSource;
 
+    #endregion
+
+    #region Properties
+
     public float CurrentSpeed { get { return currentSpeed; } }
+
+    #endregion
 
     // TODO: En colisiones entre cuerpos
     // Tratar la inclinación de los cuerpos
@@ -128,10 +153,19 @@ public class GigaWormBehaviour : Targeteable
     // Entrada de la boca
     private void OnTriggerEnter(Collider other)
     {
+        // Igual no hace falta preguntar el collider
         if(currentState == WormStatus.Stunned)
         {
             // Mandamos al player al interior del gusano
             MovePlayerToInterior();
+            playerOut = false;
+        }
+        //
+        if(currentState == WormStatus.Recovering)
+        {
+            ShitPlayer();
+            // Aqui indicaremos que el plyer ha sido cagado
+            playerOut = true;
         }
     }
 
@@ -211,14 +245,50 @@ public class GigaWormBehaviour : Targeteable
                 }
                 break;
             case WormStatus.Chasing:
-                // TODO: Que persiga al player
+                // Que persiga al player
                 head.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed, dt);
-                head.Translate(Vector3.forward * chasingMovementSpeed * dt);
-                // TODO: Que abra la boca cuando lo tenga cerca
+                head.Translate(Vector3.forward * currentSpeed * dt);
+                // Que abra la boca cuando lo tenga cerca
                 UpdateMaw(playerDirection, dt);
-                // TODO: Que intente atraparlo de un mordisco (muerte mortísima)
-                // TODO: (En el script de collision del terreno de momento de momento)
+                // Que intente atraparlo de un mordisco (muerte mortísima)
+                // (En el script de collision del terreno de momento de momento)
                 //      Que pase a estado stun
+                break;
+            case WormStatus.Stunned:
+                // Vamos a hacer que vaya perdiendo velcodidad en un tiempo
+                if(currentSpeed > 0)
+                {
+                    //
+                    currentSpeed -= (chasingMovementSpeed / timeUntilCompleteStun) * dt;
+                    currentSpeed = Mathf.Max(currentSpeed, 0);
+                    //
+                    head.Rotate(Vector3.forward * completeStunRotation / timeUntilCompleteStun * dt);
+                    //
+                    head.Translate(Vector3.forward * currentSpeed * dt);
+                }
+                break;
+            case WormStatus.Recovering:
+
+                // Basicamente invertiremos el stun
+                if (currentSpeed < chasingMovementSpeed)
+                {
+                    //
+                    currentSpeed += (chasingMovementSpeed / timeUntilCompleteStun) * dt;
+                    currentSpeed = Mathf.Min(currentSpeed, chasingMovementSpeed);
+                }
+
+                //
+                head.Translate(Vector3.forward * currentSpeed * dt);
+                // 
+                if (currentSpeed == chasingMovementSpeed && playerOut)
+                {
+                    currentState = WormStatus.Chasing;
+                    //
+                    Vector3 currentHeadEulers = head.localEulerAngles;
+                    currentHeadEulers.z = 0;
+                    head.localEulerAngles = currentHeadEulers;
+                }
+                    
                 break;
         }
     }
@@ -334,6 +404,16 @@ public class GigaWormBehaviour : Targeteable
         }
     }
 
+    // Para casos en que el weakpoint active algo al ser dañado en vez de destruido
+    public void RespondToDamagedWeakPoint()
+    {
+        if(currentState == WormStatus.Stunned)
+        {
+            currentState = WormStatus.Recovering;
+            // Luego emtemos un par mas de cosas
+        }
+    }
+
     //
     public void ImpactWithTerrain(bool hardEnough)
     {
@@ -354,6 +434,11 @@ public class GigaWormBehaviour : Targeteable
     // Eject the player to the exterior
     void ShitPlayer()
     {
-
+        //
+        if(exitPoint.position.y < 0)
+            player.transform.position = new Vector3(exitPoint.position.x, 0, exitPoint.position.z);
+        //
+        else
+        player.transform.position = exitPoint.position;
     }
 }

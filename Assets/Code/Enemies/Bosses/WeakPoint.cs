@@ -11,6 +11,7 @@ public class WeakPoint : Targeteable
     #region Public Attibutes
 
     public float maxHealthPoints = 30;
+    public bool reactionOnDamage = false;
     public GigaWormBehaviour gigaWormBehaviour;
 
     #endregion
@@ -50,6 +51,12 @@ public class WeakPoint : Targeteable
         if(currentHealthPoints > 0)
         {
             currentHealthPoints--;
+            //
+            if (reactionOnDamage)
+            {
+                gigaWormBehaviour.RespondToDamagedWeakPoint();
+            }
+            //
             if (currentHealthPoints <= 0)
             {
                 gigaWormBehaviour.LoseWeakPoint();

@@ -330,6 +330,18 @@ public class ProvisionalHUD : MonoBehaviour {
             enemyScreenPosition.x * Screen.width - 50,
             Screen.height - enemyScreenPosition.y * Screen.height - 50, 100, 100),
             enemyMarkerTextureRed);
+
+        //
+        WeakPoint weakPoint = EnemyAnalyzer.enemyTransform.GetComponent<WeakPoint>();
+        if(weakPoint != null)
+        {
+            // Barra de vida
+            float weakPointHealth = weakPoint.CurrentHealthPoins / weakPoint.maxHealthPoints;
+            weakPointHealth = Mathf.Clamp01(weakPointHealth);
+            GUI.DrawTexture(new Rect(Screen.width / 2 + 150, Screen.height / 2 - 30, weakPointHealth * 100f, 20), enemyHealthTexture);
+            //GUI.Label(new Rect(Screen.width / 2 + 150, Screen.height / 2 - 30, 100f, 20), " " + weakPoint.CurrentHealthPoins);
+        }
+        
     }
 
     //
