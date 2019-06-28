@@ -290,9 +290,9 @@ public class GigaWormBehaviour : Targeteable
                 {
                     currentState = WormStatus.Chasing;
                     //
-                    Vector3 currentHeadEulers = head.localEulerAngles;
-                    currentHeadEulers.z = 0;
-                    head.localEulerAngles = currentHeadEulers;
+                    //Vector3 currentHeadEulers = head.localEulerAngles;
+                    //currentHeadEulers.z = 0;
+                    //head.localEulerAngles = currentHeadEulers;
                 }
                     
                 break;
@@ -322,7 +322,7 @@ public class GigaWormBehaviour : Targeteable
         //
         float playerDistance = playerDirection.magnitude;
         //
-        if(playerDistance > 30 && playerDistance < 100)
+        if(playerDistance > 130 && playerDistance < 200)
         {
             //
             switch (mawStatus)
@@ -334,7 +334,7 @@ public class GigaWormBehaviour : Targeteable
             }
         }
         //
-        else if (playerDistance <= 30 || playerDistance >= 100)
+        else if (playerDistance <= 130 || playerDistance >= 200)
         {
             //
             switch (mawStatus)
@@ -441,11 +441,11 @@ public class GigaWormBehaviour : Targeteable
     void ShitPlayer()
     {
         //
-        if(exitPoint.position.y < 0)
+        //if(exitPoint.position.y < 0)
             player.transform.position = new Vector3(exitPoint.position.x, 0, exitPoint.position.z);
         //
-        else
-        player.transform.position = exitPoint.position;
+        //else
+        //player.transform.position = exitPoint.position;
         // TODO: Desfijar núcleo
         wormCore.active = false;
     }
