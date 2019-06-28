@@ -220,9 +220,15 @@ public class TerrainManager : MonoBehaviour
         AssignNeighbours();
     }
 
-    //
+    // TODO: Que pueda trabajar con más de uno a la vez
     void MoveFarestBlocks(Vector2 playerOffsetInUnits)
     {
+        // Apaño para cuando offset sea mayor de uno
+        if(Math.Abs(playerOffsetInUnits.x) >1 || Mathf.Abs(playerOffsetInUnits.y) > 1)
+        {
+            // TODO: Hacerlo bien
+            return;
+        }
         // 
         GameObject[,] newActiveBlocksOrder = new GameObject[squareSize, squareSize];
         // Primero ver que bloques se quedan lejos con el offset

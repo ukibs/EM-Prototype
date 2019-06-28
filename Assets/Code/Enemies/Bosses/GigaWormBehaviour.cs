@@ -71,6 +71,8 @@ public class GigaWormBehaviour : Targeteable
     //
     public Transform interiorEntrance;
     public Transform exitPoint;
+    //
+    public WeakPoint wormCore;
 
     //
     public AudioClip exteriorWeakPointDestroyedClip;
@@ -272,9 +274,13 @@ public class GigaWormBehaviour : Targeteable
                 // Basicamente invertiremos el stun
                 if (currentSpeed < chasingMovementSpeed)
                 {
+                    // Le metemos un multiplicador al 
+                    float recoveryMultiplier = 0.5f;
                     //
-                    currentSpeed += (chasingMovementSpeed / timeUntilCompleteStun) * dt;
+                    currentSpeed += (chasingMovementSpeed / timeUntilCompleteStun) * dt * recoveryMultiplier;
                     currentSpeed = Mathf.Min(currentSpeed, chasingMovementSpeed);
+                    //
+                    head.Rotate(Vector3.forward * completeStunRotation / timeUntilCompleteStun * dt * recoveryMultiplier);
                 }
 
                 //
@@ -440,5 +446,7 @@ public class GigaWormBehaviour : Targeteable
         //
         else
         player.transform.position = exitPoint.position;
+        // TODO: Desfijar núcleo
+        wormCore.active = false;
     }
 }
