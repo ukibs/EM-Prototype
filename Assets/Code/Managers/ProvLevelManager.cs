@@ -269,5 +269,14 @@ public class ProvLevelManager : MonoBehaviour
         enemiesDestroyed++;
     }
 
+    /// <summary>
+    /// Orden de victoria enviada desde un actor de la escena
+    /// </summary>
+    public void ConfirmVictory()
+    {
+        victory = true;
+        EndLevel();
+    }
+
     #endregion
 }

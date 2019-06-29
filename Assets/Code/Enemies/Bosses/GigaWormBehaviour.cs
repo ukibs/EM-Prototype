@@ -2,21 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum WormStatus
-{
-    Invalid = -1,
 
-    Wandering,
-    Chasing,
-    Stunned,
-    Recovering,
-
-    Count
-}
-
+/// <summary>
+/// Comportamiento del Giga Gusano (Tuto)
+/// Haremos uno más complejo más adelante
+/// </summary>
 public class GigaWormBehaviour : Targeteable
 {
     #region Status Enums
+
+    private enum WormStatus
+    {
+        Invalid = -1,
+
+        Wandering,
+        Chasing,
+        Stunned,
+        Recovering,
+        Dead,
+
+        Count
+    }
 
     private enum SubmersionStatus
     {
@@ -79,6 +85,7 @@ public class GigaWormBehaviour : Targeteable
     public AudioClip allExteriorWeakPointDestroyedClip;
     public AudioClip stunnedClip;
     public AudioClip coreDamagedClip;
+    public AudioClip deathClip;
 
     #endregion
 
@@ -87,6 +94,7 @@ public class GigaWormBehaviour : Targeteable
     private WormStatus currentState = WormStatus.Wandering;
     private RobotControl player;
     private Rigidbody rb;
+    private ProvLevelManager levelManager;
 
     //
     private float currentTimeUnderground;
@@ -128,6 +136,7 @@ public class GigaWormBehaviour : Targeteable
         rb = GetComponent<Rigidbody>();
         currentSpeed = wanderingMovementSpeed;
         audioSource = GetComponent<AudioSource>();
+        levelManager = FindObjectOfType<ProvLevelManager>();
     }
 
     // Update is called once per frame
@@ -144,6 +153,12 @@ public class GigaWormBehaviour : Targeteable
         UpdateBehaviour(playerDirection, dt);
         // Lo reseteamos a cada step
         mawsCollidingPlayer = 0;
+        //
+        if((currentState == WormStatus.Stunned && !playerOut) ||
+            (currentState == WormStatus.Recovering && !playerOut))
+        {
+            InsidesDamageToPlayer();
+        }
     }
 
     // Mandibulas
@@ -155,20 +170,36 @@ public class GigaWormBehaviour : Targeteable
     // Entrada de la boca
     private void OnTriggerEnter(Collider other)
     {
-        // Igual no hace falta preguntar el collider
-        if(currentState == WormStatus.Stunned)
+        // TODO: Chequear balas para primer entento
+        Bullet bullet = other.GetComponent<Bullet>();
+        if(bullet != null && currentState == WormStatus.Chasing)
         {
-            // Mandamos al player al interior del gusano
-            MovePlayerToInterior();
-            playerOut = false;
+            // Aquí sacaremos un mensaje de carol
         }
+
+        // Chequeamos que sea el player lo que colisiona
+        PlayerIntegrity playerIntegrity = other.GetComponent<PlayerIntegrity>();
         //
-        if(currentState == WormStatus.Recovering)
+        if(playerIntegrity != null)
         {
-            ShitPlayer();
-            // Aqui indicaremos que el plyer ha sido cagado
-            playerOut = true;
+            //
+            if (currentState == WormStatus.Stunned)
+            {
+                // Mandamos al player al interior del gusano
+                MovePlayerToInterior();
+                playerOut = false;
+                active = false;
+            }
+            //
+            if (currentState == WormStatus.Recovering)
+            {
+                ShitPlayer();
+                // Aqui indicaremos que el plyer ha sido cagado
+                playerOut = true;
+                active = true;
+            }
         }
+        
     }
 
     private void OnDrawGizmos()
@@ -280,7 +311,7 @@ public class GigaWormBehaviour : Targeteable
                     currentSpeed += (chasingMovementSpeed / timeUntilCompleteStun) * dt * recoveryMultiplier;
                     currentSpeed = Mathf.Min(currentSpeed, chasingMovementSpeed);
                     //
-                    head.Rotate(Vector3.forward * completeStunRotation / timeUntilCompleteStun * dt * recoveryMultiplier);
+                    head.Rotate(-Vector3.forward * completeStunRotation / timeUntilCompleteStun * dt * recoveryMultiplier);
                 }
 
                 //
@@ -407,6 +438,15 @@ public class GigaWormBehaviour : Targeteable
                     GeneralFunctions.PlaySoundEffect(audioSource, allExteriorWeakPointDestroyedClip);
                 }
                 break;
+            // Para la final
+            case WormStatus.Stunned:
+            case WormStatus.Recovering:
+                //
+                currentState = WormStatus.Dead;
+                GeneralFunctions.PlaySoundEffect(audioSource, deathClip);
+                // TODO: Hacer la muerte y victoria
+                levelManager.ConfirmVictory();
+                break;
         }
     }
 
@@ -428,6 +468,7 @@ public class GigaWormBehaviour : Targeteable
         {
             currentState = WormStatus.Stunned;
             GeneralFunctions.PlaySoundEffect(audioSource, stunnedClip);
+            // TODO: Meter un contador o algo
         }
     }
 
@@ -448,5 +489,12 @@ public class GigaWormBehaviour : Targeteable
         //player.transform.position = exitPoint.position;
         // TODO: Desfijar núcleo
         wormCore.active = false;
+    }
+
+    // Daño al player mientras esté dentro del bicho
+    void InsidesDamageToPlayer()
+    {
+        // TODO: Hacer función en plauyer para
+        // "Daño de entorno"
     }
 }

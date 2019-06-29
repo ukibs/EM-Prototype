@@ -1694,7 +1694,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 305566957202799309}
-  - component: {fileID: 2001710177874838790}
   m_Layer: 9
   m_Name: Giga Worm
   m_TagString: Untagged
@@ -1717,42 +1716,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2001710177874838790
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 305566957202799306}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b67c19f7a4e551f4ba33f48cc49cadbf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  active: 0
-  centralPointOffset: {x: 0, y: 0, z: 0}
-  wanderingMovementSpeed: 10
-  chasingMovementSpeed: 10
-  rotationSpeed: 30
-  timeUnderground: 10
-  overGroundHeight: 0
-  underGroundHeight: -20
-  heightChangeSpeed: 5
-  head: {fileID: 0}
-  maws: []
-  maxMawOpeningAngle: 45
-  mawSpeed: 180
-  exteriorWeakPoints: 0
-  interiorWeakPoints: 0
-  timeUntilCompleteStun: 2
-  completeStunRotation: 30
-  interiorEntrance: {fileID: 0}
-  exitPoint: {fileID: 0}
-  wormCore: {fileID: 0}
-  exteriorWeakPointDestroyedClip: {fileID: 0}
-  allExteriorWeakPointDestroyedClip: {fileID: 0}
-  stunnedClip: {fileID: 0}
-  coreDamagedClip: {fileID: 0}
 --- !u!1 &941770216517735863
 GameObject:
   m_ObjectHideFlags: 0
@@ -2367,7 +2330,7 @@ MonoBehaviour:
   interiorWeakPoints: 0
   timeUntilCompleteStun: 2
   completeStunRotation: 30
-  interiorEntrance: {fileID: 2116052420006882343}
+  interiorEntrance: {fileID: 6479742890165385056}
   exitPoint: {fileID: 4962172263327130274}
   wormCore: {fileID: 7580580248267086526}
   exteriorWeakPointDestroyedClip: {fileID: 8300000, guid: 1c357a4339bc2dc4dbef9e33a8708a68,
@@ -2376,6 +2339,7 @@ MonoBehaviour:
     type: 3}
   stunnedClip: {fileID: 8300000, guid: 2781e7184a8928548b40b849a85524f7, type: 3}
   coreDamagedClip: {fileID: 8300000, guid: f8e69df46e9884a4db26f22f06773bef, type: 3}
+  deathClip: {fileID: 0}
 --- !u!54 &5111195260141930912
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3819,6 +3783,26 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.01
       objectReference: {fileID: 0}
+    - target: {fileID: 4420489789855854085, guid: 335014e28dbf6f744a60426f9d76f2e6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 80.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4420489789855854085, guid: 335014e28dbf6f744a60426f9d76f2e6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4420489789855854085, guid: 335014e28dbf6f744a60426f9d76f2e6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 10.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8553408971999465731, guid: 335014e28dbf6f744a60426f9d76f2e6,
+        type: 3}
+      propertyPath: m_Name
+      value: Entrance Waypoint
+      objectReference: {fileID: 0}
     - target: {fileID: 3719060937980095908, guid: 335014e28dbf6f744a60426f9d76f2e6,
         type: 3}
       propertyPath: m_IsActive
@@ -4012,15 +3996,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7256451119800572261}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &2116052420006882343 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8784743511689753922, guid: 335014e28dbf6f744a60426f9d76f2e6,
-    type: 3}
-  m_PrefabInstance: {fileID: 7256451119800572261}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &80985141812731347 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7326125511894615222, guid: 335014e28dbf6f744a60426f9d76f2e6,
+    type: 3}
+  m_PrefabInstance: {fileID: 7256451119800572261}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6479742890165385056 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4420489789855854085, guid: 335014e28dbf6f744a60426f9d76f2e6,
     type: 3}
   m_PrefabInstance: {fileID: 7256451119800572261}
   m_PrefabAsset: {fileID: 0}
