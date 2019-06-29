@@ -157,7 +157,7 @@ public class GigaWormBehaviour : Targeteable
         if((currentState == WormStatus.Stunned && !playerOut) ||
             (currentState == WormStatus.Recovering && !playerOut))
         {
-            InsidesDamageToPlayer();
+            InsidesDamageToPlayer(dt);
         }
     }
 
@@ -492,9 +492,10 @@ public class GigaWormBehaviour : Targeteable
     }
 
     // Daño al player mientras esté dentro del bicho
-    void InsidesDamageToPlayer()
+    void InsidesDamageToPlayer(float dt)
     {
         // TODO: Hacer función en plauyer para
         // "Daño de entorno"
+        PlayerReference.playerIntegrity.ReceiveEnvionmentalDamage(100 * dt);
     }
 }

@@ -237,6 +237,30 @@ public class PlayerIntegrity : MonoBehaviour
         }
     }
 
+    // Daño de entorno, que se salta ciertas cosas
+    public void ReceiveEnvionmentalDamage(float damageAmount)
+    {
+        //
+        currentShield -= damageAmount;
+        if (currentShield < 0)
+        {
+            // Recuerda que el escudo perdido sobrante llega como negativo
+            //float damageToHealth = Mathf.Min(currentShield + armor, 0);
+            currentHealth += currentShield;
+            currentShield = 0;
+            shieldsDepleted = true;
+            GeneralFunctions.PlaySoundEffect(audioSource, shieldDepletionClip);
+        }
+
+        //
+        if (currentHealth <= 0)
+        {
+            // Muerte
+            Debug.Log("YOU DIED, BITCH");
+            ManageDeath();
+        }
+    }
+
     // Automuerte por ciertos eventos
     public void Die()
     {
