@@ -61,6 +61,7 @@ public class Repulsor : MonoBehaviour {
         {
             //Debug.Log("Repulsing");
             float distanceFromFloor = (transform.position - hitInfo.point).magnitude;
+
             ApplyRepulsion(distanceFromFloor);
             //
             floorPoint = hitInfo.point;
@@ -77,10 +78,14 @@ public class Repulsor : MonoBehaviour {
     {
         // Vamos a hacerlo al cuadrado para hacer más remarcado el efecto
         float compensationOffset = Mathf.Pow( 1 - (distanceFromFloor / idealDistanceFromFloor), 2);
+        // TODO: Montarlo para que funcione también cuando cambie el up
+        // Recuerda, y negativa hacia abajo
+        float fallingSpeed = Mathf.Min(rb.velocity.y, 0);
+        fallingSpeed = Mathf.Abs(fallingSpeed);
         //float compensationOffset = 1 - (distanceFromFloor / idealDistanceFromFloor);
         //float compensationOffset = distanceFromFloor / idealDistanceFromFloor;
         // rb.AddForce(Vector3.up * repulsionStrength * compensationOffset);
-        rb.AddForce(transform.up * repulsionStrength * compensationOffset);
+        rb.AddForce(transform.up * repulsionStrength * (compensationOffset + Mathf.Pow(fallingSpeed,1) ) );
     }
 
     void SoftenVerticalImpulse()

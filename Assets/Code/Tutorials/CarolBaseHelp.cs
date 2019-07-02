@@ -12,6 +12,7 @@ public enum HelpTrigger
     SearchingWeakPoints,
     AwaitingTrigger,
     WeakPointDestruction,
+    AudioEnd,
 
     Count
 }
@@ -77,7 +78,7 @@ public class CarolBaseHelp : MonoBehaviour
         if(CurrentStep != null && CurrentStep.stepText != "")
         {
             //
-            Rect textRect = new Rect(Screen.width / 2 - 250, Screen.height - 100, 500, 20);
+            Rect textRect = new Rect(Screen.width / 2 - 250, Screen.height - 100, 750, 30);
             //
             GUI.Label(textRect, CurrentStep.stepText, gUISkin.label);
         }
@@ -104,6 +105,10 @@ public class CarolBaseHelp : MonoBehaviour
                 if (stepProgress >= CurrentStep.amount)
                     NextStep();
                 break;
+            case HelpTrigger.AudioEnd:
+                if (audioSource.clip == null || !audioSource.isPlaying)
+                    NextStep();
+                break;
         }
     }
 
@@ -128,7 +133,7 @@ public class CarolBaseHelp : MonoBehaviour
         // TODO: Vigilar que el step sea de weakpoints
         stepProgress++;
         //
-        Debug.Log("Weak point destroyed. " + stepProgress + CurrentStep.amount);
+        //Debug.Log("Weak point destroyed. " + stepProgress + CurrentStep.amount);
         // Si carol estaba esperando la destruccion de uno...
         //if (carolSteps[currentStep].helpTrigger == HelpTrigger.AwaitingTrigger)
         if (stepProgress >= CurrentStep.amount)
@@ -144,6 +149,7 @@ public class CarolBaseHelp : MonoBehaviour
 
     void PlayClip(AudioClip clip)
     {
+        // TODO: Meter un pequeño delay para que no suene muy de seguido
         // Si tiene clip de audio le damos
         if (clip != null)
         {
@@ -179,6 +185,12 @@ public class CarolBaseHelp : MonoBehaviour
         }
         //
         return anyFound;
+    }
+
+    //
+    public void TriggerIt()
+    {
+        NextStep();
     }
 }
 

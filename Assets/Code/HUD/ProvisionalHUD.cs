@@ -295,7 +295,7 @@ public class ProvisionalHUD : MonoBehaviour {
             if (currentAlpha <= 0) fadeDirection = 1;
             GUI.color = new Color(1, 1, 1, currentAlpha);
             // De momento la referenciamos como enemyHelathTexture (color rojo)
-            GUI.DrawTexture(new Rect(Screen.width * 1 / 8, 30, barMaxLength, barHeight), enemyHealthTexture);
+            GUI.DrawTexture(new Rect(generalStartPoint, 30, barMaxLength, barHeight), enemyHealthTexture);
             GUI.color = new Color(1, 1, 1, 1);
         }
         
@@ -307,7 +307,7 @@ public class ProvisionalHUD : MonoBehaviour {
         float playerCurrentSpeed = PlayerReference.playerRb.velocity.magnitude;
         playerCurrentSpeed *= 3.6f;
         int playerSpeedInt = (int)playerCurrentSpeed;
-        GUI.Label(new Rect(30, Screen.height - 50, 200, 20), "Speed: " + playerSpeedInt + " km/h", guiSkin.label);
+        GUI.Label(new Rect(30, Screen.height - 50, 300, 30), "Speed: " + playerSpeedInt + " km/h", guiSkin.label);
     }
 
     //
@@ -322,7 +322,7 @@ public class ProvisionalHUD : MonoBehaviour {
         // TODO: Sacar distancia
         float distance = (playerIntegrity.transform.position - EnemyAnalyzer.enemyTransform.position).magnitude;
         int distanceToShow = (int)distance;
-        GUI.Label(new Rect(Screen.width / 2 + 150, Screen.height / 2, 150, 20), "Distance: " + distanceToShow, guiSkin.label);
+        GUI.Label(new Rect(Screen.width / 2 + 150, Screen.height / 2, 200, 30), "Distance: " + distanceToShow, guiSkin.label);
 
         // Empezamos pintando el marcardor en la posición del enemigo en patnalla
         Vector3 enemyScreenPosition = Camera.main.WorldToViewportPoint(cameraControl.CurrentTarget.position);

@@ -321,6 +321,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 158b9fae21ad0734c9ab80e5b8576df7, type: 2}
   - {fileID: 11400000, guid: 917335cea104a814fba7f586be193cbc, type: 2}
   - {fileID: 11400000, guid: d3cb968e990a6ea428b4871f466a646d, type: 2}
+  - {fileID: 11400000, guid: 49a85f1720374a744826db178d4dc073, type: 2}
+  - {fileID: 11400000, guid: 58abc998967f6a149a8fc339a490665e, type: 2}
+  - {fileID: 11400000, guid: e69246dcda0ae124a8612010ce308c74, type: 2}
+  - {fileID: 11400000, guid: e430acca7e0f81042aa90f5e97660548, type: 2}
+  - {fileID: 11400000, guid: 5c1fb53c3c8027f48b10c540a69decf2, type: 2}
   gUISkin: {fileID: 11400000, guid: 0d7ecdc8ac800f94491b1d5df3fbf883, type: 2}
 --- !u!4 &485429112
 Transform:
@@ -1115,7 +1120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: -1
-  speed: 1
+  speed: 0.1
   alpha: 1
   fadeTexture: {fileID: 2800000, guid: 8257a1ca8c7fd18479d8c2c72402e918, type: 3}
 --- !u!114 &1941905308

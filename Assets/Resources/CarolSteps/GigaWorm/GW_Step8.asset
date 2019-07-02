@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GW_Step8
   m_EditorClassIdentifier: 
   carolStep:
-    helpTrigger: 2
-    audioClip: {fileID: 0}
-    stepText: Search a vulnerable point
-    amount: 1
+    helpTrigger: 1
+    audioClip: {fileID: 8300000, guid: 377d59a1a0a30cb4cb00d1e125978f14, type: 3}
+    stepText: Try stuff
+    amount: 20

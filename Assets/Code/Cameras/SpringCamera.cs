@@ -442,7 +442,7 @@ public class SpringCamera : MonoBehaviour {
         //
         if (targeteableEnemies.Count == 0)
         {
-            Debug.Log("No active enemies");
+            //Debug.Log("No active enemies");
             SwitchTarget();
             cameraReference.ResetEulerX();
             return;

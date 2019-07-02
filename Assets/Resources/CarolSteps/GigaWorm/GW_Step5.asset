@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GW_Step5
   m_EditorClassIdentifier: 
   carolStep:
-    helpTrigger: 1
-    audioClip: {fileID: 0}
-    stepText: Avoid the maw
+    helpTrigger: 3
+    audioClip: {fileID: 8300000, guid: 8ba444d766322ea4e9bd3da1a280c692, type: 3}
+    stepText: 
     amount: 20

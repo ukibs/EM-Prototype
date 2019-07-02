@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
-/// Manager para los sonidos de las balas, que se destruyen al impactar
+/// Manager para los sonido creados por objetos al destruirse
 /// </summary>
-public class BulletSoundManager : MonoBehaviour
+public class AudioObjectManager : MonoBehaviour
 {
     //
     public GameObject audioObjectPrefab;

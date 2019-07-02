@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GW_Step1
   m_EditorClassIdentifier: 
   carolStep:
-    helpTrigger: 2
-    audioClip: {fileID: 8300000, guid: e1f510c2e45636841aee90c148db0bb1, type: 3}
-    stepText: Search weak spots
+    helpTrigger: 5
+    audioClip: {fileID: 8300000, guid: cce8d04a9241b1d4eb14cefe64995024, type: 3}
+    stepText: 
     amount: 1

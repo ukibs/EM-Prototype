@@ -73,6 +73,7 @@ public class GigaWormBehaviour : Targeteable
     //
     public float timeUntilCompleteStun = 2;
     public float completeStunRotation = 30;
+    public float maxStunDuration = 20;
 
     //
     public Transform interiorEntrance;
@@ -95,6 +96,7 @@ public class GigaWormBehaviour : Targeteable
     private RobotControl player;
     private Rigidbody rb;
     private ProvLevelManager levelManager;
+    private CarolBaseHelp carolHelp;
 
     //
     private float currentTimeUnderground;
@@ -105,12 +107,19 @@ public class GigaWormBehaviour : Targeteable
     //
     private float currentMawOpeningStatus;
     private MawStatus mawStatus = MawStatus.Closed;
+    private bool firstTimeMawOpened = false;
+    private bool firstBulletAttempAtMouth = false;
+    private bool firstStun = false;
+    private bool firstEntranceInMouth = false;
 
     // Usaremos esta varaible para ver si dos o más mandíbulas están tocando al player cuando cierra la boca
     private int mawsCollidingPlayer = 0;
 
     //
     private bool playerOut = true;
+
+    //
+    private float currentStunDuration = 0;
 
     //
     private AudioSource audioSource;
@@ -137,6 +146,7 @@ public class GigaWormBehaviour : Targeteable
         currentSpeed = wanderingMovementSpeed;
         audioSource = GetComponent<AudioSource>();
         levelManager = FindObjectOfType<ProvLevelManager>();
+        carolHelp = FindObjectOfType<CarolBaseHelp>();
     }
 
     // Update is called once per frame
@@ -159,6 +169,16 @@ public class GigaWormBehaviour : Targeteable
         {
             InsidesDamageToPlayer(dt);
         }
+        //
+        if(currentState == WormStatus.Stunned)
+        {
+            currentStunDuration += dt;
+            if(currentStunDuration >= maxStunDuration)
+            {
+                currentState = WormStatus.Recovering;
+                currentStunDuration = 0;
+            }
+        }
     }
 
     // Mandibulas
@@ -172,9 +192,13 @@ public class GigaWormBehaviour : Targeteable
     {
         // TODO: Chequear balas para primer entento
         Bullet bullet = other.GetComponent<Bullet>();
-        if(bullet != null && currentState == WormStatus.Chasing)
+        if(bullet != null && currentState == WormStatus.Chasing && !firstBulletAttempAtMouth)
         {
             // Aquí sacaremos un mensaje de carol
+            // TODO: Organizar mejor estas funciones
+            Debug.Log("Bullet shoot to mouth");
+            firstBulletAttempAtMouth = true;
+            carolHelp.TriggerIt();
         }
 
         // Chequeamos que sea el player lo que colisiona
@@ -189,6 +213,12 @@ public class GigaWormBehaviour : Targeteable
                 MovePlayerToInterior();
                 playerOut = false;
                 active = false;
+                //
+                if (!firstEntranceInMouth)
+                {
+                    firstEntranceInMouth = true;
+                    carolHelp.TriggerIt();
+                }
             }
             //
             if (currentState == WormStatus.Recovering)
@@ -270,6 +300,8 @@ public class GigaWormBehaviour : Targeteable
                     currentSpeed = chasingMovementSpeed;
                     active = true;
                     rotationSpeed *= 3;
+                    Debug.Log("Start chasing");
+                    carolHelp.TriggerIt();
                 }
                 else
                 {
@@ -361,6 +393,12 @@ public class GigaWormBehaviour : Targeteable
                 case MawStatus.Closing:
                 case MawStatus.Closed:
                     mawStatus = MawStatus.Opening;
+                    //
+                    if (!firstTimeMawOpened)
+                    {
+                        carolHelp.TriggerIt();
+                        firstTimeMawOpened = false;
+                    }
                     break;
             }
         }
@@ -468,7 +506,12 @@ public class GigaWormBehaviour : Targeteable
         {
             currentState = WormStatus.Stunned;
             GeneralFunctions.PlaySoundEffect(audioSource, stunnedClip);
-            // TODO: Meter un contador o algo
+            //
+            if (!firstStun)
+            {
+                firstStun = true;
+                carolHelp.TriggerIt();
+            }
         }
     }
 

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GW_Step4
   m_EditorClassIdentifier: 
   carolStep:
-    helpTrigger: 1
-    audioClip: {fileID: 0}
-    stepText: 
-    amount: 20
+    helpTrigger: 4
+    audioClip: {fileID: 8300000, guid: f2dd461f01893724fbf229882dfdcdc3, type: 3}
+    stepText: Search and destroy more weak points
+    amount: 2

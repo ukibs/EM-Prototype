@@ -86,6 +86,9 @@ public class RobotControl : MonoBehaviour {
     public AudioClip releasingClip;
     public AudioClip rapidFireClip;
 
+    // TODO: Mover a datos de game manager
+    public float rotationTime = 0.1f;
+
 
     //
     private Transform mainCamera;
@@ -115,6 +118,11 @@ public class RobotControl : MonoBehaviour {
 
     // Testeo
     //private bool paused = false;
+
+    //
+    private Quaternion objectiveRotation;
+    private Vector3 lastAxisXZ;
+    private float currentRotationTime;
 
     #region Properties
 
@@ -186,6 +194,10 @@ public class RobotControl : MonoBehaviour {
                 PlayerReference.currentProyectileRB = cannonBallPrefab.GetComponent<Rigidbody>();
                 break;
         }
+
+        //
+        lastAxisXZ = Vector3.forward;
+
     }
 	
 	// Update is called once per frame
@@ -341,7 +353,20 @@ public class RobotControl : MonoBehaviour {
                 transform.LookAt(transform.position + cameraControl.transform.forward, currentUp);
         }
         else
-            transform.LookAt(transform.position + directionX + directionZ, currentUp);
+        {
+            //
+            if((directionX + directionZ).magnitude > Mathf.Epsilon){
+                currentRotationTime = 0;
+                lastAxisXZ = directionX + directionZ;
+            }
+            //
+            objectiveRotation = Quaternion.LookRotation(lastAxisXZ, currentUp);
+            currentRotationTime += dt;
+            transform.rotation = Quaternion.Slerp(transform.rotation, objectiveRotation, currentRotationTime/rotationTime);
+            
+            //transform.LookAt(transform.position + directionX + directionZ, currentUp);
+        }
+            
 
         // TODO: Tener en cuenta velocity actual
         Vector3 forceDirection = (directionX + directionZ).normalized;
@@ -381,9 +406,14 @@ public class RobotControl : MonoBehaviour {
         return false;
     }
 
+    // TODO: Creo que el nombre de esta función no encaja del todo con lo que hace
+    // TODO: Revisar que no lo hayamos desarmado
     void SetNewUp(Vector3 point, Vector3 normal)
     {
-        transform.rotation = Quaternion.LookRotation(transform.forward, normal);
+        //
+        objectiveRotation = Quaternion.LookRotation(transform.forward, normal);
+        //
+        transform.rotation = Quaternion.Slerp(transform.rotation, objectiveRotation, 0.1f);
     }
 
     /// <summary>

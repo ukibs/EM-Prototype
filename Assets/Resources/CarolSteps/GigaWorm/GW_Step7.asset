@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   carolStep:
     helpTrigger: 3
-    audioClip: {fileID: 0}
-    stepText: Enter in its mouth
+    audioClip: {fileID: 8300000, guid: 69f6e78cd5a5d764db642f0025dcf57b, type: 3}
+    stepText: Shoot at mouth's interior
     amount: 1

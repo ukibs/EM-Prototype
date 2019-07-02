@@ -28,7 +28,7 @@ public class Bullet : MonoBehaviour {
     // Provisional, para que se destruya en ek explosivo en vez de en este
     protected ExplosiveBullet explosiveBullet;
     //
-    protected BulletSoundManager bulletSoundManager;
+    protected AudioObjectManager bulletSoundManager;
 
 	// Use this for initialization
 	protected virtual void Start () {
@@ -39,7 +39,7 @@ public class Bullet : MonoBehaviour {
         //
         explosiveBullet = GetComponent<ExplosiveBullet>();
         //
-        bulletSoundManager = FindObjectOfType<BulletSoundManager>();
+        bulletSoundManager = FindObjectOfType<AudioObjectManager>();
     }
 
     protected void FixedUpdate()
@@ -139,7 +139,8 @@ public class Bullet : MonoBehaviour {
         }
 
         // Efecto de sonido
-        bulletSoundManager.CreateAudioObject(impactOnPlayer, transform.position);
+        if(impactOnPlayer != null)
+            bulletSoundManager.CreateAudioObject(impactOnPlayer, transform.position);
         
         // Partículas
         GameObject impactParticles = Instantiate(impactParticlesPrefab, hitPoint, Quaternion.identity);

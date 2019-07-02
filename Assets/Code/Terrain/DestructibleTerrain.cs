@@ -10,12 +10,17 @@ public class DestructibleTerrain : MonoBehaviour
     // Con masa, densidad o lo que sea
     public bool hardEnough = false;
     //
+    public AudioClip destructionClip;
+
+    //
     private bool destroyed = false;
+    private AudioObjectManager audioObjectManager;
     
 
     private void Start()
     {
         //brokenVersion = transform.Find
+        audioObjectManager = FindObjectOfType<AudioObjectManager>();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -44,6 +49,9 @@ public class DestructibleTerrain : MonoBehaviour
             gameObject.SetActive(false);
             if (brokenVersion != null)
                 brokenVersion.SetActive(true);
+            //
+            if(destructionClip != null)
+                audioObjectManager.CreateAudioObject(destructionClip, transform.position);
         }
 
     }

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24da3e9b2c46b6e4e82c675c1db6e9db, type: 3}
-  m_Name: GW_Step6
+  m_Name: GW_Step9
   m_EditorClassIdentifier: 
   carolStep:
     helpTrigger: 3
-    audioClip: {fileID: 8300000, guid: f791a215985e485468d4d7e7d4654a52, type: 3}
-    stepText: Wait and observe
+    audioClip: {fileID: 8300000, guid: 9ef9e87c0e5375e49b189b4e3735f012, type: 3}
+    stepText: Make worm hit pillar with its maw open
     amount: 1

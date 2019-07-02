@@ -2311,7 +2311,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
-  wanderingMovementSpeed: 30
+  wanderingMovementSpeed: 20
   chasingMovementSpeed: 40
   rotationSpeed: 10
   timeUnderground: 10
@@ -2330,6 +2330,7 @@ MonoBehaviour:
   interiorWeakPoints: 0
   timeUntilCompleteStun: 2
   completeStunRotation: 30
+  maxStunDuration: 20
   interiorEntrance: {fileID: 6479742890165385056}
   exitPoint: {fileID: 4962172263327130274}
   wormCore: {fileID: 7580580248267086526}

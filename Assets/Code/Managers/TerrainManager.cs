@@ -202,6 +202,9 @@ public class TerrainManager : MonoBehaviour
                 // And put it
                 activeBlocksMatrix[i, j] = Instantiate(prefabToUse, nextPosition, Quaternion.identity);
                 activeBlocksMatrix[i, j].transform.eulerAngles = new Vector3(0, yRotation, 0);
+                // Desrotamos el suelo
+                Transform floor = activeBlocksMatrix[i, j].transform.GetChild(0);
+                floor.eulerAngles = new Vector3(0, 0, 0);
             }
         }
         // Recordar que el orden es de - x a + x, y con y igual
@@ -274,13 +277,16 @@ public class TerrainManager : MonoBehaviour
             // Colocamos el que hemos cambiado
             for (int i = 0; i < squareSize; i++)
             {
-                // TODO: Añadir chequeo de terreno destruido para que lo resetee
                 //
                 newActiveBlocksOrder[i, sideToPut] = activeBlocksMatrix[i, sideToGet];
                 //
                 Vector3 blockNewPosition = newActiveBlocksOrder[i, sideToPut].transform.position;
                 blockNewPosition.z += 200 * squareSize * displacementY;
                 newActiveBlocksOrder[i, sideToPut].transform.position = blockNewPosition;
+                // TODO: Añadir chequeo de terreno destruido para que lo resetee
+                DestructibleTerrain[] destructibleElements = newActiveBlocksOrder[i, sideToPut].GetComponentsInChildren<DestructibleTerrain>();
+                for (int j = 0; j < destructibleElements.Length; j++)
+                    destructibleElements[j].Restore();
             }
             // Y el resto
             // TODO: Decidimos cual es x y cual y para cambiarlo abajo
@@ -327,6 +333,10 @@ public class TerrainManager : MonoBehaviour
                 Vector3 blockNewPosition = newActiveBlocksOrder[sideToPut, i].transform.position;
                 blockNewPosition.x += 200 * squareSize * displacementX;
                 newActiveBlocksOrder[sideToPut, i].transform.position = blockNewPosition;
+                // TODO: Añadir chequeo de terreno destruido para que lo resetee
+                DestructibleTerrain[] destructibleElements = newActiveBlocksOrder[sideToPut, i].GetComponentsInChildren<DestructibleTerrain>();
+                for (int j = 0; j < destructibleElements.Length; j++)
+                    destructibleElements[j].Restore();
             }
             // Y el resto
             // TODO: Decidimos cual es x y cual y para cambiarlo abajo
