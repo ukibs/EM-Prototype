@@ -497,6 +497,7 @@ MonoBehaviour:
   loadingClip: {fileID: 8300000, guid: 34c0c184de4e26542b52e88c97599929, type: 3}
   releasingClip: {fileID: 8300000, guid: fbd915f84b22dcc4b98ed424e9d294c4, type: 3}
   rapidFireClip: {fileID: 8300000, guid: b602fac39daf4bc4084ed7fdaf30e823, type: 3}
+  rotationTime: 0.1
 --- !u!114 &114003392293176966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -513,7 +514,7 @@ MonoBehaviour:
   repulsionStrength: 40
   repulsionDamp: 0
   dustEmitterStatic: {fileID: 4034983766658800488}
-  dustEmitterMovement: {fileID: 6151654207678486078}
+  dustEmitterMovement: {fileID: 9064271816984835610}
 --- !u!114 &114977535009352440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1347,7 +1348,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &953675341052757629
 Transform:
   m_ObjectHideFlags: 0
@@ -5984,8 +5985,8 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5e1abf9e4de42314ea8069538d2f8f03, type: 2}
-  - {fileID: 2100000, guid: 60ec7706f43fe0345be086f04935dca2, type: 2}
+  - {fileID: 2100000, guid: c3cb610691c01ac408b812bac0b31d29, type: 2}
+  - {fileID: 2100000, guid: c3cb610691c01ac408b812bac0b31d29, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -15609,7 +15610,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8811557355040454968
 Transform:
   m_ObjectHideFlags: 0
@@ -20246,8 +20247,8 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 795ab1f41a8fd4142859110cee203fd7, type: 2}
-  - {fileID: 2100000, guid: 795ab1f41a8fd4142859110cee203fd7, type: 2}
+  - {fileID: 2100000, guid: 8189b10e8f868e541b3d8044d20ae468, type: 2}
+  - {fileID: 2100000, guid: 8189b10e8f868e541b3d8044d20ae468, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -20347,12 +20348,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 14d81e2c407975245973a11cdfbeb902, type: 3}
---- !u!1 &6151654207678486078 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1000010715882420, guid: 14d81e2c407975245973a11cdfbeb902,
-    type: 3}
-  m_PrefabInstance: {fileID: 6150964267908298122}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6148161795296292774 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4000012573350444, guid: 14d81e2c407975245973a11cdfbeb902,

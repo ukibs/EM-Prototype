@@ -427,7 +427,10 @@ public class RobotControl : MonoBehaviour {
         // De momento solo hacia arriba
         // Luego trabajaremos más direcciones
         if (inputManager.JumpButton && actionCharging == ActionCharguing.None)
+        {
             actionCharging = ActionCharguing.Jump;
+            GeneralFunctions.PlaySoundEffect(audioSource, loadingClip);
+        }            
         else if(inputManager.JumpButton && actionCharging == ActionCharguing.Jump)
         {
             //
@@ -445,6 +448,8 @@ public class RobotControl : MonoBehaviour {
                     float floorSupport = (repulsor.IsOnFloor) ? gameManager.jumpForce : 0;
                     // Le damos un mínimo de base
                     rb.AddForce(Vector3.up * (gameManager.jumpForce * chargedAmount + floorSupport), ForceMode.Impulse);
+                    //
+                    GeneralFunctions.PlaySoundEffect(audioSource, releasingClip);
                     break;
                 case JumpMode.Smash:
                     // Le damos un mínimo de base
@@ -461,6 +466,8 @@ public class RobotControl : MonoBehaviour {
                     // TODO: Revisar
                     Vector3 compensatedDirection = (desiredDirection - currentVelocity).normalized;
                     rb.AddForce(compensatedDirection * (gameManager.jumpForce * chargedAmount + gameManager.jumpForce) * 10, ForceMode.Impulse);
+                    //
+                    GeneralFunctions.PlaySoundEffect(audioSource, releasingClip);
                     break;
             }
             

@@ -15,6 +15,11 @@ public class Repulsor : MonoBehaviour {
     private bool isOnFloor;
     //private BallsScene tutorial;
 
+    // Variables para pelear con el particle system
+    private ParticleSystem currentParticleSystem;
+    private float currentParticleSpeed = 5;
+    private float currentParticleRate = 10;
+
     #region Properties
 
     public bool IsOnFloor { get { return isOnFloor; } }
@@ -25,6 +30,7 @@ public class Repulsor : MonoBehaviour {
     void Start () {
         rb = GetComponent<Rigidbody>();
         //dustEmitterStatic.SetActive(true);
+        currentParticleSystem = dustEmitterStatic.GetComponent<ParticleSystem>();
 	}
 	
 	// Update is called once per frame
@@ -86,8 +92,23 @@ public class Repulsor : MonoBehaviour {
         //float compensationOffset = distanceFromFloor / idealDistanceFromFloor;
         // rb.AddForce(Vector3.up * repulsionStrength * compensationOffset);
         rb.AddForce(transform.up * repulsionStrength * (compensationOffset + Mathf.Pow(fallingSpeed,1) ) );
+        //
+        UpdateDustEmitterParticleSystem(compensationOffset, fallingSpeed);
+        
     }
 
+    void UpdateDustEmitterParticleSystem(float compensationOffset, float fallingSpeed)
+    {
+        //
+        ParticleSystem.EmissionModule emissionModule = currentParticleSystem.emission;
+        emissionModule.rateOverTime = currentParticleRate + (currentParticleRate * (compensationOffset + Mathf.Pow(fallingSpeed, 1)));
+        //
+        ParticleSystem.MainModule mainModule = currentParticleSystem.main;
+        mainModule.startSpeed = currentParticleSpeed + (currentParticleSpeed * (compensationOffset + Mathf.Pow(fallingSpeed, 1)));
+    }
+
+    // Ahora no lo usamos
+    // Borrar cuando estemos seguros
     void SoftenVerticalImpulse()
     {
         Vector3 currentVelocity = rb.velocity;
@@ -104,14 +125,24 @@ public class Repulsor : MonoBehaviour {
             dustEmitterStatic.SetActive(true);
             dustEmitterMovement.SetActive(false);
 
-            dustEmitterStatic.transform.position = floorPoint;
+            dustEmitterStatic.transform.position = floorPoint + (Vector3.up * 0.1f);
+
+            //
+            currentParticleSystem = dustEmitterStatic.GetComponent<ParticleSystem>();
+            currentParticleSpeed = 5;
+            currentParticleRate = 10;
         }
         else
         {
             dustEmitterStatic.SetActive(false);
             dustEmitterMovement.SetActive(true);
 
-            dustEmitterMovement.transform.position = floorPoint;
+            dustEmitterMovement.transform.position = floorPoint + (Vector3.up * 0.1f);
+
+            //
+            currentParticleSystem = dustEmitterMovement.GetComponent<ParticleSystem>();
+            currentParticleSpeed = 10;
+            currentParticleRate = 100;
         }
     }
 
