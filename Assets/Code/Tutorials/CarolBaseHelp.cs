@@ -28,8 +28,10 @@ public class CarolBaseHelp : MonoBehaviour
 
     public CarolStepObject[] carolStepObjects;
     public GUISkin gUISkin;
+    public AudioClip weakPointFoundBip;
 
     protected AudioSource audioSource;
+    protected AudioObjectManager audioObjectManager;
     protected GameManager gameManager;
 
     protected RobotControl player;
@@ -53,6 +55,7 @@ public class CarolBaseHelp : MonoBehaviour
     protected virtual void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        audioObjectManager = FindObjectOfType<AudioObjectManager>();
         gameManager = FindObjectOfType<GameManager>();
         player = FindObjectOfType<RobotControl>();
         // Le damos al primer clip
@@ -175,12 +178,13 @@ public class CarolBaseHelp : MonoBehaviour
         for(int i = 0; i < hitColliders.Length; i++)
         {
             WeakPoint weakPoint = hitColliders[i].GetComponent<WeakPoint>();
-            if(weakPoint != null && weakPoint.CurrentHealthPoins > 0)
+            if (weakPoint != null && weakPoint.active == false && weakPoint.CurrentHealthPoins > 0)
             {
                 // Lo ponemos como activo para que pueda ser targeteado
                 // TODO: Poner nombre de variable más claro, coño
                 weakPoint.active = true;
                 anyFound = true;
+                audioObjectManager.CreateAudioObject(weakPointFoundBip, player.transform.position);
             }
         }
         //
