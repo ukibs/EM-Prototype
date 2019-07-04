@@ -124,6 +124,9 @@ public class GigaWormBehaviour : Targeteable
     //
     private AudioSource audioSource;
 
+    //
+    private CrushingEsophagus[] crushingEsophaguses;
+
     #endregion
 
     #region Properties
@@ -147,6 +150,8 @@ public class GigaWormBehaviour : Targeteable
         audioSource = GetComponent<AudioSource>();
         levelManager = FindObjectOfType<ProvLevelManager>();
         carolHelp = FindObjectOfType<CarolBaseHelp>();
+        //
+        crushingEsophaguses = GetComponentsInChildren<CrushingEsophagus>();
     }
 
     // Update is called once per frame
@@ -184,7 +189,17 @@ public class GigaWormBehaviour : Targeteable
     // Mandibulas
     private void OnCollisionStay(Collision collision)
     {
-        CheckMawsCollision(collision);
+        // TODO: Esto ahora queda redundante
+        // Quitarlo
+        if(collision.GetContact(0).thisCollider.tag == "Maw")
+            CheckMawsCollision(collision);
+        else if(collision.GetContact(0).thisCollider.tag == "Esophagus")
+        {
+            // Un poco guarro
+            for (int i = 0; i < crushingEsophaguses.Length; i++)
+                crushingEsophaguses[i].CheckWallsCollision(collision);
+        }
+
     }
 
     // Entrada de la boca

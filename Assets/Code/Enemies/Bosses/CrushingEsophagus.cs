@@ -12,6 +12,7 @@ public class CrushingEsophagus : MonoBehaviour
         Closing,
         Closed,
         Opening,
+        Opened,
 
         Count
     }
@@ -20,7 +21,8 @@ public class CrushingEsophagus : MonoBehaviour
 
     public float timeClosingWalls = 0.5f;
     public float timeWallsAreClosed = 1;
-    public float timeOpeningWalls = 2;
+    public float timeOpeningWalls = 3;
+    public float timeWallsAreOpened = 1;
 
     public AudioClip wallsCompleteCloseSound;
 
@@ -41,6 +43,8 @@ public class CrushingEsophagus : MonoBehaviour
     private float currentCounterTime;
 
     #endregion
+
+    #region Unity Methods
 
     // Start is called before the first frame update
     void Start()
@@ -68,7 +72,28 @@ public class CrushingEsophagus : MonoBehaviour
         float dt = Time.deltaTime;
         //
         UpdateWalls(dt);
+        // Lo reseteamos cada step
+        wallsCollidingWithPlayer = 0;
     }
+    
+    // NOTA: Las colisiones serán detectadas en el bjeto que tenga el rigidbody
+
+    //private void OnCollisionStay(Collision collision)
+    //{
+    //    PlayerIntegrity possiblePlayerIntegrity = collision.collider.GetComponent<PlayerIntegrity>();
+    //    Debug.Log("Possible player collision stay: " + (possiblePlayerIntegrity != null));
+
+    //    if (possiblePlayerIntegrity != null)
+    //        wallsCollidingWithPlayer++;
+
+    //    if (wallsCollidingWithPlayer >= 2)
+    //        //playerIntegrity.ReceiveEnvionmentalDamage(100);
+    //        playerIntegrity.Die();
+    //}
+
+    #endregion
+
+    #region Methods
 
     void UpdateWalls(float dt)
     {
@@ -109,10 +134,17 @@ public class CrushingEsophagus : MonoBehaviour
                 //
                 if (currentCounterTime >= timeOpeningWalls)
                 {
+                    wallStatus = WallStatus.Opened;
+                    currentCounterTime = 0;
+                }
+                break;
+            case WallStatus.Opened:
+                //
+                if (currentCounterTime >= timeWallsAreOpened)
+                {
                     wallStatus = WallStatus.Closing;
                     currentCounterTime = 0;
                 }
-                    
                 break;
         }
     }
@@ -128,4 +160,23 @@ public class CrushingEsophagus : MonoBehaviour
             crushingwalls[i].Translate(Vector3.up * positionProgression * direction, Space.Self);
         }
     }
+
+    /// <summary>
+    /// Check collsions with the walls
+    /// </summary>
+    /// <param name="collision"></param>
+    public void CheckWallsCollision(Collision collision)
+    {
+        PlayerIntegrity possiblePlayerIntegrity = collision.collider.GetComponent<PlayerIntegrity>();
+        Debug.Log("Possible player collision stay: " + (possiblePlayerIntegrity != null));
+
+        if (possiblePlayerIntegrity != null)
+            wallsCollidingWithPlayer++;
+
+        if (wallsCollidingWithPlayer >= 2)
+            playerIntegrity.ReceiveEnvionmentalDamage(10);
+            //playerIntegrity.Die();
+    }
+
+    #endregion
 }
