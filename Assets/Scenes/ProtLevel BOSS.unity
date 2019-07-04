@@ -327,6 +327,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e430acca7e0f81042aa90f5e97660548, type: 2}
   - {fileID: 11400000, guid: 5c1fb53c3c8027f48b10c540a69decf2, type: 2}
   gUISkin: {fileID: 11400000, guid: 0d7ecdc8ac800f94491b1d5df3fbf883, type: 2}
+  weakPointFoundBip: {fileID: 8300000, guid: 55f4d17f60c63864da1f664822250e89, type: 3}
 --- !u!4 &485429112
 Transform:
   m_ObjectHideFlags: 0
