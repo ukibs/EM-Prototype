@@ -1068,7 +1068,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94b8442f97e7b2b4582c21661eeb92d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentVersion: 0.2
+  currentVersion: 0.4
   guiSkin: {fileID: 11400000, guid: 0d7ecdc8ac800f94491b1d5df3fbf883, type: 2}
 --- !u!4 &1379158843
 Transform:
@@ -2054,6 +2054,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2634853563957990691, guid: 19ecf4c8820eb0846a314e80b2d13158,
+        type: 3}
+      propertyPath: wanderingMovementSpeed
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 19ecf4c8820eb0846a314e80b2d13158, type: 3}

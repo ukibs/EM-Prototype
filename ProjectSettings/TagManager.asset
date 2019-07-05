@@ -9,6 +9,7 @@ TagManager:
   - Hard Terrain
   - Ground
   - Maw
+  - Esophagus
   layers:
   - Default
   - TransparentFX
