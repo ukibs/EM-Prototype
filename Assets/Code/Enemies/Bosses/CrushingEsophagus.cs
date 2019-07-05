@@ -31,6 +31,8 @@ public class CrushingEsophagus : MonoBehaviour
     #region Private Attributes
 
     private Transform[] crushingwalls;
+    // To gsdfghsdf
+    private Vector3[] wallsOriginalPosition;
     private PlayerIntegrity playerIntegrity;
 
     private float initialWallY;
@@ -51,10 +53,12 @@ public class CrushingEsophagus : MonoBehaviour
     {
         // Guardamos aqui los hijos para manejarlos con comodidad
         crushingwalls = new Transform[transform.childCount];
+        wallsOriginalPosition = new Vector3[transform.childCount];
 
         for(int i = 0; i < crushingwalls.Length; i++)
         {
             crushingwalls[i] = transform.GetChild(i);
+            wallsOriginalPosition[i] = crushingwalls[i].localPosition;
         }
 
         //
@@ -75,21 +79,6 @@ public class CrushingEsophagus : MonoBehaviour
         // Lo reseteamos cada step
         wallsCollidingWithPlayer = 0;
     }
-    
-    // NOTA: Las colisiones serán detectadas en el bjeto que tenga el rigidbody
-
-    //private void OnCollisionStay(Collision collision)
-    //{
-    //    PlayerIntegrity possiblePlayerIntegrity = collision.collider.GetComponent<PlayerIntegrity>();
-    //    Debug.Log("Possible player collision stay: " + (possiblePlayerIntegrity != null));
-
-    //    if (possiblePlayerIntegrity != null)
-    //        wallsCollidingWithPlayer++;
-
-    //    if (wallsCollidingWithPlayer >= 2)
-    //        //playerIntegrity.ReceiveEnvionmentalDamage(100);
-    //        playerIntegrity.Die();
-    //}
 
     #endregion
 
@@ -134,6 +123,9 @@ public class CrushingEsophagus : MonoBehaviour
                 //
                 if (currentCounterTime >= timeOpeningWalls)
                 {
+                    // Vamos a ver si el problema es que se va acumulando
+                    ResetWallPositions();
+                    //
                     wallStatus = WallStatus.Opened;
                     currentCounterTime = 0;
                 }
@@ -149,6 +141,17 @@ public class CrushingEsophagus : MonoBehaviour
         }
     }
 
+    // Reseteo de paredes para evitar desfases
+    void ResetWallPositions()
+    {
+        //
+        for(int i = 0; i < crushingwalls.Length; i++)
+        {
+            crushingwalls[i].localPosition = wallsOriginalPosition[i];
+        }
+    }
+
+    //
     void DisplaceWalls(float timeProgression, float direction)
     {
         //

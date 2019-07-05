@@ -101,6 +101,8 @@ public class RobotControl : MonoBehaviour {
     private ActionCharguing actionCharging = ActionCharguing.None;
 
     private float chargedAmount = 0.0f;    // Por ahora lo manejaremos entre 0 y 1
+    private float currentOverheat = 0;      // Similar
+    private bool totalOverheat = false;
     private SpringCamera cameraControl;
     private InputManager inputManager;
     private Repulsor repulsor;
@@ -127,6 +129,8 @@ public class RobotControl : MonoBehaviour {
     #region Properties
 
     public float ChargedAmount { get { return chargedAmount; } }
+    public float CurrentOverHeat { get { return currentOverheat; } }
+    public bool TotalOverheat { get { return totalOverheat; } }
     public ActionCharguing CurrentActionCharging { get { return actionCharging; } }
 
     public AttackMode ActiveAttackMode {
@@ -213,6 +217,22 @@ public class RobotControl : MonoBehaviour {
             CheckActionChange();
             CheckAndFire(dt);
             CheckDefense();
+            //
+            bool isRapidFiring = (actionCharging == ActionCharguing.Attack && inputManager.FireButton);
+            //
+            if(chargedAmount == 0 && !isRapidFiring)
+            {
+                // TODO: Así es un poco ñapa, pulirlo
+                float totalOverheatMultiplier = (totalOverheat) ? 1 : 2;
+                //
+                currentOverheat -= totalOverheatMultiplier * dt;
+                currentOverheat = Mathf.Max(currentOverheat, 0);
+                //
+                if (currentOverheat == 0 && totalOverheat)
+                    totalOverheat = false;
+            }
+                
+
         }
         
     }
@@ -628,10 +648,26 @@ public class RobotControl : MonoBehaviour {
             chargedAmount += Time.deltaTime;
             if (attackMode == AttackMode.RapidFire)
             {
-                if(chargedAmount < 1)
+                // TODO: Hacerlo un poco menos ñapa
+                if (totalOverheat)
+                {
+                    chargedAmount -= Time.deltaTime;
+                    return;
+                }
+                    
+                //
+                currentOverheat += dt;
+                //
+                if(currentOverheat <= gameManager.maxOverheat)
                 {
                     //
                     RapidFireAttack(dt);
+                }
+                else
+                {
+                    // Meteremos aqui el efecto de sobrecarga
+                    totalOverheat = true;
+                    currentOverheat = gameManager.maxOverheat;
                 }
                 //
                 chargedAmount = Mathf.Min(chargedAmount, 1);
@@ -642,6 +678,9 @@ public class RobotControl : MonoBehaviour {
             }
             else
             {
+                //
+                chargedAmount += Time.deltaTime;
+                //
                 chargedAmount = Mathf.Min(chargedAmount, 1);
             }
         }
@@ -775,6 +814,7 @@ public class RobotControl : MonoBehaviour {
                 shootRotation, shootForward, muzzleSpeed, dt, ShootCalculation.MuzzleSpeed);
             // TODO: Vamos a aplicar el overheat aqui
             //chargedAmount -= 1 / gameManager.rapidFireRate;
+            chargedAmount = 0.01f;
             rapidFireCooldown -= 1 / gameManager.rapidFireRate;
             //
             nextRapidFireSide = (nextRapidFireSide) == 0 ? 1 : 0;

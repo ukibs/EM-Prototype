@@ -2317,13 +2317,13 @@ MonoBehaviour:
   interiorEntrance: {fileID: 6479742890165385056}
   exitPoint: {fileID: 4962172263327130274}
   wormCore: {fileID: 974948276061045723}
-  exteriorWeakPointDestroyedClip: {fileID: 8300000, guid: 1c357a4339bc2dc4dbef9e33a8708a68,
+  exteriorWeakPointDestroyedClip: {fileID: 8300000, guid: d30b631b21f82f444b1c4cf6200abbe5,
     type: 3}
   allExteriorWeakPointDestroyedClip: {fileID: 8300000, guid: ae070aa423263f8498932fd1e172cca4,
     type: 3}
-  stunnedClip: {fileID: 8300000, guid: 2781e7184a8928548b40b849a85524f7, type: 3}
-  coreDamagedClip: {fileID: 8300000, guid: f8e69df46e9884a4db26f22f06773bef, type: 3}
-  deathClip: {fileID: 0}
+  stunnedClip: {fileID: 8300000, guid: d30b631b21f82f444b1c4cf6200abbe5, type: 3}
+  coreDamagedClip: {fileID: 8300000, guid: ae070aa423263f8498932fd1e172cca4, type: 3}
+  deathClip: {fileID: 8300000, guid: 5ff182ee8e5161f408029eaaa5c90f01, type: 3}
 --- !u!54 &5111195260141930912
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2358,10 +2358,10 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 0
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 1000
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -2426,7 +2426,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 1.1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -3747,42 +3747,32 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 88723825562593904, guid: 335014e28dbf6f744a60426f9d76f2e6,
+    - target: {fileID: 7580580248267086526, guid: 335014e28dbf6f744a60426f9d76f2e6,
+        type: 3}
+      propertyPath: gigaWormBehaviour
+      value: 
+      objectReference: {fileID: 2634853563957990691}
+    - target: {fileID: 7055559832692261385, guid: 335014e28dbf6f744a60426f9d76f2e6,
         type: 3}
       propertyPath: m_TagString
       value: Untagged
-      objectReference: {fileID: 0}
-    - target: {fileID: 278296420108844832, guid: 335014e28dbf6f744a60426f9d76f2e6,
-        type: 3}
-      propertyPath: m_TagString
-      value: Esophagus
-      objectReference: {fileID: 0}
-    - target: {fileID: 3324186104155002202, guid: 335014e28dbf6f744a60426f9d76f2e6,
-        type: 3}
-      propertyPath: m_TagString
-      value: Esophagus
-      objectReference: {fileID: 0}
-    - target: {fileID: 5229202406978601959, guid: 335014e28dbf6f744a60426f9d76f2e6,
-        type: 3}
-      propertyPath: m_TagString
-      value: Esophagus
-      objectReference: {fileID: 0}
-    - target: {fileID: 954500942156650539, guid: 335014e28dbf6f744a60426f9d76f2e6,
-        type: 3}
-      propertyPath: m_TagString
-      value: Esophagus
       objectReference: {fileID: 0}
     - target: {fileID: 6305555148977495588, guid: 335014e28dbf6f744a60426f9d76f2e6,
         type: 3}
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
-    - target: {fileID: 2501145301407962851, guid: 335014e28dbf6f744a60426f9d76f2e6,
+    - target: {fileID: 88723825562593904, guid: 335014e28dbf6f744a60426f9d76f2e6,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 7560840818943157774, guid: 335014e28dbf6f744a60426f9d76f2e6,
         type: 3}
       propertyPath: m_TagString
       value: Esophagus
       objectReference: {fileID: 0}
-    - target: {fileID: 7560840818943157774, guid: 335014e28dbf6f744a60426f9d76f2e6,
+    - target: {fileID: 8550752049241730013, guid: 335014e28dbf6f744a60426f9d76f2e6,
         type: 3}
       propertyPath: m_TagString
       value: Esophagus
@@ -3792,17 +3782,7 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Esophagus
       objectReference: {fileID: 0}
-    - target: {fileID: 2769257263338282049, guid: 335014e28dbf6f744a60426f9d76f2e6,
-        type: 3}
-      propertyPath: m_TagString
-      value: Esophagus
-      objectReference: {fileID: 0}
-    - target: {fileID: 7055559832692261385, guid: 335014e28dbf6f744a60426f9d76f2e6,
-        type: 3}
-      propertyPath: m_TagString
-      value: Untagged
-      objectReference: {fileID: 0}
-    - target: {fileID: 8550752049241730013, guid: 335014e28dbf6f744a60426f9d76f2e6,
+    - target: {fileID: 5229202406978601959, guid: 335014e28dbf6f744a60426f9d76f2e6,
         type: 3}
       propertyPath: m_TagString
       value: Esophagus
@@ -3822,11 +3802,31 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Esophagus
       objectReference: {fileID: 0}
-    - target: {fileID: 7580580248267086526, guid: 335014e28dbf6f744a60426f9d76f2e6,
+    - target: {fileID: 2769257263338282049, guid: 335014e28dbf6f744a60426f9d76f2e6,
         type: 3}
-      propertyPath: gigaWormBehaviour
-      value: 
-      objectReference: {fileID: 2634853563957990691}
+      propertyPath: m_TagString
+      value: Esophagus
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501145301407962851, guid: 335014e28dbf6f744a60426f9d76f2e6,
+        type: 3}
+      propertyPath: m_TagString
+      value: Esophagus
+      objectReference: {fileID: 0}
+    - target: {fileID: 3324186104155002202, guid: 335014e28dbf6f744a60426f9d76f2e6,
+        type: 3}
+      propertyPath: m_TagString
+      value: Esophagus
+      objectReference: {fileID: 0}
+    - target: {fileID: 278296420108844832, guid: 335014e28dbf6f744a60426f9d76f2e6,
+        type: 3}
+      propertyPath: m_TagString
+      value: Esophagus
+      objectReference: {fileID: 0}
+    - target: {fileID: 954500942156650539, guid: 335014e28dbf6f744a60426f9d76f2e6,
+        type: 3}
+      propertyPath: m_TagString
+      value: Esophagus
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 335014e28dbf6f744a60426f9d76f2e6, type: 3}
 --- !u!4 &7364367495276511956 stripped

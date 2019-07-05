@@ -71,6 +71,7 @@ public class GameManager : MonoBehaviour
     // Fuego rapido
     public float rapidFireRate = 1;
     public float rapidFireMuzzleSpeed = 1000;
+    public float maxOverheat = 1;   // NOTA: De momento va ligado al tiempo
     // Perforante
     public float piercingBaseMuzzleSpeed = 2000;
     public float piercingBaseProyectileMass = 0.00001f;

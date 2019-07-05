@@ -140,6 +140,12 @@ public class ProvisionalHUD : MonoBehaviour {
 
         //
         ShowPlayerSpeed();
+
+        //
+        ShowChargedAmount();
+
+        //
+        ShowOverheat();
     }
 
     //
@@ -314,6 +320,43 @@ public class ProvisionalHUD : MonoBehaviour {
     void ShowCross()
     {
         GUI.DrawTexture(new Rect(Screen.width / 2 - 50, Screen.height / 2 - 50, 100, 100), crossTexture);
+    }
+
+    // 
+    void ShowChargedAmount()
+    {
+        //
+        float chargedAmount = robotControl.ChargedAmount;
+        Vector2 chargePos = new Vector2(Screen.width - 350, Screen.height - 100);
+        //
+        GUI.DrawTexture(new Rect(chargePos.x, chargePos.y, 300 * chargedAmount, 20), testingVelocityIcon);
+        
+        //
+        GUI.Label(new Rect(chargePos.x, chargePos.y, 300, 20), "CHARGE", guiSkin.label);
+    }
+
+    //
+    void ShowOverheat()
+    {
+        //
+        float overHeat = robotControl.CurrentOverHeat;
+        Vector2 overHeatPos = new Vector2(Screen.width - 350, Screen.height - 70);
+        //
+        GUI.DrawTexture(new Rect(overHeatPos.x, overHeatPos.y, 300 * overHeat, 20), enemyChasisTexture);
+        //
+        if (robotControl.TotalOverheat)
+        {
+            //
+            currentAlpha += fadeDirection * Time.deltaTime;
+            if (currentAlpha >= 1) fadeDirection = -1;
+            if (currentAlpha <= 0) fadeDirection = 1;
+            GUI.color = new Color(1, 1, 1, currentAlpha);
+            // De momento la referenciamos como enemyHelathTexture (color rojo)
+            GUI.DrawTexture(new Rect(overHeatPos.x, overHeatPos.y, 300, 20), enemyHealthTexture);
+            GUI.color = new Color(1, 1, 1, 1);
+        }
+        //
+        GUI.Label(new Rect(overHeatPos.x, overHeatPos.y, 300, 20), "OVERHEAT", guiSkin.label);
     }
 
     //
