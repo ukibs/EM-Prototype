@@ -511,7 +511,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   idealDistanceFromFloor: 3
-  repulsionStrength: 40
+  repulsionStrength: 100
   repulsionDamp: 0
   dustEmitterStatic: {fileID: 4034983766658800488}
   dustEmitterMovement: {fileID: 9064271816984835610}

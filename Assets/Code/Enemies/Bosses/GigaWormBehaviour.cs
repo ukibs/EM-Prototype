@@ -213,7 +213,7 @@ public class GigaWormBehaviour : Targeteable
             // TODO: Organizar mejor estas funciones
             //Debug.Log("Bullet shoot to mouth");
             firstBulletAttempAtMouth = true;
-            carolHelp.TriggerIt("Bullet shoot to mouth");
+            carolHelp.TriggerIt(7, "Bullet shoot to mouth");
         }
 
         // Chequeamos que sea el player lo que colisiona
@@ -232,7 +232,7 @@ public class GigaWormBehaviour : Targeteable
                 if (!firstEntranceInMouth)
                 {
                     firstEntranceInMouth = true;
-                    carolHelp.TriggerIt("Player entering mouth");
+                    carolHelp.TriggerIt(10, "Player entering mouth");
                 }
             }
             //
@@ -317,7 +317,7 @@ public class GigaWormBehaviour : Targeteable
                     rotationSpeed *= 3;
                     //Debug.Log("Start chasing");
                     // Por aqui em principio solo pasa una vez
-                    carolHelp.TriggerIt("Start chasing");
+                    carolHelp.TriggerIt(5, "Start chasing");
                 }
                 else
                 {
@@ -412,7 +412,7 @@ public class GigaWormBehaviour : Targeteable
                     // Chequeamos que lo haga por primera vez para la ayuda de carol
                     if (!firstTimeMawOpened)
                     {
-                        carolHelp.TriggerIt("First time maw opened");
+                        carolHelp.TriggerIt(6, "First time maw opened");
                         firstTimeMawOpened = true;
                     }
                     break;
@@ -526,7 +526,7 @@ public class GigaWormBehaviour : Targeteable
             if (!firstStun)
             {
                 firstStun = true;
-                carolHelp.TriggerIt("First stun");
+                carolHelp.TriggerIt(9, "First stun");
             }
         }
     }
