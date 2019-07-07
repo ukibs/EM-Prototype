@@ -2317,12 +2317,12 @@ MonoBehaviour:
   interiorEntrance: {fileID: 6479742890165385056}
   exitPoint: {fileID: 4962172263327130274}
   wormCore: {fileID: 974948276061045723}
-  exteriorWeakPointDestroyedClip: {fileID: 8300000, guid: d30b631b21f82f444b1c4cf6200abbe5,
+  exteriorWeakPointDestroyedClip: {fileID: 8300000, guid: 99b07775ca4f9e040b748b8c9a08bb10,
     type: 3}
-  allExteriorWeakPointDestroyedClip: {fileID: 8300000, guid: ae070aa423263f8498932fd1e172cca4,
+  allExteriorWeakPointDestroyedClip: {fileID: 8300000, guid: 6d0cdd8a61e1f254fa3bffb6b0cee42f,
     type: 3}
-  stunnedClip: {fileID: 8300000, guid: d30b631b21f82f444b1c4cf6200abbe5, type: 3}
-  coreDamagedClip: {fileID: 8300000, guid: ae070aa423263f8498932fd1e172cca4, type: 3}
+  stunnedClip: {fileID: 8300000, guid: 99b07775ca4f9e040b748b8c9a08bb10, type: 3}
+  coreDamagedClip: {fileID: 8300000, guid: 6d0cdd8a61e1f254fa3bffb6b0cee42f, type: 3}
   deathClip: {fileID: 8300000, guid: 5ff182ee8e5161f408029eaaa5c90f01, type: 3}
 --- !u!54 &5111195260141930912
 Rigidbody:

@@ -211,9 +211,9 @@ public class GigaWormBehaviour : Targeteable
         {
             // Aquí sacaremos un mensaje de carol
             // TODO: Organizar mejor estas funciones
-            Debug.Log("Bullet shoot to mouth");
+            //Debug.Log("Bullet shoot to mouth");
             firstBulletAttempAtMouth = true;
-            carolHelp.TriggerIt();
+            carolHelp.TriggerIt("Bullet shoot to mouth");
         }
 
         // Chequeamos que sea el player lo que colisiona
@@ -232,7 +232,7 @@ public class GigaWormBehaviour : Targeteable
                 if (!firstEntranceInMouth)
                 {
                     firstEntranceInMouth = true;
-                    carolHelp.TriggerIt();
+                    carolHelp.TriggerIt("Player entering mouth");
                 }
             }
             //
@@ -315,8 +315,9 @@ public class GigaWormBehaviour : Targeteable
                     currentSpeed = chasingMovementSpeed;
                     active = true;
                     rotationSpeed *= 3;
-                    Debug.Log("Start chasing");
-                    carolHelp.TriggerIt();
+                    //Debug.Log("Start chasing");
+                    // Por aqui em principio solo pasa una vez
+                    carolHelp.TriggerIt("Start chasing");
                 }
                 else
                 {
@@ -408,11 +409,11 @@ public class GigaWormBehaviour : Targeteable
                 case MawStatus.Closing:
                 case MawStatus.Closed:
                     mawStatus = MawStatus.Opening;
-                    //
+                    // Chequeamos que lo haga por primera vez para la ayuda de carol
                     if (!firstTimeMawOpened)
                     {
-                        carolHelp.TriggerIt();
-                        firstTimeMawOpened = false;
+                        carolHelp.TriggerIt("First time maw opened");
+                        firstTimeMawOpened = true;
                     }
                     break;
             }
@@ -525,7 +526,7 @@ public class GigaWormBehaviour : Targeteable
             if (!firstStun)
             {
                 firstStun = true;
-                carolHelp.TriggerIt();
+                carolHelp.TriggerIt("First stun");
             }
         }
     }

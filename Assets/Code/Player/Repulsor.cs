@@ -91,9 +91,9 @@ public class Repulsor : MonoBehaviour {
         //float compensationOffset = 1 - (distanceFromFloor / idealDistanceFromFloor);
         //float compensationOffset = distanceFromFloor / idealDistanceFromFloor;
         // rb.AddForce(Vector3.up * repulsionStrength * compensationOffset);
-        rb.AddForce(transform.up * repulsionStrength * (compensationOffset + Mathf.Pow(fallingSpeed,1) ) );
+        rb.AddForce(transform.up * repulsionStrength * (compensationOffset + Mathf.Pow(fallingSpeed / 2,1) ) );
         //
-        UpdateDustEmitterParticleSystem(compensationOffset, fallingSpeed);
+        UpdateDustEmitterParticleSystem(compensationOffset, fallingSpeed / 2);
         
     }
 
@@ -108,7 +108,7 @@ public class Repulsor : MonoBehaviour {
     }
 
     // Ahora no lo usamos
-    // Borrar cuando estemos seguros
+    // TODO: Borrar cuando estemos seguros
     void SoftenVerticalImpulse()
     {
         Vector3 currentVelocity = rb.velocity;
@@ -117,6 +117,8 @@ public class Repulsor : MonoBehaviour {
         rb.velocity = currentVelocity;
     }
 
+    // TODO: Revisar para que partículas no desaparezcan de repente
+    // En vez de activar/desactivar trabajar con las emisiones
     void UpdateDustEmitter(Vector3 floorPoint)
     {
         //
