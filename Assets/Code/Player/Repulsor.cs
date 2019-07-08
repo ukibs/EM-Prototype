@@ -58,7 +58,7 @@ public class Repulsor : MonoBehaviour {
     private void OnGUI()
     {
         //GUI.Label(new Rect(10, 10, 200, 20), "Y speed: " + rb.velocity.y);
-        GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height - 30, 200, 20), "OC: " + offsetCompensation);
+        //GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height - 30, 200, 20), "OC: " + offsetCompensation);
     }
 
     #region Methods

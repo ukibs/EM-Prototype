@@ -11,6 +11,7 @@ public class TerrainManager : MonoBehaviour
     public int[] maxBlockAmounts;
     public int squareSize = 7;
     public float blockSize = 200; // TODO: Ponlo donde toque
+    public float maxDistanceFromCenter = 2000;
 
     private Transform playerTransform;
 
@@ -46,6 +47,13 @@ public class TerrainManager : MonoBehaviour
             // De momento lo hacemos aqui
             // Pero seria bueno chequearlo aparte
             // GetNearestWaypointToPlayer();
+        }
+
+        // Si el player se ha alejado lo suficiente del centro...
+        if(playerTransform.position.magnitude > maxDistanceFromCenter)
+        {
+            RealocateEverything();
+            Debug.Log("Realocating everything");
         }
     }
 
@@ -357,5 +365,20 @@ public class TerrainManager : MonoBehaviour
         AssignNeighbours();
     }
 
-    // TODO: Función para mandar todo de vuelta al centro cuando se aleje demasiado de éste
+    // Función para mandar todo de vuelta al centro cuando se aleje demasiado de éste
+    void RealocateEverything()
+    {
+        //
+        Vector3 directionToMove = -playerTransform.position;
+        directionToMove.y = 0;
+        //
+        GameObject[] allGameObjects = FindObjectsOfType<GameObject>();
+        //
+        for(int i = 0; i < allGameObjects.Length; i++)
+        {
+            // No movemos hijos para evitar descalabros
+            if(allGameObjects[i].transform.parent == null)
+                allGameObjects[i].transform.position += directionToMove;
+        }
+    }
 }
