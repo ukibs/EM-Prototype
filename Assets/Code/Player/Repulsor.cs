@@ -20,6 +20,9 @@ public class Repulsor : MonoBehaviour {
     private float currentParticleSpeed = 5;
     private float currentParticleRate = 10;
 
+    // TODO: Mandarla a su sitio después del testeo
+    private float offsetCompensation = 0;
+
     #region Properties
 
     public bool IsOnFloor { get { return isOnFloor; } }
@@ -37,7 +40,10 @@ public class Repulsor : MonoBehaviour {
 	void FixedUpdate () {
         //
         Vector3 floorPoint;
-        isOnFloor = CheckFloor(out floorPoint);
+
+        //isOnFloor = CheckFloor(out floorPoint);
+        isOnFloor = CheckFloorWithSphere(out floorPoint);
+
         if (isOnFloor /*&& tutorial != null*/)
         {
             UpdateDustEmitter(floorPoint);
@@ -52,6 +58,7 @@ public class Repulsor : MonoBehaviour {
     private void OnGUI()
     {
         //GUI.Label(new Rect(10, 10, 200, 20), "Y speed: " + rb.velocity.y);
+        //GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height - 30, 200, 20), "OC: " + offsetCompensation);
     }
 
     #region Methods
@@ -76,6 +83,24 @@ public class Repulsor : MonoBehaviour {
         return false;
     }
 
+    //
+    bool CheckFloorWithSphere(out Vector3 floorPoint)
+    {
+        RaycastHit hitInfo;
+        floorPoint = Vector3.positiveInfinity;
+        if (Physics.SphereCast(transform.position, 0.5f, Vector3.down, out hitInfo, idealDistanceFromFloor))
+        {
+            //Debug.Log("Repulsing");
+            float distanceFromFloor = (transform.position - hitInfo.point).magnitude;
+
+            ApplyRepulsion(distanceFromFloor);
+            //
+            floorPoint = hitInfo.point;
+            return true;
+        }
+        return false;
+    }
+
     /// <summary>
     /// 
     /// </summary>
@@ -83,17 +108,22 @@ public class Repulsor : MonoBehaviour {
     void ApplyRepulsion(float distanceFromFloor)
     {
         // Vamos a hacerlo al cuadrado para hacer más remarcado el efecto
-        float compensationOffset = Mathf.Pow( 1 - (distanceFromFloor / idealDistanceFromFloor), 2);
+        offsetCompensation = Mathf.Pow( 1 - (distanceFromFloor / idealDistanceFromFloor), 3);
+        offsetCompensation = Mathf.Max(offsetCompensation, 0);
+        
         // TODO: Montarlo para que funcione también cuando cambie el up
         // Recuerda, y negativa hacia abajo
         float fallingSpeed = Mathf.Min(rb.velocity.y, 0);
         fallingSpeed = Mathf.Abs(fallingSpeed);
+        float speedCompensation = Mathf.Pow(fallingSpeed / 2, 1);
+
         //float compensationOffset = 1 - (distanceFromFloor / idealDistanceFromFloor);
         //float compensationOffset = distanceFromFloor / idealDistanceFromFloor;
         // rb.AddForce(Vector3.up * repulsionStrength * compensationOffset);
-        rb.AddForce(transform.up * repulsionStrength * (compensationOffset + Mathf.Pow(fallingSpeed,1) ) );
-        //
-        UpdateDustEmitterParticleSystem(compensationOffset, fallingSpeed);
+        rb.AddForce(transform.up * repulsionStrength * (offsetCompensation +  speedCompensation) );
+        
+        // TODO: Revisar esto
+        UpdateDustEmitterParticleSystem(offsetCompensation, fallingSpeed / 2);
         
     }
 
@@ -108,7 +138,7 @@ public class Repulsor : MonoBehaviour {
     }
 
     // Ahora no lo usamos
-    // Borrar cuando estemos seguros
+    // TODO: Borrar cuando estemos seguros
     void SoftenVerticalImpulse()
     {
         Vector3 currentVelocity = rb.velocity;
@@ -117,6 +147,8 @@ public class Repulsor : MonoBehaviour {
         rb.velocity = currentVelocity;
     }
 
+    // TODO: Revisar para que partículas no desaparezcan de repente
+    // En vez de activar/desactivar trabajar con las emisiones
     void UpdateDustEmitter(Vector3 floorPoint)
     {
         //

@@ -29,6 +29,7 @@ public class CarolBaseHelp : MonoBehaviour
     public CarolStepObject[] carolStepObjects;
     public GUISkin gUISkin;
     public AudioClip weakPointFoundBip;
+    public bool debugMode = true;
 
     protected AudioSource audioSource;
     protected AudioObjectManager audioObjectManager;
@@ -192,8 +193,17 @@ public class CarolBaseHelp : MonoBehaviour
     }
 
     //
-    public void TriggerIt()
+    public void TriggerIt(int triggerStep = -1,string debugMessage = "")
     {
+        //
+        if (debugMode && debugMessage != "")
+            Debug.Log("Carol receives trigger: " + debugMessage);
+        // Recuerda que el current step empieza en 0
+        if (triggerStep-1  > currentStep)
+        {
+            currentStep = triggerStep-1;
+        }
+        //
         NextStep();
     }
 }
