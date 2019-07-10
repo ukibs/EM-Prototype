@@ -20302,6 +20302,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sand trail
       objectReference: {fileID: 0}
+    - target: {fileID: 1000010715882420, guid: 14d81e2c407975245973a11cdfbeb902, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4000012573350444, guid: 14d81e2c407975245973a11cdfbeb902, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
