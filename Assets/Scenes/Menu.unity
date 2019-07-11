@@ -1041,6 +1041,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 155386306854847304, guid: d437e3429b62a62418fa4d4d41b0096e,
+        type: 3}
+      propertyPath: gameMode
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d437e3429b62a62418fa4d4d41b0096e, type: 3}
 --- !u!1 &1379158841
@@ -2014,9 +2019,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2634853563957990691, guid: 19ecf4c8820eb0846a314e80b2d13158,
+        type: 3}
+      propertyPath: wanderingMovementSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 860422135848439725, guid: 19ecf4c8820eb0846a314e80b2d13158,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5376512571838019542, guid: 19ecf4c8820eb0846a314e80b2d13158,
         type: 3}
       propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4786531063151255788, guid: 19ecf4c8820eb0846a314e80b2d13158,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6428993106364490850, guid: 19ecf4c8820eb0846a314e80b2d13158,
@@ -2197,21 +2217,6 @@ PrefabInstance:
     - target: {fileID: 7635232041078428095, guid: 19ecf4c8820eb0846a314e80b2d13158,
         type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2634853563957990691, guid: 19ecf4c8820eb0846a314e80b2d13158,
-        type: 3}
-      propertyPath: wanderingMovementSpeed
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 860422135848439725, guid: 19ecf4c8820eb0846a314e80b2d13158,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4786531063151255788, guid: 19ecf4c8820eb0846a314e80b2d13158,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

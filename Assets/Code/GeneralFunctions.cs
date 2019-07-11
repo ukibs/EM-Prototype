@@ -279,6 +279,10 @@ public static class GeneralFunctions
             audioSource.clip = audioClip;
             audioSource.Play();
         }
+        else
+        {
+            Debug.Log("Tried to play not assigned clip");
+        }
     }
 
     /// <summary>

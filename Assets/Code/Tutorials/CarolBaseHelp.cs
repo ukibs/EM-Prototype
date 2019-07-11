@@ -30,6 +30,7 @@ public class CarolBaseHelp : MonoBehaviour
     public GUISkin gUISkin;
     public AudioClip weakPointFoundBip;
     public bool debugMode = true;
+    public bool showTextAdvice = true;
 
     protected AudioSource audioSource;
     protected AudioObjectManager audioObjectManager;
@@ -79,7 +80,8 @@ public class CarolBaseHelp : MonoBehaviour
 
     private void OnGUI()
     {
-        if(CurrentStep != null && CurrentStep.stepText != "")
+        if(showTextAdvice &&
+            CurrentStep != null && CurrentStep.stepText != "")
         {
             //
             Rect textRect = new Rect(Screen.width / 2 - 250, Screen.height - 100, 750, 30);

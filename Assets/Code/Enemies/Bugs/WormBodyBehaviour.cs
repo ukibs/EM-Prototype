@@ -8,6 +8,7 @@ public class WormBodyBehaviour : BugBodyBehaviour
     //public float groundingSpeed = 0.5f;
     public float lungeSpeed;
     public float lungeCooldown = 2;
+    
     //
     //protected float groundedLevel = 1;
     protected bool grounded = false;

@@ -29,7 +29,7 @@ MonoBehaviour:
     - 8
     maxActiveEnemies: 0f0000001e000000
     terrainPrefabs:
-    - {fileID: 3326227640253247155, guid: a6ea28f7bba66814c94750eff1f7c8d9, type: 3}
+    - {fileID: 3326227640253247155, guid: e805da38f2157cf44bd8ebbbe826ba67, type: 3}
     - {fileID: 3326227640253247155, guid: f90644bdac5d8924fbad91a92cde6c44, type: 3}
     - {fileID: 1781217798136379078, guid: a29bd4f96f2d4f24280d189da1bef920, type: 3}
     - {fileID: 3326227640253247155, guid: 1faf0654ea7511b4889b35ba3e120d34, type: 3}

@@ -10,8 +10,12 @@ public class EnemyConsistency : Targeteable {
     public float maxHealth = 100.0f; //
     [Tooltip("Defense against non bullet impacts.")]
     public float defense = 10;   // The minimal physic strength to start receiving an effect
+
     //[Tooltip("Adjustment for models which central point is deviated")]
     //public Vector3 centralPointOffset = new Vector3(0,1,0);
+
+    // De momento aqui
+    public AudioClip deathClip;
 
     #endregion
 
@@ -247,7 +251,8 @@ public class EnemyConsistency : Targeteable {
             //Debug.Log("Enemy " + transform.name + " destroyed. Impact force " + impactForce);
             //gameObject.SetActive(false);
 
-            
+            //
+            GeneralFunctions.PlaySoundEffect(audioSource, deathClip);
 
             //
             DeactivateStuff();
