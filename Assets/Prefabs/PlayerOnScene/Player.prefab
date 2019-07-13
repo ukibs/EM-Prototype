@@ -515,6 +515,7 @@ MonoBehaviour:
   repulsionDamp: 0
   dustEmitterStatic: {fileID: 4034983766658800488}
   dustEmitterMovement: {fileID: 9064271816984835610}
+  jumpClip: {fileID: 8300000, guid: 1d47e24af160e804dbd7fc86a9c1448b, type: 3}
 --- !u!114 &114977535009352440
 MonoBehaviour:
   m_ObjectHideFlags: 0

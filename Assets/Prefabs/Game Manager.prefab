@@ -55,10 +55,11 @@ MonoBehaviour:
   canonMinCharge: 0.5
   rapidFireRate: 12
   rapidFireMuzzleSpeed: 1000
+  maxOverheat: 1
   piercingBaseMuzzleSpeed: 2000
   piercingBaseProyectileMass: 0.00001
   movementForce: 3
-  jumpForce: 20
+  jumpForce: 10
   sprintForce: 0.5
   sphericShieldStrength: 100
   maxShield: 10000

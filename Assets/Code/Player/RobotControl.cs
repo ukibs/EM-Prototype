@@ -30,7 +30,8 @@ public enum JumpMode
 {
     Invalid = -1,
 
-    Normal,
+    RepulsorJump,
+    ChargedJump,
     Smash,
 
     Count
@@ -61,12 +62,9 @@ public enum ActionCharguing
 }
 
 public class RobotControl : MonoBehaviour {
-
-    //public float impulseForce = 10.0f;
-    //public float jumpForce = 100.0f;
+    
     public float damping = 0.4f;
-    //public float pulseForce = 20.0f;
-    //public float machineGunCadency = 5;
+
     public GameObject chargingPulseEmitter;
     public GameObject releasingPulseEmitter;
     public GameObject bulletPrefab;
@@ -95,9 +93,9 @@ public class RobotControl : MonoBehaviour {
     private Rigidbody rb;
 
     private AttackMode attackMode = (AttackMode)0;
-    private DefenseMode defenseMode = DefenseMode.Spheric;
-    private JumpMode jumpMode = JumpMode.Normal;
-    private SprintMode sprintMode = SprintMode.Normal;
+    private DefenseMode defenseMode = (DefenseMode)0;
+    private JumpMode jumpMode = (JumpMode)0;
+    private SprintMode sprintMode = (SprintMode)0;
     private ActionCharguing actionCharging = ActionCharguing.None;
 
     private float chargedAmount = 0.0f;    // Por ahora lo manejaremos entre 0 y 1
@@ -441,8 +439,8 @@ public class RobotControl : MonoBehaviour {
     /// </summary>
     void JumpMotion()
     {
-        //
-        if (gameManager.unlockedJumpActions == 0)
+        // La primera se desbloquea en el repulsor
+        if (gameManager.unlockedJumpActions == 2 || jumpMode == JumpMode.RepulsorJump)
             return;
         // De momento solo hacia arriba
         // Luego trabajaremos más direcciones
@@ -463,7 +461,7 @@ public class RobotControl : MonoBehaviour {
             // Chequeamos el tipo de salto seleccionado
             switch (jumpMode)
             {
-                case JumpMode.Normal:
+                case JumpMode.ChargedJump:
                     // En ese caso hacer que tenga menos impulso que haciéndolo desde el suelo
                     float floorSupport = (repulsor.IsOnFloor) ? gameManager.jumpForce : 0;
                     // Le damos un mínimo de base
@@ -588,7 +586,7 @@ public class RobotControl : MonoBehaviour {
             defenseMode = (DefenseMode)(int)defenseMode + 1;
             defenseMode = (defenseMode == DefenseMode.Count ||
                             (int)defenseMode >= gameManager.unlockedDefenseActions) ?
-                            DefenseMode.Spheric : defenseMode;
+                            (DefenseMode)0 : defenseMode;
         }
         // Jump actions
         if (inputManager.SwitchJumpButton && gameManager.unlockedJumpActions > 0)
@@ -596,8 +594,8 @@ public class RobotControl : MonoBehaviour {
             //
             jumpMode = (JumpMode)(int)jumpMode + 1;
             jumpMode = (jumpMode == JumpMode.Count ||
-                            (int)defenseMode >= gameManager.unlockedDefenseActions) ?
-                            JumpMode.Normal : jumpMode;
+                            (int)jumpMode >= gameManager.unlockedJumpActions) ?
+                            (JumpMode)0 : jumpMode;
         }
         // Sprint actions
         if (inputManager.SwitchSprintButton && gameManager.unlockedSprintActions > 0)
@@ -605,8 +603,8 @@ public class RobotControl : MonoBehaviour {
             //
             sprintMode = (SprintMode)(int)sprintMode + 1;
             sprintMode = (sprintMode == SprintMode.Count ||
-                            (int)defenseMode >= gameManager.unlockedDefenseActions) ?
-                            SprintMode.Normal : sprintMode;
+                            (int)sprintMode >= gameManager.unlockedSprintActions) ?
+                            (SprintMode)0 : sprintMode;
         }
     }
 

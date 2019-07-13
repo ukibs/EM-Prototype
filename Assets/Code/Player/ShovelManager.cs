@@ -123,7 +123,7 @@ public class ShovelManager : MonoBehaviour {
                 case ActionCharguing.Jump:
                     switch (robotControl.ActiveJumpMode)
                     {
-                        case JumpMode.Normal:
+                        case JumpMode.ChargedJump:
                             currentShovelPosture = ShovelPostures.Jump;
                             break;
                         case JumpMode.Smash:

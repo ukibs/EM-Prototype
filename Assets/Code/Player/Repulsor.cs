@@ -11,6 +11,11 @@ public class Repulsor : MonoBehaviour {
     public GameObject dustEmitterStatic;
     public GameObject dustEmitterMovement;
 
+    public AudioClip jumpClip;
+
+    // TODO: Meter clip de caída detenida
+    // Y que suene fuerte si es un buen frenazo
+
     private Rigidbody rb;
     private bool isOnFloor;
     //private BallsScene tutorial;
@@ -19,6 +24,11 @@ public class Repulsor : MonoBehaviour {
     private ParticleSystem currentParticleSystem;
     private float currentParticleSpeed = 5;
     private float currentParticleRate = 10;
+    //
+    private InputManager inputManager;
+    private GameManager gameManager;
+    private RobotControl robotControl;
+    private AudioSource audioSource;
 
     // TODO: Mandarla a su sitio después del testeo
     private float offsetCompensation = 0;
@@ -34,6 +44,10 @@ public class Repulsor : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         //dustEmitterStatic.SetActive(true);
         currentParticleSystem = dustEmitterStatic.GetComponent<ParticleSystem>();
+        inputManager = FindObjectOfType<InputManager>();
+        gameManager = FindObjectOfType<GameManager>();
+        robotControl = GetComponent<RobotControl>();
+        audioSource = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -47,12 +61,27 @@ public class Repulsor : MonoBehaviour {
         if (isOnFloor /*&& tutorial != null*/)
         {
             UpdateDustEmitter(floorPoint);
+            // Para que no de error en la intro
+            if (robotControl != null)
+            {
+                // Salto con el repulsor en vez de con las palas
+                if (inputManager.JumpButton && robotControl.ActiveJumpMode == JumpMode.RepulsorJump)
+                {
+                    // Meteremos un burst de partículas
+                    //currentParticleSystem.emission.SetBurst();
+                    // Sonido de salto
+                    GeneralFunctions.PlaySoundEffect(audioSource, jumpClip);
+                    //
+                    rb.AddForce(transform.up * gameManager.jumpForce, ForceMode.Impulse);
+                }
+            }
         }
         else
         {
             dustEmitterStatic.SetActive(false);
             dustEmitterMovement.SetActive(false);
         }
+        
 	}
 
     private void OnGUI()
