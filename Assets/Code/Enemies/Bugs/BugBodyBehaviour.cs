@@ -16,8 +16,7 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
     // Esto para los que hagan zig zag
     protected float currentZigZagDirection = 0;
     protected float currentZigZagVariation = 0.1f;
-    //
-    protected bool onFloor = true;
+    
 
     // Start is called before the first frame update
     protected override void Start()
@@ -30,12 +29,6 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
     {
         base.Update();
 
-    }
-
-    //
-    protected virtual void OnCollisionEnter(Collision collision)
-    {
-        onFloor = true;
     }
 
     #region Methods
@@ -54,10 +47,10 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
             //
             switch (currentAction)
             {
-                case Actions.Lunging:
-                    //transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed, dt);
-                    Lunge();
-                    break;
+                //case Actions.Lunging:
+                //    //transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed, dt);
+                //    Lunge();
+                //    break;
                 case Actions.ZigZagingTowardsPlayer:
                     if (HasGroundUnderneath())
                     {
@@ -127,7 +120,9 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
         {
             //
             Vector3 movingDirection = transform.forward;
+            //
             float speedMultiplier = 1;
+            //
             switch (currentAction)
             {
                 case Actions.EncirclingPlayerForward:
@@ -152,13 +147,17 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
                     speedMultiplier = 1f;
                     break;
             }
-            //rb.velocity = (movingDirection * maxSpeed * speedMultiplier) + Physics.gravity;
-            rb.AddForce(movingDirection * maxSpeed * speedMultiplier);
+            //
+            rb.velocity = (movingDirection * maxSpeed * speedMultiplier);
+            //rb.AddForce(movingDirection * maxSpeed * speedMultiplier);
+            //
+            if (!onFloor)
+                rb.velocity += Physics.gravity;
         }
         
     }
 
-    //
+    // NOTA: Este no es el de los gusanos
     protected void Lunge()
     {
         //

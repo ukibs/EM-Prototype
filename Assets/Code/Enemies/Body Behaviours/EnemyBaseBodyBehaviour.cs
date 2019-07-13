@@ -43,6 +43,9 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
     // De momento lo hacemos con posiciones
     protected Vector3[] pathToUse;
 
+    //
+    protected bool onFloor = true;
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
@@ -51,6 +54,13 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
         bodyConsistency = GetComponent<EnemyConsistency>();
         terrainManager = FindObjectOfType<TerrainManager>();
         audioSource = GetComponent<AudioSource>();
+    }
+
+    protected virtual void FixedUpdate()
+    {
+        // Lo ponemos aqui a false
+        // Si está en contacto con terreno se pondrá a true en el collision enter/stay
+        onFloor = false;
     }
 
     // Update is called once per frame
@@ -75,6 +85,22 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
             ExecuteCurrentAction(dt);
         }        
         
+    }
+
+    //
+    protected virtual void OnCollisionEnter(Collision collision)
+    {
+        //
+        if (collision.collider.tag == "Sand" || collision.collider.tag == "Hard Terrain")
+            onFloor = true;
+    }
+
+    //
+    protected virtual void OnCollisionStay(Collision collision)
+    {
+        //
+        if (collision.collider.tag == "Sand" || collision.collider.tag == "Hard Terrain")
+            onFloor = true;
     }
 
     protected void OnDrawGizmos()
@@ -109,6 +135,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
             //
             Vector3 playerDirection = player.transform.position - transform.position;
             playerDirection.y = 0.0f;
+            
             //
             switch (currentAction)
             {

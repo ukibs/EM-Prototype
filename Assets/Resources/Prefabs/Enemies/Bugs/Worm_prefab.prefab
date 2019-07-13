@@ -4953,6 +4953,8 @@ MonoBehaviour:
   centralPointOffset: {x: 0, y: 0.5, z: 0}
   maxHealth: 30
   defense: 50
+  deathBloodPrefab: {fileID: 3125914639698908078, guid: 099db54e23b55334a8c42a1729809e0e,
+    type: 3}
   deathClip: {fileID: 8300000, guid: 5ff182ee8e5161f408029eaaa5c90f01, type: 3}
 --- !u!114 &8023727017954889113
 MonoBehaviour:
@@ -4980,15 +4982,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBetweenActionChecking: 0.5
-  rotationSpeed: 100
+  rotationSpeed: 50
   behaviour: 060000000500000000000000
   weapons: []
-  maxSpeed: 10
-  minimalLungeDistance: 40
+  maxSpeed: 30
+  minimalLungeDistance: 25
   minimalShootDistance: 100
-  lungeSpeed: 30
-  lungeCooldown: 3
+  lungeSpeed: 100
+  lungeCooldown: 10
   lungClip: {fileID: 8300000, guid: c56a218742cb635489bbfef30efad2ee, type: 3}
+  maxAngleToLunge: 20
 --- !u!65 &4258767867355741457
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5165,18 +5168,6 @@ PrefabInstance:
     - target: {fileID: 400036, guid: 5ddaab70086eff94b9441bee743238fe, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400036, guid: 5ddaab70086eff94b9441bee743238fe, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400036, guid: 5ddaab70086eff94b9441bee743238fe, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400036, guid: 5ddaab70086eff94b9441bee743238fe, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ddaab70086eff94b9441bee743238fe, type: 3}

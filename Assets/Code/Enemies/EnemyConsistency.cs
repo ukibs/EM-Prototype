@@ -10,6 +10,8 @@ public class EnemyConsistency : Targeteable {
     public float maxHealth = 100.0f; //
     [Tooltip("Defense against non bullet impacts.")]
     public float defense = 10;   // The minimal physic strength to start receiving an effect
+    //
+    public GameObject deathBloodPrefab;
 
     //[Tooltip("Adjustment for models which central point is deviated")]
     //public Vector3 centralPointOffset = new Vector3(0,1,0);
@@ -264,6 +266,10 @@ public class EnemyConsistency : Targeteable {
                 enemyManager.SubtractOne(managerIndex);
             // Esto para los voladores mas que nada
             rb.constraints = RigidbodyConstraints.None;
+
+            // 
+            if(deathBloodPrefab != null)
+                Instantiate(deathBloodPrefab, transform.position, Quaternion.identity);
             
             // TODO: Mirar como hacer para quitar el rigidody a los x segundos
             //Destroy(rb, 10);

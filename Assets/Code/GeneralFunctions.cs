@@ -94,6 +94,7 @@ public static class GeneralFunctions
         Quaternion rotationToReturn = self.transform.rotation;
         // Para poder decidir el eje
         if (axis == Vector3.zero) axis = Vector3.up;
+        //Debug.Log("ffds " + axis);
         // Seleccionamos el plano según el eje que queramos utilizar
         if (axis == Vector3.up)
             objective.y = self.position.y;
@@ -101,6 +102,7 @@ public static class GeneralFunctions
             objective.x = self.position.x;
         if (axis == Vector3.forward)
             objective.z = self.position.z;
+        Debug.Log("Axis used: " + axis);
         //
         Quaternion objectiveDirection = Quaternion.LookRotation(objective - self.position);
         rotationToReturn = Quaternion.RotateTowards(rotationToReturn, objectiveDirection, rotationSpeed * dt);

@@ -9,6 +9,7 @@ public class WormBodyBehaviour : BugBodyBehaviour
     public float lungeSpeed;
     public float lungeCooldown = 2;
     public AudioClip lungClip;
+    public float maxAngleToLunge = 10;
     
     //
     //protected float groundedLevel = 1;
@@ -52,8 +53,11 @@ public class WormBodyBehaviour : BugBodyBehaviour
         timeOnCooldown += dt;
     }
     //
-    private void OnCollisionStay(Collision collision)
+    protected override void OnCollisionStay(Collision collision)
     {
+        //
+        base.OnCollisionStay(collision);
+        //
         if(collision.collider.tag.Equals("Sand") && !lunging && !HasGroundUnderneath())
         {
             grounded = false;
@@ -99,8 +103,10 @@ public class WormBodyBehaviour : BugBodyBehaviour
             //bodyCollider.size = new Vector3(1, 0.1f, 1);
             //bodyCollider.center = new Vector3(0, 0.5f, 0);
             //bodyConsistency.centralPointOffset = new Vector3(0, 0.45f, 0);
-            transform.rotation = new Quaternion(0, transform.rotation.y, 0, transform.rotation.w);
+            //transform.rotation = new Quaternion(0, transform.rotation.y, 0, transform.rotation.w);
+            transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
             rb.angularVelocity = Vector3.zero;
+            rb.velocity = Vector3.zero;
         }
         else
         {
@@ -144,6 +150,9 @@ public class WormBodyBehaviour : BugBodyBehaviour
     //
     protected override void ExecuteCurrentAction(float dt)
     {
+        // Como es terrestre que no pueda hacer nada en el aire
+        if (!onFloor)
+            return;
         // Las geenrales las chequeamos en el base
         base.ExecuteCurrentAction(dt);
         // Y aquí las específicas de bichos
@@ -153,13 +162,13 @@ public class WormBodyBehaviour : BugBodyBehaviour
             switch (currentAction)
             {
                 case Actions.Lunging:
-                    //
+                    // TODO: Desguarrear esto
                     if (timeOnCooldown >= lungeCooldown)
                     {
                         Vector3 playerDistance = player.transform.position - transform.position;
                         float pureDistance = playerDistance.magnitude;
                         float directionAngle = Vector3.SignedAngle(transform.forward, playerDistance.normalized, transform.up);
-                        if (pureDistance < minimalLungeDistance && Mathf.Abs(directionAngle) < 10)
+                        if (pureDistance < minimalLungeDistance && Mathf.Abs(directionAngle) < maxAngleToLunge)
                         {
                             //Debug.Log("Direction angle: " + directionAngle);
                             Lunge();
@@ -168,12 +177,15 @@ public class WormBodyBehaviour : BugBodyBehaviour
                         else
                         {
                             //
-                            if (HasGroundUnderneath())
-                            {
-                                transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed, dt);
-                                Move();
-                            }
+                            currentAction = Actions.GoingToPlayer;
+                            ExecuteCurrentAction(dt);
                         }
+                    }
+                    else
+                    {
+                        //
+                        currentAction = Actions.GoingToPlayer;
+                        ExecuteCurrentAction(dt);
                     }
                     break;
 
@@ -202,8 +214,13 @@ public class WormBodyBehaviour : BugBodyBehaviour
             float estimatedFlyingTimeToPlayer = GeneralFunctions.EstimateFlyingTimeWithDrag(transform.position, player.transform.position,
                 lungeSpeed, rb.drag);
             Vector3 estimatedPlayerPosition = player.transform.position + (PlayerReference.playerRb.velocity * estimatedFlyingTimeToPlayer);
+            //estimatedPlayerPosition = GeneralFunctions.AnticipateObjectivePositionForAiming(transform.position, )
             Vector3 playerDirection = (estimatedPlayerPosition - transform.position).normalized;
-            rb.AddForce(playerDirection * lungeSpeed, ForceMode.Impulse);
+
+            //
+            //rb.AddForce(playerDirection * lungeSpeed, ForceMode.Impulse);
+            rb.velocity = playerDirection * lungeSpeed;
+
             onFloor = false;
             lunging = true;
             timeOnCooldown = 0;
