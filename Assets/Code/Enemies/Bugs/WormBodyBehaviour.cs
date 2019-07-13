@@ -8,6 +8,7 @@ public class WormBodyBehaviour : BugBodyBehaviour
     //public float groundingSpeed = 0.5f;
     public float lungeSpeed;
     public float lungeCooldown = 2;
+    public AudioClip lungClip;
     
     //
     //protected float groundedLevel = 1;
@@ -16,6 +17,10 @@ public class WormBodyBehaviour : BugBodyBehaviour
     protected MeshRenderer meshRenderer;
     protected bool lunging = false;
     protected float timeOnCooldown = 0;
+
+    //
+    protected ParticleSystem trailParticleSystem;
+    protected ParticleSystem.EmissionModule trailEmmiter;
 
     //
     protected override void Start()
@@ -32,6 +37,9 @@ public class WormBodyBehaviour : BugBodyBehaviour
             grounded = false;
             SwitchGrounding();
         }
+        //
+        trailParticleSystem = GetComponentInChildren<ParticleSystem>();
+        trailEmmiter = trailParticleSystem.emission;
             
     }
     //
@@ -69,6 +77,8 @@ public class WormBodyBehaviour : BugBodyBehaviour
         {
             lunging = false;
             SwitchGrounding();
+            //
+            trailEmmiter.rateOverDistance = 100;
         }
         // TODO: Montarlo bien y asegurarse de que funciona
         if(collision.collider.tag.Equals("Hard Terrain") && grounded)
@@ -112,14 +122,16 @@ public class WormBodyBehaviour : BugBodyBehaviour
             switch (behaviour[i])
             {
                 case Actions.Lunging:
-                    float pureDistance = playerDistance.magnitude;
-                    float directionAngle = Vector3.SignedAngle(transform.forward, playerDistance.normalized, transform.up);
+                    //float pureDistance = playerDistance.magnitude;
+                    //float directionAngle = Vector3.SignedAngle(transform.forward, playerDistance.normalized, transform.up);
                     // De momento vamos a establecer un angulo puro de 15 a ambos lados
-                    if (pureDistance < minimalLungeDistance && Mathf.Abs(directionAngle) < 10)
+                    /*if (pureDistance < minimalLungeDistance && Mathf.Abs(directionAngle) < 10)
                     {
                         //Debug.Log("Direction angle: " + directionAngle);
                         currentAction = behaviour[i];
-                    }
+                    }*/
+                    // VAmos a probar a hacer que entre si o si
+                    currentAction = behaviour[i];
                     return;
                 case Actions.ZigZagingTowardsPlayer:
                     // Esta de momento sin condición
@@ -144,7 +156,24 @@ public class WormBodyBehaviour : BugBodyBehaviour
                     //
                     if (timeOnCooldown >= lungeCooldown)
                     {
-                        Lunge();
+                        Vector3 playerDistance = player.transform.position - transform.position;
+                        float pureDistance = playerDistance.magnitude;
+                        float directionAngle = Vector3.SignedAngle(transform.forward, playerDistance.normalized, transform.up);
+                        if (pureDistance < minimalLungeDistance && Mathf.Abs(directionAngle) < 10)
+                        {
+                            //Debug.Log("Direction angle: " + directionAngle);
+                            Lunge();
+                        }
+                        // Si no que avance normal
+                        else
+                        {
+                            //
+                            if (HasGroundUnderneath())
+                            {
+                                transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed, dt);
+                                Move();
+                            }
+                        }
                     }
                     break;
 
@@ -183,6 +212,10 @@ public class WormBodyBehaviour : BugBodyBehaviour
             currentAction = Actions.ZigZagingTowardsPlayer;
             //
             SwitchGrounding();
+            //
+            trailEmmiter.rateOverDistance = 0;
+            //
+            GeneralFunctions.PlaySoundEffect(audioSource, lungClip);
         }
     }
 }

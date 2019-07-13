@@ -38,6 +38,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
 
     protected EnemyConsistency bodyConsistency;
     protected TerrainManager terrainManager;
+    protected AudioSource audioSource;
 
     // De momento lo hacemos con posiciones
     protected Vector3[] pathToUse;
@@ -49,6 +50,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         bodyConsistency = GetComponent<EnemyConsistency>();
         terrainManager = FindObjectOfType<TerrainManager>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame

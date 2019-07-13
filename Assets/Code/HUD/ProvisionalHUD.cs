@@ -111,13 +111,16 @@ public class ProvisionalHUD : MonoBehaviour {
         {
             // Vamos a trabajar para que maneje varios tipos de objetivo
             // Enemy consistency (el viejo)
-            // TODO: 
-            EnemyConsistency enemyConsistency = cameraControl.CurrentTarget.GetComponent<EnemyConsistency>();
-            if (enemyConsistency != null)
-                EnemyInfoEC();
-            // TODO: Hacerlo con weakpoints también
-            else
-                EnemyInfoSimple();
+            // TODO: Gestionar los enemigos muertos de otra forma
+            if (cameraControl.CurrentTarget != null)
+            {
+                EnemyConsistency enemyConsistency = cameraControl.CurrentTarget.GetComponent<EnemyConsistency>();
+                if (enemyConsistency != null)
+                    EnemyInfoEC();
+                // TODO: Hacerlo con weakpoints también
+                else
+                    EnemyInfoSimple();
+            }
         }
         else
         {
