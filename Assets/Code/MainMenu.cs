@@ -45,7 +45,9 @@ public class MainMenu : MonoBehaviour
                 // Arcade levels
                 for (int i = 0; i <= gameManager.GameProgression; i++)
                 {
-                    if (GUI.Button(new Rect(Screen.width * 1 / 8, Screen.height * 1 / 2 + (i * 50), buttonSize.x, buttonSize.y), "Level " + i, guiSkin.button))
+                    // TODO: Que saque bien el número - nombre
+                    if (GUI.Button(new Rect(Screen.width * 1 / 8, Screen.height * 1 / 2 + (i * 50), buttonSize.x, buttonSize.y), 
+                        "Level " + i, guiSkin.button))
                     {
                         gameManager.SelectLevel(i);
                         SceneManager.LoadScene("ProtLevel");
