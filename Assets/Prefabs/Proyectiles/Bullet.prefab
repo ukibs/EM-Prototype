@@ -133,7 +133,7 @@ MonoBehaviour:
   bulletHoleBugPrefab: {fileID: 1994357791592751295, guid: fdcc40e32b9fb4f4ca7298a163243e98,
     type: 3}
   impactOnPlayer: {fileID: 8300000, guid: cbaafcd79d8d2254fa791dfa7951d382, type: 3}
-  impactOnEnemy: {fileID: 8300000, guid: 9f5a5612171a33b4d9a431afb8ac8aca, type: 3}
+  impactOnEnemy: {fileID: 8300000, guid: dc09fccc5ec9cc445955ba40c1778570, type: 3}
 --- !u!96 &3422740536678483200
 TrailRenderer:
   serializedVersion: 2

@@ -110,6 +110,7 @@ public class Bullet : MonoBehaviour {
         //
         transform.position = hitPoint;
         GameObject particlesToUse = impactParticlesPrefab;
+        AudioClip clipToUse = impactOnPlayer;
 
         // Chequeamos si ha impactado a un enemigo y aplicamos lo necesario
         EnemyCollider enemyCollider = collider.GetComponent<EnemyCollider>();
@@ -117,6 +118,7 @@ public class Bullet : MonoBehaviour {
         {
             enemyCollider.ReceiveBulletImpact(rb, hitPoint);
             particlesToUse = impactOnBugParticlesPrefab;
+            clipToUse = impactOnEnemy;
             // TODO: Buscar otro sitio donde ponerlo
             // Aquí no suena porque se destruye el objeto
             //GeneralFunctions.PlaySoundEffect(audioSource, impactOnEnemy);
@@ -141,13 +143,14 @@ public class Bullet : MonoBehaviour {
         WeakPoint weakPoint = collider.GetComponent<WeakPoint>();
         if(weakPoint != null)
         {
+            clipToUse = impactOnEnemy;
             particlesToUse = impactOnBugParticlesPrefab;
             weakPoint.ReceiveBulletImpact();
         }
 
         // Efecto de sonido
-        if(impactOnPlayer != null)
-            bulletSoundManager.CreateAudioObject(impactOnPlayer, transform.position);
+        if(clipToUse != null)
+            bulletSoundManager.CreateAudioObject(clipToUse, transform.position);
         
         // Partículas
         if(particlesToUse != null)

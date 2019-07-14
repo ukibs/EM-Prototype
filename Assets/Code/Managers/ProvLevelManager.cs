@@ -91,7 +91,8 @@ public class ProvLevelManager : MonoBehaviour
         if(gameManager.gameMode == GameMode.Arcade)
         {
             // Ya lo haremos en el hud mas adelante
-            GUI.Label(new Rect(30, 100, 200, 30), "Enemies destroyed: " + enemiesDestroyed + "/" + enemiesToDestroy, guiSkin.label);
+            GUI.Label(new Rect(30, 100, 300, 30), "Enemies destroyed", guiSkin.label);
+            GUI.Label(new Rect(30, 130, 300, 30), enemiesDestroyed + "/" + enemiesToDestroy, guiSkin.label);
             //
 
             // intento de que salgan los enemigos actuales por pantalla

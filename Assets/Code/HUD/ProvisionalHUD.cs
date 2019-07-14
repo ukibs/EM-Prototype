@@ -100,8 +100,8 @@ public class ProvisionalHUD : MonoBehaviour {
         //
         PlayerHealthAndShields();
 
-        //
-        MarkEnemiesOnScreen();
+        // Lo quitamos de momento
+        //MarkEnemiesOnScreen();
 
         //
         // DrawAbilityIcons();
@@ -189,11 +189,11 @@ public class ProvisionalHUD : MonoBehaviour {
             // Datos del impact info manager
             GUI.Label(new Rect(impactInfoManager.ImpactInfoList[i].screenPosition.x,
                 Screen.height - impactInfoManager.ImpactInfoList[i].screenPosition.y,
-                100, 100), impactInfoManager.ImpactInfoList[i].info, guiSkin.label);
-
+                200, 100), impactInfoManager.ImpactInfoList[i].info, guiSkin.label);
+            // Mesanje aosicado a la entrada
             if (impactInfoManager.ImpactInfoList[i].extraInfo != null)
                 GUI.Label(new Rect(impactInfoManager.ImpactInfoList[i].screenPosition.x,
-                    Screen.height - impactInfoManager.ImpactInfoList[i].screenPosition.y + 10, 100, 100),
+                    Screen.height - impactInfoManager.ImpactInfoList[i].screenPosition.y + 10, 200, 100),
                     impactInfoManager.ImpactInfoList[i].extraInfo, guiSkin.label);
         }
     }
@@ -369,7 +369,7 @@ public class ProvisionalHUD : MonoBehaviour {
         // TODO: Sacar distancia
         float distance = (playerIntegrity.transform.position - EnemyAnalyzer.enemyTransform.position).magnitude;
         int distanceToShow = (int)distance;
-        GUI.Label(new Rect(Screen.width / 2 + 150, Screen.height / 2, 200, 30), "Distance: " + distanceToShow, guiSkin.label);
+        GUI.Label(new Rect(Screen.width / 2 + 150, Screen.height / 2, 300, 30), "Distance: " + distanceToShow, guiSkin.label);
 
         // Empezamos pintando el marcardor en la posición del enemigo en patnalla
         Vector3 enemyScreenPosition = Camera.main.WorldToViewportPoint(cameraControl.CurrentTarget.position);
@@ -425,13 +425,13 @@ public class ProvisionalHUD : MonoBehaviour {
             float enemyCoreHealthForBar = enemyConsistency.CurrentHealth / enemyConsistency.maxHealth;
             enemyCoreHealthForBar = Mathf.Clamp01(enemyCoreHealthForBar);
             GUI.DrawTexture(new Rect(Screen.width / 2 + 150, Screen.height / 2 - 30, enemyCoreHealthForBar * 100f, 20), enemyHealthTexture);
-            GUI.Label(new Rect(Screen.width / 2 + 150, Screen.height / 2 - 30, 100f, 20), " " + enemyConsistency.CurrentHealth);
+            //GUI.Label(new Rect(Screen.width / 2 + 150, Screen.height / 2 - 30, 100f, 20), " " + enemyConsistency.CurrentHealth);
 
 
             // TODO: Sacar distancia
             float distance = (playerIntegrity.transform.position - enemyConsistency.transform.position).magnitude;
             int distanceToShow = (int)distance;
-            GUI.Label(new Rect(Screen.width / 2 + 150, Screen.height / 2, 150, 20), "Distance: " + distanceToShow, guiSkin.label);
+            GUI.Label(new Rect(Screen.width / 2 + 150, Screen.height / 2, 300, 20), "Distance: " + distanceToShow, guiSkin.label);
 
 
             // Raycast para sacar el blindaje a tiro
@@ -502,6 +502,10 @@ public class ProvisionalHUD : MonoBehaviour {
     }
 
     //
+    //void Mark
+
+    //
+    // Vamos a hacer que solo marque al que tienes fijado
     void MarkEnemiesOnScreen()
     {
         // TODO: Hacerlo con Targeteable
