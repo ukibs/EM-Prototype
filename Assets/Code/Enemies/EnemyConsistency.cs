@@ -268,8 +268,8 @@ public class EnemyConsistency : Targeteable {
             rb.constraints = RigidbodyConstraints.None;
 
             // 
-            if(deathBloodPrefab != null)
-                Instantiate(deathBloodPrefab, transform.position, Quaternion.identity);
+            if (deathBloodPrefab != null)
+                PlaceDeathBlood();
             
             // TODO: Mirar como hacer para quitar el rigidody a los x segundos
             //Destroy(rb, 10);
@@ -284,6 +284,26 @@ public class EnemyConsistency : Targeteable {
         }
     }
 
+    //
+    protected void PlaceDeathBlood()
+    {
+        //
+        RaycastHit hitInfo;
+        Vector3 rayOrigin = transform.position + (Vector3.up * 10);
+
+        int layerMask = 1 << 9;
+        layerMask = ~layerMask;
+        //int layerMask = 9;
+
+        //
+        if (Physics.Raycast(rayOrigin, -Vector3.up, out hitInfo, 100, layerMask))
+        {
+            Vector3 spawnPoint = hitInfo.point + (Vector3.up * 0.05f);
+            Instantiate(deathBloodPrefab, spawnPoint, Quaternion.identity);
+        }
+    }
+
+    //
     protected virtual void DeactivateStuff()
     {
         //Chequamos y quitamos

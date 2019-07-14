@@ -102,7 +102,7 @@ public static class GeneralFunctions
             objective.x = self.position.x;
         if (axis == Vector3.forward)
             objective.z = self.position.z;
-        Debug.Log("Axis used: " + axis);
+        //Debug.Log("Axis used: " + axis);
         //
         Quaternion objectiveDirection = Quaternion.LookRotation(objective - self.position);
         rotationToReturn = Quaternion.RotateTowards(rotationToReturn, objectiveDirection, rotationSpeed * dt);
