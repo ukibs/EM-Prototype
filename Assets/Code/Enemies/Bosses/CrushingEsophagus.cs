@@ -176,7 +176,7 @@ public class CrushingEsophagus : MonoBehaviour
         if (possiblePlayerIntegrity != null)
             wallsCollidingWithPlayer++;
 
-        if (wallsCollidingWithPlayer >= 2)
+        if (wallsCollidingWithPlayer >= 4)
             playerIntegrity.ReceiveEnvionmentalDamage(10);
             //playerIntegrity.Die();
     }

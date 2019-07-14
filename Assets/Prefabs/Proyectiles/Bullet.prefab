@@ -128,6 +128,8 @@ MonoBehaviour:
     type: 3}
   bulletHolePrefab: {fileID: 1994357791592751295, guid: c9608cba5bbaa264f89f02fabf26b7e8,
     type: 3}
+  impactOnBugParticlesPrefab: {fileID: 1837716235657633640, guid: c30381bd65cfd9e4c8df31ef60481c4c,
+    type: 3}
   bulletHoleBugPrefab: {fileID: 1994357791592751295, guid: fdcc40e32b9fb4f4ca7298a163243e98,
     type: 3}
   impactOnPlayer: {fileID: 8300000, guid: cbaafcd79d8d2254fa791dfa7951d382, type: 3}

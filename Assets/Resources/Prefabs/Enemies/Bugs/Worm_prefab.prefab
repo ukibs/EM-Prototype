@@ -4955,6 +4955,8 @@ MonoBehaviour:
   defense: 50
   deathBloodPrefab: {fileID: 3125914639698908078, guid: 099db54e23b55334a8c42a1729809e0e,
     type: 3}
+  deathParticlesPrefab: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
+    type: 3}
   deathClip: {fileID: 8300000, guid: 5ff182ee8e5161f408029eaaa5c90f01, type: 3}
 --- !u!114 &8023727017954889113
 MonoBehaviour:

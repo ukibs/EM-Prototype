@@ -10,8 +10,11 @@ public class Bullet : MonoBehaviour {
     public float diameter;
     [Tooltip("Short for quick bullets long for artillery and other slow ones")]
     public float lifeTime = 10;
+    //
     public GameObject impactParticlesPrefab;
     public GameObject bulletHolePrefab;
+    //
+    public GameObject impactOnBugParticlesPrefab;
     public GameObject bulletHoleBugPrefab;
 
     // De momento hacemos dos, para player y enemigo
@@ -106,12 +109,14 @@ public class Bullet : MonoBehaviour {
     {
         //
         transform.position = hitPoint;
+        GameObject particlesToUse = impactParticlesPrefab;
 
         // Chequeamos si ha impactado a un enemigo y aplicamos lo necesario
         EnemyCollider enemyCollider = collider.GetComponent<EnemyCollider>();
         if(enemyCollider != null)
         {
             enemyCollider.ReceiveBulletImpact(rb, hitPoint);
+            particlesToUse = impactOnBugParticlesPrefab;
             // TODO: Buscar otro sitio donde ponerlo
             // Aquí no suena porque se destruye el objeto
             //GeneralFunctions.PlaySoundEffect(audioSource, impactOnEnemy);
@@ -123,6 +128,7 @@ public class Bullet : MonoBehaviour {
         if(playerIntegrity != null)
         {
             playerIntegrity.ReceiveImpact(rb.velocity, gameObject, rb);
+            
             //GeneralFunctions.PlaySoundEffect(audioSource, impactOnPlayer);
             //bulletSoundManager.CreateAudioObject(impactOnPlayer, transform.position);
             //
@@ -135,6 +141,7 @@ public class Bullet : MonoBehaviour {
         WeakPoint weakPoint = collider.GetComponent<WeakPoint>();
         if(weakPoint != null)
         {
+            particlesToUse = impactOnBugParticlesPrefab;
             weakPoint.ReceiveBulletImpact();
         }
 
@@ -143,9 +150,13 @@ public class Bullet : MonoBehaviour {
             bulletSoundManager.CreateAudioObject(impactOnPlayer, transform.position);
         
         // Partículas
-        GameObject impactParticles = Instantiate(impactParticlesPrefab, hitPoint, Quaternion.identity);
-        SpawnBulletHole(hitPoint, hitNormal, collider.gameObject);
-        Destroy(impactParticles, 2);
+        if(particlesToUse != null)
+        {
+            GameObject impactParticles = Instantiate(particlesToUse, hitPoint, Quaternion.identity);
+            SpawnBulletHole(hitPoint, hitNormal, collider.gameObject);
+            Destroy(impactParticles, 2);
+        }
+        
         // TODO: Ver por qué nos hacía falta esto
         // 
         if(explosiveBullet == null)

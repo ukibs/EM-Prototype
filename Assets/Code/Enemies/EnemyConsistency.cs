@@ -12,6 +12,7 @@ public class EnemyConsistency : Targeteable {
     public float defense = 10;   // The minimal physic strength to start receiving an effect
     //
     public GameObject deathBloodPrefab;
+    public GameObject deathParticlesPrefab;
 
     //[Tooltip("Adjustment for models which central point is deviated")]
     //public Vector3 centralPointOffset = new Vector3(0,1,0);
@@ -270,7 +271,10 @@ public class EnemyConsistency : Targeteable {
             // 
             if (deathBloodPrefab != null)
                 PlaceDeathBlood();
-            
+            //
+            if(deathParticlesPrefab != null)
+                Instantiate(deathParticlesPrefab, transform.position, Quaternion.identity);
+
             // TODO: Mirar como hacer para quitar el rigidody a los x segundos
             //Destroy(rb, 10);
             // Destruimos el script pero dejamos el cuerpo
