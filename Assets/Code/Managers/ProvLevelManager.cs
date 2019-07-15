@@ -54,7 +54,7 @@ public class ProvLevelManager : MonoBehaviour
 
         }*/
 
-        
+
         //
         //switch (victoryCondition)
         //{
@@ -63,6 +63,10 @@ public class ProvLevelManager : MonoBehaviour
         //        enemiesToDestroy = enemiesInLevel.Length;
         //        break;
         //}
+
+        // Escodemos el cursor para jugar birn
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -177,11 +181,17 @@ public class ProvLevelManager : MonoBehaviour
             {
                 Time.timeScale = 0;
                 GameControl.paused = true;
+                // Escodemos el cursor para jugar birn
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
             }
             else
             {
                 Time.timeScale = 1;
                 GameControl.paused = false;
+                // Escodemos el cursor para jugar birn
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
             }
         }
         // Para volver al menu

@@ -99,6 +99,8 @@ public class GameManager : MonoBehaviour
     private int currentLevel = 0;
     //
     private LevelInfo[] levelsInfo;
+    //private LevelInfo[] arcadeLevelsInfo;
+    //private LevelInfo[] bossLevelsInfo;
 
     #endregion
 
@@ -107,6 +109,8 @@ public class GameManager : MonoBehaviour
     public int CurrentExperience { get { return currentExperience; } }
     public int GameProgression { get { return gameProgression; } }
     //public int CurrentLevel { set { currentLevel = value; } }
+    public int TotalLevels { get { return levelsInfo.Length; } }
+    public LevelInfo[] LevelsInfo { get { return levelsInfo; } }
 
     #endregion
 
@@ -135,7 +139,7 @@ public class GameManager : MonoBehaviour
             //
             // GetLevelsInfoFromXML();
             //
-            GetLevelInfoFromLevelData();
+            GetAllLevelInfoFromLevelData();
         }
             
     }
@@ -186,7 +190,7 @@ public class GameManager : MonoBehaviour
     #region XML Functions
     
     //
-    public void GetLevelInfoFromLevelData()
+    public void GetLevelInfoFromLevelDataDependingOnMode()
     {
         //
         string modeFolder = "";
@@ -211,6 +215,29 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //
+    public void GetAllLevelInfoFromLevelData()
+    {
+        // Cargamos los scriptable objects que hemos creado
+        LevelData[] arcadeLevelData = Resources.LoadAll<LevelData>("LevelData/Arcade");
+        LevelData[] bossLevelData = Resources.LoadAll<LevelData>("LevelData/BossMode");
+        // Preparamos el levels info
+        int totalLength = arcadeLevelData.Length + bossLevelData.Length;
+        levelsInfo = new LevelInfo[totalLength];
+        // Y vamos cargando los datos
+        // Arcade
+        int i;
+        for (i = 0; i < arcadeLevelData.Length; i++)
+        {
+            levelsInfo[i] = arcadeLevelData[i].levelInfo;
+        }
+        // Bosses
+        for (; i < totalLength; i++)
+        {
+            levelsInfo[i] = bossLevelData[i - arcadeLevelData.Length].levelInfo;
+        }
+    }
+
     // Llamada desde el level manager
     public LevelInfo GetCurrentLevelInfo()
     {
@@ -218,7 +245,7 @@ public class GameManager : MonoBehaviour
         {
             //
             if (levelsInfo == null)
-                GetLevelInfoFromLevelData();
+                GetAllLevelInfoFromLevelData();
             //
             return levelsInfo[currentLevel];
         }            

@@ -7,26 +7,6 @@ public class LevelData : ScriptableObject
 {
     //
     public LevelInfo levelInfo;
-    //
-    //public int levelNumber;
-    //public VictoryCondition victoryCondition = VictoryCondition.DefeatAnyEnemy;
-    //public int numberToKill = 10;
-    ////
-    //public int unlockedAttackAbilities = 0;
-    //public int unlockedDefenseAbilities = 0;
-    //public int unlockedJumpAbilities = 0;
-    //public int unlockedSprintAbilities = 0;
-    ////.
-    //public GameObject[] enemiesToSpawn;
-    //public int[] amountToSpawn;
-    //public float[] timeBetweenSpawns;
-    //public int[] maxActiveEnemies;
-    ////
-    //public GameObject[] terrainPrefabs;
-    //public int[] terrainRation;
-    //public int[] terrainMax;
-    //public int[] terrainMin;
-
 
     ///////// implement form here /////////
     /*
@@ -47,6 +27,9 @@ public class LevelData : ScriptableObject
 [System.Serializable]
 public class LevelInfo
 {
+    //
+    public string inGameName;
+    public GameMode gameMode;
     //
     public VictoryCondition victoryCondition;
     public int enemiesToDefeat;

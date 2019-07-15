@@ -11,6 +11,11 @@ public class MainMenu : MonoBehaviour
     public GUISkin guiSkin;
 
     private GameManager gameManager;
+    //
+    private Vector2 buttonSize = new Vector2(300, 50);
+    //
+    private LevelData[] arcadeLevels;
+    private LevelData[] bossLevels;
 
     // Start is called before the first frame update
     void Start()
@@ -36,9 +41,16 @@ public class MainMenu : MonoBehaviour
         // Title
         GUI.Label(new Rect(Screen.width * 1 / 8, Screen.height * 1 / 4, 500, 50), "E. M. PROTOTYPE", guiSkin.customStyles[3]);
         GUI.Label(new Rect(Screen.width * 1 / 8 + 100, Screen.height * 1 / 4 + 50, 200, 30), "Prototype " + currentVersion, guiSkin.label);
-        //
-        Vector2 buttonSize = new Vector2(300, 50);
+        
         // Depending on the gamne mode
+        //ShowLevelsAccordingToGameMode();
+        ShowAllLevels();
+        
+    }
+
+    //
+    void ShowLevelsAccordingToGameMode()
+    {
         switch (gameManager.gameMode)
         {
             case GameMode.Arcade:
@@ -46,7 +58,7 @@ public class MainMenu : MonoBehaviour
                 for (int i = 0; i <= gameManager.GameProgression; i++)
                 {
                     // TODO: Que saque bien el número - nombre
-                    if (GUI.Button(new Rect(Screen.width * 1 / 8, Screen.height * 1 / 2 + (i * 50), buttonSize.x, buttonSize.y), 
+                    if (GUI.Button(new Rect(Screen.width * 1 / 8, Screen.height * 1 / 2 + (i * 50), buttonSize.x, buttonSize.y),
                         "Level " + i, guiSkin.button))
                     {
                         gameManager.SelectLevel(i);
@@ -61,18 +73,30 @@ public class MainMenu : MonoBehaviour
                 }
                 break;
         }
-        
-        
-        //
-        //if (GUI.Button(new Rect(Screen.width * 1/8, Screen.height * 1/2, buttonSize.x, buttonSize.y), "TUTORIAL", guiSkin.button)){
-        //    SceneManager.LoadScene("Balls Tutorial");
-        //}
+    }
 
-        ////
-        //if (GUI.Button(new Rect(Screen.width * 1 / 8, Screen.height * 2 / 3, buttonSize.x, buttonSize.y), 
-        //    "TUTORIALS ARE FOR PUSSIES", guiSkin.button))
-        //{
-        //    SceneManager.LoadScene("Cinematic Test");
-        //}
+    //
+    void ShowAllLevels()
+    {
+        //
+        for(int i = 0; i < gameManager.LevelsInfo.Length; i++)
+        {
+            // 
+            if (GUI.Button(new Rect(Screen.width * 1 / 8, Screen.height * 1 / 2 + (i * 50), buttonSize.x, buttonSize.y),
+                gameManager.LevelsInfo[i].inGameName, guiSkin.button))
+            {
+                //
+                if(gameManager.LevelsInfo[i].gameMode == GameMode.Arcade)
+                {
+                    gameManager.SelectLevel(i);
+                    SceneManager.LoadScene("ProtLevel");
+                }
+                //
+                else
+                {
+                    SceneManager.LoadScene("ProtLevel BOSS");
+                }
+            }
+        }
     }
 }
