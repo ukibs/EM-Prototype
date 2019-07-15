@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Level3
   m_EditorClassIdentifier: 
   levelInfo:
+    inGameName: Screecher first contact
+    gameMode: 0
     victoryCondition: 1
     enemiesToDefeat: 1
     attackActionsAvailable: 3

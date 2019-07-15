@@ -13,12 +13,14 @@ MonoBehaviour:
   m_Name: Level1
   m_EditorClassIdentifier: 
   levelInfo:
+    inGameName: Worms first contact
+    gameMode: 0
     victoryCondition: 1
     enemiesToDefeat: 30
     attackActionsAvailable: 1
     defenseActionsAvailable: 0
     jumpActionsAvailable: 1
-    sprintActionsAvailable: 0
+    sprintActionsAvailable: 1
     enemyGroups:
     - {fileID: 8096563443830030571, guid: 63f7a55d02361e7448d4b09d407ad549, type: 3}
     - {fileID: 8096563443830030571, guid: 63f7a55d02361e7448d4b09d407ad549, type: 3}
