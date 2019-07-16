@@ -1266,7 +1266,7 @@ GameObject:
   - component: {fileID: 8090500621991721646}
   m_Layer: 0
   m_Name: Intact
-  m_TagString: Ground
+  m_TagString: Hard Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1357,6 +1357,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   brokenVersion: {fileID: 7213522521037333882}
   hardEnough: 1
+  destructionClip: {fileID: 0}
 --- !u!1 &8246287718926838753
 GameObject:
   m_ObjectHideFlags: 0

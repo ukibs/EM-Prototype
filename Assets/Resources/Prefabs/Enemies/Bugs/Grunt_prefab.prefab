@@ -129,7 +129,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3136532327781054058}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: f379cdc8a4d68cf48857373a7cc4e84c, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -221,7 +221,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3418018241343256972}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: f379cdc8a4d68cf48857373a7cc4e84c, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -337,12 +337,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeBetweenActionChecking: 1
   rotationSpeed: 90
-  behaviour: 0000000000000000
+  behaviour: 0200000000000000
   weapons:
   - {fileID: 6987211768712398027}
   maxSpeed: 10
   minimalLungeDistance: 15
-  minimalShootDistance: 100
+  minimalShootDistance: 50
+  ofFootMaxTime: 5
 --- !u!1 &4694978885907813565
 GameObject:
   m_ObjectHideFlags: 0
@@ -636,7 +637,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9142640687382351306}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: f379cdc8a4d68cf48857373a7cc4e84c, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2

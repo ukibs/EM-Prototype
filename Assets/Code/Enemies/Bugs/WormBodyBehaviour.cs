@@ -58,18 +58,18 @@ public class WormBodyBehaviour : BugBodyBehaviour
         //
         base.OnCollisionStay(collision);
         //
-        if(collision.collider.tag.Equals("Sand") && !lunging && !HasGroundUnderneath())
-        {
-            grounded = false;
-            SwitchGrounding();
-        }
+        //if(collision.collider.tag.Equals("Sand") && !lunging && !HasGroundUnderneath())
+        //{
+        //    grounded = false;
+        //    SwitchGrounding();
+        //}
         // TODO: Montarlo bien y asegurarse de que funciona
-        if (collision.collider.tag.Equals("Hard Terrain") && grounded)
-        {
-            Destroy(gameObject);
-            // Ñapa como una catedral
-            FindObjectOfType<EnemyManager>().SubtractOne(GetComponent<EnemyConsistency>().ManagerIndex);
-        }
+        //if (collision.collider.tag.Equals("Hard Terrain") && grounded)
+        //{
+        //    Destroy(gameObject);
+        //    // Ñapa como una catedral
+        //    FindObjectOfType<EnemyManager>().SubtractOne(GetComponent<EnemyConsistency>().ManagerIndex);
+        //}
     }
     //
     protected override void OnCollisionEnter(Collision collision)
@@ -77,7 +77,7 @@ public class WormBodyBehaviour : BugBodyBehaviour
         //
         base.OnCollisionEnter(collision);
         //
-        if (collision.collider.tag == "Sand" && !grounded)
+        if (collision.collider.tag == "Sand" && !grounded && lunging)
         {
             lunging = false;
             SwitchGrounding();
@@ -85,9 +85,11 @@ public class WormBodyBehaviour : BugBodyBehaviour
             trailEmmiter.rateOverDistance = 100;
         }
         // TODO: Montarlo bien y asegurarse de que funciona
-        if(collision.collider.tag.Equals("Hard Terrain") && grounded)
+        if (collision.collider.tag.Equals("Hard Terrain") && grounded)
         {
             Destroy(gameObject);
+            //Ñapa como una catedral
+            FindObjectOfType<EnemyManager>().SubtractOne(GetComponent<EnemyConsistency>().ManagerIndex);
         }
     }
 

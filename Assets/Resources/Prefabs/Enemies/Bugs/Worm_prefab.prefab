@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 1669652826805404219}
   - component: {fileID: 7928746763642964118}
   - component: {fileID: 1468608809205481308}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: UnderSandPart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -272,7 +272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  armor: 5
+  armor: 10
 --- !u!114 &6392689114824422278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -292,6 +292,7 @@ MonoBehaviour:
   maxSpeed: 30
   minimalLungeDistance: 25
   minimalShootDistance: 100
+  ofFootMaxTime: 0
   lungeSpeed: 100
   lungeCooldown: 10
   lungClip: {fileID: 8300000, guid: c56a218742cb635489bbfef30efad2ee, type: 3}

@@ -98,7 +98,7 @@ public class EnemyConsistency : Targeteable {
                 enemyManager.SubtractOne(managerIndex);
         }
         // Decidimos el daño físico por cambio en la velocidad
-        if ((rb.velocity.magnitude - previousVelocity.magnitude) > 3)
+        if (CheckDrasticChangeInAcceleration(2.5f))
         {
             float impactForce = GeneralFunctions.GetCollisionForce(rb, null);
             ReceiveImpact(impactForce, transform.position);
@@ -116,22 +116,24 @@ public class EnemyConsistency : Targeteable {
         // Estas no las queremos chequear aqui
         Bullet bullet = collision.collider.GetComponent<Bullet>();
         // Chequeamos diferencia de velocidades para ver si solo es fricción u hostiazo
-        //Vector3 velocityOffset = previousVelocity - rb.velocity;
+        Vector3 velocityOffset = previousVelocity - rb.velocity;
         // De momento diferencia de 1
-        if(bullet == null)
+        if(bullet == null && collision.collider.tag != "Sand")
         {
             //
-            //Rigidbody otherRb = collision.collider.GetComponent<Rigidbody>();
-            //float impactForce = GeneralFunctions.GetCollisionForce(rb, otherRb);
-            //if(otherRb != null || velocityOffset.magnitude > 2)
-            //{
-            //    //Debug.Log("Hitting " + collision.transform.name + " with " + impactForce + " force");
-            //    //ReceiveImpact(impactForce, collision.contacts[0].point);
-            //}            
+            Rigidbody otherRb = collision.collider.GetComponent<Rigidbody>();
+            float impactForce = GeneralFunctions.GetCollisionForce(rb, otherRb);
+            if (otherRb != null || CheckDrasticChangeInAcceleration(1))
+            {
+                //Debug.Log("Hitting " + collision.transform.name + " with " + impactForce + " force");
+                ReceiveImpact(impactForce, collision.contacts[0].point);
+                //
+                receivedStrongImpact = true;
+            }
         }
         // TODO: Está duplicado aqui y en EnemyCollider
         // Ver como va
-        else
+        else if(bullet != null)
         {
             //Debug.Log("Procesado en EnemyConsistency");
             EnemyCollider bodyPart = collision.GetContact(0).thisCollider.GetComponent<EnemyCollider>();
@@ -153,6 +155,18 @@ public class EnemyConsistency : Targeteable {
             ReceiveProyectileImpact(penetrationResult, collision.GetContact(0).point, bulletRb);
         }
         
+    }
+
+    //
+    bool CheckDrasticChangeInAcceleration(float errorMargin = 2)
+    {
+        //
+        float acceleration = (rb.velocity - previousVelocity).magnitude;
+        //
+        if (acceleration > errorMargin)
+            return true;
+        //
+        return false;
     }
 
     /// <summary>

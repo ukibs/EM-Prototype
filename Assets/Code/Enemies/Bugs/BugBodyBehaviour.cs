@@ -12,7 +12,7 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
     public float maxSpeed = 10;
     public float minimalLungeDistance = 15;
     public float minimalShootDistance = 100;
-    protected float ofFootMaxTime = 5;
+    public float ofFootMaxTime = 5;
 
     // Esto para los que hagan zig zag
     protected float currentZigZagDirection = 0;
@@ -35,6 +35,9 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
         //
         if (bodyConsistency.ReceivedStrongImpact)
         {
+            //
+            Debug.Log(gameObject.name + " set off foot");
+            //
             ofFoot = true;
             ofFootCurrentTime = 0;
         }
@@ -49,7 +52,10 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
         {
             ofFootCurrentTime += dt;
             if (ofFootCurrentTime >= ofFootMaxTime)
+            {
+                ofFootCurrentTime = 0;
                 ofFoot = false;
+            }
             else
                 return;
         }

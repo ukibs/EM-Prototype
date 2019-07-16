@@ -54,13 +54,10 @@ public class CameraReference : MonoBehaviour {
             Vector2 mouseMovement = inputManager.MouseMovement;
             Vector2 rightAxisMovement = inputManager.RightStickAxis;
             //float amountToRotate = ((mouseMovement.x * 1/10) + (rightAxisMovement.x * 1)) * rotationSpeed * dt;
-#if UNITY_EDITOR
+
             float amountToRotateY = ((mouseMovement.x * 1) + (rightAxisMovement.x * 1)) * rotationSpeed * dt;
             float amountToRotateX = ((mouseMovement.y * 1) + (rightAxisMovement.y * 1)) * rotationSpeed * dt;
-#else
-            float amountToRotateY = ((mouseMovement.x * 10) + (rightAxisMovement.x * 1)) * rotationSpeed * dt;
-            float amountToRotateX = ((-mouseMovement.y * 1) + (-rightAxisMovement.y * 1)) * rotationSpeed * dt;
-#endif
+
             transform.Rotate(new Vector3(amountToRotateX, amountToRotateY, 0.0f));
             // Ajuste en el eje x
             if (!playerControl.Adhering)

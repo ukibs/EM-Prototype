@@ -40,6 +40,9 @@ public class ImpactInfoManager : MonoBehaviour {
 
     public void SendImpactInfo(Vector3 point, float force)
     {
+        // Cribamos valores bajos de momento
+        if (force < 10) return;
+        //
         ImpactInfo newImpactInfo = new ImpactInfo();
         //newImpactInfo.info = force + " N";
         newImpactInfo.info = (int)force + "";
@@ -51,6 +54,9 @@ public class ImpactInfoManager : MonoBehaviour {
 
     public void SendImpactInfo(Vector3 point, float force, string extraInfo)
     {
+        // Cribamos valores bajos de momento
+        if (force < 10) return;
+        //
         ImpactInfo newImpactInfo = new ImpactInfo();
         newImpactInfo.info = force + " N";
         newImpactInfo.extraInfo = extraInfo;
