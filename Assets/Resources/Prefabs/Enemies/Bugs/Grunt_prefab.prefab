@@ -251,8 +251,8 @@ GameObject:
   - component: {fileID: 4694978884287231175}
   - component: {fileID: 4694978884287231169}
   - component: {fileID: 4694978884287231170}
-  - component: {fileID: 4694978884287231173}
   - component: {fileID: 4694978884287231172}
+  - component: {fileID: 4694978884287231173}
   m_Layer: 9
   m_Name: Body
   m_TagString: Untagged
@@ -302,26 +302,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &4694978884287231173
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4694978884287231174}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeaff7f72f6b4b944a77e9d6881e9a96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeBetweenActionChecking: 1
-  rotationSpeed: 10
-  behaviour: 0700000000000000
-  weapons:
-  - {fileID: 0}
-  maxSpeed: 10
-  minimalLungeDistance: 15
-  minimalShootDistance: 100
 --- !u!114 &4694978884287231172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,8 +318,31 @@ MonoBehaviour:
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealth: 100
   defense: 10
-  deathBloodPrefab: {fileID: 0}
-  deathClip: {fileID: 0}
+  deathBloodPrefab: {fileID: 3125914639698908078, guid: 099db54e23b55334a8c42a1729809e0e,
+    type: 3}
+  deathParticlesPrefab: {fileID: 1837716235657633640, guid: c30381bd65cfd9e4c8df31ef60481c4c,
+    type: 3}
+  deathClip: {fileID: 8300000, guid: 5ff182ee8e5161f408029eaaa5c90f01, type: 3}
+--- !u!114 &4694978884287231173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4694978884287231174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeaff7f72f6b4b944a77e9d6881e9a96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBetweenActionChecking: 1
+  rotationSpeed: 90
+  behaviour: 0000000000000000
+  weapons:
+  - {fileID: 6987211768712398027}
+  maxSpeed: 10
+  minimalLungeDistance: 15
+  minimalShootDistance: 100
 --- !u!1 &4694978885907813565
 GameObject:
   m_ObjectHideFlags: 0
@@ -646,6 +649,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4694978884287231175}
     m_Modifications:
+    - target: {fileID: 100006, guid: baf227c5abb01eb44979e4ffd04480c6, type: 3}
+      propertyPath: m_Name
+      value: Grunt
+      objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: baf227c5abb01eb44979e4ffd04480c6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -701,10 +708,6 @@ PrefabInstance:
     - target: {fileID: 400006, guid: baf227c5abb01eb44979e4ffd04480c6, type: 3}
       propertyPath: m_LocalScale.z
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 100006, guid: baf227c5abb01eb44979e4ffd04480c6, type: 3}
-      propertyPath: m_Name
-      value: Grunt
       objectReference: {fileID: 0}
     - target: {fileID: 400024, guid: baf227c5abb01eb44979e4ffd04480c6, type: 3}
       propertyPath: m_LocalRotation.x

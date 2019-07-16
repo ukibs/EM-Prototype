@@ -12,11 +12,15 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
     public float maxSpeed = 10;
     public float minimalLungeDistance = 15;
     public float minimalShootDistance = 100;
+    protected float ofFootMaxTime = 5;
 
     // Esto para los que hagan zig zag
     protected float currentZigZagDirection = 0;
     protected float currentZigZagVariation = 0.1f;
-    
+
+    //Varaible para determinar si ha paerido el equilibrio
+    protected bool ofFoot = true;
+    protected float ofFootCurrentTime = 0;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -28,42 +32,56 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
     protected override void Update()
     {
         base.Update();
-
+        //
+        if (bodyConsistency.ReceivedStrongImpact)
+        {
+            ofFoot = true;
+            ofFootCurrentTime = 0;
+        }
     }
 
     #region Methods
 
     protected override void ExecuteCurrentAction(float dt)
     {
+        // Avanzamos el chequeo de desequilibrio y si está desequilibrado que no pueda actuar
+        if (ofFoot)
+        {
+            ofFootCurrentTime += dt;
+            if (ofFootCurrentTime >= ofFootMaxTime)
+                ofFoot = false;
+            else
+                return;
+        }
         // Las geenrales las chequeamos en el base
         base.ExecuteCurrentAction(dt);
         // Y aquí las específicas de bichos
         // Primero que el player siga vivo, si no mal
-        if (player != null)
-        {
-            //
-            Vector3 playerDirection = player.transform.position - transform.position;
-            playerDirection.y = 0.0f;
-            //
-            switch (currentAction)
-            {
-                //case Actions.Lunging:
-                //    //transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed, dt);
-                //    Lunge();
-                //    break;
-                case Actions.ZigZagingTowardsPlayer:
-                    if (HasGroundUnderneath())
-                    {
-                        transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed, dt);
-                        Move();
-                    }
-                    break;
-            }
+        //if (player != null)
+        //{
+        //    //
+        //    Vector3 playerDirection = player.transform.position - transform.position;
+        //    playerDirection.y = 0.0f;
+        //    //
+        //    switch (currentAction)
+        //    {
+        //        //case Actions.Lunging:
+        //        //    //transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed, dt);
+        //        //    Lunge();
+        //        //    break;
+        //        case Actions.ZigZagingTowardsPlayer:
+        //            if (HasGroundUnderneath())
+        //            {
+        //                transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed, dt);
+        //                Move();
+        //            }
+        //            break;
+        //    }
 
-            // Damp para que no se desmadren
-            //float dampForce = 10.0f;
-            //rb.velocity = rb.velocity * ( 1 - dampForce * dt);
-        }
+        //    // Damp para que no se desmadren
+        //    //float dampForce = 10.0f;
+        //    //rb.velocity = rb.velocity * ( 1 - dampForce * dt);
+        //}
     }
 
     /// <summary>
@@ -140,7 +158,7 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
                     break;
                 case Actions.EncirclingPlayerSideward:
                     movingDirection = transform.right;
-                    speedMultiplier = 0.5f;
+                    speedMultiplier = 0.2f;
                     break;
                 case Actions.RetreatingFromPlayer:
                     movingDirection = -transform.forward;

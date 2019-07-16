@@ -34,6 +34,8 @@ public class EnemyConsistency : Targeteable {
     protected AudioSource audioSource;
     //
     protected int managerIndex;
+    // Vamos a usar esta variable para controlar pérdida de equilibrio en comportamientos entre otras cosas
+    protected bool receivedStrongImpact = false;
 
     #endregion
 
@@ -53,6 +55,8 @@ public class EnemyConsistency : Targeteable {
         get { return managerIndex; }
         set { managerIndex = value; }
     }
+
+    public bool ReceivedStrongImpact { get { return receivedStrongImpact; } }
 
     #endregion
 
@@ -78,6 +82,8 @@ public class EnemyConsistency : Targeteable {
     {
         // Guardamos la previa para chequear si ha habido un ostión
         previousVelocity = rb.velocity;
+        //
+        receivedStrongImpact = false;
     }
 
     // Update is called once per frame
@@ -96,6 +102,8 @@ public class EnemyConsistency : Targeteable {
         {
             float impactForce = GeneralFunctions.GetCollisionForce(rb, null);
             ReceiveImpact(impactForce, transform.position);
+            //
+            receivedStrongImpact = true;
         }
     }
 

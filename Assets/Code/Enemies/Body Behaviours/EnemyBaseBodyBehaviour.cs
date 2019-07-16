@@ -45,6 +45,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
 
     //
     protected bool onFloor = true;
+    
 
     // Start is called before the first frame update
     protected virtual void Start()

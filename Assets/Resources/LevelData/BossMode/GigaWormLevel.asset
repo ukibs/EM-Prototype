@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: GigaWormLevel
   m_EditorClassIdentifier: 
   levelInfo:
+    inGameName: The Great Worm
+    gameMode: 1
     victoryCondition: 0
     enemiesToDefeat: 0
     attackActionsAvailable: 1
