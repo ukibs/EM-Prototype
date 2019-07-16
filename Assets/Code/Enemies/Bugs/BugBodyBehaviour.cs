@@ -31,7 +31,6 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
     // Update is called once per frame
     protected override void Update()
     {
-        base.Update();
         //
         if (bodyConsistency.ReceivedStrongImpact)
         {
@@ -41,6 +40,9 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
             ofFoot = true;
             ofFootCurrentTime = 0;
         }
+        //
+        base.Update();
+        
     }
 
     #region Methods
