@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: bf7a966ec39564d4c878a1d004bf1240
+guid: 621144511be14c34e84374e43b56f32d
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -28,9 +28,12 @@ ModelImporter:
     100044: slug12
     100046: slug13
     100048: slug14
-    100050: WeakPoint1
-    100052: WeakPoint2
-    100054: WeakPoint3
+    100050: Sphere
+    100052: Sphere.001
+    100054: Sphere.002
+    100056: WeakPoint1
+    100058: WeakPoint2
+    100060: WeakPoint3
     400000: Body1
     400002: Body2
     400004: Body3
@@ -56,9 +59,12 @@ ModelImporter:
     400044: slug12
     400046: slug13
     400048: slug14
-    400050: WeakPoint1
-    400052: WeakPoint2
-    400054: WeakPoint3
+    400050: Sphere
+    400052: Sphere.001
+    400054: Sphere.002
+    400056: WeakPoint1
+    400058: WeakPoint2
+    400060: WeakPoint3
     2100000: Material
     2100002: No Name
     2300000: Body1
@@ -85,9 +91,12 @@ ModelImporter:
     2300042: slug12
     2300044: slug13
     2300046: slug14
-    2300048: WeakPoint1
-    2300050: WeakPoint2
-    2300052: WeakPoint3
+    2300048: Sphere
+    2300050: Sphere.001
+    2300052: Sphere.002
+    2300054: WeakPoint1
+    2300056: WeakPoint2
+    2300058: WeakPoint3
     3300000: Body1
     3300002: Body2
     3300004: Body3
@@ -112,9 +121,12 @@ ModelImporter:
     3300042: slug12
     3300044: slug13
     3300046: slug14
-    3300048: WeakPoint1
-    3300050: WeakPoint2
-    3300052: WeakPoint3
+    3300048: Sphere
+    3300050: Sphere.001
+    3300052: Sphere.002
+    3300054: WeakPoint1
+    3300056: WeakPoint2
+    3300058: WeakPoint3
     4300000: Body6
     4300002: slug14
     4300004: slug13
@@ -124,24 +136,27 @@ ModelImporter:
     4300012: slug10
     4300014: slug09
     4300016: WeakPoint3
-    4300018: Head
-    4300020: Jaw_up
-    4300022: Jaw_right
-    4300024: Jaw_left
-    4300026: Body4
-    4300028: slug08
-    4300030: slug07
-    4300032: WeakPoint2
-    4300034: Body1
-    4300036: WeakPoint1
-    4300038: slug02
-    4300040: slug1
-    4300042: Body3
-    4300044: slug06
-    4300046: slug05
-    4300048: Body2
-    4300050: slug04
-    4300052: slug03
+    4300018: Sphere.002
+    4300020: Head
+    4300022: Jaw_up
+    4300024: Jaw_right
+    4300026: Jaw_left
+    4300028: Body4
+    4300030: slug08
+    4300032: slug07
+    4300034: WeakPoint2
+    4300036: Sphere
+    4300038: Body1
+    4300040: WeakPoint1
+    4300042: Sphere.001
+    4300044: slug02
+    4300046: slug1
+    4300048: Body3
+    4300050: slug06
+    4300052: slug05
+    4300054: Body2
+    4300056: slug04
+    4300058: slug03
   externalObjects: {}
   materials:
     importMaterials: 1
