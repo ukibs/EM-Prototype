@@ -111,9 +111,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   diameter: 2
   lifeTime: 10
+  dangerousEnough: 1
   impactParticlesPrefab: {fileID: 5943001922578116903, guid: ed5e3facd419e5046b1f6e142784e330,
     type: 3}
   bulletHolePrefab: {fileID: 0}
+  impactOnBugParticlesPrefab: {fileID: 0}
   bulletHoleBugPrefab: {fileID: 0}
   impactOnPlayer: {fileID: 8300000, guid: 8b85b651924767f4e9888abd2aafc166, type: 3}
   impactOnEnemy: {fileID: 8300000, guid: c56a218742cb635489bbfef30efad2ee, type: 3}

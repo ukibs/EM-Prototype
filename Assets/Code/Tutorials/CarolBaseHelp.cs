@@ -31,6 +31,8 @@ public class CarolBaseHelp : MonoBehaviour
     public AudioClip weakPointFoundBip;
     public bool debugMode = true;
     public bool showTextAdvice = true;
+    // Lo guardamos aquí, pero de momento será utilizado por otros objetos
+    public GameObject dangerousProyetilesTrailPrefab;
 
     protected AudioSource audioSource;
     protected AudioObjectManager audioObjectManager;
@@ -61,7 +63,8 @@ public class CarolBaseHelp : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         player = FindObjectOfType<RobotControl>();
         // Le damos al primer clip
-        PlayClip(CurrentStep.audioClip);
+        if(carolStepObjects.Length > 0)
+            PlayClip(CurrentStep.audioClip);
     }
 
     // Update is called once per frame

@@ -10,6 +10,8 @@ public class Bullet : MonoBehaviour {
     public float diameter;
     [Tooltip("Short for quick bullets long for artillery and other slow ones")]
     public float lifeTime = 10;
+    // De momento lo manejamos así
+    public bool dangerousEnough = false;
     //
     public GameObject impactParticlesPrefab;
     public GameObject bulletHolePrefab;
@@ -32,6 +34,10 @@ public class Bullet : MonoBehaviour {
     protected ExplosiveBullet explosiveBullet;
     //
     protected AudioObjectManager bulletSoundManager;
+    //
+    protected CarolBaseHelp carolHelp;
+    protected GameObject detectionTrail;
+    protected LineRenderer detectionTrailRenderer;
 
 	// Use this for initialization
 	protected virtual void Start () {
@@ -43,6 +49,16 @@ public class Bullet : MonoBehaviour {
         explosiveBullet = GetComponent<ExplosiveBullet>();
         //
         bulletSoundManager = FindObjectOfType<AudioObjectManager>();
+        //
+        if (dangerousEnough)
+        {
+            // Instanciamos el trail renderer
+            carolHelp = FindObjectOfType<CarolBaseHelp>();
+            detectionTrail = Instantiate(carolHelp.dangerousProyetilesTrailPrefab, transform.position, Quaternion.identity);
+            detectionTrailRenderer = detectionTrail.GetComponent<LineRenderer>();
+            //
+            AllocateTrailRenderer();
+        }
     }
 
     protected void FixedUpdate()
@@ -78,6 +94,11 @@ public class Bullet : MonoBehaviour {
             //Debug.DrawRay(transform.position, transform.forward * Time.deltaTime, Color.red);
             Debug.DrawRay(previousPosition, rb.velocity * Time.deltaTime, Color.red);
         }
+    }
+
+    protected void OnDestroy()
+    {
+        Destroy(detectionTrail);
     }
 
     #region Methods
@@ -193,6 +214,26 @@ public class Bullet : MonoBehaviour {
         // Lo movemos un pelin para evitar el z clipping
         newBulletHole.transform.position += newBulletHole.transform.up * 0.01f;
         newBulletHole.transform.SetParent(objectToParent.transform);
+    }
+
+    // Colocamos trail renderer indicando trayectoria
+    void AllocateTrailRenderer()
+    {
+        //
+        float timePerTic = 0.5f;
+        int stepsToCheck = (int)(lifeTime / timePerTic);
+        Vector3[] positions = new Vector3[stepsToCheck];
+        //
+        for(int i = 0; i < stepsToCheck; i++)
+        {
+            //
+            float fallInThatTime = -9.81f * Mathf.Pow(timePerTic * i, 2) / 2;
+            //
+            positions[i] = transform.position + (rb.velocity * timePerTic * i) + new Vector3(0,fallInThatTime,0);
+        }
+        //
+        detectionTrailRenderer.positionCount = stepsToCheck;
+        detectionTrailRenderer.SetPositions(positions);
     }
 
     #endregion

@@ -1694,7 +1694,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 305566957202799306}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 29.897915, y: 2.0754929, z: -16.7}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children:
   - {fileID: 305566956774945737}
@@ -2646,6 +2646,22 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300026, guid: 621144511be14c34e84374e43b56f32d, type: 3}
+--- !u!54 &8279223176477215921
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6619930577936644689}
+  serializedVersion: 2
+  m_Mass: 200
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!114 &7454464139861518490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2689,19 +2705,19 @@ MonoBehaviour:
   stunnedClip: {fileID: 8300000, guid: 99b07775ca4f9e040b748b8c9a08bb10, type: 3}
   coreDamagedClip: {fileID: 8300000, guid: 6d0cdd8a61e1f254fa3bffb6b0cee42f, type: 3}
   deathClip: {fileID: 8300000, guid: 5ff182ee8e5161f408029eaaa5c90f01, type: 3}
---- !u!54 &8279223176477215921
+--- !u!54 &4744123587331790417
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6619930577936644689}
+  m_GameObject: {fileID: 6619930577936644693}
   serializedVersion: 2
-  m_Mass: 200
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -2733,13 +2749,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousBodyPart: {fileID: 6619930577937065591}
   gigaWormBehaviour: {fileID: 7454464139861518490}
---- !u!54 &4744123587331790417
+--- !u!54 &1942500461635076853
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6619930577936644693}
+  m_GameObject: {fileID: 6619930577936644695}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
@@ -2777,13 +2793,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousBodyPart: {fileID: 6619930577937065593}
   gigaWormBehaviour: {fileID: 7454464139861518490}
---- !u!54 &1942500461635076853
+--- !u!54 &2325224972599248314
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6619930577936644695}
+  m_GameObject: {fileID: 6619930577936644697}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
@@ -2821,13 +2837,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousBodyPart: {fileID: 6619930577937065595}
   gigaWormBehaviour: {fileID: 7454464139861518490}
---- !u!54 &2325224972599248314
+--- !u!54 &8362507925798141597
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6619930577936644697}
+  m_GameObject: {fileID: 6619930577936644699}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
@@ -2865,13 +2881,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousBodyPart: {fileID: 6619930577937065597}
   gigaWormBehaviour: {fileID: 7454464139861518490}
---- !u!54 &8362507925798141597
+--- !u!54 &1669558528518277552
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6619930577936644699}
+  m_GameObject: {fileID: 6619930577936644701}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
@@ -2909,13 +2925,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousBodyPart: {fileID: 6619930577937065599}
   gigaWormBehaviour: {fileID: 7454464139861518490}
---- !u!54 &1669558528518277552
+--- !u!54 &2702218032840651649
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6619930577936644701}
+  m_GameObject: {fileID: 6619930577936644703}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
@@ -2953,22 +2969,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousBodyPart: {fileID: 6619930577937065585}
   gigaWormBehaviour: {fileID: 7454464139861518490}
---- !u!54 &2702218032840651649
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6619930577936644703}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &7182736997019920796
 GameObject:
   m_ObjectHideFlags: 0
