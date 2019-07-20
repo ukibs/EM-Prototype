@@ -58,6 +58,8 @@ public class Bullet : MonoBehaviour {
             detectionTrailRenderer = detectionTrail.GetComponent<LineRenderer>();
             //
             AllocateTrailRenderer();
+            //
+            carolHelp.TriggerGeneralAdvice("DangerIncoming");
         }
     }
 

@@ -1139,5 +1139,22 @@ PrefabInstance:
       propertyPath: carolStepObjects.Array.size
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3290748502314444998, guid: 874679f994c0b7643a08d6435a76ce71,
+        type: 3}
+      propertyPath: generalAdvices.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3290748502314444998, guid: 874679f994c0b7643a08d6435a76ce71,
+        type: 3}
+      propertyPath: generalAdvices.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: c3966b770f585e44cb8ef69238f5332f,
+        type: 2}
+    - target: {fileID: 3290748502314444998, guid: 874679f994c0b7643a08d6435a76ce71,
+        type: 3}
+      propertyPath: generalAdvices.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: d38953780c3c0c443badaabf1d55835d,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 874679f994c0b7643a08d6435a76ce71, type: 3}

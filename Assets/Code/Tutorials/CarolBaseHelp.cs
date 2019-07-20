@@ -27,6 +27,8 @@ public class CarolBaseHelp : MonoBehaviour
     // Intentaré generalizar los triggers para avanzar a través de ellos
 
     public CarolStepObject[] carolStepObjects;
+    // Estos son generales, en vez de ir guiados se chequearán constantemente
+    public CarolStepObject[] generalAdvices;
     public GUISkin gUISkin;
     public AudioClip weakPointFoundBip;
     public bool debugMode = true;
@@ -210,6 +212,19 @@ public class CarolBaseHelp : MonoBehaviour
         }
         //
         NextStep();
+    }
+
+    //
+    public void TriggerGeneralAdvice(string tag)
+    {
+        //
+        for(int i = 0; i < generalAdvices.Length; i++)
+        {
+            if(tag == generalAdvices[i].carolStep.keyWord)
+            {
+                PlayClip(generalAdvices[i].carolStep.audioClip);
+            }
+        }
     }
 }
 

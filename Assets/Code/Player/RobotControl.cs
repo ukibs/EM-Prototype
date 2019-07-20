@@ -83,6 +83,7 @@ public class RobotControl : MonoBehaviour {
     public AudioClip loadingClip;
     public AudioClip releasingClip;
     public AudioClip rapidFireClip;
+    public AudioClip overHeatClip;
 
     // TODO: Mover a datos de game manager
     public float rotationTime = 0.1f;
@@ -216,20 +217,7 @@ public class RobotControl : MonoBehaviour {
             CheckAndFire(dt);
             CheckDefense();
             //
-            bool isRapidFiring = (actionCharging == ActionCharguing.Attack && inputManager.FireButton);
-            //
-            if(chargedAmount == 0 && !isRapidFiring)
-            {
-                // TODO: Así es un poco ñapa, pulirlo
-                float totalOverheatMultiplier = (totalOverheat) ? 1 : 2;
-                //
-                currentOverheat -= totalOverheatMultiplier * dt;
-                currentOverheat = Mathf.Max(currentOverheat, 0);
-                //
-                if (currentOverheat == 0 && totalOverheat)
-                    totalOverheat = false;
-            }
-                
+            UpdateOverheat(dt);  
 
         }
         
@@ -257,6 +245,27 @@ public class RobotControl : MonoBehaviour {
     }
 
     #region Methods
+
+    /// <summary>
+    /// 
+    /// </summary>
+    void UpdateOverheat(float dt)
+    {
+        //
+        bool isRapidFiring = (actionCharging == ActionCharguing.Attack && inputManager.FireButton);
+        //
+        if (chargedAmount == 0 || !isRapidFiring || totalOverheat)
+        {
+            // TODO: Así es un poco ñapa, pulirlo
+            float totalOverheatMultiplier = (totalOverheat) ? 1 : 2;
+            //
+            currentOverheat -= totalOverheatMultiplier * dt;
+            currentOverheat = Mathf.Max(currentOverheat, 0);
+            //
+            if (currentOverheat == 0 && totalOverheat)
+                totalOverheat = false;
+        }
+    }
 
     /// <summary>
     /// 
@@ -666,6 +675,7 @@ public class RobotControl : MonoBehaviour {
                     // Meteremos aqui el efecto de sobrecarga
                     totalOverheat = true;
                     currentOverheat = gameManager.maxOverheat;
+                    GeneralFunctions.PlaySoundEffect(audioSource, overHeatClip);
                 }
                 //
                 chargedAmount = Mathf.Min(chargedAmount, 1);

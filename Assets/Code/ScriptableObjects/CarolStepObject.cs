@@ -15,6 +15,7 @@ public class CarolStepObject : ScriptableObject
 public class CarolStep
 {
     public HelpTrigger helpTrigger;
+    public string keyWord;              // Este para los generales
     public AudioClip audioClip;
     public string stepText;
     [Tooltip("Para casos en los que se necesite más de un X. También vale para temporizador")]

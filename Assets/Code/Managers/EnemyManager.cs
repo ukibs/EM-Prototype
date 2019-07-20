@@ -19,6 +19,7 @@ public class EnemyManager : MonoBehaviour
     private int[] activeEnemies;
     private Transform playerTransform;
     private EnemySpawnPoint[] enemySpawnPoints;
+    private CarolBaseHelp carolHelp;
 
     // Vamos a manejarlo aqui de moemnto para no saturar el audio
     //private List<AudioClip> activeFiringClips;
@@ -36,6 +37,8 @@ public class EnemyManager : MonoBehaviour
         //
         //activeFiringClips = new List<AudioClip>(10);
         //afcTimeActive = new List<float>(10);
+        //
+        carolHelp = FindObjectOfType<CarolBaseHelp>();
         
     }
 
@@ -110,15 +113,18 @@ public class EnemyManager : MonoBehaviour
                     //                                            groupSpawnPositionXY.y + playerTransform.position.z);
                     //
                     GameObject nextEnemy = Instantiate(enemyPrefabsToUse[i], positionToSpawn, Quaternion.identity);
-                EnemyConsistency enemyConsistency = nextEnemy.GetComponent<EnemyConsistency>();
-                //
-                if (enemyConsistency == null)
-                    enemyConsistency = nextEnemy.GetComponentInChildren<EnemyConsistency>();
-                //
-                enemyConsistency.ManagerIndex = i;
+                    EnemyConsistency enemyConsistency = nextEnemy.GetComponent<EnemyConsistency>();
+                    //
+                    if (enemyConsistency == null)
+                        enemyConsistency = nextEnemy.GetComponentInChildren<EnemyConsistency>();
+                    //
+                    enemyConsistency.ManagerIndex = i;
                 
-                    //GameObject nextEnemy = Instantiate(enemyPrefabsToUse[i], pointForGroupSpawn, Quaternion.identity);
+                        //GameObject nextEnemy = Instantiate(enemyPrefabsToUse[i], pointForGroupSpawn, Quaternion.identity);
                 }
+                //
+                if (activeEnemies[i] == 0)
+                    carolHelp.TriggerGeneralAdvice("EnemiesIncoming");
                 //
                 activeEnemies[i] += groupsToSpawnSizes[i];
                 //

@@ -7,7 +7,7 @@ public class EnemyConsistency : Targeteable {
     #region Public Attributes
 
     // public float maxChasisHealth = 100.0f; // 
-    public float maxHealth = 100.0f; //
+    public int maxHealth = 100; //
     [Tooltip("Defense against non bullet impacts.")]
     public float defense = 10;   // The minimal physic strength to start receiving an effect
     //
@@ -26,7 +26,7 @@ public class EnemyConsistency : Targeteable {
 
     protected ImpactInfoManager impactInfoManager;
     // private float currentChasisHealth;
-    protected float currentHealth;
+    protected int currentHealth;
     protected ProvLevelManager levelManager;
     protected EnemyManager enemyManager;
     protected Rigidbody rb;
@@ -189,7 +189,7 @@ public class EnemyConsistency : Targeteable {
         //if(damageReceived > 0)
         //Debug.Log(gameObject.name + " received body impact with " + impactForce + " force. " + damageReceived + " damage received");
         //
-        currentHealth -= damageReceived;
+        currentHealth -= (int)damageReceived;
         //currentChasisHealth -= damageReceived;
         ManageDamage(impactForce, point);
         
@@ -215,7 +215,7 @@ public class EnemyConsistency : Targeteable {
             float kineticEnergy = GeneralFunctions.GetBodyKineticEnergy(proyectileRb);
             damageReceived = kineticEnergy * penetrationResult;
             //Debug.Log("Penetration result: " + penetrationResult + ", kinetic energy: " + kineticEnergy + ", damage received: " + damageReceived);
-            currentHealth -= damageReceived;
+            currentHealth -= (int)damageReceived;
             ManageDamage(damageReceived, point);
 
             //impactInfoManager.SendImpactInfo(point, damageReceived);
@@ -236,7 +236,7 @@ public class EnemyConsistency : Targeteable {
         if (penetrationResult > 0)
         {
             damageReceived = GeneralFunctions.GetFakeBodyKineticEnergy(proyectileRb) * penetrationResult;
-            currentHealth -= damageReceived;
+            currentHealth -= (int)damageReceived;
             ManageDamage(penetrationResult, point);
 
             impactInfoManager.SendImpactInfo(point, damageReceived);
