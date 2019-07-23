@@ -27,6 +27,10 @@ public class TerrainManager : MonoBehaviour
     //
     public Waypoint[] AllWaypoints { get { return allWaypoints; } }
 
+    //
+    private float maxTestMultiMoveTime = 1;
+    private float currentTestMultiMoveTime = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,14 +43,17 @@ public class TerrainManager : MonoBehaviour
     {
         // TODO: QUe no haga el chequeo a cada frame
         //CheckAndMoveAllBlocks();
-
         //
-        if (CheckIfPlayerOverCentralBlock())
+        currentTestMultiMoveTime += Time.deltaTime;
+        //
+        if (CheckIfPlayerOverCentralBlock()
+            && currentTestMultiMoveTime >= maxTestMultiMoveTime)
         {
             MoveFarestBlocks(PlayerOffsetFromCentralBlockInUnits());
             // De momento lo hacemos aqui
             // Pero seria bueno chequearlo aparte
             // GetNearestWaypointToPlayer();
+            currentTestMultiMoveTime = 0;
         }
 
         // Si el player se ha alejado lo suficiente del centro...
@@ -54,6 +61,39 @@ public class TerrainManager : MonoBehaviour
         {
             RealocateEverything();
             Debug.Log("Realocating everything");
+        }
+    }
+
+    //
+    private void OnDrawGizmos()
+    {
+        // Vamos a pintar con un degradado para ver que coño pasa
+        Color currentPieceColor = new Color(1, 0, 1, 1f);
+        // Para chequear posibles repes en x,y
+        float baseHeightModifier = 5;
+        float heightModifier = 0;
+        for(int i = 0; i < squareSize; i++)
+        {
+            //
+            //currentPieceColor.r -= 1 / squareSize;
+            currentPieceColor.r -= 0.1f;
+            //
+            for (int j = 0; j < squareSize; j++)
+            {
+                //
+                heightModifier += baseHeightModifier;
+                //
+                //currentPieceColor.b -= 1 / squareSize;
+                currentPieceColor.b -= 0.1f;
+                //
+                if(i == centralBlock && j == centralBlock)
+                    Gizmos.color = new Color(0, 1, 0, 1f);
+                else
+                    Gizmos.color = currentPieceColor;
+                //
+                Gizmos.DrawCube(activeBlocksMatrix[i, j].transform.position + (Vector3.up * (50 + heightModifier)), 
+                    new Vector3(100, 10, 100));
+            }
         }
     }
 
@@ -91,7 +131,7 @@ public class TerrainManager : MonoBehaviour
         return nearestWaypoint;
     }
 
-    //
+    // TODO: Ya lo haremos algún día
     public Vector3[] GetPathToPlayer(Transform playerSeeker)
     {
         Vector3[] pathToPlayer = null;
@@ -104,8 +144,17 @@ public class TerrainManager : MonoBehaviour
     //
     bool CheckIfPlayerOverCentralBlock()
     {
+        //
+        //Debug.Log("fdsfsd: " + activeBlocksMatrix[centralBlock, centralBlock].transform.position);
+        //
         Vector3 playerOffsetFromCentralBlock = playerTransform.position - activeBlocksMatrix[centralBlock, centralBlock].transform.position;
-        return (Mathf.Abs(playerOffsetFromCentralBlock.x) > 100 || Mathf.Abs(playerOffsetFromCentralBlock.z) > 100);
+        // TODO: Hacerlo trabajar con variable de tamaño bloque
+        bool notOverCentralBlock = (Mathf.Abs(playerOffsetFromCentralBlock.x) > 100 || Mathf.Abs(playerOffsetFromCentralBlock.z) > 100);
+        //
+        //if(notOverCentralBlock)
+        //    Debug.Log("Central block offset: " + playerOffsetFromCentralBlock.x + ", " + playerOffsetFromCentralBlock.z);
+        //
+        return notOverCentralBlock;
     }
 
     //
@@ -114,6 +163,8 @@ public class TerrainManager : MonoBehaviour
         Vector2 offsetInUnits = Vector2.zero;
         Vector3 playerOffsetFromCentralBlock = playerTransform.position - activeBlocksMatrix[centralBlock, centralBlock].transform.position;
         // Esto debería dar -1, 0, 1
+        // Y cifras mayores (en caso de teleport) también
+        // TODO: Manejar eso
         offsetInUnits.x = (int)(playerOffsetFromCentralBlock.x / 100);
         offsetInUnits.y = (int)(playerOffsetFromCentralBlock.z / 100);
 
@@ -234,12 +285,8 @@ public class TerrainManager : MonoBehaviour
     // TODO: Que pueda trabajar con más de uno a la vez
     void MoveFarestBlocks(Vector2 playerOffsetInUnits)
     {
-        // Apaño para cuando offset sea mayor de uno
-        if(Math.Abs(playerOffsetInUnits.x) >1 || Mathf.Abs(playerOffsetInUnits.y) > 1)
-        {
-            // TODO: Hacerlo bien
-            return;
-        }
+        //
+        //Debug.Log("Player offset in units: " + playerOffsetInUnits);
         // 
         GameObject[,] newActiveBlocksOrder = new GameObject[squareSize, squareSize];
         // Primero ver que bloques se quedan lejos con el offset
@@ -248,117 +295,144 @@ public class TerrainManager : MonoBehaviour
         //     x = 1, 0 -> n-1
         //     x = -1, n-1 -> 0
         //     x = 0, nada 
-        //Vector2 sidesToDisplace = -playerOffsetInUnits;
-
-        //fsdf
+        
         //
         int sideToGet;
         int sideToPut;
         //
         int start;
         int end;
-        
-        // Para el offset en Y
-        if(playerOffsetInUnits.y != 0)
+
+        // Para el offset en Y -------------------------------------------------------------------------------------------------------
+        if (playerOffsetInUnits.y != 0)
         {
+
+            //
             int displacementY = (int)playerOffsetInUnits.y;
+            int displaceMentYSign = (int)Mathf.Sign(displacementY);
+            int absoluteDisplaceMentY = Mathf.Abs(displacementY);
+            // 
             sideToGet = 0;
             sideToPut = 0;
             start = 0;
             end = squareSize;
-            switch (displacementY)
+            // Inicamos los parametros para moverlos en una dirección o en otra
+            switch (displaceMentYSign)
             {
                 case -1:
                     //     x = -1, n-1 -> 0
                     sideToGet = squareSize - 1;
                     sideToPut = 0;
-                    start++;
+                    start = 1;
                     break;
                 case 1:
                     //     x = 1, 0 -> n-1
-                    
+
                     sideToGet = 0;
                     sideToPut = squareSize - 1;
-                    end--;
+                    end = squareSize - 1;
                     break;
             }
-            // Colocamos el que hemos cambiado
-            for (int i = 0; i < squareSize; i++)
-            {
+            // Tantas veces como de el displacement
+            //for (int h = 0; h < absoluteDisplaceMentY; h++)
+            //{
                 //
-                newActiveBlocksOrder[i, sideToPut] = activeBlocksMatrix[i, sideToGet];
-                //
-                Vector3 blockNewPosition = newActiveBlocksOrder[i, sideToPut].transform.position;
-                blockNewPosition.z += 200 * squareSize * displacementY;
-                newActiveBlocksOrder[i, sideToPut].transform.position = blockNewPosition;
-                // TODO: Añadir chequeo de terreno destruido para que lo resetee
-                DestructibleTerrain[] destructibleElements = newActiveBlocksOrder[i, sideToPut].GetComponentsInChildren<DestructibleTerrain>();
-                for (int j = 0; j < destructibleElements.Length; j++)
-                    destructibleElements[j].Restore();
-            }
-            // Y el resto
-            // TODO: Decidimos cual es x y cual y para cambiarlo abajo
-            for (int i = 0; i < squareSize; i++)
-            {
-                for (int j = start; j < end; j++)
+                //Debug.Log("Iterations: " + h + ", " + Mathf.Abs(displacementY));
+                // Mandamos los que han quedado atrás al principio (solo una fila)
+                for (int i = 0; i < squareSize; i++)
                 {
-                    // TODO: Si vuelve a pasar mirar aqui
-                    newActiveBlocksOrder[i, j] = activeBlocksMatrix[i, j + displacementY];
+                    // Los recolocamos en la matriz
+                    newActiveBlocksOrder[i, sideToPut] = activeBlocksMatrix[i, sideToGet];
+
+                    // Y en el terreno
+                    Vector3 blockNewPosition = newActiveBlocksOrder[i, sideToPut].transform.position;
+                    blockNewPosition.z += blockSize * squareSize * displaceMentYSign;
+                    newActiveBlocksOrder[i, sideToPut].transform.position = blockNewPosition;
+
+                    // Reseteamos los elementos destruidos
+                    DestructibleTerrain[] destructibleElements = newActiveBlocksOrder[i, sideToPut].GetComponentsInChildren<DestructibleTerrain>();
+                    for (int j = 0; j < destructibleElements.Length; j++)
+                        destructibleElements[j].Restore();
                 }
-            }
+                // Y el resto
+                // El ancho (todo menos la fila)
+                for (int i = 0; i < squareSize; i++)
+                {
+                    // Y el largo (dependiendo de por donde lo hemos cogido)
+                    for (int j = start; j < end; j++)
+                    {
+                        // TODO: Si vuelve a pasar mirar aqui
+                        newActiveBlocksOrder[i, j] = activeBlocksMatrix[i, j + displaceMentYSign];
+                    }
+                }
+                // Lo reasignamos en cada pasada
+                activeBlocksMatrix = newActiveBlocksOrder;
+            //}
         }
 
-        // Para el offset en X
+        // Para el offset en X ------------------------------------------------------------------------------------------------------------
         if (playerOffsetInUnits.x != 0)
         {
+            //
             int displacementX = (int)playerOffsetInUnits.x;
+            int displacementXSign = (int)Mathf.Sign(displacementX);
+            int absoluteDisplaceMentX = Mathf.Abs(displacementX);
+            //
             sideToGet = 0;
             sideToPut = 0;
             start = 0;
             end = squareSize;
-            switch (displacementX)
+            switch (displacementXSign)
             {
                 case -1:
                     //     x = -1, n-1 -> 0
                     sideToGet = squareSize - 1;
                     sideToPut = 0;
-                    start++;
+                    start = 1;
                     break;
                 case 1:
                     //     x = 1, 0 -> n-1
 
                     sideToGet = 0;
                     sideToPut = squareSize - 1;
-                    end--;
+                    end = squareSize - 1;
                     break;
             }
-            // Colocamos el que hemos cabiado
-            for (int i = 0; i < squareSize; i++)
-            {
-                //
-                newActiveBlocksOrder[sideToPut, i] = activeBlocksMatrix[sideToGet, i];
-                //
-                Vector3 blockNewPosition = newActiveBlocksOrder[sideToPut, i].transform.position;
-                blockNewPosition.x += 200 * squareSize * displacementX;
-                newActiveBlocksOrder[sideToPut, i].transform.position = blockNewPosition;
-                // TODO: Añadir chequeo de terreno destruido para que lo resetee
-                DestructibleTerrain[] destructibleElements = newActiveBlocksOrder[sideToPut, i].GetComponentsInChildren<DestructibleTerrain>();
-                for (int j = 0; j < destructibleElements.Length; j++)
-                    destructibleElements[j].Restore();
-            }
-            // Y el resto
-            // TODO: Decidimos cual es x y cual y para cambiarlo abajo
-            for (int i = start; i < end; i++)
-            {
-                for (int j = 0; j < squareSize; j++)
+            //
+            //for (int h = 0; h < Mathf.Abs(displacementX); h++)
+            //{
+                
+                // Colocamos el que hemos cabiado
+                for (int i = 0; i < squareSize; i++)
                 {
-                    newActiveBlocksOrder[i, j] = activeBlocksMatrix[i + displacementX, j];
+                    //
+                    newActiveBlocksOrder[sideToPut, i] = activeBlocksMatrix[sideToGet, i];
+                    //
+                    Vector3 blockNewPosition = newActiveBlocksOrder[sideToPut, i].transform.position;
+                    blockNewPosition.x += 200 * squareSize * displacementXSign;
+                    newActiveBlocksOrder[sideToPut, i].transform.position = blockNewPosition;
+                    // TODO: Añadir chequeo de terreno destruido para que lo resetee
+                    DestructibleTerrain[] destructibleElements = newActiveBlocksOrder[sideToPut, i].GetComponentsInChildren<DestructibleTerrain>();
+                    for (int j = 0; j < destructibleElements.Length; j++)
+                        destructibleElements[j].Restore();
                 }
-            }
+                // Y el resto
+                // TODO: Decidimos cual es x y cual y para cambiarlo abajo
+                for (int i = start; i < end; i++)
+                {
+                    for (int j = 0; j < squareSize; j++)
+                    {
+                        // TODO: Aquí da el fallo cuando intentamos mover varios
+                        newActiveBlocksOrder[i, j] = activeBlocksMatrix[i + displacementXSign, j];
+                    }
+                }
+                //
+                activeBlocksMatrix = newActiveBlocksOrder;
+            //}
         }
 
         //
-        activeBlocksMatrix = newActiveBlocksOrder;
+        //activeBlocksMatrix = newActiveBlocksOrder;
         // Y marcmos el nuevo bloque central
         //centralBlock = activeBlocksMatrix 
         //

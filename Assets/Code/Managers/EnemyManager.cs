@@ -16,7 +16,7 @@ public class EnemyManager : MonoBehaviour
     public int spawnLimit = -1;
 
     private float[] timeFromLastSpawn;
-    private int[] activeEnemies;
+    private int[] activeEnemiesAmount;
     private Transform playerTransform;
     private EnemySpawnPoint[] enemySpawnPoints;
     private CarolBaseHelp carolHelp;
@@ -25,7 +25,12 @@ public class EnemyManager : MonoBehaviour
     //private List<AudioClip> activeFiringClips;
     //private List<float> afcTimeActive;
 
-    public int[] ActiveEnemies { get { return activeEnemies; } }
+    // Trabajaremos estos dos array de listas para el POOL
+    private List<GameObject>[] activeEnemies;
+    private List<GameObject>[] reserveEnemies;
+
+
+    public int[] ActiveEnemies { get { return activeEnemiesAmount; } }
 
     // Start is called before the first frame update
     void Start()
@@ -61,7 +66,7 @@ public class EnemyManager : MonoBehaviour
                 //int activeEnemies = FindObjectsOfType<EnemyConsistency>().Length;
                 // TODO: Sacar solo el grupo determinado por el index
                 // Así estamos sacando a todos
-                if (activeEnemies[i] < maxEnemiesInAction[i])
+                if (activeEnemiesAmount[i] < maxEnemiesInAction[i])
                     SpawnEnemies(i);
                 
             }
@@ -123,10 +128,10 @@ public class EnemyManager : MonoBehaviour
                         //GameObject nextEnemy = Instantiate(enemyPrefabsToUse[i], pointForGroupSpawn, Quaternion.identity);
                 }
                 //
-                if (activeEnemies[i] == 0)
+                if (activeEnemiesAmount[i] == 0)
                     carolHelp.TriggerGeneralAdvice("EnemiesIncoming");
                 //
-                activeEnemies[i] += groupsToSpawnSizes[i];
+                activeEnemiesAmount[i] += groupsToSpawnSizes[i];
                 //
                 groupsToSpawnSizes[i] += enemySpawnIncrement[i];
             }
@@ -149,7 +154,7 @@ public class EnemyManager : MonoBehaviour
         maxEnemiesInAction = levelInfo.maxActiveEnemies;
         this.timeBetweenSpawns = levelInfo.timeBetweenSpawns;
         //
-        activeEnemies = new int[enemyPrefabsToUse.Length];
+        activeEnemiesAmount = new int[enemyPrefabsToUse.Length];
         timeFromLastSpawn = new float[enemyPrefabsToUse.Length];
         // Si se raya aqui lo mandamos al Initiate Manager
         enemySpawnPoints = FindObjectsOfType<EnemySpawnPoint>();
@@ -172,9 +177,9 @@ public class EnemyManager : MonoBehaviour
             //if (prefabName[0].Equals(enemyPrefabsToUse[i].name))
             //{
                 //
-                activeEnemies[enemyIndex]--;
+                activeEnemiesAmount[enemyIndex]--;
                 //
-                Debug.Log("Subtracting " + enemyPrefabsToUse[enemyIndex].name);
+                //Debug.Log("Subtracting " + enemyPrefabsToUse[enemyIndex].name);
                 //
                 //return;
         //    }
