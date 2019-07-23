@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 3326227640253247155, guid: f90644bdac5d8924fbad91a92cde6c44,
         type: 3}
       propertyPath: m_Name
-      value: Obelisk_Terrain
+      value: DeprecatedObelisk_Terrain
       objectReference: {fileID: 0}
     - target: {fileID: 3326227640253247155, guid: f90644bdac5d8924fbad91a92cde6c44,
         type: 3}
@@ -107,11 +107,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 70
       objectReference: {fileID: 0}
-    - target: {fileID: 4434999945291414791, guid: f90644bdac5d8924fbad91a92cde6c44,
-        type: 3}
-      propertyPath: m_Layer
-      value: 11
-      objectReference: {fileID: 0}
     - target: {fileID: 7875811438615388097, guid: f90644bdac5d8924fbad91a92cde6c44,
         type: 3}
       propertyPath: m_TagString
@@ -120,6 +115,16 @@ PrefabInstance:
     - target: {fileID: 7875811438615388097, guid: f90644bdac5d8924fbad91a92cde6c44,
         type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4434999945291414791, guid: f90644bdac5d8924fbad91a92cde6c44,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 3230737025998419612, guid: f90644bdac5d8924fbad91a92cde6c44,
+        type: 3}
+      propertyPath: hardEnough
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

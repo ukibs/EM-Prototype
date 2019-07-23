@@ -133,6 +133,11 @@ public class GigaWormBehaviour : Targeteable
 
     public float CurrentSpeed { get { return currentSpeed; } }
 
+    // Propiedades para la parte interna
+    public bool PlayerOut { set { playerOut = value; } }
+    public Transform ExitPoint { get { return exitPoint; } }
+    public bool Active { set { active = value; } }
+
     #endregion
 
     // TODO: En colisiones entre cuerpos
@@ -238,10 +243,8 @@ public class GigaWormBehaviour : Targeteable
             //
             if (currentState == WormStatus.Recovering)
             {
-                ShitPlayer();
-                // Aqui indicaremos que el plyer ha sido cagado
-                playerOut = true;
-                active = true;
+                
+                
             }
         }
         
@@ -400,8 +403,8 @@ public class GigaWormBehaviour : Targeteable
     {
         //
         float playerDistance = playerDirection.magnitude;
-        //
-        if(playerDistance > 130 && playerDistance < 200)
+        // NOTA: Hardoceado. Sería bueno ponerlo parametrizable
+        if(playerDistance > 130 && playerDistance < 250)
         {
             //
             switch (mawStatus)
@@ -419,7 +422,7 @@ public class GigaWormBehaviour : Targeteable
             }
         }
         //
-        else if (playerDistance <= 130 || playerDistance >= 200)
+        else if (playerDistance <= 130 || playerDistance >= 250)
         {
             //
             switch (mawStatus)
@@ -454,12 +457,24 @@ public class GigaWormBehaviour : Targeteable
         {
             Vector3 mawRotation = maws[i].localEulerAngles;
             // Ñapaaaa
+            // Mandibula vieja
+            //switch (i)
+            //{
+            //    case 0: mawRotation.x = currentMawOpeningStatus; break;
+            //    case 1: mawRotation.y = currentMawOpeningStatus; break;
+            //    case 2: mawRotation.x = -currentMawOpeningStatus; break;
+            //    case 3: mawRotation.y = -currentMawOpeningStatus; break;
+            //}
+            // Mandibula nueva
             switch (i)
             {
                 case 0: mawRotation.x = currentMawOpeningStatus; break;
-                case 1: mawRotation.y = currentMawOpeningStatus; break;
-                case 2: mawRotation.x = -currentMawOpeningStatus; break;
-                case 3: mawRotation.y = -currentMawOpeningStatus; break;
+                case 1:
+                    mawRotation.y = currentMawOpeningStatus;
+                    break;
+                case 2:
+                    mawRotation.y = -currentMawOpeningStatus;
+                    break;
             }
 
             maws[i].localEulerAngles = mawRotation;
@@ -518,6 +533,8 @@ public class GigaWormBehaviour : Targeteable
     public void ImpactWithTerrain(bool hardEnough)
     {
         //
+        Debug.Log("Maws impacting with terrain: " + mawStatus + ", " + hardEnough);
+        //
         if(mawStatus != MawStatus.Closed && hardEnough)
         {
             currentState = WormStatus.Stunned;
@@ -537,18 +554,7 @@ public class GigaWormBehaviour : Targeteable
         player.transform.position = interiorEntrance.position;
     }
 
-    // Eject the player to the exterior
-    void ShitPlayer()
-    {
-        //
-        //if(exitPoint.position.y < 0)
-            player.transform.position = new Vector3(exitPoint.position.x, 0, exitPoint.position.z);
-        //
-        //else
-        //player.transform.position = exitPoint.position;
-        // TODO: Desfijar núcleo
-        wormCore.active = false;
-    }
+    
 
     // Daño al player mientras esté dentro del bicho
     void InsidesDamageToPlayer(float dt)
