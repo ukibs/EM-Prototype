@@ -6,12 +6,15 @@ public class EnemyCollider : MonoBehaviour
 {
     [Tooltip("Armor thickness on this side")]
     public float armor = 10;
+    //
+    public MeshRenderer[] associatedMeshRenderers;
 
     // TODO: Manejar dureza de material
     // Y otras propiedades en el futuro
 
     private EnemyConsistency body;
     //private Rigidbody bodyRb;
+    private Color[] originalAMRColors;
 
     public float Armor {
         get { return armor; }
@@ -30,38 +33,58 @@ public class EnemyCollider : MonoBehaviour
         if (body == null)
             body = GetComponent<EnemyConsistency>();
 
-        
+
         //
         //bodyRb = body.GetComponent<Rigidbody>();
+
+        //
+        GetOriginalColors();
+        // Testeo
+        //SetPenetrationColors();
     }
     
-    //private void OnCollisionEnter(Collision collision)
-    //{
-        //Que no esté muerto
-        //if (body == null)
-        //    return;
+    // 
+    void GetOriginalColors()
+    {
+        //
+        originalAMRColors = new Color[associatedMeshRenderers.Length];
+        //
+        for (int i = 0; i < associatedMeshRenderers.Length; i++)
+        {
+            originalAMRColors[i] = associatedMeshRenderers[i].material.color;
+        }
+    }
 
-        // Trataremos de forma diferente los impactos de las balas y el resto
-        //Bullet bullet = collision.collider.GetComponent<Bullet>();
-        
+    //
+    public void SetPenetrationColors()
+    {
         //
-        //string bulletConfimation = (bullet != null) ? "Yes" : "No";
-        //Debug.Log(collision.collider.gameObject.name + ", has bullet component: " + bulletConfimation);
-        
+        float playerEstimatedPenetration = PlayerReference.GetCurrentWeaponPenetrationEstimation();
+        float penetrationEstimatedResult = playerEstimatedPenetration - armor;
         //
-        //Rigidbody otherRb = collision.collider.GetComponent<Rigidbody>();
-        //float impactForce = GeneralFunctions.GetCollisionForce(bodyRb, otherRb);
-        
+        Color colorToUse;
+        if (penetrationEstimatedResult > 10)
+            colorToUse = Color.green;
+        else if (penetrationEstimatedResult > 0)
+            colorToUse = Color.yellow;
+        else
+            colorToUse = Color.red;
         //
-        //if (bullet != null)
-        //{
-        //    Debug.Log("Bullet collision detected by EnemyCollider");
-        //    body.ReceiveInternalImpact(impactForce, collision.contacts[0].point);
-        //}
+        for (int i = 0; i < associatedMeshRenderers.Length; i++)
+        {
+            associatedMeshRenderers[i].material.color = colorToUse;
+        }
+    }
 
-        //else if(collision.contacts[0].point != null)
-        //    impactInfoManager.SendImpactInfo(collision.contacts[0].point, impactForce, "No damage");
-    //}
+    //
+    public void SetOriginalColors()
+    {
+        //
+        for (int i = 0; i < associatedMeshRenderers.Length; i++)
+        {
+            associatedMeshRenderers[i].material.color = originalAMRColors[i];
+        }
+    }
 
     /// <summary>
     /// 

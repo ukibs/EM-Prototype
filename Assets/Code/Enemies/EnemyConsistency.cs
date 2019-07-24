@@ -37,6 +37,9 @@ public class EnemyConsistency : Targeteable {
     // Vamos a usar esta variable para controlar pérdida de equilibrio en comportamientos entre otras cosas
     protected bool receivedStrongImpact = false;
 
+    // TODO: Gestionarlo también en weakpoint. Cuando esté listo para manejar temas de penetración de blindaje
+    protected EnemyCollider[] bodyColliders;
+
     #endregion
 
     #region Properties
@@ -58,6 +61,8 @@ public class EnemyConsistency : Targeteable {
 
     public bool ReceivedStrongImpact { get { return receivedStrongImpact; } }
 
+    public EnemyCollider[] BodyColliders { get { return bodyColliders; } }
+
     #endregion
 
 
@@ -75,6 +80,8 @@ public class EnemyConsistency : Targeteable {
         rb = GetComponent<Rigidbody>();
         //
         audioSource = GetComponent<AudioSource>();
+        //
+        bodyColliders = GetComponentsInChildren<EnemyCollider>();
 	}
 
     //
@@ -155,6 +162,26 @@ public class EnemyConsistency : Targeteable {
             ReceiveProyectileImpact(penetrationResult, collision.GetContact(0).point, bulletRb);
         }
         
+    }
+
+    //
+    public void SetCollidersPenetrationColors()
+    {
+        //
+        for(int i = 0; i < bodyColliders.Length; i++)
+        {
+            bodyColliders[i].SetPenetrationColors();
+        }
+    }
+
+    //
+    public void SetOriginalPenetrationColors()
+    {
+        //
+        for (int i = 0; i < bodyColliders.Length; i++)
+        {
+            bodyColliders[i].SetOriginalColors();
+        }
     }
 
     //

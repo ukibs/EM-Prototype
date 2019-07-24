@@ -602,6 +602,7 @@ public class SpringCamera : MonoBehaviour {
 }
 
 // De momento lo hacemos aqui
+// TODO: Moverlo a un script propio
 // Ya que solo es uno a la vez vamos a hacerlo estático
 public static class EnemyAnalyzer
 {
@@ -622,15 +623,23 @@ public static class EnemyAnalyzer
             enemyRb = enemyReference.GetComponentInParent<Rigidbody>();
         //
         enemyConsistency = enemyReference.GetComponent<EnemyConsistency>();
+        enemyConsistency.SetCollidersPenetrationColors();
         //
         targeteable = enemyReference.GetComponent<Targeteable>();
         isActive = true;
+    }
+
+    public static void RecalculatePenetration()
+    {
+        if(enemyConsistency != null)
+            enemyConsistency.SetCollidersPenetrationColors();
     }
 
     public static void Release()
     {
         enemyTransform = null;
         enemyRb = null;
+        enemyConsistency.SetOriginalPenetrationColors();
         enemyConsistency = null;
         isActive = false;
     }

@@ -587,6 +587,7 @@ public class RobotControl : MonoBehaviour {
                     PlayerReference.currentProyectileRB = cannonBallPrefab.GetComponent<Rigidbody>();
                     break;
             }
+            EnemyAnalyzer.RecalculatePenetration();
         }
         // Defensive actions
         if (inputManager.SwitchDefenseButton && gameManager.unlockedDefenseActions > 0)
@@ -949,6 +950,35 @@ public static class PlayerReference
         playerControl = playerGO.GetComponent<RobotControl>();
         isAlive = true;
     }
+
+    // TODO: Que pueda acceder directamente al gamemanager
+    public static float GetCurrentWeaponPenetrationEstimation(/*GameManager gameManager*/)
+    {
+        
+        // Sacamos la info de penetración del arma equipada
+        float penetrationCapacity = -1;
+        switch (playerControl.ActiveAttackMode)
+        {
+            case AttackMode.RapidFire:
+                Rigidbody rFProyectileBody = playerControl.bulletPrefab.GetComponent<Rigidbody>();
+                Bullet rfProyectileData = playerControl.bulletPrefab.GetComponent<Bullet>();
+                penetrationCapacity = GeneralFunctions.Navy1940PenetrationCalc(
+                    rFProyectileBody.mass, rfProyectileData.diameter, GameManager.instance.rapidFireMuzzleSpeed);
+                break;
+            case AttackMode.Canon:
+                Rigidbody cProyectileBody = playerControl.cannonBallPrefab.GetComponent<Rigidbody>();
+                Bullet cProyectileData = playerControl.cannonBallPrefab.GetComponent<Bullet>();
+                penetrationCapacity = GeneralFunctions.Navy1940PenetrationCalc(
+                    cProyectileBody.mass, cProyectileData.diameter, GameManager.instance.rapidFireMuzzleSpeed);
+                break;
+            case AttackMode.Pulse:
+                // TODO: Decidir algo con esto
+                // Ya que no "penetra"
+                break;
+        }
+        //
+        return penetrationCapacity;
+    } 
 }
 
 //
