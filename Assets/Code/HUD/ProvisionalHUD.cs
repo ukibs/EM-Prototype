@@ -101,7 +101,7 @@ public class ProvisionalHUD : MonoBehaviour {
         PlayerHealthAndShields();
 
         // Lo quitamos de momento
-        //MarkEnemiesOnScreen();
+        MarkEnemiesOnScreen();
 
         //
         // DrawAbilityIcons();
@@ -504,6 +504,9 @@ public class ProvisionalHUD : MonoBehaviour {
         {
             //
             if (!enemies[i].active)
+                continue;
+            //
+            if (!enemies[i].markWhenNotTargeted && enemies[i] != EnemyAnalyzer.targeteable)
                 continue;
             // Distancia al centro de pantalla
             Vector3 posInScreen =  Camera.main.WorldToViewportPoint(enemies[i].transform.position);

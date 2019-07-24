@@ -623,7 +623,9 @@ public static class EnemyAnalyzer
             enemyRb = enemyReference.GetComponentInParent<Rigidbody>();
         //
         enemyConsistency = enemyReference.GetComponent<EnemyConsistency>();
-        enemyConsistency.SetCollidersPenetrationColors();
+        // Chequeo para los componentes que no lo tienen, como los WeakPoints
+        if(enemyConsistency != null)
+            enemyConsistency.SetCollidersPenetrationColors();
         //
         targeteable = enemyReference.GetComponent<Targeteable>();
         isActive = true;
@@ -639,7 +641,11 @@ public static class EnemyAnalyzer
     {
         enemyTransform = null;
         enemyRb = null;
-        enemyConsistency.SetOriginalPenetrationColors();
+
+        // Chequeo para los componentes que no lo tienen, como los WeakPoints
+        if (enemyConsistency != null)
+            enemyConsistency.SetOriginalPenetrationColors();
+
         enemyConsistency = null;
         isActive = false;
     }

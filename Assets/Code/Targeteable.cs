@@ -10,5 +10,6 @@ public class Targeteable : MonoBehaviour
 {
     // Para poder hacer que se los pueda targetear según queramos
     public bool active = true;
+    public bool markWhenNotTargeted = false;
     public Vector3 centralPointOffset = Vector3.zero;
 }

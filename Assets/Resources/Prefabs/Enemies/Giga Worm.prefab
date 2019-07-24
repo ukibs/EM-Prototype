@@ -2074,6 +2074,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 0
+  markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
   reactionOnDamage: 0
@@ -2502,6 +2503,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 0
+  markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
   reactionOnDamage: 0
@@ -2658,6 +2660,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 1
+  markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   wanderingMovementSpeed: 20
   chasingMovementSpeed: 40
@@ -3036,6 +3039,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
   reactionOnDamage: 0
@@ -3146,6 +3150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
   reactionOnDamage: 0
@@ -3256,6 +3261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
   reactionOnDamage: 0
@@ -5834,6 +5840,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 1
+  markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   wanderingMovementSpeed: 20
   chasingMovementSpeed: 40
@@ -6106,6 +6113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 0
+  markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
   reactionOnDamage: 0
@@ -8562,11 +8570,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GigaWurm_Stomach
       objectReference: {fileID: 0}
-    - target: {fileID: 7580580248267086526, guid: 335014e28dbf6f744a60426f9d76f2e6,
-        type: 3}
-      propertyPath: gigaWormBehaviour
-      value: 
-      objectReference: {fileID: 1275841468419267348}
     - target: {fileID: 182231823908150193, guid: 335014e28dbf6f744a60426f9d76f2e6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8622,6 +8625,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7580580248267086526, guid: 335014e28dbf6f744a60426f9d76f2e6,
+        type: 3}
+      propertyPath: gigaWormBehaviour
+      value: 
+      objectReference: {fileID: 1275841468419267348}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 335014e28dbf6f744a60426f9d76f2e6, type: 3}
 --- !u!4 &7364367495276511956 stripped

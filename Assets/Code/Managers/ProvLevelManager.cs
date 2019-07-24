@@ -201,7 +201,8 @@ public class ProvLevelManager : MonoBehaviour
             GameControl.paused = false;
             Time.timeScale = 1;
             //
-            EnemyAnalyzer.Release();
+            if(EnemyAnalyzer.isActive)
+                EnemyAnalyzer.Release();
             //
             SceneManager.LoadScene("Menu");
         }
