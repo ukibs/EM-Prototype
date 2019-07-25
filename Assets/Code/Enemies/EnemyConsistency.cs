@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,6 +20,7 @@ public class EnemyConsistency : Targeteable {
 
     // De momento aqui
     public AudioClip deathClip;
+    public GameObject deadBodyPrefab;
 
     #endregion
 
@@ -102,7 +104,11 @@ public class EnemyConsistency : Targeteable {
             Destroy(gameObject);
             //
             if (enemyManager != null)
-                enemyManager.SubtractOne(managerIndex);
+            {
+                //enemyManager.SubtractOne(managerIndex);
+                // En este caso no sacamos cuerpo muerto
+                enemyManager.SendToReserve(managerIndex, gameObject);
+            }
         }
         // Decidimos el daño físico por cambio en la velocidad
         if (CheckDrasticChangeInAcceleration(2.5f))
@@ -162,6 +168,27 @@ public class EnemyConsistency : Targeteable {
             ReceiveProyectileImpact(penetrationResult, collision.GetContact(0).point, bulletRb);
         }
         
+    }
+
+    // Aquí daremos el cambiazo con el cuerpo muerto y le pondermos los decorados
+    void PutDeadBody()
+    {
+        // Instanciamos cuerpo muerto
+        GameObject deadBody = Instantiate(deadBodyPrefab, transform.position, transform.rotation);
+        // Le asignamos nuestra current rb.velocity
+        // Varios, ya que siendo ragdolls tendrán varios
+        Rigidbody[] rbs = deadBody.GetComponentsInChildren<Rigidbody>();
+        for(int i = 0; i < rbs.Length; i++)
+        {
+            rbs[i].velocity = rb.velocity;
+        }
+        // Y le pegamos nuestras pegatinas de sangre
+    }
+
+    //
+    public void ResetHealth()
+    {
+        currentHealth = maxHealth;
     }
 
     //
@@ -313,7 +340,12 @@ public class EnemyConsistency : Targeteable {
             if(levelManager != null)
                 levelManager.AnnotateKill();
             if (enemyManager != null)
-                enemyManager.SubtractOne(managerIndex);
+            {
+                //enemyManager.SubtractOne(managerIndex);
+                if(deadBodyPrefab != null)
+                    PutDeadBody();
+                enemyManager.SendToReserve(managerIndex, gameObject);
+            }
             // Esto para los voladores mas que nada
             rb.constraints = RigidbodyConstraints.None;
 
