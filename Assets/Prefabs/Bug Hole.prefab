@@ -242,6 +242,7 @@ GameObject:
   - component: {fileID: 7839847909497251069}
   - component: {fileID: 1945339333032677097}
   - component: {fileID: 46881281923275106}
+  - component: {fileID: 3803010118123945310}
   m_Layer: 0
   m_Name: Bug Hole
   m_TagString: Untagged
@@ -312,6 +313,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &3803010118123945310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1994357791592751295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad236df70883ee0428149540fef0bb06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6669032178628050265
 GameObject:
   m_ObjectHideFlags: 0

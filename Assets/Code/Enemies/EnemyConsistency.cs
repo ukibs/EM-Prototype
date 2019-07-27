@@ -183,6 +183,11 @@ public class EnemyConsistency : Targeteable {
             rbs[i].velocity = rb.velocity;
         }
         // Y le pegamos nuestras pegatinas de sangre
+        BulletHole[] bulletHoles = GetComponentsInChildren<BulletHole>();
+        for(int i = 0; i < bulletHoles.Length; i++)
+        {
+            bulletHoles[i].transform.parent = deadBody.transform.GetChild(0);
+        }
     }
 
     //
@@ -347,7 +352,7 @@ public class EnemyConsistency : Targeteable {
                 enemyManager.SendToReserve(managerIndex, gameObject);
             }
             // Esto para los voladores mas que nada
-            rb.constraints = RigidbodyConstraints.None;
+            //rb.constraints = RigidbodyConstraints.None;
 
             // 
             if (deathBloodPrefab != null)
@@ -359,7 +364,7 @@ public class EnemyConsistency : Targeteable {
             // TODO: Mirar como hacer para quitar el rigidody a los x segundos
             //Destroy(rb, 10);
             // Destruimos el script pero dejamos el cuerpo
-            Destroy(this);
+            //Destroy(this);
         }
         else
         {

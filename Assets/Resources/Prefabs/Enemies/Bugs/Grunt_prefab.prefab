@@ -323,6 +323,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 1
+  markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealth: 100
   defense: 10
@@ -331,6 +332,8 @@ MonoBehaviour:
   deathParticlesPrefab: {fileID: 1837716235657633640, guid: c30381bd65cfd9e4c8df31ef60481c4c,
     type: 3}
   deathClip: {fileID: 8300000, guid: 5ff182ee8e5161f408029eaaa5c90f01, type: 3}
+  deadBodyPrefab: {fileID: 3644203728273735648, guid: 74f2a8b4d22f3684bad2fcc91face865,
+    type: 3}
 --- !u!114 &4694978884287231173
 MonoBehaviour:
   m_ObjectHideFlags: 0

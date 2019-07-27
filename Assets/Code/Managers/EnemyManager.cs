@@ -136,7 +136,7 @@ public class EnemyManager : MonoBehaviour
                 // TODO: Activar aqui enemigo
                 GameObject nextEnemy = reserveEnemies[i][0];
                 reserveEnemies[i].Remove(nextEnemy);
-                // TODO: Resetear los stats (vida) del enemigo
+                // 
                 nextEnemy.transform.position = positionToSpawn;
                 nextEnemy.SetActive(true);
                 EnemyConsistency enemyConsistency = nextEnemy.GetComponent<EnemyConsistency>();
