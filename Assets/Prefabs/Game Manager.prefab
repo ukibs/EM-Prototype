@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2b379994bfd86e49a50e236fafa5b9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameMode: 1
+  gameMode: 0
   workingWith: 1
   unlockedJumpActions: 1
   unlockedSprintActions: 1
@@ -65,4 +65,4 @@ MonoBehaviour:
   maxShield: 10000
   maxHealth: 1000
   shieldAbsortion: 100
-  armor: 2000
+  armor: 200

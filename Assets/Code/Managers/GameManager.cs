@@ -66,7 +66,6 @@ public class GameManager : MonoBehaviour
     public float pulseForce = 10;
     // C´ñon
     public float canonBaseMuzzleSpeed = 1000;
-    //public float canonBaseProyectileMass = 0.00001f;
     public float canonMinCharge = 0.5f;
     // Fuego rapido
     public float rapidFireRate = 1;

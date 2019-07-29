@@ -81,7 +81,9 @@ public class RobotControl : MonoBehaviour {
 
     //
     public AudioClip loadingClip;
-    public AudioClip releasingClip;
+    public AudioClip loadingAtMaxClip;
+    public AudioClip releasingPulseClip;
+    public AudioClip releasingCanonClip;
     public AudioClip rapidFireClip;
     public AudioClip overHeatClip;
 
@@ -384,7 +386,7 @@ public class RobotControl : MonoBehaviour {
         }
         else
         {
-            //
+            // Para que ajuste la rotación poco a poco
             if((directionX + directionZ).magnitude > Mathf.Epsilon){
                 currentRotationTime = 0;
                 lastAxisXZ = directionX + directionZ;
@@ -403,17 +405,17 @@ public class RobotControl : MonoBehaviour {
         rb.AddForce( forceDirection * gameManager.movementForce * sprintMultiplier, ForceMode.Impulse);
 
         // And dampen de movement
-        // TODO: Controlar que no se aplique en ciertos estados
         if (applyingDamping)
         {
             Vector3 currentVelocity = rb.velocity;
-            currentVelocity.x *= 1 - damping;
-            currentVelocity.z *= 1 - damping;
+            currentVelocity.x *= 1 - (damping * dt);
+            currentVelocity.z *= 1 - (damping * dt);
             rb.velocity = currentVelocity;
         }
-        
+
     }
 
+    //
     bool AdherenceCheck(out RaycastHit hitInfo)
     {
         RaycastHit hit;
@@ -479,7 +481,7 @@ public class RobotControl : MonoBehaviour {
                     // Le damos un mínimo de base
                     rb.AddForce(Vector3.up * (gameManager.jumpForce * chargedAmount + floorSupport), ForceMode.Impulse);
                     //
-                    GeneralFunctions.PlaySoundEffect(audioSource, releasingClip);
+                    GeneralFunctions.PlaySoundEffect(audioSource, releasingPulseClip);
                     break;
                 case JumpMode.Smash:
                     // Le damos un mínimo de base
@@ -497,7 +499,7 @@ public class RobotControl : MonoBehaviour {
                     Vector3 compensatedDirection = (desiredDirection - currentVelocity).normalized;
                     rb.AddForce(compensatedDirection * (gameManager.jumpForce * chargedAmount + gameManager.jumpForce) * 10, ForceMode.Impulse);
                     //
-                    GeneralFunctions.PlaySoundEffect(audioSource, releasingClip);
+                    GeneralFunctions.PlaySoundEffect(audioSource, releasingPulseClip);
                     break;
             }
             
@@ -656,7 +658,7 @@ public class RobotControl : MonoBehaviour {
         else if (inputManager.FireButton && actionCharging == ActionCharguing.Attack)
         {
             //
-            chargedAmount += Time.deltaTime;
+            chargedAmount += dt;
             if (attackMode == AttackMode.RapidFire)
             {
                 // TODO: Hacerlo un poco menos ñapa
@@ -691,9 +693,12 @@ public class RobotControl : MonoBehaviour {
             else
             {
                 //
-                chargedAmount += Time.deltaTime;
+                //chargedAmount += Time.deltaTime;
                 //
                 chargedAmount = Mathf.Min(chargedAmount, 1);
+                //
+                if (chargedAmount == 1 && audioSource.clip != loadingAtMaxClip)
+                    GeneralFunctions.PlaySoundEffect(audioSource, loadingAtMaxClip);
             }
         }
         else if(chargedAmount > 0 && actionCharging == ActionCharguing.Attack) // Release shot
@@ -709,7 +714,7 @@ public class RobotControl : MonoBehaviour {
                     //
                     PulseAttack();
                     //
-                    GeneralFunctions.PlaySoundEffect(audioSource, releasingClip);
+                    GeneralFunctions.PlaySoundEffect(audioSource, releasingPulseClip);
                     break;
                 case AttackMode.Canon:
                     //
@@ -718,7 +723,7 @@ public class RobotControl : MonoBehaviour {
                         //chargingCanonProyectile.SetActive(false);
                         CharguedProyectileAttack(cannonBallPrefab, gameManager.canonBaseMuzzleSpeed, dt);
                         //
-                        GeneralFunctions.PlaySoundEffect(audioSource, releasingClip);
+                        GeneralFunctions.PlaySoundEffect(audioSource, releasingCanonClip);
                     }                    
                     break;
                 case AttackMode.Piercing:
@@ -726,7 +731,7 @@ public class RobotControl : MonoBehaviour {
                     //chargingCanonProyectile.SetActive(true);
                     CharguedProyectileAttack(piercingProyectilePrefab, gameManager.piercingBaseMuzzleSpeed, dt);
                     //
-                    GeneralFunctions.PlaySoundEffect(audioSource, releasingClip);
+                    GeneralFunctions.PlaySoundEffect(audioSource, releasingCanonClip);
                     break;
                 case AttackMode.RapidFire:
                     //impactInfoManager.
@@ -783,7 +788,10 @@ public class RobotControl : MonoBehaviour {
             }
         }
         // And apply the reaction to the player
-        rb.AddForce(-transform.forward * gameManager.pulseForce);
+        Vector3 forceToApply = -transform.forward * pulseForceToApply;
+        //Debug.Log("Aplicando reacción a player: " + forceToApply);
+        //applyingDamping = false;
+        rb.AddForce(forceToApply, ForceMode.Impulse);
     }
 
     /// <summary>

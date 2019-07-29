@@ -52,16 +52,15 @@ MonoBehaviour:
     type: 3}
   enemyMarkerTextureGreen: {fileID: 2800000, guid: 89a4fc40becbf124fb1a2e4a974b743a,
     type: 3}
-  enemyInScreenTexture: {fileID: 2800000, guid: b01b57f3fd7e5c940bbcf4d8f12bd54d,
-    type: 3}
+  enemyInScreenTextures: []
   targetedEnemyEstimatedFuturePositionTexture: {fileID: 2800000, guid: 9d5d6ce2ecad855448c8d4392c05225f,
     type: 3}
   testingVelocityIcon: {fileID: 2800000, guid: e3d0ff31924015d4a923c058090e8be0, type: 3}
   diamondsTexture: {fileID: 2800000, guid: a720c63736c31ae4a8b6841a42d247d2, type: 3}
   diamondsBackgroundTexture: {fileID: 2800000, guid: 8a99facd543b3e94f8ed7027baf673a2,
     type: 3}
-  shieldDamageTexture: {fileID: 2800000, guid: 969d79137caee724c9050dcbd6c991a8, type: 3}
-  hullDamageTexture: {fileID: 2800000, guid: 021dce26599f7ac42a94f1f3f10b37fd, type: 3}
+  shieldDamageTexture: {fileID: 2800000, guid: 151b307fa36f6ba43b376142a681a2a9, type: 3}
+  hullDamageTexture: {fileID: 2800000, guid: 151b307fa36f6ba43b376142a681a2a9, type: 3}
   chargeTexture: {fileID: 2800000, guid: e3d0ff31924015d4a923c058090e8be0, type: 3}
   playerShieldTexture: {fileID: 2800000, guid: 363cd9e084b68e74588ef95eb00167df, type: 3}
   playerHealthTexture: {fileID: 2800000, guid: 67ee8361b4fc5924293ee6dcae9ada30, type: 3}
@@ -78,6 +77,7 @@ MonoBehaviour:
     type: 3}
   damageIndicatorLifeTime: 1
   radarTexture: {fileID: 2800000, guid: c48d2fd6d9dccc946a6c2f574dfbd7f8, type: 3}
+  radarRange: 500
   keyboardControls: {fileID: 2800000, guid: 47d09ea007cdd2d43b83fde139df457c, type: 3}
   gamepadControls: {fileID: 2800000, guid: e6935174e51be4446b4769c546f1d1c8, type: 3}
 --- !u!114 &72231465

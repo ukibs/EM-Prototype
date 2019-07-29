@@ -620,7 +620,9 @@ public class ProvisionalHUD : MonoBehaviour {
             float alpha = 1 - (damageIndicators[i].timeAlive / damageIndicatorLifeTime);
             GUI.color = new Color(1,1,1,alpha);
             //
-            GUI.DrawTexture(new Rect(Screen.width / 2 - 50, Screen.height * 3/4, 100, 100), textureToUse);
+            float iconHeight = Screen.height * 1 / 4;
+            float iconWidth = Screen.width * 1 / 4;
+            GUI.DrawTexture(new Rect(Screen.width / 2 - (iconWidth / 2), Screen.height * 3/4, iconWidth, iconHeight), textureToUse);
             //
             GUIUtility.RotateAroundPivot(-damageIndicators[i].angle, pivotPoint);
         }

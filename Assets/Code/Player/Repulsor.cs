@@ -73,13 +73,19 @@ public class Repulsor : MonoBehaviour {
                     GeneralFunctions.PlaySoundEffect(audioSource, jumpClip);
                     //
                     rb.AddForce(transform.up * gameManager.jumpForce, ForceMode.Impulse);
+                    // Extra para no pasarnos de corto ni de largo
+                    Vector3 fixedVelocidty = rb.velocity;
+                    fixedVelocidty.y = Mathf.Clamp(fixedVelocidty.y, gameManager.jumpForce, gameManager.jumpForce * 5);
+                    rb.velocity = fixedVelocidty;
+
                 }
             }
         }
         else
         {
-            dustEmitterStatic.SetActive(false);
-            dustEmitterMovement.SetActive(false);
+            // TODO: Bajar la emisión y ya
+            //dustEmitterStatic.SetActive(false);
+            //dustEmitterMovement.SetActive(false);
         }
         
 	}
@@ -168,13 +174,13 @@ public class Repulsor : MonoBehaviour {
 
     // Ahora no lo usamos
     // TODO: Borrar cuando estemos seguros
-    void SoftenVerticalImpulse()
-    {
-        Vector3 currentVelocity = rb.velocity;
-        currentVelocity.y *= 1 - repulsionDamp;
-        //if (Mathf.Abs(currentVelocity.y) < 0.2) currentVelocity.y = 0;
-        rb.velocity = currentVelocity;
-    }
+    //void SoftenVerticalImpulse()
+    //{
+    //    Vector3 currentVelocity = rb.velocity;
+    //    currentVelocity.y *= 1 - repulsionDamp;
+    //    //if (Mathf.Abs(currentVelocity.y) < 0.2) currentVelocity.y = 0;
+    //    rb.velocity = currentVelocity;
+    //}
 
     // TODO: Revisar para que partículas no desaparezcan de repente
     // En vez de activar/desactivar trabajar con las emisiones
@@ -183,8 +189,8 @@ public class Repulsor : MonoBehaviour {
         //
         if (rb.velocity.sqrMagnitude <= 5.0f)
         {
-            dustEmitterStatic.SetActive(true);
-            dustEmitterMovement.SetActive(false);
+            //dustEmitterStatic.SetActive(true);
+            //dustEmitterMovement.SetActive(false);
 
             dustEmitterStatic.transform.position = floorPoint + (Vector3.up * 0.1f);
 
@@ -195,8 +201,8 @@ public class Repulsor : MonoBehaviour {
         }
         else
         {
-            dustEmitterStatic.SetActive(false);
-            dustEmitterMovement.SetActive(true);
+            //dustEmitterStatic.SetActive(false);
+            //dustEmitterMovement.SetActive(true);
 
             dustEmitterMovement.transform.position = floorPoint + (Vector3.up * 0.1f);
 
