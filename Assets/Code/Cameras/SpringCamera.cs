@@ -80,6 +80,10 @@ public class SpringCamera : MonoBehaviour {
         positionWithoutCorrection = transform.position;
         //
         cameraReference = FindObjectOfType<CameraReference>();
+
+        // Ojo con ele enemy analyzer
+        // Al ser pasivo se puede quedar activado entre escenas
+        EnemyAnalyzer.Release();
     }
 
     //

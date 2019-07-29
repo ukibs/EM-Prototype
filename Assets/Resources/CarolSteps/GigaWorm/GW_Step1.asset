@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   carolStep:
     helpTrigger: 5
-    audioClip: {fileID: 8300000, guid: cce8d04a9241b1d4eb14cefe64995024, type: 3}
+    keyWord: 
+    audioClip: {fileID: 8300000, guid: 502b1882426fafb489c0073a1bff3fdf, type: 3}
     stepText: 
     amount: 1

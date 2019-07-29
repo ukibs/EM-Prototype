@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   carolStep:
     helpTrigger: 2
-    audioClip: {fileID: 8300000, guid: cb4196659747f1d499a1fdf72fc57062, type: 3}
+    keyWord: 
+    audioClip: {fileID: 8300000, guid: 9bbd9a7551456724798fd209563f4e7c, type: 3}
     stepText: Search for weakpoints
     amount: 1

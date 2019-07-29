@@ -170,10 +170,15 @@ public class EnemyManager : MonoBehaviour
     //
     public void SendToReserve(int index, GameObject downedEnemy)
     {
+        // Chequeo extra para solventar problemas con la jerarquía
+        EnemyConsistency enemyConsistency = downedEnemy.GetComponent<EnemyConsistency>();
+        if (enemyConsistency == null)
+            downedEnemy.transform.GetChild(0).localPosition = Vector3.zero;
         //
         activeEnemies[index].Remove(downedEnemy);
         reserveEnemies[index].Add(downedEnemy);
         downedEnemy.SetActive(false);
+        
     }
 
     #endregion
