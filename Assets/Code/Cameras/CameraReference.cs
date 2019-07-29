@@ -56,7 +56,7 @@ public class CameraReference : MonoBehaviour {
             //float amountToRotate = ((mouseMovement.x * 1/10) + (rightAxisMovement.x * 1)) * rotationSpeed * dt;
 
             float amountToRotateY = ((mouseMovement.x * 1) + (rightAxisMovement.x * 1)) * rotationSpeed * dt;
-            float amountToRotateX = ((mouseMovement.y * 1) + (rightAxisMovement.y * 1)) * rotationSpeed * dt;
+            float amountToRotateX = ((-mouseMovement.y * 1) + (rightAxisMovement.y * 1)) * rotationSpeed * dt;
 
             transform.Rotate(new Vector3(amountToRotateX, amountToRotateY, 0.0f));
             // Ajuste en el eje x

@@ -11,7 +11,7 @@ public class GigaWormBehaviour : Targeteable
 {
     #region Status Enums
 
-    private enum WormStatus
+    public enum WormStatus
     {
         Invalid = -1,
 
@@ -116,7 +116,7 @@ public class GigaWormBehaviour : Targeteable
     private int mawsCollidingPlayer = 0;
 
     //
-    private bool playerOut = true;
+    //private bool playerOut = true;
 
     //
     private float currentStunDuration = 0;
@@ -126,6 +126,7 @@ public class GigaWormBehaviour : Targeteable
 
     //
     private CrushingEsophagus[] crushingEsophaguses;
+    private GigaWormInsides gigaWormInsides;
 
     #endregion
 
@@ -134,9 +135,10 @@ public class GigaWormBehaviour : Targeteable
     public float CurrentSpeed { get { return currentSpeed; } }
 
     // Propiedades para la parte interna
-    public bool PlayerOut { set { playerOut = value; } }
+    //public bool PlayerOut { set { playerOut = value; } }
     public Transform ExitPoint { get { return exitPoint; } }
     public bool Active { set { active = value; } }
+    public WormStatus CurrentState { get { return currentState; } }
 
     #endregion
 
@@ -157,6 +159,7 @@ public class GigaWormBehaviour : Targeteable
         carolHelp = FindObjectOfType<CarolBaseHelp>();
         //
         crushingEsophaguses = GetComponentsInChildren<CrushingEsophagus>();
+        gigaWormInsides = FindObjectOfType<GigaWormInsides>();
     }
 
     // Update is called once per frame
@@ -174,11 +177,11 @@ public class GigaWormBehaviour : Targeteable
         // Lo reseteamos a cada step
         mawsCollidingPlayer = 0;
         //
-        if((currentState == WormStatus.Stunned && !playerOut) ||
-            (currentState == WormStatus.Recovering && !playerOut))
-        {
-            InsidesDamageToPlayer(dt);
-        }
+        //if((currentState == WormStatus.Stunned && !playerOut) ||
+        //    (currentState == WormStatus.Recovering && !playerOut))
+        //{
+        //    InsidesDamageToPlayer(dt);
+        //}
         //
         if(currentState == WormStatus.Stunned)
         {
@@ -231,7 +234,7 @@ public class GigaWormBehaviour : Targeteable
             {
                 // Mandamos al player al interior del gusano
                 MovePlayerToInterior();
-                playerOut = false;
+                gigaWormInsides.PlayerOut = false;
                 active = false;
                 //
                 if (!firstEntranceInMouth)
@@ -239,12 +242,6 @@ public class GigaWormBehaviour : Targeteable
                     firstEntranceInMouth = true;
                     carolHelp.TriggerIt(10, "Player entering mouth");
                 }
-            }
-            //
-            if (currentState == WormStatus.Recovering)
-            {
-                
-                
             }
         }
         
@@ -368,7 +365,7 @@ public class GigaWormBehaviour : Targeteable
                 //
                 head.Translate(Vector3.forward * currentSpeed * dt);
                 // 
-                if (currentSpeed == chasingMovementSpeed && playerOut)
+                if (currentSpeed == chasingMovementSpeed && gigaWormInsides.PlayerOut)
                 {
                     currentState = WormStatus.Chasing;
                     //
@@ -552,15 +549,7 @@ public class GigaWormBehaviour : Targeteable
     void MovePlayerToInterior()
     {
         player.transform.position = interiorEntrance.position;
+        player.transform.rotation = Quaternion.LookRotation(Vector3.back);
     }
-
     
-
-    // Daño al player mientras esté dentro del bicho
-    void InsidesDamageToPlayer(float dt)
-    {
-        // TODO: Hacer función en plauyer para
-        // "Daño de entorno"
-        PlayerReference.playerIntegrity.ReceiveEnvionmentalDamage(100 * dt);
-    }
 }

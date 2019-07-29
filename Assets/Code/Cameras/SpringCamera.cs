@@ -12,6 +12,8 @@ public class SpringCamera : MonoBehaviour {
 	public Vector3 targetOffset = new Vector3 (0.0f, 2.0f, 0.0f);
 	public float maxDistancePlayer = 2.0f;
 
+    // TODO: Meter parámetros para flexibilidad de cámara
+
     //public float maxUpperOffsetY = 5.0f;
     //public float maxLowerOffsetY = 3.0f;
 

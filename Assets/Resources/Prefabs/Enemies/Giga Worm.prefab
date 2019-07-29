@@ -8722,6 +8722,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6007202208857902316, guid: 335014e28dbf6f744a60426f9d76f2e6,
+        type: 3}
+      propertyPath: recoveringRepulsionForce
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 7580580248267086526, guid: 335014e28dbf6f744a60426f9d76f2e6,
         type: 3}
       propertyPath: gigaWormBehaviour
