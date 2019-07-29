@@ -91,6 +91,8 @@ public class WormBodyBehaviour : BugBodyBehaviour
             //TODO: Ñapa como una catedral
             // Coger bien la referencia arriba
             //FindObjectOfType<EnemyManager>().SubtractOne(GetComponent<EnemyConsistency>().ManagerIndex);
+            if(EnemyAnalyzer.isActive && EnemyAnalyzer.enemyTransform == transform)
+                EnemyAnalyzer.Release();
             FindObjectOfType<EnemyManager>().SendToReserve(GetComponent<EnemyConsistency>().ManagerIndex, gameObject);
         }
     }

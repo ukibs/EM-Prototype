@@ -106,6 +106,7 @@ public class RobotControl : MonoBehaviour {
     private InputManager inputManager;
     private Repulsor repulsor;
     private GameManager gameManager;
+    private ImpactInfoManager impactInfoManager;
     private bool inPlay = true;
 
     // De momento lo controlamos con un bool
@@ -175,8 +176,10 @@ public class RobotControl : MonoBehaviour {
         repulsor = GetComponent<Repulsor>();
         gameManager = FindObjectOfType<GameManager>();
         audioSource = GetComponent<AudioSource>();
+        impactInfoManager = FindObjectOfType<ImpactInfoManager>();
 
-        //
+        // TODO: Ya lo manejamos en otro lado
+        // Asegurarnos y borrar esto
 #if !UNITY_EDITOR
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -251,7 +254,7 @@ public class RobotControl : MonoBehaviour {
     /// </summary>
     void UpdateOverheat(float dt)
     {
-        //
+        // TODO: Lo tenemos repe por arriba para el impact info manager. Unificarlo
         bool isRapidFiring = (actionCharging == ActionCharguing.Attack && inputManager.FireButton);
         //
         if (chargedAmount == 0 || !isRapidFiring || totalOverheat)
@@ -724,6 +727,10 @@ public class RobotControl : MonoBehaviour {
                     CharguedProyectileAttack(piercingProyectilePrefab, gameManager.piercingBaseMuzzleSpeed, dt);
                     //
                     GeneralFunctions.PlaySoundEffect(audioSource, releasingClip);
+                    break;
+                case AttackMode.RapidFire:
+                    //impactInfoManager.
+                    // Igual no hace falta poner nada
                     break;
                 // Ya haremos el resto
             }

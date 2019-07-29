@@ -101,12 +101,14 @@ public class EnemyConsistency : Targeteable {
         if(transform.position.y < -10)
         {
             //ManageDamage(currentChasisHealth, transform.position);
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            //EnemyManager
             //
             if (enemyManager != null)
             {
                 //enemyManager.SubtractOne(managerIndex);
                 // En este caso no sacamos cuerpo muerto
+                EnemyAnalyzer.Release();
                 enemyManager.SendToReserve(managerIndex, gameObject);
             }
         }
@@ -282,7 +284,7 @@ public class EnemyConsistency : Targeteable {
         else
         {
             //penetrationResult = 0;
-            impactInfoManager.SendImpactInfo(point, damageReceived, "No damage");
+            impactInfoManager.SendImpactInfo(point, (int)damageReceived, "No damage");
         }
         
     }
@@ -298,12 +300,12 @@ public class EnemyConsistency : Targeteable {
             currentHealth -= (int)damageReceived;
             ManageDamage(penetrationResult, point);
 
-            impactInfoManager.SendImpactInfo(point, damageReceived);
+            impactInfoManager.SendImpactInfo(point, (int)damageReceived);
         }
         else
         {
             penetrationResult = 0;
-            impactInfoManager.SendImpactInfo(point, penetrationResult, "No damage");
+            impactInfoManager.SendImpactInfo(point, (int)penetrationResult, "No damage");
         }
 
     }
@@ -328,7 +330,7 @@ public class EnemyConsistency : Targeteable {
         {
             //
             if (impactInfoManager != null)
-                impactInfoManager.SendImpactInfo(point, damageReceived, "Enemy destroyed");
+                impactInfoManager.SendImpactInfo(point, (int)damageReceived, "Enemy destroyed");
             else
                 Debug.Log("Impact info manager is null. Check it");
 
@@ -339,7 +341,7 @@ public class EnemyConsistency : Targeteable {
             GeneralFunctions.PlaySoundEffect(audioSource, deathClip);
 
             //
-            DeactivateStuff();
+            //DeactivateStuff();
             
             
             if(levelManager != null)
@@ -349,6 +351,7 @@ public class EnemyConsistency : Targeteable {
                 //enemyManager.SubtractOne(managerIndex);
                 if(deadBodyPrefab != null)
                     PutDeadBody();
+                EnemyAnalyzer.Release();
                 enemyManager.SendToReserve(managerIndex, gameObject);
             }
             // Esto para los voladores mas que nada
@@ -370,7 +373,7 @@ public class EnemyConsistency : Targeteable {
         {
             // Chequo provisional para que no de mal en el menu
             if(impactInfoManager != null)
-                impactInfoManager.SendImpactInfo(point, damageReceived);
+                impactInfoManager.SendImpactInfo(point, (int)damageReceived);
         }
     }
 

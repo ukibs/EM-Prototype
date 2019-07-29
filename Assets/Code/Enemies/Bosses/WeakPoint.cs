@@ -65,6 +65,7 @@ public class WeakPoint : Targeteable
                 active = false;
                 //Destroy(this);
                 //Destroy(gameObject);
+                EnemyAnalyzer.Release();
             }
         }
         

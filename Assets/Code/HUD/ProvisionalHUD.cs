@@ -66,6 +66,7 @@ public class ProvisionalHUD : MonoBehaviour {
     private GameManager gameManager;
     private PlayerIntegrity playerIntegrity;
     private List<DamageIndicator> damageIndicators;
+    private ProvLevelManager levelManager;
     //
     private Vector2 radarDimensions;
     // De momento que sea un tercion del alto de la pantalla
@@ -82,6 +83,8 @@ public class ProvisionalHUD : MonoBehaviour {
         cameraControl = mainCamera.GetComponent<SpringCamera>();
         gameManager = FindObjectOfType<GameManager>();
         playerIntegrity = FindObjectOfType<PlayerIntegrity>();
+        levelManager = FindObjectOfType<ProvLevelManager>();
+        //
         damageIndicators = new List<DamageIndicator>(20);
         //
         radarDimensions = new Vector2(Screen.height * radarProportion, Screen.height * radarProportion);
@@ -112,7 +115,8 @@ public class ProvisionalHUD : MonoBehaviour {
             // Vamos a trabajar para que maneje varios tipos de objetivo
             // Enemy consistency (el viejo)
             // TODO: Gestionar los enemigos muertos de otra forma
-            if (cameraControl.CurrentTarget != null)
+            //if (cameraControl.CurrentTarget != null)
+            if (EnemyAnalyzer.isActive)
             {
                 EnemyConsistency enemyConsistency = cameraControl.CurrentTarget.GetComponent<EnemyConsistency>();
                 if (enemyConsistency != null)
@@ -150,6 +154,28 @@ public class ProvisionalHUD : MonoBehaviour {
 
         //
         ShowOverheat();
+
+        //
+        CheckAndDrawLevelEnd();
+
+    }
+
+    //
+    void CheckAndDrawLevelEnd()
+    {
+        //
+        if (levelManager.Finished)
+        {
+            Rect dimensions = new Rect(Screen.width * 1/4, Screen.height * 1/4, Screen.width * 1/2, Screen.width * 1/2);
+            if (levelManager.Victory)
+            {
+                GUI.Label(dimensions, "VICTORY", guiSkin.customStyles[3]);
+            }
+            else
+            {
+                GUI.Label(dimensions, "DEFEAT", guiSkin.customStyles[3]);
+            }
+        }
     }
 
     //
@@ -173,29 +199,50 @@ public class ProvisionalHUD : MonoBehaviour {
         for (int i = 0; i < impactInfoManager.ImpactInfoList.Count; i++)
         {
             //
-            if (impactInfoManager.ImpactInfoList[i].screenPosition.x == -100)
-            {
-                impactInfoManager.ImpactInfoList[i].screenPosition =
-                    mainCamera.WorldToScreenPoint(impactInfoManager.ImpactInfoList[i].position);
+            //if (impactInfoManager.ImpactInfoList[i].screenPosition.x == -100)
+            //{
+            //    impactInfoManager.ImpactInfoList[i].screenPosition =
+            //        mainCamera.WorldToScreenPoint(impactInfoManager.ImpactInfoList[i].position);
                 // Clamp them
                 //impactInfoManager.ImpactInfoList[i].screenPosition.x =
                 //    Mathf.Clamp(impactInfoManager.ImpactInfoList[i].screenPosition.x, 0, Screen.width - 200);
                 //impactInfoManager.ImpactInfoList[i].screenPosition.y =
                 //    Mathf.Clamp(impactInfoManager.ImpactInfoList[i].screenPosition.y, 0, Screen.height - 20);
-            }
+            //}
 
             //Vector3 screenCoordinates = mainCamera.WorldToScreenPoint(impactInfoManager.ImpactInfoList[i].position);
 
             // Datos del impact info manager
-            GUI.Label(new Rect(impactInfoManager.ImpactInfoList[i].screenPosition.x,
-                Screen.height - impactInfoManager.ImpactInfoList[i].screenPosition.y,
-                200, 100), impactInfoManager.ImpactInfoList[i].info, guiSkin.label);
-            // Mesanje aosicado a la entrada
-            if (impactInfoManager.ImpactInfoList[i].extraInfo != null)
+            // Cribamos los que estén por detrás del player
+            // TODO: Mirar si renta más cribarlo en el momento de construirlo
+            if (impactInfoManager.ImpactInfoList[i].screenPosition.z > 0)
+            {
                 GUI.Label(new Rect(impactInfoManager.ImpactInfoList[i].screenPosition.x,
-                    Screen.height - impactInfoManager.ImpactInfoList[i].screenPosition.y + 10, 200, 100),
-                    impactInfoManager.ImpactInfoList[i].extraInfo, guiSkin.label);
+                   Screen.height - impactInfoManager.ImpactInfoList[i].screenPosition.y,
+                   200, 100), impactInfoManager.ImpactInfoList[i].damageValue + "", guiSkin.label);
+                // Mesanje aosicado a la entrada
+                if (impactInfoManager.ImpactInfoList[i].extraInfo != null)
+                    GUI.Label(new Rect(impactInfoManager.ImpactInfoList[i].screenPosition.x,
+                        Screen.height - impactInfoManager.ImpactInfoList[i].screenPosition.y + 10, 200, 100),
+                        impactInfoManager.ImpactInfoList[i].extraInfo, guiSkin.label);
+            }           
         }
+
+        // El de fuego rápido
+        if(impactInfoManager.RapidFireImpactInfo.damageValue > 0)
+        {
+            //impactInfoManager.RapidFireImpactInfo.screenPosition =
+            //        mainCamera.WorldToScreenPoint(impactInfoManager.RapidFireImpactInfo.position);
+
+            GUI.Label(new Rect(impactInfoManager.RapidFireImpactInfo.screenPosition.x,
+                       Screen.height - impactInfoManager.RapidFireImpactInfo.screenPosition.y,
+                       200, 100), impactInfoManager.RapidFireImpactInfo.damageValue + "", guiSkin.label);
+
+            GUI.Label(new Rect(impactInfoManager.RapidFireImpactInfo.screenPosition.x,
+                            Screen.height - impactInfoManager.RapidFireImpactInfo.screenPosition.y + 10, 200, 100),
+                            impactInfoManager.RapidFireImpactInfo.extraInfo, guiSkin.label);
+        }
+        
     }
 
     //

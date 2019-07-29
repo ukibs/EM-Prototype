@@ -99,14 +99,8 @@ public class SpringCamera : MonoBehaviour {
         // TODO: Cuidado con este dt
         float dt = Time.deltaTime;
         // 
-        if (currentTarget != targetPlayer && 
-            (EnemyAnalyzer.targeteable == null || EnemyAnalyzer.targeteable.active == false))
-            //if (currentTarget != targetPlayer && EnemyAnalyzer.enemyConsistency == null)
-            //currentTarget.GetComponent<EnemyConsistency>() == null)
+        if (currentTarget != targetPlayer && !EnemyAnalyzer.isActive)
         {
-            //if(!SwitchBetweenEnemies())
-            //    SwitchTarget();
-            //Debug.Log("Enemy down, switching to next");
             SwitchBetweenEnemies(Vector2.zero);
         }
         //

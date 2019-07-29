@@ -133,12 +133,23 @@ public class EnemyManager : MonoBehaviour
                 Vector3 positionToSpawn = new Vector3(pointForGroupSpawn.x + memberSpawnPositionXY.x,
                     pointForGroupSpawn.y, pointForGroupSpawn.z + memberSpawnPositionXY.y);
 
-                // TODO: Activar aqui enemigo
+                // TODO: Chequear cuando esté vacía
+                if (reserveEnemies[i].Count == 0)
+                {
+                    Debug.Log("No more enemies in reserve");
+                    continue;
+                }
                 GameObject nextEnemy = reserveEnemies[i][0];
                 reserveEnemies[i].Remove(nextEnemy);
-                // 
-                nextEnemy.transform.position = positionToSpawn;
+                // TODO: Revisar que falla aquí
+                if(nextEnemy.gameObject == null)
+                {
+                    Debug.Log(nextEnemy);
+                    continue;
+                }
+                //
                 nextEnemy.SetActive(true);
+                nextEnemy.transform.position = positionToSpawn;                
                 EnemyConsistency enemyConsistency = nextEnemy.GetComponent<EnemyConsistency>();
                 //
                 if (enemyConsistency == null)

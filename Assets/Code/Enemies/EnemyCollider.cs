@@ -61,14 +61,23 @@ public class EnemyCollider : MonoBehaviour
         //
         float playerEstimatedPenetration = PlayerReference.GetCurrentWeaponPenetrationEstimation();
         float penetrationEstimatedResult = playerEstimatedPenetration - armor;
+        float damageEffectivenes = 1 - (armor / playerEstimatedPenetration);
+        //float penetrationAchieved = 1 - (bodyPart.armor / penetrationValue);
         //
         Color colorToUse;
-        if (penetrationEstimatedResult > 10)
-            colorToUse = Color.green;
-        else if (penetrationEstimatedResult > 0)
-            colorToUse = Color.yellow;
-        else
+        //if (penetrationEstimatedResult > 10)
+        //    colorToUse = Color.green;
+        //else if (penetrationEstimatedResult > 0)
+        //    colorToUse = Color.yellow;
+        //else
+        //    colorToUse = Color.red;
+
+        //
+        if (penetrationEstimatedResult < 1)
             colorToUse = Color.red;
+        else
+            colorToUse = Color.Lerp(Color.yellow, Color.green, damageEffectivenes);
+
         //
         for (int i = 0; i < associatedMeshRenderers.Length; i++)
         {
