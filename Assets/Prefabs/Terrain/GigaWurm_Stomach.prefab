@@ -15375,7 +15375,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToChangeColor: 1
-  intensity: 0.8
+  intensity: 1
   initColor: {r: 0.643152, g: 1, b: 0, a: 0}
   finalColor: {r: 1, g: 0.6316455, b: 0, a: 0}
   active: 1
