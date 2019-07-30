@@ -15263,6 +15263,7 @@ GameObject:
   - component: {fileID: 8789795764378986155}
   - component: {fileID: 5504848930618674036}
   - component: {fileID: 7580580248267086526}
+  - component: {fileID: 5035665434375508566}
   m_Layer: 0
   m_Name: CORE
   m_TagString: Untagged
@@ -15309,7 +15310,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f2133513b054846418dd6348326ede19, type: 2}
+  - {fileID: 2100000, guid: 4999425efffbfd84996dc05883ce4413, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -15361,6 +15362,23 @@ MonoBehaviour:
   maxHealthPoints: 100
   reactionOnDamage: 1
   gigaWormBehaviour: {fileID: 0}
+--- !u!114 &5035665434375508566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7326125511894615222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 274846e4717529f419b1b87458adf370, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToChangeColor: 1
+  intensity: 0.8
+  initColor: {r: 0.643152, g: 1, b: 0, a: 0}
+  finalColor: {r: 1, g: 0.6316455, b: 0, a: 0}
+  active: 1
 --- !u!1 &7553166893316998127
 GameObject:
   m_ObjectHideFlags: 0
@@ -16536,6 +16554,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 182231823908150193}
     m_Modifications:
+    - target: {fileID: 1837716235657633640, guid: 4a0cd0f5fa49a1e4980e73c72fae337a,
+        type: 3}
+      propertyPath: m_Name
+      value: GastricFlood_wall (2)
+      objectReference: {fileID: 0}
     - target: {fileID: 8747479722277889566, guid: 4a0cd0f5fa49a1e4980e73c72fae337a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -16605,11 +16628,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 99.999954
-      objectReference: {fileID: 0}
-    - target: {fileID: 1837716235657633640, guid: 4a0cd0f5fa49a1e4980e73c72fae337a,
-        type: 3}
-      propertyPath: m_Name
-      value: GastricFlood_wall (2)
       objectReference: {fileID: 0}
     - target: {fileID: 4581037763967590230, guid: 4a0cd0f5fa49a1e4980e73c72fae337a,
         type: 3}
@@ -16797,6 +16815,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 182231823908150193}
     m_Modifications:
+    - target: {fileID: 1837716235657633640, guid: f03baa6de398b5a4488154a83dadad4f,
+        type: 3}
+      propertyPath: m_Name
+      value: GastricFlood_floor (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 8747479722277889566, guid: f03baa6de398b5a4488154a83dadad4f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -16867,11 +16890,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.1
       objectReference: {fileID: 0}
-    - target: {fileID: 1837716235657633640, guid: f03baa6de398b5a4488154a83dadad4f,
-        type: 3}
-      propertyPath: m_Name
-      value: GastricFlood_floor (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 7614597499824020600, guid: f03baa6de398b5a4488154a83dadad4f,
         type: 3}
       propertyPath: m_Enabled
@@ -16917,6 +16935,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 182231823908150193}
     m_Modifications:
+    - target: {fileID: 1837716235657633640, guid: f03baa6de398b5a4488154a83dadad4f,
+        type: 3}
+      propertyPath: m_Name
+      value: GastricFlood_floor
+      objectReference: {fileID: 0}
     - target: {fileID: 8747479722277889566, guid: f03baa6de398b5a4488154a83dadad4f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -16987,11 +17010,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.1
       objectReference: {fileID: 0}
-    - target: {fileID: 1837716235657633640, guid: f03baa6de398b5a4488154a83dadad4f,
-        type: 3}
-      propertyPath: m_Name
-      value: GastricFlood_floor
-      objectReference: {fileID: 0}
     - target: {fileID: 7614597499824020600, guid: f03baa6de398b5a4488154a83dadad4f,
         type: 3}
       propertyPath: m_Enabled
@@ -17037,6 +17055,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 182231823908150193}
     m_Modifications:
+    - target: {fileID: 1837716235657633640, guid: f03baa6de398b5a4488154a83dadad4f,
+        type: 3}
+      propertyPath: m_Name
+      value: GastricFlood_floor (2)
+      objectReference: {fileID: 0}
     - target: {fileID: 8747479722277889566, guid: f03baa6de398b5a4488154a83dadad4f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -17107,11 +17130,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.1
       objectReference: {fileID: 0}
-    - target: {fileID: 1837716235657633640, guid: f03baa6de398b5a4488154a83dadad4f,
-        type: 3}
-      propertyPath: m_Name
-      value: GastricFlood_floor (2)
-      objectReference: {fileID: 0}
     - target: {fileID: 7614597499824020600, guid: f03baa6de398b5a4488154a83dadad4f,
         type: 3}
       propertyPath: m_Enabled
@@ -17172,6 +17190,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 182231823908150193}
     m_Modifications:
+    - target: {fileID: 1837716235657633640, guid: 4a0cd0f5fa49a1e4980e73c72fae337a,
+        type: 3}
+      propertyPath: m_Name
+      value: GastricFlood_wall
+      objectReference: {fileID: 0}
     - target: {fileID: 8747479722277889566, guid: 4a0cd0f5fa49a1e4980e73c72fae337a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -17241,11 +17264,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 99.999954
-      objectReference: {fileID: 0}
-    - target: {fileID: 1837716235657633640, guid: 4a0cd0f5fa49a1e4980e73c72fae337a,
-        type: 3}
-      propertyPath: m_Name
-      value: GastricFlood_wall
       objectReference: {fileID: 0}
     - target: {fileID: 4581037763967590230, guid: 4a0cd0f5fa49a1e4980e73c72fae337a,
         type: 3}
@@ -17318,6 +17336,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 182231823908150193}
     m_Modifications:
+    - target: {fileID: 1837716235657633640, guid: 4a0cd0f5fa49a1e4980e73c72fae337a,
+        type: 3}
+      propertyPath: m_Name
+      value: GastricFlood_wall (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 8747479722277889566, guid: 4a0cd0f5fa49a1e4980e73c72fae337a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -17387,11 +17410,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 99.999954
-      objectReference: {fileID: 0}
-    - target: {fileID: 1837716235657633640, guid: 4a0cd0f5fa49a1e4980e73c72fae337a,
-        type: 3}
-      propertyPath: m_Name
-      value: GastricFlood_wall (1)
       objectReference: {fileID: 0}
     - target: {fileID: 4581037763967590230, guid: 4a0cd0f5fa49a1e4980e73c72fae337a,
         type: 3}
@@ -17504,6 +17522,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 182231823908150193}
     m_Modifications:
+    - target: {fileID: 1837716235657633640, guid: f03baa6de398b5a4488154a83dadad4f,
+        type: 3}
+      propertyPath: m_Name
+      value: GastricFlood_floor (3)
+      objectReference: {fileID: 0}
     - target: {fileID: 8747479722277889566, guid: f03baa6de398b5a4488154a83dadad4f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -17573,11 +17596,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1837716235657633640, guid: f03baa6de398b5a4488154a83dadad4f,
-        type: 3}
-      propertyPath: m_Name
-      value: GastricFlood_floor (3)
       objectReference: {fileID: 0}
     - target: {fileID: 7614597499824020600, guid: f03baa6de398b5a4488154a83dadad4f,
         type: 3}
