@@ -1357,7 +1357,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   brokenVersion: {fileID: 7213522521037333882}
   hardEnough: 1
-  destructionClip: {fileID: 8300000, guid: 2681d2c4cfcda05439b7b0ce1346814e, type: 3}
+  destructionClip: {fileID: 8300000, guid: 37d696f6e6bcf994a8873dd163cf1a8a, type: 3}
 --- !u!1 &8246287718926838753
 GameObject:
   m_ObjectHideFlags: 0
