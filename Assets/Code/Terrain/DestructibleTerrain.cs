@@ -50,6 +50,12 @@ public class DestructibleTerrain : MonoBehaviour
             if (brokenVersion != null)
                 brokenVersion.SetActive(true);
             //
+            if(audioObjectManager == null)
+            {
+                Debug.Log("Audio object manager still not ready");
+                return;
+            }
+            //
             if(destructionClip != null)
                 audioObjectManager.CreateAudioObject(destructionClip, transform.position);
         }

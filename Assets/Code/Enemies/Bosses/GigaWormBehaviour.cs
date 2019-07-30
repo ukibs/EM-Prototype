@@ -97,6 +97,7 @@ public class GigaWormBehaviour : Targeteable
     private Rigidbody rb;
     private ProvLevelManager levelManager;
     private CarolBaseHelp carolHelp;
+    private CameraReference cameraReference;
 
     //
     private float currentTimeUnderground;
@@ -157,6 +158,7 @@ public class GigaWormBehaviour : Targeteable
         audioSource = GetComponent<AudioSource>();
         levelManager = FindObjectOfType<ProvLevelManager>();
         carolHelp = FindObjectOfType<CarolBaseHelp>();
+        cameraReference = FindObjectOfType<CameraReference>();
         //
         crushingEsophaguses = GetComponentsInChildren<CrushingEsophagus>();
         gigaWormInsides = FindObjectOfType<GigaWormInsides>();
@@ -190,6 +192,7 @@ public class GigaWormBehaviour : Targeteable
             {
                 currentState = WormStatus.Recovering;
                 currentStunDuration = 0;
+                gigaWormInsides.ChangeShowersEmission();
             }
         }
     }
@@ -536,6 +539,7 @@ public class GigaWormBehaviour : Targeteable
         {
             currentState = WormStatus.Stunned;
             GeneralFunctions.PlaySoundEffect(audioSource, stunnedClip);
+            gigaWormInsides.ChangeShowersEmission();
             //
             if (!firstStun)
             {
@@ -550,6 +554,7 @@ public class GigaWormBehaviour : Targeteable
     {
         player.transform.position = interiorEntrance.position;
         player.transform.rotation = Quaternion.LookRotation(Vector3.back);
+        cameraReference.transform.rotation = Quaternion.LookRotation(Vector3.back);
     }
     
 }

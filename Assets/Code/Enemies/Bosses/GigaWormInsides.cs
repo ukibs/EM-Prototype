@@ -8,13 +8,14 @@ public class GigaWormInsides : MonoBehaviour
     public float stunnedAcidDamage = 50;
     public float recoveringAcidDamage = 200;
     public float recoveringRepulsionForce = 2;
-
-
+    public ParticleSystem[] acidShowers;
+    
     //
     private bool playerOut = true;
     private GigaWormBehaviour gigaWormBehaviour;
     private RobotControl player;
     private Rigidbody playerRb;
+    private ParticleSystem.EmissionModule[] asEmissionControl;
 
     //
     public bool PlayerOut {
@@ -28,6 +29,12 @@ public class GigaWormInsides : MonoBehaviour
         gigaWormBehaviour = FindObjectOfType<GigaWormBehaviour>();
         player = FindObjectOfType<RobotControl>();
         playerRb = PlayerReference.playerRb;
+        //
+        asEmissionControl = new ParticleSystem.EmissionModule[acidShowers.Length];
+        for(int i = 0; i < asEmissionControl.Length; i++)
+        {
+            asEmissionControl[i] = acidShowers[i].emission;
+        }
     }
 
     //
@@ -69,6 +76,28 @@ public class GigaWormInsides : MonoBehaviour
         }
         // 
         PlayerReference.playerIntegrity.ReceiveEnvionmentalDamage(100 * dt);
+    }
+
+    //
+    public void ChangeShowersEmission()
+    {
+        //
+        float emissionToUse = 0;
+        //
+        switch (gigaWormBehaviour.CurrentState)
+        {
+            case GigaWormBehaviour.WormStatus.Stunned:
+                emissionToUse = 50;
+                break;
+            case GigaWormBehaviour.WormStatus.Recovering:
+                emissionToUse = 300;
+                break;
+        }
+        //
+        for(int i = 0; i < asEmissionControl.Length; i++)
+        {
+            asEmissionControl[i].rateOverTime = emissionToUse;
+        }
     }
 
     // Eject the player to the exterior

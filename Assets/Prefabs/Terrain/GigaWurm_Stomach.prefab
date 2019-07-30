@@ -12337,6 +12337,12 @@ MonoBehaviour:
   stunnedAcidDamage: 50
   recoveringAcidDamage: 200
   recoveringRepulsionForce: 2
+  acidShowers:
+  - {fileID: 2686476488330878628}
+  - {fileID: 2453296196576766603}
+  - {fileID: 6531599389843689880}
+  - {fileID: 2681431650277109649}
+  - {fileID: 8041838044827313739}
 --- !u!1 &3547307301728015058
 GameObject:
   m_ObjectHideFlags: 0
@@ -16236,11 +16242,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 182231823908150193}
     m_Modifications:
-    - target: {fileID: 1837716235657633640, guid: 4a0cd0f5fa49a1e4980e73c72fae337a,
-        type: 3}
-      propertyPath: m_Name
-      value: GastricFlood_wall (2)
-      objectReference: {fileID: 0}
     - target: {fileID: 8747479722277889566, guid: 4a0cd0f5fa49a1e4980e73c72fae337a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -16310,6 +16311,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 99.999954
+      objectReference: {fileID: 0}
+    - target: {fileID: 1837716235657633640, guid: 4a0cd0f5fa49a1e4980e73c72fae337a,
+        type: 3}
+      propertyPath: m_Name
+      value: GastricFlood_wall (2)
       objectReference: {fileID: 0}
     - target: {fileID: 4581037763967590230, guid: 4a0cd0f5fa49a1e4980e73c72fae337a,
         type: 3}
@@ -16396,11 +16402,22 @@ PrefabInstance:
       propertyPath: EmissionModule.rateOverTime.scalar
       value: 150
       objectReference: {fileID: 0}
+    - target: {fileID: 7614597499824020600, guid: 4a0cd0f5fa49a1e4980e73c72fae337a,
+        type: 3}
+      propertyPath: lifeTime
+      value: 10000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a0cd0f5fa49a1e4980e73c72fae337a, type: 3}
 --- !u!4 &7838366219670260544 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8747479722277889566, guid: 4a0cd0f5fa49a1e4980e73c72fae337a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1558864470490508638}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &6531599389843689880 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5694474005866282182, guid: 4a0cd0f5fa49a1e4980e73c72fae337a,
     type: 3}
   m_PrefabInstance: {fileID: 1558864470490508638}
   m_PrefabAsset: {fileID: 0}
@@ -16486,11 +16503,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 182231823908150193}
     m_Modifications:
-    - target: {fileID: 1837716235657633640, guid: f03baa6de398b5a4488154a83dadad4f,
-        type: 3}
-      propertyPath: m_Name
-      value: GastricFlood_floor (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 8747479722277889566, guid: f03baa6de398b5a4488154a83dadad4f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -16561,6 +16573,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 1837716235657633640, guid: f03baa6de398b5a4488154a83dadad4f,
+        type: 3}
+      propertyPath: m_Name
+      value: GastricFlood_floor (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 7614597499824020600, guid: f03baa6de398b5a4488154a83dadad4f,
         type: 3}
       propertyPath: m_Enabled
@@ -16606,11 +16623,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 182231823908150193}
     m_Modifications:
-    - target: {fileID: 1837716235657633640, guid: f03baa6de398b5a4488154a83dadad4f,
-        type: 3}
-      propertyPath: m_Name
-      value: GastricFlood_floor
-      objectReference: {fileID: 0}
     - target: {fileID: 8747479722277889566, guid: f03baa6de398b5a4488154a83dadad4f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -16681,6 +16693,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 1837716235657633640, guid: f03baa6de398b5a4488154a83dadad4f,
+        type: 3}
+      propertyPath: m_Name
+      value: GastricFlood_floor
+      objectReference: {fileID: 0}
     - target: {fileID: 7614597499824020600, guid: f03baa6de398b5a4488154a83dadad4f,
         type: 3}
       propertyPath: m_Enabled
@@ -16726,11 +16743,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 182231823908150193}
     m_Modifications:
-    - target: {fileID: 1837716235657633640, guid: f03baa6de398b5a4488154a83dadad4f,
-        type: 3}
-      propertyPath: m_Name
-      value: GastricFlood_floor (2)
-      objectReference: {fileID: 0}
     - target: {fileID: 8747479722277889566, guid: f03baa6de398b5a4488154a83dadad4f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -16801,6 +16813,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 1837716235657633640, guid: f03baa6de398b5a4488154a83dadad4f,
+        type: 3}
+      propertyPath: m_Name
+      value: GastricFlood_floor (2)
+      objectReference: {fileID: 0}
     - target: {fileID: 7614597499824020600, guid: f03baa6de398b5a4488154a83dadad4f,
         type: 3}
       propertyPath: m_Enabled
@@ -16861,11 +16878,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 182231823908150193}
     m_Modifications:
-    - target: {fileID: 1837716235657633640, guid: 4a0cd0f5fa49a1e4980e73c72fae337a,
-        type: 3}
-      propertyPath: m_Name
-      value: GastricFlood_wall
-      objectReference: {fileID: 0}
     - target: {fileID: 8747479722277889566, guid: 4a0cd0f5fa49a1e4980e73c72fae337a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -16936,6 +16948,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 99.999954
       objectReference: {fileID: 0}
+    - target: {fileID: 1837716235657633640, guid: 4a0cd0f5fa49a1e4980e73c72fae337a,
+        type: 3}
+      propertyPath: m_Name
+      value: GastricFlood_wall
+      objectReference: {fileID: 0}
     - target: {fileID: 4581037763967590230, guid: 4a0cd0f5fa49a1e4980e73c72fae337a,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -16981,8 +16998,19 @@ PrefabInstance:
       propertyPath: InitialModule.gravityModifier.scalar
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 7614597499824020600, guid: 4a0cd0f5fa49a1e4980e73c72fae337a,
+        type: 3}
+      propertyPath: lifeTime
+      value: 10000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a0cd0f5fa49a1e4980e73c72fae337a, type: 3}
+--- !u!198 &2686476488330878628 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5694474005866282182, guid: 4a0cd0f5fa49a1e4980e73c72fae337a,
+    type: 3}
+  m_PrefabInstance: {fileID: 7660233541442888290}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1381434826878485628 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8747479722277889566, guid: 4a0cd0f5fa49a1e4980e73c72fae337a,
@@ -16996,11 +17024,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 182231823908150193}
     m_Modifications:
-    - target: {fileID: 1837716235657633640, guid: 4a0cd0f5fa49a1e4980e73c72fae337a,
-        type: 3}
-      propertyPath: m_Name
-      value: GastricFlood_wall (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 8747479722277889566, guid: 4a0cd0f5fa49a1e4980e73c72fae337a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -17070,6 +17093,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 99.999954
+      objectReference: {fileID: 0}
+    - target: {fileID: 1837716235657633640, guid: 4a0cd0f5fa49a1e4980e73c72fae337a,
+        type: 3}
+      propertyPath: m_Name
+      value: GastricFlood_wall (1)
       objectReference: {fileID: 0}
     - target: {fileID: 4581037763967590230, guid: 4a0cd0f5fa49a1e4980e73c72fae337a,
         type: 3}
@@ -17156,11 +17184,22 @@ PrefabInstance:
       propertyPath: EmissionModule.rateOverTime.scalar
       value: 130
       objectReference: {fileID: 0}
+    - target: {fileID: 7614597499824020600, guid: 4a0cd0f5fa49a1e4980e73c72fae337a,
+        type: 3}
+      propertyPath: lifeTime
+      value: 10000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a0cd0f5fa49a1e4980e73c72fae337a, type: 3}
 --- !u!4 &1470500468681797715 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8747479722277889566, guid: 4a0cd0f5fa49a1e4980e73c72fae337a,
+    type: 3}
+  m_PrefabInstance: {fileID: 7857952406235813453}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &2453296196576766603 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5694474005866282182, guid: 4a0cd0f5fa49a1e4980e73c72fae337a,
     type: 3}
   m_PrefabInstance: {fileID: 7857952406235813453}
   m_PrefabAsset: {fileID: 0}
@@ -17171,11 +17210,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 182231823908150193}
     m_Modifications:
-    - target: {fileID: 1837716235657633640, guid: f03baa6de398b5a4488154a83dadad4f,
-        type: 3}
-      propertyPath: m_Name
-      value: GastricFlood_floor (3)
-      objectReference: {fileID: 0}
     - target: {fileID: 8747479722277889566, guid: f03baa6de398b5a4488154a83dadad4f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -17245,6 +17279,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1837716235657633640, guid: f03baa6de398b5a4488154a83dadad4f,
+        type: 3}
+      propertyPath: m_Name
+      value: GastricFlood_floor (3)
       objectReference: {fileID: 0}
     - target: {fileID: 7614597499824020600, guid: f03baa6de398b5a4488154a83dadad4f,
         type: 3}
