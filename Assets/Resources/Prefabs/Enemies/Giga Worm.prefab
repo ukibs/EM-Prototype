@@ -6222,6 +6222,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 305566957202799309}
     m_Modifications:
+    - target: {fileID: 7580580248267086526, guid: 335014e28dbf6f744a60426f9d76f2e6,
+        type: 3}
+      propertyPath: gigaWormBehaviour
+      value: 
+      objectReference: {fileID: 1275841468419267348}
     - target: {fileID: 3326227640253247155, guid: 335014e28dbf6f744a60426f9d76f2e6,
         type: 3}
       propertyPath: m_Name
