@@ -8,8 +8,8 @@ public class Repulsor : MonoBehaviour {
     public float repulsionStrength = 10;
     public float repulsionDamp = 0.2f;
 
-    public GameObject dustEmitterStatic;
-    public GameObject dustEmitterMovement;
+    public ParticleSystem dustEmitterStatic;
+    public ParticleSystem dustEmitterMovement;
 
     public AudioClip jumpClip;
 
@@ -43,11 +43,13 @@ public class Repulsor : MonoBehaviour {
     void Start () {
         rb = GetComponent<Rigidbody>();
         //dustEmitterStatic.SetActive(true);
-        currentParticleSystem = dustEmitterStatic.GetComponent<ParticleSystem>();
+        currentParticleSystem = dustEmitterStatic;
         inputManager = FindObjectOfType<InputManager>();
         gameManager = FindObjectOfType<GameManager>();
         robotControl = GetComponent<RobotControl>();
         audioSource = GetComponent<AudioSource>();
+        //
+        StopDustEmitterParticleSystem(dustEmitterMovement);
 	}
 	
 	// Update is called once per frame
@@ -86,6 +88,10 @@ public class Repulsor : MonoBehaviour {
             // TODO: Bajar la emisión y ya
             //dustEmitterStatic.SetActive(false);
             //dustEmitterMovement.SetActive(false);
+            //StopDustEmitterParticleSystem(currentParticleSystem);
+            StopDustEmitterParticleSystem(dustEmitterStatic);
+            StopDustEmitterParticleSystem(dustEmitterMovement);
+
         }
         
 	}
@@ -162,6 +168,18 @@ public class Repulsor : MonoBehaviour {
         
     }
 
+    //
+    void StopDustEmitterParticleSystem(ParticleSystem systemToStop)
+    {
+        //
+        ParticleSystem.EmissionModule emissionModule = systemToStop.emission;
+        emissionModule.rateOverTime = 0;
+        //
+        ParticleSystem.MainModule mainModule = systemToStop.main;
+        mainModule.startSpeed = 0;
+    }
+
+    //
     void UpdateDustEmitterParticleSystem(float compensationOffset, float fallingSpeed)
     {
         //
@@ -171,16 +189,6 @@ public class Repulsor : MonoBehaviour {
         ParticleSystem.MainModule mainModule = currentParticleSystem.main;
         mainModule.startSpeed = currentParticleSpeed + (currentParticleSpeed * (compensationOffset + Mathf.Pow(fallingSpeed, 1)));
     }
-
-    // Ahora no lo usamos
-    // TODO: Borrar cuando estemos seguros
-    //void SoftenVerticalImpulse()
-    //{
-    //    Vector3 currentVelocity = rb.velocity;
-    //    currentVelocity.y *= 1 - repulsionDamp;
-    //    //if (Mathf.Abs(currentVelocity.y) < 0.2) currentVelocity.y = 0;
-    //    rb.velocity = currentVelocity;
-    //}
 
     // TODO: Revisar para que partículas no desaparezcan de repente
     // En vez de activar/desactivar trabajar con las emisiones
@@ -195,7 +203,7 @@ public class Repulsor : MonoBehaviour {
             dustEmitterStatic.transform.position = floorPoint + (Vector3.up * 0.1f);
 
             //
-            currentParticleSystem = dustEmitterStatic.GetComponent<ParticleSystem>();
+            currentParticleSystem = dustEmitterStatic;
             currentParticleSpeed = 5;
             currentParticleRate = 10;
         }
@@ -207,8 +215,8 @@ public class Repulsor : MonoBehaviour {
             dustEmitterMovement.transform.position = floorPoint + (Vector3.up * 0.1f);
 
             //
-            currentParticleSystem = dustEmitterMovement.GetComponent<ParticleSystem>();
-            currentParticleSpeed = 10;
+            currentParticleSystem = dustEmitterMovement;
+            currentParticleSpeed = 2;
             currentParticleRate = 100;
         }
     }

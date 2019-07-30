@@ -36,6 +36,7 @@ public class GigaWormInsides : MonoBehaviour
         asEmissionControl = new ParticleSystem.EmissionModule[acidShowers.Length];
         asMainControl = new ParticleSystem.MainModule[acidShowers.Length];
         asInitialEmission = new float[acidShowers.Length];
+        asInitialSpeed = new float[acidShowers.Length];
         for(int i = 0; i < asEmissionControl.Length; i++)
         {
             asEmissionControl[i] = acidShowers[i].emission;

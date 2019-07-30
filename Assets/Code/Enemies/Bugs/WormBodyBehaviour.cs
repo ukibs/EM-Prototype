@@ -87,7 +87,7 @@ public class WormBodyBehaviour : BugBodyBehaviour
         // TODO: Montarlo bien y asegurarse de que funciona
         if (collision.collider.tag.Equals("Hard Terrain") && grounded)
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
             //TODO: Ñapa como una catedral
             // Coger bien la referencia arriba
             //FindObjectOfType<EnemyManager>().SubtractOne(GetComponent<EnemyConsistency>().ManagerIndex);

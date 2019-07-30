@@ -515,8 +515,8 @@ MonoBehaviour:
   idealDistanceFromFloor: 3
   repulsionStrength: 100
   repulsionDamp: 0
-  dustEmitterStatic: {fileID: 4034983766658800488}
-  dustEmitterMovement: {fileID: 9064271816984835610}
+  dustEmitterStatic: {fileID: 3489418989879759979}
+  dustEmitterMovement: {fileID: 4202477923620001233}
   jumpClip: {fileID: 8300000, guid: 1d47e24af160e804dbd7fc86a9c1448b, type: 3}
 --- !u!114 &114977535009352440
 MonoBehaviour:
@@ -1360,7 +1360,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4034983766658800488}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.013486356, y: 0.009056151, z: 0.90124166}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4706725264526760}
@@ -1940,7 +1940,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.2
+      scalar: 0.5
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -15622,7 +15622,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9064271816984835610}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.013486356, y: 0.009056151, z: 0.90124166}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4706725264526760}
@@ -16202,7 +16202,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.2
+      scalar: 0.5
       minScalar: 0
       maxCurve:
         serializedVersion: 2
