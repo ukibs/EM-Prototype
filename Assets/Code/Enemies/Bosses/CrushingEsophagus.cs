@@ -44,6 +44,8 @@ public class CrushingEsophagus : MonoBehaviour
 
     private float currentCounterTime;
 
+    private AudioSource audioSource;
+
     #endregion
 
     #region Unity Methods
@@ -67,6 +69,9 @@ public class CrushingEsophagus : MonoBehaviour
 
         //
         playerIntegrity = FindObjectOfType<PlayerIntegrity>();
+
+        //
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -103,6 +108,7 @@ public class CrushingEsophagus : MonoBehaviour
                 {
                     wallStatus = WallStatus.Closed;
                     currentCounterTime = 0;
+                    GeneralFunctions.PlaySoundEffect(audioSource, wallsCompleteCloseSound);
                 }
                     
                 break;
