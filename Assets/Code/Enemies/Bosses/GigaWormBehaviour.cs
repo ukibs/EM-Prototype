@@ -184,7 +184,8 @@ public class GigaWormBehaviour : Targeteable
         //{
         //    InsidesDamageToPlayer(dt);
         //}
-        //
+
+        // Aquí se recupera
         if(currentState == WormStatus.Stunned)
         {
             currentStunDuration += dt;
@@ -526,6 +527,7 @@ public class GigaWormBehaviour : Targeteable
         {
             currentState = WormStatus.Recovering;
             // Luego emtemos un par mas de cosas
+            gigaWormInsides.ChangeShowersEmission();
         }
     }
 

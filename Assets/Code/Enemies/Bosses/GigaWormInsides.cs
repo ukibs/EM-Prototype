@@ -16,6 +16,9 @@ public class GigaWormInsides : MonoBehaviour
     private RobotControl player;
     private Rigidbody playerRb;
     private ParticleSystem.EmissionModule[] asEmissionControl;
+    private ParticleSystem.MainModule[] asMainControl;
+    private float[] asInitialEmission;
+    private float[] asInitialSpeed;
 
     //
     public bool PlayerOut {
@@ -31,9 +34,14 @@ public class GigaWormInsides : MonoBehaviour
         playerRb = PlayerReference.playerRb;
         //
         asEmissionControl = new ParticleSystem.EmissionModule[acidShowers.Length];
+        asMainControl = new ParticleSystem.MainModule[acidShowers.Length];
+        asInitialEmission = new float[acidShowers.Length];
         for(int i = 0; i < asEmissionControl.Length; i++)
         {
             asEmissionControl[i] = acidShowers[i].emission;
+            asMainControl[i] = acidShowers[i].main;
+            asInitialEmission[i] = asEmissionControl[i].rateOverTime.constant;
+            asInitialSpeed[i] = asMainControl[i].startSpeed.constant;
         }
     }
 
@@ -75,28 +83,29 @@ public class GigaWormInsides : MonoBehaviour
                 break;
         }
         // 
-        PlayerReference.playerIntegrity.ReceiveEnvionmentalDamage(100 * dt);
+        PlayerReference.playerIntegrity.ReceiveEnvionmentalDamage(damageToApply * dt);
     }
 
     //
     public void ChangeShowersEmission()
     {
         //
-        float emissionToUse = 0;
+        float emissionMultiplier = 1;
         //
         switch (gigaWormBehaviour.CurrentState)
         {
             case GigaWormBehaviour.WormStatus.Stunned:
-                emissionToUse = 50;
+                emissionMultiplier = 1;
                 break;
             case GigaWormBehaviour.WormStatus.Recovering:
-                emissionToUse = 300;
+                emissionMultiplier = 2;
                 break;
         }
         //
         for(int i = 0; i < asEmissionControl.Length; i++)
         {
-            asEmissionControl[i].rateOverTime = emissionToUse;
+            asMainControl[i].startSpeed = asInitialSpeed[i] * emissionMultiplier;
+            asEmissionControl[i].rateOverTime = asInitialEmission[i] * emissionMultiplier;
         }
     }
 
