@@ -5862,9 +5862,9 @@ MonoBehaviour:
   timeUntilCompleteStun: 2
   completeStunRotation: 30
   maxStunDuration: 20
-  interiorEntrance: {fileID: 0}
+  interiorEntrance: {fileID: 4403952476320653262}
   exitPoint: {fileID: 6016144334224399861}
-  wormCore: {fileID: 0}
+  wormCore: {fileID: 7599515309067692917}
   exteriorWeakPointDestroyedClip: {fileID: 8300000, guid: edba2f374a4ce1a48a250456aabfd861,
     type: 3}
   allExteriorWeakPointDestroyedClip: {fileID: 8300000, guid: ba14b35669bc3f04c8a85effac93a3ad,
@@ -6295,6 +6295,24 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 19500365511799243}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &4403952476320653262 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4420489789855854085, guid: 335014e28dbf6f744a60426f9d76f2e6,
+    type: 3}
+  m_PrefabInstance: {fileID: 19500365511799243}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7599515309067692917 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7580580248267086526, guid: 335014e28dbf6f744a60426f9d76f2e6,
+    type: 3}
+  m_PrefabInstance: {fileID: 19500365511799243}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &141502688338159334
 PrefabInstance:
   m_ObjectHideFlags: 0

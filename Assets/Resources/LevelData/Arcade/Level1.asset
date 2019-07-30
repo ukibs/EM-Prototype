@@ -33,7 +33,7 @@ MonoBehaviour:
     terrainPrefabs:
     - {fileID: 3326227640253247155, guid: e805da38f2157cf44bd8ebbbe826ba67, type: 3}
     - {fileID: 3326227640253247155, guid: f90644bdac5d8924fbad91a92cde6c44, type: 3}
-    - {fileID: 1781217798136379078, guid: a29bd4f96f2d4f24280d189da1bef920, type: 3}
+    - {fileID: 3326227640253247155, guid: 13954841500ed1049a895eccaeb2ce4c, type: 3}
     - {fileID: 3326227640253247155, guid: 1faf0654ea7511b4889b35ba3e120d34, type: 3}
     terrainRatio: 03000000010000000200000004000000
     terrainMax: 00000000000000000000000000000000
