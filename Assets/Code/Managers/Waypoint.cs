@@ -6,10 +6,20 @@ public class Waypoint : MonoBehaviour
 {
     //
     public float maxDistanceToNeighbour = 200;
+    public float fCost = 0;
+    public float hCost = 0;
+    public Waypoint pathParent;
     //
     private TerrainManager terrainManager;
     private List<Waypoint> currentNeighbors;
     private List<float> distancesToNeighbors;
+
+    //
+    public List<Waypoint> CurrentNeighbors { get { return currentNeighbors; } }
+    public List<float> DistancesToNeighbors { get { return distancesToNeighbors; } }
+
+    public float GCost { get { return fCost + hCost; } }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +34,13 @@ public class Waypoint : MonoBehaviour
     }
 
     private void OnDrawGizmos()
+    {
+        //
+        //ShowPathsToNeighbors();
+    }
+
+    //
+    void ShowPathsToNeighbors()
     {
         if (currentNeighbors != null)
         {

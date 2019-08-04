@@ -41,7 +41,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
     protected AudioSource audioSource;
 
     // De momento lo hacemos con posiciones
-    protected Vector3[] pathToUse;
+    protected List<Waypoint> pathToUse;
 
     //
     protected bool onFloor = true;
@@ -104,7 +104,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
             onFloor = true;
     }
 
-    protected void OnDrawGizmos()
+    protected virtual void OnDrawGizmos()
     {
         //
         if (player != null)
@@ -126,6 +126,12 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
     protected virtual void GiveItGas()
     {
         
+    }
+
+    //
+    protected void GetPathToPlayer()
+    {
+
     }
 
     protected virtual void ExecuteCurrentAction(float dt)

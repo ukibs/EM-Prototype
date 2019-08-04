@@ -16,20 +16,20 @@ MonoBehaviour:
     inGameName: Grunts first contact
     gameMode: 0
     victoryCondition: 1
-    enemiesToDefeat: 20
+    enemiesToDefeat: 100
     attackActionsAvailable: 2
     defenseActionsAvailable: 0
     jumpActionsAvailable: 1
     sprintActionsAvailable: 1
     enemyGroups:
-    - {fileID: 4694978885907813565, guid: c9642f7a38bd0dd48b356c9cb5710d68, type: 3}
-    - {fileID: 4694978885907813565, guid: c9642f7a38bd0dd48b356c9cb5710d68, type: 3}
+    - {fileID: 197519170146785174, guid: 00ba06b7129ad1b498b21cbff6213a5c, type: 3}
+    - {fileID: 197519170146785174, guid: 00ba06b7129ad1b498b21cbff6213a5c, type: 3}
     enemiesToSpawn: 0300000005000000
     enemySpawnIncrement: 0000000000000000
     timeBetweenSpawns:
     - 5
     - 10
-    maxActiveEnemies: 0900000014000000
+    maxActiveEnemies: 1400000014000000
     terrainPrefabs:
     - {fileID: 3326227640253247155, guid: e805da38f2157cf44bd8ebbbe826ba67, type: 3}
     - {fileID: 3326227640253247155, guid: f90644bdac5d8924fbad91a92cde6c44, type: 3}

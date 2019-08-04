@@ -348,7 +348,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeBetweenActionChecking: 1
   rotationSpeed: 90
-  behaviour: 0200000000000000
+  behaviour: 0000000000000000
   weapons:
   - {fileID: 6987211768712398027}
   maxSpeed: 10

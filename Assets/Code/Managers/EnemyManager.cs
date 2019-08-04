@@ -305,7 +305,7 @@ public class EnemyManager : MonoBehaviour
 
     #region Pathfinding Methods
 
-    //
+    // TODO: Revisar aqui algunas cosas
     Transform GetNearestSpawnPointToPlayer(EnemyType enemyTypeToSpawn)
     {
         Transform nearestSpawnPoint = null;

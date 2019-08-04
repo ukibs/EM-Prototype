@@ -38,16 +38,10 @@ public class ScreecherBodyBehaviour : BugBodyBehaviour
         float ballScale = Mathf.Min((timeCharguingBall / timeToChargeBall) * 2, 2);
         loadingBall.transform.localScale = Vector3.one * ballScale;
         //
-        if(transform.position.y < currentIdealHeight)
-        {
-            //
-            float forceToAdd = maxSpeed * (1 - (transform.position.y / currentIdealHeight));
-            //
-            rb.AddForce(Vector3.up * maxSpeed, ForceMode.Impulse);
-        }
+        //VerticalMovement();
             
         //
-        Move();
+        //Move();
     }
 
     // Ahora trabajaremos aqui los comporatmientos
@@ -57,18 +51,18 @@ public class ScreecherBodyBehaviour : BugBodyBehaviour
     {
         //base.DecideActionToDo();
         //
-        if (timeCharguingBall >= timeToChargeBall)
-        {
-            //weapons[0].Shoot(Time.deltaTime);
-            currentAction = Actions.GoingToPlayer;
-            //distan
-            currentIdealHeight = idealAttackHeight;
-        }
-        else
-        {
-            currentAction = Actions.EncirclingPlayerForward;
-            currentIdealHeight = idealLoadingHeight;
-        }
+        //if (timeCharguingBall >= timeToChargeBall)
+        //{
+        //    //weapons[0].Shoot(Time.deltaTime);
+        //    currentAction = Actions.GoingToPlayer;
+        //    //distan
+        //    currentIdealHeight = idealAttackHeight;
+        //}
+        //else
+        //{
+        //    currentAction = Actions.EncirclingPlayerForward;
+        //    currentIdealHeight = idealLoadingHeight;
+        //}
     }
 
     //
@@ -86,15 +80,38 @@ public class ScreecherBodyBehaviour : BugBodyBehaviour
             }
                 
         }
-        // En ambos casos
-        //Move();
+
+        //
+        Vector3 playerDirection = player.transform.position - transform.position;
+        playerDirection.y = transform.position.y;
+
+        //
+        Vector3 playerCross = Vector3.Cross(playerDirection, Vector3.up);
+        transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, playerCross, rotationSpeed, dt);
+        // Ñapa para que no se descojonen
+        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+        Move();
+    }
+
+    protected void VerticalMovement()
+    {
+        if (transform.position.y < currentIdealHeight)
+        {
+            //
+            float forceToAdd = maxSpeed * (1 - (transform.position.y / currentIdealHeight));
+            //
+            rb.AddForce(Vector3.up * maxSpeed, ForceMode.Impulse);
+        }
     }
 
     protected override void Move()
     {
+        // Aqui no hacemos uso del Move padre
         //base.Move();
-        //rb.velocity = transform.forward * maxSpeed * Time.deltaTime;
-        rb.AddForce(transform.forward * maxSpeed);
+        
+        rb.velocity = transform.forward * maxSpeed;
+        Debug.Log("Moving at " + rb.velocity.magnitude + "m/s");
+        //rb.AddForce(transform.forward * maxSpeed);
     }
 
     #endregion

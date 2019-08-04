@@ -349,11 +349,16 @@ public class EnemyConsistency : Targeteable {
             if (enemyManager != null)
             {
                 //enemyManager.SubtractOne(managerIndex);
-                if(deadBodyPrefab != null)
-                    PutDeadBody();
-                EnemyAnalyzer.Release();
+                
                 enemyManager.SendToReserve(managerIndex, gameObject);
             }
+
+            if (deadBodyPrefab != null)
+                PutDeadBody();
+            EnemyAnalyzer.Release();
+
+            //
+            Debug.Log("Death log: " + gameObject.name + ", " + transform.position + ", " + damageReceived);
             // Esto para los voladores mas que nada
             //rb.constraints = RigidbodyConstraints.None;
 

@@ -35,7 +35,7 @@ public class TerrainManager : MonoBehaviour
     void Start()
     {
         // 
-        // GetNearestWaypointToPlayer();
+        GetNearestWaypointToPlayer();
     }
 
     // Update is called once per frame
@@ -52,7 +52,7 @@ public class TerrainManager : MonoBehaviour
             MoveFarestBlocks(PlayerOffsetFromCentralBlockInUnits());
             // De momento lo hacemos aqui
             // Pero seria bueno chequearlo aparte
-            // GetNearestWaypointToPlayer();
+            GetNearestWaypointToPlayer();
             currentTestMultiMoveTime = 0;
         }
 
@@ -67,12 +67,21 @@ public class TerrainManager : MonoBehaviour
     //
     private void OnDrawGizmos()
     {
+        //
+        //DrawTerrainOrder();
+        //
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(nearestWaypointToPlayer.transform.position, 10);
+    }
+
+    void DrawTerrainOrder()
+    {
         // Vamos a pintar con un degradado para ver que coño pasa
         Color currentPieceColor = new Color(1, 0, 1, 1f);
         // Para chequear posibles repes en x,y
         float baseHeightModifier = 5;
         float heightModifier = 0;
-        for(int i = 0; i < squareSize; i++)
+        for (int i = 0; i < squareSize; i++)
         {
             //
             //currentPieceColor.r -= 1 / squareSize;
@@ -86,12 +95,12 @@ public class TerrainManager : MonoBehaviour
                 //currentPieceColor.b -= 1 / squareSize;
                 currentPieceColor.b -= 0.1f;
                 //
-                if(i == centralBlock && j == centralBlock)
+                if (i == centralBlock && j == centralBlock)
                     Gizmos.color = new Color(0, 1, 0, 1f);
                 else
                     Gizmos.color = currentPieceColor;
                 //
-                Gizmos.DrawCube(activeBlocksMatrix[i, j].transform.position + (Vector3.up * (50 + heightModifier)), 
+                Gizmos.DrawCube(activeBlocksMatrix[i, j].transform.position + (Vector3.up * (50 + heightModifier)),
                     new Vector3(100, 10, 100));
             }
         }
@@ -132,13 +141,79 @@ public class TerrainManager : MonoBehaviour
     }
 
     // TODO: Ya lo haremos algún día
-    public Vector3[] GetPathToPlayer(Transform playerSeeker)
+    public List<Waypoint> GetPathToPlayer(Transform playerSeeker)
     {
-        Vector3[] pathToPlayer = null;
-        Waypoint playerSeekerWaypoint = GetNearestWaypointTo(playerSeeker);
-        //nearestWaypointToPlayer
+        //
+        int maxIterations = 10;
+        int currentIterations = 0;
 
-        return pathToPlayer;
+        // Este iremos rellenando con los nodos buenos
+        //List<Waypoint> pathToPlayer = new List<Waypoint>(10);
+        Waypoint playerSeekerWaypoint = GetNearestWaypointTo(playerSeeker);
+        //El nearestWaypointToPlayer ya lo tenemos
+
+        // A chequear
+        List<Waypoint> openSet = new List<Waypoint>();
+        // Ya chequeados
+        List<Waypoint> closedSet = new List<Waypoint>();
+        
+        Waypoint nextNodeToCheck = null;
+        // Empezando por el mas cercano al enemigo
+        // Lo metemos al open set
+        openSet.Add(playerSeekerWaypoint);
+        
+
+        // Empezamos a iterar con el open set
+        while (openSet.Count > 0 && nextNodeToCheck != nearestWaypointToPlayer && currentIterations < maxIterations)
+        {
+            // Cogemos el primero de la lista (previamente ordenada)
+            nextNodeToCheck = openSet[0];
+
+            // Lo sacamos de la abierta y lo metemos en la cerrada
+            openSet.Remove(nextNodeToCheck);
+            closedSet.Add(nextNodeToCheck);
+
+            // Mientras no sea el destino...
+            if (nextNodeToCheck != nearestWaypointToPlayer)
+            {
+                
+                // Recorremos los vecinos del nodo a chequear
+                for (int i = 0; i < nextNodeToCheck.CurrentNeighbors.Count; i++)
+                {
+                    // Que no esté en ninguno ed los dos
+                    if (!openSet.Contains(nextNodeToCheck.CurrentNeighbors[i]) && 
+                        !closedSet.Contains(nextNodeToCheck.CurrentNeighbors[i]))
+                    {
+                        // Recordar costes: f, h y g
+                        nextNodeToCheck.CurrentNeighbors[i].hCost = Heuristic(nextNodeToCheck.CurrentNeighbors[i]);
+                        nextNodeToCheck.CurrentNeighbors[i].fCost = nextNodeToCheck.fCost + nextNodeToCheck.DistancesToNeighbors[i];
+                        openSet.Add(nextNodeToCheck.CurrentNeighbors[i]);
+                    }
+                }
+                // Y los ordenamos de menor coste a mayor
+                //openSet.Sort((x, y) => y.GCost.CompareTo(x.GCost));
+                openSet.Sort((x, y) => x.GCost.CompareTo(y.GCost));
+            }
+            // Y cuando lo tenemos...
+            else
+            {
+                break;
+            }
+
+            //
+            currentIterations++;
+        }
+
+        //
+        Debug.Log("Iterations done: " + currentIterations);
+        //
+        return closedSet;
+    }
+    
+    //
+    private float Heuristic(Waypoint waypointToCheck)
+    {
+        return (waypointToCheck.transform.position - playerTransform.position).magnitude;
     }
 
     //
