@@ -142,7 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeaff7f72f6b4b944a77e9d6881e9a96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBetweenActionChecking: 1
+  timeBetweenActionChecking: 5
   rotationSpeed: 270
   behaviour: 0300000000000000
   weapons:

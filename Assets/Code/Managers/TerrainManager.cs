@@ -144,7 +144,7 @@ public class TerrainManager : MonoBehaviour
     public List<Waypoint> GetPathToPlayer(Transform playerSeeker)
     {
         //
-        int maxIterations = 10;
+        int maxIterations = 30;
         int currentIterations = 0;
 
         // Este iremos rellenando con los nodos buenos
@@ -187,6 +187,7 @@ public class TerrainManager : MonoBehaviour
                         // Recordar costes: f, h y g
                         nextNodeToCheck.CurrentNeighbors[i].hCost = Heuristic(nextNodeToCheck.CurrentNeighbors[i]);
                         nextNodeToCheck.CurrentNeighbors[i].fCost = nextNodeToCheck.fCost + nextNodeToCheck.DistancesToNeighbors[i];
+                        nextNodeToCheck.CurrentNeighbors[i].pathParent = nextNodeToCheck;
                         openSet.Add(nextNodeToCheck.CurrentNeighbors[i]);
                     }
                 }
@@ -197,6 +198,7 @@ public class TerrainManager : MonoBehaviour
             // Y cuando lo tenemos...
             else
             {
+                closedSet = RetracePath(playerSeekerWaypoint, nearestWaypointToPlayer);
                 break;
             }
 
@@ -213,6 +215,30 @@ public class TerrainManager : MonoBehaviour
         }
         //
         return closedSet;
+    }
+
+    /// <summary>
+    /// Rehacemos el camino desde el final para devolverlo limpio
+    /// </summary>
+    /// <param name="startPoint"></param>
+    /// <param name="endPoint"></param>
+    /// <returns></returns>
+    private List<Waypoint> RetracePath(Waypoint startPoint, Waypoint endPoint)
+    {
+        //
+        List<Waypoint> retracedPath = new List<Waypoint>(10);
+        Waypoint currentNode = endPoint;
+        //
+        while(currentNode != startPoint)
+        {
+            retracedPath.Insert(0, currentNode);
+            currentNode = currentNode.pathParent;
+        }
+
+        retracedPath.Insert(0, startPoint);
+
+        //
+        return retracedPath;
     }
     
     //

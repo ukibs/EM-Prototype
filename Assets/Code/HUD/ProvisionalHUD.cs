@@ -138,7 +138,7 @@ public class ProvisionalHUD : MonoBehaviour {
         DrawDamageIndicators();
 
         //
-        // DrawRadarWithEnemies();
+        DrawRadarWithEnemies();
 
         //
         if (GameControl.paused)

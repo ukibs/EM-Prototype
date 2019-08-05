@@ -42,6 +42,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
 
     // De momento lo hacemos con posiciones
     protected List<Waypoint> pathToUse;
+    protected List<Vector3> pathToPlayer;
 
     //
     protected bool onFloor = true;
@@ -141,7 +142,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
         {
             //
             Vector3 playerDirection = player.transform.position - transform.position;
-            playerDirection.y = 0.0f;
+            //playerDirection.y = 0.0f;
             
             //
             switch (currentAction)
@@ -150,8 +151,33 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
                     transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed, dt);
                     break;
                 case Actions.GoingToPlayer:
-                    transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed, dt);
-                    Move();
+                    // TODO: Cuidado con cuando se cambian los paneles. De momento no es un gran problema, pero habrá que abordarlo
+                    //
+                    Vector3 currentObjective;
+                    //
+                    if (pathToUse != null && pathToUse.Count > 0)
+                    {
+                        // Si estamos lo bastante cerca del punto que toca lo descartamos
+                        if ((pathToUse[0].transform.position - transform.position).magnitude < 50)
+                        {
+                            pathToUse.RemoveAt(0);
+                            Debug.Log("Next waypoint");
+                        }
+
+
+                        // Ahora el objetivo lo sacaremos con el path
+                        currentObjective = pathToUse[0].transform.position;
+
+                        //
+                        transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, currentObjective, rotationSpeed, dt);
+                        Move();
+                    }
+                    else
+                    {
+                        //
+                        transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed, dt);
+                        Move();
+                    }
                     break;
                 case Actions.EncirclingPlayerForward:
                     Vector3 playerCross = Vector3.Cross(playerDirection, Vector3.up);
@@ -164,7 +190,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
                     Move();
                     break;
                 case Actions.Fleeing:
-                    transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, -playerDirection, rotationSpeed, dt);
+                    transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, -player.transform.position, rotationSpeed, dt);
                     Move();
                     break;
                 case Actions.RetreatingFromPlayer:
