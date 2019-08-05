@@ -130,10 +130,10 @@ public class TerrainManager : MonoBehaviour
         float nearestDistance = Mathf.Infinity;
         for (int i = 0; i < allWaypoints.Length; i++)
         {
-            Vector3 distanceToPlayer = playerTransform.position - allWaypoints[i].transform.position;
-            if (distanceToPlayer.magnitude < nearestDistance)
+            Vector3 distanceToTransform = transformToCheck.position - allWaypoints[i].transform.position;
+            if (distanceToTransform.magnitude < nearestDistance)
             {
-                nearestDistance = distanceToPlayer.magnitude;
+                nearestDistance = distanceToTransform.magnitude;
                 nearestWaypoint = allWaypoints[i];
             }
         }
@@ -207,13 +207,18 @@ public class TerrainManager : MonoBehaviour
         //
         Debug.Log("Iterations done: " + currentIterations);
         //
+        for(int i = 0; i < closedSet.Count; i++)
+        {
+
+        }
+        //
         return closedSet;
     }
     
     //
     private float Heuristic(Waypoint waypointToCheck)
     {
-        return (waypointToCheck.transform.position - playerTransform.position).magnitude;
+        return (waypointToCheck.transform.position - nearestWaypointToPlayer.transform.position).magnitude;
     }
 
     //

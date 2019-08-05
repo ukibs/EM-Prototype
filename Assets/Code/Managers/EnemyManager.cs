@@ -14,6 +14,7 @@ public class EnemyManager : MonoBehaviour
     //public float minSpawnDistance = 100;
     //public float maxSpawnDistance = 200;
     public int spawnLimit = -1;
+    public float farestSpawnDistanceToPlayer = 1000;
 
     private float[] timeFromLastSpawn;
     private int[] activeEnemiesAmount;
@@ -108,7 +109,7 @@ public class EnemyManager : MonoBehaviour
     {
         //Metodo con spawn points
         EnemyType typeToSpawn = enemyPrefabsToUse[i].GetComponent<EnemyIdentifier>().enemyType;
-        Vector3 pointForGroupSpawn = GetRandomSpawmPointNearerThanX(typeToSpawn, 500).position;
+        Vector3 pointForGroupSpawn = GetRandomSpawmPointNearerThanX(typeToSpawn, farestSpawnDistanceToPlayer).position;
 
         // NOTA: Control de error
         // De primeras no debería haber tamaño de spawn 0
@@ -329,7 +330,12 @@ public class EnemyManager : MonoBehaviour
 
     #endregion
 
-    //
+    /// <summary>
+    /// Get a random spawn point not farer than maxDistance from player
+    /// </summary>
+    /// <param name="enemyTypeToSpawn"></param>
+    /// <param name="maxDistance"></param>
+    /// <returns></returns>
     Transform GetRandomSpawmPointNearerThanX(EnemyType enemyTypeToSpawn, float maxDistance)
     {
         List<Transform> candidateSpawns = new List<Transform>(10);

@@ -252,7 +252,7 @@ public class EnemyConsistency : Targeteable {
         //
         currentHealth -= (int)damageReceived;
         //currentChasisHealth -= damageReceived;
-        ManageDamage(impactForce, point);
+        ManageDamage(damageReceived, point);
         
     }
 
@@ -358,7 +358,7 @@ public class EnemyConsistency : Targeteable {
             EnemyAnalyzer.Release();
 
             //
-            Debug.Log("Death log: " + gameObject.name + ", " + transform.position + ", " + damageReceived);
+            //Debug.Log("Death log: " + gameObject.name + ", " + transform.position + ", " + damageReceived);
             // Esto para los voladores mas que nada
             //rb.constraints = RigidbodyConstraints.None;
 

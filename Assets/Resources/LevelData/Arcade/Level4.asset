@@ -16,22 +16,22 @@ MonoBehaviour:
     inGameName: Family Reunion
     gameMode: 0
     victoryCondition: 1
-    enemiesToDefeat: 50
+    enemiesToDefeat: 200
     attackActionsAvailable: 3
     defenseActionsAvailable: 1
     jumpActionsAvailable: 1
     sprintActionsAvailable: 1
     enemyGroups:
     - {fileID: 8096563443830030571, guid: 63f7a55d02361e7448d4b09d407ad549, type: 3}
-    - {fileID: 4694978885907813565, guid: c9642f7a38bd0dd48b356c9cb5710d68, type: 3}
-    - {fileID: 8243630492665005111, guid: fac8381089c47c6409523ca6355013af, type: 3}
-    enemiesToSpawn: 060000000300000001000000
+    - {fileID: 197519170146785174, guid: 00ba06b7129ad1b498b21cbff6213a5c, type: 3}
+    - {fileID: 7284810481999273743, guid: 8a1fa1729bce9f4419cb5d3c9c35552e, type: 3}
+    enemiesToSpawn: 030000000300000001000000
     enemySpawnIncrement: 000000000000000000000000
     timeBetweenSpawns:
     - 5
     - 8
     - 30
-    maxActiveEnemies: 140000000a00000001000000
+    maxActiveEnemies: 140000001e0000000a000000
     terrainPrefabs:
     - {fileID: 3326227640253247155, guid: e805da38f2157cf44bd8ebbbe826ba67, type: 3}
     - {fileID: 3326227640253247155, guid: f90644bdac5d8924fbad91a92cde6c44, type: 3}

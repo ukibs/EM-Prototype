@@ -37,6 +37,9 @@ public class Waypoint : MonoBehaviour
     {
         //
         //ShowPathsToNeighbors();
+        //
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(transform.position + new Vector3(0,20,0), 10);
     }
 
     //
@@ -63,7 +66,6 @@ public class Waypoint : MonoBehaviour
             currentNeighbors = new List<Waypoint>(10);
             distancesToNeighbors = new List<float>(10);
         }
-
         // Primero limpiamos los viejos
         else
         {

@@ -38,7 +38,7 @@ public class ScreecherBodyBehaviour : BugBodyBehaviour
         float ballScale = Mathf.Min((timeCharguingBall / timeToChargeBall) * 2, 2);
         loadingBall.transform.localScale = Vector3.one * ballScale;
         //
-        //VerticalMovement();
+        VerticalMovement();
             
         //
         //Move();
@@ -110,7 +110,7 @@ public class ScreecherBodyBehaviour : BugBodyBehaviour
         //base.Move();
         
         rb.velocity = transform.forward * maxSpeed;
-        Debug.Log("Moving at " + rb.velocity.magnitude + "m/s");
+        //Debug.Log("Moving at " + rb.velocity.magnitude + "m/s");
         //rb.AddForce(transform.forward * maxSpeed);
     }
 

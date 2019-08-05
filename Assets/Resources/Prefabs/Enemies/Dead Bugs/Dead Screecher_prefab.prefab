@@ -4040,6 +4040,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8236849329730472540}
   - component: {fileID: 8236849329720599678}
+  - component: {fileID: 2377340319854997824}
   m_Layer: 0
   m_Name: Dead Screecher_prefab
   m_TagString: Untagged
@@ -4089,6 +4090,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2377340319854997824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8236849329729984124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5d3f6c53207b044a9da9d27daf1d2b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rigidbodiesLifeTime: 15
 --- !u!1 &8236849329729984126
 GameObject:
   m_ObjectHideFlags: 0
