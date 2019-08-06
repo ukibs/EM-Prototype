@@ -126,8 +126,13 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
         {
             switch (behaviour[i])
             {
-                
-                
+                case Actions.FacingPlayer:
+                    if (playerDistance.magnitude < minimalShootDistance)
+                    {
+                        currentAction = behaviour[i];
+                        return;
+                    }
+                    break;
                 case Actions.GoingToPlayer:
 
                     // Esta no lleva condición
@@ -140,20 +145,23 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
                     if (playerDistance.magnitude < minimalShootDistance)
                     {
                         currentAction = behaviour[i];
-                    }
-                    return;
+                        return;
+                    }                    
+                    break;
                 case Actions.EncirclingPlayerForward:
                     if (playerDistance.magnitude < minimalShootDistance)
                     {
                         currentAction = behaviour[i];
+                        return;
                     }
-                    return;
+                    break;
                 case Actions.RetreatingFromPlayer:
                     if (playerDistance.magnitude < minimalShootDistance)
                     {
                         currentAction = behaviour[i];
+                        return;
                     }
-                    return;
+                    break;
             }
         }
     }

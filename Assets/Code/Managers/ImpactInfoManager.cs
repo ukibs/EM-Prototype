@@ -93,6 +93,7 @@ public class ImpactInfoManager : MonoBehaviour {
         {
             rapidFireImpactInfo.damageValue += damageReceived;
             rapidFireImpactInfo.info = Int32.Parse(rapidFireImpactInfo.info) + damageReceived + "";
+            rapidFireImpactInfo.extraInfo = extraInfo;
             rapidFireImpactInfo.position = point;
             rapidFireImpactInfo.screenPosition = screenPosition;
             //

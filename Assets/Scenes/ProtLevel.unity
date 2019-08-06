@@ -925,12 +925,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 795c9de9ccbc26e448aace523144f2d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  epicenterMode: 1
   enemyPrefabsToUse: []
   groupsToSpawnSizes: 
   enemySpawnIncrement: 
   maxEnemiesInAction: 
   timeBetweenSpawns: []
   spawnLimit: -1
+  farestSpawnDistanceToEpicenter: 500
 --- !u!114 &1941905310
 MonoBehaviour:
   m_ObjectHideFlags: 0

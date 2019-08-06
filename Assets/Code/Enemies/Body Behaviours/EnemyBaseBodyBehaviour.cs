@@ -161,7 +161,15 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
                         if ((pathToUse[0].transform.position - transform.position).magnitude < 50)
                         {
                             pathToUse.RemoveAt(0);
-                            Debug.Log("Next waypoint");
+                            //
+                            if (pathToUse.Count == 0)
+                            {
+                                DecideActionToDo();
+                                return;
+                            }
+                                
+                            //
+                            //Debug.Log("Next waypoint: " + pathToUse[0]);
                         }
 
 

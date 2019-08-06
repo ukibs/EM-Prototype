@@ -5,6 +5,18 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
+
+    public enum EpicenterMode
+    {
+        Invalid = -1,
+
+        Player,
+        FixedPoint,
+
+        Count
+    }
+
+    public EpicenterMode epicenterMode;
     public GameObject[] enemyPrefabsToUse;
     //public int[] initialGroupToSpawnSize;
     public int[] groupsToSpawnSizes;
@@ -14,7 +26,7 @@ public class EnemyManager : MonoBehaviour
     //public float minSpawnDistance = 100;
     //public float maxSpawnDistance = 200;
     public int spawnLimit = -1;
-    public float farestSpawnDistanceToPlayer = 1000;
+    public float farestSpawnDistanceToEpicenter = 1000;
 
     private float[] timeFromLastSpawn;
     private int[] activeEnemiesAmount;
@@ -30,8 +42,13 @@ public class EnemyManager : MonoBehaviour
     private List<GameObject>[] activeEnemies;
     private List<GameObject>[] reserveEnemies;
 
+    // Para cuando el epicentro sea un punto determinado
+    private Vector3 epicenterPoint;
+
 
     public int[] ActiveEnemiesAmount { get { return activeEnemiesAmount; } }
+    public Vector3 EpicenterPoint { get { return epicenterPoint; } }
+    public EpicenterMode CurrentEpicenterMode { get { return epicenterMode; } }
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +64,8 @@ public class EnemyManager : MonoBehaviour
         carolHelp = FindObjectOfType<CarolBaseHelp>();
         //
         InitiateEnemies();
+        //
+        DetermineEpicenterPoint();
         
     }
 
@@ -79,6 +98,18 @@ public class EnemyManager : MonoBehaviour
 
     #region New Spawn Methods
 
+    void DetermineEpicenterPoint()
+    {
+        //
+        float distanceToPlayer = 1500;
+        float angle = UnityEngine.Random.Range(0, 360);
+        //
+        float pointX = Mathf.Cos(angle) * distanceToPlayer;
+        float pointY = Mathf.Sin(angle) * distanceToPlayer;
+        //
+        epicenterPoint = new Vector3(pointX, 0, pointY);
+    }
+
     // Los iniciamos desactivados
     void InitiateEnemies()
     {
@@ -109,7 +140,12 @@ public class EnemyManager : MonoBehaviour
     {
         //Metodo con spawn points
         EnemyType typeToSpawn = enemyPrefabsToUse[i].GetComponent<EnemyIdentifier>().enemyType;
-        Vector3 pointForGroupSpawn = GetRandomSpawmPointNearerThanX(typeToSpawn, farestSpawnDistanceToPlayer).position;
+        Transform groupSpawn = GetRandomSpawmPointNearerThanX(typeToSpawn, farestSpawnDistanceToEpicenter);
+        //
+        if (groupSpawn == null)
+            return;
+        //
+        Vector3 pointForGroupSpawn = groupSpawn.position;
 
         // NOTA: Control de error
         // De primeras no debería haber tamaño de spawn 0
@@ -183,105 +219,7 @@ public class EnemyManager : MonoBehaviour
     }
 
     #endregion
-
-    #region Old Spawn Methods
-
-    //
-    //void SpawnEnemies(int i)
-    //{
-    //    //for(int i = 0; i < enemyPrefabsToUse.Length; i++)
-    //    //{
-    //        // Metodo viejo de spammeo
-    //        //float spawnAngle = UnityEngine.Random.Range(0, 360);
-    //        //float spawnRadius = UnityEngine.Random.Range(minSpawnDistance, maxSpawnDistance);
-    //        //Vector2 groupSpawnPositionXY = new Vector2(Mathf.Cos(spawnAngle) * spawnRadius, Mathf.Sin(spawnAngle) * spawnRadius);
-    //        //Vector3 pointForGroupSpawn = new Vector3(groupSpawnPositionXY.x + playerTransform.position.x, 1,
-    //        //                                            groupSpawnPositionXY.y + playerTransform.position.z);
-
-    //        //Metodo con spawn points
-    //        EnemyType typeToSpawn = enemyPrefabsToUse[i].GetComponent<EnemyIdentifier>().enemyType;
-    //        //Debug.Log(typeToSpawn);
-    //        //Vector3 pointForGroupSpawn = GetNearestSpawnPointToPlayer(typeToSpawn).position;
-    //        Vector3 pointForGroupSpawn = GetRandomSpawmPointNearerThanX(typeToSpawn, 500).position;
-            
-    //        //
-    //        if (groupsToSpawnSizes[i] > 0)
-    //        {
-    //            //
-    //            float memberSpawnAngle = 360 / groupsToSpawnSizes[i];
-    //            float meberSpawnRadius = 10;
-    //            //
-    //            for (int j = 0; j < groupsToSpawnSizes[i]; j++)
-    //            {
-    //                // 
-    //                float memberSpawnCoordinates = memberSpawnAngle * j;
-    //                Vector2 memberSpawnPositionXY = new Vector2(Mathf.Cos(memberSpawnCoordinates) * meberSpawnRadius,
-    //                                                            Mathf.Sin(memberSpawnCoordinates) * meberSpawnRadius);
-
-    //                //Vector3 positionToSpawn = new Vector3(Random.Range(-groupToSpawnSize[i], groupToSpawnSize[i]) + pointForGroupSpawn.x, 1,
-    //                //                                        Random.Range(-groupToSpawnSize[i], groupToSpawnSize[i]) + pointForGroupSpawn.z);
-    //                Vector3 positionToSpawn = new Vector3(pointForGroupSpawn.x + memberSpawnPositionXY.x,
-    //                    pointForGroupSpawn.y, pointForGroupSpawn.z + memberSpawnPositionXY.y);
-    //                //
-    //                //
-    //                //float spawnAngle = Random.Range(0, 360);
-    //                //float spawnRadius = Random.Range(minSpawnDistance, maxSpawnDistance);
-    //                //Vector2 groupSpawnPositionXY = new Vector2(Mathf.Cos(spawnAngle) * spawnRadius, Mathf.Sin(spawnAngle) * spawnRadius);
-    //                //Vector3 pointForGroupSpawn = new Vector3(groupSpawnPositionXY.x + playerTransform.position.x, 2,
-    //                //                                            groupSpawnPositionXY.y + playerTransform.position.z);
-    //                //
-    //                GameObject nextEnemy = Instantiate(enemyPrefabsToUse[i], positionToSpawn, Quaternion.identity);
-    //                EnemyConsistency enemyConsistency = nextEnemy.GetComponent<EnemyConsistency>();
-    //                //
-    //                if (enemyConsistency == null)
-    //                    enemyConsistency = nextEnemy.GetComponentInChildren<EnemyConsistency>();
-    //                //
-    //                enemyConsistency.ManagerIndex = i;
-                
-    //                    //GameObject nextEnemy = Instantiate(enemyPrefabsToUse[i], pointForGroupSpawn, Quaternion.identity);
-    //            }
-    //            //
-    //            if (activeEnemiesAmount[i] == 0)
-    //                carolHelp.TriggerGeneralAdvice("EnemiesIncoming");
-    //            //
-    //            activeEnemiesAmount[i] += groupsToSpawnSizes[i];
-    //            //
-    //            groupsToSpawnSizes[i] += enemySpawnIncrement[i];
-    //        }
-    //        else
-    //        {
-    //            Debug.Log("Group depleted");
-    //        }
-    //    //}
-    //}
-
-    //
-    //public void SubtractOne(int enemyIndex)
-    //{
-    //    //NOTA: Esto 
-    //    //string[] prefabName = gameObject.name.Split('(');
-    //    //
-    //    //for(int i = 0; i < enemyPrefabsToUse.Length; i++)
-    //    //{
-    //    //
-    //    //Debug.Log("Checking enemy to subtract: " + prefabName[0] + ", " + enemyPrefabsToUse[i].name);
-    //    //
-    //    //if (prefabName[0].Equals(enemyPrefabsToUse[i].name))
-    //    //{
-    //    //
-    //    activeEnemiesAmount[enemyIndex]--;
-    //    //
-    //    //Debug.Log("Subtracting " + enemyPrefabsToUse[enemyIndex].name);
-    //    //
-    //    //return;
-    //    //    }
-
-    //    //}
-    //    //
-    //    //Debug.Log("Subtracting: Name not matched, " + prefabName[0]);
-    //}
-
-    #endregion
+    
 
     //
     public void InitiateManager(LevelInfo levelInfo)
@@ -338,19 +276,30 @@ public class EnemyManager : MonoBehaviour
     /// <returns></returns>
     Transform GetRandomSpawmPointNearerThanX(EnemyType enemyTypeToSpawn, float maxDistance)
     {
+        //
+        Vector3 epicenter = Vector3.zero;
+        switch (epicenterMode)
+        {
+            case EpicenterMode.Player: epicenter = playerTransform.position; break;
+            case EpicenterMode.FixedPoint: epicenter = epicenterPoint; break;
+        }
+        //
         List<Transform> candidateSpawns = new List<Transform>(10);
 
         for (int i = 0; i < enemySpawnPoints.Length; i++)
         {
             if (enemySpawnPoints[i].enemyType == enemyTypeToSpawn)
             {
-                Vector3 distanceToPlayer = playerTransform.position - enemySpawnPoints[i].transform.position;
+                Vector3 distanceToPlayer = epicenter - enemySpawnPoints[i].transform.position;
                 if (distanceToPlayer.magnitude < maxDistance)
                 {
                     candidateSpawns.Add(enemySpawnPoints[i].transform);
                 }
             }
         }
+        // Chequeamos que haya al menos uno
+        if (candidateSpawns.Count == 0)
+            return null;
         //
         int selectedSpawn = UnityEngine.Random.Range(0, candidateSpawns.Count);
 

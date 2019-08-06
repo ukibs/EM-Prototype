@@ -149,7 +149,7 @@ MonoBehaviour:
   - {fileID: 2552908619244586976}
   maxSpeed: 20
   minimalLungeDistance: 15
-  minimalShootDistance: 50
+  minimalShootDistance: 300
   ofFootMaxTime: 0.5
 --- !u!65 &5562851252596964729
 BoxCollider:
@@ -302,7 +302,7 @@ MonoBehaviour:
   typeOfFire: 0
   firingSystem: 0
   shootCalculation: 1
-  maxRotationOffset: {x: 30, y: 30}
+  maxRotationOffset: {x: 50, y: 30}
   shootParticlesPrefab: {fileID: 1837716235657633640, guid: 61c9e81fe8e7c0a40a345df35440fcab,
     type: 3}
   shootingClip: {fileID: 8300000, guid: 1ad8fb7a96124b44db820533e1dbfe47, type: 3}

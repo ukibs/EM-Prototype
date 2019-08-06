@@ -144,7 +144,7 @@ public class TerrainManager : MonoBehaviour
     public List<Waypoint> GetPathToPlayer(Transform playerSeeker)
     {
         //
-        int maxIterations = 30;
+        int maxIterations = 50;
         int currentIterations = 0;
 
         // Este iremos rellenando con los nodos buenos
@@ -205,14 +205,7 @@ public class TerrainManager : MonoBehaviour
             //
             currentIterations++;
         }
-
-        //
-        Debug.Log("Iterations done: " + currentIterations);
-        //
-        for(int i = 0; i < closedSet.Count; i++)
-        {
-
-        }
+        
         //
         return closedSet;
     }

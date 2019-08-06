@@ -107,7 +107,9 @@ public class SpringCamera : MonoBehaviour {
         // 
         if (currentTarget != targetPlayer && !EnemyAnalyzer.isActive)
         {
+            // TODO: Llamar a función en mundo
             SwitchBetweenEnemies(Vector2.zero);
+            SwitchToNearestInWorldEnemy();
         }
         //
         UpdateMovement(dt);
@@ -514,6 +516,37 @@ public class SpringCamera : MonoBehaviour {
         }
     }
 
+    //
+    void SwitchToNearestInWorldEnemy()
+    {
+        //
+        Transform enemyToSwitch;
+        float nearestDistance;
+        //
+        Targeteable[] enemies = FindObjectsOfType<Targeteable>();
+        List<Targeteable> targeteableEnemies = FilterActiveTargeteables(enemies);
+        //
+        if (targeteableEnemies.Count > 0)
+        {
+            enemyToSwitch = targeteableEnemies[0].transform;
+            nearestDistance = (enemyToSwitch.position - EnemyAnalyzer.lastEnemyPosition).magnitude;
+        }            
+        else
+            return;
+        //
+        for (int i = 1; i < targeteableEnemies.Count; i++)
+        {
+            float nextOnedistance = (targeteableEnemies[i].transform.position - EnemyAnalyzer.lastEnemyPosition).magnitude;
+            if (nextOnedistance < nearestDistance)
+            {
+                enemyToSwitch = targeteableEnemies[i].transform;
+                nearestDistance = nextOnedistance;
+            }
+        }
+        //
+        EnemyAnalyzer.Assign(enemyToSwitch);
+    }
+
     /// <summary>
     /// Switch camera's target with a new one
     /// </summary>
@@ -524,7 +557,7 @@ public class SpringCamera : MonoBehaviour {
         if (newTarget == null)
         {
             currentTarget = targetPlayer;
-            EnemyAnalyzer.Release();
+            //EnemyAnalyzer.Release();
             //targetOffset.x = 3;
         }
         else
@@ -612,6 +645,7 @@ public static class EnemyAnalyzer
     public static Vector3 estimatedToHitPosition;
     public static Targeteable targeteable;
     public static bool isActive = false;
+    public static Vector3 lastEnemyPosition;
 
     // TODO: Ajustarlo para que trabaje con casos sin rigidbody y/o enemyconsistency
     public static void Assign(Transform enemyReference)
@@ -639,6 +673,10 @@ public static class EnemyAnalyzer
 
     public static void Release()
     {
+        //
+        if(enemyTransform != null)
+            lastEnemyPosition = enemyTransform.position;
+        //
         enemyTransform = null;
         enemyRb = null;
 

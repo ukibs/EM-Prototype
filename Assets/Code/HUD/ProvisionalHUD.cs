@@ -67,6 +67,7 @@ public class ProvisionalHUD : MonoBehaviour {
     private PlayerIntegrity playerIntegrity;
     private List<DamageIndicator> damageIndicators;
     private ProvLevelManager levelManager;
+    private EnemyManager enemyManager;
     //
     private Vector2 radarDimensions;
     // De momento que sea un tercion del alto de la pantalla
@@ -84,6 +85,7 @@ public class ProvisionalHUD : MonoBehaviour {
         gameManager = FindObjectOfType<GameManager>();
         playerIntegrity = FindObjectOfType<PlayerIntegrity>();
         levelManager = FindObjectOfType<ProvLevelManager>();
+        enemyManager = FindObjectOfType<EnemyManager>();
         //
         damageIndicators = new List<DamageIndicator>(20);
         //
@@ -223,7 +225,7 @@ public class ProvisionalHUD : MonoBehaviour {
                 // Mesanje aosicado a la entrada
                 if (impactInfoManager.ImpactInfoList[i].extraInfo != null)
                     GUI.Label(new Rect(impactInfoManager.ImpactInfoList[i].screenPosition.x,
-                        Screen.height - impactInfoManager.ImpactInfoList[i].screenPosition.y + 10, 200, 100),
+                        Screen.height - impactInfoManager.ImpactInfoList[i].screenPosition.y + 20, 200, 100),
                         impactInfoManager.ImpactInfoList[i].extraInfo, guiSkin.label);
             }           
         }
@@ -239,7 +241,7 @@ public class ProvisionalHUD : MonoBehaviour {
                        200, 100), impactInfoManager.RapidFireImpactInfo.damageValue + "", guiSkin.label);
 
             GUI.Label(new Rect(impactInfoManager.RapidFireImpactInfo.screenPosition.x,
-                            Screen.height - impactInfoManager.RapidFireImpactInfo.screenPosition.y + 10, 200, 100),
+                            Screen.height - impactInfoManager.RapidFireImpactInfo.screenPosition.y + 20, 200, 100),
                             impactInfoManager.RapidFireImpactInfo.extraInfo, guiSkin.label);
         }
         
@@ -644,6 +646,8 @@ public class ProvisionalHUD : MonoBehaviour {
 
         // Primero dibujamos el radar
         GUI.DrawTexture(new Rect(0, Screen.height - radarDimensions.y, radarDimensions.x, radarDimensions.y), radarTexture);
+        // Epicentro si toca
+        DrawEpicenterInRadar(playerDirection);
         // Y enemigos
         // TODO: Cogerlo por refencia del manager apropiado cuando lo tengamos listo
         Targeteable[] enemies = FindObjectsOfType<Targeteable>();
@@ -682,7 +686,41 @@ public class ProvisionalHUD : MonoBehaviour {
             }
         }
     }
+
+    /// <summary>
+    /// Dibuja epicentro en el radar
+    /// </summary>
+    private void DrawEpicenterInRadar(float playerDirection)
+    {
+        if (enemyManager.CurrentEpicenterMode == EnemyManager.EpicenterMode.FixedPoint)
+        {
+            //
+            Vector3 epicenterOffset = enemyManager.EpicenterPoint - playerIntegrity.transform.position;
+            epicenterOffset.y = 0;
+            //
+            if (epicenterOffset.magnitude > radarRange)
+                epicenterOffset = Vector3.ClampMagnitude(epicenterOffset, radarRange);
+            //
+            // Sacamos la posición para el radar
+            Vector2 posInRadar = new Vector2(epicenterOffset.x * radarDimensions.x / radarRange / 2 + (radarDimensions.x / 2),
+                                    epicenterOffset.z * radarDimensions.y / radarRange / 2 + (radarDimensions.y / 2));
+            // La adaptamos a la orientación del player
+            // Desde el centro del radar, animalicao
+            float radius = Mathf.Sqrt(Mathf.Pow(posInRadar.x - (radarDimensions.x / 2), 2)
+                                + Mathf.Pow(posInRadar.y - (radarDimensions.y / 2), 2));
+            float angle = Mathf.Atan2(posInRadar.y - (radarDimensions.y / 2),
+                            posInRadar.x - (radarDimensions.x / 2));
+            angle += playerDirection;
+            posInRadar.x = radius * Mathf.Cos(angle) + (radarDimensions.x / 2);
+            posInRadar.y = radius * Mathf.Sin(angle) + (radarDimensions.y / 2);
+            // Y dibujamos
+            GUI.DrawTexture(new Rect(posInRadar.x, Screen.height - posInRadar.y, 10, 10),
+                enemyHealthTexture);
+        }
+    }
 }
+
+
 
 public enum DamageType
 {
