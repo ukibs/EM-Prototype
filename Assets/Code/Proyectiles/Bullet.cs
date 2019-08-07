@@ -133,7 +133,7 @@ public class Bullet : MonoBehaviour {
         //
         transform.position = hitPoint;
         GameObject particlesToUse = impactParticlesPrefab;
-        AudioClip clipToUse = impactOnPlayer;
+        AudioClip clipToUse = null;
 
         // Chequeamos si ha impactado a un enemigo y aplicamos lo necesario
         EnemyCollider enemyCollider = collider.GetComponent<EnemyCollider>();
@@ -152,6 +152,7 @@ public class Bullet : MonoBehaviour {
         PlayerIntegrity playerIntegrity = collider.GetComponent<PlayerIntegrity>();
         if(playerIntegrity != null)
         {
+            clipToUse = impactOnPlayer;
             playerIntegrity.ReceiveImpact(rb.velocity, gameObject, rb);
             
             //GeneralFunctions.PlaySoundEffect(audioSource, impactOnPlayer);
