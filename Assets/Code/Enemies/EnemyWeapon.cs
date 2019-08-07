@@ -54,6 +54,8 @@ public class EnemyWeapon : MonoBehaviour
     //public bool debugging = false;
 
     public ShootCalculation shootCalculation = ShootCalculation.MuzzleSpeed;
+    //
+    public bool rotationIsConstrained = true;
     public Vector2 maxRotationOffset;
     public GameObject shootParticlesPrefab;
     //
@@ -112,12 +114,12 @@ public class EnemyWeapon : MonoBehaviour
     private void OnDrawGizmos()
     {
         //
-        //if (player != null)
-        //{
-        //    Debug.DrawRay(transform.position, transform.forward * 10, Color.blue);
-        //    Vector3 playerDirection = player.transform.position - transform.position;
-        //    Debug.DrawRay(transform.position, playerDirection, Color.red);
-        //}
+        if (player != null)
+        {
+            Debug.DrawRay(transform.position, transform.forward * 10, Color.blue);
+            Vector3 playerDirection = player.transform.position - transform.position;
+            Debug.DrawRay(transform.position, playerDirection, Color.red);
+        }
 
     }
 
@@ -149,7 +151,8 @@ public class EnemyWeapon : MonoBehaviour
         transform.rotation = GeneralFunctions.UpdateRotation(transform, anticipatedPlayerPosition, rotationSpeed.x, dt);
         //transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, anticipatedPlayerPosition, rotationSpeed.y, dt, Vector3.right);
         // TODO: Hacerlo en general functions
-        ConstrainRotation();
+        if(rotationIsConstrained)
+            ConstrainRotation();
         // Y anulamos rotación en z (si no los bichos se esnucan)
         transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, 0);
     }

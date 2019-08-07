@@ -87,7 +87,10 @@ public class ExplosiveBullet : MonoBehaviour
 
     protected void OnCollisionEnter(Collision collision)
     {
-
+        //
+        Debug.Log("Explosive bullet collided with: " + collision.gameObject.name);
+        //Time.timeScale = 0;
+        //
         GenerateExplosion();
     }
 
