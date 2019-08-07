@@ -393,9 +393,10 @@ public class ProvisionalHUD : MonoBehaviour {
     {
         //
         float overHeat = robotControl.CurrentOverHeat;
+        float maxOverheat = gameManager.maxOverheat;
         Vector2 overHeatPos = new Vector2(Screen.width - 350, Screen.height - 70);
         //
-        GUI.DrawTexture(new Rect(overHeatPos.x, overHeatPos.y, 300 * overHeat, 20), enemyChasisTexture);
+        GUI.DrawTexture(new Rect(overHeatPos.x, overHeatPos.y, 300 * overHeat / maxOverheat, 20), enemyChasisTexture);
         //
         if (robotControl.TotalOverheat)
         {
@@ -659,9 +660,12 @@ public class ProvisionalHUD : MonoBehaviour {
             Vector3 offset = enemies[i].transform.position - playerIntegrity.transform.position;
             // TODO: Sacar también altura
             offset.y = 0;
+            //
             float xzDistance = offset.magnitude;
-            if(xzDistance < radarRange)
-            {
+            if (xzDistance > radarRange)
+                offset = Vector3.ClampMagnitude(offset, radarRange);
+            //if(xzDistance < radarRange)
+            //{
                 //
                 if (!enemies[i].active)
                     continue;
@@ -683,7 +687,7 @@ public class ProvisionalHUD : MonoBehaviour {
                 if(enemyIdentifier != null)
                 GUI.DrawTexture(new Rect(posInRadar.x, Screen.height - posInRadar.y, 10, 10), 
                     enemyInScreenTextures[(int)enemyIdentifier.enemyType]);
-            }
+            //}
         }
     }
 

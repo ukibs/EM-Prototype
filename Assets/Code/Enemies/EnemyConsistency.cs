@@ -241,6 +241,9 @@ public class EnemyConsistency : Targeteable {
         //
         if (!IsAlive)
             return;
+        // De momento chequeamos aqui el fuera de cámara
+        if (!IsOnCamera())
+            return;
         //
         float damageReceived = impactForce - defense;
         damageReceived = Mathf.Max(damageReceived, 0);
@@ -462,6 +465,19 @@ public class EnemyConsistency : Targeteable {
         {
             Destroy(enemyPropulsion);
         }
+    }
+
+    //
+    bool IsOnCamera()
+    {
+        // Variable hardcodeada para enemigos que quedan tapados por la niebla
+        float maxDistance = 500;
+        //
+        Vector3 positionInScreen = Camera.main.WorldToViewportPoint(transform.position);
+        //
+        return positionInScreen.x >= 0 && positionInScreen.x <= 1 &&
+                positionInScreen.y >= 0 && positionInScreen.y <= 1 &&
+                positionInScreen.z > 0 && positionInScreen.z < maxDistance;
     }
     
 }

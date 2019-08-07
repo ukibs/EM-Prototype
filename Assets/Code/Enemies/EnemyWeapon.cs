@@ -150,7 +150,8 @@ public class EnemyWeapon : MonoBehaviour
         //transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, anticipatedPlayerPosition, rotationSpeed.y, dt, Vector3.right);
         // TODO: Hacerlo en general functions
         ConstrainRotation();
-        //
+        // Y anulamos rotación en z (si no los bichos se esnucan)
+        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, 0);
     }
 
     // TODO: Mover a funciones generales

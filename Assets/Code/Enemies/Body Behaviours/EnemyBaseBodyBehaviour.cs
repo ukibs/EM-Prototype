@@ -230,4 +230,14 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
         float distanceToPlayer = (transform.position - player.transform.position).magnitude; // Ya veremos si hacemos sqrt magnitude para ahorrar
         
     }
+
+    /// <summary>
+    /// Cheque para ver si el jugador está a la vista
+    /// Para determinar si usar waypoints o no
+    /// </summary>
+    /// <returns></returns>
+    protected bool PlayerOnSight()
+    {
+        return false;
+    }
 }

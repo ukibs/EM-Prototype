@@ -51,11 +51,11 @@ MonoBehaviour:
   unlockedDefenseActions: 1
   maxCharge: 1
   pulseForce: 10
-  canonBaseMuzzleSpeed: 700
+  canonBaseMuzzleSpeed: 1000
   canonMinCharge: 0.3
-  rapidFireRate: 12
-  rapidFireMuzzleSpeed: 1500
-  maxOverheat: 1
+  rapidFireRate: 15
+  rapidFireMuzzleSpeed: 1200
+  maxOverheat: 1.5
   piercingBaseMuzzleSpeed: 2000
   piercingBaseProyectileMass: 0.00001
   movementForce: 3
