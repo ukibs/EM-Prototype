@@ -86,8 +86,8 @@ public class ScreecherBodyBehaviour : BugBodyBehaviour
         playerDirection.y = transform.position.y;
 
         //
-        Vector3 playerCross = Vector3.Cross(playerDirection, Vector3.up);
-        transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, playerCross, rotationSpeed, dt);
+        //Vector3 playerCross = Vector3.Cross(playerDirection, Vector3.up);
+        transform.rotation = GeneralFunctions.UpdateRotationOnCross(transform, player.transform.position, rotationSpeed, dt);
         // Ñapa para que no se descojonen
         transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
         Move();

@@ -110,6 +110,23 @@ public static class GeneralFunctions
         return rotationToReturn;
     }
 
+    public static Quaternion UpdateRotationOnCross(Transform self, Vector3 objective, float rotationSpeed, float dt)
+    {
+        //
+        Quaternion rotationToReturn = self.transform.rotation;
+
+        //
+        Vector3 objectiveDirection = objective - self.position;
+        Vector3 crossDirection = Vector3.Cross(self.forward, objectiveDirection);
+        
+        //
+        Quaternion idealRotation = Quaternion.LookRotation(self.position + crossDirection);
+        rotationToReturn = Quaternion.RotateTowards(rotationToReturn, idealRotation, rotationSpeed * dt);
+
+        //
+        return rotationToReturn;
+    }
+
     /// <summary>
     /// Anticipate the objective position for autoaiming
     /// </summary>
