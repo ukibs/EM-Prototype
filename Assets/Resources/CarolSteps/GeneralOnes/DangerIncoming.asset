@@ -15,6 +15,6 @@ MonoBehaviour:
   carolStep:
     helpTrigger: 0
     keyWord: DangerIncoming
-    audioClip: {fileID: 8300000, guid: 73916124629566a499809d42179c9dea, type: 3}
+    audioClip: {fileID: 8300000, guid: d88ef80af3c71a54ab314945745304b0, type: 3}
     stepText: 
     amount: 0
