@@ -78,7 +78,8 @@ MonoBehaviour:
   piercingIcon: {fileID: 2800000, guid: 1b1b4126fd33c304995b382d1ca03fa1, type: 3}
   sphereDefenseTexture: {fileID: 2800000, guid: 094175ff16bcf6047a424336970a282c,
     type: 3}
-  damageIndicatorLifeTime: 1
+  alertTexture: {fileID: 2800000, guid: ece55f8ab73783d4e846bdd3850eb79b, type: 3}
+  damageIndicatorLifeTime: 2
   radarTexture: {fileID: 2800000, guid: c48d2fd6d9dccc946a6c2f574dfbd7f8, type: 3}
   radarRange: 500
   keyboardControls: {fileID: 2800000, guid: 47d09ea007cdd2d43b83fde139df457c, type: 3}

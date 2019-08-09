@@ -38,6 +38,7 @@ public class Bullet : MonoBehaviour {
     protected CarolBaseHelp carolHelp;
     protected GameObject detectionTrail;
     protected LineRenderer detectionTrailRenderer;
+    protected BulletPool bulletPool;
 
 	// Use this for initialization
 	protected virtual void Start () {
@@ -50,6 +51,8 @@ public class Bullet : MonoBehaviour {
         //
         bulletSoundManager = FindObjectOfType<AudioObjectManager>();
         //
+        bulletPool = FindObjectOfType<BulletPool>();
+        //
         if (dangerousEnough)
         {
             // Instanciamos el trail renderer
@@ -60,6 +63,8 @@ public class Bullet : MonoBehaviour {
             AllocateTrailRenderer();
             //
             carolHelp.TriggerGeneralAdvice("DangerIncoming");
+            //
+            bulletPool.AddDangerousBulletToList(gameObject);
         }
     }
 
@@ -100,6 +105,9 @@ public class Bullet : MonoBehaviour {
 
     protected void OnDestroy()
     {
+        //
+        bulletPool.RemoveDangerousBulletFromList(gameObject);
+        //
         Destroy(detectionTrail);
     }
 
@@ -229,7 +237,8 @@ public class Bullet : MonoBehaviour {
         //
         for(int i = 0; i < stepsToCheck; i++)
         {
-            //
+            // TODO: Habrá que tener en cuenta el drag
+            // Creo
             float fallInThatTime = -9.81f * Mathf.Pow(timePerTic * i, 2) / 2;
             //
             positions[i] = transform.position + (rb.velocity * timePerTic * i) + new Vector3(0,fallInThatTime,0);

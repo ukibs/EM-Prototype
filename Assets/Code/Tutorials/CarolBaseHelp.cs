@@ -225,6 +225,11 @@ public class CarolBaseHelp : MonoBehaviour
                 PlayClip(generalAdvices[i].carolStep.audioClip);
             }
         }
+        //
+        if(tag == "Danger Incoming")
+        {
+
+        }
     }
 }
 

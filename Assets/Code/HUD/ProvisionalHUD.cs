@@ -48,6 +48,9 @@ public class ProvisionalHUD : MonoBehaviour {
     public Texture sphereDefenseTexture;
 
     //
+    public Texture alertTexture;
+
+    //
     public float damageIndicatorLifeTime = 0.5f;
 
     //
@@ -68,6 +71,7 @@ public class ProvisionalHUD : MonoBehaviour {
     private List<DamageIndicator> damageIndicators;
     private ProvLevelManager levelManager;
     private EnemyManager enemyManager;
+    private BulletPool bulletPool;
     //
     private Vector2 radarDimensions;
     // De momento que sea un tercion del alto de la pantalla
@@ -86,6 +90,7 @@ public class ProvisionalHUD : MonoBehaviour {
         playerIntegrity = FindObjectOfType<PlayerIntegrity>();
         levelManager = FindObjectOfType<ProvLevelManager>();
         enemyManager = FindObjectOfType<EnemyManager>();
+        bulletPool = FindObjectOfType<BulletPool>();
         //
         damageIndicators = new List<DamageIndicator>(20);
         //
@@ -162,6 +167,8 @@ public class ProvisionalHUD : MonoBehaviour {
         //
         CheckAndDrawLevelEnd();
 
+        //
+        DrawDangerousBulletsDangerIndicators();
     }
 
     //
@@ -699,6 +706,21 @@ public class ProvisionalHUD : MonoBehaviour {
             // Y dibujamos
             GUI.DrawTexture(new Rect(posInRadar.x, Screen.height - posInRadar.y, 10, 10),
                 enemyHealthTexture);
+        }
+    }
+
+    //
+    private void DrawDangerousBulletsDangerIndicators()
+    {
+        //
+        for(int i = 0; i < bulletPool.DangerousBullets.Count; i++)
+        {
+            //
+            Vector3 bulletScreenPosition = mainCamera.WorldToViewportPoint(bulletPool.DangerousBullets[i].transform.position);
+            Rect iconRect = new Rect(bulletScreenPosition.x * Screen.width - 25, 
+                                    Screen.height - (bulletScreenPosition.y * Screen.height) - 25,
+                                    50, 50);
+            GUI.DrawTexture(iconRect, alertTexture);
         }
     }
 }
