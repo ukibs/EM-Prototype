@@ -111,7 +111,10 @@ public class ProvisionalHUD : MonoBehaviour {
         PlayerHealthAndShields();
 
         // Lo quitamos de momento
-        MarkEnemiesOnScreen();
+        if(EnemyAnalyzer.isActive && EnemyAnalyzer.enemyConsistency.IsMultipart)
+            MarkEnemyPartsOnScreen();
+        else
+            MarkEnemiesOnScreen();
 
         //
         // DrawAbilityIcons();
@@ -125,14 +128,12 @@ public class ProvisionalHUD : MonoBehaviour {
             //if (cameraControl.CurrentTarget != null)
             if (EnemyAnalyzer.isActive)
             {
-                EnemyConsistency enemyConsistency = cameraControl.CurrentTarget.GetComponent<EnemyConsistency>();
+                EnemyConsistency enemyConsistency = EnemyAnalyzer.enemyConsistency;
                 if (enemyConsistency != null)
                     EnemyInfoEC();
                 // TODO: Hacerlo con weakpoints también
                 else
                     EnemyInfoSimple();
-                //
-
             }
         }
         else
@@ -527,7 +528,6 @@ public class ProvisionalHUD : MonoBehaviour {
     //void Mark
 
     //
-    // Vamos a hacer que solo marque al que tienes fijado
     void MarkEnemiesOnScreen()
     {
         // TODO: Hacerlo con Targeteable
@@ -561,6 +561,23 @@ public class ProvisionalHUD : MonoBehaviour {
                     enemyInScreenTextures[0]);
                 //enemyInScreenTextures[(int)enemyIdentifier.enemyType]);
             }
+        }
+    }
+
+    //
+    void MarkEnemyPartsOnScreen()
+    {
+        //
+        List<EnemyCollider> targeteableColliders = EnemyAnalyzer.enemyConsistency.TargeteableColliders;
+        for (int i = 0; i < targeteableColliders.Count; i++)
+        {
+            //
+            Vector3 posInScreen = Camera.main.WorldToViewportPoint(targeteableColliders[i].transform.position);
+            //
+            GUI.DrawTexture(new Rect(
+                posInScreen.x * Screen.width - 15,
+                Screen.height - posInScreen.y * Screen.height - 50, 30, 30),
+                enemyInScreenTextures[0]);
         }
     }
 
@@ -717,6 +734,10 @@ public class ProvisionalHUD : MonoBehaviour {
         {
             //
             Vector3 bulletScreenPosition = mainCamera.WorldToViewportPoint(bulletPool.DangerousBullets[i].transform.position);
+            //
+            if (bulletScreenPosition.z < 0)
+                return;
+            //
             Rect iconRect = new Rect(bulletScreenPosition.x * Screen.width - 25, 
                                     Screen.height - (bulletScreenPosition.y * Screen.height) - 25,
                                     50, 50);

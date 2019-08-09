@@ -4,10 +4,26 @@ using UnityEngine;
 
 public class EnemyCollider : MonoBehaviour
 {
+    //
+    public enum AdditionalEffectOnDamage
+    {
+        Invalid = -1,
+
+        None,
+        MovementCrippling,
+        Stun,
+
+        Count
+    }
+
     [Tooltip("Armor thickness on this side")]
     public float armor = 10;
     //
     public MeshRenderer[] associatedMeshRenderers;
+    //
+    public bool isTargeteable;
+    [Tooltip("Only used when the collider is lockable")]
+    public int locationHealth;
 
     // TODO: Manejar dureza de material
     // Y otras propiedades en el futuro

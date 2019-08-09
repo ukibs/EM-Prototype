@@ -239,6 +239,7 @@ public class Bullet : MonoBehaviour {
         {
             // TODO: Habrá que tener en cuenta el drag
             // Creo
+            //GeneralFunctions.AnticipateObjectivePositionForAiming();
             float fallInThatTime = -9.81f * Mathf.Pow(timePerTic * i, 2) / 2;
             //
             positions[i] = transform.position + (rb.velocity * timePerTic * i) + new Vector3(0,fallInThatTime,0);

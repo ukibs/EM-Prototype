@@ -95,9 +95,6 @@ public class SpringCamera : MonoBehaviour {
         float dt = Time.deltaTime;
         //
         CheckSwitchAndEnemies();
-        //
-        
-        
     }
 
     // Called before physics
@@ -184,19 +181,14 @@ public class SpringCamera : MonoBehaviour {
         
     }
 
+    //
     void UpdateRotation(float dt)
     {
         // To look at the indicated point
         // Si el target es el player el objetivo viene determinado por los controloes
         if (currentTarget == targetPlayer)
             targetPos = currentTarget.TransformPoint(targetOffset);
-        // Si no este es ajusatado en AdjustToEnemyMovement
-        //else
-        //    targetPos = currentTarget.position;
-
-        // TODO: Revisar esto
-        //if (currentEnemy != null)
-        //    targetPos += currentEnemy.centralPointOffset;
+        
         // Transición gradual entre objetivos para no marear al player
         if (transitionProgression < transitionTimeBetweenEnemies)
         {
@@ -409,7 +401,11 @@ public class SpringCamera : MonoBehaviour {
         Vector2 rightAxis = inputManager.RightStickAxis;
         if (currentTarget != targetPlayer && rightAxis.magnitude > 0.5f && changeAllowed == true)
         {
-            SwitchBetweenEnemies(rightAxis);
+            if (!EnemyAnalyzer.enemyConsistency.IsMultipart)
+                SwitchBetweenEnemies(rightAxis);
+            else
+                SwitchBetweenEnemyParts(rightAxis);
+            // Vamos a meter aqui el movimiento entre partes del mismo enemigo
             changeAllowed = false;
             return true;
         }
@@ -517,6 +513,49 @@ public class SpringCamera : MonoBehaviour {
     }
 
     //
+    void SwitchBetweenEnemyParts(Vector2 rightAxis)
+    {
+        // Si la magnitud es 0 trabajmos con distancia en vez de con angulo
+        float axisAngle = 0;
+        if (rightAxis.magnitude != 0)
+            axisAngle = Mathf.Atan2(rightAxis.y, rightAxis.x);
+        //
+        //EnemyCollider[] bodyColliders =  EnemyAnalyzer.enemyConsistency.BodyColliders;
+        List<EnemyCollider> targeteableColliders = EnemyAnalyzer.enemyConsistency.TargeteableColliders;
+        //
+        float minimalMeasure = 180;
+        //float minimalDistance = Mathf.Infinity;
+        int nearestEnemy = -1;
+        //
+        for (int i = 0; i < targeteableColliders.Count; i++)
+        {
+            // Vamos a probar cercanía por ángulo
+            Vector3 enemyViewPortCoordinates = cameraComponent.WorldToViewportPoint(targeteableColliders[i].transform.position);
+            Vector2 coordinatesFromScreenCenter = new Vector2(enemyViewPortCoordinates.x - 0.5f, enemyViewPortCoordinates.y - 0.5f);
+            // Vamos a hacer un sistema de pesos angulo/distancia
+            // Ahora sacamos el angulo
+            float angle = Mathf.Atan2(coordinatesFromScreenCenter.y, coordinatesFromScreenCenter.x);
+            float distance = coordinatesFromScreenCenter.magnitude;
+            //
+            float angleOffset = Mathf.Abs(axisAngle - angle);
+            //
+            float measure = angleOffset + (distance * 1);
+
+            //
+            if (measure < minimalMeasure &&
+                targeteableColliders[i].transform != currentTarget 
+                //&& EnemyOnSight(bodyColliders[i].transform.TransformPoint(bodyColliders[i].centralPointOffset))
+                )
+            {
+                minimalMeasure = measure;
+                nearestEnemy = i;
+            }
+        }
+        //
+        SwitchTarget(targeteableColliders[nearestEnemy].transform);
+    }
+
+    //
     void SwitchToNearestInWorldEnemy()
     {
         //
@@ -577,7 +616,7 @@ public class SpringCamera : MonoBehaviour {
     /// <param name="directionAndForce"></param>
     public void ShakeCamera(Vector3 directionAndForce)
     {
-
+        // Algún día
     }
 
     //
@@ -657,11 +696,17 @@ public static class EnemyAnalyzer
             enemyRb = enemyReference.GetComponentInParent<Rigidbody>();
         //
         enemyConsistency = enemyReference.GetComponent<EnemyConsistency>();
+        // Chequeo extra para  las body parts
+        if(enemyConsistency == null)
+            enemyConsistency = enemyReference.GetComponentInParent<EnemyConsistency>();
         // Chequeo para los componentes que no lo tienen, como los WeakPoints
-        if(enemyConsistency != null)
+        if (enemyConsistency != null)
             enemyConsistency.SetCollidersPenetrationColors();
         //
         targeteable = enemyReference.GetComponent<Targeteable>();
+        // Chequeo extra para  las body parts
+        if (targeteable == null)
+            targeteable = enemyReference.GetComponentInParent<Targeteable>();
         isActive = true;
     }
 

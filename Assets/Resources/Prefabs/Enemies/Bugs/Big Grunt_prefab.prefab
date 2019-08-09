@@ -125,6 +125,8 @@ MonoBehaviour:
   associatedMeshRenderers:
   - {fileID: 5180726040010395768}
   - {fileID: 5180726040010395760}
+  isTargeteable: 0
+  locationHealth: 0
 --- !u!65 &5408177331135026441
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -248,6 +250,8 @@ MonoBehaviour:
   - {fileID: 5180726040010395766}
   - {fileID: 5180726040010395802}
   - {fileID: 5180726040010395788}
+  isTargeteable: 1
+  locationHealth: 0
 --- !u!1 &4694978884287231174
 GameObject:
   m_ObjectHideFlags: 0
@@ -1284,6 +1288,8 @@ MonoBehaviour:
   associatedMeshRenderers:
   - {fileID: 5180726040010395770}
   - {fileID: 5180726040010395764}
+  isTargeteable: 1
+  locationHealth: 0
 --- !u!114 &6987211768712398027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1307,6 +1313,7 @@ MonoBehaviour:
   typeOfFire: 0
   firingSystem: 0
   shootCalculation: 1
+  rotationIsConstrained: 1
   maxRotationOffset: {x: 50, y: 30}
   shootParticlesPrefab: {fileID: 1837716235657633640, guid: 61c9e81fe8e7c0a40a345df35440fcab,
     type: 3}
@@ -3317,6 +3324,8 @@ MonoBehaviour:
   armor: 5
   associatedMeshRenderers:
   - {fileID: 5180726040010395790}
+  isTargeteable: 1
+  locationHealth: 0
 --- !u!65 &6861572666122994156
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -156,6 +156,9 @@ public static class GeneralFunctions
         return playerFutureEstimatedPosition;
     }
 
+    // TODO: Función aparte para sacar cálculo con drag
+    //public static float G
+
     /// <summary>
     /// Gives the height the rpoyectile will lose due to gravity before reaching its objective
     /// </summary>
