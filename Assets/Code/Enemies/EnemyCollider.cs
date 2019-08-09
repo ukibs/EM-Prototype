@@ -23,19 +23,23 @@ public class EnemyCollider : MonoBehaviour
     //
     public bool isTargeteable;
     [Tooltip("Only used when the collider is lockable")]
-    public int locationHealth;
+    public int maxLocationHealth;
+    public AdditionalEffectOnDamage onDamage = AdditionalEffectOnDamage.None;
 
     // TODO: Manejar dureza de material
     // Y otras propiedades en el futuro
 
     private EnemyConsistency body;
-    //private Rigidbody bodyRb;
+    private EnemyBaseBodyBehaviour bodyBehaviour;
     private Color[] originalAMRColors;
+    private int currentLocationHealth;
 
     public float Armor {
         get { return armor; }
         set { armor = value; }
     }
+
+    public float CurrentLocationHealth { get { return currentLocationHealth; } }
 
     // Start is called before the first frame update
     void Start()
@@ -48,15 +52,17 @@ public class EnemyCollider : MonoBehaviour
         // y por tanto lo lleva integrado
         if (body == null)
             body = GetComponent<EnemyConsistency>();
-
+        //
+        bodyBehaviour = body.GetComponent<EnemyBaseBodyBehaviour>();
 
         //
         //bodyRb = body.GetComponent<Rigidbody>();
 
         //
         GetOriginalColors();
-        // Testeo
-        //SetPenetrationColors();
+        // Si no hay efecto adicional asignado no tiene sentido poner vida aparte
+        if (onDamage != AdditionalEffectOnDamage.None)
+            currentLocationHealth = maxLocationHealth;
     }
     
     // 
@@ -136,6 +142,9 @@ public class EnemyCollider : MonoBehaviour
             if (penetrationResult > 0)
                 penetrationResult = 1 - (armor / penetrationValue);
             //
+            if (onDamage != AdditionalEffectOnDamage.None)
+                ManageBodyPartDamage(penetrationResult, bulletRb);
+            //
             body.ReceiveProyectileImpact(penetrationResult, impactPoint, bulletRb);
         }
         
@@ -159,6 +168,26 @@ public class EnemyCollider : MonoBehaviour
             float penetrationResult = Mathf.Max(penetrationValue - armor, 0);
             //
             body.ReceiveSharpnelImpact(penetrationResult, impactPoint, sharpnelRb);
+        }
+    }
+
+    //
+    void ManageBodyPartDamage(float penetrationResult, Rigidbody bulletRb)
+    {
+        //
+        int damageReceived = (int)(GeneralFunctions.GetBodyKineticEnergy(bulletRb) * penetrationResult);
+        currentLocationHealth -= damageReceived;
+        // Depende del efecto se gestionará de una forma u otra
+        switch (onDamage)
+        {
+            case AdditionalEffectOnDamage.MovementCrippling:
+                if (currentLocationHealth < 0
+                    && currentLocationHealth + damageReceived > 0) // Chequeo rapido para que solo se aplique una vez
+                    bodyBehaviour.MovementStatus -= 0.25f; // De momento hardcodeamos teniendo en cuenta 4 patas
+                break;
+            case AdditionalEffectOnDamage.Stun:
+                // Este lo dejamos aparcado de momento
+                break;
         }
     }
 

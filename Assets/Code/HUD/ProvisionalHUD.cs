@@ -493,8 +493,17 @@ public class ProvisionalHUD : MonoBehaviour {
             GUI.DrawTexture(new Rect(Screen.width / 2 + 150, Screen.height / 2 - 30, enemyCoreHealthForBar * 100f, 20), enemyHealthTexture);
             //GUI.Label(new Rect(Screen.width / 2 + 150, Screen.height / 2 - 30, 100f, 20), " " + enemyConsistency.CurrentHealth);
 
+            // TODO: Sacar vida de la parte extra
+            EnemyCollider enemyCollider = EnemyAnalyzer.enemyCollider;
+            if(enemyCollider != null && enemyCollider.isTargeteable && enemyCollider.maxLocationHealth > 0)
+            {
+                float enemyPartHealthForBar = enemyCollider.CurrentLocationHealth / enemyCollider.maxLocationHealth;
+                enemyPartHealthForBar = Mathf.Clamp01(enemyPartHealthForBar);
+                GUI.DrawTexture(new Rect(Screen.width / 2 + 150, Screen.height / 2, enemyPartHealthForBar * 100f, 20), enemyHealthTexture);
+            }
+                
 
-            // TODO: Sacar distancia
+            // 
             float distance = (playerIntegrity.transform.position - enemyConsistency.transform.position).magnitude;
             int distanceToShow = (int)distance;
             GUI.Label(new Rect(Screen.width / 2 + 150, Screen.height / 2, 300, 20), "Distance: " + distanceToShow, guiSkin.label);
@@ -507,9 +516,9 @@ public class ProvisionalHUD : MonoBehaviour {
             if (Physics.Raycast(cameraControl.transform.position, enemyDirection, out hitInfo, enemyDirection.magnitude))
             {
                 //Debug.Log(hitInfo.transform.name);
-                EnemyCollider enemyCollider = hitInfo.collider.GetComponent<EnemyCollider>();
+                EnemyCollider possibleHit = hitInfo.collider.GetComponent<EnemyCollider>();
                 //Debug.Log("Enemy collider: " + enemyCollider);
-                if (enemyCollider != null)
+                if (possibleHit != null)
                 {
 
                     //GUI.DrawTexture(new Rect(Screen.width / 2 - 25, Screen.height / 2 - 25, 50, 50), enemyMarkerTextureRed);

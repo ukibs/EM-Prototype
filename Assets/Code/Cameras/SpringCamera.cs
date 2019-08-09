@@ -681,6 +681,7 @@ public static class EnemyAnalyzer
     public static Transform enemyTransform;
     public static Rigidbody enemyRb;
     public static EnemyConsistency enemyConsistency;
+    public static EnemyCollider enemyCollider;
     public static Vector3 estimatedToHitPosition;
     public static Targeteable targeteable;
     public static bool isActive = false;
@@ -700,8 +701,11 @@ public static class EnemyAnalyzer
         if(enemyConsistency == null)
             enemyConsistency = enemyReference.GetComponentInParent<EnemyConsistency>();
         // Chequeo para los componentes que no lo tienen, como los WeakPoints
+        // TODO: Ponerselos más adelante y quitar esto
         if (enemyConsistency != null)
             enemyConsistency.SetCollidersPenetrationColors();
+        //
+        enemyCollider = enemyReference.GetComponent<EnemyCollider>();
         //
         targeteable = enemyReference.GetComponent<Targeteable>();
         // Chequeo extra para  las body parts

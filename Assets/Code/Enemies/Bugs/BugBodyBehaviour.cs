@@ -202,7 +202,7 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
                     break;
             }
             //
-            rb.velocity = (movingDirection * maxSpeed * speedMultiplier);
+            rb.velocity = (movingDirection * maxSpeed * speedMultiplier * movementStatus);
             //rb.AddForce(movingDirection * maxSpeed * speedMultiplier);
             //
             if (!onFloor)

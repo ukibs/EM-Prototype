@@ -46,7 +46,20 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
 
     //
     protected bool onFloor = true;
-    
+
+    // Multilicador para cuando haya extemidades dañables
+    // 1 - Óptimo, 0 - Inmovibilizado
+    protected float movementStatus = 1;
+
+    #region Properties
+
+    public float MovementStatus
+    {
+        get { return movementStatus; }
+        set { movementStatus = value; }
+    }
+
+    #endregion
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -148,7 +161,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
             switch (currentAction)
             {
                 case Actions.FacingPlayer:
-                    transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed, dt);
+                    transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed * movementStatus, dt);
                     break;
                 case Actions.GoingToPlayer:
                     // TODO: Cuidado con cuando se cambian los paneles. De momento no es un gran problema, pero habrá que abordarlo
@@ -177,32 +190,32 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
                         currentObjective = pathToUse[0].transform.position;
 
                         //
-                        transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, currentObjective, rotationSpeed, dt);
+                        transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, currentObjective, rotationSpeed * movementStatus, dt);
                         Move();
                     }
                     else
                     {
                         //
-                        transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed, dt);
+                        transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed * movementStatus, dt);
                         Move();
                     }
                     break;
                 case Actions.EncirclingPlayerForward:
                     Vector3 playerCross = Vector3.Cross(playerDirection, Vector3.up);
                     //transform.rotation = Quaternion.LookRotation(playerCross);
-                    transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, playerCross, rotationSpeed, dt);
+                    transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, playerCross, rotationSpeed * movementStatus, dt);
                     Move();
                     break;
                 case Actions.EncirclingPlayerSideward:
-                    transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed, dt);
+                    transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed * movementStatus, dt);
                     Move();
                     break;
                 case Actions.Fleeing:
-                    transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, -player.transform.position, rotationSpeed, dt);
+                    transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, -player.transform.position, rotationSpeed * movementStatus, dt);
                     Move();
                     break;
                 case Actions.RetreatingFromPlayer:
-                    transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed, dt);
+                    transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed * movementStatus, dt);
                     Move();
                     break;
             }

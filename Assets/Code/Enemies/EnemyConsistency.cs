@@ -291,7 +291,7 @@ public class EnemyConsistency : Targeteable {
             currentHealth -= (int)damageReceived;
             ManageDamage(damageReceived, point);
 
-            //impactInfoManager.SendImpactInfo(point, damageReceived);
+            impactInfoManager.SendImpactInfo(point, (int)damageReceived);
         }
         else
         {
@@ -334,7 +334,7 @@ public class EnemyConsistency : Targeteable {
     /// <summary>
     /// 
     /// </summary>
-    protected virtual void ManageDamage(float damageReceived, Vector3 point)
+    protected virtual void ManageDamage(float damageReceived, Vector3 point, EnemyCollider damagedCollider = null)
     {
         // Si la vida cae a cero lo convertimos en un simple objeto con rigidbody
         // Le quitamos sus scripts de comportamiento, vamos
@@ -491,8 +491,8 @@ public class EnemyConsistency : Targeteable {
             }
         }
         //
-        if (isMultipart)
-            Debug.Log("Targeteable parts: " + targetableColliders.Count);
+        //if (isMultipart)
+        //    Debug.Log("Targeteable parts: " + targetableColliders.Count);
     }
 
     //
