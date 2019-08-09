@@ -110,6 +110,14 @@ public static class GeneralFunctions
         return rotationToReturn;
     }
 
+    /// <summary>
+    /// Función para rotar hacia la cruz entre el sujeto y un objetivo
+    /// </summary>
+    /// <param name="self"></param>
+    /// <param name="objective"></param>
+    /// <param name="rotationSpeed"></param>
+    /// <param name="dt"></param>
+    /// <returns></returns>
     public static Quaternion UpdateRotationOnCross(Transform self, Vector3 objective, float rotationSpeed, float dt)
     {
         //
@@ -157,7 +165,10 @@ public static class GeneralFunctions
     }
 
     // TODO: Función aparte para sacar cálculo con drag
-    //public static float G
+    //public static float GetFlyingTimeWithDrag()
+    //{
+
+    //}
 
     /// <summary>
     /// Gives the height the rpoyectile will lose due to gravity before reaching its objective
@@ -200,6 +211,14 @@ public static class GeneralFunctions
         return travelTime;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="initialVelocity"></param>
+    /// <param name="distance"></param>
+    /// <param name="drag"></param>
+    /// <param name="proyectileMass"></param>
+    /// <returns></returns>
     public static float GetVelocityWithDistanceAndDrag(float initialVelocity, float distance, float drag, float proyectileMass)
     {
         float handheldArea = 0.0001f;

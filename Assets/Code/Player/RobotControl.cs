@@ -682,6 +682,7 @@ public class RobotControl : MonoBehaviour {
                     totalOverheat = true;
                     currentOverheat = gameManager.maxOverheat;
                     GeneralFunctions.PlaySoundEffect(audioSource, overHeatClip);
+                    actionCharging = ActionCharguing.None;
                 }
                 //
                 chargedAmount = Mathf.Min(chargedAmount, 1);

@@ -39,6 +39,9 @@ public class Bullet : MonoBehaviour {
     protected GameObject detectionTrail;
     protected LineRenderer detectionTrailRenderer;
     protected BulletPool bulletPool;
+    // De momento hardcodeado
+    protected float maxTimeBetweenRecalculation = 2;
+    protected float currentTimeBetweenRecalculation = 0;
 
 	// Use this for initialization
 	protected virtual void Start () {
@@ -83,6 +86,18 @@ public class Bullet : MonoBehaviour {
         transform.LookAt(rb.velocity);
         //
         CheckTravelDone(dt);
+        // TODO: Revisar porque no cuadra bien el primer cáclculo
+        // Mientras nos apañamos con esto
+        if (dangerousEnough)
+        {
+            currentTimeBetweenRecalculation += dt;
+            if (currentTimeBetweenRecalculation > maxTimeBetweenRecalculation)
+            {
+                AllocateTrailRenderer();
+                currentTimeBetweenRecalculation -= maxTimeBetweenRecalculation;
+            }
+        }
+        
 	}
 
     protected virtual void OnCollisionEnter(Collision collision)
@@ -240,9 +255,13 @@ public class Bullet : MonoBehaviour {
             // TODO: Habrá que tener en cuenta el drag
             // Creo
             //GeneralFunctions.AnticipateObjectivePositionForAiming();
+            //GeneralFunctions.GetVelocityWithDistanceAndDrag(rb.velocity.magnitude, , rb.drag, rb.mass);
             float fallInThatTime = -9.81f * Mathf.Pow(timePerTic * i, 2) / 2;
             //
-            positions[i] = transform.position + (rb.velocity * timePerTic * i) + new Vector3(0,fallInThatTime,0);
+            float anticipatedDragEffect = 1 - (rb.drag * timePerTic);
+            float speedInStep = rb.velocity.magnitude * anticipatedDragEffect;
+            //
+            positions[i] = transform.position + (rb.velocity.normalized * speedInStep * timePerTic * i) + new Vector3(0,fallInThatTime,0);
         }
         //
         detectionTrailRenderer.positionCount = stepsToCheck;
