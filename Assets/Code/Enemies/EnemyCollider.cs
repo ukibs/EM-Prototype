@@ -194,4 +194,13 @@ public class EnemyCollider : MonoBehaviour
         }
     }
 
+    //
+    public void ResetStatus()
+    {
+        if (isTargeteable)
+        {
+            currentLocationHealth = maxLocationHealth;
+
+        }
+    }
 }

@@ -360,7 +360,7 @@ MonoBehaviour:
   maxSpeed: 20
   minimalLungeDistance: 15
   minimalShootDistance: 500
-  ofFootMaxTime: 1
+  ofFootMaxTime: 2
 --- !u!1 &4694978885907813565
 GameObject:
   m_ObjectHideFlags: 0

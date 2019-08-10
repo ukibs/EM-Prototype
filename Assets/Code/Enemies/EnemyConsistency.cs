@@ -35,6 +35,7 @@ public class EnemyConsistency : Targeteable {
     protected Vector3 previousVelocity;
     protected AudioSource audioSource;
     protected SpringCamera springCamera;
+    protected EnemyBaseBodyBehaviour bodyBehaviour;
     //
     protected int managerIndex;
     // Vamos a usar esta variable para controlar pérdida de equilibrio en comportamientos entre otras cosas
@@ -86,6 +87,8 @@ public class EnemyConsistency : Targeteable {
         enemyManager = FindObjectOfType<EnemyManager>();
         springCamera = FindObjectOfType<SpringCamera>();
         //if(levelManager)
+        //
+        bodyBehaviour = GetComponent<EnemyBaseBodyBehaviour>();
 
         // De momento para klos voladores mas que nada
         rb = GetComponent<Rigidbody>();
@@ -204,9 +207,15 @@ public class EnemyConsistency : Targeteable {
     }
 
     //
-    public void ResetHealth()
+    public void ResetStatus()
     {
         currentHealth = maxHealth;
+        bodyBehaviour.ResetStatus();
+        //
+        DetermineIfMultipart();
+        //
+        for (int i = 0; i < targetableColliders.Count; i++)
+            targetableColliders[i].ResetStatus();
     }
 
     //

@@ -22,8 +22,6 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
     protected bool ofFoot = true;
     protected float ofFootCurrentTime = 0;
 
-    
-
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -33,14 +31,15 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
     // Update is called once per frame
     protected override void Update()
     {
-        //
+        // TODO: Que el offoot sea directamente aplicado por acciones del player
+
         if (bodyConsistency.ReceivedStrongImpact)
         {
             //
             //Debug.Log(gameObject.name + " set off foot");
             //
-            ofFoot = true;
-            ofFootCurrentTime = 0;
+            //ofFoot = true;
+            //ofFootCurrentTime = 0;
         }
         //
         base.Update();
@@ -255,6 +254,13 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
 
     //    return false;
     //}
+
+    // TODO: Mover a base
+    public void LoseFoot()
+    {
+        ofFoot = true;
+        ofFootCurrentTime = 0;
+    }
 
     #endregion
 }

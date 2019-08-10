@@ -149,12 +149,26 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    //
+    // TODO: MIrarlo y dejarlo bien hecho
+    // Intentar no repetir nombres y demás
     void ShowLevelInfo(int index)
     {
         //
-        Rect levelInfoRect = new Rect(Screen.width / 2 + 50, 100, 300, 300);
+        Vector2 nextPosition = new Vector2(Screen.width / 2 + 50, 100);
+        Vector2 rectSize = new Vector2(300, 50);
+        Rect levelInfoRect = new Rect(nextPosition, rectSize);
         //
         GUI.Label(levelInfoRect, gameManager.LevelsInfo[index].inGameName, guiSkin.customStyles[3]);
+        //
+        nextPosition.y += 60;
+        levelInfoRect.position = nextPosition;
+        GUI.Label(levelInfoRect, "Expected enemies ", guiSkin.label);
+        //
+        for(int i = 0; i < gameManager.LevelsInfo[index].enemyGroups.Length; i++)
+        {
+            nextPosition.y += 60;
+            levelInfoRect.position = nextPosition;
+            GUI.Label(levelInfoRect, gameManager.LevelsInfo[index].enemyGroups[i].name, guiSkin.label);
+        }
     }
 }

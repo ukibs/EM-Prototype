@@ -33,6 +33,9 @@ public class Repulsor : MonoBehaviour {
     // TODO: Mandarla a su sitio después del testeo
     private float offsetCompensation = 0;
 
+    //
+    private float timeWithoutFloor = 0;
+
     #region Properties
 
     public bool IsOnFloor { get { return isOnFloor; } }
@@ -60,28 +63,16 @@ public class Repulsor : MonoBehaviour {
         //isOnFloor = CheckFloor(out floorPoint);
         isOnFloor = CheckFloorWithSphere(out floorPoint);
 
+        // Para que no de error en la intro
+        if (robotControl != null)
+        {
+            RepulsorJump();
+        }
+
         if (isOnFloor /*&& tutorial != null*/)
         {
             UpdateDustEmitter(floorPoint);
-            // Para que no de error en la intro
-            if (robotControl != null)
-            {
-                // Salto con el repulsor en vez de con las palas
-                if (inputManager.JumpButton && robotControl.ActiveJumpMode == JumpMode.RepulsorJump)
-                {
-                    // Meteremos un burst de partículas
-                    //currentParticleSystem.emission.SetBurst();
-                    // Sonido de salto
-                    GeneralFunctions.PlaySoundEffect(audioSource, jumpClip);
-                    //
-                    rb.AddForce(transform.up * gameManager.jumpForce, ForceMode.Impulse);
-                    // Extra para no pasarnos de corto ni de largo
-                    Vector3 fixedVelocidty = rb.velocity;
-                    fixedVelocidty.y = Mathf.Clamp(fixedVelocidty.y, gameManager.jumpForce, gameManager.jumpForce * 5);
-                    rb.velocity = fixedVelocidty;
-
-                }
-            }
+            timeWithoutFloor = 0;
         }
         else
         {
@@ -91,10 +82,45 @@ public class Repulsor : MonoBehaviour {
             //StopDustEmitterParticleSystem(currentParticleSystem);
             StopDustEmitterParticleSystem(dustEmitterStatic);
             StopDustEmitterParticleSystem(dustEmitterMovement);
-
+            //
+            timeWithoutFloor += Time.deltaTime;
         }
         
 	}
+
+    void RepulsorJump()
+    {
+        // Salto con el repulsor en vez de con las palas
+        if (inputManager.JumpButton && robotControl.ActiveJumpMode == JumpMode.RepulsorJump)
+        {
+            if (isOnFloor)
+            {
+                // Meteremos un burst de partículas
+                //currentParticleSystem.emission.SetBurst();
+                
+                //
+                rb.AddForce(transform.up * gameManager.jumpForce, ForceMode.Impulse);
+                // Extra para no pasarnos de corto ni de largo
+                Vector3 fixedVelocidty = rb.velocity;
+                fixedVelocidty.y = Mathf.Clamp(fixedVelocidty.y, gameManager.jumpForce, gameManager.jumpForce * 5);
+                rb.velocity = fixedVelocidty;
+            }
+            // Metemos aqui la opción de impulsarnos hacia el suelo
+            else if (timeWithoutFloor > 1) 
+            {
+                //
+                rb.AddForce(-transform.up * gameManager.jumpForce * 10, ForceMode.Impulse);
+                //
+                timeWithoutFloor = 0;
+            }
+            else
+            {
+                return;
+            }
+            // Sonido de salto
+            GeneralFunctions.PlaySoundEffect(audioSource, jumpClip);
+        }
+    }
 
     private void OnGUI()
     {
@@ -107,22 +133,22 @@ public class Repulsor : MonoBehaviour {
     /// <summary>
     /// 
     /// </summary>
-    bool CheckFloor(out Vector3 floorPoint)
-    {
-        RaycastHit hitInfo;
-        floorPoint = Vector3.positiveInfinity;
-        if(Physics.Raycast(transform.position, Vector3.down, out hitInfo, idealDistanceFromFloor))
-        {
-            //Debug.Log("Repulsing");
-            float distanceFromFloor = (transform.position - hitInfo.point).magnitude;
+    //bool CheckFloor(out Vector3 floorPoint)
+    //{
+    //    RaycastHit hitInfo;
+    //    floorPoint = Vector3.positiveInfinity;
+    //    if(Physics.Raycast(transform.position, Vector3.down, out hitInfo, idealDistanceFromFloor))
+    //    {
+    //        //Debug.Log("Repulsing");
+    //        float distanceFromFloor = (transform.position - hitInfo.point).magnitude;
 
-            ApplyRepulsion(distanceFromFloor);
-            //
-            floorPoint = hitInfo.point;
-            return true;
-        }
-        return false;
-    }
+    //        ApplyRepulsion(distanceFromFloor);
+    //        //
+    //        floorPoint = hitInfo.point;
+    //        return true;
+    //    }
+    //    return false;
+    //}
 
     //
     bool CheckFloorWithSphere(out Vector3 floorPoint)

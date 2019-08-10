@@ -130,10 +130,10 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
 
     }
 
-    //
+    // 
     protected virtual void Move()
     {
-
+        
     }
 
     //
@@ -148,6 +148,13 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
 
     }
 
+    // Reseteamos los daños sufridos
+    public virtual void ResetStatus()
+    {
+        movementStatus = 1;
+    }
+
+    //
     protected virtual void ExecuteCurrentAction(float dt)
     {
         // Primero que el player siga vivo, si no mal

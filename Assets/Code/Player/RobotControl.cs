@@ -756,6 +756,7 @@ public class RobotControl : MonoBehaviour {
         float pulseForceToApply = (gameManager.pulseForce * chargedAmount + gameManager.pulseForce);
         // First sphere check
         // Receurda, golpea colliders
+        // TODO: Hacerlo con overlap sphere
         RaycastHit[] objectsInRadius = Physics.SphereCastAll(transform.position, coneReach, transform.forward, coneReach);
         //Collider[] Physics.OverlapSphere
         for(int i = 0; i < objectsInRadius.Length; i++)
@@ -786,6 +787,10 @@ public class RobotControl : MonoBehaviour {
                     pointFromPlayer = objectRb.transform.position - transform.position;
                     objectRb.AddForce(pointFromPlayer.normalized * pulseForceToApply, ForceMode.Impulse);
                 }
+                //
+                BugBodyBehaviour bugBodyBehaviour = objectsInRadius[i].transform.GetComponent<BugBodyBehaviour>();
+                if (bugBodyBehaviour != null)
+                    bugBodyBehaviour.LoseFoot();
             }
         }
         // And apply the reaction to the player

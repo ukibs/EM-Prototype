@@ -150,7 +150,7 @@ MonoBehaviour:
   maxSpeed: 30
   minimalLungeDistance: 15
   minimalShootDistance: 150
-  ofFootMaxTime: 0.5
+  ofFootMaxTime: 3
 --- !u!65 &5562851252596964729
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -183,6 +183,9 @@ MonoBehaviour:
   - {fileID: 324243960597631837}
   - {fileID: 324243960597631835}
   - {fileID: 324243960597631827}
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!82 &8386257616877558472
 AudioSource:
   m_ObjectHideFlags: 0
@@ -298,10 +301,11 @@ MonoBehaviour:
   proyectilePrefab: {fileID: 1952744711831650, guid: 95967c0bccc03764aa9b43c06cdf8da7,
     type: 3}
   shootForce: 10
-  muzzleSpeed: 300
+  muzzleSpeed: 600
   typeOfFire: 0
   firingSystem: 0
   shootCalculation: 1
+  rotationIsConstrained: 1
   maxRotationOffset: {x: 50, y: 30}
   shootParticlesPrefab: {fileID: 1837716235657633640, guid: 61c9e81fe8e7c0a40a345df35440fcab,
     type: 3}
