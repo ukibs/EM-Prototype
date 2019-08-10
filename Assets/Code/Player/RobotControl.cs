@@ -813,12 +813,15 @@ public class RobotControl : MonoBehaviour {
                 machineGunPoints[nextRapidFireSide].position,
                 EnemyAnalyzer.enemyTransform.position,
                 //EnemyAnalyzer.enemyTransform.TransformPoint(EnemyAnalyzer.enemyConsistency.centralPointOffset), 
-                EnemyAnalyzer.enemyRb.velocity, gameManager.rapidFireMuzzleSpeed, dt);
+                EnemyAnalyzer.enemyRb.velocity, 
+                gameManager.rapidFireMuzzleSpeed, dt);
 
             // Determinamos el 
-            // TODO: Coger el punto de disparo del plauer
+            // TODO: Sacar el drag de la bala
+            Rigidbody bulletRb = bulletPrefab.GetComponent<Rigidbody>();
+            float bulletDrag = bulletRb.drag;
             EnemyAnalyzer.estimatedToHitPosition.y += GeneralFunctions.GetProyectileFallToObjective(transform.position,
-                EnemyAnalyzer.estimatedToHitPosition, gameManager.rapidFireMuzzleSpeed);
+                EnemyAnalyzer.estimatedToHitPosition, gameManager.rapidFireMuzzleSpeed, bulletDrag);
             
             //
             Vector3 shootForward = (!cameraControl.TargetingPlayer) ?

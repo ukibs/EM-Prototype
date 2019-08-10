@@ -172,12 +172,13 @@ public static class GeneralFunctions
 
     /// <summary>
     /// Gives the height the rpoyectile will lose due to gravity before reaching its objective
+    /// Proyectile drag has a default value of 0.1, the value for spheric objects
     /// </summary>
     /// <param name="startPoint"></param>
     /// <param name="objectivePoint"></param>
     /// <param name="muzzleSpeed"></param>
     /// <returns></returns>
-    public static float GetProyectileFallToObjective(Vector3 startPoint, Vector3 objectivePoint, float muzzleSpeed)
+    public static float GetProyectileFallToObjective(Vector3 startPoint, Vector3 objectivePoint, float muzzleSpeed, float proyectileDrag = 0.1f)
     {
         // TODO: Revisar que haga falta (o no) la velocidad inicial (en Y)
         // La podemos sacar con la muzzleSpeed y la dirección hacia el objetivo
@@ -187,10 +188,12 @@ public static class GeneralFunctions
         Vector3 directionToObjective = distanceToObjective.normalized;
         //Vector3 proyectile3dSpeed = directionToObjective * muzzleSpeed;
 
-        float secondsToObjective = distanceToObjective.magnitude / muzzleSpeed;
-        //float fallInThatTime = (proyectile3dSpeed.y * secondsToObjective) + 
-        //    -9.81f * Mathf.Pow(secondsToObjective,2) / 2;
-        float fallInThatTime = -9.81f * Mathf.Pow(secondsToObjective, 2) / 2;
+        float secondsToObjective = distanceToObjective.magnitude / muzzleSpeed; // Esto sería sin rozamiento
+        float secondsToObjectiveWithDrag = EstimateFlyingTimeWithDrag(startPoint, objectivePoint, muzzleSpeed, proyectileDrag);
+
+        Debug.Log("Seconds to reach objective: Without drag " + secondsToObjective + ", with drag " + secondsToObjectiveWithDrag);
+
+        float fallInThatTime = -9.81f * Mathf.Pow(secondsToObjectiveWithDrag, 2) / 2;
 
         return fallInThatTime;
     }

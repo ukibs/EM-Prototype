@@ -183,7 +183,10 @@ public class EnemyCollider : MonoBehaviour
             case AdditionalEffectOnDamage.MovementCrippling:
                 if (currentLocationHealth < 0
                     && currentLocationHealth + damageReceived > 0) // Chequeo rapido para que solo se aplique una vez
+                {                           
                     bodyBehaviour.MovementStatus -= 0.25f; // De momento hardcodeamos teniendo en cuenta 4 patas
+                    body.RemoveTargeteablePart(this);
+                }
                 break;
             case AdditionalEffectOnDamage.Stun:
                 // Este lo dejamos aparcado de momento
