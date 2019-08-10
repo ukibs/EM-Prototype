@@ -17,6 +17,10 @@ public class MainMenu : MonoBehaviour
     private LevelData[] arcadeLevels;
     private LevelData[] bossLevels;
 
+    //
+    private List<Rect> buttonsVisualCoordinates;
+    private List<Rect> buttonsFunctionalCoordinates;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +28,11 @@ public class MainMenu : MonoBehaviour
         //
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        //
+        buttonsFunctionalCoordinates = new List<Rect>();
+        buttonsVisualCoordinates = new List<Rect>();
+        //
+        DetermineButtonsPositions();
     }
 
     // Update is called once per frame
@@ -33,6 +42,8 @@ public class MainMenu : MonoBehaviour
         {
             Application.Quit();
         }
+        //
+
     }
 
     private void OnGUI()
@@ -45,7 +56,9 @@ public class MainMenu : MonoBehaviour
         // Depending on the gamne mode
         //ShowLevelsAccordingToGameMode();
         ShowAllLevels();
-        
+
+        //
+        CheckMouseOverButtons();
     }
 
     //
@@ -82,7 +95,7 @@ public class MainMenu : MonoBehaviour
         for(int i = 0; i < gameManager.LevelsInfo.Length; i++)
         {
             // 
-            if (GUI.Button(new Rect(Screen.width * 1 / 8, Screen.height * 1 / 2 + (i * 50), buttonSize.x, buttonSize.y),
+            if (GUI.Button(buttonsVisualCoordinates[i],
                 gameManager.LevelsInfo[i].inGameName, guiSkin.button))
             {
                 //
@@ -98,5 +111,50 @@ public class MainMenu : MonoBehaviour
                 }
             }
         }
+    }
+
+    // Determinaremos tanto a nivel visual como funcional
+    // Puto junity y su coordenada y cambiada
+    void DetermineButtonsPositions()
+    {
+        //
+        for (int i = 0; i < gameManager.LevelsInfo.Length; i++)
+        {
+            //
+            Rect newButtonVisualCoordinates = new Rect(Screen.width * 1 / 8, Screen.height * 1 / 2 + (i * 50), buttonSize.x, buttonSize.y);
+            buttonsVisualCoordinates.Add(newButtonVisualCoordinates);
+            //
+            Rect newButtonFunctionalCoordinates = new Rect(Screen.width * 1 / 8, 
+                Screen.height - newButtonVisualCoordinates.y - newButtonVisualCoordinates.height, 
+                buttonSize.x, buttonSize.y);
+            buttonsFunctionalCoordinates.Add(newButtonFunctionalCoordinates);
+        }
+    }
+
+    //
+    void CheckMouseOverButtons()
+    {
+        //
+        Vector2 mouseCoordinates = Input.mousePosition;
+        //
+        for (int i = 0; i < buttonsFunctionalCoordinates.Count; i++)
+        {
+            if(mouseCoordinates.x > buttonsFunctionalCoordinates[i].x &&
+                mouseCoordinates.x < buttonsFunctionalCoordinates[i].x + buttonsFunctionalCoordinates[i].width &&
+                mouseCoordinates.y > buttonsFunctionalCoordinates[i].y &&
+                mouseCoordinates.y < buttonsFunctionalCoordinates[i].y + buttonsFunctionalCoordinates[i].height)
+            {
+                ShowLevelInfo(i);
+            }
+        }
+    }
+
+    //
+    void ShowLevelInfo(int index)
+    {
+        //
+        Rect levelInfoRect = new Rect(Screen.width / 2 + 50, 100, 300, 300);
+        //
+        GUI.Label(levelInfoRect, gameManager.LevelsInfo[index].inGameName, guiSkin.customStyles[3]);
     }
 }

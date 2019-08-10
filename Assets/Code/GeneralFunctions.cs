@@ -191,7 +191,7 @@ public static class GeneralFunctions
         float secondsToObjective = distanceToObjective.magnitude / muzzleSpeed; // Esto sería sin rozamiento
         float secondsToObjectiveWithDrag = EstimateFlyingTimeWithDrag(startPoint, objectivePoint, muzzleSpeed, proyectileDrag);
 
-        Debug.Log("Seconds to reach objective: Without drag " + secondsToObjective + ", with drag " + secondsToObjectiveWithDrag);
+        //Debug.Log("Seconds to reach objective: Without drag " + secondsToObjective + ", with drag " + secondsToObjectiveWithDrag);
 
         float fallInThatTime = -9.81f * Mathf.Pow(secondsToObjectiveWithDrag, 2) / 2;
 
