@@ -50,7 +50,7 @@ MonoBehaviour:
   unlockedAttackActions: 1
   unlockedDefenseActions: 1
   maxCharge: 1
-  pulseForce: 10
+  pulseForce: 30
   canonBaseMuzzleSpeed: 1000
   canonMinCharge: 0.3
   rapidFireRate: 15

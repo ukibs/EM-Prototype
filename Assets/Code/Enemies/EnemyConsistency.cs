@@ -210,6 +210,8 @@ public class EnemyConsistency : Targeteable {
     public void ResetStatus()
     {
         currentHealth = maxHealth;
+        //
+        if(bodyBehaviour != null)
         bodyBehaviour.ResetStatus();
         //
         DetermineIfMultipart();
