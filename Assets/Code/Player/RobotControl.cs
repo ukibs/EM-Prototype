@@ -753,7 +753,8 @@ public class RobotControl : MonoBehaviour {
                     ParticleSystem particleSystem = releasingPulseEmitter.GetComponent<ParticleSystem>();
                     particleSystem.Play();
                     //
-                    NewPulseAttack();
+                    //NewPulseAttack();
+                    AlternativePulseAttack();
                     //
                     GeneralFunctions.PlaySoundEffect(audioSource, releasingPulseClip);
                     break;
@@ -838,72 +839,149 @@ public class RobotControl : MonoBehaviour {
 
     // Ataque de pulso
     // TODO: Darle más vueltas al funcionamiento
-    void NewPulseAttack()
+    //void NewPulseAttack()
+    //{
+    //    // TODO: Trabajar estos parámetros
+    //    float coneRadius = 20.0f;
+    //    float coneReach = 50.0f;
+    //    float pulseForceToApply = (gameManager.forcePerSecond * chargedAmount);
+    //    // First sphere check
+    //    List<Rigidbody> rigidBodiesOnReach = GetRigidBodiesWithOverlapSphere(coneReach);
+    //    //
+    //    for (int i = 0; i < rigidBodiesOnReach.Count; i++)
+    //    {
+    //        //Then angle check
+    //        Vector3 pointFromPlayer = rigidBodiesOnReach[i].transform.position - transform.position;
+    //        //Debug.Log(pointFromPlayer.magnitude);
+    //        if (Vector3.Angle(pointFromPlayer, transform.forward) < coneRadius)
+    //        {
+    //            // 
+    //            Rigidbody nextObjectRb = rigidBodiesOnReach[i];
+    //            if (nextObjectRb != null)
+    //            {
+    //                // Then send them to fly
+    //                pointFromPlayer = nextObjectRb.transform.position - transform.position;
+    //                nextObjectRb.AddForce(pointFromPlayer.normalized * pulseForceToApply, ForceMode.Impulse);
+    //            }
+    //            // Vamos a aplicar el daño a mano
+    //            // Recuerda que la fuerza aplicada es en toneladas
+    //            // Hay que trabajar el tema muerte
+    //            EnemyConsistency enemyConsistency = nextObjectRb.GetComponent<EnemyConsistency>();
+    //            if (enemyConsistency != null)
+    //                //enemyConsistency.ReceiveImpact(pulseForceToApply * 10, enemyConsistency.transform.position);
+    //                enemyConsistency.ReceivePulseDamage(pointFromPlayer.normalized * pulseForceToApply);
+    //            //
+    //            BugBodyBehaviour bugBodyBehaviour = nextObjectRb.transform.GetComponent<BugBodyBehaviour>();
+    //            if (bugBodyBehaviour != null)
+    //                bugBodyBehaviour.LoseFoot();
+    //        }
+    //    }
+
+    //    // And apply the reaction to the player
+    //    Vector3 forceToApply = -transform.forward * pulseForceToApply;
+    //    rb.AddForce(forceToApply, ForceMode.Impulse);
+    //    Activate3DimensionalDamping();
+    //}
+
+    //
+    void AlternativePulseAttack()
     {
         // TODO: Trabajar estos parámetros
         float coneRadius = 20.0f;
         float coneReach = 50.0f;
         float pulseForceToApply = (gameManager.forcePerSecond * chargedAmount);
-        // First sphere check
-        List<Rigidbody> rigidBodiesOnReach = GetRigidBodiesWithOverlapSphere(coneReach);
         //
-        for (int i = 0; i < rigidBodiesOnReach.Count; i++)
+        AffectedByPulseAttack elementsOnReachOfPulseAttack = GetElementsOnReachOfPulseAttack(coneReach, coneRadius);
+        Vector3 pointFromPlayer;
+        // Primero enemy colliders
+        for (int i = 0; i < elementsOnReachOfPulseAttack.affectedEnemyColliders.Count; i++)
         {
-            //Then angle check
-            Vector3 pointFromPlayer = rigidBodiesOnReach[i].transform.position - transform.position;
-            //Debug.Log(pointFromPlayer.magnitude);
-            if (Vector3.Angle(pointFromPlayer, transform.forward) < coneRadius)
-            {
-                // 
-                Rigidbody nextObjectRb = rigidBodiesOnReach[i];
-                if (nextObjectRb != null)
-                {
-                    // Then send them to fly
-                    pointFromPlayer = nextObjectRb.transform.position - transform.position;
-                    nextObjectRb.AddForce(pointFromPlayer.normalized * pulseForceToApply, ForceMode.Impulse);
-                }
-                // Vamos a aplicar el daño a mano
-                // Recuerda que la fuerza aplicada es en toneladas
-                // Hay que trabajar el tema muerte
-                EnemyConsistency enemyConsistency = nextObjectRb.GetComponent<EnemyConsistency>();
-                if (enemyConsistency != null)
-                    //enemyConsistency.ReceiveImpact(pulseForceToApply * 10, enemyConsistency.transform.position);
-                    enemyConsistency.ReceivePulseDamage(pointFromPlayer.normalized * pulseForceToApply);
-                //
-                BugBodyBehaviour bugBodyBehaviour = nextObjectRb.transform.GetComponent<BugBodyBehaviour>();
-                if (bugBodyBehaviour != null)
-                    bugBodyBehaviour.LoseFoot();
-            }
+            pointFromPlayer = elementsOnReachOfPulseAttack.affectedEnemyColliders[i].transform.position - transform.position;
+            elementsOnReachOfPulseAttack.affectedEnemyColliders[i].ReceivePulseDamage(pointFromPlayer.normalized * pulseForceToApply);
         }
+        // Enemy consistencies
+        for (int i = 0; i < elementsOnReachOfPulseAttack.affectedEnemyConsistencies.Count; i++)
+        {
+            pointFromPlayer = elementsOnReachOfPulseAttack.affectedEnemyConsistencies[i].transform.position - transform.position;
+            elementsOnReachOfPulseAttack.affectedEnemyConsistencies[i].ReceivePulseDamage(pointFromPlayer.normalized * pulseForceToApply);
+        }
+        // Destructible terrains
+        for (int i = 0; i < elementsOnReachOfPulseAttack.affectedDestructibleTerrains.Count; i++)
+        {
+            pointFromPlayer = elementsOnReachOfPulseAttack.affectedDestructibleTerrains[i].transform.position - transform.position;
+            elementsOnReachOfPulseAttack.affectedDestructibleTerrains[i].ReceivePulseImpact(pointFromPlayer.normalized * pulseForceToApply);
+        }
+        // Y rigidbodies
+        for (int i = 0; i < elementsOnReachOfPulseAttack.affectedRigidbodies.Count; i++)
+        {
+            pointFromPlayer = elementsOnReachOfPulseAttack.affectedRigidbodies[i].transform.position - transform.position;
+            elementsOnReachOfPulseAttack.affectedRigidbodies[i].AddForce(pointFromPlayer.normalized * pulseForceToApply);
+        }
+    }
 
-        // And apply the reaction to the player
-        Vector3 forceToApply = -transform.forward * pulseForceToApply;
-        rb.AddForce(forceToApply, ForceMode.Impulse);
-        Activate3DimensionalDamping();
+    //
+    AffectedByPulseAttack GetElementsOnReachOfPulseAttack(float pulseReach, float pulseRadius)
+    {
+        //
+        AffectedByPulseAttack affectedByPulseAttack = new AffectedByPulseAttack();
+        //
+        Collider[] collidersOnReach = Physics.OverlapSphere(transform.position, pulseReach);
+        //
+        for (int i = 0; i < collidersOnReach.Length; i++)
+        {
+            //Si no entra en el ángulo, siguiente
+            Vector3 pointFromPlayer = collidersOnReach[i].transform.position - transform.position;
+            if (Vector3.Angle(pointFromPlayer, transform.forward) > pulseRadius)
+                continue;
+
+            // Chequemamos primero por enemy colliders
+            EnemyCollider enemyCollider = collidersOnReach[i].GetComponent<EnemyCollider>();
+            if (enemyCollider != null)
+                affectedByPulseAttack.affectedEnemyColliders.Add(enemyCollider);
+            // Después enemy consistencies
+            EnemyConsistency enemyConsistency = collidersOnReach[i].GetComponent<EnemyConsistency>();
+            if(enemyConsistency == null)
+                enemyConsistency = collidersOnReach[i].GetComponentInParent<EnemyConsistency>();
+            if (enemyConsistency != null)
+                affectedByPulseAttack.affectedEnemyConsistencies.Add(enemyConsistency);
+            // Terrenos destruibles
+            DestructibleTerrain destructibleTerrain = collidersOnReach[i].GetComponent<DestructibleTerrain>();
+            if (destructibleTerrain == null)
+                destructibleTerrain = collidersOnReach[i].GetComponentInParent<DestructibleTerrain>();
+            if (destructibleTerrain != null)
+                affectedByPulseAttack.affectedDestructibleTerrains.Add(destructibleTerrain);
+            // Y por último rigidbodies
+            // Estos solo deberían entrar en la lista si no ha cuajado arriba
+            Rigidbody rigidbody = collidersOnReach[i].GetComponent<Rigidbody>();
+            if (rigidbody != null && enemyConsistency == null)
+                affectedByPulseAttack.affectedRigidbodies.Add(rigidbody);
+
+        }
+        return affectedByPulseAttack;
     }
 
     // TODO: Hacer una función que atrape colliders también (o gestionarlo de otra forma)
-    List<Rigidbody> GetRigidBodiesWithOverlapSphere(float pulseReach)
-    {
-        //
-        Collider[] collidersOnRadius = Physics.OverlapSphere(transform.position, pulseReach);
-        List<Rigidbody> rigidbodiesOnReach = new List<Rigidbody>(10);
-        //
-        for(int i = 0; i < collidersOnRadius.Length; i++)
-        {
-            //
-            Rigidbody nextPossibleRigidbody = collidersOnRadius[i].GetComponent<Rigidbody>();
-            if (nextPossibleRigidbody == null)
-                nextPossibleRigidbody = collidersOnRadius[i].GetComponentInParent<Rigidbody>();
-            //
-            if (nextPossibleRigidbody != null && !rigidbodiesOnReach.Contains(nextPossibleRigidbody))
-            {
-                rigidbodiesOnReach.Add(nextPossibleRigidbody);
-            }
-        }
-        //
-        return rigidbodiesOnReach;
-    }
+    //List<Rigidbody> GetRigidBodiesWithOverlapSphere(float pulseReach)
+    //{
+    //    //
+    //    Collider[] collidersOnRadius = Physics.OverlapSphere(transform.position, pulseReach);
+    //    List<Rigidbody> rigidbodiesOnReach = new List<Rigidbody>(10);
+    //    //
+    //    for(int i = 0; i < collidersOnRadius.Length; i++)
+    //    {
+    //        //
+    //        Rigidbody nextPossibleRigidbody = collidersOnRadius[i].GetComponent<Rigidbody>();
+    //        if (nextPossibleRigidbody == null)
+    //            nextPossibleRigidbody = collidersOnRadius[i].GetComponentInParent<Rigidbody>();
+    //        //
+    //        if (nextPossibleRigidbody != null && !rigidbodiesOnReach.Contains(nextPossibleRigidbody))
+    //        {
+    //            rigidbodiesOnReach.Add(nextPossibleRigidbody);
+    //        }
+    //    }
+    //    //
+    //    return rigidbodiesOnReach;
+    //}
 
     /// <summary>
     /// 
@@ -1118,4 +1196,23 @@ public static class GameControl
     public static bool paused;
     public static bool bulletTime;
     //public static float 
+}
+
+//
+public class AffectedByPulseAttack
+{
+    public List<EnemyCollider> affectedEnemyColliders;
+    public List<EnemyConsistency> affectedEnemyConsistencies;
+    public List<DestructibleTerrain> affectedDestructibleTerrains;
+    // Tener en cuenta que solo se verán afectados los rigibodies que no sean enemgios activos
+    public List<Rigidbody> affectedRigidbodies;
+
+    public AffectedByPulseAttack()
+    {
+        affectedEnemyColliders = new List<EnemyCollider>(10);
+        affectedEnemyConsistencies = new List<EnemyConsistency>(5);
+        affectedDestructibleTerrains = new List<DestructibleTerrain>(1);
+        affectedRigidbodies = new List<Rigidbody>(5);
+    }
+
 }

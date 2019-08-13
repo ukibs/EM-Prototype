@@ -9,23 +9,36 @@ public class DestructibleTerrain : MonoBehaviour
     // TODO: Trabajar esto más en un futuro
     // Con masa, densidad o lo que sea
     public bool hardEnough = false;
+    public float structuralResistance = 1000;
     //
     public AudioClip destructionClip;
 
     //
     private bool destroyed = false;
     private AudioObjectManager audioObjectManager;
+    private Rigidbody[] brokenVersionRigidbodies;
     
 
     private void Start()
     {
         //brokenVersion = transform.Find
         audioObjectManager = FindObjectOfType<AudioObjectManager>();
+        //
+        brokenVersionRigidbodies = brokenVersion.GetComponents<Rigidbody>();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         CheckAndDestroy(collision);        
+    }
+
+    // TODO: Afina y completa
+    public void ReceivePulseImpact(Vector3 directionWithForce)
+    {
+        if(directionWithForce.magnitude > structuralResistance)
+        {
+            DestroyTerrainElement(directionWithForce);
+        }
     }
 
     public void CheckAndDestroy(Collision collision)
@@ -46,20 +59,36 @@ public class DestructibleTerrain : MonoBehaviour
         Rigidbody colliderRb = collision.rigidbody;
         if(colliderRb != null && colliderRb.isKinematic)
         {
-            gameObject.SetActive(false);
-            if (brokenVersion != null)
-                brokenVersion.SetActive(true);
-            //
-            if(audioObjectManager == null)
-            {
-                Debug.Log("Audio object manager still not ready");
-                return;
-            }
-            //
-            if(destructionClip != null)
-                audioObjectManager.CreateAudioObject(destructionClip, transform.position);
+            DestroyTerrainElement();
         }
+    }
 
+    //
+    public void DestroyTerrainElement(Vector3 directionAndForce = new Vector3())
+    {
+        //
+        gameObject.SetActive(false);
+        if (brokenVersion != null)
+            brokenVersion.SetActive(true);
+        //
+        if (audioObjectManager == null)
+        {
+            Debug.Log("Audio object manager still not ready");
+            return;
+        }
+        //
+        if (destructionClip != null)
+            audioObjectManager.CreateAudioObject(destructionClip, transform.position);
+    }
+
+    //
+    void ApplyForceToBrokenParts(Vector3 directionAndForce = new Vector3())
+    {
+        //
+        for(int i = 0; i < brokenVersionRigidbodies.Length; i++)
+        {
+            brokenVersionRigidbodies[i].AddForce(directionAndForce);
+        }
     }
 
     // Llamaremos a esto cuando cambiemos la placa de sitio

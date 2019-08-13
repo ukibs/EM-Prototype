@@ -17,7 +17,7 @@ MonoBehaviour:
     gameMode: 0
     victoryCondition: 1
     enemiesToDefeat: 30
-    attackActionsAvailable: 1
+    attackActionsAvailable: 2
     defenseActionsAvailable: 0
     jumpActionsAvailable: 1
     sprintActionsAvailable: 1

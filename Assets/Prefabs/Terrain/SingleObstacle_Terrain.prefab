@@ -1098,6 +1098,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   brokenVersion: {fileID: 7894303168418431588}
   hardEnough: 0
+  structuralResistance: 50
   destructionClip: {fileID: 8300000, guid: a5ca8f5694747ca4497ea819ba652a32, type: 3}
 --- !u!1 &7894303168418431588
 GameObject:
