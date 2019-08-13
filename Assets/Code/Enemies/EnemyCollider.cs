@@ -78,6 +78,12 @@ public class EnemyCollider : MonoBehaviour
     }
 
     //
+    public void SetAffectableByPulseColors()
+    {
+        // TODO: Cuando lo tengamos claro aplicar
+    }
+
+    //
     public void SetPenetrationColors()
     {
         //
@@ -168,6 +174,36 @@ public class EnemyCollider : MonoBehaviour
             float penetrationResult = Mathf.Max(penetrationValue - armor, 0);
             //
             body.ReceiveSharpnelImpact(penetrationResult, impactPoint, sharpnelRb);
+        }
+    }
+
+    // Para recibir daño del ataque de pulso en la parte del cuerpo
+    public void ReceivePulseDamage(Vector3 directionWithForce)
+    {
+        //
+        Debug.Log("Receiving pulse damage with " + directionWithForce + " force");
+        //
+        float impactForce = directionWithForce.magnitude;
+        //
+        float damageReceived = impactForce - body.defense;
+        damageReceived = Mathf.Max(damageReceived, 0);
+        //
+        currentLocationHealth -= (int)damageReceived;
+        // TODO: Revisar cómo lo gestionamos
+        // Depende del efecto se gestionará de una forma u otra
+        switch (onDamage)
+        {
+            case AdditionalEffectOnDamage.MovementCrippling:
+                if (currentLocationHealth < 0
+                    && currentLocationHealth + damageReceived > 0) // Chequeo rapido para que solo se aplique una vez
+                {
+                    bodyBehaviour.MovementStatus -= 0.25f; // De momento hardcodeamos teniendo en cuenta 4 patas
+                    body.RemoveTargeteablePart(this);
+                }
+                break;
+            case AdditionalEffectOnDamage.Stun:
+                // Este lo dejamos aparcado de momento
+                break;
         }
     }
 

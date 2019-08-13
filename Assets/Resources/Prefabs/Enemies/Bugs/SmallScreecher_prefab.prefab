@@ -101,7 +101,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealth: 100
-  defense: 5000
+  defense: 50
   deathBloodPrefab: {fileID: 3125914639698908078, guid: 099db54e23b55334a8c42a1729809e0e,
     type: 3}
   deathParticlesPrefab: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
@@ -263,6 +263,9 @@ MonoBehaviour:
   - {fileID: 3605275738476491930}
   - {fileID: 3605275738476491928}
   - {fileID: 3605275738476491934}
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &2441142404346475580
 GameObject:
   m_ObjectHideFlags: 0

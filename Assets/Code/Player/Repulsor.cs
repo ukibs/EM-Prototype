@@ -95,9 +95,6 @@ public class Repulsor : MonoBehaviour {
         {
             if (isOnFloor)
             {
-                // Meteremos un burst de partículas
-                //currentParticleSystem.emission.SetBurst();
-                
                 //
                 rb.AddForce(transform.up * gameManager.jumpForce, ForceMode.Impulse);
                 // Extra para no pasarnos de corto ni de largo
@@ -129,6 +126,12 @@ public class Repulsor : MonoBehaviour {
     }
 
     #region Methods
+
+    // TODO: Hacerlo trabajar con los ataques
+    public void CompensateWeaponRecoil()
+    {
+
+    }
 
     /// <summary>
     /// 

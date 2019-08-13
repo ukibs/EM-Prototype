@@ -16,7 +16,7 @@ public class MekanoidConsistency : EnemyConsistency
 
     #region Methods
 
-    protected override void ManageDamage(float damageReceived, Vector3 point, EnemyCollider bodyCollider = null)
+    protected override void ManageDamage(float damageReceived, Vector3 point, Vector3 receivedForce = new Vector3())
     {
         base.ManageDamage(damageReceived, point);
         //

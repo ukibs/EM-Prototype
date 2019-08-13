@@ -189,7 +189,7 @@ public class EnemyConsistency : Targeteable {
     #region Methods
 
     // Aquí daremos el cambiazo con el cuerpo muerto y le pondermos los decorados
-    void PutDeadBody()
+    void PutDeadBody(Vector3 deathBlowForce = new Vector3())
     {
         // Instanciamos cuerpo muerto
         GameObject deadBody = Instantiate(deadBodyPrefab, transform.position, transform.rotation);
@@ -198,7 +198,7 @@ public class EnemyConsistency : Targeteable {
         Rigidbody[] rbs = deadBody.GetComponentsInChildren<Rigidbody>();
         for(int i = 0; i < rbs.Length; i++)
         {
-            rbs[i].velocity = rb.velocity;
+            rbs[i].velocity = rb.velocity + deathBlowForce;
         }
         // Y le pegamos nuestras pegatinas de sangre
         BulletHole[] bulletHoles = GetComponentsInChildren<BulletHole>();
@@ -256,9 +256,19 @@ public class EnemyConsistency : Targeteable {
     }
 
     // Para recibir daño del ataque de pulso
-    public void ReceivePulseDamage()
+    public void ReceivePulseDamage(Vector3 directionWithForce)
     {
-
+        //
+        Debug.Log("Receiving pulse damage with " + directionWithForce + " force");
+        //
+        float impactForce = directionWithForce.magnitude;
+        //
+        float damageReceived = impactForce - defense;
+        damageReceived = Mathf.Max(damageReceived, 0);
+        //
+        currentHealth -= (int)damageReceived;
+        //
+        ManageDamage(damageReceived, transform.position, directionWithForce);
     }
 
     /// <summary>
@@ -356,7 +366,7 @@ public class EnemyConsistency : Targeteable {
     /// <summary>
     /// 
     /// </summary>
-    protected virtual void ManageDamage(float damageReceived, Vector3 point, EnemyCollider damagedCollider = null)
+    protected virtual void ManageDamage(float damageReceived, Vector3 point, Vector3 receivedForce = new Vector3())
     {
         // Si la vida cae a cero lo convertimos en un simple objeto con rigidbody
         // Le quitamos sus scripts de comportamiento, vamos
@@ -388,7 +398,7 @@ public class EnemyConsistency : Targeteable {
             }
 
             if (deadBodyPrefab != null)
-                PutDeadBody();
+                PutDeadBody(receivedForce);
             EnemyAnalyzer.Release();
 
             //
@@ -413,6 +423,8 @@ public class EnemyConsistency : Targeteable {
             // Chequo provisional para que no de mal en el menu
             if(impactInfoManager != null)
                 impactInfoManager.SendImpactInfo(point, (int)damageReceived);
+            // Si sigue vivo le aplicamos la fuerza
+            rb.AddForce(receivedForce);
         }
     }
 

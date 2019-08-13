@@ -122,7 +122,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealth: 50
-  defense: 100
+  defense: 30
   deathBloodPrefab: {fileID: 3125914639698908078, guid: 099db54e23b55334a8c42a1729809e0e,
     type: 3}
   deathParticlesPrefab: {fileID: 1837716235657633640, guid: c30381bd65cfd9e4c8df31ef60481c4c,

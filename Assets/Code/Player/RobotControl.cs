@@ -134,6 +134,11 @@ public class RobotControl : MonoBehaviour {
     private Vector3 lastAxisXZ;
     private float currentRotationTime;
 
+    // Damping tridimensinal para que el retroceso de las armas no nos mande al espacio
+    private bool threeDimensionalDamping = false;
+    private float tddCurrentDuration = 0;
+    private float tddMaxDuration = 1;
+
     #region Properties
 
     public float ChargedAmount { get { return chargedAmount; } }
@@ -197,20 +202,6 @@ public class RobotControl : MonoBehaviour {
         //
         PlayerReference.Initiate(gameObject);
 
-        // Asignamos en el player reference el rigidbody que corresponda
-        //switch (attackMode)
-        //{
-        //    case AttackMode.Pulse:
-        //        PlayerReference.currentProyectileRB = null;
-        //        break;
-        //    case AttackMode.RapidFire:
-        //        PlayerReference.currentProyectileRB = rapidFireBulletPrefab.GetComponent<Rigidbody>();
-        //        break;
-        //    case AttackMode.Canon:
-        //        PlayerReference.currentProyectileRB = cannonBallPrefab.GetComponent<Rigidbody>();
-        //        break;
-        //}
-
         //
         lastAxisXZ = Vector3.forward;
 
@@ -222,9 +213,15 @@ public class RobotControl : MonoBehaviour {
         currentMuzzleSpeed = gameManager.forcePerSecond / (gameManager.massPerSecond / 1000);
         // Debug.Log("Muzzle speed :" + currentMuzzleSpeed);
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Vamos a probar asi el tdd
+    void FixedUpdate()
+    {
+        //threeDimensionalDamping = false;
+    }
+
+    // Update is called once per frame
+    void Update () {
         //
         if (inPlay)
         {
@@ -430,12 +427,34 @@ public class RobotControl : MonoBehaviour {
         // And dampen de movement
         if (applyingDamping)
         {
-            Vector3 currentVelocity = rb.velocity;
-            currentVelocity.x *= 1 - (damping * dt);
-            currentVelocity.z *= 1 - (damping * dt);
-            rb.velocity = currentVelocity;
+            if (!threeDimensionalDamping)
+            {
+                Vector3 currentVelocity = rb.velocity;
+                currentVelocity.x *= 1 - (damping * dt);
+                currentVelocity.z *= 1 - (damping * dt);
+                rb.velocity = currentVelocity;
+            }
+            else
+            {
+                //
+                rb.velocity *= 1 - (damping * dt);
+                //
+                tddCurrentDuration += dt;
+                if(tddCurrentDuration > tddMaxDuration)
+                {
+                    threeDimensionalDamping = false;
+                    tddCurrentDuration = 0;
+                }
+            }
         }
 
+    }
+
+    //
+    void Activate3DimensionalDamping()
+    {
+        threeDimensionalDamping = true;
+        // Problemente pongamos también efecto de sonido de frenazo
     }
 
     //
@@ -734,7 +753,6 @@ public class RobotControl : MonoBehaviour {
                     ParticleSystem particleSystem = releasingPulseEmitter.GetComponent<ParticleSystem>();
                     particleSystem.Play();
                     //
-                    //OldPulseAttack();
                     NewPulseAttack();
                     //
                     GeneralFunctions.PlaySoundEffect(audioSource, releasingPulseClip);
@@ -823,8 +841,8 @@ public class RobotControl : MonoBehaviour {
     void NewPulseAttack()
     {
         // TODO: Trabajar estos parámetros
-        float coneRadius = 15.0f;
-        float coneReach = 20.0f;
+        float coneRadius = 20.0f;
+        float coneReach = 50.0f;
         float pulseForceToApply = (gameManager.forcePerSecond * chargedAmount);
         // First sphere check
         List<Rigidbody> rigidBodiesOnReach = GetRigidBodiesWithOverlapSphere(coneReach);
@@ -849,7 +867,8 @@ public class RobotControl : MonoBehaviour {
                 // Hay que trabajar el tema muerte
                 EnemyConsistency enemyConsistency = nextObjectRb.GetComponent<EnemyConsistency>();
                 if (enemyConsistency != null)
-                    enemyConsistency.ReceiveImpact(pulseForceToApply * 10, enemyConsistency.transform.position);
+                    //enemyConsistency.ReceiveImpact(pulseForceToApply * 10, enemyConsistency.transform.position);
+                    enemyConsistency.ReceivePulseDamage(pointFromPlayer.normalized * pulseForceToApply);
                 //
                 BugBodyBehaviour bugBodyBehaviour = nextObjectRb.transform.GetComponent<BugBodyBehaviour>();
                 if (bugBodyBehaviour != null)
@@ -860,9 +879,10 @@ public class RobotControl : MonoBehaviour {
         // And apply the reaction to the player
         Vector3 forceToApply = -transform.forward * pulseForceToApply;
         rb.AddForce(forceToApply, ForceMode.Impulse);
+        Activate3DimensionalDamping();
     }
 
-    //
+    // TODO: Hacer una función que atrape colliders también (o gestionarlo de otra forma)
     List<Rigidbody> GetRigidBodiesWithOverlapSphere(float pulseReach)
     {
         //
@@ -943,6 +963,7 @@ public class RobotControl : MonoBehaviour {
 
             // Aplicamos la fuerza opuesta a EM
             rb.AddForce(-machineGunPoints[nextRapidFireSide].forward * forceToApply, ForceMode.Impulse);
+            Activate3DimensionalDamping();
 
             // TODO: Vamos a aplicar el overheat aqui
             //chargedAmount -= 1 / gameManager.rapidFireRate;
@@ -1044,6 +1065,7 @@ public class RobotControl : MonoBehaviour {
             chargedProyectilePoint.forward, forceToApply, dt, ShootCalculation.Force);
         //
         rb.AddForce(-chargedProyectilePoint.forward * forceToApply, ForceMode.Impulse);
+        Activate3DimensionalDamping();
     }
 
     #endregion

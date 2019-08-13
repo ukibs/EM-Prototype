@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 114133439628236704}
   - component: {fileID: 3422740536678483200}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: Rapid Fire Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -102,8 +102,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1952744711831650}
   serializedVersion: 2
-  m_Mass: 0.00002
-  m_Drag: 0.1
+  m_Mass: 0.00000966665
+  m_Drag: 0.47
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -124,6 +124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   diameter: 5
   lifeTime: 2
+  dangerousEnough: 0
   impactParticlesPrefab: {fileID: 1837716235657633640, guid: 61c9e81fe8e7c0a40a345df35440fcab,
     type: 3}
   bulletHolePrefab: {fileID: 1994357791592751295, guid: c9608cba5bbaa264f89f02fabf26b7e8,
