@@ -181,7 +181,7 @@ public class EnemyCollider : MonoBehaviour
     public void ReceivePulseDamage(Vector3 directionWithForce)
     {
         //
-        Debug.Log("Receiving pulse damage with " + directionWithForce + " force");
+        //Debug.Log("Receiving pulse damage with " + directionWithForce + " force");
         //
         float impactForce = directionWithForce.magnitude;
         //

@@ -127,13 +127,13 @@ public class EnemyConsistency : Targeteable {
             }
         }
         // Decidimos el daño físico por cambio en la velocidad
-        if (CheckDrasticChangeInAcceleration(2.5f))
-        {
-            float impactForce = GeneralFunctions.GetCollisionForce(rb, null);
-            ReceiveImpact(impactForce, transform.position);
-            //
-            receivedStrongImpact = true;
-        }
+        //if (CheckDrasticChangeInAcceleration(2.5f))
+        //{
+        //    float impactForce = GeneralFunctions.GetCollisionForce(rb, null);
+        //    ReceiveImpact(impactForce, transform.position);
+        //    //
+        //    receivedStrongImpact = true;
+        //}
     }
 
 
@@ -259,7 +259,7 @@ public class EnemyConsistency : Targeteable {
     public void ReceivePulseDamage(Vector3 directionWithForce)
     {
         //
-        Debug.Log("Receiving pulse damage with " + directionWithForce + " force");
+        //Debug.Log("Receiving pulse damage with " + directionWithForce + " force");
         //
         float impactForce = directionWithForce.magnitude;
         //
@@ -269,6 +269,8 @@ public class EnemyConsistency : Targeteable {
         currentHealth -= (int)damageReceived;
         //
         ManageDamage(damageReceived, transform.position, directionWithForce);
+        //
+        receivedStrongImpact = true;
     }
 
     /// <summary>
@@ -424,7 +426,7 @@ public class EnemyConsistency : Targeteable {
             if(impactInfoManager != null)
                 impactInfoManager.SendImpactInfo(point, (int)damageReceived);
             // Si sigue vivo le aplicamos la fuerza
-            rb.AddForce(receivedForce);
+            rb.AddForce(receivedForce, ForceMode.Impulse);
         }
     }
 

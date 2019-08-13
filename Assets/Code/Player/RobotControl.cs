@@ -753,7 +753,6 @@ public class RobotControl : MonoBehaviour {
                     ParticleSystem particleSystem = releasingPulseEmitter.GetComponent<ParticleSystem>();
                     particleSystem.Play();
                     //
-                    //NewPulseAttack();
                     AlternativePulseAttack();
                     //
                     GeneralFunctions.PlaySoundEffect(audioSource, releasingPulseClip);
