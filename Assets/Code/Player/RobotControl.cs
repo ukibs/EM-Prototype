@@ -779,110 +779,6 @@ public class RobotControl : MonoBehaviour {
         }
     }
 
-    /// <summary>
-    /// Attack that emmits a pulse force
-    /// TODO: A ver cuando le metemos un buen feedback
-    /// </summary>
-    //void OldPulseAttack()
-    //{
-    //    //
-    //    float coneRadius = 15.0f;
-    //    float coneReach = 20.0f;
-    //    float pulseForceToApply = (gameManager.pulseForce * chargedAmount + gameManager.pulseForce);
-    //    // First sphere check
-    //    // Receurda, golpea colliders
-    //    // TODO: Hacerlo con overlap sphere
-    //    //RaycastHit[] objectsInRadius = Physics.SphereCastAll(transform.position, coneReach, transform.forward, coneReach);
-    //    List<Rigidbody> rigidBodiesOnReach = GetRigidBodiesWithOverlapSphere(coneReach);
-    //    //
-    //    for(int i = 0; i < rigidBodiesOnReach.Count; i++)
-    //    {
-    //        //Then angle check
-    //        Vector3 pointFromPlayer = rigidBodiesOnReach[i].transform.position - transform.position;
-    //        //Debug.Log(pointFromPlayer.magnitude);
-    //        if(Vector3.Angle(pointFromPlayer, transform.forward) < coneRadius)
-    //        {
-    //            // And rigidbody check
-    //            // TODO: Revisar este también
-    //            // Aunque este va a ser más dificil simplificarlo
-    //            //Rigidbody objectRb = objectsInRadius[i].transform.GetComponent<Rigidbody>();
-    //            Rigidbody objectRb = rigidBodiesOnReach[i];
-    //            EnemyCollider enemyCollider = rigidBodiesOnReach[i].transform.GetComponent<EnemyCollider>();
-    //            if (objectRb != null)
-    //            {
-    //                //Debug.Log(objectRb.transform.name);
-    //                // Then send them to fly
-    //                // Nota, tener en cuenta también la distancia para aplicar la fureza
-    //                //Vector3 forceDirection = objectsInRadius[i].transform.position - transform.position;
-    //                pointFromPlayer = objectRb.transform.position - transform.position;
-    //                objectRb.AddForce(pointFromPlayer.normalized * pulseForceToApply, ForceMode.Impulse);
-    //            }
-    //            //
-    //            else if(enemyCollider != null)
-    //            {
-    //                objectRb = enemyCollider.GetComponentInParent<Rigidbody>();
-    //                pointFromPlayer = objectRb.transform.position - transform.position;
-    //                objectRb.AddForce(pointFromPlayer.normalized * pulseForceToApply, ForceMode.Impulse);
-    //            }
-    //            //
-    //            BugBodyBehaviour bugBodyBehaviour = rigidBodiesOnReach[i].transform.GetComponent<BugBodyBehaviour>();
-    //            if (bugBodyBehaviour != null)
-    //                bugBodyBehaviour.LoseFoot();
-    //        }
-    //    }
-    //    // And apply the reaction to the player
-    //    Vector3 forceToApply = -transform.forward * pulseForceToApply;
-    //    //Debug.Log("Aplicando reacción a player: " + forceToApply);
-    //    //applyingDamping = false;
-    //    rb.AddForce(forceToApply, ForceMode.Impulse);
-    //}
-
-    // Ataque de pulso
-    // TODO: Darle más vueltas al funcionamiento
-    //void NewPulseAttack()
-    //{
-    //    // TODO: Trabajar estos parámetros
-    //    float coneRadius = 20.0f;
-    //    float coneReach = 50.0f;
-    //    float pulseForceToApply = (gameManager.forcePerSecond * chargedAmount);
-    //    // First sphere check
-    //    List<Rigidbody> rigidBodiesOnReach = GetRigidBodiesWithOverlapSphere(coneReach);
-    //    //
-    //    for (int i = 0; i < rigidBodiesOnReach.Count; i++)
-    //    {
-    //        //Then angle check
-    //        Vector3 pointFromPlayer = rigidBodiesOnReach[i].transform.position - transform.position;
-    //        //Debug.Log(pointFromPlayer.magnitude);
-    //        if (Vector3.Angle(pointFromPlayer, transform.forward) < coneRadius)
-    //        {
-    //            // 
-    //            Rigidbody nextObjectRb = rigidBodiesOnReach[i];
-    //            if (nextObjectRb != null)
-    //            {
-    //                // Then send them to fly
-    //                pointFromPlayer = nextObjectRb.transform.position - transform.position;
-    //                nextObjectRb.AddForce(pointFromPlayer.normalized * pulseForceToApply, ForceMode.Impulse);
-    //            }
-    //            // Vamos a aplicar el daño a mano
-    //            // Recuerda que la fuerza aplicada es en toneladas
-    //            // Hay que trabajar el tema muerte
-    //            EnemyConsistency enemyConsistency = nextObjectRb.GetComponent<EnemyConsistency>();
-    //            if (enemyConsistency != null)
-    //                //enemyConsistency.ReceiveImpact(pulseForceToApply * 10, enemyConsistency.transform.position);
-    //                enemyConsistency.ReceivePulseDamage(pointFromPlayer.normalized * pulseForceToApply);
-    //            //
-    //            BugBodyBehaviour bugBodyBehaviour = nextObjectRb.transform.GetComponent<BugBodyBehaviour>();
-    //            if (bugBodyBehaviour != null)
-    //                bugBodyBehaviour.LoseFoot();
-    //        }
-    //    }
-
-    //    // And apply the reaction to the player
-    //    Vector3 forceToApply = -transform.forward * pulseForceToApply;
-    //    rb.AddForce(forceToApply, ForceMode.Impulse);
-    //    Activate3DimensionalDamping();
-    //}
-
     //
     void AlternativePulseAttack()
     {
@@ -915,7 +811,7 @@ public class RobotControl : MonoBehaviour {
         for (int i = 0; i < elementsOnReachOfPulseAttack.affectedRigidbodies.Count; i++)
         {
             pointFromPlayer = elementsOnReachOfPulseAttack.affectedRigidbodies[i].transform.position - transform.position;
-            elementsOnReachOfPulseAttack.affectedRigidbodies[i].AddForce(pointFromPlayer.normalized * pulseForceToApply);
+            elementsOnReachOfPulseAttack.affectedRigidbodies[i].AddForce(pointFromPlayer.normalized * pulseForceToApply, ForceMode.Impulse);
         }
     }
 
@@ -955,33 +851,10 @@ public class RobotControl : MonoBehaviour {
             Rigidbody rigidbody = collidersOnReach[i].GetComponent<Rigidbody>();
             if (rigidbody != null && enemyConsistency == null)
                 affectedByPulseAttack.affectedRigidbodies.Add(rigidbody);
-
+                
         }
         return affectedByPulseAttack;
     }
-
-    // TODO: Hacer una función que atrape colliders también (o gestionarlo de otra forma)
-    //List<Rigidbody> GetRigidBodiesWithOverlapSphere(float pulseReach)
-    //{
-    //    //
-    //    Collider[] collidersOnRadius = Physics.OverlapSphere(transform.position, pulseReach);
-    //    List<Rigidbody> rigidbodiesOnReach = new List<Rigidbody>(10);
-    //    //
-    //    for(int i = 0; i < collidersOnRadius.Length; i++)
-    //    {
-    //        //
-    //        Rigidbody nextPossibleRigidbody = collidersOnRadius[i].GetComponent<Rigidbody>();
-    //        if (nextPossibleRigidbody == null)
-    //            nextPossibleRigidbody = collidersOnRadius[i].GetComponentInParent<Rigidbody>();
-    //        //
-    //        if (nextPossibleRigidbody != null && !rigidbodiesOnReach.Contains(nextPossibleRigidbody))
-    //        {
-    //            rigidbodiesOnReach.Add(nextPossibleRigidbody);
-    //        }
-    //    }
-    //    //
-    //    return rigidbodiesOnReach;
-    //}
 
     /// <summary>
     /// 

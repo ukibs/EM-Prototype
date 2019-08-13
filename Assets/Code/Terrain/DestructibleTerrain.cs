@@ -87,7 +87,7 @@ public class DestructibleTerrain : MonoBehaviour
         //
         for(int i = 0; i < brokenVersionRigidbodies.Length; i++)
         {
-            brokenVersionRigidbodies[i].AddForce(directionAndForce);
+            brokenVersionRigidbodies[i].AddForce(directionAndForce, ForceMode.Impulse);
         }
     }
 
