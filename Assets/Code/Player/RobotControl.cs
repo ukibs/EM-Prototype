@@ -11,7 +11,6 @@ public enum AttackMode
     Canon,    
     ParticleCascade,
     //Sharpnel,
-    Piercing,
 
     Count
 }
@@ -67,9 +66,12 @@ public class RobotControl : MonoBehaviour {
 
     public GameObject chargingPulseEmitter;
     public GameObject releasingPulseEmitter;
-    public GameObject bulletPrefab;
-    public GameObject cannonBallPrefab;
-    public GameObject piercingProyectilePrefab;
+
+    // Luego unificamos estas 3
+    public GameObject proyectilePrefab;
+    //public GameObject cannonBallPrefab;
+    //public GameObject piercingProyectilePrefab;
+
     public Transform[] machineGunPoints;
     public Transform chargedProyectilePoint;
     public GameObject chargingProjectile;       // Habrá que pulir como manejamos esto
@@ -102,6 +104,7 @@ public class RobotControl : MonoBehaviour {
     private ActionCharguing actionCharging = ActionCharguing.None;
 
     private float chargedAmount = 0.0f;    // Por ahora lo manejaremos entre 0 y 1
+    private float currentMuzzleSpeed = 0;
     private float currentOverheat = 0;      // Similar
     private bool totalOverheat = false;
     private SpringCamera cameraControl;
@@ -110,6 +113,9 @@ public class RobotControl : MonoBehaviour {
     private GameManager gameManager;
     private ImpactInfoManager impactInfoManager;
     private bool inPlay = true;
+
+    //
+    private Rigidbody proyectileRb;
 
     // De momento lo controlamos con un bool
     private bool applyingDamping = true;
@@ -167,6 +173,8 @@ public class RobotControl : MonoBehaviour {
         }
     }
 
+    public float CurrentMuzzleSpeed { get { return currentMuzzleSpeed; } }
+
     #endregion
 
     // Use this for initialization
@@ -190,22 +198,29 @@ public class RobotControl : MonoBehaviour {
         PlayerReference.Initiate(gameObject);
 
         // Asignamos en el player reference el rigidbody que corresponda
-        switch (attackMode)
-        {
-            case AttackMode.Pulse:
-                PlayerReference.currentProyectileRB = null;
-                break;
-            case AttackMode.RapidFire:
-                PlayerReference.currentProyectileRB = bulletPrefab.GetComponent<Rigidbody>();
-                break;
-            case AttackMode.Canon:
-                PlayerReference.currentProyectileRB = cannonBallPrefab.GetComponent<Rigidbody>();
-                break;
-        }
+        //switch (attackMode)
+        //{
+        //    case AttackMode.Pulse:
+        //        PlayerReference.currentProyectileRB = null;
+        //        break;
+        //    case AttackMode.RapidFire:
+        //        PlayerReference.currentProyectileRB = rapidFireBulletPrefab.GetComponent<Rigidbody>();
+        //        break;
+        //    case AttackMode.Canon:
+        //        PlayerReference.currentProyectileRB = cannonBallPrefab.GetComponent<Rigidbody>();
+        //        break;
+        //}
 
         //
         lastAxisXZ = Vector3.forward;
 
+        //
+        proyectileRb = proyectilePrefab.GetComponent<Rigidbody>();
+        PlayerReference.currentProyectileRB = proyectileRb;
+
+        // Recordar que la masa va en gramos (de momento)
+        currentMuzzleSpeed = gameManager.forcePerSecond / (gameManager.massPerSecond / 1000);
+        // Debug.Log("Muzzle speed :" + currentMuzzleSpeed);
     }
 	
 	// Update is called once per frame
@@ -223,7 +238,15 @@ public class RobotControl : MonoBehaviour {
             CheckDefense();
             //
             UpdateOverheat(dt);  
-
+            // Hay que cambiarlo de sitio
+            //if(actionCharging == ActionCharguing.Attack && chargedAmount > 0)
+            //{
+            //    currentMuzzleSpeed = gameManager.forcePerSecond / gameManager.massPerSecond * chargedAmount;
+            //}
+            //else
+            //{
+            //    currentMuzzleSpeed = 0;
+            //}
         }
         
     }
@@ -580,18 +603,20 @@ public class RobotControl : MonoBehaviour {
                             (int)attackMode >= gameManager.unlockedAttackActions) ?
                             (AttackMode)0 : attackMode;
             // Asignamos en el player reference el rigidbody que corresponda
-            switch (attackMode)
-            {
-                case AttackMode.Pulse:
-                    PlayerReference.currentProyectileRB = null;
-                    break;
-                case AttackMode.RapidFire:
-                    PlayerReference.currentProyectileRB = bulletPrefab.GetComponent<Rigidbody>();
-                    break;
-                case AttackMode.Canon:
-                    PlayerReference.currentProyectileRB = cannonBallPrefab.GetComponent<Rigidbody>();
-                    break;
-            }
+            //switch (attackMode)
+            //{
+            //    case AttackMode.Pulse:
+            //        PlayerReference.currentProyectileRB = null;
+            //        break;
+            //    case AttackMode.RapidFire:
+            //        PlayerReference.currentProyectileRB = proyectilePrefab.GetComponent<Rigidbody>();
+            //        break;
+            //    case AttackMode.Canon:
+            //        PlayerReference.currentProyectileRB = cannonBallPrefab.GetComponent<Rigidbody>();
+            //        break;
+            //}
+
+            // TODO: Habrá que trabajar esto con la carga variable
             EnemyAnalyzer.RecalculatePenetration();
         }
         // Defensive actions
@@ -649,10 +674,6 @@ public class RobotControl : MonoBehaviour {
                     //chargingCanonProyectile.SetActive(false);
                     GeneralFunctions.PlaySoundEffect(audioSource, loadingClip);
                     break;
-                case AttackMode.Piercing:
-                    //chargingPiercingProyectile.SetActive(false);
-                    GeneralFunctions.PlaySoundEffect(audioSource, loadingClip);
-                    break;
             }
         }            
         else if (inputManager.FireButton && actionCharging == ActionCharguing.Attack)
@@ -664,7 +685,7 @@ public class RobotControl : MonoBehaviour {
                 // TODO: Hacerlo un poco menos ñapa
                 if (totalOverheat)
                 {
-                    chargedAmount -= Time.deltaTime;
+                    chargedAmount -= dt;
                     return;
                 }
                     
@@ -720,20 +741,13 @@ public class RobotControl : MonoBehaviour {
                     break;
                 case AttackMode.Canon:
                     //
-                    if(chargedAmount >= gameManager.canonMinCharge)
-                    {
+                    //if(chargedAmount >= gameManager.canonMinCharge)
+                    //{
                         //chargingCanonProyectile.SetActive(false);
-                        CharguedProyectileAttack(cannonBallPrefab, gameManager.canonBaseMuzzleSpeed, dt);
+                        CharguedProyectileAttack(proyectilePrefab, currentMuzzleSpeed, dt);
                         //
                         GeneralFunctions.PlaySoundEffect(audioSource, releasingCanonClip);
-                    }                    
-                    break;
-                case AttackMode.Piercing:
-                    // TODO: Este ya lo trabajaremos más adealnte
-                    //chargingCanonProyectile.SetActive(true);
-                    CharguedProyectileAttack(piercingProyectilePrefab, gameManager.piercingBaseMuzzleSpeed, dt);
-                    //
-                    GeneralFunctions.PlaySoundEffect(audioSource, releasingCanonClip);
+                    //}                    
                     break;
                 case AttackMode.RapidFire:
                     //impactInfoManager.
@@ -811,7 +825,7 @@ public class RobotControl : MonoBehaviour {
         // TODO: Trabajar estos parámetros
         float coneRadius = 15.0f;
         float coneReach = 20.0f;
-        float pulseForceToApply = (gameManager.pulseForce * chargedAmount + gameManager.pulseForce);
+        float pulseForceToApply = (gameManager.forcePerSecond * chargedAmount);
         // First sphere check
         List<Rigidbody> rigidBodiesOnReach = GetRigidBodiesWithOverlapSphere(coneReach);
         //
@@ -882,6 +896,9 @@ public class RobotControl : MonoBehaviour {
         //
         if (rapidFireCooldown >= 1 / gameManager.rapidFireRate)
         {
+            // Esta vez el muzzlespeed lo calculamos en vez de aplicarlo
+            //float muzzleSpeed = gameManager.forcePerSecond / gameManager.massPerSecond * chargedAmount;
+
             // La calculamos desde los puntos de la ametralladora para más precision
             // TODO: Revisar aqui tambien el cambio de centralPointOffset
             if (EnemyAnalyzer.isActive)
@@ -889,15 +906,18 @@ public class RobotControl : MonoBehaviour {
                 machineGunPoints[nextRapidFireSide].position,
                 EnemyAnalyzer.enemyTransform.position,
                 //EnemyAnalyzer.enemyTransform.TransformPoint(EnemyAnalyzer.enemyConsistency.centralPointOffset), 
-                EnemyAnalyzer.enemyRb.velocity, 
-                gameManager.rapidFireMuzzleSpeed, dt);
+                EnemyAnalyzer.enemyRb.velocity,
+                currentMuzzleSpeed, dt);
 
             // Determinamos el 
             // TODO: Sacar el drag de la bala
-            Rigidbody bulletRb = bulletPrefab.GetComponent<Rigidbody>();
-            float bulletDrag = bulletRb.drag;
+            //Rigidbody bulletRb = rapidFireBulletPrefab.GetComponent<Rigidbody>();
+
+            // Recordar que estamos pasando de gramos a toneladas
+            proyectileRb.mass = gameManager.massPerSecond * chargedAmount / 1000000;
+            float bulletDrag = proyectileRb.drag;
             EnemyAnalyzer.estimatedToHitPosition.y += GeneralFunctions.GetProyectileFallToObjective(transform.position,
-                EnemyAnalyzer.estimatedToHitPosition, gameManager.rapidFireMuzzleSpeed, bulletDrag);
+                EnemyAnalyzer.estimatedToHitPosition, currentMuzzleSpeed, bulletDrag);
             
             //
             Vector3 shootForward = (!cameraControl.TargetingPlayer) ?
@@ -913,9 +933,17 @@ public class RobotControl : MonoBehaviour {
             //
             Quaternion shootRotation = Quaternion.LookRotation(targetPoint - machineGunPoints[nextRapidFireSide].position);
 
-            float muzzleSpeed = gameManager.rapidFireMuzzleSpeed;
-            GeneralFunctions.ShootProjectile(bulletPrefab, machineGunPoints[nextRapidFireSide].position,
-                shootRotation, shootForward, muzzleSpeed, dt, ShootCalculation.MuzzleSpeed);
+            //float muzzleSpeed = gameManager.rapidFireMuzzleSpeed;
+            float forceToApply = gameManager.forcePerSecond * chargedAmount;
+
+            //GeneralFunctions.ShootProjectile(bulletPrefab, machineGunPoints[nextRapidFireSide].position,
+            //    shootRotation, shootForward, muzzleSpeed, dt, ShootCalculation.MuzzleSpeed);
+            GeneralFunctions.ShootProjectile(proyectilePrefab, machineGunPoints[nextRapidFireSide].position,
+                shootRotation, shootForward, forceToApply, dt, ShootCalculation.Force);
+
+            // Aplicamos la fuerza opuesta a EM
+            rb.AddForce(-machineGunPoints[nextRapidFireSide].forward * forceToApply, ForceMode.Impulse);
+
             // TODO: Vamos a aplicar el overheat aqui
             //chargedAmount -= 1 / gameManager.rapidFireRate;
             chargedAmount = 0.01f;
@@ -1007,14 +1035,15 @@ public class RobotControl : MonoBehaviour {
     /// </summary>
     void CharguedProyectileAttack(GameObject proyectilePrefab, float proyectileMuzzleSpeed, float dt)
     {
-        //
-        float shootMuzzleSpeed = proyectileMuzzleSpeed * chargedAmount;
-        //float shootMuzzleSpeed = proyectileMuzzleSpeed;
-        // TODO: Coger la masa del game manager
-        //float proyectileMass = gameManager.canonBaseProyectileMass * chargedAmount * 10 + gameManager.canonBaseProyectileMass;
+        // Establecemos la masa
+        proyectileRb.mass = gameManager.massPerSecond * chargedAmount / 1000000;
+        // Y la fuerza a aplicar
+        float forceToApply = gameManager.forcePerSecond * chargedAmount;
         //
         GeneralFunctions.ShootProjectile(proyectilePrefab, chargedProyectilePoint.position, chargedProyectilePoint.rotation,
-            chargedProyectilePoint.forward, shootMuzzleSpeed, dt, ShootCalculation.MuzzleSpeed);
+            chargedProyectilePoint.forward, forceToApply, dt, ShootCalculation.Force);
+        //
+        rb.AddForce(-chargedProyectilePoint.forward * forceToApply, ForceMode.Impulse);
     }
 
     #endregion
@@ -1051,25 +1080,11 @@ public static class PlayerReference
         
         // Sacamos la info de penetración del arma equipada
         float penetrationCapacity = -1;
-        switch (playerControl.ActiveAttackMode)
-        {
-            case AttackMode.RapidFire:
-                Rigidbody rFProyectileBody = playerControl.bulletPrefab.GetComponent<Rigidbody>();
-                Bullet rfProyectileData = playerControl.bulletPrefab.GetComponent<Bullet>();
-                penetrationCapacity = GeneralFunctions.Navy1940PenetrationCalc(
-                    rFProyectileBody.mass, rfProyectileData.diameter, GameManager.instance.rapidFireMuzzleSpeed);
-                break;
-            case AttackMode.Canon:
-                Rigidbody cProyectileBody = playerControl.cannonBallPrefab.GetComponent<Rigidbody>();
-                Bullet cProyectileData = playerControl.cannonBallPrefab.GetComponent<Bullet>();
-                penetrationCapacity = GeneralFunctions.Navy1940PenetrationCalc(
-                    cProyectileBody.mass, cProyectileData.diameter, GameManager.instance.rapidFireMuzzleSpeed);
-                break;
-            case AttackMode.Pulse:
-                // TODO: Decidir algo con esto
-                // Ya que no "penetra"
-                break;
-        }
+
+        Rigidbody rFProyectileBody = PlayerReference.currentProyectileRB;
+        Bullet rfProyectileData = playerControl.proyectilePrefab.GetComponent<Bullet>();
+        penetrationCapacity = GeneralFunctions.Navy1940PenetrationCalc(
+            rFProyectileBody.mass, rfProyectileData.diameter, playerControl.CurrentMuzzleSpeed);
         //
         return penetrationCapacity;
     } 

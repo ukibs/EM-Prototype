@@ -148,9 +148,6 @@ public class ShovelManager : MonoBehaviour {
                         case AttackMode.ParticleCascade:
                             currentShovelPosture = ShovelPostures.ParticleCascade;
                             break;
-                        case AttackMode.Piercing:
-                            currentShovelPosture = ShovelPostures.PiercingShot;
-                            break;
                     }
                     break;
                 case ActionCharguing.Defense:

@@ -477,11 +477,7 @@ MonoBehaviour:
   damping: 3
   chargingPulseEmitter: {fileID: 5135504275078131841}
   releasingPulseEmitter: {fileID: 6629602366409878942}
-  bulletPrefab: {fileID: 1952744711831650, guid: 50cc46958d3f7d247bcc2c32cf5c09a6,
-    type: 3}
-  cannonBallPrefab: {fileID: 1952744711831650, guid: 0b9fb2df25d367b4cb319b67e09dada1,
-    type: 3}
-  piercingProyectilePrefab: {fileID: 1449818831234027966, guid: 2ed793cb6ec2bc544a528b33f58c635c,
+  proyectilePrefab: {fileID: 1952744711831650, guid: 50cc46958d3f7d247bcc2c32cf5c09a6,
     type: 3}
   machineGunPoints:
   - {fileID: 4894371882715858}

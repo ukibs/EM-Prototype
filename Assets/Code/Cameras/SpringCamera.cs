@@ -244,18 +244,8 @@ public class SpringCamera : MonoBehaviour {
         // Determinamos donde va a estar cuando el proyectil llegue a él
         //
         float proyectileMuzzleSpeed = 1000;
-        switch (PlayerReference.playerControl.ActiveAttackMode)
-        {
-            case AttackMode.RapidFire:
-                proyectileMuzzleSpeed = gameManager.rapidFireMuzzleSpeed;
-                break;
-            case AttackMode.Canon:
-                // Recordar que hasta 0.5 no dispara
-                // Y que a 0 se  vuelve majara
-                if(PlayerReference.playerControl.ChargedAmount > 0.5f)
-                    proyectileMuzzleSpeed = gameManager.canonBaseMuzzleSpeed * PlayerReference.playerControl.ChargedAmount;
-                break;
-        }
+        proyectileMuzzleSpeed = PlayerReference.playerControl.CurrentMuzzleSpeed;
+        
         //
         float dragToCheck = (PlayerReference.currentProyectileRB != null) ? PlayerReference.currentProyectileRB.drag : 0.1f;
         //
@@ -265,7 +255,7 @@ public class SpringCamera : MonoBehaviour {
         // Determinamos el 
         // TODO: Coger el punto de disparo del plauer
         EnemyAnalyzer.estimatedToHitPosition.y += GeneralFunctions.GetProyectileFallToObjective(transform.position,
-            EnemyAnalyzer.estimatedToHitPosition, gameManager.rapidFireMuzzleSpeed);
+            EnemyAnalyzer.estimatedToHitPosition, proyectileMuzzleSpeed);
             //
         targetPos = EnemyAnalyzer.estimatedToHitPosition;
     }

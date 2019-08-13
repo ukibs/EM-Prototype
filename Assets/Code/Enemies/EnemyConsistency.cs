@@ -186,6 +186,8 @@ public class EnemyConsistency : Targeteable {
         
     }
 
+    #region Methods
+
     // Aquí daremos el cambiazo con el cuerpo muerto y le pondermos los decorados
     void PutDeadBody()
     {
@@ -216,6 +218,7 @@ public class EnemyConsistency : Targeteable {
         //
         DetermineIfMultipart();
         //
+        if (targetableColliders == null) return;
         for (int i = 0; i < targetableColliders.Count; i++)
             targetableColliders[i].ResetStatus();
     }
@@ -250,6 +253,12 @@ public class EnemyConsistency : Targeteable {
             return true;
         //
         return false;
+    }
+
+    // Para recibir daño del ataque de pulso
+    public void ReceivePulseDamage()
+    {
+
     }
 
     /// <summary>
@@ -426,72 +435,11 @@ public class EnemyConsistency : Targeteable {
         }
     }
 
-    // TODO: Esta seguramente la borremos
-    //protected virtual void DeactivateStuff()
-    //{
-    //    //Chequamos y quitamos
-    //    // Torretas
-    //    EnemyTurret enemyTurret = GetComponent<EnemyTurret>();
-    //    if (enemyTurret != null)
-    //    {
-    //        for (int i = 0; i < enemyTurret.weapons.Length; i++)
-    //        {
-    //            EnemyWeapon nextWeapon = enemyTurret.weapons[i].GetComponent<EnemyWeapon>();
-    //            if (nextWeapon)
-    //            {
-    //                Destroy(nextWeapon);
-    //            }
-    //        }
-    //        //
-    //        Destroy(enemyTurret);
-    //    }
-            
-    //    // Cuerpo (mekanoide)
-    //    MekanoidBodyBehaviour mekanoidBodyBehaviour = GetComponent<MekanoidBodyBehaviour>();
-    //    if (mekanoidBodyBehaviour != null)
-    //    {
-    //        for(int i = 0; i < mekanoidBodyBehaviour.weapons.Length; i++)
-    //        {
-    //            EnemyWeapon nextWeapon = mekanoidBodyBehaviour.weapons[i].GetComponent<EnemyWeapon>();
-    //            if (nextWeapon)
-    //            {
-    //                Destroy(nextWeapon);
-    //            }
-    //        }
-    //        //
-    //        Destroy(mekanoidBodyBehaviour);
-    //    }
-
-    //    // Cuerpo (bicho)
-    //    BugBodyBehaviour bugBodyBehaviour = GetComponent<BugBodyBehaviour>();
-    //    if (bugBodyBehaviour != null)
-    //    {
-    //        // TODO: Algo esta fallando aqui
-    //        Debug.Log("Destroying " + transform.name + " body behaviour");
-    //        for (int i = 0; i < bugBodyBehaviour.weapons.Length; i++)
-    //        {
-    //            EnemyWeapon nextWeapon = bugBodyBehaviour.weapons[i].GetComponent<EnemyWeapon>();
-    //            Debug.Log("Destroying " + transform.name + " weapon " + nextWeapon.transform.name);
-    //            if (nextWeapon)
-    //            {
-    //                Destroy(nextWeapon);
-    //            }
-    //        }
-    //        //
-    //        Destroy(bugBodyBehaviour);
-    //    }
-
-    //    // Propulsor
-    //    EnemyPropulsion enemyPropulsion = GetComponent<EnemyPropulsion>();
-    //    if(enemyPropulsion != null)
-    //    {
-    //        Destroy(enemyPropulsion);
-    //    }
-    //}
-
     //
     void DetermineIfMultipart()
     {
+        //
+        if (bodyColliders == null) return;
         //
         targetableColliders = new List<EnemyCollider>(5);
         //
@@ -529,5 +477,7 @@ public class EnemyConsistency : Targeteable {
                 positionInScreen.y >= 0 && positionInScreen.y <= 1 &&
                 positionInScreen.z > 0 && positionInScreen.z < maxDistance;
     }
-    
+
+    #endregion
+
 }

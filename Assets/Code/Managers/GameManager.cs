@@ -63,17 +63,24 @@ public class GameManager : MonoBehaviour
     public float maxCharge = 1;
     // Armas
     // Puslo
-    public float pulseForce = 10;
+    // public float pulseForce = 10;
     // C´ñon
-    public float canonBaseMuzzleSpeed = 1000;
-    public float canonMinCharge = 0.5f;
+    //public float canonBaseMuzzleSpeed = 1000;
+    //public float canonMinCharge = 0.5f;
     // Fuego rapido
     public float rapidFireRate = 1;
-    public float rapidFireMuzzleSpeed = 1000;
+    //public float rapidFireMuzzleSpeed = 1000;
     public float maxOverheat = 1;   // NOTA: De momento va ligado al tiempo
     // Perforante
-    public float piercingBaseMuzzleSpeed = 2000;
-    public float piercingBaseProyectileMass = 0.00001f;
+    //public float piercingBaseMuzzleSpeed = 2000;
+    //public float piercingBaseProyectileMass = 0.00001f;
+    // Valores unificados
+    // Tocará pelearlos bastante antes de definir base y aumentos
+    public float massPerSecond = 200;
+    public float forcePerSecond = 200;
+    public float currentDensity = 10000;
+    public float proyectileComplexity = 0;
+
     //
     public float movementForce = 5;
     public float jumpForce = 10;

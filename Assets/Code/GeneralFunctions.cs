@@ -10,29 +10,22 @@ public static class GeneralFunctions
     //
     // Nota: Antes o después trabajaremos con una pool
     public static void ShootProjectile(GameObject prefab, Vector3 position, Quaternion rotation, Vector3 direction, float forceToApply, 
-        float dt, ShootCalculation shootCalculation = ShootCalculation.Force, float proyectileMass = -1)
+        float dt, ShootCalculation shootCalculation = ShootCalculation.Force)
     {
         
         Rigidbody prefabRb = prefab.GetComponent<Rigidbody>();
         // Get the muzzle speed in meters/second (rememeber 1 is a Ton)
-        float bulletMuzzleSpeed;
-        if (shootCalculation == ShootCalculation.Force)
-            bulletMuzzleSpeed = prefabRb.mass * 1000 / forceToApply;
-        // TODO: Esto es una ñapa, hay que arreglarlo
-        else
+        // TODO: Lo acabaremos quitando
+        float bulletMuzzleSpeed = 0;
+        if (shootCalculation == ShootCalculation.MuzzleSpeed)
             bulletMuzzleSpeed = forceToApply;
         //
         GameObject newBullet = GameObject.Instantiate(prefab, position, rotation);
         Rigidbody newBulletRB = newBullet.GetComponent<Rigidbody>();
         Vector3 directionWithForce = direction.normalized * forceToApply;
-        //
-        if(proyectileMass != -1)
-        {
-            newBulletRB.mass = proyectileMass;
-        }
-        //
+        // Recodar que la relación es gramos - toneladas, no gramos - kilos
         if (shootCalculation == ShootCalculation.Force)
-            newBulletRB.AddForce(directionWithForce, ForceMode.Impulse);
+            newBulletRB.AddForce(directionWithForce / 1000, ForceMode.Impulse);
         else
             newBulletRB.velocity = direction * bulletMuzzleSpeed;
             // Debug.Log(prefab.name + " shot with: direction, " + direction + " force, " + forceToApply + "total," + directionWithForce);

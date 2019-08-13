@@ -290,7 +290,6 @@ public class ProvisionalHUD : MonoBehaviour {
                 case AttackMode.RapidFire: iconToUse = rapidFireIcon; break;
                 case AttackMode.Canon: iconToUse = cannonIcon; break;
                 case AttackMode.ParticleCascade: iconToUse = particleCascadeIcon; break;
-                case AttackMode.Piercing: iconToUse = piercingIcon; break;
             }
             GUI.DrawTexture(new Rect(Screen.width - 100, Screen.height - 150, 100, 100), iconToUse);
         }
