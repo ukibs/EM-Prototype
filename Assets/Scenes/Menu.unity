@@ -872,6 +872,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentVersion: 0.4.4
   guiSkin: {fileID: 11400000, guid: 0d7ecdc8ac800f94491b1d5df3fbf883, type: 2}
+  rowsAndColumns: {x: 4, y: 3}
+  buttonSize: {x: 50, y: 50}
 --- !u!4 &1379158843
 Transform:
   m_ObjectHideFlags: 0

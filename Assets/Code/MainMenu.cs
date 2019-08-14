@@ -9,10 +9,10 @@ public class MainMenu : MonoBehaviour
 {
     public string currentVersion = "0.2.1";
     public GUISkin guiSkin;
+    public Vector2 rowsAndColumns = new Vector2(4, 3);
+    public Vector2 buttonSize = new Vector2(300, 50);
 
     private GameManager gameManager;
-    //
-    private Vector2 buttonSize = new Vector2(300, 50);
     //
     private LevelData[] arcadeLevels;
     private LevelData[] bossLevels;
@@ -32,18 +32,18 @@ public class MainMenu : MonoBehaviour
         buttonsFunctionalCoordinates = new List<Rect>();
         buttonsVisualCoordinates = new List<Rect>();
         //
-        DetermineButtonsPositions();
+        //DetermineButtonsPositions();
+        DetermineButtonsPositionsSettingRowsAndColumns();
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Ñapa tapida para cerrar el juego
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
         }
-        //
-
     }
 
     private void OnGUI()
@@ -94,9 +94,10 @@ public class MainMenu : MonoBehaviour
         //
         for(int i = 0; i < gameManager.LevelsInfo.Length; i++)
         {
+            //GUI.Label(levelInfoRect, i + "", guiSkin.label);
             // 
             if (GUI.Button(buttonsVisualCoordinates[i],
-                gameManager.LevelsInfo[i].inGameName, guiSkin.button))
+                i + "", guiSkin.button))
             {
                 //
                 if(gameManager.LevelsInfo[i].gameMode == GameMode.Arcade)
@@ -132,12 +133,39 @@ public class MainMenu : MonoBehaviour
     }
 
     //
+    void DetermineButtonsPositionsSettingRowsAndColumns()
+    {
+        // Filas
+        for (int i = 0; i < rowsAndColumns.y; i++)
+        {
+            // Y columnas
+            for(int j = 0; j < rowsAndColumns.x; j++)
+            {
+                // Para que no se salga del array de levels info en caso de tener más
+                if(i * (int)rowsAndColumns.y + j < gameManager.LevelsInfo.Length)
+                {
+                    //
+                    Rect newButtonVisualCoordinates = new Rect(Screen.width * 1 / 8 + (j * buttonSize.x), 
+                        Screen.height * 1 / 2 + (i * buttonSize.y), 
+                        buttonSize.x, buttonSize.y);
+                    buttonsVisualCoordinates.Add(newButtonVisualCoordinates);
+                    //
+                    Rect newButtonFunctionalCoordinates = new Rect(newButtonVisualCoordinates.x,
+                        Screen.height - newButtonVisualCoordinates.y - newButtonVisualCoordinates.height,
+                        buttonSize.x, buttonSize.y);
+                    buttonsFunctionalCoordinates.Add(newButtonFunctionalCoordinates);
+                }                
+            }            
+        }
+    }
+
+    //
     void CheckMouseOverButtons()
     {
         //
         Vector2 mouseCoordinates = Input.mousePosition;
         //
-        for (int i = 0; i < buttonsFunctionalCoordinates.Count; i++)
+        for (int i = 0; i < buttonsFunctionalCoordinates.Count - 1; i++)
         {
             if(mouseCoordinates.x > buttonsFunctionalCoordinates[i].x &&
                 mouseCoordinates.x < buttonsFunctionalCoordinates[i].x + buttonsFunctionalCoordinates[i].width &&
@@ -169,6 +197,7 @@ public class MainMenu : MonoBehaviour
             nextPosition.y += 60;
             levelInfoRect.position = nextPosition;
             GUI.Label(levelInfoRect, gameManager.LevelsInfo[index].enemyGroups[i].name, guiSkin.label);
+            //GUI.Label(levelInfoRect, i + "", guiSkin.label);
         }
     }
 }
