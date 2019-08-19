@@ -812,6 +812,8 @@ public class RobotControl : MonoBehaviour {
             pointFromPlayer = elementsOnReachOfPulseAttack.affectedRigidbodies[i].transform.position - transform.position;
             elementsOnReachOfPulseAttack.affectedRigidbodies[i].AddForce(pointFromPlayer.normalized * pulseForceToApply, ForceMode.Impulse);
         }
+        //
+        rb.AddForce(-transform.forward * pulseForceToApply, ForceMode.Impulse);
     }
 
     //

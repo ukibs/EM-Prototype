@@ -685,6 +685,12 @@ public static class EnemyAnalyzer
         // Chequeo extra
         if(enemyRb == null)
             enemyRb = enemyReference.GetComponentInParent<Rigidbody>();
+        // Chequeo para gusano grande. Debería ser el de la cabeza el que coja
+        if (enemyRb == null)
+        {
+            enemyRb = enemyReference.GetComponentInChildren<Rigidbody>();
+            enemyTransform = enemyRb.transform;
+        }
         //
         enemyConsistency = enemyReference.GetComponent<EnemyConsistency>();
         // Chequeo extra para  las body parts

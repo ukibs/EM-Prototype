@@ -14,6 +14,7 @@ public enum Actions
     ZigZagingTowardsPlayer,
     Lunging,
     RetreatingFromPlayer,
+    ApproachingPlayer3d,
 
     Count
 }

@@ -92,6 +92,9 @@ public class EnemyConsistency : Targeteable {
 
         // De momento para klos voladores mas que nada
         rb = GetComponent<Rigidbody>();
+        // Caso del gusano grande, debería coger el de la cabeza
+        if (rb == null)
+            rb = GetComponentInChildren<Rigidbody>();
         //
         audioSource = GetComponent<AudioSource>();
         //
@@ -112,7 +115,8 @@ public class EnemyConsistency : Targeteable {
     // Update is called once per frame
     protected virtual void Update () {
 		// Cheqeo extra de salida de escenario
-        if(transform.position.y < -10)
+        // TODO: Reviasr algunas cosas que se ven afectadas opri esto
+        if(transform.position.y < -100)
         {
             //ManageDamage(currentChasisHealth, transform.position);
             //Destroy(gameObject);
@@ -152,6 +156,7 @@ public class EnemyConsistency : Targeteable {
             //
             Rigidbody otherRb = collision.collider.GetComponent<Rigidbody>();
             float impactForce = GeneralFunctions.GetCollisionForce(rb, otherRb);
+            //impactForce = GeneralFunctions.GetBodyKineticEnergy(rb);
             if (otherRb != null || CheckDrasticChangeInAcceleration(1))
             {
                 //Debug.Log("Hitting " + collision.transform.name + " with " + impactForce + " force");
@@ -426,6 +431,8 @@ public class EnemyConsistency : Targeteable {
             if(impactInfoManager != null)
                 impactInfoManager.SendImpactInfo(point, (int)damageReceived);
             // Si sigue vivo le aplicamos la fuerza
+            // TODO: Probar con explosive force
+            //rb.AddExplosionForce(receivedForce, )
             rb.AddForce(receivedForce, ForceMode.Impulse);
         }
     }

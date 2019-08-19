@@ -14,8 +14,6 @@ public class WormBodyBehaviour : BugBodyBehaviour
     //
     //protected float groundedLevel = 1;
     protected bool grounded = false;
-    protected BoxCollider bodyCollider;
-    protected MeshRenderer meshRenderer;
     protected bool lunging = false;
     protected float timeOnCooldown = 0;
 
@@ -29,8 +27,6 @@ public class WormBodyBehaviour : BugBodyBehaviour
         //
         base.Start();
         //
-        bodyCollider = GetComponent<BoxCollider>();
-        //
         SwitchGrounding();
         //
         if (HasGroundUnderneath() && !grounded)
@@ -40,8 +36,14 @@ public class WormBodyBehaviour : BugBodyBehaviour
         }
         //
         trailParticleSystem = GetComponentInChildren<ParticleSystem>();
+        //
+        if (trailParticleSystem == null)
+            trailParticleSystem = transform.parent.GetComponentInChildren<ParticleSystem>();
+        //
         trailEmmiter = trailParticleSystem.emission;
-            
+        // Para el gusano grande
+        if (rb == null)
+            rb = transform.parent.GetComponentInChildren<Rigidbody>();
     }
     //
     protected override void Update()
@@ -57,19 +59,6 @@ public class WormBodyBehaviour : BugBodyBehaviour
     {
         //
         base.OnCollisionStay(collision);
-        //
-        //if(collision.collider.tag.Equals("Sand") && !lunging && !HasGroundUnderneath())
-        //{
-        //    grounded = false;
-        //    SwitchGrounding();
-        //}
-        // TODO: Montarlo bien y asegurarse de que funciona
-        //if (collision.collider.tag.Equals("Hard Terrain") && grounded)
-        //{
-        //    Destroy(gameObject);
-        //    // Ñapa como una catedral
-        //    FindObjectOfType<EnemyManager>().SubtractOne(GetComponent<EnemyConsistency>().ManagerIndex);
-        //}
     }
     //
     protected override void OnCollisionEnter(Collision collision)
@@ -96,20 +85,13 @@ public class WormBodyBehaviour : BugBodyBehaviour
             FindObjectOfType<EnemyManager>().SendToReserve(GetComponent<EnemyConsistency>().ManagerIndex, gameObject);
         }
     }
-
-    //
-    //protected void UpdateGrounding()
-
+    
     //
     protected void SwitchGrounding()
     {
         if (!grounded)
         {
             grounded = true;
-            //bodyCollider.size = new Vector3(1, 0.1f, 1);
-            //bodyCollider.center = new Vector3(0, 0.5f, 0);
-            //bodyConsistency.centralPointOffset = new Vector3(0, 0.45f, 0);
-            //transform.rotation = new Quaternion(0, transform.rotation.y, 0, transform.rotation.w);
             transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
             rb.angularVelocity = Vector3.zero;
             rb.velocity = Vector3.zero;
@@ -117,9 +99,6 @@ public class WormBodyBehaviour : BugBodyBehaviour
         else
         {
             grounded = false;
-            //bodyCollider.size = Vector3.one;
-            //bodyCollider.center = Vector3.zero;
-            //bodyConsistency.centralPointOffset = Vector3.zero;
         }
     }
 
@@ -145,7 +124,7 @@ public class WormBodyBehaviour : BugBodyBehaviour
                     // VAmos a probar a hacer que entre si o si
                     currentAction = behaviour[i];
                     return;
-                case Actions.ZigZagingTowardsPlayer:
+                case Actions.ApproachingPlayer3d:
                     // Esta de momento sin condición
                     currentAction = behaviour[i];
                     return;
@@ -194,7 +173,9 @@ public class WormBodyBehaviour : BugBodyBehaviour
                         ExecuteCurrentAction(dt);
                     }
                     break;
-
+                case Actions.ApproachingPlayer3d:
+                    transform.rotation = GeneralFunctions.UpdateRotation(transform, player.transform.position, rotationSpeed, dt);
+                    break;
             }
         }
     }

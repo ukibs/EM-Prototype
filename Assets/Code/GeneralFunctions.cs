@@ -380,7 +380,19 @@ public static class GeneralFunctions
         return bodyMomentum;
     }
 
-    //
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="proyectileLenght"></param>
+    /// <param name="proyectileDensity"></param>
+    /// <param name="armorDensity"></param>
+    /// <returns></returns>
+    public static float GetNewtonPenetration(float proyectileLenght, float proyectileDensity, float armorDensity)
+    {
+        return proyectileLenght * (proyectileDensity / armorDensity);
+    }
+
+    // TODO: Creo que esto ya no se usa
     public static T DeepCopy<T>(T obj)
     {
 

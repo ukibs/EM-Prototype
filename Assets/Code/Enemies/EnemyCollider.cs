@@ -52,6 +52,11 @@ public class EnemyCollider : MonoBehaviour
         // y por tanto lo lleva integrado
         if (body == null)
             body = GetComponent<EnemyConsistency>();
+        // Intento extra para gusano garnde
+        if(body == null)
+        {
+            body = transform.parent.GetComponentInChildren<EnemyConsistency>();
+        }
         //
         bodyBehaviour = body.GetComponent<EnemyBaseBodyBehaviour>();
 
