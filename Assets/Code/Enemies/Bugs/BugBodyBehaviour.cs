@@ -36,7 +36,7 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
         if (bodyConsistency.ReceivedStrongImpact)
         {
             //
-            Debug.Log(gameObject.name + " set off foot");
+            //Debug.Log(gameObject.name + " set off foot");
             //
             ofFoot = true;
             ofFootCurrentTime = 0;

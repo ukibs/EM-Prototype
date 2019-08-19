@@ -9,7 +9,7 @@ public static class GeneralFunctions
 {
     //
     // Nota: Antes o después trabajaremos con una pool
-    public static void ShootProjectile(GameObject prefab, Vector3 position, Quaternion rotation, Vector3 direction, float forceToApply, 
+    public static GameObject ShootProjectile(GameObject prefab, Vector3 position, Quaternion rotation, Vector3 direction, float forceToApply, 
         float dt, ShootCalculation shootCalculation = ShootCalculation.Force)
     {
         
@@ -28,8 +28,11 @@ public static class GeneralFunctions
             newBulletRB.AddForce(directionWithForce / 1000, ForceMode.Impulse);
         else
             newBulletRB.velocity = direction * bulletMuzzleSpeed;
-            // Debug.Log(prefab.name + " shot with: direction, " + direction + " force, " + forceToApply + "total," + directionWithForce);
+        // Debug.Log(prefab.name + " shot with: direction, " + direction + " force, " + forceToApply + "total," + directionWithForce);
         //}
+
+        //
+        return newBullet;
     }
 
     /// <summary>
@@ -345,16 +348,6 @@ public static class GeneralFunctions
     /// <param name="rb"></param>
     /// <returns></returns>
     public static float GetBodyKineticEnergy(Rigidbody rb)
-    {
-        float bodySpeed = rb.velocity.magnitude;
-        float bodyMass = rb.mass;
-
-        float bodyKE = bodyMass * Mathf.Pow(bodySpeed, 2) / 2;
-
-        return bodyKE;
-    }
-
-    public static float GetFakeBodyKineticEnergy(FakeRB rb)
     {
         float bodySpeed = rb.velocity.magnitude;
         float bodyMass = rb.mass;

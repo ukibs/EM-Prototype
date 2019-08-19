@@ -12,6 +12,7 @@ public class Bullet : MonoBehaviour {
     public float lifeTime = 10;
     // De momento lo manejamos así
     public bool dangerousEnough = false;
+    public bool drawTrayectory = false;
     //
     public GameObject impactParticlesPrefab;
     public GameObject bulletHolePrefab;
@@ -39,6 +40,7 @@ public class Bullet : MonoBehaviour {
     protected GameObject detectionTrail;
     protected LineRenderer detectionTrailRenderer;
     protected BulletPool bulletPool;
+    protected Missile missileComponent;
     // De momento hardcodeado
     protected float maxTimeBetweenRecalculation = 2;
     protected float currentTimeBetweenRecalculation = 0;
@@ -56,14 +58,20 @@ public class Bullet : MonoBehaviour {
         //
         bulletPool = FindObjectOfType<BulletPool>();
         //
+        missileComponent = GetComponent<Missile>();
+        //
         if (dangerousEnough)
         {
             // Instanciamos el trail renderer
             carolHelp = FindObjectOfType<CarolBaseHelp>();
-            detectionTrail = Instantiate(carolHelp.dangerousProyetilesTrailPrefab, transform.position, Quaternion.identity);
-            detectionTrailRenderer = detectionTrail.GetComponent<LineRenderer>();
-            //
-            AllocateTrailRenderer();
+            if (drawTrayectory)
+            {
+                detectionTrail = Instantiate(carolHelp.dangerousProyetilesTrailPrefab, transform.position, Quaternion.identity);
+                detectionTrailRenderer = detectionTrail.GetComponent<LineRenderer>();
+                //
+                AllocateTrailRenderer();
+            }            
+            
             //
             carolHelp.TriggerGeneralAdvice("DangerIncoming");
             //
@@ -83,12 +91,13 @@ public class Bullet : MonoBehaviour {
         // Hacemos que vaya cambiando la orientación acorde a la trayectoria
         // Ahora que estamos haciendo probatinas con esfericas no se notará
         // TODO: Chequear cuando tengamos balas más definidas
-        transform.LookAt(rb.velocity);
+        if(missileComponent == null)
+            transform.LookAt(rb.velocity);
         //
         CheckTravelDone(dt);
         // TODO: Revisar porque no cuadra bien el primer cáclculo
         // Mientras nos apañamos con esto
-        if (dangerousEnough)
+        if (drawTrayectory)
         {
             currentTimeBetweenRecalculation += dt;
             if (currentTimeBetweenRecalculation > maxTimeBetweenRecalculation)

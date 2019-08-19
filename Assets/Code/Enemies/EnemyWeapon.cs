@@ -55,6 +55,7 @@ public class EnemyWeapon : MonoBehaviour
 
     public ShootCalculation shootCalculation = ShootCalculation.MuzzleSpeed;
     //
+    public bool doesRotate = true;
     public bool rotationIsConstrained = true;
     public Vector2 maxRotationOffset;
     public GameObject shootParticlesPrefab;
@@ -147,14 +148,17 @@ public class EnemyWeapon : MonoBehaviour
         }
 
         // Rotamos
-        // TODO: Ver como manejar la velocidad de rotación
-        transform.rotation = GeneralFunctions.UpdateRotation(transform, anticipatedPlayerPosition, rotationSpeed.x, dt);
-        //transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, anticipatedPlayerPosition, rotationSpeed.y, dt, Vector3.right);
-        // TODO: Hacerlo en general functions
-        if(rotationIsConstrained)
-            ConstrainRotation();
-        // Y anulamos rotación en z (si no los bichos se esnucan)
-        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, 0);
+        if (doesRotate)
+        {
+            // 
+            transform.rotation = GeneralFunctions.UpdateRotation(transform, anticipatedPlayerPosition, rotationSpeed.x, dt);
+            // TODO: Hacerlo en general functions
+            if (rotationIsConstrained)
+                ConstrainRotation();
+            // Y anulamos rotación en z (si no los bichos se esnucan)
+            transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, 0);
+        }
+        
     }
 
     // TODO: Mover a funciones generales
@@ -198,13 +202,21 @@ public class EnemyWeapon : MonoBehaviour
     {
         //Debug.Log(shootPoint);
         // TODO: Incluir shootCalculation
-        GeneralFunctions.ShootProjectile(proyectilePrefab, shootPoint.position,
+        GameObject newProyectile = GeneralFunctions.ShootProjectile(proyectilePrefab, shootPoint.position,
             shootPoint.rotation, shootPoint.forward, muzzleSpeed, dt, ShootCalculation.MuzzleSpeed);
         //GeneralFunctions.ShootProjectile(proyectilePrefab, shootPoint.position,
         //    shootPoint.rotation, shootPoint.forward, shootForce, dt);
         //
         if (shootParticlesPrefab != null)
             Instantiate(shootParticlesPrefab, shootPoint.position, Quaternion.identity);
+        //
+        Missile missile = newProyectile.GetComponent<Missile>();
+        if (missile != null)
+        {
+            missile.AssignObjective(player.transform);
+            Debug.Log(player.transform);
+        }
+            
 
         //
         //if (!enemyManager.IsFiringClipActive(shootingClip))

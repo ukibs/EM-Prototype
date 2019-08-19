@@ -36,7 +36,7 @@ public class ScreecherBodyBehaviour : BugBodyBehaviour
         timeCharguingBall += dt;
         // Hardocdeamos el 2 que es la escala que usamos
         float ballScale = Mathf.Min((timeCharguingBall / timeToChargeBall) * 2, 2);
-        loadingBall.transform.localScale = Vector3.one * ballScale;
+        //loadingBall.transform.localScale = Vector3.one * ballScale;
         //
         VerticalMovement();
             

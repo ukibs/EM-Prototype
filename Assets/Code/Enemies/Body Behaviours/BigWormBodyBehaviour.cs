@@ -27,7 +27,8 @@ public class BigWormBodyBehaviour : MonoBehaviour
     public Rigidbody headRb;
     public Transform[] bodyParts;
 
-    private BigWormStatus bigWormStatus = BigWormStatus.GoingToPlayer;
+    // Público para algunos chequeos
+    public BigWormStatus bigWormStatus = BigWormStatus.GoingToPlayer;
     private RobotControl player;
     private CarolBaseHelp carolHelp;
     private float movementStatus = 1;

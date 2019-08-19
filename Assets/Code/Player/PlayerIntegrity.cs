@@ -182,26 +182,13 @@ public class PlayerIntegrity : MonoBehaviour
     }
 
     //
-    public void ReceiveSharpnelImpact(Vector3 contactPoint, GameObject otherGameObject, FakeRB sharpnelRB)
+    public void ReceiveBlastDamage(Vector3 forceAndDirection)
     {
-        //Debug.Log("Receiving sharpnel impact");
-
-        // De momento solo trabajamos con el escudo esférico
-        float extraDefense = (robotControl.CurrentActionCharging == ActionCharguing.Defense) ? gameManager.sphericShieldStrength : 0;
-
         //
-        float totalImpactForce = GeneralFunctions.GetFakeBodyKineticEnergy(sharpnelRB);
-
-        //
-        Vector3 impactDirection = contactPoint - transform.position;
-        // Cogemos el angulo para indicar en el HUD
+        Vector3 impactDirection = transform.position - forceAndDirection;
         float impactAngle = Vector3.SignedAngle(Camera.main.transform.forward, impactDirection, transform.up);
-
         //
-        float impactDamage = Mathf.Max(totalImpactForce - extraDefense, 0);
-
-        // De momento no visualizamos info del daño que recibimos
-        SufferDamage(impactDamage, impactAngle);
+        SufferDamage(forceAndDirection.magnitude, impactAngle);
     }
 
     //

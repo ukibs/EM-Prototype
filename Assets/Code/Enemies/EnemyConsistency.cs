@@ -335,30 +335,11 @@ public class EnemyConsistency : Targeteable {
         else
         {
             //penetrationResult = 0;
-            impactInfoManager.SendImpactInfo(point, (int)damageReceived, "No damage");
+            // Para evitar errores probando en el menu
+            if(impactInfoManager != null)
+                impactInfoManager.SendImpactInfo(point, (int)damageReceived, "No damage");
         }
         
-    }
-
-    //
-    public void ReceiveSharpnelImpact(float penetrationResult, Vector3 point, FakeRB proyectileRb)
-    {
-        // TODO: Revisar esto
-        float damageReceived = 0;
-        if (penetrationResult > 0)
-        {
-            damageReceived = GeneralFunctions.GetFakeBodyKineticEnergy(proyectileRb) * penetrationResult;
-            currentHealth -= (int)damageReceived;
-            ManageDamage(penetrationResult, point);
-
-            impactInfoManager.SendImpactInfo(point, (int)damageReceived);
-        }
-        else
-        {
-            penetrationResult = 0;
-            impactInfoManager.SendImpactInfo(point, (int)penetrationResult, "No damage");
-        }
-
     }
 
     // Funcion provisional para trabajar impactos de metralla

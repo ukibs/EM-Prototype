@@ -161,27 +161,6 @@ public class EnemyCollider : MonoBehaviour
         
     }
 
-    // FUncion provisional para los fragmentos
-    public void ReceiveSharpnelImpact(FakeRB sharpnelRb, Vector3 impactPoint)
-    {
-        // Chequeamos que siga vivo
-        if (body != null)
-        {
-            //
-            // TODO: Revisar velocidades relativas
-            // Vamos a asumir un diametro para fragmentos
-            // De momento 10 mm
-            float diameter = 10;
-
-            float penetrationValue = GeneralFunctions.Navy1940PenetrationCalc(sharpnelRb.mass, diameter, sharpnelRb.velocity.magnitude);
-            //Debug.Log("Penetration value: " + penetrationValue + ", mass: " + bulletRb.mass + 
-            //    ", diameter: " + diameter + ", velocity: " + bulletRb.velocity.magnitude);
-            float penetrationResult = Mathf.Max(penetrationValue - armor, 0);
-            //
-            body.ReceiveSharpnelImpact(penetrationResult, impactPoint, sharpnelRb);
-        }
-    }
-
     // Para recibir daño del ataque de pulso en la parte del cuerpo
     public void ReceivePulseDamage(Vector3 directionWithForce)
     {
