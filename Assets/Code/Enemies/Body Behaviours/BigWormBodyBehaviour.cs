@@ -16,12 +16,12 @@ public class BigWormBodyBehaviour : MonoBehaviour
         Count
     }
 
-    public float maxSpeed = 30;
+    public float movementSpeed = 30;
     public float rotationSpeed = 180;
     public float minimalApproachDistance = 100;
     public float minimalLungeDistance = 50;
-    public float maxAngleToLunge = 30;
-    public float lungeForce = 100;
+    //public float maxAngleToLunge = 30;
+    public float lungeSpeed = 100;
 
     public float underSandIdealHeight = -50;
     public Rigidbody headRb;
@@ -29,6 +29,7 @@ public class BigWormBodyBehaviour : MonoBehaviour
 
     private BigWormStatus bigWormStatus = BigWormStatus.GoingToPlayer;
     private RobotControl player;
+    private CarolBaseHelp carolHelp;
     private float movementStatus = 1;
     private float minimalTimeToCheckLungeEnd = 5;
     private float currentTimeToCheckLungeEnd = 0;
@@ -41,6 +42,7 @@ public class BigWormBodyBehaviour : MonoBehaviour
         transform.position = startPosition;
         //
         player = FindObjectOfType<RobotControl>();
+        carolHelp = FindObjectOfType<CarolBaseHelp>();
     }
 
     void Update()
@@ -101,11 +103,13 @@ public class BigWormBodyBehaviour : MonoBehaviour
                     //Debug.Log("Performing lunge");
                     //Lunge();
                     headRb.transform.LookAt(player.transform);
-                    headRb.velocity *= 2;
+                    //headRb.velocity *= 2;
+                    headRb.velocity = headRb.velocity.normalized * lungeSpeed;
                     bigWormStatus = BigWormStatus.Lunging;
                     ApplyGravityOnBodyParts(true);
                     currentTimeToCheckLungeEnd = 0;
                     // TODO: Que Carol de un aviso
+                    carolHelp.TriggerGeneralAdvice("Danger Incoming");
                     return;
                 }
                 //
@@ -118,7 +122,7 @@ public class BigWormBodyBehaviour : MonoBehaviour
                 //
                 currentTimeToCheckLungeEnd += dt;
                 //
-                if (headRb.transform.position.y < -20 && currentTimeToCheckLungeEnd >= minimalTimeToCheckLungeEnd)
+                if (currentTimeToCheckLungeEnd >= minimalTimeToCheckLungeEnd && HeadIsUnderSand())
                 {
                     Debug.Log("Returning to ideal height");
                     bigWormStatus = BigWormStatus.ReturningToIdealHeight;
@@ -141,7 +145,7 @@ public class BigWormBodyBehaviour : MonoBehaviour
     {
         //
         Vector3 movingDirection = headRb.transform.forward;
-        headRb.velocity = (movingDirection * maxSpeed * movementStatus);
+        headRb.velocity = (movingDirection * movementSpeed * movementStatus);
         //
         //bodyParts[0].LookAt(headRb.transform);
         ////
@@ -159,13 +163,13 @@ public class BigWormBodyBehaviour : MonoBehaviour
     }
 
     //
-    void Lunge()
-    {
-        //
-        Vector3 playerDistanceAndDirection = player.transform.position - headRb.transform.position;
-        //
-        headRb.AddForce(playerDistanceAndDirection * lungeForce, ForceMode.Impulse);
-    }
+    //void Lunge()
+    //{
+    //    //
+    //    Vector3 playerDistanceAndDirection = player.transform.position - headRb.transform.position;
+    //    //
+    //    headRb.AddForce(playerDistanceAndDirection * lungeForce, ForceMode.Impulse);
+    //}
 
     //
     void ApplyGravityOnBodyParts(bool yesNo)
@@ -177,5 +181,10 @@ public class BigWormBodyBehaviour : MonoBehaviour
         //{
         //    bodyPartsRb[i].useGravity = yesNo;
         //}
+    }
+
+    bool HeadIsUnderSand()
+    {
+        return headRb.transform.position.y < -5;
     }
 }

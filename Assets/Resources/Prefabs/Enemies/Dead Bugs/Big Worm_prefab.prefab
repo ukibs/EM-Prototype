@@ -64,12 +64,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bdff44de0ec5ab468dbd1581a3dc106, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 50
+  movementSpeed: 50
   rotationSpeed: 180
   minimalApproachDistance: 70
   minimalLungeDistance: 50
-  maxAngleToLunge: 30
-  lungeForce: 200
+  lungeSpeed: 120
   underSandIdealHeight: -50
   headRb: {fileID: 1699755141426265326}
   bodyParts:

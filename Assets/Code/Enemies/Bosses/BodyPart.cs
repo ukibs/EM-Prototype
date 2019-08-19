@@ -25,7 +25,7 @@ public class BodyPart : MonoBehaviour
         if (bigWormBehaviour != null)
         {
             //bigWormRb = bigWormBehaviour.GetComponent<Rigidbody>();
-            speedToUse = bigWormBehaviour.maxSpeed;
+            speedToUse = bigWormBehaviour.movementSpeed;
             transform.position = new Vector3(transform.position.x, bigWormBehaviour.underSandIdealHeight, transform.position.z);
         }
         //
@@ -56,7 +56,7 @@ public class BodyPart : MonoBehaviour
     //
     void UpdateSpeedToUse()
     {
-        if (bigWormBehaviour != null) speedToUse = bigWormBehaviour.maxSpeed;
+        if (bigWormBehaviour != null) speedToUse = bigWormBehaviour.movementSpeed;
         if (gigaWormBehaviour != null) speedToUse = gigaWormBehaviour.CurrentSpeed;
     }
 }
