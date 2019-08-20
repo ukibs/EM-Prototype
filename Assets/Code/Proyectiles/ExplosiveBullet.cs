@@ -143,6 +143,11 @@ public class ExplosiveBullet : MonoBehaviour
         //
         float angleOffsetInHeight = 360 / fragmentsPerHeight;
         float angleOffsetInWidth = 360 / fragmentsPerWidth;
+        //
+        float chargeMassRatio = explosiveLoad / proyectileRb.mass;
+        float squareKCoefficient = 1 / 3;
+        float fragmentSpeed = Mathf.Sqrt(2 * explosionForce * chargeMassRatio / (1 + squareKCoefficient * chargeMassRatio));
+        //
         for(int i = 0; i < fragmentsPerHeight; i++)
         {
             for(int j = 0; j < fragmentsPerWidth; j++)
@@ -154,8 +159,8 @@ public class ExplosiveBullet : MonoBehaviour
 
                 GameObject nextFragment = Instantiate(fragmentPrefab, transform.position, Quaternion.LookRotation(proyectileDirection));
                 Rigidbody fragmentRb = nextFragment.GetComponent<Rigidbody>();
-
-                // TODO: Terminar esto
+                //
+                fragmentRb.velocity = proyectileDirection.normalized * fragmentSpeed;
             }
         }
     }
@@ -164,6 +169,7 @@ public class ExplosiveBullet : MonoBehaviour
     // Esto se traducirán en daño adicional en función de la carga explosiva
     public void GenerateInternalExplosion(EnemyConsistency enemyConsistency)
     {
-        // TODO: Hcaerla
+        // TODO: Hcaerla. Hacer función dentro de 
+        //enemyConsistency.
     }
 }

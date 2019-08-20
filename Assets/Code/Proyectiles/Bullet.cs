@@ -130,7 +130,8 @@ public class Bullet : MonoBehaviour {
     protected void OnDestroy()
     {
         //
-        bulletPool.RemoveDangerousBulletFromList(gameObject);
+        if(bulletPool != null)
+            bulletPool.RemoveDangerousBulletFromList(gameObject);
         //
         Destroy(detectionTrail);
     }
@@ -154,8 +155,6 @@ public class Bullet : MonoBehaviour {
             //
             //Debug.Log("Bullet raycasting with " + raycastInfo.collider.gameObject.name);
             GenerateImpact(raycastInfo.collider, raycastInfo.point, raycastInfo.normal, dt);
-            // TODO: Aplicar fuerzas
-
         }
     }
 

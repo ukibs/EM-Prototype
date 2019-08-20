@@ -218,6 +218,8 @@ public class CarolBaseHelp : MonoBehaviour
     public void TriggerGeneralAdvice(string tag)
     {
         //
+        Debug.Log("Triggering general advice: " + tag);
+        //
         for(int i = 0; i < generalAdvices.Length; i++)
         {
             if(tag == generalAdvices[i].carolStep.keyWord)

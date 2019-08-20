@@ -329,7 +329,8 @@ public class EnemyConsistency : Targeteable {
             //Debug.Log("Penetration result: " + penetrationResult + ", kinetic energy: " + kineticEnergy + ", damage received: " + damageReceived);
             currentHealth -= (int)damageReceived;
             ManageDamage(damageReceived, point);
-
+            //
+            if(impactInfoManager != null)
             impactInfoManager.SendImpactInfo(point, (int)damageReceived);
         }
         else
@@ -371,17 +372,13 @@ public class EnemyConsistency : Targeteable {
 
             //
             GeneralFunctions.PlaySoundEffect(audioSource, deathClip);
-
+            
             //
-            //DeactivateStuff();
-            
-            
             if(levelManager != null)
                 levelManager.AnnotateKill();
             if (enemyManager != null)
             {
                 //enemyManager.SubtractOne(managerIndex);
-                
                 enemyManager.SendToReserve(managerIndex, gameObject);
             }
 

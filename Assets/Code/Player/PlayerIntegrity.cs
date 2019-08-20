@@ -161,6 +161,8 @@ public class PlayerIntegrity : MonoBehaviour
             // Vamos a probar con la energía cinética
             // TODO: Volver a manejarlo en proyectile impact
             totalImpactForce = GeneralFunctions.GetBodyKineticEnergy(otherRb);
+            //
+            bodyRB.AddForce(collidingRB.velocity * collidingRB.mass, ForceMode.Impulse);
         }
         //
         else if (bodyRB != null)
@@ -188,7 +190,10 @@ public class PlayerIntegrity : MonoBehaviour
         Vector3 impactDirection = transform.position - forceAndDirection;
         float impactAngle = Vector3.SignedAngle(Camera.main.transform.forward, impactDirection, transform.up);
         //
+        bodyRB.AddForce(forceAndDirection, ForceMode.Impulse);
+        //
         SufferDamage(forceAndDirection.magnitude, impactAngle);
+        
     }
 
     //

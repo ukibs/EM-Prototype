@@ -98,8 +98,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetPlayer: {fileID: 0}
   idealOffset: {x: 3, y: 3, z: -10}
-  springK: 200
-  dampingK: 20
+  springK: 300
+  dampingK: 30
   targetOffset: {x: 3, y: 1, z: 0}
   maxDistancePlayer: 20
   transitionTimeBetweenEnemies: 0.3

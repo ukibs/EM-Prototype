@@ -22,6 +22,8 @@ public class BigWormBodyBehaviour : MonoBehaviour
     public float minimalLungeDistance = 50;
     //public float maxAngleToLunge = 30;
     public float lungeSpeed = 100;
+    //
+    public AudioClip lungeClip;
 
     public float underSandIdealHeight = -50;
     public Rigidbody headRb;
@@ -32,8 +34,9 @@ public class BigWormBodyBehaviour : MonoBehaviour
     private RobotControl player;
     private CarolBaseHelp carolHelp;
     private float movementStatus = 1;
-    private float minimalTimeToCheckLungeEnd = 5;
+    private float minimalTimeToCheckLungeEnd = 10;
     private float currentTimeToCheckLungeEnd = 0;
+    private AudioSource audioSource;
 
     void Start()
     {
@@ -44,6 +47,8 @@ public class BigWormBodyBehaviour : MonoBehaviour
         //
         player = FindObjectOfType<RobotControl>();
         carolHelp = FindObjectOfType<CarolBaseHelp>();
+        // Este va en la cabeza
+        audioSource = headRb.GetComponent<AudioSource>();
     }
 
     void Update()
@@ -91,26 +96,28 @@ public class BigWormBodyBehaviour : MonoBehaviour
                 if(playerDistanceAndDirection.magnitude < minimalApproachDistance)
                 {
                     bigWormStatus = BigWormStatus.ApproachingPlayer;
+                    Debug.Log("Approaching player");
+
+                    // TODO: Que Carol de un aviso
+                    carolHelp.TriggerGeneralAdvice("DangerIncoming");
                 }
                 break;
             case BigWormStatus.ApproachingPlayer:
                 //
-                float directionAngle = Vector3.SignedAngle(transform.forward, playerDistanceAndDirection.normalized, transform.up);
+                //float directionAngle = Vector3.SignedAngle(transform.forward, playerDistanceAndDirection.normalized, transform.up);
                 float pureDistance = playerDistanceAndDirection.magnitude;
                 //
                 if (pureDistance < minimalLungeDistance/* && Mathf.Abs(directionAngle) < maxAngleToLunge*/)
                 {
                     //Debug.Log("Direction angle: " + directionAngle);
-                    //Debug.Log("Performing lunge");
+                    Debug.Log("Performing lunge");
                     //Lunge();
+                    GeneralFunctions.PlaySoundEffect(audioSource, lungeClip);
                     headRb.transform.LookAt(player.transform);
-                    //headRb.velocity *= 2;
                     headRb.velocity = headRb.velocity.normalized * lungeSpeed;
                     bigWormStatus = BigWormStatus.Lunging;
                     ApplyGravityOnBodyParts(true);
                     currentTimeToCheckLungeEnd = 0;
-                    // TODO: Que Carol de un aviso
-                    carolHelp.TriggerGeneralAdvice("Danger Incoming");
                     return;
                 }
                 //
@@ -128,15 +135,24 @@ public class BigWormBodyBehaviour : MonoBehaviour
                     Debug.Log("Returning to ideal height");
                     bigWormStatus = BigWormStatus.ReturningToIdealHeight;
                     ApplyGravityOnBodyParts(false);
+                    //
+                    headRb.transform.eulerAngles = new Vector3(90, headRb.transform.eulerAngles.y, headRb.transform.eulerAngles.z);
                 }
                     
                 break;
             case BigWormStatus.ReturningToIdealHeight:
                 //
                 Move();
+                
                 //
                 if (headRb.transform.position.y <= underSandIdealHeight)
+                {
+                    //
                     bigWormStatus = BigWormStatus.GoingToPlayer;
+                    //
+                    headRb.transform.eulerAngles = new Vector3(0, headRb.transform.eulerAngles.y, headRb.transform.eulerAngles.z);
+                }
+                    
                 break;
         }
     }
