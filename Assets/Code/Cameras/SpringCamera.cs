@@ -689,7 +689,12 @@ public static class EnemyAnalyzer
         if (enemyRb == null)
         {
             enemyRb = enemyReference.GetComponentInChildren<Rigidbody>();
-            enemyTransform = enemyRb.transform;
+            // Para cuando cambias entre partes del cuerpo
+            if(enemyRb == null)
+                enemyRb = enemyReference.parent.GetComponentInChildren<Rigidbody>();
+            //
+            else
+                enemyTransform = enemyRb.transform;
         }
         //
         enemyConsistency = enemyReference.GetComponent<EnemyConsistency>();

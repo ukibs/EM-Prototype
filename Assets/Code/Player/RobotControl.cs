@@ -68,7 +68,8 @@ public class RobotControl : MonoBehaviour {
     public GameObject releasingPulseEmitter;
 
     // Luego unificamos estas 3
-    public GameObject proyectilePrefab;
+    public GameObject sphericProyectilePrefab;
+    public GameObject elipticProyectilePrefab;
     //public GameObject cannonBallPrefab;
     //public GameObject piercingProyectilePrefab;
 
@@ -115,6 +116,7 @@ public class RobotControl : MonoBehaviour {
     private bool inPlay = true;
 
     //
+    private GameObject proyectileToUse;
     private Rigidbody proyectileRb;
 
     // De momento lo controlamos con un bool
@@ -180,6 +182,8 @@ public class RobotControl : MonoBehaviour {
 
     public float CurrentMuzzleSpeed { get { return currentMuzzleSpeed; } }
 
+    public GameObject ProyectileToUse { get { return proyectileToUse; } }
+
     #endregion
 
     // Use this for initialization
@@ -192,13 +196,7 @@ public class RobotControl : MonoBehaviour {
         gameManager = FindObjectOfType<GameManager>();
         audioSource = GetComponent<AudioSource>();
         impactInfoManager = FindObjectOfType<ImpactInfoManager>();
-
-        // TODO: Ya lo manejamos en otro lado
-        // Asegurarnos y borrar esto
-#if !UNITY_EDITOR
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-#endif
+        
         //
         PlayerReference.Initiate(gameObject);
 
@@ -206,7 +204,8 @@ public class RobotControl : MonoBehaviour {
         lastAxisXZ = Vector3.forward;
 
         //
-        proyectileRb = proyectilePrefab.GetComponent<Rigidbody>();
+        proyectileToUse = elipticProyectilePrefab;
+        proyectileRb = proyectileToUse.GetComponent<Rigidbody>();
         PlayerReference.currentProyectileRB = proyectileRb;
 
         // Recordar que la masa va en gramos (de momento)
@@ -761,10 +760,10 @@ public class RobotControl : MonoBehaviour {
                     //
                     //if(chargedAmount >= gameManager.canonMinCharge)
                     //{
-                        //chargingCanonProyectile.SetActive(false);
-                        CharguedProyectileAttack(proyectilePrefab, currentMuzzleSpeed, dt);
-                        //
-                        GeneralFunctions.PlaySoundEffect(audioSource, releasingCanonClip);
+                    //chargingCanonProyectile.SetActive(false);
+                    CharguedProyectileAttack(proyectileToUse, chargedProyectilePoint, dt);
+                    //
+                    GeneralFunctions.PlaySoundEffect(audioSource, releasingCanonClip);
                     //}                    
                     break;
                 case AttackMode.RapidFire:
@@ -881,12 +880,7 @@ public class RobotControl : MonoBehaviour {
                 EnemyAnalyzer.enemyRb.velocity,
                 currentMuzzleSpeed, dt);
 
-            // Determinamos el 
-            // TODO: Sacar el drag de la bala
-            //Rigidbody bulletRb = rapidFireBulletPrefab.GetComponent<Rigidbody>();
-
-            // Recordar que estamos pasando de gramos a toneladas
-            proyectileRb.mass = gameManager.massPerSecond * chargedAmount / 1000000;
+            //
             float bulletDrag = proyectileRb.drag;
             EnemyAnalyzer.estimatedToHitPosition.y += GeneralFunctions.GetProyectileFallToObjective(transform.position,
                 EnemyAnalyzer.estimatedToHitPosition, currentMuzzleSpeed, bulletDrag);
@@ -905,17 +899,22 @@ public class RobotControl : MonoBehaviour {
             //
             Quaternion shootRotation = Quaternion.LookRotation(targetPoint - machineGunPoints[nextRapidFireSide].position);
 
-            //float muzzleSpeed = gameManager.rapidFireMuzzleSpeed;
-            float forceToApply = gameManager.forcePerSecond * chargedAmount;
+            //// Recordar que estamos pasando de gramos a toneladas
+            //proyectileRb.mass = gameManager.massPerSecond * chargedAmount / 1000000;
+            ////float muzzleSpeed = gameManager.rapidFireMuzzleSpeed;
+            //float forceToApply = gameManager.forcePerSecond * chargedAmount;
 
-            //GeneralFunctions.ShootProjectile(bulletPrefab, machineGunPoints[nextRapidFireSide].position,
-            //    shootRotation, shootForward, muzzleSpeed, dt, ShootCalculation.MuzzleSpeed);
-            GeneralFunctions.ShootProjectile(proyectilePrefab, machineGunPoints[nextRapidFireSide].position,
-                shootRotation, shootForward, forceToApply, dt, ShootCalculation.Force);
+            ////GeneralFunctions.ShootProjectile(bulletPrefab, machineGunPoints[nextRapidFireSide].position,
+            ////    shootRotation, shootForward, muzzleSpeed, dt, ShootCalculation.MuzzleSpeed);
+            //GeneralFunctions.ShootProjectile(proyectileToUse, machineGunPoints[nextRapidFireSide].position,
+            //    shootRotation, shootForward, forceToApply, dt, ShootCalculation.Force);
 
-            // Aplicamos la fuerza opuesta a EM
-            rb.AddForce(-machineGunPoints[nextRapidFireSide].forward * forceToApply, ForceMode.Impulse);
-            Activate3DimensionalDamping();
+            //// Aplicamos la fuerza opuesta a EM
+            //rb.AddForce(-machineGunPoints[nextRapidFireSide].forward * forceToApply, ForceMode.Impulse);
+            //Activate3DimensionalDamping();
+
+            //
+            CharguedProyectileAttack(proyectileToUse, machineGunPoints[nextRapidFireSide], dt);
 
             // TODO: Vamos a aplicar el overheat aqui
             //chargedAmount -= 1 / gameManager.rapidFireRate;
@@ -1006,15 +1005,24 @@ public class RobotControl : MonoBehaviour {
     /// <summary>
     /// 
     /// </summary>
-    void CharguedProyectileAttack(GameObject proyectilePrefab, float proyectileMuzzleSpeed, float dt)
+    void CharguedProyectileAttack(GameObject proyectilePrefab, Transform muzzlePoint, float dt)
     {
         // Establecemos la masa
         proyectileRb.mass = gameManager.massPerSecond * chargedAmount / 1000000;
         // Y la fuerza a aplicar
         float forceToApply = gameManager.forcePerSecond * chargedAmount;
         //
-        GeneralFunctions.ShootProjectile(proyectilePrefab, chargedProyectilePoint.position, chargedProyectilePoint.rotation,
-            chargedProyectilePoint.forward, forceToApply, dt, ShootCalculation.Force);
+        GameObject nextProyectile = GeneralFunctions.ShootProjectile(proyectilePrefab, muzzlePoint.position, muzzlePoint.rotation,
+            muzzlePoint.forward, forceToApply, dt, ShootCalculation.Force);
+        // TODO: Revisar diametro, densidad, etc
+        Bullet bulletComponent = nextProyectile.GetComponent<Bullet>();
+        //
+        float volume = proyectileRb.mass / gameManager.currentDensity;
+        // =(volume*3/(4*PI()*ratioAB))^(1/3) * 2
+        float ratioAB = 2;
+        float elipseDiameter = Mathf.Pow((volume * 3 / (4 * Mathf.PI * ratioAB)), 1 / 3) * 2;
+        bulletComponent.diameter = elipseDiameter;
+        bulletComponent.length = elipseDiameter * ratioAB;
         //
         rb.AddForce(-chargedProyectilePoint.forward * forceToApply, ForceMode.Impulse);
         Activate3DimensionalDamping();
@@ -1056,7 +1064,7 @@ public static class PlayerReference
         float penetrationCapacity = -1;
 
         Rigidbody rFProyectileBody = PlayerReference.currentProyectileRB;
-        Bullet rfProyectileData = playerControl.proyectilePrefab.GetComponent<Bullet>();
+        Bullet rfProyectileData = playerControl.ProyectileToUse.GetComponent<Bullet>();
         penetrationCapacity = GeneralFunctions.Navy1940PenetrationCalc(
             rFProyectileBody.mass, rfProyectileData.diameter, playerControl.CurrentMuzzleSpeed);
         //

@@ -50,11 +50,10 @@ MonoBehaviour:
   unlockedAttackActions: 1
   unlockedDefenseActions: 1
   maxCharge: 1
-  pulseForce: 30
-  rapidFireRate: 15
+  rapidFireRate: 10
   maxOverheat: 1.5
   massPerSecond: 100
-  forcePerSecond: 100
+  forcePerSecond: 200
   currentDensity: 10000
   proyectileComplexity: 0
   movementForce: 3

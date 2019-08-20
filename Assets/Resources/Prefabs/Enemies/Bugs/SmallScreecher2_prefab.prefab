@@ -127,10 +127,10 @@ MonoBehaviour:
   - {fileID: 2926877339341907490}
   maxSpeed: 50
   minimalLungeDistance: 30
-  minimalShootDistance: 2000
+  minimalShootDistance: 1000
   ofFootMaxTime: 1
-  idealLoadingHeight: 300
-  idealAttackHeight: 300
+  idealLoadingHeight: 200
+  idealAttackHeight: 200
   timeToChargeBall: 10
   loadingBall: {fileID: 0}
 --- !u!82 &7473876609553111014
@@ -254,7 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  armor: 15
+  armor: 10
   associatedMeshRenderers:
   - {fileID: 2311549834154686580}
   - {fileID: 2311549834154686692}

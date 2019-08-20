@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour {
 
     [Tooltip("Diameter in mm")]
     public float diameter;
+    public float length;
     [Tooltip("Short for quick bullets long for artillery and other slow ones")]
     public float lifeTime = 10;
     // De momento lo manejamos así
