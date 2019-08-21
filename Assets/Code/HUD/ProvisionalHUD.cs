@@ -343,15 +343,13 @@ public class ProvisionalHUD : MonoBehaviour {
         float generalStartPoint = Screen.width - (barMaxLength * 3 / 2);
 
         // Dibujamos el frame lo primero
-        GUI.DrawTexture(new Rect(generalStartPoint, 30 /*+ barHeight*/, barMaxLength, barHeight), shieldAndHealthFrame);
+        GUI.DrawTexture(new Rect(generalStartPoint, 30, barMaxLength, barHeight), shieldAndHealthFrame);
 
         // Y la vida
         float healthBarLenght = playerIntegrity.CurrentHealth / gameManager.maxHealth * barMaxLength;
         // Que se centre la barra conforme se vacia/llena
         float healthStartPoint = generalStartPoint + ((barMaxLength - healthBarLenght) / 2);
-        GUI.DrawTexture(new Rect(healthStartPoint, 30 /*+ barHeight*/, healthBarLenght, barHeight), playerHealthTexture);
-        //GUI.DrawTextureWithTexCoords(new Rect(generalStartPoint, 30 /*+ barHeight*/, barMaxLength, barHeight), playerHealthTexture,
-        //    new Rect());
+        GUI.DrawTexture(new Rect(healthStartPoint, 30, healthBarLenght, barHeight), playerHealthTexture);
         
         // Escudos
         // Mientras le queden
@@ -361,7 +359,6 @@ public class ProvisionalHUD : MonoBehaviour {
             float shieldBarLenght = currentShield * barMaxLength;
             // Que se centre la barra conforme se vacia/llena
             float shieldStartPoint = generalStartPoint + ((barMaxLength - shieldBarLenght) / 2);
-            //GUI.DrawTexture(new Rect(shieldStartPoint, 30, shieldBarLenght, barHeight), playerShieldTexture);
             GUI.DrawTextureWithTexCoords(new Rect(shieldStartPoint, 30, shieldBarLenght, barHeight), playerShieldTexture,
                 new Rect((1 - currentShield) / 2, 0, currentShield, 1));
         }
@@ -373,7 +370,7 @@ public class ProvisionalHUD : MonoBehaviour {
             if (currentAlpha >= 1) fadeDirection = -1;
             if (currentAlpha <= 0) fadeDirection = 1;
             GUI.color = new Color(1, 1, 1, currentAlpha);
-            // De momento la referenciamos como enemyHelathTexture (color rojo)
+            // 
             GUI.DrawTexture(new Rect(generalStartPoint, 30, barMaxLength, barHeight), playerDepletedShieldTexture);
             GUI.color = new Color(1, 1, 1, 1);
         }

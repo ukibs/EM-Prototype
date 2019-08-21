@@ -43,13 +43,13 @@ public class PlayerIntegrity : MonoBehaviour
     void Start()
     {
         robotControl = GetComponent<RobotControl>();
-        currentHealth = gameManager.maxHealth;
-        currentShield = gameManager.maxShield;
-        //impactInfoManager = FindObjectOfType<ImpactInfoManager>();
         gameManager = FindObjectOfType<GameManager>();
         bodyRB = GetComponent<Rigidbody>();
         hud = FindObjectOfType<ProvisionalHUD>();
         audioSource = GetComponent<AudioSource>();
+        //
+        currentHealth = gameManager.maxHealth;
+        currentShield = gameManager.maxShield;
     }
 
     // Update is called once per frame
@@ -146,6 +146,9 @@ public class PlayerIntegrity : MonoBehaviour
             // Vamos a probar con la energía cinética
             totalImpactForce = GeneralFunctions.GetBodyKineticEnergy(otherRb);
             //
+            if (currentShield > 0)
+                ApplyKineticShield(collidingRB, impactNormal);
+            //
             bodyRB.AddForce(collidingRB.velocity * collidingRB.mass, ForceMode.Impulse);
         }
         //
@@ -169,9 +172,10 @@ public class PlayerIntegrity : MonoBehaviour
 
     // TODO: Hcaer que el escudo cinético sea verdadermente cinético
     // Manejarlo aquí cuando usemos el escudo
-    void ApplyKineticShield()
+    void ApplyKineticShield(Rigidbody collidingRb, Vector3 impactNormal)
     {
-
+        // Primero sacamos el angulo entre la dirección del impacto y la normal
+        Vector3.Angle(collidingRb.velocity, impactNormal);
     }
 
     //
