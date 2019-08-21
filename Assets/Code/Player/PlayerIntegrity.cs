@@ -101,7 +101,7 @@ public class PlayerIntegrity : MonoBehaviour
         Rigidbody collidingRB = collision.rigidbody;
         //Bullet bulletComponent = gameObject.GetComponent<Bullet>();
         //if (bulletComponent == null)
-            ReceiveImpact(collisionPoint.point, gameObject, collidingRB);
+            ReceiveImpact(collisionPoint.point, gameObject, collidingRB, collisionPoint.normal);
         //else
         //    ReceiveProyectileImpact(bulletComponent, collidingRB, collisionPoint.point);
     }
@@ -126,23 +126,19 @@ public class PlayerIntegrity : MonoBehaviour
 
     //}
 
-        // TODO: Hay que coger la normal también
-    public void ReceiveImpact(Vector3 contactPoint, GameObject otherGameObject, Rigidbody collidingRB)
+    // TODO: Hay que coger la normal también
+    public void ReceiveImpact(Vector3 contactPoint, GameObject otherGameObject, Rigidbody collidingRB, Vector3 impactNormal)
     {
-        //
+        // Defensa extra por acciones defensivas
         float extraDefense = 0;
         //
         if (robotControl.CurrentActionCharging == ActionCharguing.Defense)
         {
             switch (robotControl.ActiveDefenseMode)
             {
-                case DefenseMode.Spheric:
-                    extraDefense = gameManager.sphericShieldStrength;
-                    break;
+                case DefenseMode.Spheric: extraDefense = gameManager.sphericShieldStrength; break;
 
-                case DefenseMode.Front:
-                    extraDefense = 9999;
-                    break;
+                case DefenseMode.Front: extraDefense = 9999; break;
             }
         }
         
@@ -158,9 +154,7 @@ public class PlayerIntegrity : MonoBehaviour
         // TODO: Habrá que ver como manejar esto
         if (bulletComponent != null)
         {
-            //totalImpactForce = otherRb.velocity.magnitude * otherRb.mass * 100;
             // Vamos a probar con la energía cinética
-            // TODO: Volver a manejarlo en proyectile impact
             totalImpactForce = GeneralFunctions.GetBodyKineticEnergy(otherRb);
             //
             bodyRB.AddForce(collidingRB.velocity * collidingRB.mass, ForceMode.Impulse);
@@ -170,8 +164,10 @@ public class PlayerIntegrity : MonoBehaviour
         {
             totalImpactForce = GeneralFunctions.GetCollisionForce(bodyRB, otherRb);
         }
+
         //
         Vector3 impactDirection = contactPoint - transform.position;
+
         // Cogemos el angulo para indicar en el HUD
         float impactAngle = Vector3.SignedAngle(Camera.main.transform.forward, impactDirection, transform.up);
 
@@ -179,14 +175,12 @@ public class PlayerIntegrity : MonoBehaviour
         float impactDamage = Mathf.Max(totalImpactForce - extraDefense, 0);
         
         // De momento no visualizamos info del daño que recibimos
-        // impactInfoManager.SendImpactInfo(transform.position, totalImpactForce);
-        //
         SufferDamage(impactDamage, impactAngle);
     }
 
     // TODO: Hcaer que el escudo cinético sea verdadermente cinético
     // Manejarlo aquí cuando usemos el escudo
-    void KineticShield()
+    void ApplyKineticShield()
     {
 
     }

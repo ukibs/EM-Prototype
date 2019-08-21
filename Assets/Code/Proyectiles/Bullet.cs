@@ -185,13 +185,13 @@ public class Bullet : MonoBehaviour {
         if(playerIntegrity != null)
         {
             clipToUse = impactOnPlayer;
-            playerIntegrity.ReceiveImpact(rb.velocity, gameObject, rb);
+            playerIntegrity.ReceiveImpact(transform.position, gameObject, rb, hitNormal);
             
             //GeneralFunctions.PlaySoundEffect(audioSource, impactOnPlayer);
             //bulletSoundManager.CreateAudioObject(impactOnPlayer, transform.position);
             //
-            Rigidbody playerRB = playerIntegrity.gameObject.GetComponent<Rigidbody>();
-            playerRB.AddForce(rb.velocity * rb.mass, ForceMode.Impulse);
+            //Rigidbody playerRB = playerIntegrity.gameObject.GetComponent<Rigidbody>();
+            //playerRB.AddForce(rb.velocity * rb.mass, ForceMode.Impulse);
         }
 
         // Weakpoints
@@ -226,6 +226,7 @@ public class Bullet : MonoBehaviour {
         }
             
     }
+    
 
     // 
     void SpawnBulletHole(Vector3 point, Vector3 normal, GameObject objectToParent)

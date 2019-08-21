@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
     public float proyectileComplexity = 0;
 
     //
-    public float movementForce = 5;
+    public float movementForcePerSecond = 120;
     public float jumpForce = 10;
     public float sprintForce = 1;
     //

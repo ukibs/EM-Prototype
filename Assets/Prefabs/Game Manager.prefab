@@ -56,7 +56,7 @@ MonoBehaviour:
   forcePerSecond: 200
   currentDensity: 10000
   proyectileComplexity: 0
-  movementForce: 3
+  movementForce: 120
   jumpForce: 10
   sprintForce: 0.5
   sphericShieldStrength: 100
