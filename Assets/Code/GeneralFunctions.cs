@@ -36,7 +36,7 @@ public static class GeneralFunctions
     }
 
     /// <summary>
-    /// TODO: Ojo que ahora trabajamos con una única velocidad de rotación
+    /// Actualiza rotación sin tener en cuenta eje
     /// </summary>
     /// <param name="self"></param>
     /// <param name="objective"></param>

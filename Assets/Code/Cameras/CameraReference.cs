@@ -81,24 +81,25 @@ public class CameraReference : MonoBehaviour {
             // Transición gradual entre objetivos para no marear al player
             // TODO: Chequear si es necesaria aqui también
             // Probablemente valga con tenerla en la cámara
-            if(transitionProgression < transitionTimeBetweenEnemies)
-            {
-                Quaternion enemyDirection = Quaternion.LookRotation(cameraControl.CurrentTarget.position - transform.position);
-                transform.rotation = Quaternion.Slerp(previousObjectiveRotation, enemyDirection, 
-                    transitionProgression / transitionTimeBetweenEnemies);
-                transitionProgression += dt;
-            }
-            else if(previousObjective == cameraControl.CurrentTarget)
-            {
-                transform.LookAt(cameraControl.CurrentTarget);
-            }
-            // Aquí hacemos la transición
-            else
-            {
-                transitionProgression = 0;
-                previousObjective = cameraControl.CurrentTarget;
-                previousObjectiveRotation = transform.rotation;
-            }
+            //if(transitionProgression < transitionTimeBetweenEnemies)
+            //{
+            //    Quaternion enemyDirection = Quaternion.LookRotation(cameraControl.CurrentTarget.position - transform.position);
+            //    transform.rotation = Quaternion.Slerp(previousObjectiveRotation, enemyDirection, 
+            //        transitionProgression / transitionTimeBetweenEnemies);
+            //    transitionProgression += dt;
+            //}
+            //else if(previousObjective == cameraControl.CurrentTarget)
+            //{
+            //    transform.LookAt(cameraControl.CurrentTarget);
+            //}
+            //// Aquí hacemos la transición
+            //else
+            //{
+            //    transitionProgression = 0;
+            //    previousObjective = cameraControl.CurrentTarget;
+            //    previousObjectiveRotation = transform.rotation;
+            //}
+            transform.LookAt(cameraControl.CurrentTarget);
         }
         
     }

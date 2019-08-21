@@ -183,6 +183,13 @@ public class PlayerIntegrity : MonoBehaviour
         SufferDamage(impactDamage, impactAngle);
     }
 
+    // TODO: Hcaer que el escudo cinético sea verdadermente cinético
+    // Manejarlo aquí cuando usemos el escudo
+    void KineticShield()
+    {
+
+    }
+
     //
     public void ReceiveBlastDamage(Vector3 forceAndDirection)
     {

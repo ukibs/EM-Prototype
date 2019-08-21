@@ -28,6 +28,7 @@ public class ProvisionalHUD : MonoBehaviour {
     public Texture chargeTexture;
     public Texture playerShieldTexture;
     public Texture playerHealthTexture;
+    public Texture shieldAndHealthFrame;
     public Texture enemyChasisTexture;
     public Texture enemyHealthTexture;
 
@@ -339,20 +340,28 @@ public class ProvisionalHUD : MonoBehaviour {
         float barHeight = Screen.height * 1 / 24;
         float generalStartPoint = Screen.width - (barMaxLength * 3 / 2);
 
+        // Dibujamos el frame lo primero
+        GUI.DrawTexture(new Rect(generalStartPoint, 30 /*+ barHeight*/, barMaxLength, barHeight), shieldAndHealthFrame);
+
         // Y la vida
         float healthBarLenght = playerIntegrity.CurrentHealth / playerIntegrity.maxHealth * barMaxLength;
         // Que se centre la barra conforme se vacia/llena
         float healthStartPoint = generalStartPoint + ((barMaxLength - healthBarLenght) / 2);
         GUI.DrawTexture(new Rect(healthStartPoint, 30 /*+ barHeight*/, healthBarLenght, barHeight), playerHealthTexture);
+        //GUI.DrawTextureWithTexCoords(new Rect(generalStartPoint, 30 /*+ barHeight*/, barMaxLength, barHeight), playerHealthTexture,
+        //    new Rect());
         
         // Escudos
         // Mientras le queden
         if (playerIntegrity.CurrentShield > 0)
         {
-            float shieldBarLenght = playerIntegrity.CurrentShield / playerIntegrity.maxShield * barMaxLength;
+            float currentShield = playerIntegrity.CurrentShield / playerIntegrity.maxShield;
+            float shieldBarLenght = currentShield * barMaxLength;
             // Que se centre la barra conforme se vacia/llena
             float shieldStartPoint = generalStartPoint + ((barMaxLength - shieldBarLenght) / 2);
-            GUI.DrawTexture(new Rect(shieldStartPoint, 30, shieldBarLenght, barHeight), playerShieldTexture);
+            //GUI.DrawTexture(new Rect(shieldStartPoint, 30, shieldBarLenght, barHeight), playerShieldTexture);
+            GUI.DrawTextureWithTexCoords(new Rect(shieldStartPoint, 30, shieldBarLenght, barHeight), playerShieldTexture,
+                new Rect((1 - currentShield) / 2, 0, currentShield, 1));
         }
         // Cuando estén agotados
         else

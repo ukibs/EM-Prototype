@@ -106,6 +106,7 @@ public class BigWormBodyBehaviour : MonoBehaviour
                 //
                 //float directionAngle = Vector3.SignedAngle(transform.forward, playerDistanceAndDirection.normalized, transform.up);
                 float pureDistance = playerDistanceAndDirection.magnitude;
+
                 //
                 if (pureDistance < minimalLungeDistance/* && Mathf.Abs(directionAngle) < maxAngleToLunge*/)
                 {
@@ -120,6 +121,17 @@ public class BigWormBodyBehaviour : MonoBehaviour
                     currentTimeToCheckLungeEnd = 0;
                     return;
                 }
+
+                // Cheque extra para que no se vuevla loco
+                if (!HeadIsUnderSand())
+                {
+                    Debug.Log("Returning to ideal height");
+                    bigWormStatus = BigWormStatus.ReturningToIdealHeight;
+                    ApplyGravityOnBodyParts(false);
+                    //
+                    headRb.transform.eulerAngles = new Vector3(90, headRb.transform.eulerAngles.y, headRb.transform.eulerAngles.z);
+                }
+
                 //
                 headRb.transform.rotation = GeneralFunctions.UpdateRotation(headRb.transform, player.transform.position, rotationSpeed, dt);
                 Move();

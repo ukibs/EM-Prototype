@@ -70,9 +70,11 @@ public class ScreecherBodyBehaviour : BugBodyBehaviour
     {
         base.ExecuteCurrentAction(dt);
         // Disparamos el arma principal del screecher
+        Vector3 playerDistance = player.transform.position - transform.position;
+        //
         if (timeCharguingBall >= timeToChargeBall)
         {
-            Vector3 playerDistance = player.transform.position - transform.position;
+            
             if (playerDistance.magnitude < minimalShootDistance)
             {
                 weapons[0].Shoot(Time.deltaTime);
@@ -86,8 +88,10 @@ public class ScreecherBodyBehaviour : BugBodyBehaviour
         playerDirection.y = transform.position.y;
 
         //
-        //Vector3 playerCross = Vector3.Cross(playerDirection, Vector3.up);
-        transform.rotation = GeneralFunctions.UpdateRotationOnCross(transform, player.transform.position, rotationSpeed, dt);
+        if(playerDistance.magnitude < minimalShootDistance)
+            transform.rotation = GeneralFunctions.UpdateRotationOnCross(transform, player.transform.position, rotationSpeed, dt);
+        else
+            transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed, dt);
         // Ñapa para que no se descojonen
         transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
         Move();

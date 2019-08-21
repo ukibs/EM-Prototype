@@ -57,10 +57,17 @@ public class DestructibleTerrain : MonoBehaviour
         // Con kinematicos
         // Con suerte nos podremos quedar con este
         Rigidbody colliderRb = collision.rigidbody;
-        if(colliderRb != null && colliderRb.isKinematic)
+        if(colliderRb != null)
         {
-            DestroyTerrainElement();
+            // Si es kinematico destruir y punto
+            if(colliderRb.isKinematic)
+                DestroyTerrainElement();
+            // Y chequeando fuerza
+            float colliderForce = colliderRb.velocity.magnitude;
+            if(colliderForce > structuralResistance)
+                DestroyTerrainElement();
         }
+        
     }
 
     //
