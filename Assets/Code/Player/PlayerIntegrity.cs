@@ -5,17 +5,6 @@ using UnityEngine;
 public class PlayerIntegrity : MonoBehaviour
 {
     //
-    public float maxShield;
-    public float maxHealth;
-    //
-    [Tooltip("Minimal force of the impact to cause damage in shields")]
-    public float shieldAbsortion = 100;
-    [Tooltip("Minimal force of the impact to cause damage in health")]
-    public float armor = 1000;
-    //
-    public float shieldRegenerationRate = 100;
-    public float healthRegenerationRate = 10;
-    //
     public GameObject playerFace;
     public Material playerDeadFace;
     //
@@ -44,7 +33,7 @@ public class PlayerIntegrity : MonoBehaviour
         get { return currentShield; }
         set {
             currentShield = value;
-            currentShield = Mathf.Min(currentShield, maxShield);
+            currentShield = Mathf.Min(currentShield, gameManager.maxShield);
         }
     }
 
@@ -54,8 +43,8 @@ public class PlayerIntegrity : MonoBehaviour
     void Start()
     {
         robotControl = GetComponent<RobotControl>();
-        currentHealth = maxHealth;
-        currentShield = maxShield;
+        currentHealth = gameManager.maxHealth;
+        currentShield = gameManager.maxShield;
         //impactInfoManager = FindObjectOfType<ImpactInfoManager>();
         gameManager = FindObjectOfType<GameManager>();
         bodyRB = GetComponent<Rigidbody>();
@@ -71,8 +60,8 @@ public class PlayerIntegrity : MonoBehaviour
         // De momento hacemos que se recargen con el tiempo
         if (!shieldsDepleted)
         {
-            currentShield += dt * shieldRegenerationRate;
-            currentShield = Mathf.Clamp(currentShield, 0, maxShield);
+            currentShield += dt * gameManager.shieldRechargeRate;
+            currentShield = Mathf.Clamp(currentShield, 0, gameManager.maxShield);
         }
         //
         if (shieldsDepleted && robotControl.IsResting)
@@ -80,8 +69,8 @@ public class PlayerIntegrity : MonoBehaviour
         //
         if (robotControl.IsResting)
         {
-            currentHealth += dt * healthRegenerationRate;
-            currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+            currentHealth += dt * gameManager.repairRate;
+            currentHealth = Mathf.Clamp(currentHealth, 0, gameManager.maxHealth);
         }
 
         //
@@ -101,7 +90,7 @@ public class PlayerIntegrity : MonoBehaviour
         Rigidbody collidingRB = collision.rigidbody;
         //Bullet bulletComponent = gameObject.GetComponent<Bullet>();
         //if (bulletComponent == null)
-            ReceiveImpact(collisionPoint.point, gameObject, collidingRB);
+            ReceiveImpact(collisionPoint.point, gameObject, collidingRB, collisionPoint.normal);
         //else
         //    ReceiveProyectileImpact(bulletComponent, collidingRB, collisionPoint.point);
     }
@@ -126,23 +115,19 @@ public class PlayerIntegrity : MonoBehaviour
 
     //}
 
-        // TODO: Hay que coger la normal también
-    public void ReceiveImpact(Vector3 contactPoint, GameObject otherGameObject, Rigidbody collidingRB)
+    // TODO: Hay que coger la normal también
+    public void ReceiveImpact(Vector3 contactPoint, GameObject otherGameObject, Rigidbody collidingRB, Vector3 impactNormal)
     {
-        //
+        // Defensa extra por acciones defensivas
         float extraDefense = 0;
         //
         if (robotControl.CurrentActionCharging == ActionCharguing.Defense)
         {
             switch (robotControl.ActiveDefenseMode)
             {
-                case DefenseMode.Spheric:
-                    extraDefense = gameManager.sphericShieldStrength;
-                    break;
+                case DefenseMode.Spheric: extraDefense = gameManager.sphericShieldStrength; break;
 
-                case DefenseMode.Front:
-                    extraDefense = 9999;
-                    break;
+                case DefenseMode.Front: extraDefense = 9999; break;
             }
         }
         
@@ -158,9 +143,7 @@ public class PlayerIntegrity : MonoBehaviour
         // TODO: Habrá que ver como manejar esto
         if (bulletComponent != null)
         {
-            //totalImpactForce = otherRb.velocity.magnitude * otherRb.mass * 100;
             // Vamos a probar con la energía cinética
-            // TODO: Volver a manejarlo en proyectile impact
             totalImpactForce = GeneralFunctions.GetBodyKineticEnergy(otherRb);
             //
             bodyRB.AddForce(collidingRB.velocity * collidingRB.mass, ForceMode.Impulse);
@@ -170,8 +153,10 @@ public class PlayerIntegrity : MonoBehaviour
         {
             totalImpactForce = GeneralFunctions.GetCollisionForce(bodyRB, otherRb);
         }
+
         //
         Vector3 impactDirection = contactPoint - transform.position;
+
         // Cogemos el angulo para indicar en el HUD
         float impactAngle = Vector3.SignedAngle(Camera.main.transform.forward, impactDirection, transform.up);
 
@@ -179,14 +164,12 @@ public class PlayerIntegrity : MonoBehaviour
         float impactDamage = Mathf.Max(totalImpactForce - extraDefense, 0);
         
         // De momento no visualizamos info del daño que recibimos
-        // impactInfoManager.SendImpactInfo(transform.position, totalImpactForce);
-        //
         SufferDamage(impactDamage, impactAngle);
     }
 
     // TODO: Hcaer que el escudo cinético sea verdadermente cinético
     // Manejarlo aquí cuando usemos el escudo
-    void KineticShield()
+    void ApplyKineticShield()
     {
 
     }

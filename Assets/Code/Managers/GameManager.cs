@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
     public float proyectileComplexity = 0;
 
     //
-    public float movementForce = 5;
+    public float movementForcePerSecond = 120;
     public float jumpForce = 10;
     public float sprintForce = 1;
     //
@@ -92,6 +92,8 @@ public class GameManager : MonoBehaviour
     public float maxHealth = 1000;
     public float shieldAbsortion = 100;
     public float armor = 2000;
+    public float shieldRechargeRate = 10;
+    public float repairRate = 1;
 
     #endregion
 

@@ -27,8 +27,10 @@ public class ProvisionalHUD : MonoBehaviour {
     // Color Textures
     public Texture chargeTexture;
     public Texture playerShieldTexture;
+    public Texture playerDepletedShieldTexture;
     public Texture playerHealthTexture;
     public Texture shieldAndHealthFrame;
+
     public Texture enemyChasisTexture;
     public Texture enemyHealthTexture;
 
@@ -372,7 +374,7 @@ public class ProvisionalHUD : MonoBehaviour {
             if (currentAlpha <= 0) fadeDirection = 1;
             GUI.color = new Color(1, 1, 1, currentAlpha);
             // De momento la referenciamos como enemyHelathTexture (color rojo)
-            GUI.DrawTexture(new Rect(generalStartPoint, 30, barMaxLength, barHeight), enemyHealthTexture);
+            GUI.DrawTexture(new Rect(generalStartPoint, 30, barMaxLength, barHeight), playerDepletedShieldTexture);
             GUI.color = new Color(1, 1, 1, 1);
         }
         

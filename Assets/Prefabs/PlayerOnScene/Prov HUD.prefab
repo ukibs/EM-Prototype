@@ -66,6 +66,8 @@ MonoBehaviour:
   hullDamageTexture: {fileID: 2800000, guid: 151b307fa36f6ba43b376142a681a2a9, type: 3}
   chargeTexture: {fileID: 2800000, guid: e3d0ff31924015d4a923c058090e8be0, type: 3}
   playerShieldTexture: {fileID: 2800000, guid: a02a56ae16b05f246b5dceabac4b9b1f, type: 3}
+  playerDepletedShieldTexture: {fileID: 2800000, guid: eacd1caff88b26d49b40eed843ce8f48,
+    type: 3}
   playerHealthTexture: {fileID: 2800000, guid: 9deb1daa248f0b44b875606aa8455263, type: 3}
   shieldAndHealthFrame: {fileID: 2800000, guid: 92b8fa79b931a6943bd1ad937e4de12f,
     type: 3}

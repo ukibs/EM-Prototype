@@ -58,7 +58,8 @@ public class MainMenu : MonoBehaviour
         ShowAllLevels();
 
         //
-        CheckMouseOverButtons();
+        if (!CheckMouseOverButtons())
+            ShowUpgradeSection();
     }
 
     //
@@ -160,7 +161,7 @@ public class MainMenu : MonoBehaviour
     }
 
     //
-    void CheckMouseOverButtons()
+    bool CheckMouseOverButtons()
     {
         //
         Vector2 mouseCoordinates = Input.mousePosition;
@@ -173,8 +174,11 @@ public class MainMenu : MonoBehaviour
                 mouseCoordinates.y < buttonsFunctionalCoordinates[i].y + buttonsFunctionalCoordinates[i].height)
             {
                 ShowLevelInfo(i);
+                return true;
             }
         }
+        //
+        return false;
     }
 
     // TODO: MIrarlo y dejarlo bien hecho
@@ -201,5 +205,11 @@ public class MainMenu : MonoBehaviour
             GUI.Label(levelInfoRect, gameManager.LevelsInfo[index].enemyGroups[i].name, guiSkin.label);
             //GUI.Label(levelInfoRect, i + "", guiSkin.label);
         }
+    }
+
+    // Aqui meteremos el sistema de mejora
+    void ShowUpgradeSection()
+    {
+        // In progress
     }
 }

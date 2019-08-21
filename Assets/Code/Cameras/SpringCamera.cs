@@ -573,6 +573,7 @@ public class SpringCamera : MonoBehaviour {
             }
         }
         //
+        EnemyAnalyzer.Release();
         EnemyAnalyzer.Assign(enemyToSwitch);
     }
 
@@ -593,6 +594,7 @@ public class SpringCamera : MonoBehaviour {
         {
             // TODO: Sustituirlo del todo
             currentTarget = newTarget;
+            EnemyAnalyzer.Release();
             EnemyAnalyzer.Assign(newTarget);
             //targetOffset.x = 0;
         }
