@@ -13,20 +13,32 @@ MonoBehaviour:
   m_Name: Level6
   m_EditorClassIdentifier: 
   levelInfo:
-    inGameName: 
+    inGameName: Grunts first contact
     gameMode: 0
-    victoryCondition: 0
-    enemiesToDefeat: 0
-    attackActionsAvailable: 0
+    victoryCondition: 1
+    enemiesToDefeat: 100
+    attackActionsAvailable: 2
     defenseActionsAvailable: 0
-    jumpActionsAvailable: 0
-    sprintActionsAvailable: 0
-    enemyGroups: []
-    enemiesToSpawn: 
-    enemySpawnIncrement: 
-    timeBetweenSpawns: []
-    maxActiveEnemies: 
-    terrainPrefabs: []
-    terrainRatio: 
-    terrainMax: 
-    terrainMin: 
+    jumpActionsAvailable: 1
+    sprintActionsAvailable: 1
+    enemyGroups:
+    - {fileID: 197519170146785174, guid: 00ba06b7129ad1b498b21cbff6213a5c, type: 3}
+    - {fileID: 197519170146785174, guid: 00ba06b7129ad1b498b21cbff6213a5c, type: 3}
+    - {fileID: 197519170146785174, guid: 00ba06b7129ad1b498b21cbff6213a5c, type: 3}
+    - {fileID: 4694978885907813565, guid: c9642f7a38bd0dd48b356c9cb5710d68, type: 3}
+    enemiesToSpawn: 03000000030000000300000003000000
+    enemySpawnIncrement: 00000000000000000000000000000000
+    timeBetweenSpawns:
+    - 5
+    - 5
+    - 5
+    - 5
+    maxActiveEnemies: 0a0000000a0000000a0000000a000000
+    terrainPrefabs:
+    - {fileID: 3326227640253247155, guid: e805da38f2157cf44bd8ebbbe826ba67, type: 3}
+    - {fileID: 3326227640253247155, guid: f90644bdac5d8924fbad91a92cde6c44, type: 3}
+    - {fileID: 3326227640253247155, guid: 13954841500ed1049a895eccaeb2ce4c, type: 3}
+    - {fileID: 3326227640253247155, guid: cee649da1f6f3c6418e08952112853d4, type: 3}
+    terrainRatio: 03000000020000000100000004000000
+    terrainMax: 00000000000000000000000000000000
+    terrainMin: 00000000000000000000000000000000

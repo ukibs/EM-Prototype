@@ -25,15 +25,13 @@ MonoBehaviour:
     - {fileID: 197519170146785174, guid: 00ba06b7129ad1b498b21cbff6213a5c, type: 3}
     - {fileID: 197519170146785174, guid: 00ba06b7129ad1b498b21cbff6213a5c, type: 3}
     - {fileID: 197519170146785174, guid: 00ba06b7129ad1b498b21cbff6213a5c, type: 3}
-    - {fileID: 4694978885907813565, guid: c9642f7a38bd0dd48b356c9cb5710d68, type: 3}
-    enemiesToSpawn: 02000000020000000200000001000000
-    enemySpawnIncrement: 00000000000000000000000000000000
+    enemiesToSpawn: 030000000300000003000000
+    enemySpawnIncrement: 000000000000000000000000
     timeBetweenSpawns:
     - 5
     - 5
     - 5
-    - 10
-    maxActiveEnemies: 02000000020000000200000001000000
+    maxActiveEnemies: 0a0000000a0000000a000000
     terrainPrefabs:
     - {fileID: 3326227640253247155, guid: e805da38f2157cf44bd8ebbbe826ba67, type: 3}
     - {fileID: 3326227640253247155, guid: f90644bdac5d8924fbad91a92cde6c44, type: 3}

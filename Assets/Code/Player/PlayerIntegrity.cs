@@ -126,6 +126,7 @@ public class PlayerIntegrity : MonoBehaviour
 
     //}
 
+        // TODO: Hay que coger la normal también
     public void ReceiveImpact(Vector3 contactPoint, GameObject otherGameObject, Rigidbody collidingRB)
     {
         //

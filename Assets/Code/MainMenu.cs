@@ -182,6 +182,8 @@ public class MainMenu : MonoBehaviour
     void ShowLevelInfo(int index)
     {
         //
+        if (gameManager.LevelsInfo == null) return;
+        //
         Vector2 nextPosition = new Vector2(Screen.width / 2 + 50, 100);
         Vector2 rectSize = new Vector2(300, 50);
         Rect levelInfoRect = new Rect(nextPosition, rectSize);
