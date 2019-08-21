@@ -51,16 +51,18 @@ MonoBehaviour:
   unlockedDefenseActions: 1
   maxCharge: 1
   rapidFireRate: 10
-  maxOverheat: 1.5
+  maxOverheat: 1
   massPerSecond: 100
-  forcePerSecond: 80
+  forcePerSecond: 100
   currentDensity: 10000
   proyectileComplexity: 0
-  movementForce: 8
+  movementForcePerSecond: 300
   jumpForce: 8
   sprintForce: 0.4
   sphericShieldStrength: 100
   maxShield: 5000
   maxHealth: 500
   shieldAbsortion: 100
-  armor: 150
+  armor: 100
+  shieldRechargeRate: 25
+  repairRate: 10
