@@ -346,7 +346,7 @@ public class ProvisionalHUD : MonoBehaviour {
         GUI.DrawTexture(new Rect(generalStartPoint, 30 /*+ barHeight*/, barMaxLength, barHeight), shieldAndHealthFrame);
 
         // Y la vida
-        float healthBarLenght = playerIntegrity.CurrentHealth / playerIntegrity.maxHealth * barMaxLength;
+        float healthBarLenght = playerIntegrity.CurrentHealth / gameManager.maxHealth * barMaxLength;
         // Que se centre la barra conforme se vacia/llena
         float healthStartPoint = generalStartPoint + ((barMaxLength - healthBarLenght) / 2);
         GUI.DrawTexture(new Rect(healthStartPoint, 30 /*+ barHeight*/, healthBarLenght, barHeight), playerHealthTexture);
@@ -357,7 +357,7 @@ public class ProvisionalHUD : MonoBehaviour {
         // Mientras le queden
         if (playerIntegrity.CurrentShield > 0)
         {
-            float currentShield = playerIntegrity.CurrentShield / playerIntegrity.maxShield;
+            float currentShield = playerIntegrity.CurrentShield / gameManager.maxShield;
             float shieldBarLenght = currentShield * barMaxLength;
             // Que se centre la barra conforme se vacia/llena
             float shieldStartPoint = generalStartPoint + ((barMaxLength - shieldBarLenght) / 2);
