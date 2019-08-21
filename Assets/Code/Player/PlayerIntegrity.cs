@@ -5,17 +5,6 @@ using UnityEngine;
 public class PlayerIntegrity : MonoBehaviour
 {
     //
-    public float maxShield;
-    public float maxHealth;
-    //
-    [Tooltip("Minimal force of the impact to cause damage in shields")]
-    public float shieldAbsortion = 100;
-    [Tooltip("Minimal force of the impact to cause damage in health")]
-    public float armor = 1000;
-    //
-    public float shieldRegenerationRate = 100;
-    public float healthRegenerationRate = 10;
-    //
     public GameObject playerFace;
     public Material playerDeadFace;
     //
@@ -44,7 +33,7 @@ public class PlayerIntegrity : MonoBehaviour
         get { return currentShield; }
         set {
             currentShield = value;
-            currentShield = Mathf.Min(currentShield, maxShield);
+            currentShield = Mathf.Min(currentShield, gameManager.maxShield);
         }
     }
 
@@ -54,8 +43,8 @@ public class PlayerIntegrity : MonoBehaviour
     void Start()
     {
         robotControl = GetComponent<RobotControl>();
-        currentHealth = maxHealth;
-        currentShield = maxShield;
+        currentHealth = gameManager.maxHealth;
+        currentShield = gameManager.maxShield;
         //impactInfoManager = FindObjectOfType<ImpactInfoManager>();
         gameManager = FindObjectOfType<GameManager>();
         bodyRB = GetComponent<Rigidbody>();
@@ -71,8 +60,8 @@ public class PlayerIntegrity : MonoBehaviour
         // De momento hacemos que se recargen con el tiempo
         if (!shieldsDepleted)
         {
-            currentShield += dt * shieldRegenerationRate;
-            currentShield = Mathf.Clamp(currentShield, 0, maxShield);
+            currentShield += dt * gameManager.shieldRechargeRate;
+            currentShield = Mathf.Clamp(currentShield, 0, gameManager.maxShield);
         }
         //
         if (shieldsDepleted && robotControl.IsResting)
@@ -80,8 +69,8 @@ public class PlayerIntegrity : MonoBehaviour
         //
         if (robotControl.IsResting)
         {
-            currentHealth += dt * healthRegenerationRate;
-            currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+            currentHealth += dt * gameManager.repairRate;
+            currentHealth = Mathf.Clamp(currentHealth, 0, gameManager.maxHealth);
         }
 
         //
