@@ -474,7 +474,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f243cd1527ad634889e4ed831d291ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damping: 3
+  damping: 12
   chargingPulseEmitter: {fileID: 5135504275078131841}
   releasingPulseEmitter: {fileID: 6629602366409878942}
   sphericProyectilePrefab: {fileID: 1952744711831650, guid: 50cc46958d3f7d247bcc2c32cf5c09a6,

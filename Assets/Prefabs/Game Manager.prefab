@@ -53,14 +53,14 @@ MonoBehaviour:
   rapidFireRate: 10
   maxOverheat: 1.5
   massPerSecond: 100
-  forcePerSecond: 200
+  forcePerSecond: 80
   currentDensity: 10000
   proyectileComplexity: 0
-  movementForce: 3
-  jumpForce: 10
-  sprintForce: 0.5
+  movementForce: 8
+  jumpForce: 8
+  sprintForce: 0.4
   sphericShieldStrength: 100
-  maxShield: 10000
-  maxHealth: 1000
+  maxShield: 5000
+  maxHealth: 500
   shieldAbsortion: 100
-  armor: 200
+  armor: 150
