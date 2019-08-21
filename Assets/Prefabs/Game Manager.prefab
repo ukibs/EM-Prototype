@@ -60,9 +60,9 @@ MonoBehaviour:
   jumpForce: 8
   sprintForce: 0.4
   sphericShieldStrength: 100
-  maxShield: 5000
-  maxHealth: 500
+  maxShield: 3000
+  maxHealth: 750
   shieldAbsortion: 100
-  armor: 100
-  shieldRechargeRate: 25
+  armor: 150
+  shieldRechargeRate: 100
   repairRate: 10
