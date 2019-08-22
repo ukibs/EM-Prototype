@@ -121,7 +121,7 @@ public class Bullet : MonoBehaviour {
     {
         if(rb != null)
         {
-            //Debug.DrawRay(transform.position, rb.velocity * Time.deltaTime, Color.blue);
+            Debug.DrawRay(transform.position, rb.velocity * Time.deltaTime, Color.blue);
             //Vector3 playerDirection = player.transform.position - transform.position;
             //Debug.DrawRay(transform.position, transform.forward * Time.deltaTime, Color.red);
             Debug.DrawRay(previousPosition, rb.velocity * Time.deltaTime, Color.red);
@@ -217,10 +217,10 @@ public class Bullet : MonoBehaviour {
         }
         
         // TODO: Ver por qué nos hacía falta esto
-        // 
-        if(explosiveBullet == null)
+        // Si es explosiva gestionamos la destrucción ahí
+        // Y si es player lo gestionams en player
+        if(explosiveBullet == null && playerIntegrity == null)
         {
-            //
             //Debug.Log("Not explosive component, destroying object");
             Destroy(gameObject);
         }

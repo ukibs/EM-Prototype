@@ -143,13 +143,15 @@ public class PlayerIntegrity : MonoBehaviour
         // TODO: Habrá que ver como manejar esto
         if (bulletComponent != null)
         {
-            // Vamos a probar con la energía cinética
-            totalImpactForce = GeneralFunctions.GetBodyKineticEnergy(otherRb);
+            // TODO: Ver como lo manejamos
+            totalImpactForce = otherRb.velocity.magnitude;
             //
             if (currentShield > 0)
-                ApplyKineticShield(collidingRB, impactNormal);
+                totalImpactForce = ApplyKineticShield(otherRb, impactNormal);
+            else
+                totalImpactForce = GeneralFunctions.GetBodyKineticEnergy(totalImpactForce, otherRb.mass);
             //
-            bodyRB.AddForce(collidingRB.velocity * collidingRB.mass, ForceMode.Impulse);
+            //bodyRB.AddForce(collidingRB.velocity * collidingRB.mass, ForceMode.Impulse);
         }
         //
         else if (bodyRB != null)
@@ -157,14 +159,16 @@ public class PlayerIntegrity : MonoBehaviour
             totalImpactForce = GeneralFunctions.GetCollisionForce(bodyRB, otherRb);
         }
 
-        //
-        Vector3 impactDirection = contactPoint - transform.position;
+        // TODO: Averiguar por qué falla
+        //Vector3 impactDirection = contactPoint - transform.position;
+        Vector3 impactDirection = transform.position - contactPoint;
 
         // Cogemos el angulo para indicar en el HUD
         float impactAngle = Vector3.SignedAngle(Camera.main.transform.forward, impactDirection, transform.up);
 
         //
         float impactDamage = Mathf.Max(totalImpactForce - extraDefense, 0);
+        //Debug.Log("Impact from " + otherGameObject.name + ", damage " + impactDamage);
         
         // De momento no visualizamos info del daño que recibimos
         SufferDamage(impactDamage, impactAngle);
@@ -172,10 +176,37 @@ public class PlayerIntegrity : MonoBehaviour
 
     // TODO: Hcaer que el escudo cinético sea verdadermente cinético
     // Manejarlo aquí cuando usemos el escudo
-    void ApplyKineticShield(Rigidbody collidingRb, Vector3 impactNormal)
+    float ApplyKineticShield(Rigidbody collidingRb, Vector3 impactNormal)
     {
+        //
+        //Debug.Log("Colliding rigidbody: " + collidingRb.transform.name);
+        //
+        float totalImpactForce = GeneralFunctions.GetBodyKineticEnergy(collidingRb);
+        //
+        Vector3 repulseDirection = Vector3.Reflect(collidingRb.velocity.normalized, impactNormal);
         // Primero sacamos el angulo entre la dirección del impacto y la normal
-        Vector3.Angle(collidingRb.velocity, impactNormal);
+        float impactAngle = Vector3.Angle(repulseDirection, impactNormal);
+        // TODO: Los casos de más de 90 deben de ser proyectiles que tocan a EM después de "atravesarlo"
+        // De momento lo ignoramos
+        // Lo revisaremos más adelante
+        float receivedForce;
+        if(impactAngle <= 90)
+        {
+            //
+            float proportionalForceBecauseAngle = Mathf.Cos(impactAngle);
+            receivedForce = proportionalForceBecauseAngle * totalImpactForce;
+            //
+            collidingRb.AddForce(repulseDirection * collidingRb.mass);
+            bodyRB.AddForce(-repulseDirection * collidingRb.mass);
+        }
+        else
+        {
+            receivedForce = totalImpactForce;
+            bodyRB.AddForce(collidingRb.velocity * collidingRb.mass, ForceMode.Impulse);
+        }
+
+        //
+        return receivedForce;
     }
 
     //
@@ -201,7 +232,6 @@ public class PlayerIntegrity : MonoBehaviour
         if (currentShield < 0)
         {
             // Recuerda que el escudo perdido sobrante llega como negativo
-            //float damageToHealth = Mathf.Min(currentShield + armor, 0);
             currentHealth += currentShield;
             currentShield = 0;
             shieldsDepleted = true;

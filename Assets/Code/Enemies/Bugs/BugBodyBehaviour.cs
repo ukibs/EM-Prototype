@@ -50,18 +50,18 @@ public class BugBodyBehaviour : EnemyBaseBodyBehaviour
     {
         //base.OnDrawGizmos();
         //
-        Color colorToUse = Color.red;
+        //Color colorToUse = Color.red;
         //
-        if(pathToUse != null)
-        {
-            for(int i = 0; i < pathToUse.Count - 1; i++)
-            {
-                colorToUse.r -= 0.1f;
-                colorToUse.b += 0.1f;
-                Gizmos.color = colorToUse;
-                Gizmos.DrawLine(pathToUse[i].transform.position, pathToUse[i + 1].transform.position);
-            }
-        }
+        //if(pathToUse != null)
+        //{
+        //    for(int i = 0; i < pathToUse.Count - 1; i++)
+        //    {
+        //        colorToUse.r -= 0.1f;
+        //        colorToUse.b += 0.1f;
+        //        Gizmos.color = colorToUse;
+        //        Gizmos.DrawLine(pathToUse[i].transform.position, pathToUse[i + 1].transform.position);
+        //    }
+        //}
     }
 
     #region Methods

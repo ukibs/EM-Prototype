@@ -62,7 +62,7 @@ MonoBehaviour:
   sphericShieldStrength: 100
   maxShield: 3000
   maxHealth: 750
-  shieldAbsortion: 100
+  shieldAbsortion: 0
   armor: 150
   shieldRechargeRate: 100
   repairRate: 10

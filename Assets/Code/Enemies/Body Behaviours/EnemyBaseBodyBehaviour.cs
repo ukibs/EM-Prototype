@@ -124,7 +124,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
         //
         if (player != null)
         {
-            Debug.DrawRay(transform.position, rb.velocity, Color.blue);
+            //Debug.DrawRay(transform.position, rb.velocity, Color.blue);
             //Vector3 playerDirection = player.transform.position - transform.position;
             //Debug.DrawRay(transform.position, playerDirection, Color.red);
         }
