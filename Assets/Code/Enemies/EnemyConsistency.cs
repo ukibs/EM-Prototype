@@ -99,6 +99,9 @@ public class EnemyConsistency : Targeteable {
         audioSource = GetComponent<AudioSource>();
         //
         bodyColliders = GetComponentsInChildren<EnemyCollider>();
+        // Chequeo extra para el gusano grande
+        if(bodyColliders == null || bodyColliders.Length == 0)
+            bodyColliders = transform.parent.GetComponentsInChildren<EnemyCollider>();
         //
         DetermineIfMultipart();
 	}

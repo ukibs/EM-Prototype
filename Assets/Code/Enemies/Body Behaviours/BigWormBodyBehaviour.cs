@@ -123,14 +123,14 @@ public class BigWormBodyBehaviour : MonoBehaviour
                 }
 
                 // Cheque extra para que no se vuevla loco
-                if (!HeadIsUnderSand())
-                {
-                    Debug.Log("Returning to ideal height");
-                    bigWormStatus = BigWormStatus.ReturningToIdealHeight;
-                    ApplyGravityOnBodyParts(false);
-                    //
-                    headRb.transform.eulerAngles = new Vector3(90, headRb.transform.eulerAngles.y, headRb.transform.eulerAngles.z);
-                }
+                //else if (!HeadIsUnderSand())
+                //{
+                //    Debug.Log("Returning to ideal height");
+                //    bigWormStatus = BigWormStatus.ReturningToIdealHeight;
+                //    ApplyGravityOnBodyParts(false);
+                //    //
+                //    headRb.transform.eulerAngles = new Vector3(90, headRb.transform.eulerAngles.y, headRb.transform.eulerAngles.z);
+                //}
 
                 //
                 headRb.transform.rotation = GeneralFunctions.UpdateRotation(headRb.transform, player.transform.position, rotationSpeed, dt);
@@ -138,7 +138,14 @@ public class BigWormBodyBehaviour : MonoBehaviour
                 break;
             case BigWormStatus.Lunging:
                 // Que la cabeza vaya rotando en la dirección que mira
-                headRb.transform.LookAt(headRb.transform.position + headRb.velocity);
+                if(headRb.velocity.magnitude >= Mathf.Epsilon)
+                    headRb.transform.LookAt(headRb.transform.position + headRb.velocity);
+                else
+                {
+                    Debug.Log("Returning to ideal height");
+                    bigWormStatus = BigWormStatus.ReturningToIdealHeight;
+                    headRb.transform.eulerAngles = new Vector3(90, headRb.transform.eulerAngles.y, headRb.transform.eulerAngles.z);
+                }
                 //
                 currentTimeToCheckLungeEnd += dt;
                 //
@@ -146,7 +153,7 @@ public class BigWormBodyBehaviour : MonoBehaviour
                 {
                     Debug.Log("Returning to ideal height");
                     bigWormStatus = BigWormStatus.ReturningToIdealHeight;
-                    ApplyGravityOnBodyParts(false);
+                    //ApplyGravityOnBodyParts(false);
                     //
                     headRb.transform.eulerAngles = new Vector3(90, headRb.transform.eulerAngles.y, headRb.transform.eulerAngles.z);
                 }
@@ -163,8 +170,10 @@ public class BigWormBodyBehaviour : MonoBehaviour
                     bigWormStatus = BigWormStatus.GoingToPlayer;
                     //
                     headRb.transform.eulerAngles = new Vector3(0, headRb.transform.eulerAngles.y, headRb.transform.eulerAngles.z);
+
+                    ApplyGravityOnBodyParts(false);
                 }
-                    
+
                 break;
         }
     }

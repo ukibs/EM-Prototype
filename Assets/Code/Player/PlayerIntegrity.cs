@@ -96,25 +96,7 @@ public class PlayerIntegrity : MonoBehaviour
     }
 
     #region Methods
-
-    //public void ReceiveProyectileImpact(Bullet proyectileData, Rigidbody proyectileRb, Vector3 impactPoint)
-    //{
-    //    //
-    //    float diameter = proyectileData.diameter;
-
-    //    float penetrationValue = GeneralFunctions.Navy1940PenetrationCalc(proyectileRb.mass, diameter, proyectileRb.velocity.magnitude);
-    //    //Debug.Log("Penetration value: " + penetrationValue + ", mass: " + bulletRb.mass + 
-    //    //    ", diameter: " + diameter + ", velocity: " + bulletRb.velocity.magnitude);
-    //    float penetrationResult = Mathf.Max(penetrationValue - armor, 0);
-    //    //
-    //    Vector3 impactDirection = impactPoint - transform.position;
-    //    // Cogemos el angulo para indicar en el HUD
-    //    float impactAngle = Vector3.SignedAngle(Camera.main.transform.forward, impactDirection, transform.up);
-    //    //
-    //    SufferDamage(impactDamage, impactAngle);
-
-    //}
-
+    
     // TODO: Hay que coger la normal también
     public void ReceiveImpact(Vector3 contactPoint, GameObject otherGameObject, Rigidbody collidingRB, Vector3 impactNormal)
     {
@@ -132,7 +114,7 @@ public class PlayerIntegrity : MonoBehaviour
         }
         
         // COgemos los dos rigidbodies
-        Rigidbody otherRb = collidingRB;
+        //Rigidbody otherRb = collidingRB;
 
         //
         Bullet bulletComponent = otherGameObject.GetComponent<Bullet>();
@@ -140,23 +122,28 @@ public class PlayerIntegrity : MonoBehaviour
         // Esto tiene pinta de petar en el start
         // Lo montaremos bien para que no pase
         float totalImpactForce = 0;
-        // TODO: Habrá que ver como manejar esto
-        if (bulletComponent != null)
+        
+        //
+        if (collidingRB != null)
         {
             // TODO: Ver como lo manejamos
-            totalImpactForce = otherRb.velocity.magnitude;
-            //
-            if (currentShield > 0)
-                totalImpactForce = ApplyKineticShield(otherRb, impactNormal);
+            totalImpactForce = collidingRB.velocity.magnitude;
+            if(currentShield > 0)
+            {
+                totalImpactForce = ApplyKineticShield(collidingRB, impactNormal, bulletComponent);
+            }
             else
-                totalImpactForce = GeneralFunctions.GetBodyKineticEnergy(totalImpactForce, otherRb.mass);
-            //
-            //bodyRB.AddForce(collidingRB.velocity * collidingRB.mass, ForceMode.Impulse);
-        }
-        //
-        else if (bodyRB != null)
-        {
-            totalImpactForce = GeneralFunctions.GetCollisionForce(bodyRB, otherRb);
+            {
+                // TODO: Habrá que ver como manejar esto
+                if (bulletComponent != null)
+                {
+                    totalImpactForce = GeneralFunctions.GetBodyKineticEnergy(totalImpactForce, collidingRB.mass);
+                }
+                else
+                {
+                    totalImpactForce = GeneralFunctions.GetCollisionForce(bodyRB, collidingRB);
+                }
+            }
         }
 
         // TODO: Averiguar por qué falla
@@ -174,14 +161,18 @@ public class PlayerIntegrity : MonoBehaviour
         SufferDamage(impactDamage, impactAngle);
     }
 
-    // TODO: Hcaer que el escudo cinético sea verdadermente cinético
+    // TODO: Aplicarlo también a impactos que no sean de bala
     // Manejarlo aquí cuando usemos el escudo
-    float ApplyKineticShield(Rigidbody collidingRb, Vector3 impactNormal)
+    float ApplyKineticShield(Rigidbody collidingRb, Vector3 impactNormal, Bullet bulletComponent)
     {
         //
         //Debug.Log("Colliding rigidbody: " + collidingRb.transform.name);
         //
-        float totalImpactForce = GeneralFunctions.GetBodyKineticEnergy(collidingRb);
+        float totalImpactForce;
+        if (bulletComponent != null)
+            totalImpactForce = GeneralFunctions.GetBodyKineticEnergy(collidingRb);
+        else
+            totalImpactForce = GeneralFunctions.GetCollisionForce(bodyRB, collidingRb);
         //
         Vector3 repulseDirection = Vector3.Reflect(collidingRb.velocity.normalized, impactNormal);
         // Primero sacamos el angulo entre la dirección del impacto y la normal

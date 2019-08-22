@@ -105,7 +105,7 @@ public class SpringCamera : MonoBehaviour {
         if (currentTarget != targetPlayer && !EnemyAnalyzer.isActive)
         {
             // TODO: Llamar a función en mundo
-            SwitchBetweenEnemies(Vector2.zero);
+            //SwitchBetweenEnemies(Vector2.zero);
             SwitchToNearestInWorldEnemy();
         }
         //
@@ -684,7 +684,7 @@ public static class EnemyAnalyzer
     {
         enemyTransform = enemyReference;
         enemyRb = enemyReference.GetComponent<Rigidbody>();
-        // Chequeo extra
+        // Chequeo extra para multipartes
         if(enemyRb == null)
             enemyRb = enemyReference.GetComponentInParent<Rigidbody>();
         // Chequeo para gusano grande. Debería ser el de la cabeza el que coja
