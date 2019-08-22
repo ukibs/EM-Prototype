@@ -56,7 +56,8 @@ public class BodyPart : MonoBehaviour
     //
     void UpdateSpeedToUse()
     {
-        if (bigWormBehaviour != null) speedToUse = bigWormBehaviour.movementSpeed;
+        // TODO: Trabajar bien la velocidad del gusano
+        if (bigWormBehaviour != null) speedToUse = bigWormBehaviour.headRb.velocity.magnitude;
         if (gigaWormBehaviour != null) speedToUse = gigaWormBehaviour.CurrentSpeed;
     }
 }

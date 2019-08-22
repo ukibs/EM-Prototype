@@ -95,6 +95,7 @@ MonoBehaviour:
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealth: 1000
   defense: 50
+  bodyColliders: []
   deathBloodPrefab: {fileID: 0}
   deathParticlesPrefab: {fileID: 0}
   deathClip: {fileID: 8300000, guid: 5ff182ee8e5161f408029eaaa5c90f01, type: 3}
@@ -2615,7 +2616,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7665690408028361859}
   serializedVersion: 2
-  m_Mass: 50
+  m_Mass: 10
   m_Drag: 0.47
   m_AngularDrag: 0.05
   m_UseGravity: 0
@@ -2762,6 +2763,11 @@ MonoBehaviour:
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealth: 1000
   defense: 50
+  bodyColliders:
+  - {fileID: 1492919567324364462}
+  - {fileID: 3849494597205199910}
+  - {fileID: 1962883106293367547}
+  - {fileID: 2735323928546231311}
   deathBloodPrefab: {fileID: 3125914639698908078, guid: 099db54e23b55334a8c42a1729809e0e,
     type: 3}
   deathParticlesPrefab: {fileID: 1837716235657633640, guid: c30381bd65cfd9e4c8df31ef60481c4c,

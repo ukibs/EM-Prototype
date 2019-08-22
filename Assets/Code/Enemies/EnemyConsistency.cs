@@ -11,6 +11,11 @@ public class EnemyConsistency : Targeteable {
     public int maxHealth = 100; //
     [Tooltip("Defense against non bullet impacts.")]
     public float defense = 10;   // The minimal physic strength to start receiving an effect
+
+    // TODO: Gestionarlo también en weakpoint. Cuando esté listo para manejar temas de penetración de blindaje
+    [Tooltip("Normalemente se asignan solos. Si falla, a mano")]
+    public EnemyCollider[] bodyColliders;
+
     //
     public GameObject deathBloodPrefab;
     public GameObject deathParticlesPrefab;
@@ -41,8 +46,7 @@ public class EnemyConsistency : Targeteable {
     // Vamos a usar esta variable para controlar pérdida de equilibrio en comportamientos entre otras cosas
     protected bool receivedStrongImpact = false;
 
-    // TODO: Gestionarlo también en weakpoint. Cuando esté listo para manejar temas de penetración de blindaje
-    protected EnemyCollider[] bodyColliders;
+    
     //
     protected bool isMultipart = false;
     protected List<EnemyCollider> targetableColliders;
@@ -93,15 +97,18 @@ public class EnemyConsistency : Targeteable {
         // De momento para klos voladores mas que nada
         rb = GetComponent<Rigidbody>();
         // Caso del gusano grande, debería coger el de la cabeza
-        if (rb == null)
-            rb = GetComponentInChildren<Rigidbody>();
+        //if (rb == null)
+        //    rb = GetComponentInChildren<Rigidbody>();
         //
         audioSource = GetComponent<AudioSource>();
         //
-        bodyColliders = GetComponentsInChildren<EnemyCollider>();
+        if(bodyColliders.Length == 0)
+            bodyColliders = GetComponentsInChildren<EnemyCollider>();
+        
         // Chequeo extra para el gusano grande
-        if(bodyColliders == null || bodyColliders.Length == 0)
-            bodyColliders = transform.parent.GetComponentsInChildren<EnemyCollider>();
+        //if(bodyColliders == null || bodyColliders.Length == 0)
+        //    bodyColliders = transform.parent.GetComponentsInChildren<EnemyCollider>();
+        Debug.Log(gameObject.name + ", " + bodyColliders + ", " + bodyColliders.Length);
         //
         DetermineIfMultipart();
 	}
