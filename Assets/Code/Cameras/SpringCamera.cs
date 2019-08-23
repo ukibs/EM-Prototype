@@ -703,6 +703,9 @@ public static class EnemyAnalyzer
         // Chequeo extra para  las body parts
         if(enemyConsistency == null)
             enemyConsistency = enemyReference.GetComponentInParent<EnemyConsistency>();
+        // Para el gusano grande
+        if(enemyConsistency == null)
+            enemyConsistency = enemyReference.parent.GetComponentInChildren<EnemyConsistency>();
         // Chequeo para los componentes que no lo tienen, como los WeakPoints
         // TODO: Ponerselos más adelante y quitar esto
         if (enemyConsistency != null)

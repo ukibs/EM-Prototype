@@ -51,3 +51,20 @@ public class LevelInfo
     public int[] terrainMax;
     public int[] terrainMin;
 }
+
+public class EnemySpawnSettings
+{
+    public GameObject enemyPrefab;
+    public int enemiesToSpawn;
+    public int enemySpawnIncrement;
+    public float timeBetweenSpawns;
+    public int maxActiveEnemies;
+}
+
+public class TerainElementSettings
+{
+    public GameObject terrainPrefab;
+    public int terrainRatio;
+    public int terrainMax;
+    public int terrainMin;
+}

@@ -84,16 +84,26 @@ public class ScreecherBodyBehaviour : BugBodyBehaviour
         }
 
         //
-        Vector3 playerDirection = player.transform.position - transform.position;
-        playerDirection.y = transform.position.y;
+        //Vector3 playerDirection = player.transform.position - transform.position;
+        //playerDirection.y = transform.position.y;
 
         //
-        if(playerDistance.magnitude < minimalShootDistance)
-            transform.rotation = GeneralFunctions.UpdateRotationOnCross(transform, player.transform.position, rotationSpeed, dt);
+        if(player.transform.position.y > 100)
+        {
+            transform.rotation = GeneralFunctions.UpdateRotation(transform, player.transform.position, rotationSpeed, dt);
+        }
         else
-            transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed, dt);
-        // Ñapa para que no se descojonen
-        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+        {
+            //
+            if (playerDistance.magnitude < minimalShootDistance)
+                transform.rotation = GeneralFunctions.UpdateRotationOnCross(transform, player.transform.position, rotationSpeed, dt);
+            else
+                transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed, dt);
+            // Ñapa para que no se descojonen
+            transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+        }
+
+        
         Move();
     }
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BigWormBodyBehaviour : MonoBehaviour
+public class BigWormBodyBehaviour : EnemyBaseBodyBehaviour
 {
     public enum BigWormStatus
     {
@@ -17,7 +17,7 @@ public class BigWormBodyBehaviour : MonoBehaviour
     }
 
     public float movementSpeed = 30;
-    public float rotationSpeed = 180;
+    //public float rotationSpeed = 180;
     public float minimalApproachDistance = 100;
     public float minimalLungeDistance = 50;
     //public float maxAngleToLunge = 30;
@@ -31,12 +31,12 @@ public class BigWormBodyBehaviour : MonoBehaviour
 
     // Público para algunos chequeos
     public BigWormStatus bigWormStatus = BigWormStatus.GoingToPlayer;
-    private RobotControl player;
+    //private RobotControl player;
     private CarolBaseHelp carolHelp;
-    private float movementStatus = 1;
+    //private float movementStatus = 1;
     private float minimalTimeToCheckLungeEnd = 10;
     private float currentTimeToCheckLungeEnd = 0;
-    private AudioSource audioSource;
+    //private AudioSource audioSource;
 
     void Start()
     {
@@ -51,7 +51,7 @@ public class BigWormBodyBehaviour : MonoBehaviour
         audioSource = headRb.GetComponent<AudioSource>();
     }
 
-    void Update()
+    protected override void Update()
     {
         //
         float dt = Time.deltaTime;
@@ -59,7 +59,7 @@ public class BigWormBodyBehaviour : MonoBehaviour
         ExecuteCurrentAction(dt);
     }
 
-    void OnCollisionEnter(Collision collision)
+    protected override void OnCollisionEnter(Collision collision)
     {
         //base.OnCollisionEnter(collision);
         // TODO: Chequear con la cabeza
@@ -71,7 +71,7 @@ public class BigWormBodyBehaviour : MonoBehaviour
         //}
     }
 
-    void DecideActionToDo()
+    protected override void DecideActionToDo()
     {
         //base.DecideActionToDo();
         Vector3 playerDistanceAndDirection = player.transform.position - headRb.transform.position;
@@ -79,12 +79,14 @@ public class BigWormBodyBehaviour : MonoBehaviour
     }
 
     //
-    void ExecuteCurrentAction(float dt)
+    protected override void ExecuteCurrentAction(float dt)
     {
         //
         if (player == null) return;
         //
         Vector3 playerDistanceAndDirection = player.transform.position - headRb.transform.position;
+        Vector2 xZDistanceToPlayerAndDirection = new Vector2(player.transform.position.x - headRb.transform.position.x, 
+                                                player.transform.position.z - headRb.transform.position.z);
         // Y aquí las específicas de bichos
         // Primero que el player siga vivo, si no mal
         switch (bigWormStatus)
@@ -121,16 +123,6 @@ public class BigWormBodyBehaviour : MonoBehaviour
                     currentTimeToCheckLungeEnd = 0;
                     return;
                 }
-
-                // Cheque extra para que no se vuevla loco
-                //else if (!HeadIsUnderSand())
-                //{
-                //    Debug.Log("Returning to ideal height");
-                //    bigWormStatus = BigWormStatus.ReturningToIdealHeight;
-                //    ApplyGravityOnBodyParts(false);
-                //    //
-                //    headRb.transform.eulerAngles = new Vector3(90, headRb.transform.eulerAngles.y, headRb.transform.eulerAngles.z);
-                //}
 
                 //
                 headRb.transform.rotation = GeneralFunctions.UpdateRotation(headRb.transform, player.transform.position, rotationSpeed, dt);
@@ -179,7 +171,7 @@ public class BigWormBodyBehaviour : MonoBehaviour
     }
 
     //
-    void Move()
+    protected override void Move()
     {
         //
         Vector3 movingDirection = headRb.transform.forward;
