@@ -380,10 +380,15 @@ public class ProvisionalHUD : MonoBehaviour {
     //
     void ShowPlayerSpeed()
     {
-        float playerCurrentSpeed = PlayerReference.playerRb.velocity.magnitude;
+        Vector3 playerCurrentSpeed = PlayerReference.playerRb.velocity;
         playerCurrentSpeed *= 3.6f;
-        int playerSpeedInt = (int)playerCurrentSpeed;
-        GUI.Label(new Rect(30, Screen.height - 50, 300, 30), "Speed: " + playerSpeedInt + " km/h", guiSkin.label);
+        Vector2 playerCurrentSpeedXz = new Vector2(playerCurrentSpeed.x, playerCurrentSpeed.z);
+        
+        int playerXzSpeedInt = (int)playerCurrentSpeedXz.magnitude;
+        int playerYSpeedInt = (int)playerCurrentSpeed.y;
+
+        GUI.Label(new Rect(30, Screen.height - 60, 300, 30), "HSpeed: " + playerXzSpeedInt + " km/h", guiSkin.label);
+        GUI.Label(new Rect(30, Screen.height - 30, 300, 30), "VSpeed: " + playerYSpeedInt + " km/h", guiSkin.label);
     }
 
     //
@@ -479,20 +484,6 @@ public class ProvisionalHUD : MonoBehaviour {
                 anticipatedPositionInScreen.x * Screen.width - 2,
                 Screen.height - anticipatedPositionInScreen.y * Screen.height - 2, 4, 4),
                 targetedEnemyEstimatedFuturePositionTexture);
-
-            // Testing con la velocity
-            //Vector3 rbDirection1 = EnemyAnalyzer.enemyTransform.position + (EnemyAnalyzer.enemyRb.velocity * 1);
-            //rbDirection1 = mainCamera.WorldToViewportPoint(rbDirection1);
-            //GUI.DrawTexture(new Rect(
-            //    rbDirection1.x * Screen.width - 5,
-            //    Screen.height - rbDirection1.y * Screen.height - 5, 10, 10),
-            //    testingVelocityIcon);
-            //Vector3 rbDirection2 = EnemyAnalyzer.enemyTransform.position + (EnemyAnalyzer.enemyRb.velocity * 2);
-            //rbDirection2 = mainCamera.WorldToViewportPoint(rbDirection2);
-            //GUI.DrawTexture(new Rect(
-            //    rbDirection2.x * Screen.width - 5,
-            //    Screen.height - rbDirection2.y * Screen.height - 5, 10, 10),
-            //    testingVelocityIcon);
             
             // Barra de vida
             float enemyCoreHealthForBar = enemyConsistency.CurrentHealth / enemyConsistency.maxHealth;
@@ -518,8 +509,8 @@ public class ProvisionalHUD : MonoBehaviour {
 
             // Raycast para saber si el enemigo está a tiro
             RaycastHit hitInfo;
-            Vector3 enemyDirection = EnemyAnalyzer.enemyTransform.TransformPoint(EnemyAnalyzer.enemyConsistency.centralPointOffset)
-                                    - cameraControl.transform.position;
+            Vector3 enemyCentralPointPosition = EnemyAnalyzer.enemyTransform.TransformPoint(EnemyAnalyzer.enemyConsistency.centralPointOffset);
+            Vector3 enemyDirection = enemyCentralPointPosition - cameraControl.transform.position;
             if (Physics.Raycast(cameraControl.transform.position, enemyDirection, out hitInfo, enemyDirection.magnitude))
             {
                 //Debug.Log(hitInfo.transform.name);
@@ -529,7 +520,7 @@ public class ProvisionalHUD : MonoBehaviour {
                 {
 
                     //GUI.DrawTexture(new Rect(Screen.width / 2 - 25, Screen.height / 2 - 25, 50, 50), enemyMarkerTextureRed);
-                    Vector3 enemyScreenPosition = Camera.main.WorldToViewportPoint(cameraControl.CurrentTarget.position);
+                    Vector3 enemyScreenPosition = Camera.main.WorldToViewportPoint(enemyCentralPointPosition);
                     GUI.DrawTexture(new Rect(
                         (enemyScreenPosition.x * Screen.width) - 25,
                         Screen.height - (enemyScreenPosition.y * Screen.height) - 25, 50, 50),

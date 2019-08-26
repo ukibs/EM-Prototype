@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WormBodyBehaviour : BugBodyBehaviour
+public class WormBodyBehaviour : EnemyBaseBodyBehaviour
 {
     //
     //public float groundingSpeed = 0.5f;

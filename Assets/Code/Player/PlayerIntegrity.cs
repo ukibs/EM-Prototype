@@ -189,11 +189,13 @@ public class PlayerIntegrity : MonoBehaviour
             //
             collidingRb.AddForce(repulseDirection * collidingRb.mass);
             bodyRB.AddForce(-repulseDirection * collidingRb.mass);
+            robotControl.ChangeDampingType(DampingType.ThreeDimiensional);
         }
         else
         {
             receivedForce = totalImpactForce;
             bodyRB.AddForce(collidingRb.velocity * collidingRb.mass, ForceMode.Impulse);
+            robotControl.ChangeDampingType(DampingType.ThreeDimiensional);
         }
 
         //

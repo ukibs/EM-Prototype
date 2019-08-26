@@ -575,6 +575,7 @@ public class SpringCamera : MonoBehaviour {
         //
         EnemyAnalyzer.Release();
         EnemyAnalyzer.Assign(enemyToSwitch);
+        SwitchTarget(enemyToSwitch);
     }
 
     /// <summary>
@@ -587,7 +588,7 @@ public class SpringCamera : MonoBehaviour {
         if (newTarget == null)
         {
             currentTarget = targetPlayer;
-            //EnemyAnalyzer.Release();
+            EnemyAnalyzer.Release();
             //targetOffset.x = 3;
         }
         else

@@ -18,7 +18,7 @@ public class BigWormBodyBehaviour : EnemyBaseBodyBehaviour
 
     public float movementSpeed = 30;
     //public float rotationSpeed = 180;
-    public float minimalApproachDistance = 100;
+    public float minimalXyApproachDistance = 100;
     public float minimalLungeDistance = 50;
     //public float maxAngleToLunge = 30;
     public float lungeSpeed = 100;
@@ -95,7 +95,7 @@ public class BigWormBodyBehaviour : EnemyBaseBodyBehaviour
                 headRb.transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(headRb.transform, player.transform.position, rotationSpeed, dt);
                 Move();
                 //
-                if(playerDistanceAndDirection.magnitude < minimalApproachDistance)
+                if(xZDistanceToPlayerAndDirection.magnitude < minimalXyApproachDistance)
                 {
                     bigWormStatus = BigWormStatus.ApproachingPlayer;
                     Debug.Log("Approaching player");

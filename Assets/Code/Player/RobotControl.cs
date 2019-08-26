@@ -41,6 +41,7 @@ public enum SprintMode
     Invalid = -1,
 
     Normal,
+    RepulsorDash,
     Adherence,
     //Hook,
 
@@ -56,6 +57,17 @@ public enum ActionCharguing
     Jump,
     Sprint,
     Defense,
+
+    Count
+}
+
+public enum DampingType
+{
+    Invalid = -1,
+
+    TwoDimensional, // The default one
+    ThreeDimiensional,
+    None,
 
     Count
 }
@@ -92,6 +104,7 @@ public class RobotControl : MonoBehaviour {
 
     // TODO: Mover a datos de game manager
     public float rotationTime = 0.1f;
+    public float not2dDMaxDuration = 0.3f;
 
 
     //
@@ -120,7 +133,7 @@ public class RobotControl : MonoBehaviour {
     private Rigidbody proyectileRb;
 
     // De momento lo controlamos con un bool
-    private bool applyingDamping = true;
+    //private bool applyingDamping = true;
     private bool adhering = false;
     //
     private float rapidFireCooldown = 0;
@@ -137,9 +150,10 @@ public class RobotControl : MonoBehaviour {
     private float currentRotationTime;
 
     // Damping tridimensinal para que el retroceso de las armas no nos mande al espacio
-    private bool threeDimensionalDamping = false;
-    private float tddCurrentDuration = 0;
-    private float tddMaxDuration = 1;
+    //private bool threeDimensionalDamping = false;
+    private DampingType currentDamping = DampingType.TwoDimensional;
+    private float not2dDCurrentDuration = 0;
+    
 
     #region Properties
 
@@ -216,7 +230,7 @@ public class RobotControl : MonoBehaviour {
     // Vamos a probar asi el tdd
     void FixedUpdate()
     {
-        //threeDimensionalDamping = false;
+
     }
 
     // Update is called once per frame
@@ -234,15 +248,6 @@ public class RobotControl : MonoBehaviour {
             CheckDefense();
             //
             UpdateOverheat(dt);  
-            // Hay que cambiarlo de sitio
-            //if(actionCharging == ActionCharguing.Attack && chargedAmount > 0)
-            //{
-            //    currentMuzzleSpeed = gameManager.forcePerSecond / gameManager.massPerSecond * chargedAmount;
-            //}
-            //else
-            //{
-            //    currentMuzzleSpeed = 0;
-            //}
         }
         
     }
@@ -265,7 +270,8 @@ public class RobotControl : MonoBehaviour {
     private void OnCollisionEnter(Collision collision)
     {
         // Nota: Igual hay que aplicar este cambio también por tiempo
-        applyingDamping = true;
+        if (currentDamping == DampingType.None)
+            currentDamping = DampingType.TwoDimensional;
     }
 
     #region Methods
@@ -296,6 +302,25 @@ public class RobotControl : MonoBehaviour {
     /// </summary>
     void AxisMotion(float dt)
     {
+        // Primero pillamos el eje del joystick
+        Vector2 movementAxis = inputManager.StickAxis;
+
+        // TODO: Decidir si aplicar aqui el countdown del damping
+        if(currentDamping != DampingType.TwoDimensional)
+        {
+            //
+            not2dDCurrentDuration += dt;
+            if (not2dDCurrentDuration > not2dDMaxDuration)
+            {
+                currentDamping = DampingType.TwoDimensional;
+                not2dDCurrentDuration = 0;
+            }
+        }
+
+        //
+        Vector3 directionZ = mainCamera.forward * movementAxis.y;
+        Vector3 directionX = mainCamera.right * movementAxis.x;
+
         // First check sprint
         float sprintMultiplier = 1;
         Vector3 currentUp = Vector3.up;
@@ -310,6 +335,12 @@ public class RobotControl : MonoBehaviour {
                 {
                     case SprintMode.Normal:
                         actionCharging = ActionCharguing.Sprint;
+                        break;
+                    case SprintMode.RepulsorDash:
+                        // TODO: Aquí haremos el impulso
+                        // Más abajo están los parámetros que necesitamos
+                        // Ahora pilla la velocidad en xz, probablemene quermos aplicarlo en la dirección del eje
+                        repulsor.RepulsorDash(directionX + directionZ);
                         break;
                     case SprintMode.Adherence:
                         // Let's check if there are a surface near
@@ -372,14 +403,7 @@ public class RobotControl : MonoBehaviour {
             }
         }
 
-        // And then the axis
-        Vector2 movementAxis = inputManager.StickAxis;
-        //
-        if (applyingDamping == false && movementAxis.magnitude > Mathf.Epsilon)
-            applyingDamping = true;
-        //
-        Vector3 directionZ = mainCamera.forward * movementAxis.y;
-        Vector3 directionX = mainCamera.right * movementAxis.x;
+        
 
         // The movement direction will depend on the current up
         directionZ = Vector3.ProjectOnPlane(directionZ, currentUp).normalized;
@@ -424,35 +448,27 @@ public class RobotControl : MonoBehaviour {
         rb.AddForce( forceDirection * gameManager.movementForcePerSecond * sprintMultiplier);
 
         // And dampen de movement
-        if (applyingDamping)
+        if (currentDamping == DampingType.TwoDimensional)
         {
-            if (!threeDimensionalDamping)
-            {
-                Vector3 currentVelocity = rb.velocity;
-                currentVelocity.x *= 1 - (damping * dt);
-                currentVelocity.z *= 1 - (damping * dt);
-                rb.velocity = currentVelocity;
-            }
-            else
-            {
-                //
-                rb.velocity *= 1 - (damping * dt);
-                //
-                tddCurrentDuration += dt;
-                if(tddCurrentDuration > tddMaxDuration)
-                {
-                    threeDimensionalDamping = false;
-                    tddCurrentDuration = 0;
-                }
-            }
+            Vector3 currentVelocity = rb.velocity;
+            currentVelocity.x *= 1 - (damping * dt);
+            currentVelocity.z *= 1 - (damping * dt);
+            rb.velocity = currentVelocity;
         }
+        else if(currentDamping == DampingType.ThreeDimiensional)
+        {
+            //
+            rb.velocity *= 1 - (damping * dt);
+        }
+        
 
     }
 
     //
-    void Activate3DimensionalDamping()
+    public void ChangeDampingType(DampingType newDampingType)
     {
-        threeDimensionalDamping = true;
+        currentDamping = newDampingType;
+        not2dDCurrentDuration = 0;
         // Problemente pongamos también efecto de sonido de frenazo
     }
 
@@ -530,7 +546,7 @@ public class RobotControl : MonoBehaviour {
                     // TODO: Clacular bien la dirección
                     // TODO: Aplicar más fuerza y probar
                     Vector3 cameraForward = cameraControl.transform.forward;
-                    applyingDamping = false;
+                    ChangeDampingType(DampingType.ThreeDimiensional);
                     Vector3 currentVelocity = rb.velocity;
                     // Revisar: Podría ser el player.forward
                     Vector3 desiredDirection = (!cameraControl.TargetingPlayer) ? 
@@ -813,6 +829,7 @@ public class RobotControl : MonoBehaviour {
         }
         //
         rb.AddForce(-transform.forward * pulseForceToApply, ForceMode.Impulse);
+        ChangeDampingType(DampingType.ThreeDimiensional);
     }
 
     //
@@ -898,20 +915,6 @@ public class RobotControl : MonoBehaviour {
                 targetPoint = cameraControl.CurrentTarget.position;
             //
             Quaternion shootRotation = Quaternion.LookRotation(targetPoint - machineGunPoints[nextRapidFireSide].position);
-
-            //// Recordar que estamos pasando de gramos a toneladas
-            //proyectileRb.mass = gameManager.massPerSecond * chargedAmount / 1000000;
-            ////float muzzleSpeed = gameManager.rapidFireMuzzleSpeed;
-            //float forceToApply = gameManager.forcePerSecond * chargedAmount;
-
-            ////GeneralFunctions.ShootProjectile(bulletPrefab, machineGunPoints[nextRapidFireSide].position,
-            ////    shootRotation, shootForward, muzzleSpeed, dt, ShootCalculation.MuzzleSpeed);
-            //GeneralFunctions.ShootProjectile(proyectileToUse, machineGunPoints[nextRapidFireSide].position,
-            //    shootRotation, shootForward, forceToApply, dt, ShootCalculation.Force);
-
-            //// Aplicamos la fuerza opuesta a EM
-            //rb.AddForce(-machineGunPoints[nextRapidFireSide].forward * forceToApply, ForceMode.Impulse);
-            //Activate3DimensionalDamping();
 
             //
             CharguedProyectileAttack(proyectileToUse, machineGunPoints[nextRapidFireSide], dt);
@@ -1025,7 +1028,7 @@ public class RobotControl : MonoBehaviour {
         bulletComponent.length = elipseDiameter * ratioAB;
         //
         rb.AddForce(-chargedProyectilePoint.forward * forceToApply, ForceMode.Impulse);
-        Activate3DimensionalDamping();
+        ChangeDampingType(DampingType.ThreeDimiensional);
     }
 
     #endregion

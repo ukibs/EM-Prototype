@@ -22,12 +22,31 @@ public enum Actions
 public class EnemyBaseBodyBehaviour : MonoBehaviour
 {
 
+    #region Public Attributes
+
+    public float maxSpeed = 10;
+    public float minimalLungeDistance = 15;
+    public float minimalShootDistance = 100;
+    public float ofFootMaxTime = 5;
+
     public float timeBetweenActionChecking = 1.0f;
     
     [Tooltip("Rotatin in degrees per second.")]
     public float rotationSpeed = 90;
     
     public Actions[] behaviour;     // Luego trabajaremos bien esto
+
+    #endregion
+
+    #region Protected Attributes
+
+    // Esto para los que hagan zig zag
+    protected float currentZigZagDirection = 0;
+    protected float currentZigZagVariation = 0.1f;
+
+    //Varaible para determinar si ha paerido el equilibrio
+    protected bool ofFoot = true;
+    protected float ofFootCurrentTime = 0;
 
     public EnemyWeapon[] weapons;   // TODO: Que la busque él
 
@@ -51,6 +70,8 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
     // Multilicador para cuando haya extemidades dañables
     // 1 - Óptimo, 0 - Inmovibilizado
     protected float movementStatus = 1;
+
+    #endregion
 
     #region Properties
 
@@ -84,8 +105,17 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
     {
         //
         float dt = Time.deltaTime;
+        // TODO: Que el offoot sea directamente aplicado por acciones del player
+        if (bodyConsistency.ReceivedStrongImpact)
+        {
+            //
+            //Debug.Log(gameObject.name + " set off foot");
+            //
+            ofFoot = true;
+            ofFootCurrentTime = 0;
+        }
         // Que el player siga vivo
-        if(player != null)
+        if (player != null)
         {
             //
             timeFromLastCheck += dt;
@@ -134,7 +164,45 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
     // 
     protected virtual void Move()
     {
-        
+        //
+        if (HasGroundUnderneath())
+        {
+            //
+            Vector3 movingDirection = transform.forward;
+            //
+            float speedMultiplier = 1;
+            //
+            switch (currentAction)
+            {
+                case Actions.EncirclingPlayerForward:
+                case Actions.GoingToPlayer:
+                    // Aqui nada de momento porque ya es forward por defecto
+                    break;
+                case Actions.ZigZagingTowardsPlayer:
+                    currentZigZagDirection += currentZigZagVariation * Time.deltaTime;
+                    if (Mathf.Abs(currentZigZagDirection) >= 1)
+                    {
+                        currentZigZagVariation *= -1;
+                    }
+                    movingDirection += transform.right * currentZigZagDirection;
+                    movingDirection = movingDirection.normalized;
+                    break;
+                case Actions.EncirclingPlayerSideward:
+                    movingDirection = transform.right;
+                    speedMultiplier = 0.2f;
+                    break;
+                case Actions.RetreatingFromPlayer:
+                    movingDirection = -transform.forward;
+                    speedMultiplier = 1f;
+                    break;
+            }
+            //
+            rb.velocity = (movingDirection * maxSpeed * speedMultiplier * movementStatus);
+            //rb.AddForce(movingDirection * maxSpeed * speedMultiplier);
+            //
+            if (!onFloor)
+                rb.velocity += Physics.gravity;
+        }
     }
 
     //
@@ -161,6 +229,19 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
         // Primero que el player siga vivo, si no mal
         if (player != null)
         {
+            // Avanzamos el chequeo de desequilibrio y si está desequilibrado que no pueda actuar
+            if (ofFoot)
+            {
+                ofFootCurrentTime += dt;
+                if (ofFootCurrentTime >= ofFootMaxTime)
+                {
+                    ofFootCurrentTime = 0;
+                    ofFoot = false;
+                }
+                else
+                    return;
+            }
+
             //
             Vector3 playerDirection = player.transform.position - transform.position;
             //playerDirection.y = 0.0f;
@@ -209,13 +290,11 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
                     }
                     break;
                 case Actions.EncirclingPlayerForward:
-                    Vector3 playerCross = Vector3.Cross(playerDirection, Vector3.up);
-                    //transform.rotation = Quaternion.LookRotation(playerCross);
-                    transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, playerCross, rotationSpeed * movementStatus, dt);
-                    Move();
+                    transform.rotation = GeneralFunctions.UpdateRotationOnCross(transform, player.transform.position, rotationSpeed * movementStatus, dt);
+                    //Move();
                     break;
                 case Actions.EncirclingPlayerSideward:
-                    transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed * movementStatus, dt);
+                    transform.rotation = GeneralFunctions.UpdateRotationOnCross(transform, player.transform.position, rotationSpeed * movementStatus, dt);
                     Move();
                     break;
                 case Actions.Fleeing:
@@ -225,6 +304,9 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
                 case Actions.RetreatingFromPlayer:
                     transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed * movementStatus, dt);
                     Move();
+                    break;
+                case Actions.ApproachingPlayer3d:
+                    transform.rotation = GeneralFunctions.UpdateRotation(transform, player.transform.position, rotationSpeed, dt);
                     break;
             }
 
@@ -239,7 +321,49 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
     /// </summary>
     protected virtual void DecideActionToDo()
     {
-        
+        Vector3 playerDistance = player.transform.position - transform.position;
+        for (int i = 0; i < behaviour.Length; i++)
+        {
+            switch (behaviour[i])
+            {
+                case Actions.FacingPlayer:
+                    if (playerDistance.magnitude < minimalShootDistance)
+                    {
+                        currentAction = behaviour[i];
+                        return;
+                    }
+                    break;
+                case Actions.GoingToPlayer:
+
+                    // Esta no lleva condición
+                    currentAction = behaviour[i];
+                    //
+                    pathToUse = terrainManager.GetPathToPlayer(transform);
+                    //TODO: Meter aqui el A*
+                    return;
+                case Actions.EncirclingPlayerSideward:
+                    if (playerDistance.magnitude < minimalShootDistance)
+                    {
+                        currentAction = behaviour[i];
+                        return;
+                    }
+                    break;
+                case Actions.EncirclingPlayerForward:
+                    if (playerDistance.magnitude < minimalShootDistance)
+                    {
+                        currentAction = behaviour[i];
+                        return;
+                    }
+                    break;
+                case Actions.RetreatingFromPlayer:
+                    if (playerDistance.magnitude < minimalShootDistance)
+                    {
+                        currentAction = behaviour[i];
+                        return;
+                    }
+                    break;
+            }
+        }
     }
 
     /// <summary>
@@ -260,5 +384,30 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
     protected bool PlayerOnSight()
     {
         return false;
+    }
+
+    // De momento usamos este aqui
+    protected bool HasGroundUnderneath()
+    {
+        // TODO: Declararlo public en generales
+        Vector3 heightFromFloor = new Vector3(0, -0.55f, 0);
+        Collider[] possibleFloor = Physics.OverlapBox(transform.TransformPoint(heightFromFloor), new Vector3(1, 0.1f, 1));
+        // TODO: Pillar el collider/s al princio
+        Collider bodyCollider = GetComponent<Collider>();
+        //
+        for (int i = 0; i < possibleFloor.Length; i++)
+        {
+            if (possibleFloor[i] != bodyCollider)
+                return true;
+        }
+        //
+        return false;
+    }
+
+    // TODO: Mover a base
+    public void LoseFoot()
+    {
+        ofFoot = true;
+        ofFootCurrentTime = 0;
     }
 }

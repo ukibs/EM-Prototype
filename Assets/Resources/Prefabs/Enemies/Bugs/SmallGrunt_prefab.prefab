@@ -123,6 +123,7 @@ MonoBehaviour:
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealth: 50
   defense: 30
+  bodyColliders: []
   deathBloodPrefab: {fileID: 3125914639698908078, guid: 099db54e23b55334a8c42a1729809e0e,
     type: 3}
   deathParticlesPrefab: {fileID: 1837716235657633640, guid: c30381bd65cfd9e4c8df31ef60481c4c,
@@ -139,18 +140,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 197519171799824365}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeaff7f72f6b4b944a77e9d6881e9a96, type: 3}
+  m_Script: {fileID: 11500000, guid: 9329a514465166244846ba20118394a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBetweenActionChecking: 5
-  rotationSpeed: 270
+  maxSpeed: 20
+  minimalLungeDistance: 15
+  minimalShootDistance: 100
+  ofFootMaxTime: 1
+  timeBetweenActionChecking: 1
+  rotationSpeed: 90
   behaviour: 0300000000000000
   weapons:
   - {fileID: 2552908619244586976}
-  maxSpeed: 30
-  minimalLungeDistance: 15
-  minimalShootDistance: 150
-  ofFootMaxTime: 3
 --- !u!65 &5562851252596964729
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -305,6 +306,7 @@ MonoBehaviour:
   typeOfFire: 0
   firingSystem: 0
   shootCalculation: 1
+  doesRotate: 1
   rotationIsConstrained: 1
   maxRotationOffset: {x: 50, y: 30}
   shootParticlesPrefab: {fileID: 1837716235657633640, guid: 61c9e81fe8e7c0a40a345df35440fcab,

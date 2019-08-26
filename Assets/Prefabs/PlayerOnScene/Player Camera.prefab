@@ -101,7 +101,7 @@ MonoBehaviour:
   springK: 300
   dampingK: 30
   targetOffset: {x: 3, y: 1, z: 0}
-  maxDistancePlayer: 20
+  maxDistancePlayer: 5
   transitionTimeBetweenEnemies: 0.3
 --- !u!114 &4146675652635104323
 MonoBehaviour:

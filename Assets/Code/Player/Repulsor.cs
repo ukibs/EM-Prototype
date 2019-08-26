@@ -35,6 +35,7 @@ public class Repulsor : MonoBehaviour {
 
     //
     private float timeWithoutFloor = 0;
+    private float dashCooldown = 0;
 
     #region Properties
 
@@ -57,6 +58,10 @@ public class Repulsor : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+
+        //
+        float dt = Time.deltaTime;
+
         //
         Vector3 floorPoint;
 
@@ -83,9 +88,10 @@ public class Repulsor : MonoBehaviour {
             StopDustEmitterParticleSystem(dustEmitterStatic);
             StopDustEmitterParticleSystem(dustEmitterMovement);
             //
-            timeWithoutFloor += Time.deltaTime;
+            timeWithoutFloor += dt;
         }
-        
+        //
+        dashCooldown += dt;
 	}
 
     void RepulsorJump()
@@ -115,6 +121,24 @@ public class Repulsor : MonoBehaviour {
                 return;
             }
             // Sonido de salto
+            GeneralFunctions.PlaySoundEffect(audioSource, jumpClip);
+        }
+    }
+
+    //
+    public void RepulsorDash(Vector3 xzDirection)
+    {
+        // Salto con el repulsor en vez de con las palas
+        if (inputManager.SprintButton && robotControl.ActiveSprintMode == SprintMode.RepulsorDash && dashCooldown > 1)
+        {
+            //
+            //Vector3 xzVelocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            //
+            robotControl.ChangeDampingType(DampingType.None);
+            rb.AddForce(xzDirection * gameManager.jumpForce * 10, ForceMode.Impulse);
+            //
+            dashCooldown = 0;
+            // Sonido de dash
             GeneralFunctions.PlaySoundEffect(audioSource, jumpClip);
         }
     }

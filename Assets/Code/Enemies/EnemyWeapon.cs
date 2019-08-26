@@ -115,12 +115,12 @@ public class EnemyWeapon : MonoBehaviour
     private void OnDrawGizmos()
     {
         //
-        if (player != null)
-        {
-            Debug.DrawRay(transform.position, transform.forward * 10, Color.blue);
-            Vector3 playerDirection = player.transform.position - transform.position;
-            Debug.DrawRay(transform.position, playerDirection, Color.red);
-        }
+        //if (player != null)
+        //{
+        //    Debug.DrawRay(transform.position, transform.forward * 10, Color.blue);
+        //    Vector3 playerDirection = player.transform.position - transform.position;
+        //    Debug.DrawRay(transform.position, playerDirection, Color.red);
+        //}
 
     }
 
