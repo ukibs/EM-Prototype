@@ -208,9 +208,9 @@ public class PlayerIntegrity : MonoBehaviour
         //
         Vector3 impactDirection = transform.position - forceAndDirection;
         float impactAngle = Vector3.SignedAngle(Camera.main.transform.forward, impactDirection, transform.up);
-        //
-        bodyRB.AddForce(forceAndDirection, ForceMode.Impulse);
-        //
+        // Recordar que para fuerzas de empuje trabajamos en toneladas
+        bodyRB.AddForce(forceAndDirection / 1000, ForceMode.Impulse);
+        // Revisar como hacemos esto con el escudo
         SufferDamage(forceAndDirection.magnitude, impactAngle);
         
     }

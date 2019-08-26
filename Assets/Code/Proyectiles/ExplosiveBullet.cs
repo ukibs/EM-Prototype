@@ -125,10 +125,11 @@ public class ExplosiveBullet : MonoBehaviour
             DestructibleTerrain destructibleTerrain = affectedColliders[i].GetComponent<DestructibleTerrain>();
             if (destructibleTerrain != null)
                 destructibleTerrain.ReceivePulseImpact(blastForceWithDirection);
-            //
+            // Aplicamos fuerza directa a los rigidbodies que no son el player ni los enemigos
+            // Estos se lo gestionan en la funcióbn de recibir daño de explosión
             Rigidbody rigidbody = affectedColliders[i].GetComponent<Rigidbody>();
-            if (rigidbody != null && enemyConsistency == null && rigidbody != proyectileRb)
-                rigidbody.AddForce(blastForceWithDirection);
+            if (rigidbody != null && enemyConsistency == null && playerIntegrity == null && rigidbody != proyectileRb)
+                rigidbody.AddForce(blastForceWithDirection / 1000);
         }
         //
         if(generatesFragments)

@@ -7,6 +7,7 @@ public class ScreecherBodyBehaviour : EnemyBaseBodyBehaviour
     public float idealHeight = 150;
     public float liftForcePerSecond = 200;
     public float timeToChargeBall = 20;
+    public float electricArcDamage = 50;
 
     public Transform loadingBall;
 

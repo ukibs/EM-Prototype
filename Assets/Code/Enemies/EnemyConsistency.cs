@@ -271,6 +271,7 @@ public class EnemyConsistency : Targeteable {
     }
 
     // Para recibir daño del ataque de pulso
+    // TODO: Revisar como manejarlo con las explosiones
     public void ReceivePulseDamage(Vector3 directionWithForce)
     {
         //
@@ -351,15 +352,6 @@ public class EnemyConsistency : Targeteable {
                 impactInfoManager.SendImpactInfo(point, (int)damageReceived, "No damage");
         }
         
-    }
-
-    // Funcion provisional para trabajar impactos de metralla
-    public void ReceiveSharpnelImpact(float penetrationResult, Vector3 point, float sharpnelMass)
-    {
-        if(penetrationResult > 0)
-        {
-            //FUCK
-        }
     }
 
     /// <summary>
