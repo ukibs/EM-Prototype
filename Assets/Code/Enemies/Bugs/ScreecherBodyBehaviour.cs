@@ -36,7 +36,7 @@ public class ScreecherBodyBehaviour : EnemyBaseBodyBehaviour
         //
         timeCharguingBall += dt;
         // Hardocdeamos el 2 que es la escala que usamos
-        float ballScale = Mathf.Min((timeCharguingBall / timeToChargeBall) * 2, 2);
+        //float ballScale = Mathf.Min((timeCharguingBall / timeToChargeBall) * 2, 2);
         //loadingBall.transform.localScale = Vector3.one * ballScale;
         //
         //VerticalMovement();
@@ -89,6 +89,8 @@ public class ScreecherBodyBehaviour : EnemyBaseBodyBehaviour
             case Actions.ApproachingPlayer3d:
                 transform.rotation = GeneralFunctions.UpdateRotation(transform, player.transform.position, rotationSpeed, dt);
                 transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0);
+                //
+                ElectricArcField();
                 break;
             case Actions.EncirclingPlayerForward:
                 transform.rotation = GeneralFunctions.UpdateRotationOnCross(transform, player.transform.position, rotationSpeed, dt);
@@ -143,6 +145,7 @@ public class ScreecherBodyBehaviour : EnemyBaseBodyBehaviour
         if(playerDistance < arcFieldReach)
         {
             PlayerReference.playerIntegrity.ReceiveEnvionmentalDamage(10);
+            //GeneralFunctions.PlaySoundEffect(audioSource, electricClip);
         }
     }
 

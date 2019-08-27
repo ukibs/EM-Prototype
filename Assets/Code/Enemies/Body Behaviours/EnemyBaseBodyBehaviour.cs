@@ -45,7 +45,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
     protected float currentZigZagVariation = 0.1f;
 
     //Varaible para determinar si ha paerido el equilibrio
-    protected bool ofFoot = true;
+    protected bool ofFoot = false;
     protected float ofFootCurrentTime = 0;
 
     public EnemyWeapon[] weapons;   // TODO: Que la busque él
@@ -106,14 +106,16 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
         //
         float dt = Time.deltaTime;
         // TODO: Que el offoot sea directamente aplicado por acciones del player
-        if (bodyConsistency.ReceivedStrongImpact)
-        {
-            //
-            //Debug.Log(gameObject.name + " set off foot");
-            //
-            ofFoot = true;
-            ofFootCurrentTime = 0;
-        }
+        //if (bodyConsistency.ReceivedStrongImpact)
+        //{
+        //    //
+        //    Debug.Log(gameObject.name + " set off foot");
+        //    //
+        //    ofFoot = true;
+        //    ofFootCurrentTime = 0;
+        //}
+        UpdateOfFootStatus(dt);
+
         // Que el player siga vivo
         if (player != null)
         {
@@ -159,6 +161,20 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
             //Debug.DrawRay(transform.position, playerDirection, Color.red);
         }
 
+    }
+
+    protected void UpdateOfFootStatus(float dt)
+    {
+        // Avanzamos el chequeo de desequilibrio y si está desequilibrado que no pueda actuar
+        if (ofFoot)
+        {
+            ofFootCurrentTime += dt;
+            if (ofFootCurrentTime >= ofFootMaxTime)
+            {
+                ofFootCurrentTime = 0;
+                ofFoot = false;
+            }
+        }
     }
 
     // 
@@ -229,18 +245,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
         // Primero que el player siga vivo, si no mal
         if (player != null)
         {
-            // Avanzamos el chequeo de desequilibrio y si está desequilibrado que no pueda actuar
-            if (ofFoot)
-            {
-                ofFootCurrentTime += dt;
-                if (ofFootCurrentTime >= ofFootMaxTime)
-                {
-                    ofFootCurrentTime = 0;
-                    ofFoot = false;
-                }
-                else
-                    return;
-            }
+            
 
             //
             Vector3 playerDirection = player.transform.position - transform.position;
@@ -404,7 +409,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
         return false;
     }
 
-    // TODO: Mover a base
+    //
     public void LoseFoot()
     {
         ofFoot = true;

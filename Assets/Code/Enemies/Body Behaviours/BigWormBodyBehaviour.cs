@@ -19,7 +19,7 @@ public class BigWormBodyBehaviour : EnemyBaseBodyBehaviour
     public float movementSpeed = 30;
     //public float rotationSpeed = 180;
     public float minimalXyApproachDistance = 100;
-    public float minimalLungeDistance = 50;
+    //public float minimalLungeDistance = 50;
     //public float maxAngleToLunge = 30;
     public float lungeSpeed = 100;
     //
@@ -38,7 +38,7 @@ public class BigWormBodyBehaviour : EnemyBaseBodyBehaviour
     private float currentTimeToCheckLungeEnd = 0;
     //private AudioSource audioSource;
 
-    void Start()
+    protected override void Start()
     {
         // Ponemos todo el cuerpo en la altura idonea
         Vector3 startPosition = transform.position;

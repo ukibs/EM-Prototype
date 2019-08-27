@@ -44,7 +44,7 @@ public class EnemyConsistency : Targeteable {
     //
     protected int managerIndex;
     // Vamos a usar esta variable para controlar pérdida de equilibrio en comportamientos entre otras cosas
-    protected bool receivedStrongImpact = false;
+    //protected bool receivedStrongImpact = false;
 
     
     //
@@ -70,7 +70,7 @@ public class EnemyConsistency : Targeteable {
         set { managerIndex = value; }
     }
 
-    public bool ReceivedStrongImpact { get { return receivedStrongImpact; } }
+    //public bool ReceivedStrongImpact { get { return receivedStrongImpact; } }
 
     public EnemyCollider[] BodyColliders { get { return bodyColliders; } }
 
@@ -119,7 +119,7 @@ public class EnemyConsistency : Targeteable {
         // Guardamos la previa para chequear si ha habido un ostión
         previousVelocity = rb.velocity;
         //
-        receivedStrongImpact = false;
+        //receivedStrongImpact = false;
     }
 
     // Update is called once per frame
@@ -172,7 +172,7 @@ public class EnemyConsistency : Targeteable {
                 //Debug.Log("Hitting " + collision.transform.name + " with " + impactForce + " force");
                 ReceiveImpact(impactForce, collision.contacts[0].point);
                 //
-                receivedStrongImpact = true;
+                //receivedStrongImpact = true;
             }
         }
         // TODO: Está duplicado aqui y en EnemyCollider
@@ -286,7 +286,8 @@ public class EnemyConsistency : Targeteable {
         //
         ManageDamage(damageReceived, transform.position, directionWithForce);
         //
-        receivedStrongImpact = true;
+        //receivedStrongImpact = true;
+        bodyBehaviour.LoseFoot();
     }
 
     /// <summary>
