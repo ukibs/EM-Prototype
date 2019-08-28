@@ -132,7 +132,7 @@ public class EnemyManager : MonoBehaviour
             }
         }
         //
-        Debug.Log("Enemies initiated");
+        // Debug.Log("Enemies initiated");
     }
 
     //

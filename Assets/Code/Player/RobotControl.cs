@@ -915,6 +915,7 @@ public class RobotControl : MonoBehaviour {
                 targetPoint = cameraControl.CurrentTarget.position;
             //
             Quaternion shootRotation = Quaternion.LookRotation(targetPoint - machineGunPoints[nextRapidFireSide].position);
+            machineGunPoints[nextRapidFireSide].rotation = shootRotation;
 
             //
             CharguedProyectileAttack(proyectileToUse, machineGunPoints[nextRapidFireSide], dt);

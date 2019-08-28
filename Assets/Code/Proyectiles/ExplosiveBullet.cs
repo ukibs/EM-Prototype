@@ -74,7 +74,7 @@ public class ExplosiveBullet : MonoBehaviour
         //explosionForce = explosiveLoad * 4184000;
         explosionForce = explosiveLoad * 4.184f;
         shockWaveRange = Mathf.Sqrt(explosionForce);
-        Debug.Log("Explosion range: " + shockWaveRange);
+        // Debug.Log("Explosion range: " + shockWaveRange);
         // Recordar que el peso de los rigidbodies lo medimos en toneladas
         
 

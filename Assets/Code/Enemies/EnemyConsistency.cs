@@ -108,7 +108,7 @@ public class EnemyConsistency : Targeteable {
         // Chequeo extra para el gusano grande
         //if(bodyColliders == null || bodyColliders.Length == 0)
         //    bodyColliders = transform.parent.GetComponentsInChildren<EnemyCollider>();
-        Debug.Log(gameObject.name + ", " + bodyColliders + ", " + bodyColliders.Length);
+        // Debug.Log(gameObject.name + ", " + bodyColliders + ", " + bodyColliders.Length);
         //
         DetermineIfMultipart();
 	}
@@ -381,8 +381,12 @@ public class EnemyConsistency : Targeteable {
                 levelManager.AnnotateKill();
             if (enemyManager != null)
             {
-                //enemyManager.SubtractOne(managerIndex);
-                enemyManager.SendToReserve(managerIndex, gameObject);
+                // Esto hay que abordarlo de varias maneras
+                // Recordar que es el padre el que hay que enviar, en la mayoría de casos
+                GameObject enemyCompleteObject;
+                if(transform.parent != null) enemyCompleteObject = transform.parent.gameObject;
+                else enemyCompleteObject = gameObject;                
+                enemyManager.SendToReserve(managerIndex, enemyCompleteObject);
             }
 
             if (deadBodyPrefab != null)
@@ -395,8 +399,8 @@ public class EnemyConsistency : Targeteable {
             //rb.constraints = RigidbodyConstraints.None;
 
             // 
-            if (deathBloodPrefab != null)
-                PlaceDeathBlood();
+            //if (deathBloodPrefab != null)
+            //    PlaceDeathBlood();
             //
             if(deathParticlesPrefab != null)
                 Instantiate(deathParticlesPrefab, transform.position, Quaternion.identity);
