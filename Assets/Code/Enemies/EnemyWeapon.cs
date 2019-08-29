@@ -184,7 +184,7 @@ public class EnemyWeapon : MonoBehaviour
     {
         // Vamos a chequear ambas para que no se pongan a duspara como locos
         // TODO: QUe no disparen cuando vayan a darle a un aliado
-        if (PlayerOnSight() && PlayerInTheSight() && !ComradeInPath())
+        if (PlayerAtFiringDistance() && PlayerOnSight() && PlayerInTheSight() && !ComradeInPath())
         {
             timeFromLastShoot += dt;
             if (timeFromLastShoot >= 1 / rateOfFire)
@@ -195,6 +195,14 @@ public class EnemyWeapon : MonoBehaviour
                 timeFromLastShoot -= 1 / rateOfFire;
             }
         }
+    }
+
+    //
+    public bool PlayerAtFiringDistance()
+    {
+        float playerDistance = (player.transform.position - transform.position).magnitude;
+
+        return playerDistance < range;
     }
 
     //

@@ -49,6 +49,7 @@ public class ExplosiveBullet : MonoBehaviour
     public GameObject fragmentPrefab;
     public int fragmentsPerHeight = 4;
     public int fragmentsPerWidth = 4;
+    public AudioClip explosionClip;
 
     private float fragmentMass;
 
@@ -57,12 +58,13 @@ public class ExplosiveBullet : MonoBehaviour
     private float shockWaveRange;
 
     private Rigidbody proyectileRb;
-    // TODO: Decidir si usamos fragmentos
+    private AudioObjectManager audioObjectManager;
 
     protected void Start()
     {
         //
         proyectileRb = GetComponent<Rigidbody>();
+        audioObjectManager = FindObjectOfType<AudioObjectManager>();
 
         // Tenemos que mirar bien la conversion kg/TNT -> julios -> newton
         // Julios = newtons/m
@@ -134,6 +136,9 @@ public class ExplosiveBullet : MonoBehaviour
         //
         if(generatesFragments)
             GenerateFragments();
+        //
+        //GeneralFunctions.PlaySoundEffect(audioObjectManager, explosionClip);
+        audioObjectManager.CreateAudioObject(explosionClip, transform.position);
         //
         Destroy(gameObject);
     }

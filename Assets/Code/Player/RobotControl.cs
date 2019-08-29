@@ -920,8 +920,7 @@ public class RobotControl : MonoBehaviour {
             //
             CharguedProyectileAttack(proyectileToUse, machineGunPoints[nextRapidFireSide], dt);
 
-            // TODO: Vamos a aplicar el overheat aqui
-            //chargedAmount -= 1 / gameManager.rapidFireRate;
+            // 
             chargedAmount = 0.01f;
             rapidFireCooldown -= 1 / gameManager.rapidFireRate;
             //

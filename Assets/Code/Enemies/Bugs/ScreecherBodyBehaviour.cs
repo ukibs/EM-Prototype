@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class ScreecherBodyBehaviour : EnemyBaseBodyBehaviour
 {
-    public float idealHeight = 150;
+    public float minIdealHeight = 150;
+    public float maxIdealHeight = 200;
     public float liftForcePerSecond = 200;
     public float timeToChargeBall = 20;
     public float electricArcDamage = 50;
@@ -18,12 +19,14 @@ public class ScreecherBodyBehaviour : EnemyBaseBodyBehaviour
     // Start is called before the first frame update
     protected override void Start()
     {
+        //
+        currentIdealHeight = UnityEngine.Random.Range(minIdealHeight, maxIdealHeight);
         // Ñapa
-        transform.position = new Vector3(transform.position.x, idealHeight, transform.position.z);
+        transform.position = new Vector3(transform.position.x, currentIdealHeight, transform.position.z);
         //
         base.Start();
         //
-        currentIdealHeight = idealHeight;
+        //currentIdealHeight = idealHeight;
     }
 
     // Update is called once per frame

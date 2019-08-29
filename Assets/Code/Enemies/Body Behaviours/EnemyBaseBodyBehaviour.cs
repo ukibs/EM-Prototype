@@ -181,7 +181,8 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
     protected virtual void Move()
     {
         //
-        if (HasGroundUnderneath())
+        //if (HasGroundUnderneath())
+        if(true)
         {
             //
             Vector3 movingDirection = transform.forward;
@@ -216,22 +217,11 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
             rb.velocity = (movingDirection * maxSpeed * speedMultiplier * movementStatus);
             //rb.AddForce(movingDirection * maxSpeed * speedMultiplier);
             //
-            if (!onFloor)
-                rb.velocity += Physics.gravity;
+            //if (!onFloor)
+            //    rb.velocity += Physics.gravity;
         }
     }
-
-    //
-    protected virtual void GiveItGas()
-    {
-        
-    }
-
-    //
-    protected void GetPathToPlayer()
-    {
-
-    }
+    
 
     // Reseteamos los daños sufridos
     public virtual void ResetStatus()
@@ -412,6 +402,9 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
     //
     public void LoseFoot()
     {
+        //
+        Debug.Log("Losing foot");
+        //
         ofFoot = true;
         ofFootCurrentTime = 0;
     }

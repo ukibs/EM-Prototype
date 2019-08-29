@@ -125,14 +125,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   diameter: 10
+  length: 0
   lifeTime: 20
   dangerousEnough: 1
   drawTrayectory: 0
-  impactParticlesPrefab: {fileID: 0}
+  impactParticlesPrefab: {fileID: 5943001922578116903, guid: ed5e3facd419e5046b1f6e142784e330,
+    type: 3}
   bulletHolePrefab: {fileID: 0}
   impactOnBugParticlesPrefab: {fileID: 0}
   bulletHoleBugPrefab: {fileID: 0}
-  impactOnPlayer: {fileID: 8300000, guid: 8b85b651924767f4e9888abd2aafc166, type: 3}
+  impactOnPlayer: {fileID: 0}
   impactOnEnemy: {fileID: 0}
 --- !u!114 &5538520636394636694
 MonoBehaviour:
@@ -151,6 +153,7 @@ MonoBehaviour:
   fragmentPrefab: {fileID: 0}
   fragmentsPerHeight: 4
   fragmentsPerWidth: 4
+  explosionClip: {fileID: 8300000, guid: 8b85b651924767f4e9888abd2aafc166, type: 3}
 --- !u!114 &5515098343755460863
 MonoBehaviour:
   m_ObjectHideFlags: 0
