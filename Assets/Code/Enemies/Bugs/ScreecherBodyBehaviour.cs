@@ -116,18 +116,19 @@ public class ScreecherBodyBehaviour : EnemyBaseBodyBehaviour
 
         // Y por último que mueva
         Move();
-        VerticalMovement();
+        VerticalMovement(dt);
     }
 
     //
-    protected void VerticalMovement()
+    protected void VerticalMovement(float dt)
     {
         if (transform.position.y < currentIdealHeight)
         {
             //
             //float forceToAdd = liftForcePerSecond * (1 - (transform.position.y / currentIdealHeight));
             //
-            rb.AddForce(Vector3.up * liftForcePerSecond);
+            //rb.AddForce(Vector3.up * liftForcePerSecond);
+            rb.velocity += Vector3.up * liftForcePerSecond * dt;
         }
     }
 

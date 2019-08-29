@@ -28,21 +28,12 @@ public enum ExplosiveType
 /// </summary>
 public class ExplosiveBullet : MonoBehaviour
 {
-    // Genereic ones
-    //[Tooltip("Manual stablished explosion range to use with simple explosion")]
-    //public float simpleExplosionRange = 30;
-    //public float simpleExplosionSharpnelSpeed = 2000;
-    // Esto lo miraremos con más deteniemiento en otro momento
-    //https://fas.org/man/dod-101/navy/docs/es310/warheads/Warheads.htm
-
-    //public float explosionForce;
-    //public float explosionDamage;
-
     // Realistic ones
     [Tooltip("Explosive load in g of TNT equivalent")]
     public float explosiveLoad;
-    //
-    //public ExplosiveType explosiveType = ExplosiveType.SimpleArea;
+
+    //https://answers.unity.com/questions/192895/hideshow-properties-dynamically-in-inspector.html
+    //[ConditionalField("NextState", AIState.Idle)]
 
     [Tooltip("Energy 'bombs' shouldn't generate fragments")]
     public bool generatesFragments = false;

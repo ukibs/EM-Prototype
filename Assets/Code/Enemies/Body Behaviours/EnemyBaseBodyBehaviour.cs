@@ -22,7 +22,7 @@ public enum Actions
 
 public class EnemyBaseBodyBehaviour : MonoBehaviour
 {
-
+    //[ConditionalField("NextState", AIState.Idle)]
     #region Public Attributes
 
     public float maxSpeed = 10;
