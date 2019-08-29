@@ -7,6 +7,8 @@ public class ProvisionalHUD : MonoBehaviour {
     //public GUIStyle guiStyle;
     public GUISkin guiSkin;
 
+    public Texture overlayTexture;
+
     public Texture crossTexture;
     //public Texture penetrationCrossRed;
     //public Texture penetrationCrossYellow;
@@ -110,6 +112,9 @@ public class ProvisionalHUD : MonoBehaviour {
 
     private void OnGUI()
     {
+        // draw Overlay using the entire screen
+        GUI.DrawTexture(new Rect(0, 0,Screen.width, Screen.height), overlayTexture);
+
         //
         PlayerHealthAndShields();
 
@@ -338,18 +343,19 @@ public class ProvisionalHUD : MonoBehaviour {
     void PlayerHealthAndShields()
     {
         //
-        float barMaxLength = Screen.width * 1 / 2;
-        float barHeight = Screen.height * 1 / 24;
-        float generalStartPoint = Screen.width - (barMaxLength * 3 / 2);
+        float barMaxLength = Screen.width * 6 / 10;
+        float barHeight = Screen.height * 1 / 15;
+        float generalStartPoint = Screen.width * 2/10 /*- (barMaxLength * 3 / 2)*/;
+        float barPosY = Screen.height * 7 / 100;
 
         // Dibujamos el frame lo primero
-        GUI.DrawTexture(new Rect(generalStartPoint, 30, barMaxLength, barHeight), shieldAndHealthFrame);
+        GUI.DrawTexture(new Rect(generalStartPoint, barPosY, barMaxLength, barHeight), shieldAndHealthFrame);
 
         // Y la vida
         float healthBarLenght = playerIntegrity.CurrentHealth / gameManager.maxHealth * barMaxLength;
         // Que se centre la barra conforme se vacia/llena
         float healthStartPoint = generalStartPoint + ((barMaxLength - healthBarLenght) / 2);
-        GUI.DrawTexture(new Rect(healthStartPoint, 30, healthBarLenght, barHeight), playerHealthTexture);
+        GUI.DrawTexture(new Rect(healthStartPoint, barPosY, healthBarLenght, barHeight), playerHealthTexture);
         
         // Escudos
         // Mientras le queden
@@ -359,7 +365,7 @@ public class ProvisionalHUD : MonoBehaviour {
             float shieldBarLenght = currentShield * barMaxLength;
             // Que se centre la barra conforme se vacia/llena
             float shieldStartPoint = generalStartPoint + ((barMaxLength - shieldBarLenght) / 2);
-            GUI.DrawTextureWithTexCoords(new Rect(shieldStartPoint, 30, shieldBarLenght, barHeight), playerShieldTexture,
+            GUI.DrawTextureWithTexCoords(new Rect(shieldStartPoint, barPosY, shieldBarLenght, barHeight), playerShieldTexture,
                 new Rect((1 - currentShield) / 2, 0, currentShield, 1));
         }
         // Cuando estén agotados

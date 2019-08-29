@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guiSkin: {fileID: 11400000, guid: 0d7ecdc8ac800f94491b1d5df3fbf883, type: 2}
+  overlayTexture: {fileID: 2800000, guid: 52237635bfebcb7429adde7f7a515393, type: 3}
   crossTexture: {fileID: 2800000, guid: fd175b746696ae045bc76117bcf6a6e0, type: 3}
   enemyMarkerTextureRed: {fileID: 2800000, guid: 2f8dee006ce91f549a505b7638e312d7,
     type: 3}
@@ -59,8 +60,8 @@ MonoBehaviour:
   targetedEnemyEstimatedFuturePositionTexture: {fileID: 2800000, guid: 9d5d6ce2ecad855448c8d4392c05225f,
     type: 3}
   testingVelocityIcon: {fileID: 2800000, guid: e3d0ff31924015d4a923c058090e8be0, type: 3}
-  diamondsTexture: {fileID: 2800000, guid: a720c63736c31ae4a8b6841a42d247d2, type: 3}
-  diamondsBackgroundTexture: {fileID: 2800000, guid: 8a99facd543b3e94f8ed7027baf673a2,
+  diamondsTexture: {fileID: 2800000, guid: 67dbb1b0a899d7a41b66e5ecb97198fa, type: 3}
+  diamondsBackgroundTexture: {fileID: 2800000, guid: 67dbb1b0a899d7a41b66e5ecb97198fa,
     type: 3}
   shieldDamageTexture: {fileID: 2800000, guid: 151b307fa36f6ba43b376142a681a2a9, type: 3}
   hullDamageTexture: {fileID: 2800000, guid: 151b307fa36f6ba43b376142a681a2a9, type: 3}
@@ -84,7 +85,7 @@ MonoBehaviour:
     type: 3}
   alertTexture: {fileID: 2800000, guid: ece55f8ab73783d4e846bdd3850eb79b, type: 3}
   damageIndicatorLifeTime: 2
-  radarTexture: {fileID: 2800000, guid: c48d2fd6d9dccc946a6c2f574dfbd7f8, type: 3}
+  radarTexture: {fileID: 2800000, guid: 5095e6d4c6ecb9b4ba2c34395262d1ff, type: 3}
   radarRange: 500
   keyboardControls: {fileID: 2800000, guid: 47d09ea007cdd2d43b83fde139df457c, type: 3}
   gamepadControls: {fileID: 2800000, guid: e6935174e51be4446b4769c546f1d1c8, type: 3}
