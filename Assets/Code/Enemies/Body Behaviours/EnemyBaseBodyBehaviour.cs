@@ -15,6 +15,7 @@ public enum Actions
     Lunging,
     RetreatingFromPlayer,
     ApproachingPlayer3d,
+    // Moverse alrededor de un punto
 
     Count
 }
@@ -156,9 +157,16 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
         //
         if (player != null)
         {
-            //Debug.DrawRay(transform.position, rb.velocity, Color.blue);
-            //Vector3 playerDirection = player.transform.position - transform.position;
-            //Debug.DrawRay(transform.position, playerDirection, Color.red);
+            Debug.DrawRay(transform.position, rb.velocity, Color.blue);
+            Vector3 playerDirection = player.transform.position - transform.position;
+            Debug.DrawRay(transform.position, playerDirection, Color.red);
+            //
+            if(currentAction == Actions.GoingToPlayer && pathToUse != null && pathToUse.Count > 0)
+            {
+                Debug.DrawRay(transform.position, pathToUse[0].transform.position - transform.position, Color.yellow);
+                if(pathToUse.Count > 1)
+                    Debug.DrawRay(pathToUse[0].transform.position, pathToUse[1].transform.position - pathToUse[0].transform.position, Color.yellow);
+            }
         }
 
     }
@@ -217,8 +225,8 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
             rb.velocity = (movingDirection * maxSpeed * speedMultiplier * movementStatus);
             //rb.AddForce(movingDirection * maxSpeed * speedMultiplier);
             //
-            //if (!onFloor)
-            //    rb.velocity += Physics.gravity;
+            if (!onFloor)
+                rb.velocity += Physics.gravity;
         }
     }
     
@@ -235,8 +243,6 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
         // Primero que el player siga vivo, si no mal
         if (player != null)
         {
-            
-
             //
             Vector3 playerDirection = player.transform.position - transform.position;
             //playerDirection.y = 0.0f;
@@ -254,8 +260,11 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
                     //
                     if (pathToUse != null && pathToUse.Count > 0)
                     {
+                        //
+                        Vector3 xzDistanceToWaypoint = pathToUse[0].transform.position - transform.position;
+                        xzDistanceToWaypoint.y = 0;
                         // Si estamos lo bastante cerca del punto que toca lo descartamos
-                        if ((pathToUse[0].transform.position - transform.position).magnitude < 50)
+                        if (xzDistanceToWaypoint.magnitude < 50)
                         {
                             pathToUse.RemoveAt(0);
                             //
@@ -266,7 +275,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
                             }
                                 
                             //
-                            //Debug.Log("Next waypoint: " + pathToUse[0]);
+                            Debug.Log("Next waypoint: " + pathToUse[0]);
                         }
 
 
@@ -407,5 +416,16 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
         //
         ofFoot = true;
         ofFootCurrentTime = 0;
+    }
+
+    //
+    protected bool CheckIfObstacleInMovingDirection()
+    {
+        //
+        if(Physics.Raycast(transform.position, rb.velocity, rb.velocity.magnitude * 10))
+        {
+            return true;
+        }
+        return false;
     }
 }

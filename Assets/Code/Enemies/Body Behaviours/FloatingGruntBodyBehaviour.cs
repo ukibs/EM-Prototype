@@ -36,6 +36,7 @@ public class FloatingGruntBodyBehaviour : EnemyBaseBodyBehaviour
     //
     protected void VerticalMovement()
     {
+        // Para controlar que se mantenga en la altura idónea
         if (transform.position.y < idealHeight)
         {
             //
@@ -46,5 +47,9 @@ public class FloatingGruntBodyBehaviour : EnemyBaseBodyBehaviour
             //
             rb.velocity += Vector3.up * maxSpeed;
         }
+        // Para evitar obstáculos
+        if(CheckIfObstacleInMovingDirection())
+            rb.velocity += Vector3.up * maxSpeed;
+
     }
 }

@@ -971,7 +971,7 @@ MonoBehaviour:
   mainWeapon: 1
   rotationSpeed: {x: 90, y: 30}
   rateOfFire: 1
-  range: 100
+  range: 300
   proyectilePrefab: {fileID: 1952744711831650, guid: 95967c0bccc03764aa9b43c06cdf8da7,
     type: 3}
   shootForce: 10
@@ -2847,11 +2847,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be8da5f274140ee42a849c08899440df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 10
+  maxSpeed: 20
   minimalLungeDistance: 15
   minimalShootDistance: 100
   ofFootMaxTime: 5
-  timeBetweenActionChecking: 1
+  timeBetweenActionChecking: 1.5
   rotationSpeed: 90
   behaviour: 0300000000000000
   weapons:
