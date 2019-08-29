@@ -31,7 +31,7 @@ MonoBehaviour:
     - 5
     - 5
     - 5
-    maxActiveEnemies: 0a0000000a0000000a000000
+    maxActiveEnemies: 050000000500000005000000
     terrainPrefabs:
     - {fileID: 3326227640253247155, guid: e805da38f2157cf44bd8ebbbe826ba67, type: 3}
     - {fileID: 3326227640253247155, guid: f90644bdac5d8924fbad91a92cde6c44, type: 3}
