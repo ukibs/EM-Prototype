@@ -60,12 +60,12 @@ MonoBehaviour:
   targetedEnemyEstimatedFuturePositionTexture: {fileID: 2800000, guid: 9d5d6ce2ecad855448c8d4392c05225f,
     type: 3}
   testingVelocityIcon: {fileID: 2800000, guid: e3d0ff31924015d4a923c058090e8be0, type: 3}
-  diamondsTexture: {fileID: 2800000, guid: 67dbb1b0a899d7a41b66e5ecb97198fa, type: 3}
+  diamondsTexture: {fileID: 2800000, guid: ee7e1cea0e1aedf46baea9c97ad3e33a, type: 3}
   diamondsBackgroundTexture: {fileID: 2800000, guid: 67dbb1b0a899d7a41b66e5ecb97198fa,
     type: 3}
   shieldDamageTexture: {fileID: 2800000, guid: 151b307fa36f6ba43b376142a681a2a9, type: 3}
   hullDamageTexture: {fileID: 2800000, guid: 151b307fa36f6ba43b376142a681a2a9, type: 3}
-  chargeTexture: {fileID: 2800000, guid: e3d0ff31924015d4a923c058090e8be0, type: 3}
+  chargeTexture: {fileID: 2800000, guid: efc95bd1c23d1644a916e7e2050fedae, type: 3}
   playerShieldTexture: {fileID: 2800000, guid: a02a56ae16b05f246b5dceabac4b9b1f, type: 3}
   playerDepletedShieldTexture: {fileID: 2800000, guid: eacd1caff88b26d49b40eed843ce8f48,
     type: 3}

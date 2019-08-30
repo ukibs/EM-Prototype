@@ -125,7 +125,7 @@ public class ProvisionalHUD : MonoBehaviour {
             MarkEnemiesOnScreen();
 
         //
-        // DrawAbilityIcons();
+        DrawAbilityIcons();
 
         //
         if (!cameraControl.TargetingPlayer)
@@ -269,13 +269,13 @@ public class ProvisionalHUD : MonoBehaviour {
     void DrawAbilityIcons()
     {
         // Abilities diamond and icons
-        GUI.DrawTexture(new Rect(Screen.width - 200, Screen.height - 200, 200, 200), diamondsBackgroundTexture);
-        GUI.DrawTexture(new Rect(Screen.width - 200, Screen.height - 200, 200, 200), diamondsTexture);
+        GUI.DrawTexture(new Rect(Screen.width * 800 / 1000, Screen.height * 724 / 1000, 200, 200), diamondsBackgroundTexture);
+        GUI.DrawTexture(new Rect(Screen.width * 910 / 1000, Screen.height * 725 / 1000, 100, 200), diamondsTexture);
         //
         ChargeDrawing();
         //
         Texture iconToUse = null;
-
+        /*
         // Jump ones
         if (gameManager.playerAttributes.unlockedJumpActions > 0)
         {
@@ -307,6 +307,7 @@ public class ProvisionalHUD : MonoBehaviour {
         {
             GUI.DrawTexture(new Rect(Screen.width - 150, Screen.height - 200, 100, 100), sphereDefenseTexture);
         }
+        */
     }
 
     //
