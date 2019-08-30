@@ -102,7 +102,7 @@ public class MapAndStatsManager : MonoBehaviour
     //
     public void ActivateNextWeapon()
     {
-        GameManager.instance.unlockedAttackActions++;
+        GameManager.instance.playerAttributes.unlockedAttackActions++;
         canonButton.SetActive(true);
     }
 

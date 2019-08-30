@@ -223,7 +223,7 @@ public class RobotControl : MonoBehaviour {
         PlayerReference.currentProyectileRB = proyectileRb;
 
         // Recordar que la masa va en gramos (de momento)
-        currentMuzzleSpeed = gameManager.forcePerSecond / (gameManager.massPerSecond / 1000);
+        currentMuzzleSpeed = gameManager.playerAttributes.forcePerSecond / (gameManager.playerAttributes.massPerSecond / 1000);
         // Debug.Log("Muzzle speed :" + currentMuzzleSpeed);
     }
 
@@ -326,7 +326,7 @@ public class RobotControl : MonoBehaviour {
         Vector3 currentUp = Vector3.up;
         
         //
-        if (gameManager.unlockedSprintActions > 0)
+        if (gameManager.playerAttributes.unlockedSprintActions > 0)
         {
             RaycastHit adherencePoint;
             // TODO: Meter aqui el dash cuando otra habilidad está cargando
@@ -372,7 +372,7 @@ public class RobotControl : MonoBehaviour {
                     case SprintMode.Normal:
                         // De momento el multiplicador irá de 1 a 2
                         chargedAmount += Time.deltaTime;
-                        chargedAmount = Mathf.Min(chargedAmount, gameManager.maxCharge);
+                        chargedAmount = Mathf.Min(chargedAmount, gameManager.playerAttributes.maxCharge);
                         sprintMultiplier += chargedAmount;
                         break;
                     case SprintMode.Adherence:
@@ -456,7 +456,7 @@ public class RobotControl : MonoBehaviour {
 
         // TODO: Tener en cuenta velocity actual
         Vector3 forceDirection = (directionX + directionZ).normalized;
-        rb.AddForce( forceDirection * gameManager.movementForcePerSecond * sprintMultiplier);
+        rb.AddForce( forceDirection * gameManager.playerAttributes.movementForcePerSecond * sprintMultiplier);
 
         // And dampen de movement
         if (currentDamping == DampingType.TwoDimensional)
@@ -522,7 +522,7 @@ public class RobotControl : MonoBehaviour {
     void JumpMotion()
     {
         // La primera se desbloquea en el repulsor
-        if (gameManager.unlockedJumpActions == 2 || jumpMode == JumpMode.RepulsorJump)
+        if (gameManager.playerAttributes.unlockedJumpActions == 2 || jumpMode == JumpMode.RepulsorJump)
             return;
         // De momento solo hacia arriba
         // Luego trabajaremos más direcciones
@@ -547,7 +547,7 @@ public class RobotControl : MonoBehaviour {
                     // En ese caso hacer que tenga menos impulso que haciéndolo desde el suelo
                     float floorSupport = (repulsor.IsOnFloor) ? 1 : 0.5f;
                     // Le damos un mínimo de base
-                    rb.AddForce(Vector3.up * (gameManager.forcePerSecond * chargedAmount * floorSupport), ForceMode.Impulse);
+                    rb.AddForce(Vector3.up * (gameManager.playerAttributes.forcePerSecond * chargedAmount * floorSupport), ForceMode.Impulse);
                     //
                     GeneralFunctions.PlaySoundEffect(audioSource, releasingPulseClip);
                     break;
@@ -565,7 +565,7 @@ public class RobotControl : MonoBehaviour {
                         : cameraForward;
                     // TODO: Revisar
                     Vector3 compensatedDirection = (desiredDirection - currentVelocity).normalized;
-                    rb.AddForce(compensatedDirection * (gameManager.forcePerSecond * chargedAmount) * 10, ForceMode.Impulse);
+                    rb.AddForce(compensatedDirection * (gameManager.playerAttributes.forcePerSecond * chargedAmount) * 10, ForceMode.Impulse);
                     //
                     GeneralFunctions.PlaySoundEffect(audioSource, releasingPulseClip);
                     break;
@@ -583,11 +583,11 @@ public class RobotControl : MonoBehaviour {
     void CheckDefense()
     {
         //
-        if (gameManager.unlockedDefenseActions == 0)
+        if (gameManager.playerAttributes.unlockedDefenseActions == 0)
             return;
         // De momento solo hacia arriba
         // Luego trabajaremos más direcciones
-        if (inputManager.DefenseButton && actionCharging == ActionCharguing.None && gameManager.unlockedDefenseActions > 0)
+        if (inputManager.DefenseButton && actionCharging == ActionCharguing.None && gameManager.playerAttributes.unlockedDefenseActions > 0)
         {
             // DefenseMode
             actionCharging = ActionCharguing.Defense;
@@ -640,55 +640,42 @@ public class RobotControl : MonoBehaviour {
     void CheckActionChange()
     {
         // Attack actions
-        if (inputManager.SwitchWeaponButton && gameManager.unlockedAttackActions > 0)
+        if (inputManager.SwitchWeaponButton && gameManager.playerAttributes.unlockedAttackActions > 0)
         {
             //
             attackMode = (AttackMode)(int)attackMode + 1;
             attackMode = (attackMode == AttackMode.Count || 
-                            (int)attackMode >= gameManager.unlockedAttackActions) ?
+                            (int)attackMode >= gameManager.playerAttributes.unlockedAttackActions) ?
                             (AttackMode)0 : attackMode;
-            // Asignamos en el player reference el rigidbody que corresponda
-            //switch (attackMode)
-            //{
-            //    case AttackMode.Pulse:
-            //        PlayerReference.currentProyectileRB = null;
-            //        break;
-            //    case AttackMode.RapidFire:
-            //        PlayerReference.currentProyectileRB = proyectilePrefab.GetComponent<Rigidbody>();
-            //        break;
-            //    case AttackMode.Canon:
-            //        PlayerReference.currentProyectileRB = cannonBallPrefab.GetComponent<Rigidbody>();
-            //        break;
-            //}
 
             // TODO: Habrá que trabajar esto con la carga variable
             EnemyAnalyzer.RecalculatePenetration();
         }
         // Defensive actions
-        if (inputManager.SwitchDefenseButton && gameManager.unlockedDefenseActions > 0)
+        if (inputManager.SwitchDefenseButton && gameManager.playerAttributes.unlockedDefenseActions > 0)
         {
             //
             defenseMode = (DefenseMode)(int)defenseMode + 1;
             defenseMode = (defenseMode == DefenseMode.Count ||
-                            (int)defenseMode >= gameManager.unlockedDefenseActions) ?
+                            (int)defenseMode >= gameManager.playerAttributes.unlockedDefenseActions) ?
                             (DefenseMode)0 : defenseMode;
         }
         // Jump actions
-        if (inputManager.SwitchJumpButton && gameManager.unlockedJumpActions > 0)
+        if (inputManager.SwitchJumpButton && gameManager.playerAttributes.unlockedJumpActions > 0)
         {
             //
             jumpMode = (JumpMode)(int)jumpMode + 1;
             jumpMode = (jumpMode == JumpMode.Count ||
-                            (int)jumpMode >= gameManager.unlockedJumpActions) ?
+                            (int)jumpMode >= gameManager.playerAttributes.unlockedJumpActions) ?
                             (JumpMode)0 : jumpMode;
         }
         // Sprint actions
-        if (inputManager.SwitchSprintButton && gameManager.unlockedSprintActions > 0)
+        if (inputManager.SwitchSprintButton && gameManager.playerAttributes.unlockedSprintActions > 0)
         {
             //
             sprintMode = (SprintMode)(int)sprintMode + 1;
             sprintMode = (sprintMode == SprintMode.Count ||
-                            (int)sprintMode >= gameManager.unlockedSprintActions) ?
+                            (int)sprintMode >= gameManager.playerAttributes.unlockedSprintActions) ?
                             (SprintMode)0 : sprintMode;
         }
     }
@@ -699,10 +686,10 @@ public class RobotControl : MonoBehaviour {
     void CheckAndFire(float dt)
     {
         //
-        if (gameManager.unlockedAttackActions == 0)
+        if (gameManager.playerAttributes.unlockedAttackActions == 0)
             return;
         //
-        if (inputManager.FireButton && actionCharging == ActionCharguing.None && gameManager.unlockedAttackActions > 0)
+        if (inputManager.FireButton && actionCharging == ActionCharguing.None && gameManager.playerAttributes.unlockedAttackActions > 0)
         {
             actionCharging = ActionCharguing.Attack;
             switch (attackMode)
@@ -737,7 +724,7 @@ public class RobotControl : MonoBehaviour {
                 //
                 currentOverheat += dt;
                 //
-                if(currentOverheat <= gameManager.maxOverheat)
+                if(currentOverheat <= gameManager.playerAttributes.maxOverheat)
                 {
                     //
                     RapidFireAttack(dt);
@@ -746,7 +733,7 @@ public class RobotControl : MonoBehaviour {
                 {
                     // Meteremos aqui el efecto de sobrecarga
                     totalOverheat = true;
-                    currentOverheat = gameManager.maxOverheat;
+                    currentOverheat = gameManager.playerAttributes.maxOverheat;
                     GeneralFunctions.PlaySoundEffect(audioSource, overHeatClip);
                     actionCharging = ActionCharguing.None;
                 }
@@ -806,7 +793,7 @@ public class RobotControl : MonoBehaviour {
         // TODO: Trabajar estos parámetros
         float coneRadius = 20.0f;
         float coneReach = 50.0f;
-        float pulseForceToApply = (gameManager.forcePerSecond * chargedAmount);
+        float pulseForceToApply = (gameManager.playerAttributes.forcePerSecond * chargedAmount);
         //
         AffectedByPulseAttack elementsOnReachOfPulseAttack = GetElementsOnReachOfPulseAttack(coneReach, coneRadius);
         Vector3 pointFromPlayer;
@@ -889,7 +876,7 @@ public class RobotControl : MonoBehaviour {
         //
         rapidFireCooldown += dt;
         //
-        if (rapidFireCooldown >= 1 / gameManager.rapidFireRate)
+        if (rapidFireCooldown >= 1 / gameManager.playerAttributes.rapidFireRate)
         {
             // La calculamos desde los puntos de la ametralladora para más precision
             // TODO: Revisar aqui tambien el cambio de centralPointOffset
@@ -926,7 +913,7 @@ public class RobotControl : MonoBehaviour {
 
             // 
             chargedAmount = 0.01f;
-            rapidFireCooldown -= 1 / gameManager.rapidFireRate;
+            rapidFireCooldown -= 1 / gameManager.playerAttributes.rapidFireRate;
             //
             nextRapidFireSide = (nextRapidFireSide) == 0 ? 1 : 0;
             //
@@ -940,16 +927,16 @@ public class RobotControl : MonoBehaviour {
     void CharguedProyectileAttack(GameObject proyectilePrefab, Transform muzzlePoint, float dt)
     {
         // Establecemos la masa
-        proyectileRb.mass = gameManager.massPerSecond * chargedAmount / 1000000;
+        proyectileRb.mass = gameManager.playerAttributes.massPerSecond * chargedAmount / 1000000;
         // Y la fuerza a aplicar
-        float forceToApply = gameManager.forcePerSecond * chargedAmount;
+        float forceToApply = gameManager.playerAttributes.forcePerSecond * chargedAmount;
         //
         GameObject nextProyectile = GeneralFunctions.ShootProjectile(proyectilePrefab, muzzlePoint.position, muzzlePoint.rotation,
             muzzlePoint.forward, forceToApply, dt, ShootCalculation.Force);
         // TODO: Revisar diametro, densidad, etc
         Bullet bulletComponent = nextProyectile.GetComponent<Bullet>();
         //
-        float volume = proyectileRb.mass / gameManager.currentDensity;
+        float volume = proyectileRb.mass / gameManager.playerAttributes.currentDensity;
         // =(volume*3/(4*PI()*ratioAB))^(1/3) * 2
         float ratioAB = 2;
         float elipseDiameter = Mathf.Pow((volume * 3 / (4 * Mathf.PI * ratioAB)), 1 / 3) * 2;

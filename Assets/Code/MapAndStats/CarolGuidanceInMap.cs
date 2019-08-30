@@ -56,7 +56,7 @@ public class CarolGuidanceInMap : MonoBehaviour
                 if (!audioSource.isPlaying)
                 {
                     //
-                    GameManager.instance.unlockedAttackActions++;
+                    GameManager.instance.playerAttributes.unlockedAttackActions++;
                     mapAndStatsManager.ActivateNextWeapon();                    
                     mapAndStatsManager.PlayerLocked = false;
                     //

@@ -277,19 +277,19 @@ public class ProvisionalHUD : MonoBehaviour {
         Texture iconToUse = null;
 
         // Jump ones
-        if (gameManager.unlockedJumpActions > 0)
+        if (gameManager.playerAttributes.unlockedJumpActions > 0)
         {
             GUI.DrawTexture(new Rect(Screen.width - 150, Screen.height - 100, 100, 100), jumpTexture);
         }
 
         //Sprint ones
-        if (gameManager.unlockedSprintActions > 0)
+        if (gameManager.playerAttributes.unlockedSprintActions > 0)
         {
             GUI.DrawTexture(new Rect(Screen.width - 200, Screen.height - 150, 100, 100), sprintTexture);
         }
 
         // Attack ones
-        if (gameManager.unlockedAttackActions > 0)
+        if (gameManager.playerAttributes.unlockedAttackActions > 0)
         {
             AttackMode attackMode = robotControl.ActiveAttackMode;
             switch (attackMode)
@@ -303,7 +303,7 @@ public class ProvisionalHUD : MonoBehaviour {
         }
 
         //Defense ones
-        if (gameManager.unlockedDefenseActions > 0)
+        if (gameManager.playerAttributes.unlockedDefenseActions > 0)
         {
             GUI.DrawTexture(new Rect(Screen.width - 150, Screen.height - 200, 100, 100), sphereDefenseTexture);
         }
@@ -352,7 +352,7 @@ public class ProvisionalHUD : MonoBehaviour {
         GUI.DrawTexture(new Rect(generalStartPoint, barPosY, barMaxLength, barHeight), shieldAndHealthFrame);
 
         // Y la vida
-        float healthBarLenght = playerIntegrity.CurrentHealth / gameManager.maxHealth * barMaxLength;
+        float healthBarLenght = playerIntegrity.CurrentHealth / gameManager.playerAttributes.maxHealth * barMaxLength;
         // Que se centre la barra conforme se vacia/llena
         float healthStartPoint = generalStartPoint + ((barMaxLength - healthBarLenght) / 2);
         GUI.DrawTexture(new Rect(healthStartPoint, barPosY, healthBarLenght, barHeight), playerHealthTexture);
@@ -361,7 +361,7 @@ public class ProvisionalHUD : MonoBehaviour {
         // Mientras le queden
         if (playerIntegrity.CurrentShield > 0)
         {
-            float currentShield = playerIntegrity.CurrentShield / gameManager.maxShield;
+            float currentShield = playerIntegrity.CurrentShield / gameManager.playerAttributes.maxShield;
             float shieldBarLenght = currentShield * barMaxLength;
             // Que se centre la barra conforme se vacia/llena
             float shieldStartPoint = generalStartPoint + ((barMaxLength - shieldBarLenght) / 2);
@@ -421,7 +421,7 @@ public class ProvisionalHUD : MonoBehaviour {
     {
         //
         float overHeat = robotControl.CurrentOverHeat;
-        float maxOverheat = gameManager.maxOverheat;
+        float maxOverheat = gameManager.playerAttributes.maxOverheat;
         Vector2 overHeatPos = new Vector2(Screen.width - 350, Screen.height - 70);
         //
         GUI.DrawTexture(new Rect(overHeatPos.x, overHeatPos.y, 300 * overHeat / maxOverheat, 20), enemyChasisTexture);

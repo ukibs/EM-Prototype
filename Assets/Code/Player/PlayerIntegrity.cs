@@ -33,7 +33,7 @@ public class PlayerIntegrity : MonoBehaviour
         get { return currentShield; }
         set {
             currentShield = value;
-            currentShield = Mathf.Min(currentShield, gameManager.maxShield);
+            currentShield = Mathf.Min(currentShield, gameManager.playerAttributes.maxShield);
         }
     }
 
@@ -48,8 +48,8 @@ public class PlayerIntegrity : MonoBehaviour
         hud = FindObjectOfType<ProvisionalHUD>();
         audioSource = GetComponent<AudioSource>();
         //
-        currentHealth = gameManager.maxHealth;
-        currentShield = gameManager.maxShield;
+        currentHealth = gameManager.playerAttributes.maxHealth;
+        currentShield = gameManager.playerAttributes.maxShield;
     }
 
     // Update is called once per frame
@@ -60,8 +60,8 @@ public class PlayerIntegrity : MonoBehaviour
         // De momento hacemos que se recargen con el tiempo
         if (!shieldsDepleted)
         {
-            currentShield += dt * gameManager.shieldRechargeRate;
-            currentShield = Mathf.Clamp(currentShield, 0, gameManager.maxShield);
+            currentShield += dt * gameManager.playerAttributes.shieldRechargeRate;
+            currentShield = Mathf.Clamp(currentShield, 0, gameManager.playerAttributes.maxShield);
         }
         //
         if (shieldsDepleted && robotControl.IsResting)
@@ -69,8 +69,8 @@ public class PlayerIntegrity : MonoBehaviour
         //
         if (robotControl.IsResting)
         {
-            currentHealth += dt * gameManager.repairRate;
-            currentHealth = Mathf.Clamp(currentHealth, 0, gameManager.maxHealth);
+            currentHealth += dt * gameManager.playerAttributes.repairRate;
+            currentHealth = Mathf.Clamp(currentHealth, 0, gameManager.playerAttributes.maxHealth);
         }
 
         //
@@ -107,7 +107,7 @@ public class PlayerIntegrity : MonoBehaviour
         {
             switch (robotControl.ActiveDefenseMode)
             {
-                case DefenseMode.Spheric: extraDefense = gameManager.sphericShieldStrength; break;
+                case DefenseMode.Spheric: extraDefense = gameManager.playerAttributes.sphericShieldStrength; break;
 
                 case DefenseMode.Front: extraDefense = 9999; break;
             }

@@ -102,17 +102,17 @@ public class Repulsor : MonoBehaviour {
             if (isOnFloor)
             {
                 //
-                rb.AddForce(transform.up * gameManager.jumpForce, ForceMode.Impulse);
+                rb.AddForce(transform.up * gameManager.playerAttributes.jumpForce, ForceMode.Impulse);
                 // Extra para no pasarnos de corto ni de largo
                 Vector3 fixedVelocidty = rb.velocity;
-                fixedVelocidty.y = Mathf.Clamp(fixedVelocidty.y, gameManager.jumpForce, gameManager.jumpForce * 5);
+                fixedVelocidty.y = Mathf.Clamp(fixedVelocidty.y, gameManager.playerAttributes.jumpForce, gameManager.playerAttributes.jumpForce * 5);
                 rb.velocity = fixedVelocidty;
             }
             // Metemos aqui la opción de impulsarnos hacia el suelo
             else if (timeWithoutFloor > 1) 
             {
                 //
-                rb.AddForce(-transform.up * gameManager.jumpForce * 10, ForceMode.Impulse);
+                rb.AddForce(-transform.up * gameManager.playerAttributes.jumpForce * 10, ForceMode.Impulse);
                 //
                 timeWithoutFloor = 0;
             }
@@ -135,7 +135,7 @@ public class Repulsor : MonoBehaviour {
             //Vector3 xzVelocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             //
             robotControl.ChangeDampingType(DampingType.None);
-            rb.AddForce(xzDirection * gameManager.jumpForce * 10, ForceMode.Impulse);
+            rb.AddForce(xzDirection * gameManager.playerAttributes.jumpForce * 10, ForceMode.Impulse);
             //
             dashCooldown = 0;
             // Sonido de dash

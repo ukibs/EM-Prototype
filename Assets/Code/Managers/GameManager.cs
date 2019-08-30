@@ -55,45 +55,38 @@ public class GameManager : MonoBehaviour
     public WorkingWith workingWith = WorkingWith.Bugs;
 
     // Acciones desbloqueadas
-    public int unlockedJumpActions = 0;
-    public int unlockedSprintActions = 0;
-    public int unlockedAttackActions = 0;
-    public int unlockedDefenseActions = 0;
-    //
-    public float maxCharge = 1;
-    // Armas
-    // Puslo
-    // public float pulseForce = 10;
-    // C´ñon
-    //public float canonBaseMuzzleSpeed = 1000;
-    //public float canonMinCharge = 0.5f;
-    // Fuego rapido
-    public float rapidFireRate = 1;
-    //public float rapidFireMuzzleSpeed = 1000;
-    public float maxOverheat = 1;   // NOTA: De momento va ligado al tiempo
-    // Perforante
-    //public float piercingBaseMuzzleSpeed = 2000;
-    //public float piercingBaseProyectileMass = 0.00001f;
-    // Valores unificados
-    // Tocará pelearlos bastante antes de definir base y aumentos
-    public float massPerSecond = 200;
-    public float forcePerSecond = 200;
-    public float currentDensity = 10000;
-    public float proyectileComplexity = 0;
+    //public int unlockedJumpActions = 0;
+    //public int unlockedSprintActions = 0;
+    //public int unlockedAttackActions = 0;
+    //public int unlockedDefenseActions = 0;
+    ////
+    //public float maxCharge = 1;
+    //// Armas
+    //// Fuego rapido
+    //public float rapidFireRate = 1;
+    //public float maxOverheat = 1;   // NOTA: De momento va ligado al tiempo
+    //// Valores unificados
+    //// Tocará pelearlos bastante antes de definir base y aumentos
+    //public float massPerSecond = 200;
+    //public float forcePerSecond = 200;
+    //public float currentDensity = 10000;
+    //public float proyectileComplexity = 0;
+
+    ////
+    //public float movementForcePerSecond = 120;
+    //public float jumpForce = 10;
+    ////
+    //public float sphericShieldStrength = 100;
+    ////
+    //public float maxShield = 10000;
+    //public float maxHealth = 1000;
+    //public float armor = 2000;
+    //public float shieldRechargeRate = 10;
+    //public float repairRate = 1;
 
     //
-    public float movementForcePerSecond = 120;
-    public float jumpForce = 10;
-    //public float sprintForce = 1;
-    //
-    public float sphericShieldStrength = 100;
-    //
-    public float maxShield = 10000;
-    public float maxHealth = 1000;
-    //public float shieldAbsortion = 100;
-    public float armor = 2000;
-    public float shieldRechargeRate = 10;
-    public float repairRate = 1;
+
+    public PlayerAttributes playerAttributes;
 
     #endregion
 
@@ -107,8 +100,6 @@ public class GameManager : MonoBehaviour
     private int currentLevel = 0;
     //
     private LevelInfo[] levelsInfo;
-    //private LevelInfo[] arcadeLevelsInfo;
-    //private LevelInfo[] bossLevelsInfo;
 
     #endregion
 
@@ -171,10 +162,10 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void ActivateNextWeapon()
-    {
-        unlockedAttackActions++;
-    }
+    //public void ActivateNextWeapon()
+    //{
+    //    unlockedAttackActions++;
+    //}
 
     public void ProgressInGame()
     {
@@ -262,5 +253,40 @@ public class GameManager : MonoBehaviour
     }
 
     #endregion
+}
+
+[System.Serializable]
+public class PlayerAttributes
+{
+    // Acciones desbloqueadas
+    public int unlockedJumpActions = 1;
+    public int unlockedSprintActions = 1;
+    public int unlockedAttackActions = 1;
+    public int unlockedDefenseActions = 1;
+    //
+    public float maxCharge = 1;
+    // Armas
+    // Fuego rapido
+    public float rapidFireRate = 1;
+    public float maxOverheat = 1;   // NOTA: De momento va ligado al tiempo
+    // Valores unificados
+    // Tocará pelearlos bastante antes de definir base y aumentos
+    public float massPerSecond = 100;
+    public float forcePerSecond = 100;
+    public float currentDensity = 10000;
+    // Esta se sacará por deducción
+    //private float proyectileComplexity = 0;
+
+    //
+    public float movementForcePerSecond = 300;
+    public float jumpForce = 8;
+    // TODO: Quitar este cuando lo tengamos claro
+    public float sphericShieldStrength = 100;
+    //
+    public float maxShield = 3000;
+    public float maxHealth = 750;
+    public float armor = 150;
+    public float shieldRechargeRate = 100;
+    public float repairRate = 10;
 }
 
