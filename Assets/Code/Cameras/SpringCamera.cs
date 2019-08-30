@@ -25,7 +25,7 @@ public class SpringCamera : MonoBehaviour {
     private Transform currentTarget;
     private Camera cameraComponent;
     private InputManager inputManager;
-    private GameManager gameManager;
+    //private GameManager gameManager;
     private CameraReference cameraReference;
 
     //private float originalY;
@@ -77,7 +77,7 @@ public class SpringCamera : MonoBehaviour {
         //originalY = targetOffset.y;
 
         //
-        gameManager = FindObjectOfType<GameManager>();
+        //gameManager = FindObjectOfType<GameManager>();
         //
         positionWithoutCorrection = transform.position;
         //

@@ -129,7 +129,7 @@ public class Repulsor : MonoBehaviour {
     public void RepulsorDash(Vector3 xzDirection)
     {
         // Salto con el repulsor en vez de con las palas
-        if (inputManager.SprintButton && robotControl.ActiveSprintMode == SprintMode.RepulsorDash && dashCooldown > 1)
+        if (dashCooldown > 1)
         {
             //
             //Vector3 xzVelocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);

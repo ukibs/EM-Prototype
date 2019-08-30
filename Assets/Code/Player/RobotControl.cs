@@ -41,7 +41,7 @@ public enum SprintMode
     Invalid = -1,
 
     Normal,
-    RepulsorDash,
+    //RepulsorDash,
     Adherence,
     //Hook,
 
@@ -125,7 +125,7 @@ public class RobotControl : MonoBehaviour {
     private InputManager inputManager;
     private Repulsor repulsor;
     private GameManager gameManager;
-    private ImpactInfoManager impactInfoManager;
+    //private ImpactInfoManager impactInfoManager;
     private bool inPlay = true;
 
     //
@@ -209,7 +209,7 @@ public class RobotControl : MonoBehaviour {
         repulsor = GetComponent<Repulsor>();
         gameManager = FindObjectOfType<GameManager>();
         audioSource = GetComponent<AudioSource>();
-        impactInfoManager = FindObjectOfType<ImpactInfoManager>();
+        //impactInfoManager = FindObjectOfType<ImpactInfoManager>();
         
         //
         PlayerReference.Initiate(gameObject);
@@ -324,11 +324,17 @@ public class RobotControl : MonoBehaviour {
         // First check sprint
         float sprintMultiplier = 1;
         Vector3 currentUp = Vector3.up;
+        
         //
         if (gameManager.unlockedSprintActions > 0)
         {
             RaycastHit adherencePoint;
-            
+            // TODO: Meter aqui el dash cuando otra habilidad está cargando
+            if (inputManager.SprintButton && actionCharging != ActionCharguing.None && actionCharging != ActionCharguing.Sprint)
+            {
+                repulsor.RepulsorDash(directionX + directionZ);
+            }
+            //
             if (inputManager.SprintButton && actionCharging == ActionCharguing.None)
             {
                 switch (sprintMode)
@@ -336,12 +342,12 @@ public class RobotControl : MonoBehaviour {
                     case SprintMode.Normal:
                         actionCharging = ActionCharguing.Sprint;
                         break;
-                    case SprintMode.RepulsorDash:
-                        // TODO: Aquí haremos el impulso
-                        // Más abajo están los parámetros que necesitamos
-                        // Ahora pilla la velocidad en xz, probablemene quermos aplicarlo en la dirección del eje
-                        repulsor.RepulsorDash(directionX + directionZ);
-                        break;
+                    //case SprintMode.RepulsorDash:
+                    //    // TODO: Aquí haremos el impulso
+                    //    // Más abajo están los parámetros que necesitamos
+                    //    // Ahora pilla la velocidad en xz, probablemene quermos aplicarlo en la dirección del eje
+                    //    repulsor.RepulsorDash(directionX + directionZ);
+                    //    break;
                     case SprintMode.Adherence:
                         // Let's check if there are a surface near
                         if (AdherenceCheck(out adherencePoint) != false)
@@ -397,9 +403,14 @@ public class RobotControl : MonoBehaviour {
             }
             else if (chargedAmount > 0 && actionCharging == ActionCharguing.Sprint)
             {
+                //
+                if (sprintMode == SprintMode.Normal && chargedAmount < 0.1f)
+                    repulsor.RepulsorDash(directionX + directionZ);
+                //
                 chargedAmount = 0;
                 actionCharging = ActionCharguing.None;
                 adhering = false;
+                
             }
         }
 
@@ -534,9 +545,9 @@ public class RobotControl : MonoBehaviour {
             {
                 case JumpMode.ChargedJump:
                     // En ese caso hacer que tenga menos impulso que haciéndolo desde el suelo
-                    float floorSupport = (repulsor.IsOnFloor) ? gameManager.jumpForce : 0;
+                    float floorSupport = (repulsor.IsOnFloor) ? 1 : 0.5f;
                     // Le damos un mínimo de base
-                    rb.AddForce(Vector3.up * (gameManager.jumpForce * chargedAmount + floorSupport), ForceMode.Impulse);
+                    rb.AddForce(Vector3.up * (gameManager.forcePerSecond * chargedAmount * floorSupport), ForceMode.Impulse);
                     //
                     GeneralFunctions.PlaySoundEffect(audioSource, releasingPulseClip);
                     break;
@@ -554,7 +565,7 @@ public class RobotControl : MonoBehaviour {
                         : cameraForward;
                     // TODO: Revisar
                     Vector3 compensatedDirection = (desiredDirection - currentVelocity).normalized;
-                    rb.AddForce(compensatedDirection * (gameManager.jumpForce * chargedAmount + gameManager.jumpForce) * 10, ForceMode.Impulse);
+                    rb.AddForce(compensatedDirection * (gameManager.forcePerSecond * chargedAmount) * 10, ForceMode.Impulse);
                     //
                     GeneralFunctions.PlaySoundEffect(audioSource, releasingPulseClip);
                     break;
@@ -742,10 +753,6 @@ public class RobotControl : MonoBehaviour {
                 //
                 chargedAmount = Mathf.Min(chargedAmount, 1);
             }
-            else if (attackMode == AttackMode.ParticleCascade)
-            {
-                ParticleCascadeAttack();
-            }
             else
             {
                 //
@@ -773,7 +780,7 @@ public class RobotControl : MonoBehaviour {
                     GeneralFunctions.PlaySoundEffect(audioSource, releasingPulseClip);
                     break;
                 case AttackMode.Canon:
-                    //
+                    // TODO: Cambiarlo por complexity cuando lo tengamos claro
                     //if(chargedAmount >= gameManager.canonMinCharge)
                     //{
                     //chargingCanonProyectile.SetActive(false);
@@ -884,9 +891,6 @@ public class RobotControl : MonoBehaviour {
         //
         if (rapidFireCooldown >= 1 / gameManager.rapidFireRate)
         {
-            // Esta vez el muzzlespeed lo calculamos en vez de aplicarlo
-            //float muzzleSpeed = gameManager.forcePerSecond / gameManager.massPerSecond * chargedAmount;
-
             // La calculamos desde los puntos de la ametralladora para más precision
             // TODO: Revisar aqui tambien el cambio de centralPointOffset
             if (EnemyAnalyzer.isActive)
@@ -903,9 +907,9 @@ public class RobotControl : MonoBehaviour {
                 EnemyAnalyzer.estimatedToHitPosition, currentMuzzleSpeed, bulletDrag);
             
             //
-            Vector3 shootForward = (!cameraControl.TargetingPlayer) ?
-                (EnemyAnalyzer.estimatedToHitPosition - machineGunPoints[nextRapidFireSide].position).normalized :
-                machineGunPoints[nextRapidFireSide].forward;
+            //Vector3 shootForward = (!cameraControl.TargetingPlayer) ?
+            //    (EnemyAnalyzer.estimatedToHitPosition - machineGunPoints[nextRapidFireSide].position).normalized :
+            //    machineGunPoints[nextRapidFireSide].forward;
                 
             //
             Vector3 targetPoint;
@@ -927,81 +931,6 @@ public class RobotControl : MonoBehaviour {
             nextRapidFireSide = (nextRapidFireSide) == 0 ? 1 : 0;
             //
             GeneralFunctions.PlaySoundEffect(audioSource, rapidFireClip);
-        }
-    }
-
-    /// <summary>
-    /// Lanza una corriente de partículas de corto alcance
-    /// En cristiano: Ametralladora de granos de arena que se funden por la velocidad a la que salen disparados
-    /// </summary>
-    void ParticleCascadeAttack()
-    {
-
-        // De momento tiro por frame. Es super rápida
-        // Nota: En realidad 60 disparos por segundo tampoco es tanto
-        for (int i = 0; i < machineGunPoints.Length; i++)
-        {
-
-            Vector3 shootForward = (!cameraControl.TargetingPlayer) ?
-                (cameraControl.CurrentTarget.position - machineGunPoints[i].position).normalized :
-                machineGunPoints[i].forward;
-
-            // TODO: Hcaer más optimo
-            EnemyConsistency enemyConsistency = EnemyAnalyzer.enemyConsistency;
-            Vector3 targetPoint = cameraControl.CurrentTarget.position;
-            if (enemyConsistency != null)
-            {
-                targetPoint += enemyConsistency.centralPointOffset;
-            }
-            //
-            //Quaternion shootRotation = Quaternion.LookRotation(targetPoint - machineGunPoints[i].position);
-
-            // TODO: Mover esto a general functions
-            // Lo haremos con raycast
-            // Digamos que la partícula solo aguanta un step antes de desintegrarse
-            RaycastHit hitInfo;
-            // De momento decidmos 50 de alcance
-            // Lo que vendría a ser 3000 m/s
-            // Debug.Log("Shooting");
-            if (Physics.Raycast(machineGunPoints[i].position, shootForward, out hitInfo, 50))
-            {
-                //Debug.Log("Impact on" + hitInfo.collider.name);
-                // Este va a ser más complicado de aligerar
-                EnemyCollider enemyCollider = hitInfo.collider.GetComponent<EnemyCollider>();
-                if (enemyCollider != null)
-                {
-                    //Debug.Log("On enemy");
-                    //EnemyConsistency mainBody = enemyCollider.GetComponentInParent<EnemyConsistency>();
-                    //if(mainBody != null)
-                    //{
-                    //    //
-                    //    float impactDistance = (hitInfo.point - machineGunPoints[i].position).magnitude;
-                    //    // El 50 lo meteremos como parametro
-                    //    float particleDensity = 1600;  // kg/m3
-                    //    float particleInitialVolume = 1 * Mathf.Pow(10, -9); // un milímetro cúbico
-                    //    float particleRelativeVolume = 1 - (impactDistance / 50); // Tenemos en cuenta que se va desintegrando por el camnio
-                    //    float particleMass = particleDensity * particleInitialVolume * particleRelativeVolume;
-                    //    float particleAcceleration = Mathf.Pow(3000, 2); // Tenemos en cuenta que el proyectil frena en seco al impactar
-                    //    float heatBonus = 3f;    // Este me lo invento un poco. Lo investigaremos
-                    //    float impactForce = particleMass * particleAcceleration / 2 * heatBonus;
-                    //    //Debug.Log("Sand impact force: " + impactForce + ". Mass: " + particleMass + ". Acceleration: " + particleAcceleration);
-                    //    // TODO: Trabajar también velocidad relativa
-                    //    mainBody.ReceiveInternalImpact(impactForce, hitInfo.point, enemyCollider.armor);
-                    //}
-
-                    // Vamos a hacer que pele armadura
-                    enemyCollider.Armor--;
-
-                }
-                else
-                {
-                    // Haremos algún efecto en el punto de impacto
-                }
-                //
-                Instantiate(shootParticlePrefab, hitInfo.point, Quaternion.identity);
-            }
-            //
-            chargedAmount = 0.1f;
         }
     }
 

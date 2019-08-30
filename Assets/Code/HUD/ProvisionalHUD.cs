@@ -566,7 +566,7 @@ public class ProvisionalHUD : MonoBehaviour {
             if (inScreen)
             {
                 //
-                EnemyIdentifier enemyIdentifier = enemies[i].GetComponentInParent<EnemyIdentifier>();
+                //EnemyIdentifier enemyIdentifier = enemies[i].GetComponentInParent<EnemyIdentifier>();
                 //
                 GUI.DrawTexture(new Rect(
                     posInScreen.x * Screen.width - 15,
@@ -654,6 +654,10 @@ public class ProvisionalHUD : MonoBehaviour {
     void DrawRadarWithEnemies()
     {
         //
+        float radarXPositon = Screen.width * 33 / 1000;
+        float radarYPosition = Screen.height * 96 / 100;
+        float markerSize = 10;
+        float markerCenter = markerSize / 2;
         // Igual pillamos el current up del player
         // La camara, coño
         float playerDirection = Vector3.SignedAngle(Vector3.forward, cameraControl.transform.forward, Vector3.up);
@@ -662,9 +666,11 @@ public class ProvisionalHUD : MonoBehaviour {
         // TODO: Decidir si dinámico el alcance del radar
 
         // Primero dibujamos el radar
-        GUI.DrawTexture(new Rect(Screen.width * 33 / 1000, Screen.height * 96 / 100 - radarDimensions.y, radarDimensions.x, radarDimensions.y), radarTexture);
+        GUI.DrawTexture(new Rect(radarXPositon, 
+            radarYPosition - radarDimensions.y, 
+            radarDimensions.x, radarDimensions.y), radarTexture);
         // Epicentro si toca
-        DrawEpicenterInRadar(playerDirection);
+        DrawEpicenterInRadar(playerDirection, radarXPositon, radarYPosition, markerSize);
         // Y enemigos
         // TODO: Cogerlo por refencia del manager apropiado cuando lo tengamos listo
         Targeteable[] enemies = FindObjectsOfType<Targeteable>();
@@ -701,7 +707,8 @@ public class ProvisionalHUD : MonoBehaviour {
             EnemyIdentifier enemyIdentifier = enemies[i].GetComponentInParent<EnemyIdentifier>();
             //
             if(enemyIdentifier != null)
-            GUI.DrawTexture(new Rect(Screen.width * 33 / 1000 + posInRadar.x, Screen.height * 96 / 100 - posInRadar.y, 10, 10), 
+            GUI.DrawTexture(new Rect(radarXPositon + posInRadar.x, 
+                radarYPosition - posInRadar.y - markerCenter, markerSize, markerSize), 
                 enemyInScreenTextures[(int)enemyIdentifier.enemyType]);
         }
 
@@ -730,17 +737,20 @@ public class ProvisionalHUD : MonoBehaviour {
             posInRadar.x = radius * Mathf.Cos(angle) + (radarDimensions.x / 2);
             posInRadar.y = radius * Mathf.Sin(angle) + (radarDimensions.y / 2);
             //
-            GUI.DrawTexture(new Rect(Screen.width * 33 / 1000 + posInRadar.x, Screen.height * 96 / 100 - posInRadar.y, 10, 10), alertTexture);
+            GUI.DrawTexture(new Rect(radarXPositon + posInRadar.x, 
+                radarYPosition - posInRadar.y - markerCenter, markerSize, markerSize), alertTexture);
         }
     }
 
     /// <summary>
     /// Dibuja epicentro en el radar
     /// </summary>
-    private void DrawEpicenterInRadar(float playerDirection)
+    private void DrawEpicenterInRadar(float playerDirection, float radarXPositon, float radarYPosition, float markerSize)
     {
         if (enemyManager.CurrentEpicenterMode == EnemyManager.EpicenterMode.FixedPoint)
         {
+            //
+            float markerCenter = markerSize / 2;
             //
             Vector3 epicenterOffset = enemyManager.EpicenterPoint - playerIntegrity.transform.position;
             epicenterOffset.y = 0;
@@ -761,7 +771,8 @@ public class ProvisionalHUD : MonoBehaviour {
             posInRadar.x = radius * Mathf.Cos(angle) + (radarDimensions.x / 2);
             posInRadar.y = radius * Mathf.Sin(angle) + (radarDimensions.y / 2);
             // Y dibujamos
-            GUI.DrawTexture(new Rect(posInRadar.x, Screen.height - posInRadar.y, 10, 10),
+            GUI.DrawTexture(new Rect(radarXPositon + posInRadar.x, 
+                radarYPosition - posInRadar.y - markerCenter, markerSize, markerSize),
                 enemyHealthTexture);
         }
     }

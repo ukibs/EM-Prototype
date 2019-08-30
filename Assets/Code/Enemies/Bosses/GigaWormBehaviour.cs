@@ -94,7 +94,7 @@ public class GigaWormBehaviour : Targeteable
 
     private WormStatus currentState = WormStatus.Wandering;
     private RobotControl player;
-    private Rigidbody rb;
+    //private Rigidbody rb;
     private ProvLevelManager levelManager;
     private CarolBaseHelp carolHelp;
     private CameraReference cameraReference;
@@ -153,7 +153,7 @@ public class GigaWormBehaviour : Targeteable
     {
         player = FindObjectOfType<RobotControl>();
         //Debug.Log("Player found? " + player);
-        rb = GetComponent<Rigidbody>();
+        //rb = GetComponent<Rigidbody>();
         currentSpeed = wanderingMovementSpeed;
         audioSource = GetComponent<AudioSource>();
         levelManager = FindObjectOfType<ProvLevelManager>();
@@ -257,7 +257,7 @@ public class GigaWormBehaviour : Targeteable
         if (player != null)
         {
             //
-            Vector3 playerDirection = player.transform.position - transform.position;
+            //Vector3 playerDirection = player.transform.position - transform.position;
             //
             Gizmos.DrawLine(transform.position, player.transform.position);
         }

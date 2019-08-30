@@ -21,7 +21,7 @@ public class EmissiveController : MonoBehaviour
     private bool towardsFinal;
 
     private Material material;
-    private Renderer ren;
+    //private Renderer ren;
     private Color lerpColor;
     #endregion
 
@@ -33,7 +33,7 @@ public class EmissiveController : MonoBehaviour
 
         timer = timeToChangeColor;
 
-        ren = gameObject.GetComponent<Renderer>();
+        //ren = gameObject.GetComponent<Renderer>();
         material = gameObject.GetComponent<Renderer>().material;
     }
 

@@ -159,7 +159,7 @@ public class EnemyConsistency : Targeteable {
         // Estas no las queremos chequear aqui
         Bullet bullet = collision.collider.GetComponent<Bullet>();
         // Chequeamos diferencia de velocidades para ver si solo es fricción u hostiazo
-        Vector3 velocityOffset = previousVelocity - rb.velocity;
+        //Vector3 velocityOffset = previousVelocity - rb.velocity;
         // De momento diferencia de 1
         if(bullet == null && collision.collider.tag != "Sand")
         {

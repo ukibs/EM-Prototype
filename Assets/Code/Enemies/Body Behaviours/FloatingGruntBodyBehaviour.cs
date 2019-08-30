@@ -33,6 +33,13 @@ public class FloatingGruntBodyBehaviour : EnemyBaseBodyBehaviour
             VerticalMovement();
     }
 
+    protected override void OnCollisionEnter(Collision collision)
+    {
+        base.OnCollisionEnter(collision);
+        //
+        rb.velocity += Vector3.up * maxSpeed;
+    }
+
     //
     protected void VerticalMovement()
     {
@@ -45,11 +52,12 @@ public class FloatingGruntBodyBehaviour : EnemyBaseBodyBehaviour
             //
             //rb.AddForce(Vector3.up * liftForcePerSecond);
             //
-            rb.velocity += Vector3.up * maxSpeed;
+            float forceToApply = maxSpeed * (1 - (transform.position.y / idealHeight));
+            rb.velocity += Vector3.up * forceToApply;
         }
         // Para evitar obstáculos
-        if(CheckIfObstacleInMovingDirection())
-            rb.velocity += Vector3.up * maxSpeed;
+        //if(CheckIfObstacleInMovingDirection())
+            //rb.velocity += Vector3.up * maxSpeed;
 
     }
 }

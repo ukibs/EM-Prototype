@@ -15,7 +15,7 @@ public class CameraReference : MonoBehaviour {
 
     private Transform previousObjective;
     private Quaternion previousObjectiveRotation;
-    private float transitionProgression = 0;
+    //private float transitionProgression = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -24,7 +24,7 @@ public class CameraReference : MonoBehaviour {
         inputManager = FindObjectOfType<InputManager>();
         playerControl = FindObjectOfType<RobotControl>();
         //
-        transitionProgression = transitionTimeBetweenEnemies;
+        //transitionProgression = transitionTimeBetweenEnemies;
 	}
 	
 	// Update is called once per frame

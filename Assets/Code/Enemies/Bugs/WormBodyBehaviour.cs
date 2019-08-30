@@ -106,7 +106,7 @@ public class WormBodyBehaviour : EnemyBaseBodyBehaviour
     {
         //base.DecideActionToDo();
         //
-        Vector3 playerDistance = player.transform.position - transform.position;
+        //Vector3 playerDistance = player.transform.position - transform.position;
         //
         for (int i = 0; i < behaviour.Length; i++)
         {
@@ -192,7 +192,7 @@ public class WormBodyBehaviour : EnemyBaseBodyBehaviour
     }
 
     //
-    protected new void Lunge()
+    protected void Lunge()
     {
         //
         if (HasGroundUnderneath() && grounded && !lunging)

@@ -84,13 +84,13 @@ public class GameManager : MonoBehaviour
     //
     public float movementForcePerSecond = 120;
     public float jumpForce = 10;
-    public float sprintForce = 1;
+    //public float sprintForce = 1;
     //
     public float sphericShieldStrength = 100;
     //
     public float maxShield = 10000;
     public float maxHealth = 1000;
-    public float shieldAbsortion = 100;
+    //public float shieldAbsortion = 100;
     public float armor = 2000;
     public float shieldRechargeRate = 10;
     public float repairRate = 1;

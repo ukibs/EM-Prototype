@@ -409,7 +409,7 @@ public class TerrainManager : MonoBehaviour
             //
             int displacementY = (int)playerOffsetInUnits.y;
             int displaceMentYSign = (int)Mathf.Sign(displacementY);
-            int absoluteDisplaceMentY = Mathf.Abs(displacementY);
+            //int absoluteDisplaceMentY = Mathf.Abs(displacementY);
             // 
             sideToGet = 0;
             sideToPut = 0;
@@ -475,7 +475,7 @@ public class TerrainManager : MonoBehaviour
             //
             int displacementX = (int)playerOffsetInUnits.x;
             int displacementXSign = (int)Mathf.Sign(displacementX);
-            int absoluteDisplaceMentX = Mathf.Abs(displacementX);
+            //int absoluteDisplaceMentX = Mathf.Abs(displacementX);
             //
             sideToGet = 0;
             sideToPut = 0;

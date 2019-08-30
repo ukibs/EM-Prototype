@@ -9,7 +9,7 @@ public class ImpactInfoManager : MonoBehaviour {
 
     private RobotControl robotControl;
     private ImpactInfo rapidFireImpactInfo;
-    private bool rapidFireActive;
+    //private bool rapidFireActive;
 
     private Camera mainCamera;
 
@@ -97,7 +97,7 @@ public class ImpactInfoManager : MonoBehaviour {
             rapidFireImpactInfo.position = point;
             rapidFireImpactInfo.screenPosition = screenPosition;
             //
-            rapidFireActive = true;
+            //rapidFireActive = true;
             rapidFireImpactInfo.timeAlive = 0;
         }
 

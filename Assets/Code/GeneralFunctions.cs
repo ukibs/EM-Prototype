@@ -13,7 +13,7 @@ public static class GeneralFunctions
         float dt, ShootCalculation shootCalculation = ShootCalculation.Force)
     {
         
-        Rigidbody prefabRb = prefab.GetComponent<Rigidbody>();
+        //Rigidbody prefabRb = prefab.GetComponent<Rigidbody>();
         // Get the muzzle speed in meters/second (rememeber 1 is a Ton)
         // TODO: Lo acabaremos quitando
         float bulletMuzzleSpeed = 0;
@@ -184,7 +184,7 @@ public static class GeneralFunctions
         Vector3 directionToObjective = distanceToObjective.normalized;
         //Vector3 proyectile3dSpeed = directionToObjective * muzzleSpeed;
 
-        float secondsToObjective = distanceToObjective.magnitude / muzzleSpeed; // Esto sería sin rozamiento
+        //float secondsToObjective = distanceToObjective.magnitude / muzzleSpeed; // Esto sería sin rozamiento
         float secondsToObjectiveWithDrag = EstimateFlyingTimeWithDrag(startPoint, objectivePoint, muzzleSpeed, proyectileDrag);
 
         //Debug.Log("Seconds to reach objective: Without drag " + secondsToObjective + ", with drag " + secondsToObjectiveWithDrag);

@@ -42,7 +42,7 @@ public class ExplosiveBullet : MonoBehaviour
     public int fragmentsPerWidth = 4;
     public AudioClip explosionClip;
 
-    private float fragmentMass;
+    //private float fragmentMass;
 
     private float explosionForce;
     //private float explosionForceOwnMeasure;
@@ -73,8 +73,8 @@ public class ExplosiveBullet : MonoBehaviour
 
         // Vamos a asumir que la masa de cada fragmento es la fracción correspondiente del proyectil
         // Una vez descontada la carga explosiva
-        if (generatesFragments)
-            fragmentMass = (proyectileRb.mass - (explosiveLoad / 1000)) / (fragmentsPerHeight * fragmentsPerWidth);
+        //if (generatesFragments)
+        //    fragmentMass = (proyectileRb.mass - (explosiveLoad / 1000)) / (fragmentsPerHeight * fragmentsPerWidth);
     }
 
     protected void OnCollisionEnter(Collision collision)
@@ -142,6 +142,7 @@ public class ExplosiveBullet : MonoBehaviour
         float angleOffsetInWidth = 360 / fragmentsPerWidth;
         //
         float chargeMassRatio = explosiveLoad / proyectileRb.mass;
+        // TODO: Determinar también masa de los fragmentos
         float squareKCoefficient = 1 / 3;
         float fragmentSpeed = Mathf.Sqrt(2 * explosionForce * chargeMassRatio / (1 + squareKCoefficient * chargeMassRatio));
         //
@@ -157,6 +158,7 @@ public class ExplosiveBullet : MonoBehaviour
                 GameObject nextFragment = Instantiate(fragmentPrefab, transform.position, Quaternion.LookRotation(proyectileDirection));
                 Rigidbody fragmentRb = nextFragment.GetComponent<Rigidbody>();
                 //
+                // TODO: Determinar también masa de los fragmentos
                 fragmentRb.velocity = proyectileDirection.normalized * fragmentSpeed;
             }
         }

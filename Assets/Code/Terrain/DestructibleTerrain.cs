@@ -14,7 +14,7 @@ public class DestructibleTerrain : MonoBehaviour
     public AudioClip destructionClip;
 
     //
-    private bool destroyed = false;
+    //private bool destroyed = false;
     private AudioObjectManager audioObjectManager;
     private Rigidbody[] brokenVersionRigidbodies;
     

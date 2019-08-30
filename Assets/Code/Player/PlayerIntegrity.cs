@@ -24,7 +24,7 @@ public class PlayerIntegrity : MonoBehaviour
 
     //
     private bool shieldsDepleted = false;
-    private float extraDefense = 0;
+    //private float extraDefense = 0;
 
     #region Properties
 

@@ -74,7 +74,7 @@ public class BigWormBodyBehaviour : EnemyBaseBodyBehaviour
     protected override void DecideActionToDo()
     {
         //base.DecideActionToDo();
-        Vector3 playerDistanceAndDirection = player.transform.position - headRb.transform.position;
+        //Vector3 playerDistanceAndDirection = player.transform.position - headRb.transform.position;
         
     }
 

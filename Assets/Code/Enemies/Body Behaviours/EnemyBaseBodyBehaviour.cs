@@ -244,7 +244,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
         if (player != null)
         {
             //
-            Vector3 playerDirection = player.transform.position - transform.position;
+            //Vector3 playerDirection = player.transform.position - transform.position;
             //playerDirection.y = 0.0f;
             
             //
