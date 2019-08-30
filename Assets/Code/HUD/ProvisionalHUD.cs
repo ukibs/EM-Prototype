@@ -80,7 +80,7 @@ public class ProvisionalHUD : MonoBehaviour {
     //
     private Vector2 radarDimensions;
     // De momento que sea un tercion del alto de la pantalla
-    private float radarProportion = 0.3f;
+    private float radarProportion = 0.25f;
     //
     private float currentAlpha = 1;
     private float fadeDirection = -1;
@@ -343,9 +343,9 @@ public class ProvisionalHUD : MonoBehaviour {
     void PlayerHealthAndShields()
     {
         //
-        float barMaxLength = Screen.width * 6 / 10;
+        float barMaxLength = Screen.width * 54 / 100;
         float barHeight = Screen.height * 1 / 15;
-        float generalStartPoint = Screen.width * 2/10 /*- (barMaxLength * 3 / 2)*/;
+        float generalStartPoint = Screen.width * 23/100 /*- (barMaxLength * 3 / 2)*/;
         float barPosY = Screen.height * 7 / 100;
 
         // Dibujamos el frame lo primero
@@ -662,7 +662,7 @@ public class ProvisionalHUD : MonoBehaviour {
         // TODO: Decidir si dinámico el alcance del radar
 
         // Primero dibujamos el radar
-        GUI.DrawTexture(new Rect(0, Screen.height - radarDimensions.y, radarDimensions.x, radarDimensions.y), radarTexture);
+        GUI.DrawTexture(new Rect(Screen.width * 33 / 1000, Screen.height * 96 / 100 - radarDimensions.y, radarDimensions.x, radarDimensions.y), radarTexture);
         // Epicentro si toca
         DrawEpicenterInRadar(playerDirection);
         // Y enemigos
@@ -701,7 +701,7 @@ public class ProvisionalHUD : MonoBehaviour {
             EnemyIdentifier enemyIdentifier = enemies[i].GetComponentInParent<EnemyIdentifier>();
             //
             if(enemyIdentifier != null)
-            GUI.DrawTexture(new Rect(posInRadar.x, Screen.height - posInRadar.y, 10, 10), 
+            GUI.DrawTexture(new Rect(Screen.width * 33 / 1000 + posInRadar.x, Screen.height * 96 / 100 - posInRadar.y, 10, 10), 
                 enemyInScreenTextures[(int)enemyIdentifier.enemyType]);
         }
 
@@ -730,7 +730,7 @@ public class ProvisionalHUD : MonoBehaviour {
             posInRadar.x = radius * Mathf.Cos(angle) + (radarDimensions.x / 2);
             posInRadar.y = radius * Mathf.Sin(angle) + (radarDimensions.y / 2);
             //
-            GUI.DrawTexture(new Rect(posInRadar.x, Screen.height - posInRadar.y, 10, 10), alertTexture);
+            GUI.DrawTexture(new Rect(Screen.width * 33 / 1000 + posInRadar.x, Screen.height * 96 / 100 - posInRadar.y, 10, 10), alertTexture);
         }
     }
 

@@ -98,8 +98,8 @@ public class ProvLevelManager : MonoBehaviour
         if(gameManager.gameMode == GameMode.Arcade)
         {
             // Ya lo haremos en el hud mas adelante
-            GUI.Label(new Rect(30, 100, 300, 30), "Enemies destroyed", guiSkin.label);
-            GUI.Label(new Rect(30, 130, 300, 30), enemiesDestroyed + "/" + enemiesToDestroy, guiSkin.label);
+            GUI.Label(new Rect(Screen.width * 55 / 1000, Screen.height * 20 / 100, 300, 30), "Enemies destroyed", guiSkin.label);
+            GUI.Label(new Rect(Screen.width * 55 / 1000, Screen.height * 23 / 100, 300, 30), enemiesDestroyed + "/" + enemiesToDestroy, guiSkin.label);
             //
 
             // intento de que salgan los enemigos actuales por pantalla
@@ -107,7 +107,7 @@ public class ProvLevelManager : MonoBehaviour
             //for (int i = 0; i < enemyManager.ActiveEnemies.Length; i++)
             //    totalActiveEnemies += enemyManager.ActiveEnemies[i];
             int totalActiveEnemies = FindObjectsOfType<EnemyConsistency>().Length;
-            GUI.Label(new Rect(Screen.width / 2 - 150, Screen.height * 4 / 5 + 50, 300, 50),
+            GUI.Label(new Rect(Screen.width / 2 - 150, Screen.height * 75 / 100 + 50, 300, 50),
                "Active Enemies: " + totalActiveEnemies, guiSkin.label);
         }
         
