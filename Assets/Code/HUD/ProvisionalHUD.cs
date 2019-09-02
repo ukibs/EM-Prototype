@@ -63,6 +63,10 @@ public class ProvisionalHUD : MonoBehaviour {
     public float radarRange = 500;
     // TODO: Meter texturas para diferenciar alturas
 
+    //
+    public Texture[] charguingActingTextures;
+    public float animationFrameDuration = 6;
+
     // Controls
     public Texture keyboardControls;
     public Texture gamepadControls;
@@ -84,9 +88,16 @@ public class ProvisionalHUD : MonoBehaviour {
     //
     private float currentAlpha = 1;
     private float fadeDirection = -1;
+    //
+    private Vector2 currentActionCharguingPosition;
+    private Rect diamondRect = new Rect(Screen.width * 0.75f, Screen.height * 0.7f,
+            Screen.width * 0.15f, Screen.width * 0.15f);
+    private bool charguingAnimationPlaying = false;
+    private int charguingAnimationCurrentFrame = 0;
+    private int charguingAnimationCurrentFrameStep = 0;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         robotControl = FindObjectOfType<RobotControl>();
         mainCamera = Camera.main;
         impactInfoManager = FindObjectOfType<ImpactInfoManager>();
@@ -269,8 +280,8 @@ public class ProvisionalHUD : MonoBehaviour {
     void DrawAbilityIcons()
     {
         // Icons dimentsions
-        Rect diamondRect = new Rect(Screen.width * 0.75f, Screen.height * 0.7f, 
-            Screen.width * 0.15f, Screen.width * 0.15f);
+        //Rect diamondRect = new Rect(Screen.width * 0.75f, Screen.height * 0.7f, 
+        //    Screen.width * 0.15f, Screen.width * 0.15f);
         Rect chargeFrameRect = new Rect(Screen.width * 0.87f, Screen.height * 0.7f,
             Screen.width * 0.1f, Screen.width * 0.15f);
         //
@@ -283,8 +294,17 @@ public class ProvisionalHUD : MonoBehaviour {
         GUI.DrawTexture(diamondRect, diamondsBackgroundTexture);
         GUI.DrawTextureWithTexCoords(chargeRect, chargeTexture, chargeCoordRect);
         GUI.DrawTexture(chargeFrameRect, chargeFrameTexture);
+        
         //
-        //ChargeDrawing();
+        if(robotControl.CurrentActionCharging != ActionCharguing.None && !charguingAnimationPlaying)
+        {
+            AssignChargeDrawingPosition();
+            charguingAnimationPlaying = true;
+        }
+        
+        //
+        if(charguingAnimationPlaying)
+        ChargeDrawing();
 
 
 
@@ -326,33 +346,61 @@ public class ProvisionalHUD : MonoBehaviour {
     }
 
     //
-    void ChargeDrawing()
+    void AssignChargeDrawingPosition()
     {
-        
         // Decidimos las coordenadas
-        Vector2 chargePos = new Vector2();
+        //Vector2 chargePos = new Vector2();
         switch (robotControl.CurrentActionCharging)
         {
             case ActionCharguing.Attack:
-                chargePos = new Vector2(Screen.width - 100, Screen.height - 150);
+                currentActionCharguingPosition = 
+                    new Vector2(diamondRect.x + (diamondRect.width / 2), diamondRect.y + (diamondRect.height / 4));
                 break;
             case ActionCharguing.Defense:
-                chargePos = new Vector2(Screen.width - 150, Screen.height - 200);
+                currentActionCharguingPosition =
+                    new Vector2(diamondRect.x + (diamondRect.width / 4), diamondRect.y);
                 break;
             case ActionCharguing.Jump:
-                chargePos = new Vector2(Screen.width - 150, Screen.height - 100);
+                currentActionCharguingPosition =
+                    new Vector2(diamondRect.x + (diamondRect.width / 4), diamondRect.y + (diamondRect.height / 2));
                 break;
             case ActionCharguing.Sprint:
-                chargePos = new Vector2(Screen.width - 200, Screen.height - 150);
+                currentActionCharguingPosition =
+                    new Vector2(diamondRect.x, diamondRect.y + (diamondRect.height / 4));
                 break;
             default:
-                chargePos = new Vector2(1000, 1000); //Lo mandamos a cuenca
+                currentActionCharguingPosition = new Vector2(1000, 1000); //Lo mandamos a cuenca
                 break;
         }
+    }
+
+    //
+    void ChargeDrawing()
+    {
+        //
+        charguingAnimationCurrentFrameStep++;
+        //
+        if (charguingAnimationCurrentFrameStep >= animationFrameDuration)
+        {
+            charguingAnimationCurrentFrame++;
+            charguingAnimationCurrentFrameStep = 0;
+        }
+            
+        //
+        if (charguingAnimationCurrentFrame >= charguingActingTextures.Length)
+        {
+            charguingAnimationCurrentFrame = 0;
+            //
+            if(robotControl.CurrentActionCharging == ActionCharguing.None)
+            {
+                charguingAnimationPlaying = false;
+            }
+        }
+            
 
         //
-        float chargedAmount = robotControl.ChargedAmount;
-        GUI.DrawTexture(new Rect(chargePos.x, chargePos.y + ((1 - chargedAmount) * 100), 100, 100 * chargedAmount), chargeTexture);
+        GUI.DrawTexture(new Rect(currentActionCharguingPosition.x, currentActionCharguingPosition.y, 
+            diamondRect.width / 2, diamondRect.height / 2), charguingActingTextures[charguingAnimationCurrentFrame]);
     }
 
     //

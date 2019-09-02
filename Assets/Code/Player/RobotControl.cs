@@ -901,12 +901,17 @@ public class RobotControl : MonoBehaviour {
             //
             Vector3 targetPoint;
             if (EnemyAnalyzer.isActive)
+            {
                 targetPoint = EnemyAnalyzer.estimatedToHitPosition;
+                //
+                Quaternion shootRotation = Quaternion.LookRotation(targetPoint - machineGunPoints[nextRapidFireSide].position);
+                machineGunPoints[nextRapidFireSide].rotation = shootRotation;
+            }
             else
-                targetPoint = cameraControl.CurrentTarget.position;
-            //
-            Quaternion shootRotation = Quaternion.LookRotation(targetPoint - machineGunPoints[nextRapidFireSide].position);
-            machineGunPoints[nextRapidFireSide].rotation = shootRotation;
+            {
+                //targetPoint = cameraControl.CurrentTarget.position;
+                machineGunPoints[nextRapidFireSide].rotation = transform.rotation;
+            }
 
             //
             CharguedProyectileAttack(proyectileToUse, machineGunPoints[nextRapidFireSide], dt);

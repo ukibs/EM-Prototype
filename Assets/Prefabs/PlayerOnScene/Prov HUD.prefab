@@ -87,6 +87,13 @@ MonoBehaviour:
   damageIndicatorLifeTime: 2
   radarTexture: {fileID: 2800000, guid: 5095e6d4c6ecb9b4ba2c34395262d1ff, type: 3}
   radarRange: 500
+  charguingActingTextures:
+  - {fileID: 2800000, guid: 710e662367668bb4886ec3291d5669d9, type: 3}
+  - {fileID: 2800000, guid: b6f0ef9077788c4469600a9e18e3c791, type: 3}
+  - {fileID: 2800000, guid: c0d4974842e5ec549871a8860ccd5eb5, type: 3}
+  - {fileID: 2800000, guid: 46e89d8cf2473834b80a62712ba2fd95, type: 3}
+  - {fileID: 2800000, guid: 4d24adfcec212c24bbe80d683ba8f2ea, type: 3}
+  animationFrameDuration: 12
   keyboardControls: {fileID: 2800000, guid: 47d09ea007cdd2d43b83fde139df457c, type: 3}
   gamepadControls: {fileID: 2800000, guid: e6935174e51be4446b4769c546f1d1c8, type: 3}
 --- !u!114 &72231465
