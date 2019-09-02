@@ -21,13 +21,13 @@ public class ProvisionalHUD : MonoBehaviour {
     public Texture[] enemyInScreenTextures;
     public Texture targetedEnemyEstimatedFuturePositionTexture;
     public Texture testingVelocityIcon;
-    public Texture diamondsTexture;
+    public Texture chargeFrameTexture;
+    public Texture chargeTexture;
     public Texture diamondsBackgroundTexture;
-    public Texture shieldDamageTexture;
-    public Texture hullDamageTexture;
+    public Texture damageDirectionTexture;
 
     // Color Textures
-    public Texture chargeTexture;
+    
     public Texture playerShieldTexture;
     public Texture playerDepletedShieldTexture;
     public Texture playerHealthTexture;
@@ -168,7 +168,7 @@ public class ProvisionalHUD : MonoBehaviour {
         ShowPlayerSpeed();
 
         //
-        ShowChargedAmount();
+        //ShowChargedAmount();
 
         //
         ShowOverheat();
@@ -268,13 +268,28 @@ public class ProvisionalHUD : MonoBehaviour {
     //
     void DrawAbilityIcons()
     {
+        // Icons dimentsions
+        Rect diamondRect = new Rect(Screen.width * 0.75f, Screen.height * 0.7f, 
+            Screen.width * 0.15f, Screen.width * 0.15f);
+        Rect chargeFrameRect = new Rect(Screen.width * 0.87f, Screen.height * 0.7f,
+            Screen.width * 0.1f, Screen.width * 0.15f);
+        //
+        float chargeRectHeight = robotControl.ChargedAmount * chargeFrameRect.height;
+        Rect chargeRect = new Rect(chargeFrameRect.x, chargeFrameRect.y + chargeFrameRect.height - chargeRectHeight, 
+            chargeFrameRect.width, chargeRectHeight);
+        Rect chargeCoordRect = new Rect(0, 0, 1, robotControl.ChargedAmount);
+
         // Abilities diamond and icons
-        GUI.DrawTexture(new Rect(Screen.width * 800 / 1000, Screen.height * 724 / 1000, 200, 200), diamondsBackgroundTexture);
-        GUI.DrawTexture(new Rect(Screen.width * 910 / 1000, Screen.height * 725 / 1000, 100, 200), diamondsTexture);
+        GUI.DrawTexture(diamondRect, diamondsBackgroundTexture);
+        GUI.DrawTextureWithTexCoords(chargeRect, chargeTexture, chargeCoordRect);
+        GUI.DrawTexture(chargeFrameRect, chargeFrameTexture);
         //
-        ChargeDrawing();
+        //ChargeDrawing();
+
+
+
         //
-        Texture iconToUse = null;
+        //Texture iconToUse = null;
         /*
         // Jump ones
         if (gameManager.playerAttributes.unlockedJumpActions > 0)
@@ -626,14 +641,14 @@ public class ProvisionalHUD : MonoBehaviour {
             Vector2 pivotPoint = new Vector2(Screen.width / 2, Screen.height / 2);
             GUIUtility.RotateAroundPivot(damageIndicators[i].angle, pivotPoint);
             //
-            Texture textureToUse = shieldDamageTexture;
+            Texture textureToUse = damageDirectionTexture;
             switch (damageIndicators[i].damageType)
             {
                 case DamageType.Shield:
-                    textureToUse = shieldDamageTexture;
+                    textureToUse = damageDirectionTexture;
                     break;
                 case DamageType.Hull:
-                    textureToUse = hullDamageTexture;
+                    textureToUse = damageDirectionTexture;
                     break;
             }
             //

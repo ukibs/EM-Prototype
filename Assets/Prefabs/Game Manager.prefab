@@ -45,24 +45,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameMode: 0
   workingWith: 1
-  unlockedJumpActions: 1
-  unlockedSprintActions: 1
-  unlockedAttackActions: 1
-  unlockedDefenseActions: 1
-  maxCharge: 1
-  rapidFireRate: 10
-  maxOverheat: 1
-  massPerSecond: 100
-  forcePerSecond: 100
-  currentDensity: 10000
-  proyectileComplexity: 0
-  movementForcePerSecond: 300
-  jumpForce: 8
-  sprintForce: 0.4
-  sphericShieldStrength: 100
-  maxShield: 3000
-  maxHealth: 750
-  shieldAbsortion: 0
-  armor: 150
-  shieldRechargeRate: 100
-  repairRate: 10
+  playerAttributes:
+    unlockedJumpActions: 1
+    unlockedSprintActions: 1
+    unlockedAttackActions: 1
+    unlockedDefenseActions: 1
+    maxCharge: 1
+    rapidFireRate: 10
+    maxOverheat: 2
+    massPerSecond: 100
+    forcePerSecond: 100
+    currentDensity: 10000
+    movementForcePerSecond: 300
+    jumpForce: 8
+    sphericShieldStrength: 100
+    maxShield: 3000
+    maxHealth: 750
+    armor: 150
+    shieldRechargeRate: 100
+    repairRate: 10

@@ -874,9 +874,9 @@ public class RobotControl : MonoBehaviour {
     void RapidFireAttack(float dt)
     {
         //
-        rapidFireCooldown += dt;
+        //rapidFireCooldown += dt;
         //
-        if (rapidFireCooldown >= 1 / gameManager.playerAttributes.rapidFireRate)
+        if (/*rapidFireCooldown*/ chargedAmount >= 1 / gameManager.playerAttributes.rapidFireRate)
         {
             // La calculamos desde los puntos de la ametralladora para más precision
             // TODO: Revisar aqui tambien el cambio de centralPointOffset
@@ -912,8 +912,9 @@ public class RobotControl : MonoBehaviour {
             CharguedProyectileAttack(proyectileToUse, machineGunPoints[nextRapidFireSide], dt);
 
             // 
+            //chargedAmount = 0.01f;
+            //rapidFireCooldown -= 1 / gameManager.playerAttributes.rapidFireRate;
             chargedAmount = 0.01f;
-            rapidFireCooldown -= 1 / gameManager.playerAttributes.rapidFireRate;
             //
             nextRapidFireSide = (nextRapidFireSide) == 0 ? 1 : 0;
             //
