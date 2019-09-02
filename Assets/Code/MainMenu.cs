@@ -218,52 +218,54 @@ public class MainMenu : MonoBehaviour
         // Force per second
         GUI.Label(new Rect(Screen.width / 2, baseHeight, 300, 30), "Force per second: ", guiSkin.label);
         GUI.Label(new Rect(Screen.width / 2, baseHeight + 30, 300, 30), gameManager.playerAttributes.forcePerSecond + " N", guiSkin.label);
+        GUI.Button(new Rect(Screen.width / 2, baseHeight + 30, 30, 30), "+", guiSkin.button);
         // Mass per second
-        GUI.Label(new Rect(Screen.width / 2, 160, 300, 30), "Mass per second: ", guiSkin.label);
-        GUI.Label(new Rect(Screen.width / 2, 190, 300, 30), gameManager.playerAttributes.massPerSecond + " g", guiSkin.label);
+        GUI.Label(new Rect(Screen.width / 2, baseHeight + 60, 300, 30), "Mass per second: ", guiSkin.label);
+        GUI.Label(new Rect(Screen.width / 2, baseHeight + 90, 300, 30), gameManager.playerAttributes.massPerSecond + " g", guiSkin.label);
         // Rapid fire rate of fire
-        GUI.Label(new Rect(Screen.width / 2, 220, 300, 30), "Rapid fire rate: ", guiSkin.label);
-        GUI.Label(new Rect(Screen.width / 2, 250, 300, 30), gameManager.playerAttributes.rapidFireRate + " bullets/s", guiSkin.label);
+        GUI.Label(new Rect(Screen.width / 2, baseHeight + 120, 300, 30), "Rapid fire rate: ", guiSkin.label);
+        GUI.Label(new Rect(Screen.width / 2, baseHeight + 150, 300, 30), gameManager.playerAttributes.rapidFireRate + " bullets/s", guiSkin.label);
+        
         // Resultados de la mejora de los atributos
         // Velocida de salida
         float muzzleSpeed = (gameManager.playerAttributes.forcePerSecond / (gameManager.playerAttributes.massPerSecond / 1000));
-        GUI.Label(new Rect(Screen.width / 2 + 300, 100, 300, 30), "Muzzle speed: ", guiSkin.label);
-        GUI.Label(new Rect(Screen.width / 2 + 300, 130, 300, 30), 
+        GUI.Label(new Rect(Screen.width / 2 + 300, baseHeight, 300, 30), "Muzzle speed: ", guiSkin.label);
+        GUI.Label(new Rect(Screen.width / 2 + 300, baseHeight + 30, 300, 30), 
            muzzleSpeed  + " m/s", guiSkin.label);
         // Energía cinética
         float kineticEnergy = GeneralFunctions.GetBodyKineticEnergy(muzzleSpeed, gameManager.playerAttributes.massPerSecond) / 1000000;
-        GUI.Label(new Rect(Screen.width / 2 + 300, 160, 300, 30), "Proyectile K energy: ", guiSkin.label);
-        GUI.Label(new Rect(Screen.width / 2 + 300, 190, 300, 30),
+        GUI.Label(new Rect(Screen.width / 2 + 300, baseHeight + 60, 300, 30), "Proyectile K energy: ", guiSkin.label);
+        GUI.Label(new Rect(Screen.width / 2 + 300, baseHeight + 90, 300, 30),
             kineticEnergy + " kJ", guiSkin.label);
         // Energía cinética (fuego rápido)
         float massPerBullet = gameManager.playerAttributes.massPerSecond * (1 / gameManager.playerAttributes.rapidFireRate);
         float rapidFireKineticEnergy = GeneralFunctions.GetBodyKineticEnergy(muzzleSpeed, massPerBullet) / 1000000;
-        GUI.Label(new Rect(Screen.width / 2 + 300, 220, 300, 30), "Proyectile K energy: ", guiSkin.label);
-        GUI.Label(new Rect(Screen.width / 2 + 300, 250, 300, 30),
+        GUI.Label(new Rect(Screen.width / 2 + 300, baseHeight + 120, 300, 30), "Proyectile K energy: ", guiSkin.label);
+        GUI.Label(new Rect(Screen.width / 2 + 300, baseHeight + 150, 300, 30),
             rapidFireKineticEnergy + " kJ", guiSkin.label);
 
 
         // TODO: Meter la potencia de la bala
 
         // Carga máxima
-        GUI.Label(new Rect(Screen.width / 2, 280, 300, 30), "Max paddle charge: ", guiSkin.label);
-        GUI.Label(new Rect(Screen.width / 2, 310, 300, 30),
+        GUI.Label(new Rect(Screen.width / 2, baseHeight + 180, 300, 30), "Max paddle charge: ", guiSkin.label);
+        GUI.Label(new Rect(Screen.width / 2, baseHeight + 210, 300, 30),
             gameManager.playerAttributes.maxCharge + " s", guiSkin.label);
 
         //Cuerpo EM
         // Fuerza para mover cuerpo
-        GUI.Label(new Rect(Screen.width / 2, 340, 300, 30), "Body movement force: ", guiSkin.label);
-        GUI.Label(new Rect(Screen.width / 2, 370, 300, 30),
+        GUI.Label(new Rect(Screen.width / 2, baseHeight + 240, 300, 30), "Body movement force: ", guiSkin.label);
+        GUI.Label(new Rect(Screen.width / 2, baseHeight + 270, 300, 30),
             gameManager.playerAttributes.movementForcePerSecond + " N/s", guiSkin.label);
 
         // Vida y escudo
         // Kinetick shield energy
-        GUI.Label(new Rect(Screen.width / 2, 400, 300, 30), "Kinetic shield max energy: ", guiSkin.label);
-        GUI.Label(new Rect(Screen.width / 2, 430, 300, 30),
+        GUI.Label(new Rect(Screen.width / 2, baseHeight + 300, 300, 30), "Kinetic shield max energy: ", guiSkin.label);
+        GUI.Label(new Rect(Screen.width / 2, baseHeight + 330, 300, 30),
             gameManager.playerAttributes.maxShield + " J", guiSkin.label);
 
-        GUI.Label(new Rect(Screen.width / 2, 460, 300, 30), "Kinetic shield recharge rate: ", guiSkin.label);
-        GUI.Label(new Rect(Screen.width / 2, 490, 300, 30),
+        GUI.Label(new Rect(Screen.width / 2, baseHeight + 360, 300, 30), "Kinetic shield recharge rate: ", guiSkin.label);
+        GUI.Label(new Rect(Screen.width / 2, baseHeight + 390, 300, 30),
             gameManager.playerAttributes.shieldRechargeRate + " J/s", guiSkin.label);
 
     }

@@ -290,3 +290,12 @@ public class PlayerAttributes
     public float repairRate = 10;
 }
 
+//
+[System.Serializable]
+public class ImprovableAttribute
+{
+    public float baseValue = 100;
+    public float improvementValue = 10;
+    public int improvementsPurchased = 0;
+    public float improvementCost = 25;
+}
