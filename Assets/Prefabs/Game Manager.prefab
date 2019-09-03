@@ -51,15 +51,30 @@ MonoBehaviour:
     unlockedAttackActions: 1
     unlockedDefenseActions: 1
     maxCharge: 1
-    rapidFireRate: 10
+    rapidFireRate:
+      baseValue: 10
+      improvementValue: 1
+      improvementsPurchased: 0
+      maxPurchaseableImprovements: 10
+      improvementCost: 25
     maxOverheat: 2
     massPerSecond: 100
-    forcePerSecond: 100
+    forcePerSecond:
+      baseValue: 100
+      improvementValue: 10
+      improvementsPurchased: 0
+      maxPurchaseableImprovements: 10
+      improvementCost: 25
     currentDensity: 10000
     movementForcePerSecond: 300
     jumpForce: 8
     sphericShieldStrength: 100
-    maxShield: 3000
+    maxShield:
+      baseValue: 3000
+      improvementValue: 100
+      improvementsPurchased: 0
+      maxPurchaseableImprovements: 30
+      improvementCost: 25
     maxHealth: 750
     armor: 150
     shieldRechargeRate: 100

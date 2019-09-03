@@ -15,7 +15,7 @@ MonoBehaviour:
   levelInfo:
     inGameName: Grunts first contact
     gameMode: 0
-    victoryCondition: 1
+    victoryCondition: 2
     enemiesToDefeat: 100
     attackActionsAvailable: 2
     defenseActionsAvailable: 0

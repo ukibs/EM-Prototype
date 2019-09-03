@@ -223,7 +223,7 @@ public class RobotControl : MonoBehaviour {
         PlayerReference.currentProyectileRB = proyectileRb;
 
         // Recordar que la masa va en gramos (de momento)
-        currentMuzzleSpeed = gameManager.playerAttributes.forcePerSecond / (gameManager.playerAttributes.massPerSecond / 1000);
+        currentMuzzleSpeed = gameManager.playerAttributes.forcePerSecond.CurrentValue / (gameManager.playerAttributes.massPerSecond / 1000);
         // Debug.Log("Muzzle speed :" + currentMuzzleSpeed);
     }
 
@@ -547,7 +547,8 @@ public class RobotControl : MonoBehaviour {
                     // En ese caso hacer que tenga menos impulso que haciéndolo desde el suelo
                     float floorSupport = (repulsor.IsOnFloor) ? 1 : 0.5f;
                     // Le damos un mínimo de base
-                    rb.AddForce(Vector3.up * (gameManager.playerAttributes.forcePerSecond * chargedAmount * floorSupport), ForceMode.Impulse);
+                    rb.AddForce(Vector3.up * (gameManager.playerAttributes.forcePerSecond.CurrentValue * chargedAmount * floorSupport), 
+                        ForceMode.Impulse);
                     //
                     GeneralFunctions.PlaySoundEffect(audioSource, releasingPulseClip);
                     break;
@@ -565,7 +566,8 @@ public class RobotControl : MonoBehaviour {
                         : cameraForward;
                     // TODO: Revisar
                     Vector3 compensatedDirection = (desiredDirection - currentVelocity).normalized;
-                    rb.AddForce(compensatedDirection * (gameManager.playerAttributes.forcePerSecond * chargedAmount) * 10, ForceMode.Impulse);
+                    rb.AddForce(compensatedDirection * (gameManager.playerAttributes.forcePerSecond.CurrentValue * chargedAmount) * 10, 
+                        ForceMode.Impulse);
                     //
                     GeneralFunctions.PlaySoundEffect(audioSource, releasingPulseClip);
                     break;
@@ -793,7 +795,7 @@ public class RobotControl : MonoBehaviour {
         // TODO: Trabajar estos parámetros
         float coneRadius = 20.0f;
         float coneReach = 50.0f;
-        float pulseForceToApply = (gameManager.playerAttributes.forcePerSecond * chargedAmount);
+        float pulseForceToApply = (gameManager.playerAttributes.forcePerSecond.CurrentValue * chargedAmount);
         //
         AffectedByPulseAttack elementsOnReachOfPulseAttack = GetElementsOnReachOfPulseAttack(coneReach, coneRadius);
         Vector3 pointFromPlayer;
@@ -876,7 +878,7 @@ public class RobotControl : MonoBehaviour {
         //
         //rapidFireCooldown += dt;
         //
-        if (/*rapidFireCooldown*/ chargedAmount >= 1 / gameManager.playerAttributes.rapidFireRate)
+        if (/*rapidFireCooldown*/ chargedAmount >= 1 / gameManager.playerAttributes.rapidFireRate.CurrentValue)
         {
             // La calculamos desde los puntos de la ametralladora para más precision
             // TODO: Revisar aqui tambien el cambio de centralPointOffset
@@ -935,7 +937,7 @@ public class RobotControl : MonoBehaviour {
         // Establecemos la masa
         proyectileRb.mass = gameManager.playerAttributes.massPerSecond * chargedAmount / 1000000;
         // Y la fuerza a aplicar
-        float forceToApply = gameManager.playerAttributes.forcePerSecond * chargedAmount;
+        float forceToApply = gameManager.playerAttributes.forcePerSecond.CurrentValue * chargedAmount;
         //
         GameObject nextProyectile = GeneralFunctions.ShootProjectile(proyectilePrefab, muzzlePoint.position, muzzlePoint.rotation,
             muzzlePoint.forward, forceToApply, dt, ShootCalculation.Force);

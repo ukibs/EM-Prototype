@@ -425,7 +425,7 @@ public class ProvisionalHUD : MonoBehaviour {
         // Mientras le queden
         if (playerIntegrity.CurrentShield > 0)
         {
-            float currentShield = playerIntegrity.CurrentShield / gameManager.playerAttributes.maxShield;
+            float currentShield = playerIntegrity.CurrentShield / gameManager.playerAttributes.maxShield.CurrentValue;
             float shieldBarLenght = currentShield * barMaxLength;
             // Que se centre la barra conforme se vacia/llena
             float shieldStartPoint = generalStartPoint + ((barMaxLength - shieldBarLenght) / 2);

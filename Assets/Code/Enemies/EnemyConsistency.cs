@@ -376,9 +376,18 @@ public class EnemyConsistency : Targeteable {
             //
             GeneralFunctions.PlaySoundEffect(audioSource, deathClip);
             
-            //
+            // Anotamos muerte (mandando al propio bicho como muestra)
             if(levelManager != null)
-                levelManager.AnnotateKill();
+            {
+                //
+                Transform wholeObject = transform.parent;
+                //
+                if (wholeObject == null)
+                    wholeObject = transform;
+                //
+                levelManager.AnnotateKill(wholeObject.gameObject);
+            }
+                
             if (enemyManager != null)
             {
                 // Esto hay que abordarlo de varias maneras
@@ -486,4 +495,13 @@ public class EnemyConsistency : Targeteable {
 
     #endregion
 
+}
+
+public class EnemySheet
+{
+    public GameObject prefab;
+    public int spawnAmount;
+    public int spawnIncrement;
+    public int timeBetweenSpawns;
+    public int maxActive;
 }

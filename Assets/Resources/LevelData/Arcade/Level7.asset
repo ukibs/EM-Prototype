@@ -15,7 +15,7 @@ MonoBehaviour:
   levelInfo:
     inGameName: Screecher first contact
     gameMode: 0
-    victoryCondition: 1
+    victoryCondition: 2
     enemiesToDefeat: 20
     attackActionsAvailable: 3
     defenseActionsAvailable: 1

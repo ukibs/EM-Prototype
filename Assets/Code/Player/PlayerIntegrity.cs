@@ -33,7 +33,7 @@ public class PlayerIntegrity : MonoBehaviour
         get { return currentShield; }
         set {
             currentShield = value;
-            currentShield = Mathf.Min(currentShield, gameManager.playerAttributes.maxShield);
+            currentShield = Mathf.Min(currentShield, gameManager.playerAttributes.maxShield.CurrentValue);
         }
     }
 
@@ -49,7 +49,7 @@ public class PlayerIntegrity : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         //
         currentHealth = gameManager.playerAttributes.maxHealth;
-        currentShield = gameManager.playerAttributes.maxShield;
+        currentShield = gameManager.playerAttributes.maxShield.CurrentValue;
     }
 
     // Update is called once per frame
@@ -61,7 +61,7 @@ public class PlayerIntegrity : MonoBehaviour
         if (!shieldsDepleted)
         {
             currentShield += dt * gameManager.playerAttributes.shieldRechargeRate;
-            currentShield = Mathf.Clamp(currentShield, 0, gameManager.playerAttributes.maxShield);
+            currentShield = Mathf.Clamp(currentShield, 0, gameManager.playerAttributes.maxShield.CurrentValue);
         }
         //
         if (shieldsDepleted && robotControl.IsResting)

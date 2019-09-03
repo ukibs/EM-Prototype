@@ -267,12 +267,12 @@ public class PlayerAttributes
     public float maxCharge = 1;
     // Armas
     // Fuego rapido
-    public float rapidFireRate = 1;
+    public ImprovableAttribute rapidFireRate;
     public float maxOverheat = 1;   // NOTA: De momento va ligado al tiempo
     // Valores unificados
     // Tocará pelearlos bastante antes de definir base y aumentos
     public float massPerSecond = 100;
-    public float forcePerSecond = 100;
+    public ImprovableAttribute forcePerSecond;
     public float currentDensity = 10000;
     // Esta se sacará por deducción
     //private float proyectileComplexity = 0;
@@ -283,7 +283,7 @@ public class PlayerAttributes
     // TODO: Quitar este cuando lo tengamos claro
     public float sphericShieldStrength = 100;
     //
-    public float maxShield = 3000;
+    public ImprovableAttribute maxShield;
     public float maxHealth = 750;
     public float armor = 150;
     public float shieldRechargeRate = 100;
@@ -297,5 +297,9 @@ public class ImprovableAttribute
     public float baseValue = 100;
     public float improvementValue = 10;
     public int improvementsPurchased = 0;
+    public int maxPurchaseableImprovements = 10;
+    // Este habrá que mirarlo bien
     public float improvementCost = 25;
+
+    public float CurrentValue { get { return baseValue + (improvementValue * improvementsPurchased); } }
 }

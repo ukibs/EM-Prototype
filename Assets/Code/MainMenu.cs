@@ -217,18 +217,25 @@ public class MainMenu : MonoBehaviour
         // Atributos a mejorar
         // Force per second
         GUI.Label(new Rect(Screen.width / 2, baseHeight, 300, 30), "Force per second: ", guiSkin.label);
-        GUI.Label(new Rect(Screen.width / 2, baseHeight + 30, 300, 30), gameManager.playerAttributes.forcePerSecond + " N", guiSkin.label);
-        GUI.Button(new Rect(Screen.width / 2, baseHeight + 30, 30, 30), "+", guiSkin.button);
+        GUI.Label(new Rect(Screen.width / 2, baseHeight + 30, 300, 30), gameManager.playerAttributes.forcePerSecond.CurrentValue + " N", guiSkin.label);
+        if(GUI.Button(new Rect(Screen.width / 2, baseHeight + 30, 30, 30), "+", guiSkin.button))
+        {
+            gameManager.playerAttributes.forcePerSecond.improvementsPurchased++;
+        }
         // Mass per second
         GUI.Label(new Rect(Screen.width / 2, baseHeight + 60, 300, 30), "Mass per second: ", guiSkin.label);
         GUI.Label(new Rect(Screen.width / 2, baseHeight + 90, 300, 30), gameManager.playerAttributes.massPerSecond + " g", guiSkin.label);
         // Rapid fire rate of fire
         GUI.Label(new Rect(Screen.width / 2, baseHeight + 120, 300, 30), "Rapid fire rate: ", guiSkin.label);
-        GUI.Label(new Rect(Screen.width / 2, baseHeight + 150, 300, 30), gameManager.playerAttributes.rapidFireRate + " bullets/s", guiSkin.label);
-        
+        GUI.Label(new Rect(Screen.width / 2, baseHeight + 150, 300, 30), gameManager.playerAttributes.rapidFireRate.CurrentValue + " bullets/s", guiSkin.label);
+        if (GUI.Button(new Rect(Screen.width / 2, baseHeight + 150, 30, 30), "+", guiSkin.button))
+        {
+            gameManager.playerAttributes.rapidFireRate.improvementsPurchased++;
+        }
+
         // Resultados de la mejora de los atributos
         // Velocida de salida
-        float muzzleSpeed = (gameManager.playerAttributes.forcePerSecond / (gameManager.playerAttributes.massPerSecond / 1000));
+        float muzzleSpeed = (gameManager.playerAttributes.forcePerSecond.CurrentValue / (gameManager.playerAttributes.massPerSecond / 1000));
         GUI.Label(new Rect(Screen.width / 2 + 300, baseHeight, 300, 30), "Muzzle speed: ", guiSkin.label);
         GUI.Label(new Rect(Screen.width / 2 + 300, baseHeight + 30, 300, 30), 
            muzzleSpeed  + " m/s", guiSkin.label);
@@ -238,7 +245,7 @@ public class MainMenu : MonoBehaviour
         GUI.Label(new Rect(Screen.width / 2 + 300, baseHeight + 90, 300, 30),
             kineticEnergy + " kJ", guiSkin.label);
         // Energía cinética (fuego rápido)
-        float massPerBullet = gameManager.playerAttributes.massPerSecond * (1 / gameManager.playerAttributes.rapidFireRate);
+        float massPerBullet = gameManager.playerAttributes.massPerSecond * (1 / gameManager.playerAttributes.rapidFireRate.CurrentValue);
         float rapidFireKineticEnergy = GeneralFunctions.GetBodyKineticEnergy(muzzleSpeed, massPerBullet) / 1000000;
         GUI.Label(new Rect(Screen.width / 2 + 300, baseHeight + 120, 300, 30), "Proyectile K energy: ", guiSkin.label);
         GUI.Label(new Rect(Screen.width / 2 + 300, baseHeight + 150, 300, 30),
@@ -262,7 +269,11 @@ public class MainMenu : MonoBehaviour
         // Kinetick shield energy
         GUI.Label(new Rect(Screen.width / 2, baseHeight + 300, 300, 30), "Kinetic shield max energy: ", guiSkin.label);
         GUI.Label(new Rect(Screen.width / 2, baseHeight + 330, 300, 30),
-            gameManager.playerAttributes.maxShield + " J", guiSkin.label);
+            gameManager.playerAttributes.maxShield.CurrentValue + " J", guiSkin.label);
+        if (GUI.Button(new Rect(Screen.width / 2, baseHeight + 330, 30, 30), "+", guiSkin.button))
+        {
+            gameManager.playerAttributes.maxShield.improvementsPurchased++;
+        }
 
         GUI.Label(new Rect(Screen.width / 2, baseHeight + 360, 300, 30), "Kinetic shield recharge rate: ", guiSkin.label);
         GUI.Label(new Rect(Screen.width / 2, baseHeight + 390, 300, 30),

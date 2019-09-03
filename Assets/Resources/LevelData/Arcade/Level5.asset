@@ -15,7 +15,7 @@ MonoBehaviour:
   levelInfo:
     inGameName: Big Worms Attack
     gameMode: 0
-    victoryCondition: 1
+    victoryCondition: 2
     enemiesToDefeat: 30
     attackActionsAvailable: 3
     defenseActionsAvailable: 0

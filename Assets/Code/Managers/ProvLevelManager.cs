@@ -276,10 +276,20 @@ public class ProvLevelManager : MonoBehaviour
     /// <summary>
     /// Ya haremos que pida el tipo de enemigo
     /// </summary>
-    public void AnnotateKill()
+    public void AnnotateKill(GameObject enemyToAnotate)
     {
         // TODO: Impelemntar filtro de enemigos
         if (victoryCondition == VictoryCondition.DefeatAllEnemies) { }
+        switch (victoryCondition)
+        {
+            case VictoryCondition.DefeatAllEnemies:
+            case VictoryCondition.DefeatAnyEnemy:
+                enemiesDestroyed++;
+                break;
+            case VictoryCondition.DefeatCertainEnemy:
+
+                break;
+        }
         //
         enemiesDestroyed++;
     }
