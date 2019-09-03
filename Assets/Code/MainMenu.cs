@@ -198,11 +198,11 @@ public class MainMenu : MonoBehaviour
         levelInfoRect.position = nextPosition;
         GUI.Label(levelInfoRect, "Expected enemies ", guiSkin.label);
         //
-        for(int i = 0; i < gameManager.LevelsInfo[index].enemyGroups.Length; i++)
+        for(int i = 0; i < gameManager.LevelsInfo[index].enemiesSpawnSettings.Length; i++)
         {
             nextPosition.y += 60;
             levelInfoRect.position = nextPosition;
-            GUI.Label(levelInfoRect, gameManager.LevelsInfo[index].enemyGroups[i].name, guiSkin.label);
+            GUI.Label(levelInfoRect, gameManager.LevelsInfo[index].enemiesSpawnSettings[i].enemyPrefab.name, guiSkin.label);
             //GUI.Label(levelInfoRect, i + "", guiSkin.label);
         }
     }

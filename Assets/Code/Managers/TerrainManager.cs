@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class TerrainManager : MonoBehaviour
 {
-    public GameObject[] blockPrefabs;
-    public int[] blockFrequencies;
-    public int[] minBlockAmounts;
-    public int[] maxBlockAmounts;
+    public TerrainElementSettings[] terrainElementsSettings;
+    //public GameObject[] blockPrefabs;
+    //public int[] blockFrequencies;
+    //public int[] minBlockAmounts;
+    //public int[] maxBlockAmounts;
     public int squareSize = 7;
     public float blockSize = 200; // TODO: Ponlo donde toque
     public float maxDistanceFromCenter = 2000;
@@ -276,10 +277,11 @@ public class TerrainManager : MonoBehaviour
     /// <param name="levelInfo"></param>
     public void InitiateManager(LevelInfo levelInfo)
     {
-        blockPrefabs = levelInfo.terrainPrefabs;
-        blockFrequencies = levelInfo.terrainRatio;
-        minBlockAmounts = levelInfo.terrainMin;
-        maxBlockAmounts = levelInfo.terrainMax;
+        terrainElementsSettings = levelInfo.terrainElementsSettings;
+        //blockPrefabs = levelInfo.terrainPrefabs;
+        //blockFrequencies = levelInfo.terrainRatio;
+        //minBlockAmounts = levelInfo.terrainMin;
+        //maxBlockAmounts = levelInfo.terrainMax;
         AllocateTerrain();
     }
 
@@ -303,15 +305,15 @@ public class TerrainManager : MonoBehaviour
         //
         playerTransform = FindObjectOfType<RobotControl>().transform;
         //
-        currentBlockAmounts = new int[blockFrequencies.Length];
+        currentBlockAmounts = new int[terrainElementsSettings.Length];
         // Establecemos relación de frecuencias
-        int[] freqSuccesion = new int[blockFrequencies.Length];
+        int[] freqSuccesion = new int[terrainElementsSettings.Length];
         int accumulated = 0;
-        for (int i = 0; i < blockFrequencies.Length; i++)
+        for (int i = 0; i < terrainElementsSettings.Length; i++)
         {
             // TODO: Aplicar esto bien
-            freqSuccesion[i] = blockFrequencies[i] + accumulated;
-            accumulated += blockFrequencies[i];
+            freqSuccesion[i] = terrainElementsSettings[i].terrainRatio + accumulated;
+            accumulated += terrainElementsSettings[i].terrainRatio;
         }
         //
         for (int i = 0; i < squareSize; i++)
@@ -324,7 +326,7 @@ public class TerrainManager : MonoBehaviour
                 // Que el central de todos sea el 1º, para asegurarnos de que el player no aparece dentro de un bloque
                 GameObject prefabToUse;
                 if (i == centralBlock && j == centralBlock)
-                    prefabToUse = blockPrefabs[0];
+                    prefabToUse = terrainElementsSettings[0].terrainPrefab;
                 else
                 {
                     //
@@ -342,14 +344,14 @@ public class TerrainManager : MonoBehaviour
                     //prefabToUse = blockPrefabs[(int)UnityEngine.Random.Range(0, blockPrefabs.Length)];
                     // Chequeo de máximo
                     // 0 como parámetros de control si tiene max 0 se ignora
-                    if(currentBlockAmounts[decideIndex] >= maxBlockAmounts[decideIndex] &&
-                        maxBlockAmounts[decideIndex] > 0)
+                    if(currentBlockAmounts[decideIndex] >= terrainElementsSettings[decideIndex].terrainMax &&
+                        terrainElementsSettings[decideIndex].terrainMax > 0)
                     {
                         j--;
                         continue;
                     }
                     //
-                    prefabToUse = blockPrefabs[decideIndex];
+                    prefabToUse = terrainElementsSettings[decideIndex].terrainPrefab;
                     currentBlockAmounts[decideIndex]++;
                 }
 
@@ -369,7 +371,7 @@ public class TerrainManager : MonoBehaviour
         //
         for(int i = 0; i < currentBlockAmounts.Length; i++)
         {
-            if(currentBlockAmounts[i] < minBlockAmounts[i])
+            if(currentBlockAmounts[i] < terrainElementsSettings[i].terrainMin)
             {
                 //TODO: Aplicarlo bien
                 Debug.Log("Minimo incumplido");

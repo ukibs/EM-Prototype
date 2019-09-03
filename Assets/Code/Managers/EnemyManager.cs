@@ -17,12 +17,13 @@ public class EnemyManager : MonoBehaviour
     }
 
     public EpicenterMode epicenterMode;
-    public GameObject[] enemyPrefabsToUse;
-    //public int[] initialGroupToSpawnSize;
-    public int[] groupsToSpawnSizes;
-    public int[] enemySpawnIncrement;
-    public int[] maxEnemiesInAction;
-    public float[] timeBetweenSpawns;
+    public EnemySpawnSettings[] enemiesSpawnSettings;
+    //public GameObject[] enemyPrefabsToUse;
+    ////public int[] initialGroupToSpawnSize;
+    //public int[] groupsToSpawnSizes;
+    //public int[] enemySpawnIncrement;
+    //public int[] maxEnemiesInAction;
+    //public float[] timeBetweenSpawns;
     //public float minSpawnDistance = 100;
     //public float maxSpawnDistance = 200;
     public int spawnLimit = -1;
@@ -75,20 +76,20 @@ public class EnemyManager : MonoBehaviour
         //
         float dt = Time.deltaTime;
         //
-        for (int i = 0; i < enemyPrefabsToUse.Length; i++)
+        for (int i = 0; i < enemiesSpawnSettings.Length; i++)
         {
             //
             timeFromLastSpawn[i] += dt;
             //
-            if (timeFromLastSpawn[i] >= timeBetweenSpawns[i])
+            if (timeFromLastSpawn[i] >= enemiesSpawnSettings[i].timeBetweenSpawns)
             {
                 // Si no que vuelva a empezar a contrar y ya
-                timeFromLastSpawn[i] -= timeBetweenSpawns[i];
+                timeFromLastSpawn[i] -= enemiesSpawnSettings[i].timeBetweenSpawns;
                 //
                 //int activeEnemies = FindObjectsOfType<EnemyConsistency>().Length;
                 // TODO: Sacar solo el grupo determinado por el index
                 // Así estamos sacando a todos
-                if (activeEnemiesAmount[i] < maxEnemiesInAction[i])
+                if (activeEnemiesAmount[i] < enemiesSpawnSettings[i].maxActiveEnemies)
                     //SpawnEnemies(i);
                     ActivateEnemies(i);
                 
@@ -114,18 +115,18 @@ public class EnemyManager : MonoBehaviour
     void InitiateEnemies()
     {
         //
-        activeEnemies = new List<GameObject>[enemyPrefabsToUse.Length];
-        reserveEnemies = new List<GameObject>[enemyPrefabsToUse.Length];
+        activeEnemies = new List<GameObject>[enemiesSpawnSettings.Length];
+        reserveEnemies = new List<GameObject>[enemiesSpawnSettings.Length];
         // Pasamos por cada uno de los prefabs preparados
-        for (int i = 0; i < enemyPrefabsToUse.Length; i++)
+        for (int i = 0; i < enemiesSpawnSettings.Length; i++)
         {
             //
-            activeEnemies[i] = new List<GameObject>(maxEnemiesInAction[i]);
-            reserveEnemies[i] = new List<GameObject>(maxEnemiesInAction[i]);
+            activeEnemies[i] = new List<GameObject>(enemiesSpawnSettings[i].maxActiveEnemies);
+            reserveEnemies[i] = new List<GameObject>(enemiesSpawnSettings[i].maxActiveEnemies);
             // Instanciamos y guardamos inactivos el máximo posible
-            for (int j = 0; j < maxEnemiesInAction[i]; j++)
+            for (int j = 0; j < enemiesSpawnSettings[i].maxActiveEnemies; j++)
             {
-                GameObject newEnemy = Instantiate(enemyPrefabsToUse[i], Vector3.zero, Quaternion.identity);
+                GameObject newEnemy = Instantiate(enemiesSpawnSettings[i].enemyPrefab, Vector3.zero, Quaternion.identity);
                 //Debug.Log(newEnemy.name);
                 newEnemy.SetActive(false);
                 reserveEnemies[i].Add(newEnemy);
@@ -139,7 +140,7 @@ public class EnemyManager : MonoBehaviour
     void ActivateEnemies(int i)
     {
         //Metodo con spawn points
-        EnemyType typeToSpawn = enemyPrefabsToUse[i].GetComponent<EnemyIdentifier>().enemyType;
+        EnemyType typeToSpawn = enemiesSpawnSettings[i].enemyPrefab.GetComponent<EnemyIdentifier>().enemyType;
         Transform groupSpawn = GetRandomSpawmPointNearerThanX(typeToSpawn, farestSpawnDistanceToEpicenter);
         //
         if (groupSpawn == null)
@@ -149,16 +150,16 @@ public class EnemyManager : MonoBehaviour
 
         // NOTA: Control de error
         // De primeras no debería haber tamaño de spawn 0
-        if (groupsToSpawnSizes[i] > 0)
+        if (enemiesSpawnSettings[i].enemiesToSpawn > 0)
         {
             // Si no hay enemigos activos de ese tipo, aviso de Carol
             if (activeEnemies[i].Count == 0)
                 carolHelp.TriggerGeneralAdvice("EnemiesIncoming");
             //
-            float memberSpawnAngle = 360 / groupsToSpawnSizes[i];
+            float memberSpawnAngle = 360 / enemiesSpawnSettings[i].enemiesToSpawn;
             float meberSpawnRadius = 10;
             //
-            for (int j = 0; j < groupsToSpawnSizes[i]; j++)
+            for (int j = 0; j < enemiesSpawnSettings[i].enemiesToSpawn; j++)
             {
                 // 
                 float memberSpawnCoordinates = memberSpawnAngle * j;
@@ -225,16 +226,18 @@ public class EnemyManager : MonoBehaviour
     public void InitiateManager(LevelInfo levelInfo)
     {
         //
-        enemyPrefabsToUse = levelInfo.enemyGroups;
-        //groupsToSpawnSizes = levelInfo.enemiesToSpawn.CopyTo(groupsToSpawnSizes);
-        groupsToSpawnSizes = new int[levelInfo.enemiesToSpawn.Length];
-        levelInfo.enemiesToSpawn.CopyTo(groupsToSpawnSizes, 0);
-        enemySpawnIncrement = levelInfo.enemySpawnIncrement;
-        maxEnemiesInAction = levelInfo.maxActiveEnemies;
-        this.timeBetweenSpawns = levelInfo.timeBetweenSpawns;
+        enemiesSpawnSettings = levelInfo.enemiesSpawnSettings;
         //
-        activeEnemiesAmount = new int[enemyPrefabsToUse.Length];
-        timeFromLastSpawn = new float[enemyPrefabsToUse.Length];
+        //enemyPrefabsToUse = levelInfo.enemyGroups;
+        ////groupsToSpawnSizes = levelInfo.enemiesToSpawn.CopyTo(groupsToSpawnSizes);
+        //groupsToSpawnSizes = new int[levelInfo.enemiesToSpawn.Length];
+        //levelInfo.enemiesToSpawn.CopyTo(groupsToSpawnSizes, 0);
+        //enemySpawnIncrement = levelInfo.enemySpawnIncrement;
+        //maxEnemiesInAction = levelInfo.maxActiveEnemies;
+        //this.timeBetweenSpawns = levelInfo.timeBetweenSpawns;
+        //
+        activeEnemiesAmount = new int[enemiesSpawnSettings.Length];
+        timeFromLastSpawn = new float[enemiesSpawnSettings.Length];
         // Si se raya aqui lo mandamos al Initiate Manager
         enemySpawnPoints = FindObjectsOfType<EnemySpawnPoint>();
         //Debug.Log(" Spawn points: " + enemySpawnPoints.Length);

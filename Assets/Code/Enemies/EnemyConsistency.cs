@@ -496,12 +496,3 @@ public class EnemyConsistency : Targeteable {
     #endregion
 
 }
-
-public class EnemySheet
-{
-    public GameObject prefab;
-    public int spawnAmount;
-    public int spawnIncrement;
-    public int timeBetweenSpawns;
-    public int maxActive;
-}

@@ -40,18 +40,21 @@ public class LevelInfo
     public int jumpActionsAvailable;
     public int sprintActionsAvailable;
     //
-    public GameObject[] enemyGroups;
-    public int[] enemiesToSpawn;
-    public int[] enemySpawnIncrement;
-    public float[] timeBetweenSpawns;
-    public int[] maxActiveEnemies;
+    //public GameObject[] enemyGroups;
+    //public int[] enemiesToSpawn;
+    //public int[] enemySpawnIncrement;
+    //public float[] timeBetweenSpawns;
+    //public int[] maxActiveEnemies;
+    public EnemySpawnSettings[] enemiesSpawnSettings;
     //
-    public GameObject[] terrainPrefabs;
-    public int[] terrainRatio;
-    public int[] terrainMax;
-    public int[] terrainMin;
+    //public GameObject[] terrainPrefabs;
+    //public int[] terrainRatio;
+    //public int[] terrainMax;
+    //public int[] terrainMin;
+    public TerrainElementSettings[] terrainElementsSettings;
 }
 
+[System.Serializable]
 public class EnemySpawnSettings
 {
     public GameObject enemyPrefab;
@@ -61,7 +64,8 @@ public class EnemySpawnSettings
     public int maxActiveEnemies;
 }
 
-public class TerainElementSettings
+[System.Serializable]
+public class TerrainElementSettings
 {
     public GameObject terrainPrefab;
     public int terrainRatio;

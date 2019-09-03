@@ -21,20 +21,38 @@ MonoBehaviour:
     defenseActionsAvailable: 0
     jumpActionsAvailable: 1
     sprintActionsAvailable: 1
-    enemyGroups:
-    - {fileID: 8096563443830030571, guid: 63f7a55d02361e7448d4b09d407ad549, type: 3}
-    - {fileID: 8096563443830030571, guid: 63f7a55d02361e7448d4b09d407ad549, type: 3}
-    enemiesToSpawn: 0300000001000000
-    enemySpawnIncrement: 0000000000000000
-    timeBetweenSpawns:
-    - 3
-    - 3
-    maxActiveEnemies: 0a00000001000000
-    terrainPrefabs:
-    - {fileID: 3326227640253247155, guid: e805da38f2157cf44bd8ebbbe826ba67, type: 3}
-    - {fileID: 3326227640253247155, guid: f90644bdac5d8924fbad91a92cde6c44, type: 3}
-    - {fileID: 3326227640253247155, guid: 13954841500ed1049a895eccaeb2ce4c, type: 3}
-    - {fileID: 3326227640253247155, guid: 1faf0654ea7511b4889b35ba3e120d34, type: 3}
-    terrainRatio: 03000000010000000200000004000000
-    terrainMax: 00000000000000000000000000000000
-    terrainMin: 00000000000000000000000000000000
+    enemiesSpawnSettings:
+    - enemyPrefab: {fileID: 2132211706304976565, guid: 8aaab91e7db7f9d4991954cca5ab8f91,
+        type: 3}
+      enemiesToSpawn: 3
+      enemySpawnIncrement: 0
+      timeBetweenSpawns: 5
+      maxActiveEnemies: 10
+    - enemyPrefab: {fileID: 2132211706304976565, guid: 8aaab91e7db7f9d4991954cca5ab8f91,
+        type: 3}
+      enemiesToSpawn: 3
+      enemySpawnIncrement: 0
+      timeBetweenSpawns: 5
+      maxActiveEnemies: 10
+    - enemyPrefab: {fileID: 2132211706304976565, guid: 8aaab91e7db7f9d4991954cca5ab8f91,
+        type: 3}
+      enemiesToSpawn: 3
+      enemySpawnIncrement: 0
+      timeBetweenSpawns: 5
+      maxActiveEnemies: 10
+    terrainElementsSettings:
+    - terrainPrefab: {fileID: 3326227640253247155, guid: e805da38f2157cf44bd8ebbbe826ba67,
+        type: 3}
+      terrainRatio: 1
+      terrainMax: 0
+      terrainMin: 0
+    - terrainPrefab: {fileID: 3326227640253247155, guid: cee649da1f6f3c6418e08952112853d4,
+        type: 3}
+      terrainRatio: 1
+      terrainMax: 0
+      terrainMin: 0
+    - terrainPrefab: {fileID: 3326227640253247155, guid: f90644bdac5d8924fbad91a92cde6c44,
+        type: 3}
+      terrainRatio: 1
+      terrainMax: 0
+      terrainMin: 0
