@@ -7,9 +7,10 @@ public enum VictoryCondition
 {
     Invalid = -1,
 
-    DefeatAllEnemies,
+    DefeatAllEnemies,   // Para esta deberán dejar de spammear en cierto punto
     DefeatAnyEnemy,
     DefeatCertainEnemy,
+    FindSomething,
 
     Count
 }
@@ -34,6 +35,10 @@ public class ProvLevelManager : MonoBehaviour
     private bool victory = false;
     private bool finished = false;
 
+    // De momento solo para el modo matar cierto enemigo
+    private LevelInfo levelInfo;
+    private string enemyToKillName;
+
     public bool Finished { get { return finished; } }
     public bool Victory {  get { return victory; } }
 
@@ -50,7 +55,7 @@ public class ProvLevelManager : MonoBehaviour
 
         // In arcade mode we get the data from level info list
         //if(gameManager.gameMode == GameMode.Arcade)
-            LoadLevelDataArcade();
+        LoadLevelDataArcade();
         // In boss mode...
         /*else
         {
@@ -66,6 +71,17 @@ public class ProvLevelManager : MonoBehaviour
         //        enemiesToDestroy = enemiesInLevel.Length;
         //        break;
         //}
+
+        //
+        if (victoryCondition == VictoryCondition.DefeatCertainEnemy)
+        {
+            EnemyConsistency enemyConsistency = levelInfo.enemiesSpawnSettings[0].enemyPrefab.GetComponent<EnemyConsistency>();
+
+            if(enemyConsistency == null)
+                enemyConsistency = levelInfo.enemiesSpawnSettings[0].enemyPrefab.GetComponentInChildren<EnemyConsistency>();
+
+            enemyToKillName = enemyConsistency.inGameName;
+        }
 
         // Escodemos el cursor para jugar birn
         Cursor.lockState = CursorLockMode.Locked;
@@ -132,9 +148,8 @@ public class ProvLevelManager : MonoBehaviour
     /// </summary>
     void LoadLevelDataArcade()
     {
-        // 
-        //LevelInfo levelInfo = GeneralFunctions.DeepCopy<LevelInfo>(gameManager.GetCurrentLevelInfo());
-        LevelInfo levelInfo = gameManager.GetCurrentLevelInfo();
+        // TODO: Revisar como gestionamos esto
+        levelInfo = gameManager.GetCurrentLevelInfo();
         victoryCondition = levelInfo.victoryCondition;
         enemiesToDestroy = levelInfo.enemiesToDefeat;
         // Esto habrá que manejarlo de otro modo
@@ -236,14 +251,17 @@ public class ProvLevelManager : MonoBehaviour
         {
             switch (victoryCondition)
             {
-                case VictoryCondition.DefeatAllEnemies:
-                    // TODO: Este lo cambiaremos
-                    if (enemiesDestroyed >= enemiesToDestroy)
-                    {
-                        victory = true;
-                        //EndLevel();
-                    }
-                    break;
+                //case VictoryCondition.DefeatAllEnemies:
+                //    // TODO: Este lo cambiaremos
+                //    if (enemiesDestroyed >= enemiesToDestroy)
+                //    {
+                //        victory = true;
+                //        gameManager.ProgressInGame();
+                //        EndLevel();
+                //    }
+                //    break;
+                // Estas dos se chequean igual aqui
+                case VictoryCondition.DefeatCertainEnemy:
                 case VictoryCondition.DefeatAnyEnemy:
                     if (enemiesDestroyed >= enemiesToDestroy)
                     {
@@ -274,24 +292,23 @@ public class ProvLevelManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Ya haremos que pida el tipo de enemigo
+    /// 
     /// </summary>
-    public void AnnotateKill(GameObject enemyToAnotate)
+    public void AnnotateKill(string enemyToAnotateName)
     {
         // TODO: Impelemntar filtro de enemigos
-        if (victoryCondition == VictoryCondition.DefeatAllEnemies) { }
         switch (victoryCondition)
         {
             case VictoryCondition.DefeatAllEnemies:
             case VictoryCondition.DefeatAnyEnemy:
                 enemiesDestroyed++;
                 break;
+            // Nota: En estas el objetivo a batir será el primero de la lista
             case VictoryCondition.DefeatCertainEnemy:
-
+                if (enemyToAnotateName == enemyToKillName)
+                    enemiesDestroyed++;
                 break;
         }
-        //
-        enemiesDestroyed++;
     }
 
     /// <summary>

@@ -2790,6 +2790,7 @@ MonoBehaviour:
   active: 1
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
+  inGameName: Small Grunt
   maxHealth: 50
   defense: 30
   bodyColliders: []

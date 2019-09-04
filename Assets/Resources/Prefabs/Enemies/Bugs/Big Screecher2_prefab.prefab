@@ -97,6 +97,7 @@ MonoBehaviour:
   active: 1
   markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
+  inGameName: Big Screecher
   maxHealth: 1000
   defense: 50
   bodyColliders: []

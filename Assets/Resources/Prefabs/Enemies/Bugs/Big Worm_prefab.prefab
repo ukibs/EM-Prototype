@@ -2681,13 +2681,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bdff44de0ec5ab468dbd1581a3dc106, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxSpeed: 10
+  minimalLungeDistance: 50
+  minimalShootDistance: 100
+  ofFootMaxTime: 5
   timeBetweenActionChecking: 1
   rotationSpeed: 180
   behaviour: 
   weapons: []
   movementSpeed: 50
-  minimalApproachDistance: 70
-  minimalLungeDistance: 50
+  minimalXyApproachDistance: 100
   lungeSpeed: 120
   lungeClip: {fileID: 8300000, guid: c56a218742cb635489bbfef30efad2ee, type: 3}
   underSandIdealHeight: -50
@@ -2714,6 +2717,7 @@ MonoBehaviour:
   active: 1
   markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
+  inGameName: Big Worm
   maxHealth: 1000
   defense: 50
   bodyColliders:

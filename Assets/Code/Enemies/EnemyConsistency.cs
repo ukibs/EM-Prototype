@@ -7,6 +7,9 @@ public class EnemyConsistency : Targeteable {
 
     #region Public Attributes
 
+    //
+    [Tooltip("The name follows a label format: Size and cateogry")]
+    public string inGameName = "Size Category";
     // public float maxChasisHealth = 100.0f; // 
     public int maxHealth = 100; //
     [Tooltip("Defense against non bullet impacts.")]
@@ -362,7 +365,7 @@ public class EnemyConsistency : Targeteable {
     {
         // Si la vida cae a cero lo convertimos en un simple objeto con rigidbody
         // Le quitamos sus scripts de comportamiento, vamos
-        if (/*currentChasisHealth <= 0 || */currentHealth <= 0)
+        if (currentHealth <= 0)
         {
             //
             if (impactInfoManager != null)
@@ -385,7 +388,7 @@ public class EnemyConsistency : Targeteable {
                 if (wholeObject == null)
                     wholeObject = transform;
                 //
-                levelManager.AnnotateKill(wholeObject.gameObject);
+                levelManager.AnnotateKill(inGameName);
             }
                 
             if (enemyManager != null)

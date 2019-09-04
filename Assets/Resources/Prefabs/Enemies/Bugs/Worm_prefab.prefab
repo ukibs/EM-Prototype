@@ -183,6 +183,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   armor: 5
   associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &8096563443830030571
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,8 +258,10 @@ MonoBehaviour:
   active: 1
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0.5, z: 0}
+  inGameName: Small Worm
   maxHealth: 30
   defense: 50
+  bodyColliders: []
   deathBloodPrefab: {fileID: 3125914639698908078, guid: 099db54e23b55334a8c42a1729809e0e,
     type: 3}
   deathParticlesPrefab: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
@@ -284,6 +289,9 @@ MonoBehaviour:
   - {fileID: 3748095793552796454}
   - {fileID: 3748095793552796456}
   - {fileID: 3748095793552796458}
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!114 &6392689114824422278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,14 +304,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ff7a2f11d17bba48ad996cb73fbfbcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBetweenActionChecking: 0.5
-  rotationSpeed: 50
-  behaviour: 060000000500000000000000
-  weapons: []
   maxSpeed: 30
   minimalLungeDistance: 25
   minimalShootDistance: 100
   ofFootMaxTime: 0
+  timeBetweenActionChecking: 0.5
+  rotationSpeed: 50
+  behaviour: 060000000500000000000000
+  weapons: []
   lungeSpeed: 100
   lungeCooldown: 10
   lungClip: {fileID: 8300000, guid: c56a218742cb635489bbfef30efad2ee, type: 3}

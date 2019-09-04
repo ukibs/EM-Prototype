@@ -2859,6 +2859,7 @@ MonoBehaviour:
   active: 1
   markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
+  inGameName: Big Grunt
   maxHealth: 500
   defense: 30
   bodyColliders: []
