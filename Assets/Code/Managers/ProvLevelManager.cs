@@ -11,6 +11,7 @@ public enum VictoryCondition
     DefeatAnyEnemy,
     DefeatCertainEnemy,
     FindSomething,
+    SlayTheBeast,       // Aquí se controlará el cierre de otrq forma
 
     Count
 }

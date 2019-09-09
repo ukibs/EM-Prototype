@@ -2884,11 +2884,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 10
   minimalLungeDistance: 15
-  minimalShootDistance: 500
+  minimalShootDistance: 300
   ofFootMaxTime: 5
   timeBetweenActionChecking: 2
   rotationSpeed: 45
-  behaviour: 0300000000000000
+  behaviour: 0200000000000000
   weapons:
   - {fileID: 4343538503389955779}
   minIdealHeight: 60

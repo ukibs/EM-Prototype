@@ -257,8 +257,8 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
                     // TODO: Cuidado con cuando se cambian los paneles. De momento no es un gran problema, pero habrá que abordarlo
                     //
                     Vector3 currentObjective;
-                    //
-                    if (pathToUse != null && pathToUse.Count > 0)
+                    // Vamos a añadir que no tenga al player a la vista a ver que tal va
+                    if (pathToUse != null && pathToUse.Count > 0 && !PlayerOnSight())
                     {
                         //
                         Vector3 xzDistanceToWaypoint = pathToUse[0].transform.position - transform.position;
@@ -298,7 +298,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
                     //Move();
                     break;
                 case Actions.EncirclingPlayerSideward:
-                    transform.rotation = GeneralFunctions.UpdateRotationOnCross(transform, player.transform.position, rotationSpeed * movementStatus, dt);
+                    transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed * movementStatus, dt);
                     Move();
                     break;
                 case Actions.Fleeing:

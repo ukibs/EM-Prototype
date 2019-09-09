@@ -101,17 +101,17 @@ public class PlayerIntegrity : MonoBehaviour
     public void ReceiveImpact(Vector3 contactPoint, GameObject otherGameObject, Rigidbody collidingRB, Vector3 impactNormal)
     {
         // Defensa extra por acciones defensivas
-        float extraDefense = 0;
-        //
-        if (robotControl.CurrentActionCharging == ActionCharguing.Defense)
-        {
-            switch (robotControl.ActiveDefenseMode)
-            {
-                case DefenseMode.Spheric: extraDefense = gameManager.playerAttributes.sphericShieldStrength; break;
+        //float extraDefense = 0;
+        ////
+        //if (robotControl.CurrentActionCharging == ActionCharguing.Defense)
+        //{
+        //    switch (robotControl.ActiveDefenseMode)
+        //    {
+        //        case DefenseMode.Spheric: extraDefense = gameManager.playerAttributes.sphericShieldStrength; break;
 
-                case DefenseMode.Front: extraDefense = 9999; break;
-            }
-        }
+        //        case DefenseMode.Front: extraDefense = 9999; break;
+        //    }
+        //}
         
         // COgemos los dos rigidbodies
         //Rigidbody otherRb = collidingRB;
@@ -154,7 +154,7 @@ public class PlayerIntegrity : MonoBehaviour
         float impactAngle = Vector3.SignedAngle(Camera.main.transform.forward, impactDirection, transform.up);
 
         //
-        float impactDamage = Mathf.Max(totalImpactForce - extraDefense, 0);
+        float impactDamage = Mathf.Max(totalImpactForce/* - extraDefense*/, 0);
         //Debug.Log("Impact from " + otherGameObject.name + ", damage " + impactDamage);
         
         // De momento no visualizamos info del daño que recibimos
@@ -218,7 +218,25 @@ public class PlayerIntegrity : MonoBehaviour
     //
     void SufferDamage(float impactDamage, float impactAngle)
     {
-        //
+        // Primero chequeamos si hay alguna acción defensiva activa
+        if (robotControl.CurrentActionCharging == ActionCharguing.Defense)
+        {
+            switch (robotControl.ActiveDefenseMode)
+            {
+                case DefenseMode.Spheric:
+                    float extraShieldEnergy = robotControl.ChargedAmount * gameManager.playerAttributes.forcePerSecond.CurrentValue;
+                    float stoppedDamage = Mathf.Min(impactDamage, extraShieldEnergy);
+                    float impactDamageBeforeReduction = impactDamage;
+                    impactDamage -= stoppedDamage;
+                    // Aplicamos un mini margen para que no se detenga la acción
+                    robotControl.ChargedAmount -= (stoppedDamage / gameManager.playerAttributes.forcePerSecond.CurrentValue) - 0.01f;
+                    Debug.Log("SD - Impact damage before reduction: " + impactDamageBeforeReduction + ", stopped damage: " + stoppedDamage +
+                        ", entering damage: " + impactDamage);
+                    break;
+
+                case DefenseMode.Front:  break;
+            }
+        }
         //float damageToShields = Mathf.Max(impactDamage - shieldAbsortion, 0);
         currentShield -= impactDamage;
         DamageType damageType;

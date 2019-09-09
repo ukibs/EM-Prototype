@@ -157,7 +157,10 @@ public class RobotControl : MonoBehaviour {
 
     #region Properties
 
-    public float ChargedAmount { get { return chargedAmount; } }
+    public float ChargedAmount {
+        get { return chargedAmount; }
+        set { chargedAmount = value; }
+    }
     public float CurrentOverHeat { get { return currentOverheat; } }
     public bool TotalOverheat { get { return totalOverheat; } }
     public ActionCharguing CurrentActionCharging { get { return actionCharging; } }
@@ -607,7 +610,7 @@ public class RobotControl : MonoBehaviour {
             }
             
             // De momento haremos que la carga empiece a tope en la defensa
-            chargedAmount = 1;
+            //chargedAmount = 1;
         }            
         else if (inputManager.DefenseButton && actionCharging == ActionCharguing.Defense)
         {

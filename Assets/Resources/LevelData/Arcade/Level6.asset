@@ -13,32 +13,46 @@ MonoBehaviour:
   m_Name: Level6
   m_EditorClassIdentifier: 
   levelInfo:
-    inGameName: Grunts first contact
+    inGameName: Big Worm Attack
     gameMode: 0
     victoryCondition: 2
-    enemiesToDefeat: 100
+    enemiesToDefeat: 2
     attackActionsAvailable: 2
     defenseActionsAvailable: 0
     jumpActionsAvailable: 1
     sprintActionsAvailable: 1
-    enemyGroups:
-    - {fileID: 2132211706304976565, guid: 8aaab91e7db7f9d4991954cca5ab8f91, type: 3}
-    - {fileID: 2132211706304976565, guid: 8aaab91e7db7f9d4991954cca5ab8f91, type: 3}
-    - {fileID: 2132211706304976565, guid: 8aaab91e7db7f9d4991954cca5ab8f91, type: 3}
-    - {fileID: 2132211706304976565, guid: 0b2e4e24c44f4f6478875c94b56c80f6, type: 3}
-    enemiesToSpawn: 03000000030000000300000001000000
-    enemySpawnIncrement: 00000000000000000000000000000000
-    timeBetweenSpawns:
-    - 5
-    - 5
-    - 5
-    - 5
-    maxActiveEnemies: 0a0000000a0000000a00000001000000
-    terrainPrefabs:
-    - {fileID: 3326227640253247155, guid: e805da38f2157cf44bd8ebbbe826ba67, type: 3}
-    - {fileID: 3326227640253247155, guid: f90644bdac5d8924fbad91a92cde6c44, type: 3}
-    - {fileID: 3326227640253247155, guid: 13954841500ed1049a895eccaeb2ce4c, type: 3}
-    - {fileID: 3326227640253247155, guid: cee649da1f6f3c6418e08952112853d4, type: 3}
-    terrainRatio: 03000000020000000100000004000000
-    terrainMax: 00000000000000000000000000000000
-    terrainMin: 00000000000000000000000000000000
+    enemiesSpawnSettings:
+    - enemyPrefab: {fileID: 515845529661205080, guid: d77858c5bea24a743878ab5dac943855,
+        type: 3}
+      enemiesToSpawn: 1
+      enemySpawnIncrement: 0
+      timeBetweenSpawns: 10
+      maxActiveEnemies: 1
+    - enemyPrefab: {fileID: 8096563443830030571, guid: 63f7a55d02361e7448d4b09d407ad549,
+        type: 3}
+      enemiesToSpawn: 2
+      enemySpawnIncrement: 0
+      timeBetweenSpawns: 5
+      maxActiveEnemies: 10
+    - enemyPrefab: {fileID: 8096563443830030571, guid: 63f7a55d02361e7448d4b09d407ad549,
+        type: 3}
+      enemiesToSpawn: 2
+      enemySpawnIncrement: 0
+      timeBetweenSpawns: 5
+      maxActiveEnemies: 10
+    terrainElementsSettings:
+    - terrainPrefab: {fileID: 3326227640253247155, guid: e805da38f2157cf44bd8ebbbe826ba67,
+        type: 3}
+      terrainRatio: 1
+      terrainMax: 0
+      terrainMin: 0
+    - terrainPrefab: {fileID: 3326227640253247155, guid: 1faf0654ea7511b4889b35ba3e120d34,
+        type: 3}
+      terrainRatio: 3
+      terrainMax: 0
+      terrainMin: 0
+    - terrainPrefab: {fileID: 3326227640253247155, guid: f90644bdac5d8924fbad91a92cde6c44,
+        type: 3}
+      terrainRatio: 3
+      terrainMax: 0
+      terrainMin: 0

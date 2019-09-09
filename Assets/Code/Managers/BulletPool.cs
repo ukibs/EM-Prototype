@@ -6,6 +6,8 @@ public class BulletPool : MonoBehaviour
 {
     //
     private List<GameObject> dangerousBullets;
+    // A ver cómo responde esto
+    private List<BulletTypePool> bulletPoolsPerType;
 
     //
     public List<GameObject> DangerousBullets { get { return dangerousBullets; } }
@@ -22,6 +24,27 @@ public class BulletPool : MonoBehaviour
         
     }
 
+    #region Bullet Management Methods
+
+    public void RegisterBullets(GameObject bulletPrefab, float fireRate, float bulletLifeTime)
+    {
+        //
+        if(bulletPoolsPerType.Count == 0)
+        {
+
+        }
+        //
+        for(int i = 0; i < bulletPoolsPerType.Count; i++)
+        {
+
+        }
+
+    }
+
+    #endregion
+
+    #region Dangerous Bullet Methods
+
     public void AddDangerousBulletToList(GameObject incomingBullet)
     {
         dangerousBullets.Add(incomingBullet);
@@ -31,4 +54,13 @@ public class BulletPool : MonoBehaviour
     {
         dangerousBullets.Remove(incomingBullet);
     }
+
+    #endregion
+}
+
+public class BulletTypePool
+{
+    public string prefabName;
+    private List<GameObject> reserveBullets;
+    private List<GameObject> activeBullets;
 }

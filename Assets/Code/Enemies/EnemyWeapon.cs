@@ -65,6 +65,7 @@ public class EnemyWeapon : MonoBehaviour
     private Transform shootPoint;
     private RobotControl player;
     private Rigidbody playerRB;
+    private Rigidbody bodyRb;
     private float timeFromLastShoot;
     //
     private Quaternion originalRotation;
@@ -92,6 +93,8 @@ public class EnemyWeapon : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         //
         //enemyManager = FindObjectOfType<EnemyManager>();
+        //
+        bodyRb = GetComponentInParent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -124,6 +127,7 @@ public class EnemyWeapon : MonoBehaviour
 
     }
 
+    //
     void UpdateCanonRotation(Vector3 playerDirection, float dt)
     {
         // TODO: Mirar como hacer fuego indirecto
@@ -232,6 +236,11 @@ public class EnemyWeapon : MonoBehaviour
         //    enemyManager.AddClip(shootingClip);
         GeneralFunctions.PlaySoundEffectWithoutOverlaping(audioSource, shootingClip);
         //}
+
+        // TODO: Revisar por qué sale tan gore
+        Rigidbody proyectileRb = newProyectile.GetComponent<Rigidbody>();
+        float lauchForce = proyectileRb.velocity.magnitude * proyectileRb.mass;
+        bodyRb.AddForce(-transform.forward * lauchForce);
     }
 
     /// <summary>

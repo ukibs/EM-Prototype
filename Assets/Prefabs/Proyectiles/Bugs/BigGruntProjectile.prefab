@@ -123,8 +123,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   diameter: 60
+  length: 0
   lifeTime: 10
-  dangerousEnough: 1
+  dangerousEnough: 0
+  drawTrayectory: 0
   impactParticlesPrefab: {fileID: 1837716235657633640, guid: 61c9e81fe8e7c0a40a345df35440fcab,
     type: 3}
   bulletHolePrefab: {fileID: 1994357791592751295, guid: fdcc40e32b9fb4f4ca7298a163243e98,

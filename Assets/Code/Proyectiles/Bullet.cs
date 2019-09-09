@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour {
 
+    //
+    public bool playerBullet = false;
     // Seguramente metamos también la velocidad de salid
-
     [Tooltip("Diameter in mm")]
     public float diameter;
     public float length;
