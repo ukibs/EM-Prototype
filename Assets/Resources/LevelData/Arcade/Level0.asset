@@ -21,26 +21,10 @@ MonoBehaviour:
     defenseActionsAvailable: 1
     jumpActionsAvailable: 1
     sprintActionsAvailable: 1
-    enemyGroups:
-    - {fileID: 197519170146785174, guid: 00ba06b7129ad1b498b21cbff6213a5c, type: 3}
-    - {fileID: 197519170146785174, guid: 00ba06b7129ad1b498b21cbff6213a5c, type: 3}
-    - {fileID: 197519170146785174, guid: 00ba06b7129ad1b498b21cbff6213a5c, type: 3}
-    - {fileID: 4694978885907813565, guid: c9642f7a38bd0dd48b356c9cb5710d68, type: 3}
-    - {fileID: 4694978885907813565, guid: c9642f7a38bd0dd48b356c9cb5710d68, type: 3}
-    enemiesToSpawn: 0500000003000000010000000100000001000000
-    enemySpawnIncrement: 
-    timeBetweenSpawns:
-    - 20
-    - 10
-    - 5
-    - 10
-    - 5
-    maxActiveEnemies: 140000000f0000000a0000000100000001000000
-    terrainPrefabs:
-    - {fileID: 3326227640253247155, guid: e805da38f2157cf44bd8ebbbe826ba67, type: 3}
-    - {fileID: 3326227640253247155, guid: f90644bdac5d8924fbad91a92cde6c44, type: 3}
-    - {fileID: 3326227640253247155, guid: 13954841500ed1049a895eccaeb2ce4c, type: 3}
-    - {fileID: 3326227640253247155, guid: cee649da1f6f3c6418e08952112853d4, type: 3}
-    terrainRatio: 02000000030000000100000005000000
-    terrainMax: 00000000000000000000000000000000
-    terrainMin: 00000000000000000000000000000000
+    enemiesSpawnSettings: []
+    terrainElementsSettings:
+    - terrainPrefab: {fileID: 3326227640253247155, guid: e805da38f2157cf44bd8ebbbe826ba67,
+        type: 3}
+      terrainRatio: 1
+      terrainMax: 0
+      terrainMin: 0
