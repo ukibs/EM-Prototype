@@ -498,6 +498,7 @@ MonoBehaviour:
   rapidFireClip: {fileID: 8300000, guid: b602fac39daf4bc4084ed7fdaf30e823, type: 3}
   overHeatClip: {fileID: 8300000, guid: 76b38e3e997b95b4c996b565fd03a33a, type: 3}
   rotationTime: 0.1
+  not2dDMaxDuration: 0.3
 --- !u!114 &114003392293176966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -555,12 +556,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13aad6b1265a68040bdd07e2ddcdbf5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxShield: 1000
-  maxHealth: 10000
-  shieldAbsortion: 100
-  armor: 2000
-  shieldRegenerationRate: 10
-  healthRegenerationRate: 1000
   playerFace: {fileID: 7651396667440439992}
   playerDeadFace: {fileID: 2100000, guid: af711cfacaaddb24690be92970e4f048, type: 2}
   shieldDepletionClip: {fileID: 8300000, guid: d4c6552cb2acee64884421743f617484, type: 3}
@@ -15590,7 +15585,7 @@ SphereCollider:
   m_GameObject: {fileID: 8531471826758480961}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}

@@ -229,7 +229,8 @@ public class PlayerIntegrity : MonoBehaviour
                     float impactDamageBeforeReduction = impactDamage;
                     impactDamage -= stoppedDamage;
                     // Aplicamos un mini margen para que no se detenga la acción
-                    robotControl.ChargedAmount -= (stoppedDamage / gameManager.playerAttributes.forcePerSecond.CurrentValue) - 0.01f;
+                    robotControl.ChargedAmount -= (stoppedDamage / gameManager.playerAttributes.forcePerSecond.CurrentValue);
+                    //
                     Debug.Log("SD - Impact damage before reduction: " + impactDamageBeforeReduction + ", stopped damage: " + stoppedDamage +
                         ", entering damage: " + impactDamage);
                     break;

@@ -152,10 +152,10 @@ public class Repulsor : MonoBehaviour {
     #region Methods
 
     // TODO: Hacerlo trabajar con los ataques
-    public void CompensateWeaponRecoil()
-    {
+    //public void CompensateWeaponRecoil()
+    //{
 
-    }
+    //}
 
     /// <summary>
     /// 
@@ -182,7 +182,11 @@ public class Repulsor : MonoBehaviour {
     {
         RaycastHit hitInfo;
         floorPoint = Vector3.positiveInfinity;
-        if (Physics.SphereCast(transform.position, 0.5f, Vector3.down, out hitInfo, idealDistanceFromFloor))
+        // Cogemos el valor de proyectiles enemigos, e invertimos
+        int layerMask = 1 << 12;
+        layerMask = ~layerMask;
+        //
+        if (Physics.SphereCast(transform.position, 0.5f, Vector3.down, out hitInfo, idealDistanceFromFloor, layerMask))
         {
             //Debug.Log("Repulsing");
             float distanceFromFloor = (transform.position - hitInfo.point).magnitude;

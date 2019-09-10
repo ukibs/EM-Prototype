@@ -159,7 +159,11 @@ public class RobotControl : MonoBehaviour {
 
     public float ChargedAmount {
         get { return chargedAmount; }
-        set { chargedAmount = value; }
+        set {
+            chargedAmount = value;
+            // Control para que no se desactive la acción
+            chargedAmount = Mathf.Max(chargedAmount, 0.01f);
+        }
     }
     public float CurrentOverHeat { get { return currentOverheat; } }
     public bool TotalOverheat { get { return totalOverheat; } }

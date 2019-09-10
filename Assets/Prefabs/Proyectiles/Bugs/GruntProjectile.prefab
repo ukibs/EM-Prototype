@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 135684469493321500}
   - component: {fileID: 54382493756508544}
   - component: {fileID: 114133439628236704}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: GruntProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,6 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cca406881df4e634db8e1b9dc80de919, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerBullet: 0
   diameter: 20
   length: 0
   lifeTime: 10
@@ -148,6 +149,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: AcidShot_Trail
+      objectReference: {fileID: 0}
+    - target: {fileID: 8801764043903978978, guid: 60c9ae5293482394daaae58a2d037008,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 8265540234682333196, guid: 60c9ae5293482394daaae58a2d037008,
         type: 3}

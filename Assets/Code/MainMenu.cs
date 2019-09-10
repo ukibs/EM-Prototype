@@ -166,7 +166,7 @@ public class MainMenu : MonoBehaviour
         //
         Vector2 mouseCoordinates = Input.mousePosition;
         //
-        for (int i = 0; i < buttonsFunctionalCoordinates.Count - 1; i++)
+        for (int i = 0; i < buttonsFunctionalCoordinates.Count - 2; i++)
         {
             if(mouseCoordinates.x > buttonsFunctionalCoordinates[i].x &&
                 mouseCoordinates.x < buttonsFunctionalCoordinates[i].x + buttonsFunctionalCoordinates[i].width &&
