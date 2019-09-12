@@ -52,8 +52,9 @@ public class FloatingGruntBodyBehaviour : EnemyBaseBodyBehaviour
             //
             //rb.AddForce(Vector3.up * liftForcePerSecond);
             //
-            float forceToApply = maxSpeed * (1 - (transform.position.y / idealHeight));
-            rb.velocity += Vector3.up * forceToApply;
+            float forceToApply = liftForcePerSecond * (1 - (transform.position.y / idealHeight));
+            //rb.velocity += Vector3.up * forceToApply;
+            rb.AddForce(Vector3.up * forceToApply);
         }
         // Para evitar obstáculos
         //if(CheckIfObstacleInMovingDirection())

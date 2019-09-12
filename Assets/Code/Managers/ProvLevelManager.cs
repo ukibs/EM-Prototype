@@ -93,10 +93,12 @@ public class ProvLevelManager : MonoBehaviour
     void Update()
     {
         // Cuqluier botón estando muerto para volver al menu
-        if(Input.anyKey && robotControl == null)
-        {
-            SceneManager.LoadScene("Menu");
-        }
+        //if(Input.anyKey && !PlayerReference.isAlive)
+        //{
+            // TODO: Meter fade
+            //SceneManager.LoadScene("Menu");
+            //EndLevel();
+        //}
         //
         CheckVictory();
         //

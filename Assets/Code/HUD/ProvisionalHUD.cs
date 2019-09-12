@@ -10,6 +10,7 @@ public class ProvisionalHUD : MonoBehaviour {
     public Texture overlayTexture;
 
     public Texture crossTexture;
+    public Texture circleTexture;
     //public Texture penetrationCrossRed;
     //public Texture penetrationCrossYellow;
     //public Texture penetrationCrossGreen;
@@ -130,7 +131,7 @@ public class ProvisionalHUD : MonoBehaviour {
         PlayerHealthAndShields();
 
         // Lo quitamos de momento
-        if(EnemyAnalyzer.isActive && EnemyAnalyzer.enemyConsistency.IsMultipart)
+        if(EnemyAnalyzer.isActive && EnemyAnalyzer.enemyConsistency != null && EnemyAnalyzer.enemyConsistency.IsMultipart)
             MarkEnemyPartsOnScreen();
         else
             MarkEnemiesOnScreen();
@@ -188,7 +189,8 @@ public class ProvisionalHUD : MonoBehaviour {
         CheckAndDrawLevelEnd();
 
         //
-        DrawDangerousBulletsDangerIndicators();
+        if(bulletPool != null)
+            DrawDangerousBulletsDangerIndicators();
     }
 
     //
@@ -552,8 +554,8 @@ public class ProvisionalHUD : MonoBehaviour {
             Vector3 anticipatedPositionInScreen = mainCamera.WorldToViewportPoint(EnemyAnalyzer.estimatedToHitPosition);
             GUI.DrawTexture(new Rect(
                 anticipatedPositionInScreen.x * Screen.width - 2,
-                Screen.height - anticipatedPositionInScreen.y * Screen.height - 2, 4, 4),
-                targetedEnemyEstimatedFuturePositionTexture);
+                Screen.height - anticipatedPositionInScreen.y * Screen.height - 2, 10, 10),
+                circleTexture);
             
             // Barra de vida
             float enemyCoreHealthForBar = enemyConsistency.CurrentHealth / enemyConsistency.maxHealth;
@@ -632,11 +634,15 @@ public class ProvisionalHUD : MonoBehaviour {
                 //
                 //EnemyIdentifier enemyIdentifier = enemies[i].GetComponentInParent<EnemyIdentifier>();
                 //
+                //GUI.DrawTexture(new Rect(
+                //    posInScreen.x * Screen.width - 15,
+                //    Screen.height - posInScreen.y * Screen.height - 50, 30, 30),
+                //    enemyInScreenTextures[0]);
+                //enemyInScreenTextures[(int)enemyIdentifier.enemyType]);
                 GUI.DrawTexture(new Rect(
                     posInScreen.x * Screen.width - 15,
-                    Screen.height - posInScreen.y * Screen.height - 50, 30, 30),
-                    enemyInScreenTextures[0]);
-                //enemyInScreenTextures[(int)enemyIdentifier.enemyType]);
+                    Screen.height - posInScreen.y * Screen.height - 15, 30, 30),
+                    circleTexture);
             }
         }
     }
@@ -734,7 +740,8 @@ public class ProvisionalHUD : MonoBehaviour {
             radarYPosition - radarDimensions.y, 
             radarDimensions.x, radarDimensions.y), radarTexture);
         // Epicentro si toca
-        DrawEpicenterInRadar(playerDirection, radarXPositon, radarYPosition, markerSize);
+        if(enemyManager != null)
+            DrawEpicenterInRadar(playerDirection, radarXPositon, radarYPosition, markerSize);
         // Y enemigos
         // TODO: Cogerlo por refencia del manager apropiado cuando lo tengamos listo
         Targeteable[] enemies = FindObjectsOfType<Targeteable>();
@@ -777,6 +784,7 @@ public class ProvisionalHUD : MonoBehaviour {
         }
 
         // Y los ataques peligrosos también
+        if (bulletPool == null) return;
         // TODO: Sacar función para no tener codigo repe
         for(int i = 0; i < bulletPool.DangerousBullets.Count; i++)
         {

@@ -89,7 +89,8 @@ public class ShovelManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+        //
+        if (!PlayerReference.isAlive) return;
         //
         float dt = Time.deltaTime;
         //

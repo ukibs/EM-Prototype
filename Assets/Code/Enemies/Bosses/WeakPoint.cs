@@ -61,7 +61,7 @@ public class WeakPoint : Targeteable
             {
                 gigaWormBehaviour.LoseWeakPoint();
                 carolBaseHelp.WeakPointDestroyed();
-                //PlayerReference.
+                //TODO: Meteremos el churrazo de sangre
                 active = false;
                 //Destroy(this);
                 //Destroy(gameObject);

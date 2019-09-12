@@ -980,7 +980,7 @@ MonoBehaviour:
   firingSystem: 0
   shootCalculation: 1
   doesRotate: 1
-  rotationIsConstrained: 0
+  rotationIsConstrained: 1
   maxRotationOffset: {x: 50, y: 30}
   shootParticlesPrefab: {fileID: 1837716235657633640, guid: 61c9e81fe8e7c0a40a345df35440fcab,
     type: 3}
@@ -2848,7 +2848,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be8da5f274140ee42a849c08899440df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 30
+  maxSpeed: 100
   minimalLungeDistance: 15
   minimalShootDistance: 300
   ofFootMaxTime: 5
@@ -2857,7 +2857,7 @@ MonoBehaviour:
   behaviour: 0200000000000000
   weapons:
   - {fileID: 4343538503389955779}
-  minIdealHeight: 30
+  minIdealHeight: 40
   maxIdealHeight: 60
   liftForcePerSecond: 500
 --- !u!1 &2132211706304976565

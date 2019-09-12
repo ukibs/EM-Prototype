@@ -18,6 +18,7 @@ public class PlayerIntegrity : MonoBehaviour
     private Rigidbody bodyRB;
     private ProvisionalHUD hud;
     private AudioSource audioSource;
+    private ProvLevelManager levelManager;
 
     //
     //Vector3 previousStepRbVelocity;
@@ -37,6 +38,8 @@ public class PlayerIntegrity : MonoBehaviour
         }
     }
 
+    public bool IsDead { get { return currentHealth <= 0; } }
+
     #endregion
 
     // Start is called before the first frame update
@@ -47,6 +50,7 @@ public class PlayerIntegrity : MonoBehaviour
         bodyRB = GetComponent<Rigidbody>();
         hud = FindObjectOfType<ProvisionalHUD>();
         audioSource = GetComponent<AudioSource>();
+        levelManager = FindObjectOfType<ProvLevelManager>();
         //
         currentHealth = gameManager.playerAttributes.maxHealth;
         currentShield = gameManager.playerAttributes.maxShield.CurrentValue;
@@ -300,22 +304,29 @@ public class PlayerIntegrity : MonoBehaviour
         ManageDeath();
     }
 
+    // TODO: No destruir componentes
     void ManageDeath()
     {
-        Repulsor repulsor = GetComponent<Repulsor>();
-        Destroy(repulsor);
+        //Repulsor repulsor = GetComponent<Repulsor>();
+        //Destroy(repulsor);
 
         //RobotControl robotControl = GetComponent<RobotControl>();
-        Destroy(robotControl);
+        //Destroy(robotControl);
 
-        ShovelManager shovelManager = GetComponent<ShovelManager>();
-        Destroy(shovelManager);
+        //ShovelManager shovelManager = GetComponent<ShovelManager>();
+        //Destroy(shovelManager);
 
         //Rigidbody rb = GetComponent.RigidBody
+        PlayerReference.playerRb.constraints = RigidbodyConstraints.None;
+        //
+        PlayerReference.isAlive = false;
 
         MeshRenderer faceRenderer = playerFace.GetComponent<MeshRenderer>();
         faceRenderer.material = playerDeadFace;
         faceRenderer.materials[0] = playerDeadFace;
+
+        //
+        levelManager.EndLevel();
     }
 
     #endregion

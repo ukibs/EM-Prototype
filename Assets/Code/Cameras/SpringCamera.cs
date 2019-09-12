@@ -391,10 +391,10 @@ public class SpringCamera : MonoBehaviour {
         Vector2 rightAxis = inputManager.RightStickAxis;
         if (currentTarget != targetPlayer && rightAxis.magnitude > 0.5f && changeAllowed == true)
         {
-            if (!EnemyAnalyzer.enemyConsistency.IsMultipart)
-                SwitchBetweenEnemies(rightAxis);
-            else
+            if (EnemyAnalyzer.enemyConsistency && EnemyAnalyzer.enemyConsistency.IsMultipart)
                 SwitchBetweenEnemyParts(rightAxis);
+            else
+                SwitchBetweenEnemies(rightAxis);            
             // Vamos a meter aqui el movimiento entre partes del mismo enemigo
             changeAllowed = false;
             return true;
@@ -549,7 +549,7 @@ public class SpringCamera : MonoBehaviour {
     void SwitchToNearestInWorldEnemy()
     {
         //
-        Transform enemyToSwitch;
+        Transform enemyToSwitch = null;
         float nearestDistance;
         //
         Targeteable[] enemies = FindObjectsOfType<Targeteable>();
@@ -559,9 +559,13 @@ public class SpringCamera : MonoBehaviour {
         {
             enemyToSwitch = targeteableEnemies[0].transform;
             nearestDistance = (enemyToSwitch.position - EnemyAnalyzer.lastEnemyPosition).magnitude;
-        }            
+        }
         else
+        {
+            SwitchTarget();
             return;
+        }
+            
         //
         for (int i = 1; i < targeteableEnemies.Count; i++)
         {
@@ -647,7 +651,7 @@ public class SpringCamera : MonoBehaviour {
         // TODO: Trabajar que funcione mejor
         Vector3 directionToCheck = positionWithoutCorrection - targetPos;
         RaycastHit hitInfo;
-        // Ponemos de momento el punto de inicio del raycast a 10 metros por delante de la cámara
+        // Ponemos de momento el punto de inicio del raycast a X metros por delante de la cámara
         float magnitudeToUse = Mathf.Min(20, directionToCheck.magnitude);
         Vector3 rayOrigin = positionWithoutCorrection - Vector3.ClampMagnitude(directionToCheck, magnitudeToUse);
         //
@@ -656,7 +660,7 @@ public class SpringCamera : MonoBehaviour {
         // CHECK: Si filtrar o no la layer de enemy (9) (se salta también la arena por alguna razón)
         if (Physics.Raycast(rayOrigin, directionToCheck, out hitInfo, magnitudeToUse))
         {
-            transform.position = Vector3.Lerp(rayOrigin, hitInfo.point, 1f);
+            transform.position = Vector3.Lerp(rayOrigin, hitInfo.point, 0.8f);
         }
         else
         {
@@ -730,7 +734,10 @@ public static class EnemyAnalyzer
     public static void Release()
     {
         //
-        if(enemyTransform != null)
+        //Debug.Log("Releasing enemy");
+
+        //
+        if (enemyTransform != null)
             lastEnemyPosition = enemyTransform.position;
         //
         enemyTransform = null;

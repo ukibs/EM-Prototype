@@ -29,6 +29,7 @@ public class Repulsor : MonoBehaviour {
     private GameManager gameManager;
     private RobotControl robotControl;
     private AudioSource audioSource;
+    private PlayerIntegrity playerIntegrity;
 
     // TODO: Mandarla a su sitio después del testeo
     private float offsetCompensation = 0;
@@ -52,6 +53,7 @@ public class Repulsor : MonoBehaviour {
         gameManager = FindObjectOfType<GameManager>();
         robotControl = GetComponent<RobotControl>();
         audioSource = GetComponent<AudioSource>();
+        playerIntegrity = GetComponent<PlayerIntegrity>();
         //
         StopDustEmitterParticleSystem(dustEmitterMovement);
 	}
@@ -59,6 +61,8 @@ public class Repulsor : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 
+        //
+        if (playerIntegrity.IsDead) return;
         //
         float dt = Time.deltaTime;
 

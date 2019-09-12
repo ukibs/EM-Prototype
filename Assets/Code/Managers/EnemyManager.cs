@@ -103,12 +103,14 @@ public class EnemyManager : MonoBehaviour
     {
         //
         float distanceToPlayer = 1500;
-        float angle = UnityEngine.Random.Range(0, 360);
+        //float angle = UnityEngine.Random.Range(0, 360);
+        ////
+        //float pointX = Mathf.Cos(angle) * distanceToPlayer;
+        //float pointY = Mathf.Sin(angle) * distanceToPlayer;
+        ////
+        //epicenterPoint = new Vector3(pointX, 0, pointY);
         //
-        float pointX = Mathf.Cos(angle) * distanceToPlayer;
-        float pointY = Mathf.Sin(angle) * distanceToPlayer;
-        //
-        epicenterPoint = new Vector3(pointX, 0, pointY);
+        epicenterPoint = Vector3.forward * distanceToPlayer;
     }
 
     // Los iniciamos desactivados

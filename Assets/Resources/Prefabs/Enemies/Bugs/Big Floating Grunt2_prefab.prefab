@@ -1009,7 +1009,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainWeapon: 1
   rotationSpeed: {x: 90, y: 30}
-  rateOfFire: 0.2
+  rateOfFire: 2
   range: 500
   proyectilePrefab: {fileID: 4385535040777300845, guid: 62ecfa16ffbaf0143aa293bec6e4f27d,
     type: 3}
@@ -1019,7 +1019,7 @@ MonoBehaviour:
   firingSystem: 0
   shootCalculation: 1
   doesRotate: 1
-  rotationIsConstrained: 0
+  rotationIsConstrained: 1
   maxRotationOffset: {x: 50, y: 30}
   shootParticlesPrefab: {fileID: 1837716235657633640, guid: 61c9e81fe8e7c0a40a345df35440fcab,
     type: 3}
@@ -1049,7 +1049,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  armor: 10
+  armor: 45
   associatedMeshRenderers:
   - {fileID: 1969598843405062770}
   - {fileID: 2862407542263224457}
@@ -2836,8 +2836,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2132211704751470286}
   serializedVersion: 2
-  m_Mass: 0.6
-  m_Drag: 0.2
+  m_Mass: 60
+  m_Drag: 3
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -2882,7 +2882,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be8da5f274140ee42a849c08899440df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 10
+  maxSpeed: 30
   minimalLungeDistance: 15
   minimalShootDistance: 300
   ofFootMaxTime: 5
@@ -2891,9 +2891,9 @@ MonoBehaviour:
   behaviour: 0200000000000000
   weapons:
   - {fileID: 4343538503389955779}
-  minIdealHeight: 60
+  minIdealHeight: 80
   maxIdealHeight: 100
-  liftForcePerSecond: 1000
+  liftForcePerSecond: 600
 --- !u!1 &2132211706304976565
 GameObject:
   m_ObjectHideFlags: 0

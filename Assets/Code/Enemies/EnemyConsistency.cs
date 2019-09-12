@@ -403,6 +403,7 @@ public class EnemyConsistency : Targeteable {
 
             if (deadBodyPrefab != null)
                 PutDeadBody(receivedForce);
+            //
             EnemyAnalyzer.Release();
 
             //

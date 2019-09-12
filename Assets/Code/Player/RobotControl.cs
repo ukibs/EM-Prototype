@@ -136,7 +136,7 @@ public class RobotControl : MonoBehaviour {
     //private bool applyingDamping = true;
     private bool adhering = false;
     //
-    private float rapidFireCooldown = 0;
+    //private float rapidFireCooldown = 0;
     private int nextRapidFireSide = 0;
     //
     private AudioSource audioSource;
@@ -242,6 +242,8 @@ public class RobotControl : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        //
+        if (!PlayerReference.isAlive) return;
         //
         if (inPlay)
         {
@@ -411,7 +413,7 @@ public class RobotControl : MonoBehaviour {
             else if (chargedAmount > 0 && actionCharging == ActionCharguing.Sprint)
             {
                 //
-                if (sprintMode == SprintMode.Normal && chargedAmount < 0.1f)
+                if (sprintMode == SprintMode.Normal && chargedAmount < 0.2f)
                     repulsor.RepulsorDash(directionX + directionZ);
                 //
                 chargedAmount = 0;
@@ -1004,6 +1006,12 @@ public static class PlayerReference
         //
         return penetrationCapacity;
     } 
+
+    //
+    public static void Die()
+    {
+        isAlive = false;
+    }
 }
 
 //

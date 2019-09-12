@@ -127,8 +127,8 @@ public class ScreecherBodyBehaviour : EnemyBaseBodyBehaviour
             //
             //float forceToAdd = liftForcePerSecond * (1 - (transform.position.y / currentIdealHeight));
             //
-            //rb.AddForce(Vector3.up * liftForcePerSecond);
-            rb.velocity += Vector3.up * liftForcePerSecond * dt;
+            rb.AddForce(Vector3.up * liftForcePerSecond);
+            //rb.velocity += Vector3.up * liftForcePerSecond * dt;
         }
     }
 
@@ -136,7 +136,8 @@ public class ScreecherBodyBehaviour : EnemyBaseBodyBehaviour
     {
         // Aqui no hacemos uso del Move padre
         //base.Move();
-        rb.velocity = transform.forward * maxSpeed;
+        //rb.velocity = transform.forward * maxSpeed;
+        rb.AddForce(transform.forward * maxSpeed);
     }
 
     // TODO: Hacerla bien

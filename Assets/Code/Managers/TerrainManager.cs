@@ -279,7 +279,7 @@ public class TerrainManager : MonoBehaviour
     {
         terrainElementsSettings = levelInfo.terrainElementsSettings;
         //
-        Debug.Log(terrainElementsSettings);
+        //Debug.Log(terrainElementsSettings);
         //blockPrefabs = levelInfo.terrainPrefabs;
         //blockFrequencies = levelInfo.terrainRatio;
         //minBlockAmounts = levelInfo.terrainMin;

@@ -47,6 +47,7 @@ MonoBehaviour:
   guiSkin: {fileID: 11400000, guid: 0d7ecdc8ac800f94491b1d5df3fbf883, type: 2}
   overlayTexture: {fileID: 2800000, guid: 52237635bfebcb7429adde7f7a515393, type: 3}
   crossTexture: {fileID: 2800000, guid: fd175b746696ae045bc76117bcf6a6e0, type: 3}
+  circleTexture: {fileID: 2800000, guid: d0df108dc7a0f634d9c23e8471eee24e, type: 3}
   enemyMarkerTextureRed: {fileID: 2800000, guid: 2f8dee006ce91f549a505b7638e312d7,
     type: 3}
   enemyMarkerTextureYellow: {fileID: 2800000, guid: 84ba6e5311b09a144a67aa58b3365212,
