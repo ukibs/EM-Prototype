@@ -28,17 +28,36 @@ public class BulletPool : MonoBehaviour
 
     public void RegisterBullets(GameObject bulletPrefab, float fireRate, float bulletLifeTime)
     {
-        //
+        // Si todavía no hay ninguna creada vamos directamente con esto
         if(bulletPoolsPerType.Count == 0)
         {
+            int maxExistantBullets = (int)(bulletLifeTime/fireRate);
+            string bulletName = bulletPrefab.name;
+            BulletTypePool newBulletTypePool = new BulletTypePool(bulletName);
+            bulletPoolsPerType.Add(newBulletTypePool);
+            //
+            for(int i = 0; i < maxExistantBullets; i++)
+            {
 
+            }
+            return;
         }
         //
+        bool found = false;
         for(int i = 0; i < bulletPoolsPerType.Count; i++)
+        {
+            string enteringBulletName = bulletPrefab.name;
+            if (bulletPoolsPerType[i].prefabName.Equals(enteringBulletName))
+            {
+                found = true;
+
+            }
+        }
+        //
+        if (!found)
         {
 
         }
-
     }
 
     #endregion
@@ -63,4 +82,11 @@ public class BulletTypePool
     public string prefabName;
     private List<GameObject> reserveBullets;
     private List<GameObject> activeBullets;
+
+    public BulletTypePool(string prefabName)
+    {
+        this.prefabName = prefabName;
+        reserveBullets = new List<GameObject>();
+        activeBullets = new List<GameObject>();
+    }
 }

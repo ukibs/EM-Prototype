@@ -43,18 +43,27 @@ public class FloatingGruntBodyBehaviour : EnemyBaseBodyBehaviour
     //
     protected void VerticalMovement()
     {
+        //
+        float floatingMarging = 10;
         // Para controlar que se mantenga en la altura idónea
-        if (transform.position.y < idealHeight)
+        //if (transform.position.y < idealHeight - floatingMarging)
+        //{
+        //    //
+        //    float distanceFromIdeal = idealHeight - transform.position.y;
+        //    float offsetCompensation = Mathf.Pow(distanceFromIdeal / floatingMarging, 3);
+        //    //
+        //    Vector3 verticalSpeed = Vector3.up * rb.velocity.y;
+        //    //
+        //    rb.AddForce(Vector3.up * offsetCompensation * liftForcePerSecond - verticalSpeed/2);
+        //}
+        //else 
+        if(transform.position.y < idealHeight)
         {
-            //
-            //float forceToAdd = liftForcePerSecond * (1 - (transform.position.y / currentIdealHeight));
-            //float forceToApply = 
-            //
-            //rb.AddForce(Vector3.up * liftForcePerSecond);
-            //
-            float forceToApply = liftForcePerSecond * (1 - (transform.position.y / idealHeight));
-            //rb.velocity += Vector3.up * forceToApply;
-            rb.AddForce(Vector3.up * forceToApply);
+            rb.AddForce(Vector3.up * liftForcePerSecond);
+        }
+        else
+        {
+            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
         }
         // Para evitar obstáculos
         //if(CheckIfObstacleInMovingDirection())

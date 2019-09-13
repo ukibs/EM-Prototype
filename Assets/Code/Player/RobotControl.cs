@@ -465,7 +465,7 @@ public class RobotControl : MonoBehaviour {
 
         // TODO: Tener en cuenta velocity actual
         Vector3 forceDirection = (directionX + directionZ).normalized;
-        rb.AddForce( forceDirection * gameManager.playerAttributes.movementForcePerSecond * sprintMultiplier);
+        rb.AddForce( forceDirection * gameManager.playerAttributes.movementForcePerSecond * sprintMultiplier * dt, ForceMode.Impulse);
 
         // And dampen de movement
         if (currentDamping == DampingType.TwoDimensional)

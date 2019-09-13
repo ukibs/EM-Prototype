@@ -62,7 +62,7 @@ public class Repulsor : MonoBehaviour {
 	void FixedUpdate () {
 
         //
-        if (playerIntegrity.IsDead) return;
+        if (playerIntegrity != null && playerIntegrity.IsDead) return;
         //
         float dt = Time.deltaTime;
 

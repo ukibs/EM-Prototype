@@ -73,6 +73,7 @@ public class EnemyWeapon : MonoBehaviour
     //
     private AudioSource audioSource;
     //private EnemyManager enemyManager;
+    private BulletPool bulletPool;
 
     // Start is called before the first frame update
     void Start()
@@ -95,6 +96,10 @@ public class EnemyWeapon : MonoBehaviour
         //enemyManager = FindObjectOfType<EnemyManager>();
         //
         bodyRb = GetComponentInParent<Rigidbody>();
+        // Registramos las correspondientes balas en el pool
+        bulletPool = FindObjectOfType<BulletPool>();
+        Bullet bulletData = proyectilePrefab.GetComponent<Bullet>();
+        bulletPool.RegisterBullets(proyectilePrefab, rateOfFire, bulletData.lifeTime);
     }
 
     // Update is called once per frame
