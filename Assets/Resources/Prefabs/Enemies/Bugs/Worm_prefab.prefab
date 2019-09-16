@@ -312,7 +312,7 @@ MonoBehaviour:
   rotationSpeed: 100
   behaviour: 060000000500000000000000
   weapons: []
-  lungeSpeed: 100
+  lungeSpeed: 200
   lungeCooldown: 10
   lungClip: {fileID: 8300000, guid: c56a218742cb635489bbfef30efad2ee, type: 3}
   maxAngleToLunge: 20

@@ -52,14 +52,35 @@ public class MainMenu : MonoBehaviour
         // Title
         GUI.Label(new Rect(Screen.width * 1 / 8, Screen.height * 1 / 4, 500, 50), "E. M. PROTOTYPE", guiSkin.customStyles[3]);
         GUI.Label(new Rect(Screen.width * 1 / 8 + 100, Screen.height * 1 / 4 + 50, 200, 30), "Prototype " + currentVersion, guiSkin.label);
-        
+
         // Depending on the gamne mode
         //ShowLevelsAccordingToGameMode();
-        ShowAllLevels();
+        //ShowAllLevels();
 
         //
-        if (!CheckMouseOverButtons())
-            ShowUpgradeSection();
+        //if (!CheckMouseOverButtons())
+        //    ShowUpgradeSection();
+
+        //
+        ShowInitialMenu();
+    }
+
+    //
+    void ShowInitialMenu()
+    {
+        // Start Game
+        if (GUI.Button(new Rect(Screen.width * 1 / 8, Screen.height * 4/8, buttonSize.x * 4, buttonSize.y),
+                        " Start Game ", guiSkin.button))
+        {
+            SceneManager.LoadScene("Map");
+        }
+        // Quit game
+        if (GUI.Button(new Rect(Screen.width * 1 / 8, Screen.height * 6/8, buttonSize.x * 4, buttonSize.y),
+                        " Quit Game ", guiSkin.button))
+        {
+            Application.Quit();
+        }
+
     }
 
     //

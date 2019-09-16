@@ -100,6 +100,8 @@ public class GameManager : MonoBehaviour
     private int currentLevel = 0;
     //
     private LevelInfo[] levelsInfo;
+    //
+    private LevelInfo currentLevelInfo;
 
     #endregion
 
@@ -110,6 +112,12 @@ public class GameManager : MonoBehaviour
     //public int CurrentLevel { set { currentLevel = value; } }
     public int TotalLevels { get { return levelsInfo.Length; } }
     public LevelInfo[] LevelsInfo { get { return levelsInfo; } }
+    
+    public LevelInfo CurrentLevelInfo
+    {
+        get { return currentLevelInfo; }
+        set { currentLevelInfo = value; }
+    }
 
     #endregion
 

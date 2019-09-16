@@ -152,7 +152,8 @@ public class ProvLevelManager : MonoBehaviour
     void LoadLevelDataArcade()
     {
         // TODO: Revisar como gestionamos esto
-        levelInfo = gameManager.GetCurrentLevelInfo();
+        //levelInfo = gameManager.GetCurrentLevelInfo();
+        levelInfo = gameManager.CurrentLevelInfo;
         victoryCondition = levelInfo.victoryCondition;
         enemiesToDestroy = levelInfo.enemiesToDefeat;
         // Esto habrá que manejarlo de otro modo
