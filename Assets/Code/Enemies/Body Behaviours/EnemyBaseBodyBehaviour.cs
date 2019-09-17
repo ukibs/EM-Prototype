@@ -116,118 +116,103 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
         //    ofFootCurrentTime = 0;
         //}
         UpdateOfFootStatus(dt);
-
-        // Que el player siga vivo
-        if (player != null)
+        // (GABI): Checkeamos si el jugador está vivo, si está muerto terminamos de procesar la función.
+        if (!player) return;
+        //
+        timeFromLastCheck += dt;
+        // Si huyen qe no chequeen mas acciones
+        if (timeFromLastCheck > timeBetweenActionChecking && currentAction != Actions.Fleeing)
         {
-            //
-            timeFromLastCheck += dt;
-            // Si huyen qe no chequeen mas acciones
-            if (timeFromLastCheck > timeBetweenActionChecking && currentAction != Actions.Fleeing)
-            {
-                CheckActionToDo();
-                DecideActionToDo();
-                timeFromLastCheck -= timeBetweenActionChecking;
-            }
-
-            //
-            ExecuteCurrentAction(dt);
-        }        
-        
+            CheckActionToDo();
+            DecideActionToDo();
+            timeFromLastCheck -= timeBetweenActionChecking;
+        }
+        //
+        ExecuteCurrentAction(dt);
     }
 
     //
     protected virtual void OnCollisionEnter(Collision collision)
     {
-        //
-        if (collision.collider.tag == "Sand" || collision.collider.tag == "Hard Terrain")
+        // (GABI): Changed to CompareTag instead
+        if (collision.collider.CompareTag("Sand") || collision.collider.CompareTag("Hard Terrain"))
             onFloor = true;
     }
 
     //
     protected virtual void OnCollisionStay(Collision collision)
     {
-        //
-        if (collision.collider.tag == "Sand" || collision.collider.tag == "Hard Terrain")
+        // (GABI): Changed to CompareTag instead
+        if (collision.collider.CompareTag("Sand") || collision.collider.CompareTag("Hard Terrain"))
             onFloor = true;
     }
 
     protected virtual void OnDrawGizmos()
     {
         //
-        if (player != null)
+        if (!player) return;
+        Debug.DrawRay(transform.position, rb.velocity, Color.blue);
+        Vector3 playerDirection = player.transform.position - transform.position;
+        Debug.DrawRay(transform.position, playerDirection, Color.red);
+        //
+        if (currentAction == Actions.GoingToPlayer && pathToUse != null && pathToUse.Count > 0)
         {
-            Debug.DrawRay(transform.position, rb.velocity, Color.blue);
-            Vector3 playerDirection = player.transform.position - transform.position;
-            Debug.DrawRay(transform.position, playerDirection, Color.red);
-            //
-            if(currentAction == Actions.GoingToPlayer && pathToUse != null && pathToUse.Count > 0)
-            {
-                Debug.DrawRay(transform.position, pathToUse[0].transform.position - transform.position, Color.yellow);
-                if(pathToUse.Count > 1)
-                    Debug.DrawRay(pathToUse[0].transform.position, pathToUse[1].transform.position - pathToUse[0].transform.position, Color.yellow);
-            }
+            Debug.DrawRay(transform.position, pathToUse[0].transform.position - transform.position, Color.yellow);
+            if(pathToUse.Count > 1)
+                Debug.DrawRay(pathToUse[0].transform.position, pathToUse[1].transform.position - pathToUse[0].transform.position, Color.yellow);
         }
-
     }
 
     protected void UpdateOfFootStatus(float dt)
     {
         // Avanzamos el chequeo de desequilibrio y si está desequilibrado que no pueda actuar
-        if (ofFoot)
-        {
-            ofFootCurrentTime += dt;
-            if (ofFootCurrentTime >= ofFootMaxTime)
-            {
-                ofFootCurrentTime = 0;
-                ofFoot = false;
-            }
-        }
+        if (!ofFoot) return;
+        ofFootCurrentTime += dt;
+        if (ofFootCurrentTime < ofFootMaxTime) return;
+        ofFootCurrentTime = 0;
+        ofFoot = false;
     }
 
     // 
     protected virtual void Move()
     {
+        // IMPORTANT TODO change: if (!HasGroundUnderneath()) return;
+        //                        if (false) return;
+        Vector3 movingDirection = transform.forward;
         //
-        //if (HasGroundUnderneath())
-        if(true)
+        float speedMultiplier = 1;
+        //
+        switch (currentAction)
         {
-            //
-            Vector3 movingDirection = transform.forward;
-            //
-            float speedMultiplier = 1;
-            //
-            switch (currentAction)
-            {
-                case Actions.EncirclingPlayerForward:
-                case Actions.GoingToPlayer:
-                    // Aqui nada de momento porque ya es forward por defecto
-                    break;
-                case Actions.ZigZagingTowardsPlayer:
-                    currentZigZagDirection += currentZigZagVariation * Time.deltaTime;
-                    if (Mathf.Abs(currentZigZagDirection) >= 1)
-                    {
-                        currentZigZagVariation *= -1;
-                    }
-                    movingDirection += transform.right * currentZigZagDirection;
-                    movingDirection = movingDirection.normalized;
-                    break;
-                case Actions.EncirclingPlayerSideward:
-                    movingDirection = transform.right;
-                    speedMultiplier = 0.2f;
-                    break;
-                case Actions.RetreatingFromPlayer:
-                    movingDirection = -transform.forward;
-                    speedMultiplier = 1f;
-                    break;
-            }
-            //
-            //rb.velocity = (movingDirection * maxSpeed * speedMultiplier * movementStatus);
-            rb.AddForce(movingDirection * maxSpeed * speedMultiplier);
-            //
-            if (!onFloor)
-                rb.velocity += Physics.gravity;
+            case Actions.EncirclingPlayerForward:
+            case Actions.GoingToPlayer:
+                // Aqui nada de momento porque ya es forward por defecto
+                break;
+            case Actions.ZigZagingTowardsPlayer:
+                currentZigZagDirection += currentZigZagVariation * Time.deltaTime;
+                if (Mathf.Abs(currentZigZagDirection) >= 1)
+                {
+                    currentZigZagVariation *= -1;
+                }
+                movingDirection += transform.right * currentZigZagDirection;
+                movingDirection = movingDirection.normalized;
+                break;
+            case Actions.EncirclingPlayerSideward:
+                movingDirection = transform.right;
+                speedMultiplier = 0.2f;
+                break;
+            case Actions.RetreatingFromPlayer:
+                movingDirection = -transform.forward;
+                speedMultiplier = 1f;
+                break;
         }
+        //
+        //rb.velocity = (movingDirection * maxSpeed * speedMultiplier * movementStatus);
+        rb.AddForce(movingDirection * maxSpeed * speedMultiplier);
+        //
+        if (!onFloor)
+            rb.velocity += Physics.gravity;
+    
     }
     
 
@@ -237,87 +222,98 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
         movementStatus = 1;
     }
 
-    //
+    /// <summary>
+    /// Executes current action. 
+    /// </summary>
+    ///
+    /// <suggestion>
+    /// (GABI):
+    /// Maybe use a delegate ?
+    /// Maybe refactor this to a variable that changes depending on the state machine ?
+    /// Maybe divide each case in a method ?
+    /// </suggestion>
+    /// 
+    /// <param name="dt">Delta time</param>
     protected virtual void ExecuteCurrentAction(float dt)
     {
         // Primero que el player siga vivo, si no mal
-        if (player != null)
+        // (GABI): Revisad https://github.com/ukibs/EM-Prototype/issues/1 del por qué hacemos esto de esta manera.
+        if (!player) return;
+        //
+        //Vector3 playerDirection = player.transform.position - transform.position;
+        //playerDirection.y = 0.0f;
+        
+        // TODO: Refactor this.
+        switch (currentAction)
         {
-            //
-            //Vector3 playerDirection = player.transform.position - transform.position;
-            //playerDirection.y = 0.0f;
-            
-            //
-            switch (currentAction)
-            {
-                case Actions.FacingPlayer:
-                    transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed * movementStatus, dt);
-                    break;
-                case Actions.GoingToPlayer:
-                    // TODO: Cuidado con cuando se cambian los paneles. De momento no es un gran problema, pero habrá que abordarlo
+            case Actions.FacingPlayer:
+                transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed * movementStatus, dt);
+                break;
+            case Actions.GoingToPlayer:
+                // TODO: Cuidado con cuando se cambian los paneles. De momento no es un gran problema, pero habrá que abordarlo
+                //
+                Vector3 currentObjective;
+                // Vamos a añadir que no tenga al player a la vista a ver que tal va
+                if (pathToUse != null && pathToUse.Count > 0 && !PlayerOnSight())
+                {
                     //
-                    Vector3 currentObjective;
-                    // Vamos a añadir que no tenga al player a la vista a ver que tal va
-                    if (pathToUse != null && pathToUse.Count > 0 && !PlayerOnSight())
+                    Vector3 xzDistanceToWaypoint = pathToUse[0].transform.position - transform.position;
+                    xzDistanceToWaypoint.y = 0;
+                    // Si estamos lo bastante cerca del punto que toca lo descartamos
+                    if (xzDistanceToWaypoint.magnitude < 50)
                     {
+                        pathToUse.RemoveAt(0);
                         //
-                        Vector3 xzDistanceToWaypoint = pathToUse[0].transform.position - transform.position;
-                        xzDistanceToWaypoint.y = 0;
-                        // Si estamos lo bastante cerca del punto que toca lo descartamos
-                        if (xzDistanceToWaypoint.magnitude < 50)
+                        if (pathToUse.Count == 0)
                         {
-                            pathToUse.RemoveAt(0);
-                            //
-                            if (pathToUse.Count == 0)
-                            {
-                                DecideActionToDo();
-                                return;
-                            }
-                                
-                            //
-                            Debug.Log("Next waypoint: " + pathToUse[0]);
+                            DecideActionToDo();
+                            return;
                         }
-
-
-                        // Ahora el objetivo lo sacaremos con el path
-                        currentObjective = pathToUse[0].transform.position;
-
+                            
                         //
-                        transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, currentObjective, rotationSpeed * movementStatus, dt);
-                        Move();
+                        Debug.Log("Next waypoint: " + pathToUse[0]);
                     }
-                    else
-                    {
-                        //
-                        transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed * movementStatus, dt);
-                        Move();
-                    }
-                    break;
-                case Actions.EncirclingPlayerForward:
-                    transform.rotation = GeneralFunctions.UpdateRotationOnCross(transform, player.transform.position, rotationSpeed * movementStatus, dt);
-                    //Move();
-                    break;
-                case Actions.EncirclingPlayerSideward:
+
+
+                    // Ahora el objetivo lo sacaremos con el path
+                    currentObjective = pathToUse[0].transform.position;
+
+                    //
+                    transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, currentObjective, rotationSpeed * movementStatus, dt);
+                    Move();
+                }
+                else
+                {
+                    //
                     transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed * movementStatus, dt);
                     Move();
-                    break;
-                case Actions.Fleeing:
-                    transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, -player.transform.position, rotationSpeed * movementStatus, dt);
-                    Move();
-                    break;
-                case Actions.RetreatingFromPlayer:
-                    transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed * movementStatus, dt);
-                    Move();
-                    break;
-                case Actions.ApproachingPlayer3d:
-                    transform.rotation = GeneralFunctions.UpdateRotation(transform, player.transform.position, rotationSpeed, dt);
-                    break;
-            }
+                }
+                break;
+            case Actions.EncirclingPlayerForward:
+                transform.rotation = GeneralFunctions.UpdateRotationOnCross(transform, player.transform.position, rotationSpeed * movementStatus, dt);
+                //Move();
+                break;
+            case Actions.EncirclingPlayerSideward:
+                transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed * movementStatus, dt);
+                Move();
+                break;
+            case Actions.Fleeing:
+                transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, -player.transform.position, rotationSpeed * movementStatus, dt);
+                Move();
+                break;
+            case Actions.RetreatingFromPlayer:
+                transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed * movementStatus, dt);
+                Move();
+                break;
+            case Actions.ApproachingPlayer3d:
+                transform.rotation = GeneralFunctions.UpdateRotation(transform, player.transform.position, rotationSpeed, dt);
+                break;
+        }
 
             // Damp para que no se desmadren
             //float dampForce = 10.0f;
             //rb.velocity = rb.velocity * ( 1 - dampForce * dt);
-        }
+        
     }
 
     /// <summary>
@@ -421,11 +417,6 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
     //
     protected bool CheckIfObstacleInMovingDirection()
     {
-        //
-        if(Physics.Raycast(transform.position, rb.velocity, rb.velocity.magnitude * 10))
-        {
-            return true;
-        }
-        return false;
+        return Physics.Raycast(transform.position, rb.velocity, rb.velocity.magnitude * 10);
     }
 }
