@@ -137,28 +137,24 @@ public class EnemyCollider : MonoBehaviour
     {
         
         // Chequeamos que siga vivo
-        if(body != null)
-        {
-            //
-            // TODO: Revisar velocidades relativas
-            Bullet bulletData = bulletRb.transform.GetComponent<Bullet>();
-            float diameter = bulletData.diameter;
+        if (!body) return;
+        // TODO: Revisar velocidades relativas
+        Bullet bulletData = bulletRb.transform.GetComponent<Bullet>();
+        float diameter = bulletData.diameter;
 
-            float penetrationValue = GeneralFunctions.Navy1940PenetrationCalc(bulletRb.mass, diameter, bulletRb.velocity.magnitude);
-            //Debug.Log("Penetration value: " + penetrationValue + ", mass: " + bulletRb.mass + 
-            //    ", diameter: " + diameter + ", velocity: " + bulletRb.velocity.magnitude);
-            float penetrationResult = Mathf.Max(penetrationValue - armor, 0);
-            // TODO: Unificar esta funcionalidad entre consistncy y collider
-            // Pasamos en qué proporción ha penetrado
-            if (penetrationResult > 0)
-                penetrationResult = 1 - (armor / penetrationValue);
-            //
-            if (onDamage != AdditionalEffectOnDamage.None)
-                ManageBodyPartDamage(penetrationResult, bulletRb);
-            //
-            body.ReceiveProyectileImpact(penetrationResult, impactPoint, bulletRb);
-        }
-        
+        float penetrationValue = GeneralFunctions.Navy1940PenetrationCalc(bulletRb.mass, diameter, bulletRb.velocity.magnitude);
+        //Debug.Log("Penetration value: " + penetrationValue + ", mass: " + bulletRb.mass + 
+        //    ", diameter: " + diameter + ", velocity: " + bulletRb.velocity.magnitude);
+        float penetrationResult = Mathf.Max(penetrationValue - armor, 0);
+        // TODO: Unificar esta funcionalidad entre consistncy y collider
+        // Pasamos en qué proporción ha penetrado
+        if (penetrationResult > 0)
+            penetrationResult = 1 - (armor / penetrationValue);
+        //
+        if (onDamage != AdditionalEffectOnDamage.None)
+            ManageBodyPartDamage(penetrationResult, bulletRb);
+        //
+        body.ReceiveProyectileImpact(penetrationResult, impactPoint, bulletRb);
     }
 
     // Para recibir daño del ataque de pulso en la parte del cuerpo
