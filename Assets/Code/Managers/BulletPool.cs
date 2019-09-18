@@ -42,7 +42,7 @@ public class BulletPool : MonoBehaviour
             }
             return;
         }
-        //
+        // Cuando ya hay por lo menos una creada
         bool found = false;
         for(int i = 0; i < bulletPoolsPerType.Count; i++)
         {
@@ -53,7 +53,7 @@ public class BulletPool : MonoBehaviour
 
             }
         }
-        //
+        // Y en caso de que entre una no registrada
         if (!found)
         {
 
