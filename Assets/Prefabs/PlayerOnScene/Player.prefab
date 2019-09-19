@@ -455,7 +455,7 @@ Rigidbody:
   m_GameObject: {fileID: 1437631460746018}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0.47
+  m_Drag: 0.1
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -477,20 +477,14 @@ MonoBehaviour:
   damping: 12
   chargingPulseEmitter: {fileID: 5135504275078131841}
   releasingPulseEmitter: {fileID: 6629602366409878942}
-  sphericProyectilePrefab: {fileID: 1952744711831650, guid: 50cc46958d3f7d247bcc2c32cf5c09a6,
-    type: 3}
   elipticProyectilePrefab: {fileID: 1449818831234027966, guid: 2ed793cb6ec2bc544a528b33f58c635c,
     type: 3}
   machineGunPoints:
   - {fileID: 4894371882715858}
   - {fileID: 4556291595123866}
   chargedProyectilePoint: {fileID: 4591939931303440}
-  chargingProjectile: {fileID: 1952744711831650, guid: 4420cacf1e239354cad96ff058399d09,
-    type: 3}
   sphericShield: {fileID: 8531471826758480961}
   frontShield: {fileID: 852212136279935993}
-  shootParticlePrefab: {fileID: 1837716235657633640, guid: 61c9e81fe8e7c0a40a345df35440fcab,
-    type: 3}
   loadingClip: {fileID: 8300000, guid: 99b942fa78a6d064ca2da303ed13a3f8, type: 3}
   loadingAtMaxClip: {fileID: 8300000, guid: 57070e1de6006704189834388197b51f, type: 3}
   releasingPulseClip: {fileID: 8300000, guid: fbd915f84b22dcc4b98ed424e9d294c4, type: 3}

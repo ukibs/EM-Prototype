@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b376312d00eb8824f963245e6b9b488f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 50
+  maxSpeed: 100
   minimalLungeDistance: 30
   minimalShootDistance: 500
   ofFootMaxTime: 5
