@@ -2801,7 +2801,7 @@ MonoBehaviour:
   bodyColliders: []
   deathBloodPrefab: {fileID: 3125914639698908078, guid: 099db54e23b55334a8c42a1729809e0e,
     type: 3}
-  deathParticlesPrefab: {fileID: 1837716235657633640, guid: c30381bd65cfd9e4c8df31ef60481c4c,
+  deathParticlesPrefab: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   deathClip: {fileID: 8300000, guid: 5ff182ee8e5161f408029eaaa5c90f01, type: 3}
   deadBodyPrefab: {fileID: 6657017865947718293, guid: 6c3f843e649d1f0479a54d253de04892,
