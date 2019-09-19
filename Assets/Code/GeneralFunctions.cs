@@ -219,7 +219,7 @@ public static class GeneralFunctions
 
         //Debug.Log("Seconds to reach objective: Without drag " + secondsToObjective + ", with drag " + secondsToObjectiveWithDrag);
 
-        float fallInThatTime = -9.81f * Mathf.Pow(secondsToObjectiveWithDrag, 2) / 2;
+        float fallInThatTime = Physics.gravity.y * Mathf.Pow(secondsToObjectiveWithDrag, 2) / 2;
 
         return fallInThatTime;
     }
