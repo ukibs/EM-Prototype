@@ -125,7 +125,7 @@ MonoBehaviour:
   playerBullet: 0
   diameter: 20
   length: 0
-  lifeTime: 10
+  lifeTime: 5
   dangerousEnough: 0
   drawTrayectory: 0
   impactParticlesPrefab: {fileID: 1837716235657633640, guid: 61c9e81fe8e7c0a40a345df35440fcab,

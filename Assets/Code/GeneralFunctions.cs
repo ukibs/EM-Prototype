@@ -35,6 +35,36 @@ public static class GeneralFunctions
         return newBullet;
     }
 
+    //
+    public static GameObject ShootProjectileFromPool(GameObject bulletToUse, Vector3 position, Quaternion rotation, Vector3 direction, 
+        float forceToApply, float dt, ShootCalculation shootCalculation = ShootCalculation.Force)
+    {
+
+        //Rigidbody prefabRb = prefab.GetComponent<Rigidbody>();
+        // Get the muzzle speed in meters/second (rememeber 1 is a Ton)
+        // TODO: Lo acabaremos quitando
+        float bulletMuzzleSpeed = 0;
+        if (shootCalculation == ShootCalculation.MuzzleSpeed)
+            bulletMuzzleSpeed = forceToApply;
+        //
+        //GameObject newBullet = GameObject.Instantiate(prefab, position, rotation);
+        bulletToUse.transform.position = position;
+        bulletToUse.transform.rotation = rotation;
+        //
+        Rigidbody newBulletRB = bulletToUse.GetComponent<Rigidbody>();
+        Vector3 directionWithForce = direction.normalized * forceToApply;
+        // Recodar que la relación es gramos - toneladas, no gramos - kilos
+        if (shootCalculation == ShootCalculation.Force)
+            newBulletRB.AddForce(directionWithForce / 1000, ForceMode.Impulse);
+        else
+            newBulletRB.velocity = direction * bulletMuzzleSpeed;
+        // Debug.Log(prefab.name + " shot with: direction, " + direction + " force, " + forceToApply + "total," + directionWithForce);
+        //}
+
+        //
+        return bulletToUse;
+    }
+
     /// <summary>
     /// Actualiza rotación sin tener en cuenta eje
     /// </summary>

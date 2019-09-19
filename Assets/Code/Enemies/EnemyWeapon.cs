@@ -218,16 +218,18 @@ public class EnemyWeapon : MonoBehaviour
     public void Shoot(float dt)
     {
         //Debug.Log(shootPoint);
+        GameObject proyectileToUse = bulletPool.GetBullet(proyectilePrefab);
+        if (!proyectileToUse) return;
         // TODO: Incluir shootCalculation
-        GameObject newProyectile = GeneralFunctions.ShootProjectile(proyectilePrefab, shootPoint.position,
+        //GameObject newProyectile = GeneralFunctions.ShootProjectile(proyectilePrefab, shootPoint.position,
+        //    shootPoint.rotation, shootPoint.forward, muzzleSpeed, dt, ShootCalculation.MuzzleSpeed);
+        GeneralFunctions.ShootProjectileFromPool(proyectileToUse, shootPoint.position,
             shootPoint.rotation, shootPoint.forward, muzzleSpeed, dt, ShootCalculation.MuzzleSpeed);
-        //GeneralFunctions.ShootProjectile(proyectilePrefab, shootPoint.position,
-        //    shootPoint.rotation, shootPoint.forward, shootForce, dt);
         //
         if (shootParticlesPrefab != null)
             Instantiate(shootParticlesPrefab, shootPoint.position, Quaternion.identity);
         //
-        Missile missile = newProyectile.GetComponent<Missile>();
+        Missile missile = proyectileToUse.GetComponent<Missile>();
         if (missile != null)
         {
             missile.AssignObjective(player.transform);
@@ -243,7 +245,7 @@ public class EnemyWeapon : MonoBehaviour
         //}
 
         // TODO: Revisar por qué sale tan gore
-        Rigidbody proyectileRb = newProyectile.GetComponent<Rigidbody>();
+        Rigidbody proyectileRb = proyectileToUse.GetComponent<Rigidbody>();
         float lauchForce = proyectileRb.velocity.magnitude * proyectileRb.mass;
         bodyRb.AddForce(-transform.forward * lauchForce);
     }

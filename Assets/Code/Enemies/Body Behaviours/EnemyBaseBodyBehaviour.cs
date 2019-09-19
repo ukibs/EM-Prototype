@@ -271,7 +271,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
                         }
                             
                         //
-                        Debug.Log("Next waypoint: " + pathToUse[0]);
+                        //Debug.Log("Next waypoint: " + pathToUse[0]);
                     }
 
 

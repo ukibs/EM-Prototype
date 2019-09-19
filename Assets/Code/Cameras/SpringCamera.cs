@@ -548,7 +548,7 @@ public class SpringCamera : MonoBehaviour {
     //
     void SwitchToNearestInWorldEnemy()
     {
-        Debug.Log("Switching to nearest enemy in world " + EnemyAnalyzer.lastEnemyPosition);
+        //Debug.Log("Switching to nearest enemy in world " + EnemyAnalyzer.lastEnemyPosition);
         //
         Transform enemyToSwitch = null;
         float nearestDistance;
