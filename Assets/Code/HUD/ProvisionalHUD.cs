@@ -23,6 +23,7 @@ public class ProvisionalHUD : MonoBehaviour {
     public Texture targetedEnemyEstimatedFuturePositionTexture;
     public Texture testingVelocityIcon;
     public Texture chargeFrameTexture;
+    public Texture overheatTexture;
     public Texture chargeTexture;
     public Texture diamondsBackgroundTexture;
     public Texture damageDirectionTexture;
@@ -183,7 +184,7 @@ public class ProvisionalHUD : MonoBehaviour {
         //ShowChargedAmount();
 
         //
-        ShowOverheat();
+        //ShowOverheat();
 
         //
         CheckAndDrawLevelEnd();
@@ -286,7 +287,17 @@ public class ProvisionalHUD : MonoBehaviour {
         //    Screen.width * 0.15f, Screen.width * 0.15f);
         Rect chargeFrameRect = new Rect(Screen.width * 0.92f, Screen.height * 0.7f,
             Screen.width * 0.05f, Screen.width * 0.15f);
-        //
+
+        // Overheat
+        float overHeat = robotControl.CurrentOverHeat;
+        float maxOverheat = gameManager.playerAttributes.maxOverheat;
+        float overheatRectHeight = overHeat * chargeFrameRect.height;
+        Rect overheatRect = new Rect(chargeFrameRect.x + (chargeFrameRect.width * 0.01f),
+            chargeFrameRect.y + (overheatRectHeight * 0.01f) + chargeFrameRect.height - overheatRectHeight,
+            chargeFrameRect.width * 0.98f, overheatRectHeight * 0.98f);
+        Rect overheatCoordRect = new Rect(0, 0, 1, overHeat);
+
+        // Charge
         float chargeRectHeight = robotControl.ChargedAmount * chargeFrameRect.height;
         Rect chargeRect = new Rect(chargeFrameRect.x +(chargeFrameRect.width * 0.01f), 
             chargeFrameRect.y + (chargeRectHeight * 0.01f) + chargeFrameRect.height - chargeRectHeight,
@@ -295,6 +306,7 @@ public class ProvisionalHUD : MonoBehaviour {
 
         // Abilities diamond and icons
         GUI.DrawTexture(diamondRect, diamondsBackgroundTexture);
+        GUI.DrawTextureWithTexCoords(overheatRect, overheatTexture, overheatCoordRect);
         GUI.DrawTextureWithTexCoords(chargeRect, chargeTexture, chargeCoordRect);
         GUI.DrawTexture(chargeFrameRect, chargeFrameTexture);
         
