@@ -284,8 +284,8 @@ public class ProvisionalHUD : MonoBehaviour {
         // Icons dimentsions
         //Rect diamondRect = new Rect(Screen.width * 0.75f, Screen.height * 0.7f, 
         //    Screen.width * 0.15f, Screen.width * 0.15f);
-        Rect chargeFrameRect = new Rect(Screen.width * 0.87f, Screen.height * 0.7f,
-            Screen.width * 0.1f, Screen.width * 0.15f);
+        Rect chargeFrameRect = new Rect(Screen.width * 0.92f, Screen.height * 0.7f,
+            Screen.width * 0.05f, Screen.width * 0.15f);
         //
         float chargeRectHeight = robotControl.ChargedAmount * chargeFrameRect.height;
         Rect chargeRect = new Rect(chargeFrameRect.x, chargeFrameRect.y + chargeFrameRect.height - chargeRectHeight, 
