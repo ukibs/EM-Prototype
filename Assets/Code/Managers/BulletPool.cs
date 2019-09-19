@@ -39,7 +39,7 @@ public class BulletPool : MonoBehaviour
         string enteringBulletName = bulletPrefab.name;
         Bullet bulletScript = bulletPrefab.GetComponent<Bullet>();
         // Si todavía no hay ninguna creada vamos directamente con esto
-        if (bulletPoolsPerType.Count == 0)
+        /*if (bulletPoolsPerType.Count == 0)
         {
             BulletTypePool newBulletTypePool = new BulletTypePool(enteringBulletName);
             bulletPoolsPerType.Add(newBulletTypePool);
@@ -49,33 +49,28 @@ public class BulletPool : MonoBehaviour
             // Y ahora metemos las balas
             IntroduceBullets(newBulletTypePool, bulletPrefab, maxExistantBullets);
             return;
-        }
+        }*/
         // Cuando ya hay por lo menos una creada
-        bool found = false;
         for(int i = 0; i < bulletPoolsPerType.Count; i++)
         {
             //string enteringBulletName = bulletPrefab.name;
             if (bulletPoolsPerType[i].prefabName.Equals(enteringBulletName))
             {
                 //
-                found = true;
-                //
                 IntroduceBullets(bulletPoolsPerType[i], bulletPrefab, maxExistantBullets);
                 return;
             }
         }
+        
         // Y en caso de que entre una no registrada
-        if (!found)
-        {
-            BulletTypePool newBulletTypePool = new BulletTypePool(enteringBulletName);
-            bulletPoolsPerType.Add(newBulletTypePool);
-            //
-            newBulletTypePool.bulletScript = bulletScript;
-            newBulletTypePool.dangerousEnough = bulletScript.dangerousEnough;
-            // Y ahora metemos las balas
-            IntroduceBullets(newBulletTypePool, bulletPrefab, maxExistantBullets);
-            return;
-        }
+        BulletTypePool newBulletTypePool = new BulletTypePool(enteringBulletName);
+        bulletPoolsPerType.Add(newBulletTypePool);
+        //
+        newBulletTypePool.bulletScript = bulletScript;
+        newBulletTypePool.dangerousEnough = bulletScript.dangerousEnough;
+        // Y ahora metemos las balas
+        IntroduceBullets(newBulletTypePool, bulletPrefab, maxExistantBullets);
+        return;
     }
 
     //
