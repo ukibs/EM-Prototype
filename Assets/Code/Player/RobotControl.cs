@@ -66,7 +66,7 @@ public enum DampingType
     Invalid = -1,
 
     TwoDimensional, // The default one
-    ThreeDimiensional,
+    ThreeDimensional,
     None,
 
     Count
@@ -80,19 +80,19 @@ public class RobotControl : MonoBehaviour {
     public GameObject releasingPulseEmitter;
 
     // Luego unificamos estas 3
-    public GameObject sphericProyectilePrefab;
+    //public GameObject sphericProyectilePrefab;
     public GameObject elipticProyectilePrefab;
     //public GameObject cannonBallPrefab;
     //public GameObject piercingProyectilePrefab;
 
     public Transform[] machineGunPoints;
     public Transform chargedProyectilePoint;
-    public GameObject chargingProjectile;       // Habrá que pulir como manejamos esto
+    //public GameObject chargingProjectile;       // Habrá que pulir como manejamos esto
     public GameObject sphericShield;
     public GameObject frontShield;
 
     // De momento lo ponemos aqui
-    public GameObject shootParticlePrefab;
+    //public GameObject shootParticlePrefab;
 
     //
     public AudioClip loadingClip;
@@ -125,6 +125,7 @@ public class RobotControl : MonoBehaviour {
     private InputManager inputManager;
     private Repulsor repulsor;
     private GameManager gameManager;
+    private BulletPool bulletPool;
     //private ImpactInfoManager impactInfoManager;
     private bool inPlay = true;
 
@@ -217,6 +218,10 @@ public class RobotControl : MonoBehaviour {
         gameManager = FindObjectOfType<GameManager>();
         audioSource = GetComponent<AudioSource>();
         //impactInfoManager = FindObjectOfType<ImpactInfoManager>();
+        bulletPool = FindObjectOfType<BulletPool>();
+        
+        // TODO: No hacerlo tan hardcodeado
+        bulletPool.RegisterBullets(elipticProyectilePrefab, 30, 10);
         
         //
         PlayerReference.Initiate(gameObject);
@@ -475,7 +480,7 @@ public class RobotControl : MonoBehaviour {
             currentVelocity.z *= 1 - (damping * dt);
             rb.velocity = currentVelocity;
         }
-        else if(currentDamping == DampingType.ThreeDimiensional)
+        else if(currentDamping == DampingType.ThreeDimensional)
         {
             //
             rb.velocity *= 1 - (damping * dt);
@@ -567,7 +572,7 @@ public class RobotControl : MonoBehaviour {
                     // TODO: Clacular bien la dirección
                     // TODO: Aplicar más fuerza y probar
                     Vector3 cameraForward = cameraControl.transform.forward;
-                    ChangeDampingType(DampingType.ThreeDimiensional);
+                    ChangeDampingType(DampingType.ThreeDimensional);
                     Vector3 currentVelocity = rb.velocity;
                     // Revisar: Podría ser el player.forward
                     Vector3 desiredDirection = (!cameraControl.TargetingPlayer) ? 
@@ -834,7 +839,7 @@ public class RobotControl : MonoBehaviour {
         }
         //
         rb.AddForce(-transform.forward * pulseForceToApply, ForceMode.Impulse);
-        ChangeDampingType(DampingType.ThreeDimiensional);
+        ChangeDampingType(DampingType.ThreeDimensional);
     }
 
     //
@@ -948,7 +953,11 @@ public class RobotControl : MonoBehaviour {
         // Y la fuerza a aplicar
         float forceToApply = gameManager.playerAttributes.forcePerSecond.CurrentValue * chargedAmount;
         //
-        GameObject nextProyectile = GeneralFunctions.ShootProjectile(proyectilePrefab, muzzlePoint.position, muzzlePoint.rotation,
+        //GameObject nextProyectile = GeneralFunctions.ShootProjectile(proyectilePrefab, muzzlePoint.position, muzzlePoint.rotation,
+        //    muzzlePoint.forward, forceToApply, dt, ShootCalculation.Force);
+        GameObject nextProyectile = bulletPool.GetBullet(elipticProyectilePrefab);
+        //
+            GeneralFunctions.ShootProjectile(nextProyectile, muzzlePoint.position, muzzlePoint.rotation,
             muzzlePoint.forward, forceToApply, dt, ShootCalculation.Force);
         // TODO: Revisar diametro, densidad, etc
         Bullet bulletComponent = nextProyectile.GetComponent<Bullet>();
@@ -961,7 +970,7 @@ public class RobotControl : MonoBehaviour {
         bulletComponent.length = elipseDiameter * ratioAB;
         //
         rb.AddForce(-chargedProyectilePoint.forward * forceToApply, ForceMode.Impulse);
-        ChangeDampingType(DampingType.ThreeDimiensional);
+        ChangeDampingType(DampingType.ThreeDimensional);
     }
 
     #endregion

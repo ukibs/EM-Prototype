@@ -2860,6 +2860,13 @@ MonoBehaviour:
   minIdealHeight: 40
   maxIdealHeight: 60
   liftForcePerSecond: 500
+  liftOffsetForceU: 2
+  liftOffsetForceD: 1.2
+  liftOffsetBigGrunt: 15
+  rMinMaxIdealHeight: 60
+  rMaxMaxIdealHeight: 60
+  rMinMinIdealHeight: 40
+  rMaxMinIdealHeight: 45
 --- !u!1 &5016589515739907783
 GameObject:
   m_ObjectHideFlags: 0

@@ -46,12 +46,16 @@ public class Bullet : MonoBehaviour {
     // De momento hardcodeado
     protected float maxTimeBetweenRecalculation = 2;
     protected float currentTimeBetweenRecalculation = 0;
+    //
+    protected float currentLifeTime = 0;
+
+    public float CurrentLifeTime { set { currentLifeTime = value; } }
 
 	// Use this for initialization
 	protected virtual void Start () {
         //Debug.Log("Starting bullet");
         rb = GetComponent<Rigidbody>();
-        Destroy(gameObject, lifeTime);
+        //Destroy(gameObject, lifeTime);
         //audioSource = GetComponent<AudioSource>();
         //
         explosiveBullet = GetComponent<ExplosiveBullet>();
@@ -61,7 +65,7 @@ public class Bullet : MonoBehaviour {
         bulletPool = FindObjectOfType<BulletPool>();
         //
         missileComponent = GetComponent<Missile>();
-        //
+        // TODO: Esto ahora va en el POOL
         if (dangerousEnough)
         {
             // Instanciamos el trail renderer
@@ -71,13 +75,13 @@ public class Bullet : MonoBehaviour {
                 detectionTrail = Instantiate(carolHelp.dangerousProyetilesTrailPrefab, transform.position, Quaternion.identity);
                 detectionTrailRenderer = detectionTrail.GetComponent<LineRenderer>();
                 //
-                AllocateTrailRenderer();
+                //AllocateTrailRenderer();
             }            
             
             //
-            carolHelp.TriggerGeneralAdvice("DangerIncoming");
+            //carolHelp.TriggerGeneralAdvice("DangerIncoming");
             //
-            bulletPool.AddDangerousBulletToList(gameObject);
+            //bulletPool.AddDangerousBulletToList(gameObject);
         }
     }
 
@@ -90,6 +94,7 @@ public class Bullet : MonoBehaviour {
     protected void Update () {
         //
         float dt = Time.deltaTime;
+        UpdateLifeTime(dt);
         // Hacemos que vaya cambiando la orientación acorde a la trayectoria
         // Ahora que estamos haciendo probatinas con esfericas no se notará
         // TODO: Chequear cuando tengamos balas más definidas
@@ -129,16 +134,31 @@ public class Bullet : MonoBehaviour {
         }
     }
 
-    protected void OnDestroy()
-    {
-        //
-        if(bulletPool != null)
-            bulletPool.RemoveDangerousBulletFromList(gameObject);
-        //
-        Destroy(detectionTrail);
-    }
+    //protected void OnDestroy()
+    //{
+    //    //
+    //    if(bulletPool != null)
+    //        bulletPool.RemoveDangerousBulletFromList(gameObject);
+    //    //
+    //    // Destroy(detectionTrail);
+    //}
 
     #region Methods
+
+    //
+    void UpdateLifeTime(float dt)
+    {
+        currentLifeTime += dt;
+        if (currentLifeTime >= lifeTime)
+        {
+            Debug.Log("Bullet lifetime expired");
+            bulletPool.ReturnBullet(gameObject);
+            //
+            //if (dangerousEnough)
+            //    bulletPool.RemoveDangerousBulletFromList(gameObject);
+        }
+            
+    }
 
     //
     protected void CheckTravelDone(float dt)
@@ -223,7 +243,11 @@ public class Bullet : MonoBehaviour {
         if(explosiveBullet == null && playerIntegrity == null)
         {
             //Debug.Log("Not explosive component, destroying object");
-            Destroy(gameObject);
+            // Destroy(gameObject);
+            bulletPool.ReturnBullet(gameObject);
+            // TODO: Hcaerlo mas limpio
+            //if(dangerousEnough)
+            //    bulletPool.RemoveDangerousBulletFromList(gameObject);
         }
             
     }
@@ -254,7 +278,7 @@ public class Bullet : MonoBehaviour {
     }
 
     // Colocamos trail renderer indicando trayectoria
-    void AllocateTrailRenderer()
+    public void AllocateTrailRenderer()
     {
         //
         float timePerTic = 0.5f;
