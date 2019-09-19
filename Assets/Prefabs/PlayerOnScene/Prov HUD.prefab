@@ -62,7 +62,7 @@ MonoBehaviour:
     type: 3}
   testingVelocityIcon: {fileID: 2800000, guid: e3d0ff31924015d4a923c058090e8be0, type: 3}
   chargeFrameTexture: {fileID: 2800000, guid: ee7e1cea0e1aedf46baea9c97ad3e33a, type: 3}
-  chargeTexture: {fileID: 2800000, guid: efc95bd1c23d1644a916e7e2050fedae, type: 3}
+  chargeTexture: {fileID: 2800000, guid: aec292c208d14f449864a3f5f33f4082, type: 3}
   diamondsBackgroundTexture: {fileID: 2800000, guid: 67dbb1b0a899d7a41b66e5ecb97198fa,
     type: 3}
   damageDirectionTexture: {fileID: 2800000, guid: 151b307fa36f6ba43b376142a681a2a9,

@@ -288,8 +288,9 @@ public class ProvisionalHUD : MonoBehaviour {
             Screen.width * 0.05f, Screen.width * 0.15f);
         //
         float chargeRectHeight = robotControl.ChargedAmount * chargeFrameRect.height;
-        Rect chargeRect = new Rect(chargeFrameRect.x, chargeFrameRect.y + chargeFrameRect.height - chargeRectHeight, 
-            chargeFrameRect.width, chargeRectHeight);
+        Rect chargeRect = new Rect(chargeFrameRect.x +(chargeFrameRect.width * 0.01f), 
+            chargeFrameRect.y + (chargeRectHeight * 0.01f) + chargeFrameRect.height - chargeRectHeight,
+            chargeFrameRect.width * 0.98f, chargeRectHeight * 0.98f);
         Rect chargeCoordRect = new Rect(0, 0, 1, robotControl.ChargedAmount);
 
         // Abilities diamond and icons
