@@ -291,7 +291,7 @@ public class ProvisionalHUD : MonoBehaviour {
         // Overheat
         float overHeat = robotControl.CurrentOverHeat;
         float maxOverheat = gameManager.playerAttributes.maxOverheat;
-        float overheatRectHeight = overHeat * chargeFrameRect.height;
+        float overheatRectHeight = overHeat * chargeFrameRect.height / maxOverheat;
         Rect overheatRect = new Rect(chargeFrameRect.x + (chargeFrameRect.width * 0.01f),
             chargeFrameRect.y + (overheatRectHeight * 0.01f) + chargeFrameRect.height - overheatRectHeight,
             chargeFrameRect.width * 0.98f, overheatRectHeight * 0.98f);
