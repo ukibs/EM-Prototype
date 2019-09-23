@@ -177,13 +177,21 @@ public class EnemyWeapon : MonoBehaviour
         Quaternion rotationConstrains = Quaternion.Euler(maxRotationOffset.x, maxRotationOffset.y, 0);
         //
         Quaternion constrainedRotation = transform.localRotation;
+        
         //
         constrainedRotation.x = Mathf.Clamp(constrainedRotation.x, 
                                                 originalRotation.x - rotationConstrains.x,
                                                 originalRotation.x + rotationConstrains.x);
+        //
+        if (constrainedRotation.x < 0) constrainedRotation.x += 360;
+        if (constrainedRotation.x > 360) constrainedRotation.x -= 360;
+        //
         constrainedRotation.y = Mathf.Clamp(constrainedRotation.y, 
                                                 originalRotation.y - rotationConstrains.y,
                                                 originalRotation.y + rotationConstrains.y);
+        //
+        if (constrainedRotation.y < 0) constrainedRotation.y += 360;
+        if (constrainedRotation.y > 360) constrainedRotation.y -= 360;
         //
         transform.localRotation = constrainedRotation;
     }

@@ -980,7 +980,7 @@ MonoBehaviour:
   firingSystem: 0
   shootCalculation: 1
   doesRotate: 1
-  rotationIsConstrained: 0
+  rotationIsConstrained: 1
   maxRotationOffset: {x: 50, y: 30}
   shootParticlesPrefab: {fileID: 1837716235657633640, guid: 61c9e81fe8e7c0a40a345df35440fcab,
     type: 3}
