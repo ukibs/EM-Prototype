@@ -103,7 +103,8 @@ public class ProvisionalHUD : MonoBehaviour {
         robotControl = FindObjectOfType<RobotControl>();
         mainCamera = Camera.main;
         impactInfoManager = FindObjectOfType<ImpactInfoManager>();
-        cameraControl = mainCamera.GetComponent<SpringCamera>();
+        //cameraControl = mainCamera.GetComponent<SpringCamera>();
+        cameraControl = FindObjectOfType<SpringCamera>();
         gameManager = FindObjectOfType<GameManager>();
         playerIntegrity = FindObjectOfType<PlayerIntegrity>();
         levelManager = FindObjectOfType<ProvLevelManager>();

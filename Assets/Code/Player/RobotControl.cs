@@ -212,7 +212,8 @@ public class RobotControl : MonoBehaviour {
     void Start () {
         mainCamera = Camera.main.transform;
         inputManager = FindObjectOfType<InputManager>();
-        cameraControl = mainCamera.GetComponent<SpringCamera>();
+        //cameraControl = mainCamera.GetComponent<SpringCamera>();
+        cameraControl = FindObjectOfType<SpringCamera>();
         rb = GetComponent<Rigidbody>();
         repulsor = GetComponent<Repulsor>();
         gameManager = FindObjectOfType<GameManager>();

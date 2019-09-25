@@ -55,8 +55,9 @@ public class LevelSelectionItem : MapAndStatsItem
     {
         // Cargamos los datos
         GameManager.instance.CurrentLevelInfo = levelData.levelInfo;
+        GameManager.instance.gameMode = levelData.levelInfo.gameMode;
         // Accedemos al nivel
-        if(levelData.levelInfo.gameMode == GameMode.Arcade)
+        if (levelData.levelInfo.gameMode == GameMode.Arcade)
             SceneManager.LoadScene("ProtLevel");
         else
             SceneManager.LoadScene("ProtLevel BOSS");

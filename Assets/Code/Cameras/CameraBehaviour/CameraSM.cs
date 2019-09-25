@@ -77,7 +77,10 @@ namespace CameraManager
             Assert.IsNotNull(cb, "Please, set the CameraBehaviour before Start() of CameraSM.");
             Assert.IsNotNull(cameraMoving, "Please, set the moving camera.");
             Assert.IsNotNull(cameraShooting, "Please, set the shooting camera.");
-            sc = GetComponent<SpringCamera>();
+            // TODO: Decidir bien como hacer esto
+            // Ahora que está en un objeto diferente
+            //sc = GetComponent<SpringCamera>();
+            sc = FindObjectOfType<SpringCamera>();
         }
     
         void Update()
@@ -111,7 +114,8 @@ namespace CameraManager
                 case State.Move:
                     cb.SetCamera(cameraMoving, 1.0f);
                     //(GABI): make the springCamera use only the ui when shooting, when not, move and Ui. 
-                    if (cb.Transitioning == false && sc.useOnlyUI) sc.useOnlyUI = false;
+                    if (cb.Transitioning == false && 
+                        sc.useOnlyUI) sc.useOnlyUI = false;
                     break;
                 case State.Aiming:
                     if (!sc.useOnlyUI) sc.useOnlyUI = true;
