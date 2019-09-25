@@ -76,10 +76,10 @@ MonoBehaviour:
     type: 3}
   enemyChasisTexture: {fileID: 2800000, guid: 9d5d6ce2ecad855448c8d4392c05225f, type: 3}
   enemyHealthTexture: {fileID: 2800000, guid: 9be74790b4a9b2f41bb96490059435ec, type: 3}
-  jumpTexture: {fileID: 2800000, guid: 86d8e40aae556594085414191d64a8c6, type: 3}
-  sprintTexture: {fileID: 2800000, guid: 342767d2bca4d854191e77312ebae1c2, type: 3}
+  jumpTexture: {fileID: 2800000, guid: 2dfd2129062915b428a90bdce5e84445, type: 3}
+  sprintTexture: {fileID: 2800000, guid: 01ea3a401347a2b4aa740fee7468b92e, type: 3}
   pulseAttackIcon: {fileID: 2800000, guid: 83d3de51e99ff0140b0c47e3cd891611, type: 3}
-  rapidFireIcon: {fileID: 2800000, guid: ffdcd310a8ac189429d0a41c2c8c8c87, type: 3}
+  rapidFireIcon: {fileID: 2800000, guid: 5bed77d7ed5bb46448d52c9d266b6a80, type: 3}
   cannonIcon: {fileID: 2800000, guid: 3a1b868140ce9dd468766af67387ae20, type: 3}
   particleCascadeIcon: {fileID: 2800000, guid: 87a44e771db1b104eb19ac25140b8ea3, type: 3}
   piercingIcon: {fileID: 2800000, guid: 1b1b4126fd33c304995b382d1ca03fa1, type: 3}
