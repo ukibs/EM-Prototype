@@ -191,7 +191,7 @@ public class EnemyManager : MonoBehaviour
                     Debug.Log(nextEnemy);
                     continue;
                 }
-                //
+                // TODO: Revisar lo de la posición al activarlos
                 nextEnemy.SetActive(true);
                 nextEnemy.transform.position = positionToSpawn;                
                 EnemyConsistency enemyConsistency = nextEnemy.GetComponent<EnemyConsistency>();

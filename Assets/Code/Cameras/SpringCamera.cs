@@ -71,8 +71,10 @@ public class SpringCamera : MonoBehaviour {
 
         //
         currentTarget = targetPlayer;
-        //
-        cameraComponent = GetComponent<Camera>();
+        // TODO: Preferiría no hacerlo así
+        // Puede dar problemas si metemos más de una cámara
+        //cameraComponent = GetComponent<Camera>();
+        cameraComponent = FindObjectOfType<Camera>();
         //
         inputManager = FindObjectOfType<InputManager>();
         //

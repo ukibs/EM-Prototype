@@ -82,7 +82,7 @@ namespace CameraManager
     
         void Update()
         {
-
+            // TODO: Mira en el input manager. Hay un botón ahí para el disparo
             hittingShoot = Input.GetMouseButton(0);
             if (hittingShoot)
             {

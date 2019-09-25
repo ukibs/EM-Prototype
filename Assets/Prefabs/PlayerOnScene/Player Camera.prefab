@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 7084162388066454429}
   - component: {fileID: 7084162388066454430}
   - component: {fileID: 7084162388066454431}
-  - component: {fileID: 7084162388066454428}
   - component: {fileID: 4146675652635104323}
+  - component: {fileID: 1285558877}
+  - component: {fileID: 1285558878}
   m_Layer: 0
   m_Name: Player Camera
   m_TagString: MainCamera
@@ -43,8 +44,8 @@ Camera:
   m_GameObject: {fileID: 7084162388066454424}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 1, g: 0.6795426, b: 0.33716366, a: 1}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
@@ -84,25 +85,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7084162388066454424}
   m_Enabled: 1
---- !u!114 &7084162388066454428
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7084162388066454424}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c1e96c37b2482c46bd62cd0dd092c72, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetPlayer: {fileID: 0}
-  idealOffset: {x: 3, y: 3, z: -10}
-  springK: 300
-  dampingK: 30
-  targetOffset: {x: 3, y: 1, z: 0}
-  maxDistancePlayer: 5
-  transitionTimeBetweenEnemies: 0.3
 --- !u!114 &4146675652635104323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,3 +98,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   profile: {fileID: 11400000, guid: d982e879ff67b4d3fb6522d08c3cd5af, type: 2}
+--- !u!114 &1285558877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7084162388066454424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a26d8212b7ec4b2abf235c8b79952cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spd: 1
+--- !u!114 &1285558878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7084162388066454424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 636a36831a7144fae84e1d08febbd930, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cb: {fileID: 1285558877}
+  cameraMoving: {fileID: 0}
+  cameraShooting: {fileID: 0}
+  ca: {fileID: 0}
