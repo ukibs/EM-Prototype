@@ -17,7 +17,12 @@ public class CameraReference : MonoBehaviour {
     private Quaternion previousObjectiveRotation;
     //private float transitionProgression = 0;
 
-	// Use this for initialization
+    public SpringCamera CameraControl
+    {
+        get { return cameraControl; }
+    }
+
+    // Use this for initialization
 	void Start () {
         //previousMousePosition = Input.mousePosition;
         cameraControl = FindObjectOfType<SpringCamera>();
@@ -27,6 +32,8 @@ public class CameraReference : MonoBehaviour {
         //transitionProgression = transitionTimeBetweenEnemies;
 	}
 	
+    
+    
 	// Update is called once per frame
 	void FixedUpdate () {
 

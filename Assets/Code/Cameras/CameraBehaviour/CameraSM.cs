@@ -19,7 +19,7 @@ namespace CameraManager
     {
 
         #region Public
-
+        public CameraBehaviour cb;
         #endregion
 
         #region Private
@@ -29,8 +29,12 @@ namespace CameraManager
         [SerializeField]
         private Transform cameraShooting;
         private State state;
+        private bool hittingShoot = false;
+        private SpringCamera sc;
         [SerializeField]
-        private CameraBehaviour cb;
+        
+
+        private CameraAiming ca;
         
         #endregion
 
@@ -73,11 +77,21 @@ namespace CameraManager
             Assert.IsNotNull(cb, "Please, set the CameraBehaviour before Start() of CameraSM.");
             Assert.IsNotNull(cameraMoving, "Please, set the moving camera.");
             Assert.IsNotNull(cameraShooting, "Please, set the shooting camera.");
-            Testing();
+            sc = GetComponent<SpringCamera>();
         }
     
         void Update()
         {
+
+            hittingShoot = Input.GetMouseButton(0);
+            if (hittingShoot)
+            {
+                state = State.Aiming;
+            }
+            else
+            {
+                state = State.Move;
+            }
             Assert.IsTrue(ProcessStateMachineUpdate(),
                 "Error in state machine of CameraSM.cs, see more logs to see what is wrong.");
         }
@@ -96,8 +110,11 @@ namespace CameraManager
             {
                 case State.Move:
                     cb.SetCamera(cameraMoving, 1.0f);
+                    //(GABI): make the springCamera use only the ui when shooting, when not, move and Ui. 
+                    if (cb.Transitioning == false && sc.useOnlyUI) sc.useOnlyUI = false;
                     break;
                 case State.Aiming:
+                    if (!sc.useOnlyUI) sc.useOnlyUI = true;
                     cb.SetCamera(cameraShooting, 1.5f);
                     break;
                 default:
@@ -108,11 +125,6 @@ namespace CameraManager
             return true;
         }
 
-        private void Testing()
-        {
-          StartCoroutine(ChangeStateTest());
-        }
-        
         IEnumerator ChangeStateTest()
         {
             yield return new WaitForSeconds(3f);

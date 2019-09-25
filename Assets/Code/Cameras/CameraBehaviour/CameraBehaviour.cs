@@ -88,7 +88,7 @@ public class CameraBehaviour : MonoBehaviour
         float dt = Time.deltaTime;
         transform.position = Vector3.Lerp(beforeBehaviour.position, currentBehaviour.position, t);
         transform.rotation = Quaternion.Lerp(beforeBehaviour.rotation, currentBehaviour.rotation, t);
-        t += spd * dt;
+        t += spd * dt; 
     }
     
     /// <summary>

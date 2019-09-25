@@ -17,6 +17,8 @@ public class SpringCamera : MonoBehaviour {
     //public float maxUpperOffsetY = 5.0f;
     //public float maxLowerOffsetY = 3.0f;
 
+    public bool useOnlyUI = false;
+
     public float transitionTimeBetweenEnemies = 0.3f;
     #endregion
 
@@ -82,7 +84,6 @@ public class SpringCamera : MonoBehaviour {
         positionWithoutCorrection = transform.position;
         //
         cameraReference = FindObjectOfType<CameraReference>();
-
         // Ojo con ele enemy analyzer
         // Al ser pasivo se puede quedar activado entre escenas
         EnemyAnalyzer.Release();
@@ -100,6 +101,7 @@ public class SpringCamera : MonoBehaviour {
     // Called before physics
     void FixedUpdate () {
         // TODO: Cuidado con este dt
+        
         float dt = Time.deltaTime;
         // 
         if (currentTarget != targetPlayer && !EnemyAnalyzer.isActive)
@@ -108,14 +110,17 @@ public class SpringCamera : MonoBehaviour {
             //SwitchBetweenEnemies(Vector2.zero);
             SwitchToNearestInWorldEnemy();
         }
+
+        
         //
         UpdateMovement(dt);
         AdjustToEnemyMovement(dt);
+        if (!useOnlyUI)
         UpdateRotation(dt);
         UpdateUp(targetPlayer.up);
         //CheckSwitchAndEnemies();
         CheckRightAxis();
-
+        if (useOnlyUI) return;
         CheckDontEnterInsideScenario();
 	}
 
