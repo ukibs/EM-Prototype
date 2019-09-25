@@ -111,6 +111,7 @@ public class ProvLevelManager : MonoBehaviour
         CheckControls();
     }
 
+    // TODO: Dibujar esto en el HUD
     private void OnGUI()
     {
         //

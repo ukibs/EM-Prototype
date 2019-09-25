@@ -138,13 +138,16 @@ public class EnemyManager : MonoBehaviour
         // Debug.Log("Enemies initiated");
     }
 
-    //
+    /// <summary>
+    /// TODO: Que spamee todo el grupo o no spamee
+    /// </summary>
+    /// <param name="i"></param>
     void ActivateEnemies(int i)
     {
         //Metodo con spawn points
         EnemyType typeToSpawn = enemiesSpawnSettings[i].enemyPrefab.GetComponent<EnemyIdentifier>().enemyType;
         Transform groupSpawn = GetRandomSpawmPointNearerThanX(typeToSpawn, farestSpawnDistanceToEpicenter);
-        //
+        // Control de errores
         if (groupSpawn == null)
             return;
         //
@@ -152,7 +155,8 @@ public class EnemyManager : MonoBehaviour
 
         // NOTA: Control de error
         // De primeras no debería haber tamaño de spawn 0
-        if (enemiesSpawnSettings[i].enemiesToSpawn > 0)
+        if (enemiesSpawnSettings[i].enemiesToSpawn > 0
+            && enemiesSpawnSettings[i].enemiesToSpawn < enemiesSpawnSettings[i].maxActiveEnemies - activeEnemies[i].Count)
         {
             // Si no hay enemigos activos de ese tipo, aviso de Carol
             if (activeEnemies[i].Count == 0)

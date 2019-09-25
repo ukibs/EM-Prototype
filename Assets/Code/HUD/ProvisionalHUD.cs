@@ -325,23 +325,27 @@ public class ProvisionalHUD : MonoBehaviour {
 
         //
         //Texture iconToUse = null;
-        /*
+        
         // Jump ones
         if (gameManager.playerAttributes.unlockedJumpActions > 0)
         {
-            GUI.DrawTexture(new Rect(Screen.width - 150, Screen.height - 100, 100, 100), jumpTexture);
+            GUI.DrawTexture(new Rect(diamondRect.x + (diamondRect.width / 4), 
+                diamondRect.y + (diamondRect.height / 2),
+                diamondRect.width / 2, diamondRect.height / 2), jumpTexture);
         }
 
         //Sprint ones
         if (gameManager.playerAttributes.unlockedSprintActions > 0)
         {
-            GUI.DrawTexture(new Rect(Screen.width - 200, Screen.height - 150, 100, 100), sprintTexture);
+            GUI.DrawTexture(new Rect(diamondRect.x, diamondRect.y + (diamondRect.height / 4),
+                diamondRect.width / 2, diamondRect.height / 2), sprintTexture);
         }
 
         // Attack ones
         if (gameManager.playerAttributes.unlockedAttackActions > 0)
         {
             AttackMode attackMode = robotControl.ActiveAttackMode;
+            Texture iconToUse = null;
             switch (attackMode)
             {
                 case AttackMode.Pulse: iconToUse = pulseAttackIcon; break;
@@ -349,15 +353,19 @@ public class ProvisionalHUD : MonoBehaviour {
                 case AttackMode.Canon: iconToUse = cannonIcon; break;
                 case AttackMode.ParticleCascade: iconToUse = particleCascadeIcon; break;
             }
-            GUI.DrawTexture(new Rect(Screen.width - 100, Screen.height - 150, 100, 100), iconToUse);
+            GUI.DrawTexture(new Rect(diamondRect.x + (diamondRect.width / 2), 
+                diamondRect.y + (diamondRect.height / 4), 
+                diamondRect.width / 2, diamondRect.height / 2), iconToUse);
         }
 
         //Defense ones
         if (gameManager.playerAttributes.unlockedDefenseActions > 0)
         {
-            GUI.DrawTexture(new Rect(Screen.width - 150, Screen.height - 200, 100, 100), sphereDefenseTexture);
+            GUI.DrawTexture(new Rect(diamondRect.x + (diamondRect.width / 4), diamondRect.y,
+                diamondRect.width / 2, diamondRect.height / 2), sphereDefenseTexture);
+
         }
-        */
+        
     }
 
     //
