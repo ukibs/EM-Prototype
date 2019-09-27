@@ -113,12 +113,8 @@ namespace CameraManager
             {
                 case State.Move:
                     cb.SetCamera(cameraMoving, 1.0f);
-                    //(GABI): make the springCamera use only the ui when shooting, when not, move and Ui. 
-                    if (cb.Transitioning == false && 
-                        sc.useOnlyUI) sc.useOnlyUI = false;
                     break;
                 case State.Aiming:
-                    if (!sc.useOnlyUI) sc.useOnlyUI = true;
                     cb.SetCamera(cameraShooting, 1.5f);
                     break;
                 default:

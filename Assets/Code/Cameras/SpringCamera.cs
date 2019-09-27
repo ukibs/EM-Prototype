@@ -103,26 +103,18 @@ public class SpringCamera : MonoBehaviour {
     // Called before physics
     void FixedUpdate () {
         // TODO: Cuidado con este dt
-        
         float dt = Time.deltaTime;
-        // 
         if (currentTarget != targetPlayer && !EnemyAnalyzer.isActive)
         {
             // TODO: Llamar a función en mundo
             //SwitchBetweenEnemies(Vector2.zero);
             SwitchToNearestInWorldEnemy();
         }
-
-        
-        //
         UpdateMovement(dt);
         AdjustToEnemyMovement(dt);
-        if (!useOnlyUI)
         UpdateRotation(dt);
         UpdateUp(targetPlayer.up);
-        //CheckSwitchAndEnemies();
         CheckRightAxis();
-        if (useOnlyUI) return;
         CheckDontEnterInsideScenario();
 	}
 
