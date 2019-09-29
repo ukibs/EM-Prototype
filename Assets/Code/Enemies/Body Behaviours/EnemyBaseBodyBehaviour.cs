@@ -16,6 +16,7 @@ public enum Actions
     RetreatingFromPlayer,
     ApproachingPlayer3d,
     // Moverse alrededor de un punto
+    GoInFormation,
 
     Count
 }
@@ -36,6 +37,9 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
     public float rotationSpeed = 90;
     
     public Actions[] behaviour;     // Luego trabajaremos bien esto
+
+    // TODO: Gestionarlo bien, privado y en propiedades
+    public EnemyFormation enemyFormation;
 
     #endregion
 
@@ -205,6 +209,19 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
                 movingDirection = -transform.forward;
                 speedMultiplier = 1f;
                 break;
+            case Actions.GoInFormation:
+                // Ajustamos la velocidad dependiendo de la distancia al punto deseado
+                Vector3 objectivePosition = enemyFormation.GetFormationPlaceInWorld(this);
+                Vector3 objectivePositonOffset = objectivePosition - transform.position;
+                float objectivePositionDistance = objectivePositonOffset.magnitude;
+                //
+                if (objectivePositionDistance < 1)
+                    speedMultiplier = 0.9f;
+                else if (objectivePositionDistance < 5)
+                    speedMultiplier = 1;
+                else
+                    speedMultiplier = 1.2f;
+                break;
         }
         //
         //rb.velocity = (movingDirection * maxSpeed * speedMultiplier * movementStatus);
@@ -308,6 +325,10 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
             case Actions.ApproachingPlayer3d:
                 transform.rotation = GeneralFunctions.UpdateRotation(transform, player.transform.position, rotationSpeed, dt);
                 break;
+            case Actions.GoInFormation:
+                Vector3 objectivePosition = enemyFormation.GetFormationPlaceInWorld(this);
+                transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, objectivePosition, rotationSpeed * movementStatus, dt);
+                break;
         }
 
             // Damp para que no se desmadren
@@ -321,6 +342,12 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
     /// </summary>
     protected virtual void DecideActionToDo()
     {
+        // TODO: Si está en formación y no es el líder que se centre en mantener la posición que le toca
+        if(enemyFormation != null && enemyFormation.formationLeader != this)
+        {
+
+        }
+        //
         Vector3 playerDistance = player.transform.position - transform.position;
         for (int i = 0; i < behaviour.Length; i++)
         {
@@ -357,6 +384,13 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
                     break;
                 case Actions.RetreatingFromPlayer:
                     if (playerDistance.magnitude < minimalShootDistance)
+                    {
+                        currentAction = behaviour[i];
+                        return;
+                    }
+                    break;
+                case Actions.GoInFormation:
+                    if(enemyFormation != null && enemyFormation.formationLeader != this)
                     {
                         currentAction = behaviour[i];
                         return;
