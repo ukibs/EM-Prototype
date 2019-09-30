@@ -2854,7 +2854,7 @@ MonoBehaviour:
   ofFootMaxTime: 5
   timeBetweenActionChecking: 1
   rotationSpeed: 90
-  behaviour: 0200000000000000
+  behaviour: 090000000200000000000000
   weapons:
   - {fileID: 4343538503389955779}
   minIdealHeight: 40

@@ -343,10 +343,10 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
     protected virtual void DecideActionToDo()
     {
         // TODO: Si está en formación y no es el líder que se centre en mantener la posición que le toca
-        if(enemyFormation != null && enemyFormation.formationLeader != this)
-        {
+        //if(enemyFormation != null && enemyFormation.FormationLeader != this)
+        //{
 
-        }
+        //}
         //
         Vector3 playerDistance = player.transform.position - transform.position;
         for (int i = 0; i < behaviour.Length; i++)
@@ -390,7 +390,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
                     }
                     break;
                 case Actions.GoInFormation:
-                    if(enemyFormation != null && enemyFormation.formationLeader != this)
+                    if(enemyFormation != null && enemyFormation.FormationLeader != this)
                     {
                         currentAction = behaviour[i];
                         return;
@@ -452,5 +452,12 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
     protected bool CheckIfObstacleInMovingDirection()
     {
         return Physics.Raycast(transform.position, rb.velocity, rb.velocity.magnitude * 10);
+    }
+
+    //
+    public void LeaveFormation()
+    {
+        if (enemyFormation != null)
+            enemyFormation.LeaveFormation(this);
     }
 }

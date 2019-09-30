@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class EnemyFormation
 {
-    public EnemyBaseBodyBehaviour formationLeader;
+    //public EnemyBaseBodyBehaviour formationLeader;
     public Vector3[] positions;
     public FormationType formationType;
     public float distanceBetweenMembers;
     public List<EnemyBaseBodyBehaviour> formationMembers;
+
+    public EnemyBaseBodyBehaviour FormationLeader { get { return formationMembers[0]; } }
 
     // Constructor
     public EnemyFormation(int size, FormationType formationType, float distanceBetweenMembers)
@@ -20,10 +22,10 @@ public class EnemyFormation
     }
 
     //
-    public void AsignLeader(EnemyBaseBodyBehaviour newFormationLeader)
-    {
-        this.formationLeader = newFormationLeader;
-    }
+    //public void AsignLeader(EnemyBaseBodyBehaviour newFormationLeader)
+    //{
+    //    this.formationLeader = newFormationLeader;
+    //}
 
     //
     public int GetIndexInFormation(EnemyBaseBodyBehaviour behaviour)
@@ -35,7 +37,7 @@ public class EnemyFormation
     public Vector3 GetFormationPlaceInWorld(EnemyBaseBodyBehaviour behaviour)
     {
         int formationIndex = formationMembers.IndexOf(behaviour);
-        Vector3 placeInWorld = formationLeader.transform.TransformPoint(positions[formationIndex]);
+        Vector3 placeInWorld = FormationLeader.transform.TransformPoint(positions[formationIndex]);
         return placeInWorld;
     }
 
@@ -56,5 +58,11 @@ public class EnemyFormation
                 }
                 break;
         }
+    }
+
+    //
+    public void LeaveFormation(EnemyBaseBodyBehaviour behaviour)
+    {
+        formationMembers.Remove(behaviour);
     }
 }
