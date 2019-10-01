@@ -19,6 +19,7 @@ public class EnemyFormation
         positions = new Vector3[size];
         this.distanceBetweenMembers = distanceBetweenMembers;
         formationMembers = new List<EnemyBaseBodyBehaviour>(size);
+        StablishPositions();
     }
 
     //
@@ -36,6 +37,9 @@ public class EnemyFormation
     //
     public Vector3 GetFormationPlaceInWorld(EnemyBaseBodyBehaviour behaviour)
     {
+        //
+        //Debug.Log("Debugging leader: " + FormationLeader);
+        //
         int formationIndex = formationMembers.IndexOf(behaviour);
         Vector3 placeInWorld = FormationLeader.transform.TransformPoint(positions[formationIndex]);
         return placeInWorld;
@@ -50,7 +54,7 @@ public class EnemyFormation
                 //
                 positions[0] = Vector3.zero;
                 //
-                for(int i = 0; i < positions.Length/2; i++)
+                for(int i = 0; i < positions.Length/2 - 1; i++)
                 {
                     positions[i * 2 + 1] = new Vector3(-i * distanceBetweenMembers, 0, -i * distanceBetweenMembers);
                     // TODO: Chequear pares para salir

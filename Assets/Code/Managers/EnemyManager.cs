@@ -224,6 +224,9 @@ public class EnemyManager : MonoBehaviour
                 if(newEnemyFormation != null)
                 {
                     //TODO: Meterlo en la formación
+                    EnemyBaseBodyBehaviour behaviour = nextEnemy.GetComponent<EnemyBaseBodyBehaviour>();
+                    newEnemyFormation.formationMembers.Add(behaviour);
+                    behaviour.enemyFormation = newEnemyFormation;
                 }
 
                 //GameObject nextEnemy = Instantiate(enemyPrefabsToUse[i], pointForGroupSpawn, Quaternion.identity);

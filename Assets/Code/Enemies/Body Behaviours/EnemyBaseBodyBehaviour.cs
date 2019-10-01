@@ -154,16 +154,23 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
     protected virtual void OnDrawGizmos()
     {
         //
-        if (!player) return;
-        Debug.DrawRay(transform.position, rb.velocity, Color.blue);
-        Vector3 playerDirection = player.transform.position - transform.position;
-        Debug.DrawRay(transform.position, playerDirection, Color.red);
+        //if (!player) return;
+        //Debug.DrawRay(transform.position, rb.velocity, Color.blue);
+        //Vector3 playerDirection = player.transform.position - transform.position;
+        //Debug.DrawRay(transform.position, playerDirection, Color.red);
         //
-        if (currentAction == Actions.GoingToPlayer && pathToUse != null && pathToUse.Count > 0)
+        //if (currentAction == Actions.GoingToPlayer && pathToUse != null && pathToUse.Count > 0)
+        //{
+        //    Debug.DrawRay(transform.position, pathToUse[0].transform.position - transform.position, Color.yellow);
+        //    if(pathToUse.Count > 1)
+        //        Debug.DrawRay(pathToUse[0].transform.position, pathToUse[1].transform.position - pathToUse[0].transform.position, Color.yellow);
+        //}
+        //
+        if(currentAction == Actions.GoInFormation)
         {
-            Debug.DrawRay(transform.position, pathToUse[0].transform.position - transform.position, Color.yellow);
-            if(pathToUse.Count > 1)
-                Debug.DrawRay(pathToUse[0].transform.position, pathToUse[1].transform.position - pathToUse[0].transform.position, Color.yellow);
+            Vector3 objectivePosition = enemyFormation.GetFormationPlaceInWorld(this);
+            Vector3 objectiveDirection = objectivePosition - transform.position;
+            Debug.DrawRay(transform.position, objectiveDirection, Color.magenta);
         }
     }
 
@@ -328,6 +335,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
             case Actions.GoInFormation:
                 Vector3 objectivePosition = enemyFormation.GetFormationPlaceInWorld(this);
                 transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, objectivePosition, rotationSpeed * movementStatus, dt);
+                Move();
                 break;
         }
 
