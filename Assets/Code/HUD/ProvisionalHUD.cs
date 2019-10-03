@@ -485,10 +485,24 @@ public class ProvisionalHUD : MonoBehaviour {
         GUI.Label(new Rect(30, Screen.height - 30, 300, 30), "VSpeed: " + playerYSpeedInt + " km/h", guiSkin.label);
     }
 
-    //
     void ShowCross()
     {
-        GUI.DrawTexture(new Rect(Screen.width / 2 - 50, Screen.height / 2 - 50, 100, 100), crossTexture);
+        GUI.DrawTexture(new Rect(Screen.width / 2 - 50, (Screen.height / 2) - 50, 100, 100), crossTexture);
+        
+        /*  TODO:
+         *  1.- Change to dual crosshair.
+         *  2.- Inside Part will show where we shoot, scaling a bit on-shoot
+         *  3.- Outside will spin and gradiate colors to display heat or power of charged shot
+         *  
+         *  SUMM:
+         *  This changes are for UX purposes. Adding visual feedback to the centre of the screen makes us able to
+         *  avoid giving the information of heat or ricochet on a screen corner, which just makes it harder for
+         *  the user to keep track of what's happening in the game. Doing these changes, we will eliminate 
+         *  hard to see UI and HUDs, such as the heating and shoot-charging bar on the lower right corner. 
+         *  
+         *  -DaniGMX-
+         */
+
     }
 
     // 
