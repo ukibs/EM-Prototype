@@ -93,6 +93,7 @@ public class InputManager : MonoBehaviour {
 	void Update () {
 
         // TODO: Separar flechas del teclado de los ejes normales (wasd)
+        // TODO: Ya estaba normalizado. Revisar si la brusquedad viene cuando se aplica a la rotación del player
         stickAxis.x = Input.GetAxisRaw("Horizontal");
         stickAxis.y = Input.GetAxisRaw("Vertical");
         stickAxis.Normalize();
@@ -128,6 +129,7 @@ public class InputManager : MonoBehaviour {
 
         // Stick derecho
         rightStickAxis = new Vector2(Input.GetAxisRaw("Right Horizontal"), Input.GetAxisRaw("Right Vertical")) * rightAxisSensivity;
+        rightStickAxis.Normalize();
 
         //
         pauseButton = Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Joystick1Button7);

@@ -154,6 +154,8 @@ public class FloatingGruntBodyBehaviour : EnemyBaseBodyBehaviour
     /// </summary>
     protected override void Move()
     {
+        //
+        //base.Move();
         Vector3 movingDirection = transform.forward;
         float speedMultiplier = 1;
         switch (currentAction)
@@ -179,8 +181,22 @@ public class FloatingGruntBodyBehaviour : EnemyBaseBodyBehaviour
                 movingDirection = -transform.forward;
                 speedMultiplier = 1f;
                 break;
+            case Actions.GoInFormation:
+                // Ajustamos la velocidad dependiendo de la distancia al punto deseado
+                Vector3 objectivePosition = enemyFormation.GetFormationPlaceInWorld(this);
+                Vector3 objectivePositonOffset = objectivePosition - transform.position;
+                float objectivePositionDistance = objectivePositonOffset.magnitude;
+                //
+                if (objectivePositionDistance < 1)
+                    speedMultiplier = 0.9f;
+                else if (objectivePositionDistance < 5)
+                    speedMultiplier = 1;
+                else
+                    speedMultiplier = 1.2f;
+                break;
         }
-        // (GABI): We calculate first the float because we ensure the order of multiplication (first the floats and then vector). Better for efficiency.
+
+        //(GABI): We calculate first the float because we ensure the order of multiplication(first the floats and then vector). Better for efficiency.
         float effCalcMaxSpeed = maxSpeed * speedMultiplier;
         rb.AddForce(movingDirection * effCalcMaxSpeed);
         VerticalMovement();

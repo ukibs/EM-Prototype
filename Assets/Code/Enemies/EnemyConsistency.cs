@@ -401,6 +401,10 @@ public class EnemyConsistency : Targeteable {
                 enemyManager.SendToReserve(managerIndex, enemyCompleteObject);
             }
 
+            // Lo sacamos de la formacion
+            bodyBehaviour.LeaveFormation();
+
+            //
             if (deadBodyPrefab != null)
                 PutDeadBody(receivedForce);
             //

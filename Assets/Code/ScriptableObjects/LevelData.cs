@@ -58,6 +58,7 @@ public class LevelInfo
 public class EnemySpawnSettings
 {
     public GameObject enemyPrefab;
+    public FormationData formationData;
     public int enemiesToSpawn;
     public int enemySpawnIncrement;
     public float timeBetweenSpawns;

@@ -46,6 +46,9 @@ public class EnemyManager : MonoBehaviour
     // Para cuando el epicentro sea un punto determinado
     private Vector3 epicenterPoint;
 
+    // Con esto gestionaremos las formaciones enemigas
+    private List<EnemyFormation> enemyFormations;
+
 
     public int[] ActiveEnemiesAmount { get { return activeEnemiesAmount; } }
     public Vector3 EpicenterPoint { get { return epicenterPoint; } }
@@ -67,7 +70,8 @@ public class EnemyManager : MonoBehaviour
         InitiateEnemies();
         //
         DetermineEpicenterPoint();
-        
+        //
+        enemyFormations = new List<EnemyFormation>();
     }
 
     // Update is called once per frame
@@ -155,16 +159,27 @@ public class EnemyManager : MonoBehaviour
 
         // NOTA: Control de error
         // De primeras no debería haber tamaño de spawn 0
+        // Aparte, ahora sale todo el grupo o no sale
         if (enemiesSpawnSettings[i].enemiesToSpawn > 0
             && enemiesSpawnSettings[i].enemiesToSpawn < enemiesSpawnSettings[i].maxActiveEnemies - activeEnemies[i].Count)
         {
             // Si no hay enemigos activos de ese tipo, aviso de Carol
             if (activeEnemies[i].Count == 0)
                 carolHelp.TriggerGeneralAdvice("EnemiesIncoming");
+            // Primero iniciamos la formación
+            EnemyFormation newEnemyFormation = null;
+            if(enemiesSpawnSettings[i].formationData.formationInfo != null) {
+                //
+                newEnemyFormation = new EnemyFormation(enemiesSpawnSettings[i].enemiesToSpawn, 
+                    enemiesSpawnSettings[i].formationData.formationInfo.formationType, 
+                    enemiesSpawnSettings[i].formationData.formationInfo.distanceBetweenMembers);
+                //
+                enemyFormations.Add(newEnemyFormation);
+            }
             //
             float memberSpawnAngle = 360 / enemiesSpawnSettings[i].enemiesToSpawn;
             float meberSpawnRadius = 10;
-            //
+            // Sacamos a los enemigos
             for (int j = 0; j < enemiesSpawnSettings[i].enemiesToSpawn; j++)
             {
                 // 
@@ -204,6 +219,15 @@ public class EnemyManager : MonoBehaviour
 
                 // Y lo añadimos a enemigos activos
                 activeEnemies[i].Add(nextEnemy);
+
+                // Si he formación lo metemos a ella
+                if(newEnemyFormation != null)
+                {
+                    //TODO: Meterlo en la formación
+                    EnemyBaseBodyBehaviour behaviour = nextEnemy.GetComponent<EnemyBaseBodyBehaviour>();
+                    newEnemyFormation.formationMembers.Add(behaviour);
+                    behaviour.enemyFormation = newEnemyFormation;
+                }
 
                 //GameObject nextEnemy = Instantiate(enemyPrefabsToUse[i], pointForGroupSpawn, Quaternion.identity);
             }
