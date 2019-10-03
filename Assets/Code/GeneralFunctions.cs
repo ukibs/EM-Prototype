@@ -342,11 +342,15 @@ public static class GeneralFunctions
     /// </summary>
     /// <param name="audioSource"></param>
     /// <param name="audioClip"></param>
-    public static void PlaySoundEffect(AudioSource audioSource, AudioClip audioClip)
+    public static void PlaySoundEffect(AudioSource audioSource, AudioClip audioClip, float pitchVariation = 0)
     {
         if(audioSource != null && audioClip != null)
         {
             audioSource.clip = audioClip;
+            if (pitchVariation != 0.0f)
+            {
+                audioSource.pitch = UnityEngine.Random.Range(1.0f - pitchVariation, 1.0f + pitchVariation);
+            }
             audioSource.Play();
         }
         else
@@ -360,13 +364,18 @@ public static class GeneralFunctions
     /// </summary>
     /// <param name="audioSource"></param>
     /// <param name="audioClip"></param>
-    public static void PlaySoundEffectWithoutOverlaping(AudioSource audioSource, AudioClip audioClip)
+    public static void PlaySoundEffectWithoutOverlaping(AudioSource audioSource, AudioClip audioClip, float pitchVariation = 0)
     {
         if (audioSource != null && audioClip != null)
         {
             if(!audioSource.isPlaying || audioClip != audioSource.clip)
             {
                 audioSource.clip = audioClip;
+
+                if (pitchVariation != 0.0f)
+                {
+                    audioSource.pitch = UnityEngine.Random.Range(1.0f - pitchVariation, 1.0f + pitchVariation);
+                }
                 audioSource.Play();
             }            
         }
