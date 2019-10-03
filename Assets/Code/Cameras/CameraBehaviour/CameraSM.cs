@@ -32,10 +32,10 @@ namespace CameraManager
         private bool hittingShoot = false;
         private SpringCamera sc;
         [SerializeField]
-        
-
         private CameraAiming ca;
-        
+
+        [SerializeField] private InputManager im;
+        private bool sprinting = false;
         #endregion
 
         #region Properties
@@ -72,22 +72,16 @@ namespace CameraManager
         #region MonoBehaviour
 
          
-        void Start()
+        private void Start()
         {
-            Assert.IsNotNull(cb, "Please, set the CameraBehaviour before Start() of CameraSM.");
-            Assert.IsNotNull(cameraMoving, "Please, set the moving camera.");
-            Assert.IsNotNull(cameraShooting, "Please, set the shooting camera.");
-            // TODO: Decidir bien como hacer esto
-            // Ahora que está en un objeto diferente
-            //sc = GetComponent<SpringCamera>();
-            sc = FindObjectOfType<SpringCamera>();
+            CheckEverythingIsRight();
         }
     
-        void Update()
+        private void Update()
         {
-            // TODO: Mira en el input manager. Hay un botón ahí para el disparo
-            hittingShoot = Input.GetMouseButton(0);
-            if (hittingShoot)
+            sprinting = im.SprintButton;
+            hittingShoot = im.FireButton;
+            if (hittingShoot && !sprinting)
             {
                 state = State.Aiming;
             }
@@ -125,12 +119,17 @@ namespace CameraManager
             return true;
         }
 
-        IEnumerator ChangeStateTest()
+        private void CheckEverythingIsRight()
         {
-            yield return new WaitForSeconds(3f);
-            if (state == State.Aiming) state = State.Move;
-            else state = State.Aiming;
-            StartCoroutine(ChangeStateTest());
+            Assert.IsNotNull(cb, "Please, set the CameraBehaviour before Start() of CameraSM.");
+            Assert.IsNotNull(cameraMoving, "Please, set the moving camera.");
+            Assert.IsNotNull(cameraShooting, "Please, set the shooting camera.");
+            // Force at least that the camera works...
+            cb = cb ? cb : FindObjectOfType<CameraBehaviour>();
+            cameraMoving = cameraMoving ? cameraMoving : FindObjectOfType<SpringCamera>().transform;
+            cameraShooting = cameraShooting ? cameraShooting : FindObjectOfType<CameraAiming>().transform;
+            im = FindObjectOfType<InputManager>();
+            Assert.IsNotNull(im, "Fatal error, non existing InputManager.");
         }
         
         #endregion

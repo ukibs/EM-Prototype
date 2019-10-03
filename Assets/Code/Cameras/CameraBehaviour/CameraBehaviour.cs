@@ -58,6 +58,7 @@ public class CameraBehaviour : MonoBehaviour
     
     void Update()
     {
+        Debug.Log(transitioning);
         if (transitioning)
         {
             Transition();
@@ -78,6 +79,7 @@ public class CameraBehaviour : MonoBehaviour
     /// </summary>
     private void Transition()
     {
+        Debug.Log(currentBehaviour);
         // Transition finished, return
         if (t >= 1f)
         {
@@ -99,7 +101,7 @@ public class CameraBehaviour : MonoBehaviour
     /// <returns></returns>
     public bool SetCamera(GameObject go, float speed = 1f)
     {
-        if (go.GetInstanceID() == id) 
+        if (go.GetInstanceID() == id || transitioning) 
             return false;
         beforeBehaviour = currentBehaviour;
         currentBehaviour = go.transform;
@@ -119,13 +121,13 @@ public class CameraBehaviour : MonoBehaviour
     /// <returns></returns>
     public bool SetCamera(Transform go, float speed = 1f)
     {
-        if (go.GetInstanceID() == id)
+        if (go.gameObject.GetInstanceID() == id || transitioning)
             return false;
         beforeBehaviour = currentBehaviour;
         currentBehaviour = go.transform;
         transitioning = true;
         spd = speed;
-        id = go.GetInstanceID();
+        id = go.gameObject.GetInstanceID();
         t = 0.0f;
         return true;
     }
