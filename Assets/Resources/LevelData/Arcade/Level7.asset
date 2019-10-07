@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level7
   m_EditorClassIdentifier: 
   levelInfo:
-    inGameName: Screecher first contact
+    inGameName: Big Screecher Attack
     gameMode: 0
     victoryCondition: 2
     enemiesToDefeat: 20
@@ -24,18 +24,21 @@ MonoBehaviour:
     enemiesSpawnSettings:
     - enemyPrefab: {fileID: 8576012526104695649, guid: 2d37678f167e91a40ab388c7f80b22d0,
         type: 3}
+      formationData: {fileID: 0}
       enemiesToSpawn: 1
       enemySpawnIncrement: 0
       timeBetweenSpawns: 10
       maxActiveEnemies: 1
     - enemyPrefab: {fileID: 8576012526104695649, guid: 91acf057a8df05f489f5134c3a5694ce,
         type: 3}
+      formationData: {fileID: 0}
       enemiesToSpawn: 1
       enemySpawnIncrement: 0
       timeBetweenSpawns: 5
       maxActiveEnemies: 1
     - enemyPrefab: {fileID: 8576012526104695649, guid: 91acf057a8df05f489f5134c3a5694ce,
         type: 3}
+      formationData: {fileID: 0}
       enemiesToSpawn: 1
       enemySpawnIncrement: 0
       timeBetweenSpawns: 5

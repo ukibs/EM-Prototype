@@ -48,12 +48,14 @@ public class ScreecherBodyBehaviour : EnemyBaseBodyBehaviour
     protected override void OnDrawGizmos()
     {
         //
-        if (player != null)
-        {
-            Debug.DrawRay(transform.position, transform.forward * 10, Color.blue);
-            Vector3 playerDirection = player.transform.position - transform.position;
-            Debug.DrawRay(transform.position, playerDirection, Color.red);
-        }
+        base.OnDrawGizmos();
+        //
+        //if (player != null)
+        //{
+        //    Debug.DrawRay(transform.position, transform.forward * 10, Color.blue);
+        //    Vector3 playerDirection = player.transform.position - transform.position;
+        //    Debug.DrawRay(transform.position, playerDirection, Color.red);
+        //}
 
     }
 
@@ -62,7 +64,13 @@ public class ScreecherBodyBehaviour : EnemyBaseBodyBehaviour
 
     protected override void DecideActionToDo()
     {
-
+        //
+        if (enemyFormation != null && enemyFormation.FormationLeader != this)
+        {
+            currentAction = Actions.GoInFormation;
+            return;
+        }
+            
         //
         Vector3 playerDistance = player.transform.position - transform.position;
         if (player.transform.position.y > 100)
@@ -111,6 +119,11 @@ public class ScreecherBodyBehaviour : EnemyBaseBodyBehaviour
                 transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed, dt);
                 transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
                 //VerticalMovement();
+                break;
+            case Actions.GoInFormation:
+                Vector3 objectivePosition = enemyFormation.GetFormationPlaceInWorld(this);
+                transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, objectivePosition, rotationSpeed * movementStatus, dt);
+                //Move();
                 break;
         }
 

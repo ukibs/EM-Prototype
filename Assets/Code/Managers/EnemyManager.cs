@@ -168,7 +168,7 @@ public class EnemyManager : MonoBehaviour
                 carolHelp.TriggerGeneralAdvice("EnemiesIncoming");
             // Primero iniciamos la formación
             EnemyFormation newEnemyFormation = null;
-            if(enemiesSpawnSettings[i].formationData.formationInfo != null) {
+            if(enemiesSpawnSettings[i].formationData != null) {
                 //
                 newEnemyFormation = new EnemyFormation(enemiesSpawnSettings[i].enemiesToSpawn, 
                     enemiesSpawnSettings[i].formationData.formationInfo.formationType, 
@@ -225,6 +225,9 @@ public class EnemyManager : MonoBehaviour
                 {
                     //TODO: Meterlo en la formación
                     EnemyBaseBodyBehaviour behaviour = nextEnemy.GetComponent<EnemyBaseBodyBehaviour>();
+                    // TODO: Arregalro para que no haga falta hacer esto
+                    if(behaviour == null) behaviour = nextEnemy.GetComponentInChildren<EnemyBaseBodyBehaviour>();
+                    //
                     newEnemyFormation.formationMembers.Add(behaviour);
                     behaviour.enemyFormation = newEnemyFormation;
                 }

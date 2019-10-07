@@ -338,11 +338,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
                 Move();
                 break;
         }
-
-            // Damp para que no se desmadren
-            //float dampForce = 10.0f;
-            //rb.velocity = rb.velocity * ( 1 - dampForce * dt);
-        
+                
     }
 
     /// <summary>

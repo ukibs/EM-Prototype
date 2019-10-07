@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level2
   m_EditorClassIdentifier: 
   levelInfo:
-    inGameName: Grunts first contact
+    inGameName: Worms first contact
     gameMode: 0
     victoryCondition: 1
     enemiesToDefeat: 20
@@ -24,18 +24,21 @@ MonoBehaviour:
     enemiesSpawnSettings:
     - enemyPrefab: {fileID: 8096563443830030571, guid: 63f7a55d02361e7448d4b09d407ad549,
         type: 3}
+      formationData: {fileID: 0}
       enemiesToSpawn: 3
       enemySpawnIncrement: 0
       timeBetweenSpawns: 5
       maxActiveEnemies: 10
     - enemyPrefab: {fileID: 8096563443830030571, guid: 63f7a55d02361e7448d4b09d407ad549,
         type: 3}
+      formationData: {fileID: 0}
       enemiesToSpawn: 3
       enemySpawnIncrement: 0
       timeBetweenSpawns: 5
       maxActiveEnemies: 10
     - enemyPrefab: {fileID: 8096563443830030571, guid: 63f7a55d02361e7448d4b09d407ad549,
         type: 3}
+      formationData: {fileID: 0}
       enemiesToSpawn: 3
       enemySpawnIncrement: 0
       timeBetweenSpawns: 5

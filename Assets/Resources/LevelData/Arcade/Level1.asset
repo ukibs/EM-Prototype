@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level1
   m_EditorClassIdentifier: 
   levelInfo:
-    inGameName: Worms first contact
+    inGameName: Grunts first contact
     gameMode: 0
     victoryCondition: 1
     enemiesToDefeat: 20
