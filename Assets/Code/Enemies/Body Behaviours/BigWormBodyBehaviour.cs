@@ -93,7 +93,7 @@ public class BigWormBodyBehaviour : EnemyBaseBodyBehaviour
         {
             case BigWormStatus.GoingToPlayer:
                 headRb.transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(headRb.transform, player.transform.position, rotationSpeed, dt);
-                Move();
+                Move(dt);
                 //
                 if(xZDistanceToPlayerAndDirection.magnitude < minimalXyApproachDistance)
                 {
@@ -126,7 +126,7 @@ public class BigWormBodyBehaviour : EnemyBaseBodyBehaviour
 
                 //
                 headRb.transform.rotation = GeneralFunctions.UpdateRotation(headRb.transform, player.transform.position, rotationSpeed, dt);
-                Move();
+                Move(dt);
                 break;
             case BigWormStatus.Lunging:
                 // Que la cabeza vaya rotando en la dirección que mira
@@ -153,7 +153,7 @@ public class BigWormBodyBehaviour : EnemyBaseBodyBehaviour
                 break;
             case BigWormStatus.ReturningToIdealHeight:
                 //
-                Move();
+                Move(dt);
                 
                 //
                 if (headRb.transform.position.y <= underSandIdealHeight)
@@ -171,7 +171,7 @@ public class BigWormBodyBehaviour : EnemyBaseBodyBehaviour
     }
 
     //
-    protected override void Move()
+    protected override void Move(float dt)
     {
         //
         Vector3 movingDirection = headRb.transform.forward;

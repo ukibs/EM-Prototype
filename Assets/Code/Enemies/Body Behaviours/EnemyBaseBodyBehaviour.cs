@@ -86,6 +86,8 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
         set { movementStatus = value; }
     }
 
+    public bool OfFoot { get { return ofFoot; } }
+
     #endregion
 
     // Start is called before the first frame update
@@ -154,10 +156,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
     protected virtual void OnDrawGizmos()
     {
         //
-        //if (!player) return;
-        //Debug.DrawRay(transform.position, rb.velocity, Color.blue);
-        //Vector3 playerDirection = player.transform.position - transform.position;
-        //Debug.DrawRay(transform.position, playerDirection, Color.red);
+        
         //
         //if (currentAction == Actions.GoingToPlayer && pathToUse != null && pathToUse.Count > 0)
         //{
@@ -171,7 +170,15 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
             Vector3 objectivePosition = enemyFormation.GetFormationPlaceInWorld(this);
             Vector3 objectiveDirection = objectivePosition - transform.position;
             Debug.DrawRay(transform.position, objectiveDirection, Color.magenta);
+            Gizmos.DrawSphere(objectivePosition, 1);
         }
+        else
+        {
+            if (!player) return;
+            Vector3 playerDirection = player.transform.position - transform.position;
+            Debug.DrawRay(transform.position, playerDirection, Color.red);
+        }
+        Debug.DrawRay(transform.position, rb.velocity, Color.blue);
     }
 
     protected void UpdateOfFootStatus(float dt)
@@ -185,7 +192,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
     }
 
     // 
-    protected virtual void Move()
+    protected virtual void Move(float dt)
     {
         // IMPORTANT TODO change: if (!HasGroundUnderneath()) return;
         //                        if (false) return;
@@ -228,14 +235,17 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
                     speedMultiplier = 1;
                 else
                     speedMultiplier = 1.2f;
+
+                //
+                //transform.position = enemyFormation.GetFormationPlaceInWorld(this);
                 break;
         }
         //
-        //rb.velocity = (movingDirection * maxSpeed * speedMultiplier * movementStatus);
-        rb.AddForce(movingDirection * maxSpeed * speedMultiplier);
+        rb.velocity = (movingDirection * maxSpeed * speedMultiplier * movementStatus);
+        //rb.AddForce(movingDirection * maxSpeed * speedMultiplier * dt, ForceMode.Impulse);
         //
-        if (!onFloor)
-            rb.velocity += Physics.gravity;
+        //if (!onFloor)
+        //    rb.velocity += Physics.gravity;
     
     }
     
@@ -304,13 +314,13 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
 
                     //
                     transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, currentObjective, rotationSpeed * movementStatus, dt);
-                    Move();
+                    Move(dt);
                 }
                 else
                 {
                     //
                     transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed * movementStatus, dt);
-                    Move();
+                    Move(dt);
                 }
                 break;
             case Actions.EncirclingPlayerForward:
@@ -319,23 +329,24 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
                 break;
             case Actions.EncirclingPlayerSideward:
                 transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed * movementStatus, dt);
-                Move();
+                Move(dt);
                 break;
             case Actions.Fleeing:
                 transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, -player.transform.position, rotationSpeed * movementStatus, dt);
-                Move();
+                Move(dt);
                 break;
             case Actions.RetreatingFromPlayer:
                 transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed * movementStatus, dt);
-                Move();
+                Move(dt);
                 break;
             case Actions.ApproachingPlayer3d:
                 transform.rotation = GeneralFunctions.UpdateRotation(transform, player.transform.position, rotationSpeed, dt);
                 break;
             case Actions.GoInFormation:
                 Vector3 objectivePosition = enemyFormation.GetFormationPlaceInWorld(this);
-                transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, objectivePosition, rotationSpeed * movementStatus, dt);
-                Move();
+                transform.rotation = GeneralFunctions.UpdateRotation(transform, objectivePosition, rotationSpeed * movementStatus, dt);
+                //transform.rotation = enemyFormation.FormationLeader.transform.rotation;
+                Move(dt);
                 break;
         }
                 

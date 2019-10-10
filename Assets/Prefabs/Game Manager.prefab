@@ -60,7 +60,7 @@ MonoBehaviour:
     maxOverheat: 2
     massPerSecond: 100
     forcePerSecond:
-      baseValue: 100
+      baseValue: 150
       improvementValue: 10
       improvementsPurchased: 0
       maxPurchaseableImprovements: 10

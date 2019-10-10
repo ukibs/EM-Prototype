@@ -181,12 +181,12 @@ public class WormBodyBehaviour : EnemyBaseBodyBehaviour
     }
 
     //
-    protected override void Move()
+    protected override void Move(float dt)
     {
         //
         if (grounded)
         {
-            base.Move();
+            base.Move(dt);
         }
         
     }

@@ -128,7 +128,7 @@ public class ScreecherBodyBehaviour : EnemyBaseBodyBehaviour
         }
 
         // Y por último que mueva
-        Move();
+        Move(dt);
         VerticalMovement(dt);
     }
 
@@ -145,12 +145,12 @@ public class ScreecherBodyBehaviour : EnemyBaseBodyBehaviour
         }
     }
 
-    protected override void Move()
+    protected override void Move(float dt)
     {
         // Aqui no hacemos uso del Move padre
         //base.Move();
         //rb.velocity = transform.forward * maxSpeed;
-        rb.AddForce(transform.forward * maxSpeed);
+        rb.AddForce(transform.forward * maxSpeed * dt, ForceMode.Impulse);
     }
 
     // TODO: Hacerla bien

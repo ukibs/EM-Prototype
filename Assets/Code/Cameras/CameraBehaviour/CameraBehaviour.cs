@@ -58,7 +58,7 @@ public class CameraBehaviour : MonoBehaviour
     
     void Update()
     {
-        Debug.Log(transitioning);
+        //Debug.Log(transitioning);
         if (transitioning)
         {
             Transition();
@@ -79,7 +79,7 @@ public class CameraBehaviour : MonoBehaviour
     /// </summary>
     private void Transition()
     {
-        Debug.Log(currentBehaviour);
+        //Debug.Log(currentBehaviour);
         // Transition finished, return
         if (t >= 1f)
         {

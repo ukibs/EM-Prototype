@@ -21,7 +21,7 @@ public class FlyingEnemyBodyBehaviour : EnemyBaseBodyBehaviour
     protected override void Update()
     {
         //
-        VerticalMovement();
+        //VerticalMovement();
         //
         base.Update();
     }

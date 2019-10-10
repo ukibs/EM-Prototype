@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   formationInfo:
     formationType: 0
-    distanceBetweenMembers: 3
+    distanceBetweenMembers: 5
