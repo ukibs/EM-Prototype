@@ -21,16 +21,20 @@ public class FlyingEnemyBodyBehaviour : EnemyBaseBodyBehaviour
     protected override void Update()
     {
         //
-        //VerticalMovement();
+        VerticalMovement();
         //
         base.Update();
     }
 
     protected void VerticalMovement()
     {
-        if (transform.position.y < idealHeight)
-        {
-            rb.AddForce(Vector3.up * liftForcePerSecond);
-        }
+        //if (transform.position.y < idealHeight)
+        //{
+        //    rb.AddForce(Vector3.up * liftForcePerSecond);
+        //}
+
+        Vector3 currentPositon = transform.position;
+        currentPositon.y = idealHeight;
+        transform.position = currentPositon;
     }
 }

@@ -940,7 +940,7 @@ public class RobotControl : MonoBehaviour {
             //
             nextRapidFireSide = (nextRapidFireSide) == 0 ? 1 : 0;
             //
-            GeneralFunctions.PlaySoundEffect(audioSource, rapidFireClip);
+            GeneralFunctions.PlaySoundEffect(audioSource, rapidFireClip, 0.1f);
         }
     }
 

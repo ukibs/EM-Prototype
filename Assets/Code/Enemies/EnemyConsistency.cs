@@ -222,7 +222,9 @@ public class EnemyConsistency : Targeteable {
         BulletHole[] bulletHoles = GetComponentsInChildren<BulletHole>();
         for(int i = 0; i < bulletHoles.Length; i++)
         {
-            bulletHoles[i].transform.parent = deadBody.transform.GetChild(0);
+            // TODO: Revisar esto
+            bulletHoles[i].transform.parent = deadBody.transform;
+            //bulletHoles[i].transform.parent = deadBody.transform.GetChild(0);
         }
     }
 

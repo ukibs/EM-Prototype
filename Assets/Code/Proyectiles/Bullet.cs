@@ -227,7 +227,7 @@ public class Bullet : MonoBehaviour {
 
         // Efecto de sonido
         if(clipToUse != null)
-            bulletSoundManager.CreateAudioObject(clipToUse, transform.position);
+            bulletSoundManager.CreateAudioObject(clipToUse, transform.position, 0.1f);
         
         // Partículas
         if(particlesToUse != null)

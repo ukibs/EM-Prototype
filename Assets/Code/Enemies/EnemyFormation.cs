@@ -52,19 +52,22 @@ public class EnemyFormation
         switch (formationType)
         {
             case FormationType.Arrow:
-                //
-                positions[0] = Vector3.zero;
+                
                 int numberOfRows = (int)(positions.Length / maxMembersPerRow);
                 //
                 for(int i = 0; i < numberOfRows; i++)
                 {
+                    //
+                    positions[i * maxMembersPerRow] = new Vector3(0, i * distanceBetweenMembers, 0);
                     //Row
-                    for(int j = 0; j < maxMembersPerRow / 2 - 1; j++)
+                    int iterations = maxMembersPerRow / 2;
+                    Debug.Log("Row iterations: " + iterations);
+                    for (int j = 0; j < iterations; j++)
                     {
-                        positions[(i * numberOfRows) + (j * 2) + 1] = new Vector3(-j * distanceBetweenMembers, i * distanceBetweenMembers, -j * distanceBetweenMembers);
+                        positions[(i * maxMembersPerRow) + (j * 2) + 1] = new Vector3(-j * distanceBetweenMembers, i * distanceBetweenMembers, -j * distanceBetweenMembers);
                         // TODO: Chequear pares para salir
                         //if (maxMembersPerRow <= j * 2 + 2) break;
-                        positions[(i * numberOfRows) + (j * 2) + 2] = new Vector3(j * distanceBetweenMembers, i * distanceBetweenMembers, -j * distanceBetweenMembers);
+                        positions[(i * maxMembersPerRow) + (j * 2) + 2] = new Vector3(j * distanceBetweenMembers, i * distanceBetweenMembers, -j * distanceBetweenMembers);
                     }                    
                 }
                 break;

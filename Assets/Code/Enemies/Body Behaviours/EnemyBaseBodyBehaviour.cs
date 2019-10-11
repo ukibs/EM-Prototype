@@ -170,6 +170,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
             Vector3 objectivePosition = enemyFormation.GetFormationPlaceInWorld(this);
             Vector3 objectiveDirection = objectivePosition - transform.position;
             Debug.DrawRay(transform.position, objectiveDirection, Color.magenta);
+            Gizmos.color = new Color(0,0,0,0.1f);
             Gizmos.DrawSphere(objectivePosition, 1);
         }
         else
