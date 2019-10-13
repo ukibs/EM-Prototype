@@ -129,7 +129,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   inGameName: Small Jellyfish
-  maxHealth: 10
+  maxHealth: 5
   defense: 10
   bodyColliders: []
   deathBloodPrefab: {fileID: 3125914639698908078, guid: 099db54e23b55334a8c42a1729809e0e,
@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  armor: 2
+  armor: 1
   associatedMeshRenderers: []
   isTargeteable: 0
   maxLocationHealth: 0
@@ -274,7 +274,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 50
   minimalLungeDistance: 15
-  minimalShootDistance: 200
+  minimalShootDistance: 300
   ofFootMaxTime: 5
   timeBetweenActionChecking: 1
   rotationSpeed: 360

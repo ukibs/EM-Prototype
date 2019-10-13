@@ -32,9 +32,20 @@ public class FlyingEnemyBodyBehaviour : EnemyBaseBodyBehaviour
         //{
         //    rb.AddForce(Vector3.up * liftForcePerSecond);
         //}
-
-        Vector3 currentPositon = transform.position;
-        currentPositon.y = idealHeight;
-        transform.position = currentPositon;
+        
+        switch (currentAction)
+        {
+            // En estos casos queremos que mantengan su altura ideal
+            // TODO: Decidir si con fuerzas o trampeando
+            case Actions.GoingToPlayer:
+            case Actions.EncirclingPlayerSideward:
+            case Actions.EncirclingPlayerForward:
+            case Actions.FacingPlayer:
+                Vector3 currentPositon = transform.position;
+                currentPositon.y = idealHeight;
+                transform.position = currentPositon;
+                break;
+        }
+        
     }
 }

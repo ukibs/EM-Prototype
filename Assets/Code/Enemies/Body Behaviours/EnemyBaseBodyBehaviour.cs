@@ -167,11 +167,11 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
         //
         if(currentAction == Actions.GoInFormation)
         {
-            Vector3 objectivePosition = enemyFormation.GetFormationPlaceInWorld(this);
-            Vector3 objectiveDirection = objectivePosition - transform.position;
-            Debug.DrawRay(transform.position, objectiveDirection, Color.magenta);
-            Gizmos.color = new Color(0,0,0,0.1f);
-            Gizmos.DrawSphere(objectivePosition, 1);
+            //Vector3 objectivePosition = enemyFormation.GetFormationPlaceInWorld(this);
+            //Vector3 objectiveDirection = objectivePosition - transform.position;
+            //Debug.DrawRay(transform.position, objectiveDirection, Color.magenta);
+            //Gizmos.color = new Color(0,0,0,0.1f);
+            //Gizmos.DrawSphere(objectivePosition, 1);
         }
         else
         {
@@ -179,7 +179,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
             Vector3 playerDirection = player.transform.position - transform.position;
             Debug.DrawRay(transform.position, playerDirection, Color.red);
         }
-        Debug.DrawRay(transform.position, rb.velocity, Color.blue);
+        //Debug.DrawRay(transform.position, rb.velocity, Color.blue);
     }
 
     protected void UpdateOfFootStatus(float dt)
@@ -205,6 +205,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
         {
             case Actions.EncirclingPlayerForward:
             case Actions.GoingToPlayer:
+            case Actions.ApproachingPlayer3d:
                 // Aqui nada de momento porque ya es forward por defecto
                 break;
             case Actions.ZigZagingTowardsPlayer:
@@ -369,7 +370,11 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
         {
             switch (behaviour[i])
             {
+                case Actions.EncirclingPlayerSideward:
                 case Actions.FacingPlayer:
+                case Actions.ApproachingPlayer3d:
+                case Actions.EncirclingPlayerForward:
+                case Actions.RetreatingFromPlayer:
                     if (playerDistance.magnitude < minimalShootDistance)
                     {
                         currentAction = behaviour[i];
@@ -384,27 +389,6 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
                     pathToUse = terrainManager.GetPathToPlayer(transform);
                     //TODO: Meter aqui el A*
                     return;
-                case Actions.EncirclingPlayerSideward:
-                    if (playerDistance.magnitude < minimalShootDistance)
-                    {
-                        currentAction = behaviour[i];
-                        return;
-                    }
-                    break;
-                case Actions.EncirclingPlayerForward:
-                    if (playerDistance.magnitude < minimalShootDistance)
-                    {
-                        currentAction = behaviour[i];
-                        return;
-                    }
-                    break;
-                case Actions.RetreatingFromPlayer:
-                    if (playerDistance.magnitude < minimalShootDistance)
-                    {
-                        currentAction = behaviour[i];
-                        return;
-                    }
-                    break;
                 case Actions.GoInFormation:
                     if(enemyFormation != null && enemyFormation.FormationLeader != this)
                     {

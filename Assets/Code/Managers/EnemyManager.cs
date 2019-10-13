@@ -170,9 +170,11 @@ public class EnemyManager : MonoBehaviour
             EnemyFormation newEnemyFormation = null;
             if(enemiesSpawnSettings[i].formationData != null) {
                 //
-                newEnemyFormation = new EnemyFormation(enemiesSpawnSettings[i].enemiesToSpawn, 
-                    enemiesSpawnSettings[i].formationData.formationInfo.formationType, 
-                    enemiesSpawnSettings[i].formationData.formationInfo.distanceBetweenMembers);
+                //newEnemyFormation = new EnemyFormation(enemiesSpawnSettings[i].enemiesToSpawn, 
+                //    enemiesSpawnSettings[i].formationData.formationInfo.formationType, 
+                //    enemiesSpawnSettings[i].formationData.formationInfo.distanceBetweenMembers);
+                newEnemyFormation = new EnemyFormation(enemiesSpawnSettings[i].formationData.formationInfo, 
+                    enemiesSpawnSettings[i].enemiesToSpawn);
                 //
                 enemyFormations.Add(newEnemyFormation);
             }

@@ -183,9 +183,9 @@ public static class GeneralFunctions
         // TODO: Sacar el drag del proyectil
         float timeWithDrag = EstimateFlyingTimeWithDrag(selfPosition, objectivePositionWithEstimation, referenceWeaponMuzzleSpeed, proyectileDrag);
         // Debug.Log("Time without drag: " + timeWithoutDrag + ", with drag: " + timeWithDrag);
-        float timeForBulletToReachPlayer = timeWithDrag * 1;
+        float timeForBulletToReachObjective = timeWithDrag * 1;
         
-        playerFutureEstimatedPosition = objectivePosition + (objectiveVelocity * timeForBulletToReachPlayer);
+        playerFutureEstimatedPosition = objectivePosition + (objectiveVelocity * timeForBulletToReachObjective);
 
         return playerFutureEstimatedPosition;
     }

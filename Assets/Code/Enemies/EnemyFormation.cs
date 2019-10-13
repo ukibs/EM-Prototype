@@ -14,12 +14,13 @@ public class EnemyFormation
     public EnemyBaseBodyBehaviour FormationLeader { get { return formationMembers[0]; } }
 
     // Constructor
-    public EnemyFormation(int size, FormationType formationType, float distanceBetweenMembers)
+    public EnemyFormation(FormationInfo formationInfo, int formationSize)
     {
-        this.formationType = formationType;
-        positions = new Vector3[size];
-        this.distanceBetweenMembers = distanceBetweenMembers;
-        formationMembers = new List<EnemyBaseBodyBehaviour>(size);
+        this.formationType = formationInfo.formationType;
+        positions = new Vector3[formationSize];
+        this.distanceBetweenMembers = formationInfo.distanceBetweenMembers;
+        formationMembers = new List<EnemyBaseBodyBehaviour>(formationSize);
+        this.maxMembersPerRow = formationInfo.maxMembersPerRow; 
         StablishPositions();
     }
 

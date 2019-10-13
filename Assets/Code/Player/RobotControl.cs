@@ -278,8 +278,11 @@ public class RobotControl : MonoBehaviour {
        
         //Debug.DrawRay(transform.position, rb.velocity, Color.blue);
         //Vector3 playerDirection = player.transform.position - transform.position;
-        Debug.DrawRay(transform.position, transform.forward * 300, Color.red);
-
+        Debug.DrawRay(transform.position, transform.forward * 300, Color.blue);
+        if (EnemyAnalyzer.isActive)
+        {
+            Debug.DrawRay(transform.position, EnemyAnalyzer.enemyTransform.position - transform.position, Color.yellow);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -738,8 +741,8 @@ public class RobotControl : MonoBehaviour {
                     return;
                 }
                     
-                //
-                currentOverheat += dt;
+                // TODO: Decidir si lo utilizamos o no
+                // currentOverheat += dt;
                 //
                 if(currentOverheat <= gameManager.playerAttributes.maxOverheat)
                 {
@@ -899,16 +902,16 @@ public class RobotControl : MonoBehaviour {
             // TODO: Revisar aqui tambien el cambio de centralPointOffset
             if (EnemyAnalyzer.isActive)
                 EnemyAnalyzer.estimatedToHitPosition = GeneralFunctions.AnticipateObjectivePositionForAiming(
-                machineGunPoints[nextRapidFireSide].position,
-                EnemyAnalyzer.enemyTransform.position,
-                //EnemyAnalyzer.enemyTransform.TransformPoint(EnemyAnalyzer.enemyConsistency.centralPointOffset), 
-                EnemyAnalyzer.enemyRb.velocity,
-                currentMuzzleSpeed, dt);
+                    machineGunPoints[nextRapidFireSide].position,
+                    EnemyAnalyzer.enemyTransform.position,
+                    //EnemyAnalyzer.enemyTransform.TransformPoint(EnemyAnalyzer.enemyConsistency.centralPointOffset), 
+                    EnemyAnalyzer.enemyRb.velocity,
+                    currentMuzzleSpeed, dt);
 
             //
             float bulletDrag = proyectileRb.drag;
             EnemyAnalyzer.estimatedToHitPosition.y += GeneralFunctions.GetProyectileFallToObjective(transform.position,
-                EnemyAnalyzer.estimatedToHitPosition, currentMuzzleSpeed, bulletDrag);
+                EnemyAnalyzer.estimatedToHitPosition, currentMuzzleSpeed, bulletDrag) * 1;
             
             //
             //Vector3 shootForward = (!cameraControl.TargetingPlayer) ?
@@ -958,7 +961,7 @@ public class RobotControl : MonoBehaviour {
         //    muzzlePoint.forward, forceToApply, dt, ShootCalculation.Force);
         GameObject nextProyectile = bulletPool.GetBullet(elipticProyectilePrefab);
         //
-            GeneralFunctions.ShootProjectile(nextProyectile, muzzlePoint.position, muzzlePoint.rotation,
+            GeneralFunctions.ShootProjectileFromPool(nextProyectile, muzzlePoint.position, muzzlePoint.rotation,
             muzzlePoint.forward, forceToApply, dt, ShootCalculation.Force);
         // TODO: Revisar diametro, densidad, etc
         Bullet bulletComponent = nextProyectile.GetComponent<Bullet>();
