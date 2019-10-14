@@ -14,4 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   formationInfo:
     formationType: 0
-    distanceBetweenMembers: 5
+    distanceBetweenMembers: 2
+    maxMembersPerRow: 9
+    attackPosition: {x: 0, y: 0, z: 0}
+    weaponData: {fileID: 11400000, guid: 05d47e9319872b941966955809a61496, type: 2}

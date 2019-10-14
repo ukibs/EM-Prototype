@@ -134,6 +134,7 @@ public class ExplosiveBullet : MonoBehaviour
         audioObjectManager.CreateAudioObject(explosionClip, transform.position);
         //
         //Destroy(gameObject);
+        proyectileRb.velocity = Vector3.zero;
         bulletPool.ReturnBullet(gameObject);
     }
 

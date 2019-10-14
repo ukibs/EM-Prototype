@@ -48,6 +48,8 @@ public class Bullet : MonoBehaviour {
     protected float currentTimeBetweenRecalculation = 0;
     //
     protected float currentLifeTime = 0;
+    //
+    protected TrailRenderer trailRenderer;
 
     public float CurrentLifeTime { set { currentLifeTime = value; } }
 
@@ -65,6 +67,8 @@ public class Bullet : MonoBehaviour {
         bulletPool = FindObjectOfType<BulletPool>();
         //
         missileComponent = GetComponent<Missile>();
+        //
+        trailRenderer = GetComponent<TrailRenderer>();
         // TODO: Esto ahora va en el POOL
         if (dangerousEnough)
         {
@@ -152,6 +156,9 @@ public class Bullet : MonoBehaviour {
         if (currentLifeTime >= lifeTime)
         {
             Debug.Log("Bullet lifetime expired");
+            rb.velocity = Vector3.zero;
+            if (trailRenderer)
+                trailRenderer.Clear();
             bulletPool.ReturnBullet(gameObject);
             //
             //if (dangerousEnough)
@@ -244,6 +251,9 @@ public class Bullet : MonoBehaviour {
         {
             //Debug.Log("Not explosive component, destroying object");
             // Destroy(gameObject);
+            rb.velocity = Vector3.zero;
+            if (trailRenderer)
+                trailRenderer.Clear();
             bulletPool.ReturnBullet(gameObject);
             // TODO: Hcaerlo mas limpio
             //if(dangerousEnough)

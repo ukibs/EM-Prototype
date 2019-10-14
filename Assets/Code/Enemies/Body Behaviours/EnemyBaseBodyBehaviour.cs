@@ -76,6 +76,10 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
     // 1 - Óptimo, 0 - Inmovibilizado
     protected float movementStatus = 1;
 
+    // Arma de la formación, sólo la usará si es el líder
+    protected WeaponData weaponData;
+    protected float formationWeaponCooldown = 0;
+
     #endregion
 
     #region Properties
@@ -135,6 +139,13 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
         }
         //
         ExecuteCurrentAction(dt);
+
+        // Uso del arma de la formación si la tiene el bicho
+        // De momento lo hacmos aqui
+        if (weaponData)
+        {
+            UpdateFormationWeapon(dt);
+        }
     }
 
     //
@@ -180,6 +191,31 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
             Debug.DrawRay(transform.position, playerDirection, Color.red);
         }
         //Debug.DrawRay(transform.position, rb.velocity, Color.blue);
+    }
+
+    #region Methods
+
+    protected void UpdateFormationWeapon(float dt)
+    {
+        formationWeaponCooldown += dt;
+        if(formationWeaponCooldown >= weaponData.weapon.rateOfFire)
+        {
+            Debug.Log("Firing formation weapon");
+            FireFormationWeapon(dt);
+            formationWeaponCooldown = 0;
+        }
+    }
+
+    protected void FireFormationWeapon(float dt)
+    {
+        GameObject nextBullet = BulletPool.instance.GetBullet(weaponData.weapon.proyectilePrefab);
+        //Debug.Log(nextBullet);
+        //
+        Vector3 attackPosition = transform.TransformPoint(enemyFormation.formationInfo.attackPosition);
+        Vector3 attackDirection = player.transform.position - attackPosition;
+        //
+        GeneralFunctions.ShootProjectileFromPool(nextBullet, attackPosition,
+            Quaternion.LookRotation(attackDirection), attackDirection.normalized, weaponData.weapon.muzzleSpeed, dt, ShootCalculation.MuzzleSpeed);
     }
 
     protected void UpdateOfFootStatus(float dt)
@@ -390,9 +426,17 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
                     //TODO: Meter aqui el A*
                     return;
                 case Actions.GoInFormation:
-                    if(enemyFormation != null && enemyFormation.FormationLeader != this)
+                    if(enemyFormation != null)
                     {
-                        currentAction = behaviour[i];
+                        if (enemyFormation.FormationLeader != this)
+                        {
+                            currentAction = behaviour[i];
+                            weaponData = null;
+                        }                            
+                        // Le asignamos el arma pero no el comportamiento
+                        // Ya que será él el que marque el ritmo
+                        else
+                            weaponData = enemyFormation.formationInfo.weaponData;
                         return;
                     }
                     break;
@@ -460,4 +504,6 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
         if (enemyFormation != null)
             enemyFormation.LeaveFormation(this);
     }
+
+    #endregion
 }
