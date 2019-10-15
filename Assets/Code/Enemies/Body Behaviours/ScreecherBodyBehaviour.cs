@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScreecherBodyBehaviour : EnemyBaseBodyBehaviour
+public class ScreecherBodyBehaviour : FlyingEnemyBodyBehaviour
 {
     public float minIdealHeight = 150;
     public float maxIdealHeight = 200;
-    public float liftForcePerSecond = 200;
+    //public float liftForcePerSecond = 200;
     public float timeToChargeBall = 20;
     public float electricArcDamage = 50;
 
@@ -65,26 +65,34 @@ public class ScreecherBodyBehaviour : EnemyBaseBodyBehaviour
     protected override void DecideActionToDo()
     {
         //
-        if (enemyFormation != null && enemyFormation.FormationLeader != this)
-        {
-            currentAction = Actions.GoInFormation;
-            return;
-        }
-            
-        //
         Vector3 playerDistance = player.transform.position - transform.position;
         if (player.transform.position.y > 100)
         {
             currentAction = Actions.ApproachingPlayer3d;
         }
-        else if(playerDistance.magnitude < minimalShootDistance)
-        {
-            currentAction = Actions.EncirclingPlayerForward;
-        }
-        else
-        {
-            currentAction = Actions.GoingToPlayer;
-        }
+        //
+        base.DecideActionToDo();
+        //
+        //if (enemyFormation != null && enemyFormation.FormationLeader != this)
+        //{
+        //    currentAction = Actions.GoInFormation;
+        //    return;
+        //}
+
+        ////
+        //Vector3 playerDistance = player.transform.position - transform.position;
+        //if (player.transform.position.y > 100)
+        //{
+        //    currentAction = Actions.ApproachingPlayer3d;
+        //}
+        //else if (playerDistance.magnitude < minimalShootDistance)
+        //{
+        //    currentAction = Actions.EncirclingPlayerForward;
+        //}
+        //else
+        //{
+        //    currentAction = Actions.GoingToPlayer;
+        //}
     }
 
     //
@@ -92,66 +100,74 @@ public class ScreecherBodyBehaviour : EnemyBaseBodyBehaviour
     {
 
         //
-        if (ofFoot) return;
-
+        //if (ofFoot) return;
         //
-        switch (currentAction)
+        base.ExecuteCurrentAction(dt);
+
+        if (timeCharguingBall >= timeToChargeBall)
         {
-            case Actions.ApproachingPlayer3d:
-                transform.rotation = GeneralFunctions.UpdateRotation(transform, player.transform.position, rotationSpeed, dt);
-                transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0);
-                //
-                ElectricArcField();
-                break;
-            case Actions.EncirclingPlayerForward:
-                transform.rotation = GeneralFunctions.UpdateRotationOnCross(transform, player.transform.position, rotationSpeed, dt);
-                // Y cargado de proyectil
-                if (timeCharguingBall >= timeToChargeBall)
-                {
-                    weapons[0].Shoot(Time.deltaTime);
-                    timeCharguingBall = 0;
-                }
-                //VerticalMovement();
-                //
-                transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
-                break;
-            case Actions.GoingToPlayer:
-                transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed, dt);
-                transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
-                //VerticalMovement();
-                break;
-            case Actions.GoInFormation:
-                Vector3 objectivePosition = enemyFormation.GetFormationPlaceInWorld(this);
-                transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, objectivePosition, rotationSpeed * movementStatus, dt);
-                //Move();
-                break;
+            weapons[0].Shoot(Time.deltaTime);
+            timeCharguingBall = 0;
         }
 
+        //
+        //switch (currentAction)
+        //{
+        //    case Actions.ApproachingPlayer3d:
+        //        transform.rotation = GeneralFunctions.UpdateRotation(transform, player.transform.position, rotationSpeed, dt);
+        //        transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0);
+        //        //
+        //        ElectricArcField();
+        //        break;
+        //    case Actions.EncirclingPlayerForward:
+        //        transform.rotation = GeneralFunctions.UpdateRotationOnCross(transform, player.transform.position, rotationSpeed, dt);
+        //        // Y cargado de proyectil
+        //        if (timeCharguingBall >= timeToChargeBall)
+        //        {
+        //            weapons[0].Shoot(Time.deltaTime);
+        //            timeCharguingBall = 0;
+        //        }
+        //        //VerticalMovement();
+        //        //
+        //        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+        //        break;
+        //    case Actions.GoingToPlayer:
+        //        transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed, dt);
+        //        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+        //        //VerticalMovement();
+        //        break;
+        //    case Actions.GoInFormation:
+        //        Vector3 objectivePosition = enemyFormation.GetFormationPlaceInWorld(this);
+        //        transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, objectivePosition, rotationSpeed * movementStatus, dt);
+        //        //Move();
+        //        break;
+        //}
+
         // Y por último que mueva
-        Move(dt);
-        VerticalMovement(dt);
+        //Move(dt);
+        //VerticalMovement(dt);
     }
 
     //
-    protected void VerticalMovement(float dt)
-    {
-        if (transform.position.y < currentIdealHeight)
-        {
-            //
-            //float forceToAdd = liftForcePerSecond * (1 - (transform.position.y / currentIdealHeight));
-            //
-            rb.AddForce(Vector3.up * liftForcePerSecond);
-            //rb.velocity += Vector3.up * liftForcePerSecond * dt;
-        }
-    }
+    //protected void VerticalMovement(float dt)
+    //{
+    //    if (transform.position.y < currentIdealHeight)
+    //    {
+    //        //
+    //        //float forceToAdd = liftForcePerSecond * (1 - (transform.position.y / currentIdealHeight));
+    //        //
+    //        rb.AddForce(Vector3.up * liftForcePerSecond);
+    //        //rb.velocity += Vector3.up * liftForcePerSecond * dt;
+    //    }
+    //}
 
-    protected override void Move(float dt)
-    {
-        // Aqui no hacemos uso del Move padre
-        //base.Move();
-        //rb.velocity = transform.forward * maxSpeed;
-        rb.AddForce(transform.forward * maxSpeed * dt, ForceMode.Impulse);
-    }
+    //protected override void Move(float dt)
+    //{
+    //    // Aqui no hacemos uso del Move padre
+    //    //base.Move();
+    //    //rb.velocity = transform.forward * maxSpeed;
+    //    rb.AddForce(transform.forward * maxSpeed * dt, ForceMode.Impulse);
+    //}
 
     // TODO: Hacerla bien
     void ElectricArcField()
