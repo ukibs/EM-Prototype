@@ -178,11 +178,11 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
         //
         if(currentAction == Actions.GoInFormation)
         {
-            //Vector3 objectivePosition = enemyFormation.GetFormationPlaceInWorld(this);
-            //Vector3 objectiveDirection = objectivePosition - transform.position;
-            //Debug.DrawRay(transform.position, objectiveDirection, Color.magenta);
-            //Gizmos.color = new Color(0,0,0,0.1f);
-            //Gizmos.DrawSphere(objectivePosition, 1);
+            Vector3 objectivePosition = enemyFormation.GetFormationPlaceInWorld(this);
+            Vector3 objectiveDirection = objectivePosition - transform.position;
+            Debug.DrawRay(transform.position, objectiveDirection, Color.magenta);
+            Gizmos.color = new Color(0, 0, 0, 0.1f);
+            Gizmos.DrawSphere(objectivePosition, 1);
         }
         else
         {
@@ -190,7 +190,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
             Vector3 playerDirection = player.transform.position - transform.position;
             Debug.DrawRay(transform.position, playerDirection, Color.red);
         }
-        //Debug.DrawRay(transform.position, rb.velocity, Color.blue);
+        Debug.DrawRay(transform.position, rb.velocity, Color.blue);
     }
 
     #region Methods
@@ -212,7 +212,16 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
         //Debug.Log(nextBullet);
         //
         Vector3 attackPosition = transform.TransformPoint(enemyFormation.formationInfo.attackPosition);
-        Vector3 attackDirection = player.transform.position - attackPosition;
+        //
+        Vector3 anticipatedPlayerPosition = GeneralFunctions.AnticipateObjectivePositionForAiming(
+            attackPosition, player.transform.position, PlayerReference.playerRb.velocity, 
+            weaponData.weapon.muzzleSpeed, dt);
+        // Gravity
+        anticipatedPlayerPosition.y -= GeneralFunctions.GetProyectileFallToObjective(attackPosition, anticipatedPlayerPosition,
+            weaponData.weapon.muzzleSpeed);
+
+        
+        Vector3 attackDirection = anticipatedPlayerPosition - attackPosition;
         //
         GeneralFunctions.ShootProjectileFromPool(nextBullet, attackPosition,
             Quaternion.LookRotation(attackDirection), attackDirection.normalized, weaponData.weapon.muzzleSpeed, dt, ShootCalculation.MuzzleSpeed);
@@ -363,7 +372,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
                 break;
             case Actions.EncirclingPlayerForward:
                 transform.rotation = GeneralFunctions.UpdateRotationOnCross(transform, player.transform.position, rotationSpeed * movementStatus, dt);
-                //Move();
+                Move(dt);
                 break;
             case Actions.EncirclingPlayerSideward:
                 transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed * movementStatus, dt);
@@ -379,6 +388,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
                 break;
             case Actions.ApproachingPlayer3d:
                 transform.rotation = GeneralFunctions.UpdateRotation(transform, player.transform.position, rotationSpeed, dt);
+                Move(dt);
                 break;
             case Actions.GoInFormation:
                 Vector3 objectivePosition = enemyFormation.GetFormationPlaceInWorld(this);

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level1
   m_EditorClassIdentifier: 
   levelInfo:
-    inGameName: Grunts first contact
+    inGameName: Bomb jellyfishes
     gameMode: 0
     victoryCondition: 1
     enemiesToDefeat: 200

@@ -13,36 +13,22 @@ MonoBehaviour:
   m_Name: Level2
   m_EditorClassIdentifier: 
   levelInfo:
-    inGameName: Worms first contact
+    inGameName: Melee Jellyfishes
     gameMode: 0
     victoryCondition: 1
-    enemiesToDefeat: 20
+    enemiesToDefeat: 200
     attackActionsAvailable: 2
     defenseActionsAvailable: 0
     jumpActionsAvailable: 1
     sprintActionsAvailable: 1
     enemiesSpawnSettings:
-    - enemyPrefab: {fileID: 8096563443830030571, guid: 63f7a55d02361e7448d4b09d407ad549,
+    - enemyPrefab: {fileID: 3529049209132307780, guid: 7b08991963d6e1e498d6df118dfcb8c9,
         type: 3}
-      formationData: {fileID: 0}
-      enemiesToSpawn: 3
+      formationData: {fileID: 11400000, guid: fc5ec908d68d3984190d3e990b9d5bf7, type: 2}
+      enemiesToSpawn: 180
       enemySpawnIncrement: 0
       timeBetweenSpawns: 5
-      maxActiveEnemies: 10
-    - enemyPrefab: {fileID: 8096563443830030571, guid: 63f7a55d02361e7448d4b09d407ad549,
-        type: 3}
-      formationData: {fileID: 0}
-      enemiesToSpawn: 3
-      enemySpawnIncrement: 0
-      timeBetweenSpawns: 5
-      maxActiveEnemies: 10
-    - enemyPrefab: {fileID: 8096563443830030571, guid: 63f7a55d02361e7448d4b09d407ad549,
-        type: 3}
-      formationData: {fileID: 0}
-      enemiesToSpawn: 3
-      enemySpawnIncrement: 0
-      timeBetweenSpawns: 5
-      maxActiveEnemies: 10
+      maxActiveEnemies: 250
     terrainElementsSettings:
     - terrainPrefab: {fileID: 3326227640253247155, guid: e805da38f2157cf44bd8ebbbe826ba67,
         type: 3}
@@ -51,11 +37,11 @@ MonoBehaviour:
       terrainMin: 0
     - terrainPrefab: {fileID: 3326227640253247155, guid: 1faf0654ea7511b4889b35ba3e120d34,
         type: 3}
-      terrainRatio: 1
+      terrainRatio: 5
       terrainMax: 0
       terrainMin: 0
     - terrainPrefab: {fileID: 3326227640253247155, guid: f90644bdac5d8924fbad91a92cde6c44,
         type: 3}
-      terrainRatio: 1
+      terrainRatio: 5
       terrainMax: 0
       terrainMin: 0

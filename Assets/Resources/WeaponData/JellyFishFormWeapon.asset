@@ -15,9 +15,10 @@ MonoBehaviour:
   weapon:
     rateOfFire: 2
     range: 50
-    proyectilePrefab: {fileID: 0}
+    proyectilePrefab: {fileID: 6014629757712964908, guid: 57f4c34965c1fd948bdba67cb5099fdd,
+      type: 3}
     shootForce: 10
-    muzzleSpeed: 500
+    muzzleSpeed: 300
     typeOfFire: 0
     firingSystem: 0
     shootCalculation: 1
@@ -26,7 +27,7 @@ MonoBehaviour:
   proyectile:
     diameter: 0
     lifeTime: 10
-    dangerousEnough: 0
+    dangerousEnough: 1
     impactParticlesPrefab: {fileID: 0}
     bulletHolePrefab: {fileID: 0}
     impactOnBugParticlesPrefab: {fileID: 0}
