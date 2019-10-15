@@ -22,7 +22,7 @@ MonoBehaviour:
     jumpActionsAvailable: 1
     sprintActionsAvailable: 1
     enemiesSpawnSettings:
-    - enemyPrefab: {fileID: 8576012526104695649, guid: 91acf057a8df05f489f5134c3a5694ce,
+    - enemyPrefab: {fileID: 8576012526104695649, guid: bbecddc7d0948034fbb2f430c2cf373d,
         type: 3}
       formationData: {fileID: 11400000, guid: fc5ec908d68d3984190d3e990b9d5bf7, type: 2}
       enemiesToSpawn: 9

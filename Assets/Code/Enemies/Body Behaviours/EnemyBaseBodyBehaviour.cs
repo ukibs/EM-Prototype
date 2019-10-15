@@ -178,11 +178,11 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
         //
         if(currentAction == Actions.GoInFormation)
         {
-            //Vector3 objectivePosition = enemyFormation.GetFormationPlaceInWorld(this);
-            //Vector3 objectiveDirection = objectivePosition - transform.position;
-            //Debug.DrawRay(transform.position, objectiveDirection, Color.magenta);
-            //Gizmos.color = new Color(0,0,0,0.1f);
-            //Gizmos.DrawSphere(objectivePosition, 1);
+            Vector3 objectivePosition = enemyFormation.GetFormationPlaceInWorld(this);
+            Vector3 objectiveDirection = objectivePosition - transform.position;
+            Debug.DrawRay(transform.position, objectiveDirection, Color.magenta);
+            Gizmos.color = new Color(0, 0, 0, 0.1f);
+            Gizmos.DrawSphere(objectivePosition, 1);
         }
         else
         {
@@ -190,7 +190,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
             Vector3 playerDirection = player.transform.position - transform.position;
             Debug.DrawRay(transform.position, playerDirection, Color.red);
         }
-        //Debug.DrawRay(transform.position, rb.velocity, Color.blue);
+        Debug.DrawRay(transform.position, rb.velocity, Color.blue);
     }
 
     #region Methods

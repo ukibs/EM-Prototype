@@ -20,9 +20,9 @@ public class ScreecherBodyBehaviour : FlyingEnemyBodyBehaviour
     protected override void Start()
     {
         //
-        currentIdealHeight = UnityEngine.Random.Range(minIdealHeight, maxIdealHeight);
+        //currentIdealHeight = UnityEngine.Random.Range(minIdealHeight, maxIdealHeight);
         // Ñapa
-        transform.position = new Vector3(transform.position.x, currentIdealHeight, transform.position.z);
+        //transform.position = new Vector3(transform.position.x, currentIdealHeight, transform.position.z);
         //
         base.Start();
         //
