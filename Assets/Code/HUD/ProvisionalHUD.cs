@@ -16,6 +16,7 @@ public class ProvisionalHUD : MonoBehaviour {
 
     public Texture interiorCrosshairTexture;
     public Texture exteriorCrosshairTexture;
+    public GameObject crossPrefab;
 
     /******************************************************/
 
@@ -528,40 +529,13 @@ public class ProvisionalHUD : MonoBehaviour {
     /// </param>
     void CrosshairAnimation(AttackMode currentAttackMode)
     {
-        Texture currentIntCross = interiorCrosshairTexture;
-        Texture curretnExtCrossClockwise = exteriorCrosshairTexture;
-
-
         switch (currentAttackMode)
         {
             case AttackMode.Invalid:
                 // Nuca deberia entrar
                 break;
             case AttackMode.RapidFire: // Ametralladora
-                #region Interior
-                float currentScale = 1.0f;
-                float knockback = gameManager.playerAttributes.forcePerSecond.CurrentValue * robotControl.ChargedAmount;
-                float minScale = 0.75f;
-                float maxScale = 1.0f;
-                float scale = Mathf.Clamp(currentScale, minScale, maxScale);
-
-                int newWidth = (int)(interiorCrosshairTexture.width * scale);
-                int newHeight = (int)(interiorCrosshairTexture.height * scale);
-
-                // interiorCrosshairTexture.width = newWidth;
-                // interiorCrosshairTexture.height = newHeight;
-
-                DrawCrosshair();
-
-                scale += Time.deltaTime;
-                #endregion
-
-                #region Exterior
-                float initialAngle = 0.0f;
-                float maxAngle = 90.0f;
-                float currentAngle = initialAngle + (maxAngle * robotControl.CurrentOverHeat);
-                bool clockwise = true;
-                #endregion
+                
                 break;
             case AttackMode.Pulse: // Pulso Cargado   
 
@@ -576,8 +550,10 @@ public class ProvisionalHUD : MonoBehaviour {
 
         // DrawCrosshair(Texture currentCrosshair);
     }
+
     /// <summary>
     /// Draws the Crosshair on screen.
+    /// THIS METHOD WILL DISAPPEAR AND WILL BE CHANGED TO A CANVAS DEPENDENT HUD
     /// </summary>
     void DrawCrosshair()
     {
