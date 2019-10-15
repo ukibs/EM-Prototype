@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Level3
   m_EditorClassIdentifier: 
   levelInfo:
-    inGameName: Screecher first contact
+    inGameName: Screechers first contact
     gameMode: 0
     victoryCondition: 1
-    enemiesToDefeat: 20
+    enemiesToDefeat: 10
     attackActionsAvailable: 3
     defenseActionsAvailable: 1
     jumpActionsAvailable: 1
@@ -24,16 +24,11 @@ MonoBehaviour:
     enemiesSpawnSettings:
     - enemyPrefab: {fileID: 8576012526104695649, guid: 91acf057a8df05f489f5134c3a5694ce,
         type: 3}
-      enemiesToSpawn: 1
+      formationData: {fileID: 11400000, guid: fc5ec908d68d3984190d3e990b9d5bf7, type: 2}
+      enemiesToSpawn: 9
       enemySpawnIncrement: 0
       timeBetweenSpawns: 5
-      maxActiveEnemies: 2
-    - enemyPrefab: {fileID: 8576012526104695649, guid: 91acf057a8df05f489f5134c3a5694ce,
-        type: 3}
-      enemiesToSpawn: 1
-      enemySpawnIncrement: 0
-      timeBetweenSpawns: 5
-      maxActiveEnemies: 2
+      maxActiveEnemies: 15
     terrainElementsSettings:
     - terrainPrefab: {fileID: 3326227640253247155, guid: e805da38f2157cf44bd8ebbbe826ba67,
         type: 3}

@@ -13,6 +13,9 @@ public class FormationInfo
 {
     public FormationType formationType;
     public float distanceBetweenMembers = 1;
+    public int maxMembersPerRow = 9;
+    public Vector3 attackPosition;
+    public WeaponData weaponData;
 }
 
 public enum FormationType

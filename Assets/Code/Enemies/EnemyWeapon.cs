@@ -87,13 +87,8 @@ public class EnemyWeapon : MonoBehaviour
             shootPoint = transform.Find("Barrel/Shoot Point");
         //
         originalRotation = transform.localRotation;
-        //originalRotationXY = new Vector2(transform.localEulerAngles.x, transform.localEulerAngles.y);
-        //
-        //if(originalRotation)
         //
         audioSource = GetComponent<AudioSource>();
-        //
-        //enemyManager = FindObjectOfType<EnemyManager>();
         //
         bodyRb = GetComponentInParent<Rigidbody>();
         // Registramos las correspondientes balas en el pool

@@ -10,6 +10,16 @@ public class ProvisionalHUD : MonoBehaviour {
     public Texture overlayTexture;
 
     public Texture crossTexture;
+
+
+    /************** DaniGMX: Crosshair ********************/
+
+    public Texture interiorCrosshairTexture;
+    public Texture exteriorCrosshairTexture;
+
+    /******************************************************/
+
+
     public Texture circleTexture;
     //public Texture penetrationCrossRed;
     //public Texture penetrationCrossYellow;
@@ -149,13 +159,14 @@ public class ProvisionalHUD : MonoBehaviour {
             // TODO: Gestionar los enemigos muertos de otra forma
             //if (cameraControl.CurrentTarget != null)
             if (EnemyAnalyzer.isActive)
-            {
+            {   
                 EnemyConsistency enemyConsistency = EnemyAnalyzer.enemyConsistency;
                 if (enemyConsistency != null)
                     EnemyInfoEC();
                 // TODO: Hacerlo con weakpoints también
                 else
                     EnemyInfoSimple();
+                ShowCross();
             }
         }
         else
@@ -485,14 +496,15 @@ public class ProvisionalHUD : MonoBehaviour {
         GUI.Label(new Rect(30, Screen.height - 30, 300, 30), "VSpeed: " + playerYSpeedInt + " km/h", guiSkin.label);
     }
 
+    /// <summary>
+    /// Shows the Crosshair on-screen
+    /// </summary>
     void ShowCross()
     {
-        GUI.DrawTexture(new Rect(Screen.width / 2 - 50, (Screen.height / 2) - 50, 100, 100), crossTexture);
-        
         /*  TODO:
-         *  1.- Change to dual crosshair.
-         *  2.- Inside Part will show where we shoot, scaling a bit on-shoot
-         *  3.- Outside will spin and gradiate colors to display heat or power of charged shot
+         *  1.- Change to dual crosshair - DONE
+         *  2.- The interior part will show where we shoot, scaling a bit on-shoot
+         *  3.- The exterior part will spin and gradiate colors to display heat or power of charged shot
          *  
          *  SUMM:
          *  This changes are for UX purposes. Adding visual feedback to the centre of the screen makes us able to
@@ -503,9 +515,82 @@ public class ProvisionalHUD : MonoBehaviour {
          *  -DaniGMX-
          */
 
+        // Place the Crosshair on the screen
+
+        CrosshairAnimation(robotControl.ActiveAttackMode);
     }
 
-    // 
+    /// <summary>
+    /// Handles the animation of the Crosshair
+    /// </summary>
+    /// <param name="currentAttackMode">
+    /// Current AttackMode the player's gun is on
+    /// </param>
+    void CrosshairAnimation(AttackMode currentAttackMode)
+    {
+        Texture currentIntCross = interiorCrosshairTexture;
+        Texture curretnExtCrossClockwise = exteriorCrosshairTexture;
+
+
+        switch (currentAttackMode)
+        {
+            case AttackMode.Invalid:
+                // Nuca deberia entrar
+                break;
+            case AttackMode.RapidFire: // Ametralladora
+                #region Interior
+                float currentScale = 1.0f;
+                float knockback = gameManager.playerAttributes.forcePerSecond.CurrentValue * robotControl.ChargedAmount;
+                float minScale = 0.75f;
+                float maxScale = 1.0f;
+                float scale = Mathf.Clamp(currentScale, minScale, maxScale);
+
+                int newWidth = (int)(interiorCrosshairTexture.width * scale);
+                int newHeight = (int)(interiorCrosshairTexture.height * scale);
+
+                // interiorCrosshairTexture.width = newWidth;
+                // interiorCrosshairTexture.height = newHeight;
+
+                DrawCrosshair();
+
+                scale += Time.deltaTime;
+                #endregion
+
+                #region Exterior
+                float initialAngle = 0.0f;
+                float maxAngle = 90.0f;
+                float currentAngle = initialAngle + (maxAngle * robotControl.CurrentOverHeat);
+                bool clockwise = true;
+                #endregion
+                break;
+            case AttackMode.Pulse: // Pulso Cargado   
+
+                break;
+            case AttackMode.Canon: // Tiro Cargado
+
+                break;
+            case AttackMode.ParticleCascade: // Todavia nada
+
+                break;
+        }
+
+        // DrawCrosshair(Texture currentCrosshair);
+    }
+    /// <summary>
+    /// Draws the Crosshair on screen.
+    /// </summary>
+    void DrawCrosshair()
+    {
+        /* TODO: Change the hardcode and magic numbers to relative position on screen based on resolution
+         * and different screen ratios */
+
+        // Draw center of the crosshair
+        GUI.DrawTexture(new Rect(Screen.width / 2 - 50, (Screen.height / 2) - 50, 100, 100), interiorCrosshairTexture);
+        //Draw exterior of the crosshair
+        GUI.DrawTexture(new Rect(Screen.width / 2 - 50, (Screen.height / 2) - 50, 100, 100), exteriorCrosshairTexture);
+        GUI.DrawTexture(new Rect(Screen.width / 2 + 50, (Screen.height / 2) - 50, -100, 100), exteriorCrosshairTexture);
+    }
+
     void ShowChargedAmount()
     {
         //

@@ -5,6 +5,9 @@ using UnityEngine;
 public class BulletPool : MonoBehaviour
 {
     //
+    public static BulletPool instance = null;
+
+    //
     private List<GameObject> dangerousBullets;
     // A ver cómo responde esto
     private List<BulletTypePool> bulletPoolsPerType;
@@ -15,6 +18,18 @@ public class BulletPool : MonoBehaviour
     //
     private CarolBaseHelp carolHelp;
 
+    //
+    void Awake()
+    {
+        //Check if there is already an instance of SoundManager
+        if (instance == null)
+            //if not, set it to this.
+            instance = this;
+        //If instance already exists:
+        else if (instance != this)
+            //Destroy this, this enforces our singleton pattern so there can only be one instance of SoundManager.
+            Destroy(gameObject);
+    }
     // Start is called before the first frame update
     void Start()
     {

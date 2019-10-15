@@ -48,6 +48,8 @@ public class Bullet : MonoBehaviour {
     protected float currentTimeBetweenRecalculation = 0;
     //
     protected float currentLifeTime = 0;
+    //
+    protected TrailRenderer trailRenderer;
 
     public float CurrentLifeTime { set { currentLifeTime = value; } }
 
@@ -65,6 +67,8 @@ public class Bullet : MonoBehaviour {
         bulletPool = FindObjectOfType<BulletPool>();
         //
         missileComponent = GetComponent<Missile>();
+        //
+        trailRenderer = GetComponent<TrailRenderer>();
         // TODO: Esto ahora va en el POOL
         if (dangerousEnough)
         {
@@ -127,7 +131,7 @@ public class Bullet : MonoBehaviour {
     {
         if(rb != null)
         {
-            Debug.DrawRay(transform.position, rb.velocity * Time.deltaTime, Color.blue);
+            Debug.DrawRay(transform.position, rb.velocity, Color.blue);
             //Vector3 playerDirection = player.transform.position - transform.position;
             //Debug.DrawRay(transform.position, transform.forward * Time.deltaTime, Color.red);
             Debug.DrawRay(previousPosition, rb.velocity * Time.deltaTime, Color.red);
@@ -152,6 +156,9 @@ public class Bullet : MonoBehaviour {
         if (currentLifeTime >= lifeTime)
         {
             Debug.Log("Bullet lifetime expired");
+            rb.velocity = Vector3.zero;
+            if (trailRenderer)
+                trailRenderer.Clear();
             bulletPool.ReturnBullet(gameObject);
             //
             //if (dangerousEnough)
@@ -227,7 +234,7 @@ public class Bullet : MonoBehaviour {
 
         // Efecto de sonido
         if(clipToUse != null)
-            bulletSoundManager.CreateAudioObject(clipToUse, transform.position);
+            bulletSoundManager.CreateAudioObject(clipToUse, transform.position, 0.1f);
         
         // Partículas
         if(particlesToUse != null)
@@ -244,6 +251,9 @@ public class Bullet : MonoBehaviour {
         {
             //Debug.Log("Not explosive component, destroying object");
             // Destroy(gameObject);
+            rb.velocity = Vector3.zero;
+            if (trailRenderer)
+                trailRenderer.Clear();
             bulletPool.ReturnBullet(gameObject);
             // TODO: Hcaerlo mas limpio
             //if(dangerousEnough)

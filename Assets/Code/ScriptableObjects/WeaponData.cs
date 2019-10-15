@@ -24,7 +24,7 @@ public class Weapon
 {
     [Tooltip("Bullets per second.")]
     public float rateOfFire = 2;    // Bullets per second
-    [Tooltip("Minimum range for turret starting to attack.")]
+    [Tooltip("Minimum range for weapon starting to attack.")]
     public float range = 50;
     public GameObject proyectilePrefab;
     // Probablemente guardemos estos valores en la balas

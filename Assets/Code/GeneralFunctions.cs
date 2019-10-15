@@ -183,9 +183,9 @@ public static class GeneralFunctions
         // TODO: Sacar el drag del proyectil
         float timeWithDrag = EstimateFlyingTimeWithDrag(selfPosition, objectivePositionWithEstimation, referenceWeaponMuzzleSpeed, proyectileDrag);
         // Debug.Log("Time without drag: " + timeWithoutDrag + ", with drag: " + timeWithDrag);
-        float timeForBulletToReachPlayer = timeWithDrag * 1;
+        float timeForBulletToReachObjective = timeWithDrag * 1;
         
-        playerFutureEstimatedPosition = objectivePosition + (objectiveVelocity * timeForBulletToReachPlayer);
+        playerFutureEstimatedPosition = objectivePosition + (objectiveVelocity * timeForBulletToReachObjective);
 
         return playerFutureEstimatedPosition;
     }
@@ -208,17 +208,18 @@ public static class GeneralFunctions
     {
         // TODO: Revisar que haga falta (o no) la velocidad inicial (en Y)
         // La podemos sacar con la muzzleSpeed y la dirección hacia el objetivo
-        Vector3 distanceToObjective = objectivePoint - startPoint;
+        //Vector3 distanceToObjective = objectivePoint - startPoint;
 
         // Con esto podemos sacar la velocidad en y para estimar
-        Vector3 directionToObjective = distanceToObjective.normalized;
+        //Vector3 directionToObjective = distanceToObjective.normalized;
         //Vector3 proyectile3dSpeed = directionToObjective * muzzleSpeed;
 
         //float secondsToObjective = distanceToObjective.magnitude / muzzleSpeed; // Esto sería sin rozamiento
         float secondsToObjectiveWithDrag = EstimateFlyingTimeWithDrag(startPoint, objectivePoint, muzzleSpeed, proyectileDrag);
 
         //Debug.Log("Seconds to reach objective: Without drag " + secondsToObjective + ", with drag " + secondsToObjectiveWithDrag);
-
+        
+        // TODO: Revisar esto
         float fallInThatTime = Physics.gravity.y * Mathf.Pow(secondsToObjectiveWithDrag, 2) / 2;
 
         return fallInThatTime;

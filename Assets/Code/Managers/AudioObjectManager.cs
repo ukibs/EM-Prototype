@@ -35,10 +35,11 @@ public class AudioObjectManager : MonoBehaviour
     /// <summary>
     /// fsdfdsfs
     /// TODO: Hacer editable alance y demás
+    /// TODO: Meter pitch variation
     /// </summary>
     /// <param name="clip"></param>
     /// <param name="position"></param>
-    public void CreateAudioObject(AudioClip clip, Vector3 position, float maxSoundDistance = 0)
+    public void CreateAudioObject(AudioClip clip, Vector3 position, float pitchVariation = 0, float maxSoundDistance = 0)
     {
         //
         if (clip == null)
@@ -47,8 +48,12 @@ public class AudioObjectManager : MonoBehaviour
         GameObject newAudioObject = Instantiate(audioObjectPrefab, position, Quaternion.identity);
         AudioSource audioSource = newAudioObject.GetComponent<AudioSource>();
         audioSource.clip = clip;
+        if (pitchVariation != 0.0f)
+        {
+            audioSource.pitch = UnityEngine.Random.Range(1.0f - pitchVariation, 1.0f + pitchVariation);
+        }
         //
-        if(maxSoundDistance > 0)
+        if (maxSoundDistance > 0)
             audioSource.maxDistance = maxSoundDistance;
         //
         Destroy(newAudioObject,clip.length);

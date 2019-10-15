@@ -152,7 +152,7 @@ public class FloatingGruntBodyBehaviour : EnemyBaseBodyBehaviour
     /// <summary>
     /// Override Move() from EnemyBodyBehaviour for adding VerticalMovement() and ignoring gravity.
     /// </summary>
-    protected override void Move()
+    protected override void Move(float dt)
     {
         //
         //base.Move();
@@ -184,15 +184,19 @@ public class FloatingGruntBodyBehaviour : EnemyBaseBodyBehaviour
             case Actions.GoInFormation:
                 // Ajustamos la velocidad dependiendo de la distancia al punto deseado
                 Vector3 objectivePosition = enemyFormation.GetFormationPlaceInWorld(this);
-                Vector3 objectivePositonOffset = objectivePosition - transform.position;
-                float objectivePositionDistance = objectivePositonOffset.magnitude;
-                //
-                if (objectivePositionDistance < 1)
-                    speedMultiplier = 0.9f;
-                else if (objectivePositionDistance < 5)
-                    speedMultiplier = 1;
-                else
-                    speedMultiplier = 1.2f;
+                //Vector3 objectivePositonOffset = objectivePosition - transform.position;
+                //float objectivePositionDistance = objectivePositonOffset.magnitude;
+                ////
+                //if (objectivePositionDistance < 1)
+                //    speedMultiplier = 0.9f;
+                //else if (objectivePositionDistance < 5)
+                //    speedMultiplier = 1;
+                //else
+                //    speedMultiplier = 1.2f;
+
+                // Ñapa para testeo
+                speedMultiplier = 0;
+                transform.position = objectivePosition;
                 break;
         }
 

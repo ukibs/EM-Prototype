@@ -76,6 +76,10 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
     // 1 - Óptimo, 0 - Inmovibilizado
     protected float movementStatus = 1;
 
+    // Arma de la formación, sólo la usará si es el líder
+    protected WeaponData weaponData;
+    protected float formationWeaponCooldown = 0;
+
     #endregion
 
     #region Properties
@@ -85,6 +89,8 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
         get { return movementStatus; }
         set { movementStatus = value; }
     }
+
+    public bool OfFoot { get { return ofFoot; } }
 
     #endregion
 
@@ -133,6 +139,13 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
         }
         //
         ExecuteCurrentAction(dt);
+
+        // Uso del arma de la formación si la tiene el bicho
+        // De momento lo hacmos aqui
+        if (weaponData)
+        {
+            UpdateFormationWeapon(dt);
+        }
     }
 
     //
@@ -154,10 +167,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
     protected virtual void OnDrawGizmos()
     {
         //
-        //if (!player) return;
-        //Debug.DrawRay(transform.position, rb.velocity, Color.blue);
-        //Vector3 playerDirection = player.transform.position - transform.position;
-        //Debug.DrawRay(transform.position, playerDirection, Color.red);
+        
         //
         //if (currentAction == Actions.GoingToPlayer && pathToUse != null && pathToUse.Count > 0)
         //{
@@ -168,10 +178,53 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
         //
         if(currentAction == Actions.GoInFormation)
         {
-            Vector3 objectivePosition = enemyFormation.GetFormationPlaceInWorld(this);
-            Vector3 objectiveDirection = objectivePosition - transform.position;
-            Debug.DrawRay(transform.position, objectiveDirection, Color.magenta);
+            //Vector3 objectivePosition = enemyFormation.GetFormationPlaceInWorld(this);
+            //Vector3 objectiveDirection = objectivePosition - transform.position;
+            //Debug.DrawRay(transform.position, objectiveDirection, Color.magenta);
+            //Gizmos.color = new Color(0,0,0,0.1f);
+            //Gizmos.DrawSphere(objectivePosition, 1);
         }
+        else
+        {
+            if (!player) return;
+            Vector3 playerDirection = player.transform.position - transform.position;
+            Debug.DrawRay(transform.position, playerDirection, Color.red);
+        }
+        //Debug.DrawRay(transform.position, rb.velocity, Color.blue);
+    }
+
+    #region Methods
+
+    protected void UpdateFormationWeapon(float dt)
+    {
+        formationWeaponCooldown += dt;
+        if(formationWeaponCooldown >= weaponData.weapon.rateOfFire)
+        {
+            Debug.Log("Firing formation weapon");
+            FireFormationWeapon(dt);
+            formationWeaponCooldown = 0;
+        }
+    }
+
+    protected void FireFormationWeapon(float dt)
+    {
+        GameObject nextBullet = BulletPool.instance.GetBullet(weaponData.weapon.proyectilePrefab);
+        //Debug.Log(nextBullet);
+        //
+        Vector3 attackPosition = transform.TransformPoint(enemyFormation.formationInfo.attackPosition);
+        //
+        Vector3 anticipatedPlayerPosition = GeneralFunctions.AnticipateObjectivePositionForAiming(
+            attackPosition, player.transform.position, PlayerReference.playerRb.velocity, 
+            weaponData.weapon.muzzleSpeed, dt);
+        // Gravity
+        anticipatedPlayerPosition.y -= GeneralFunctions.GetProyectileFallToObjective(attackPosition, anticipatedPlayerPosition,
+            weaponData.weapon.muzzleSpeed);
+
+        
+        Vector3 attackDirection = anticipatedPlayerPosition - attackPosition;
+        //
+        GeneralFunctions.ShootProjectileFromPool(nextBullet, attackPosition,
+            Quaternion.LookRotation(attackDirection), attackDirection.normalized, weaponData.weapon.muzzleSpeed, dt, ShootCalculation.MuzzleSpeed);
     }
 
     protected void UpdateOfFootStatus(float dt)
@@ -185,7 +238,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
     }
 
     // 
-    protected virtual void Move()
+    protected virtual void Move(float dt)
     {
         // IMPORTANT TODO change: if (!HasGroundUnderneath()) return;
         //                        if (false) return;
@@ -197,6 +250,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
         {
             case Actions.EncirclingPlayerForward:
             case Actions.GoingToPlayer:
+            case Actions.ApproachingPlayer3d:
                 // Aqui nada de momento porque ya es forward por defecto
                 break;
             case Actions.ZigZagingTowardsPlayer:
@@ -228,14 +282,17 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
                     speedMultiplier = 1;
                 else
                     speedMultiplier = 1.2f;
+
+                //
+                //transform.position = enemyFormation.GetFormationPlaceInWorld(this);
                 break;
         }
         //
-        //rb.velocity = (movingDirection * maxSpeed * speedMultiplier * movementStatus);
-        rb.AddForce(movingDirection * maxSpeed * speedMultiplier);
+        rb.velocity = (movingDirection * maxSpeed * speedMultiplier * movementStatus);
+        //rb.AddForce(movingDirection * maxSpeed * speedMultiplier * dt, ForceMode.Impulse);
         //
-        if (!onFloor)
-            rb.velocity += Physics.gravity;
+        //if (!onFloor)
+        //    rb.velocity += Physics.gravity;
     
     }
     
@@ -304,45 +361,43 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
 
                     //
                     transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, currentObjective, rotationSpeed * movementStatus, dt);
-                    Move();
+                    Move(dt);
                 }
                 else
                 {
                     //
                     transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed * movementStatus, dt);
-                    Move();
+                    Move(dt);
                 }
                 break;
             case Actions.EncirclingPlayerForward:
                 transform.rotation = GeneralFunctions.UpdateRotationOnCross(transform, player.transform.position, rotationSpeed * movementStatus, dt);
-                //Move();
+                Move(dt);
                 break;
             case Actions.EncirclingPlayerSideward:
                 transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed * movementStatus, dt);
-                Move();
+                Move(dt);
                 break;
             case Actions.Fleeing:
                 transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, -player.transform.position, rotationSpeed * movementStatus, dt);
-                Move();
+                Move(dt);
                 break;
             case Actions.RetreatingFromPlayer:
                 transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed * movementStatus, dt);
-                Move();
+                Move(dt);
                 break;
             case Actions.ApproachingPlayer3d:
                 transform.rotation = GeneralFunctions.UpdateRotation(transform, player.transform.position, rotationSpeed, dt);
+                Move(dt);
                 break;
             case Actions.GoInFormation:
                 Vector3 objectivePosition = enemyFormation.GetFormationPlaceInWorld(this);
-                transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, objectivePosition, rotationSpeed * movementStatus, dt);
-                Move();
+                transform.rotation = GeneralFunctions.UpdateRotation(transform, objectivePosition, rotationSpeed * movementStatus, dt);
+                //transform.rotation = enemyFormation.FormationLeader.transform.rotation;
+                Move(dt);
                 break;
         }
-
-            // Damp para que no se desmadren
-            //float dampForce = 10.0f;
-            //rb.velocity = rb.velocity * ( 1 - dampForce * dt);
-        
+                
     }
 
     /// <summary>
@@ -361,7 +416,11 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
         {
             switch (behaviour[i])
             {
+                case Actions.EncirclingPlayerSideward:
                 case Actions.FacingPlayer:
+                case Actions.ApproachingPlayer3d:
+                case Actions.EncirclingPlayerForward:
+                case Actions.RetreatingFromPlayer:
                     if (playerDistance.magnitude < minimalShootDistance)
                     {
                         currentAction = behaviour[i];
@@ -376,31 +435,18 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
                     pathToUse = terrainManager.GetPathToPlayer(transform);
                     //TODO: Meter aqui el A*
                     return;
-                case Actions.EncirclingPlayerSideward:
-                    if (playerDistance.magnitude < minimalShootDistance)
-                    {
-                        currentAction = behaviour[i];
-                        return;
-                    }
-                    break;
-                case Actions.EncirclingPlayerForward:
-                    if (playerDistance.magnitude < minimalShootDistance)
-                    {
-                        currentAction = behaviour[i];
-                        return;
-                    }
-                    break;
-                case Actions.RetreatingFromPlayer:
-                    if (playerDistance.magnitude < minimalShootDistance)
-                    {
-                        currentAction = behaviour[i];
-                        return;
-                    }
-                    break;
                 case Actions.GoInFormation:
-                    if(enemyFormation != null && enemyFormation.FormationLeader != this)
+                    if(enemyFormation != null)
                     {
-                        currentAction = behaviour[i];
+                        if (enemyFormation.FormationLeader != this)
+                        {
+                            currentAction = behaviour[i];
+                            weaponData = null;
+                        }                            
+                        // Le asignamos el arma pero no el comportamiento
+                        // Ya que será él el que marque el ritmo
+                        else
+                            weaponData = enemyFormation.formationInfo.weaponData;
                         return;
                     }
                     break;
@@ -468,4 +514,6 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
         if (enemyFormation != null)
             enemyFormation.LeaveFormation(this);
     }
+
+    #endregion
 }

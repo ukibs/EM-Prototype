@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a75dfd23e5a30364b93b11ac14a770d1, type: 3}
-  m_Name: SmallGruntWeapon
+  m_Name: JellyFishFormWeapon
   m_EditorClassIdentifier: 
   weapon:
     rateOfFire: 2
     range: 50
-    proyectilePrefab: {fileID: 4385535040777300845, guid: 62ecfa16ffbaf0143aa293bec6e4f27d,
+    proyectilePrefab: {fileID: 6014629757712964908, guid: 57f4c34965c1fd948bdba67cb5099fdd,
       type: 3}
     shootForce: 10
-    muzzleSpeed: 500
+    muzzleSpeed: 300
     typeOfFire: 0
     firingSystem: 0
     shootCalculation: 1
@@ -27,7 +27,7 @@ MonoBehaviour:
   proyectile:
     diameter: 0
     lifeTime: 10
-    dangerousEnough: 0
+    dangerousEnough: 1
     impactParticlesPrefab: {fileID: 0}
     bulletHolePrefab: {fileID: 0}
     impactOnBugParticlesPrefab: {fileID: 0}
