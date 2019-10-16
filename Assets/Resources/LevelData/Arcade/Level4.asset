@@ -16,33 +16,33 @@ MonoBehaviour:
     inGameName: Family Reunion
     gameMode: 0
     victoryCondition: 1
-    enemiesToDefeat: 200
+    enemiesToDefeat: 500
     attackActionsAvailable: 3
     defenseActionsAvailable: 1
     jumpActionsAvailable: 1
     sprintActionsAvailable: 1
     enemiesSpawnSettings:
-    - enemyPrefab: {fileID: 8096563443830030571, guid: 63f7a55d02361e7448d4b09d407ad549,
-        type: 3}
-      formationData: {fileID: 0}
-      enemiesToSpawn: 3
-      enemySpawnIncrement: 0
-      timeBetweenSpawns: 5
-      maxActiveEnemies: 10
-    - enemyPrefab: {fileID: 2132211706304976565, guid: 8aaab91e7db7f9d4991954cca5ab8f91,
+    - enemyPrefab: {fileID: 3529049209132307780, guid: 145e699f523febf42847873f2b80ac06,
         type: 3}
       formationData: {fileID: 11400000, guid: 04b66144ca93c4c4e91ba743e354cd93, type: 2}
-      enemiesToSpawn: 5
+      enemiesToSpawn: 90
       enemySpawnIncrement: 0
       timeBetweenSpawns: 5
-      maxActiveEnemies: 15
-    - enemyPrefab: {fileID: 8576012526104695649, guid: 91acf057a8df05f489f5134c3a5694ce,
+      maxActiveEnemies: 150
+    - enemyPrefab: {fileID: 3529049209132307780, guid: 7b08991963d6e1e498d6df118dfcb8c9,
         type: 3}
-      formationData: {fileID: 11400000, guid: 04b66144ca93c4c4e91ba743e354cd93, type: 2}
-      enemiesToSpawn: 3
+      formationData: {fileID: 11400000, guid: fc5ec908d68d3984190d3e990b9d5bf7, type: 2}
+      enemiesToSpawn: 90
+      enemySpawnIncrement: 0
+      timeBetweenSpawns: 5
+      maxActiveEnemies: 150
+    - enemyPrefab: {fileID: 8576012526104695649, guid: bbecddc7d0948034fbb2f430c2cf373d,
+        type: 3}
+      formationData: {fileID: 11400000, guid: 347c4fdad4f4ded4fad65872f9524aa0, type: 2}
+      enemiesToSpawn: 9
       enemySpawnIncrement: 0
       timeBetweenSpawns: 10
-      maxActiveEnemies: 5
+      maxActiveEnemies: 15
     terrainElementsSettings:
     - terrainPrefab: {fileID: 3326227640253247155, guid: e805da38f2157cf44bd8ebbbe826ba67,
         type: 3}
