@@ -179,17 +179,24 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
         //
         if(currentAction == Actions.GoInFormation)
         {
-            Vector3 objectivePosition = enemyFormation.GetFormationPlaceInWorld(this);
-            Vector3 objectiveDirection = objectivePosition - transform.position;
-            Debug.DrawRay(transform.position, objectiveDirection, Color.magenta);
-            Gizmos.color = new Color(0, 0, 0, 0.1f);
-            Gizmos.DrawSphere(objectivePosition, 1);
+            //Vector3 objectivePosition = enemyFormation.GetFormationPlaceInWorld(this);
+            //Vector3 objectiveDirection = objectivePosition - transform.position;
+            //Debug.DrawRay(transform.position, objectiveDirection, Color.magenta);
+            //Gizmos.color = new Color(0, 0, 0, 0.1f);
+            //Gizmos.DrawSphere(objectivePosition, 1);
         }
         else
         {
             if (!player) return;
             Vector3 playerDirection = player.transform.position - transform.position;
             Debug.DrawRay(transform.position, playerDirection, Color.red);
+            Debug.Log("Current action: " + currentAction);
+            //
+            if(currentAction == Actions.EncirclingPlayerForward)
+            {
+                Vector3 playerDirectionCross = Vector3.Cross(transform.up, player.transform.position - transform.position);
+                Debug.DrawRay(transform.position, playerDirectionCross, Color.green);
+            }
         }
         Debug.DrawRay(transform.position, rb.velocity, Color.blue);
     }
@@ -221,8 +228,8 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
             Debug.Log("Firing formation weapon");
             FireFormationWeapon(dt);
             formationWeaponCooldown = 0;
-            //
-            //if (charguingFormationProyectile) Destroy(charguingFormationProyectile);
+            // TODO: No debería hacer falta hacer esto
+            if (charguingFormationProyectile) Destroy(charguingFormationProyectile);
         }
     }
 
@@ -412,7 +419,8 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
                 break;
             case Actions.GoInFormation:
                 Vector3 objectivePosition = enemyFormation.GetFormationPlaceInWorld(this);
-                transform.rotation = GeneralFunctions.UpdateRotation(transform, objectivePosition, rotationSpeed * movementStatus, dt);
+                // Aplicamos una rotación de propio para esta acción
+                transform.rotation = GeneralFunctions.UpdateRotation(transform, objectivePosition, 360 * movementStatus, dt);
                 //transform.rotation = enemyFormation.FormationLeader.transform.rotation;
                 Move(dt);
                 break;
@@ -444,6 +452,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
                     if (playerDistance.magnitude < minimalShootDistance)
                     {
                         currentAction = behaviour[i];
+                        Debug.Log("Possible encircling player");
                         return;
                     }
                     break;
@@ -453,7 +462,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
                     currentAction = behaviour[i];
                     //
                     pathToUse = terrainManager.GetPathToPlayer(transform);
-                    //TODO: Meter aqui el A*
+
                     return;
                 case Actions.GoInFormation:
                     if(enemyFormation != null)
@@ -462,12 +471,13 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
                         {
                             currentAction = behaviour[i];
                             formationWeaponData = null;
+                            return;
                         }                            
                         // Le asignamos el arma pero no el comportamiento
                         // Ya que será él el que marque el ritmo
                         else
                             formationWeaponData = enemyFormation.formationInfo.weaponData;
-                        return;
+                        
                     }
                     break;
             }

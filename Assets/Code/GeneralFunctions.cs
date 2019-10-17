@@ -148,10 +148,12 @@ public static class GeneralFunctions
     {
         //
         Quaternion rotationToReturn = self.transform.rotation;
+        //
+        objective.y = self.transform.position.y;
 
         //
         Vector3 objectiveDirection = objective - self.position;
-        Vector3 crossDirection = Vector3.Cross(self.forward, objectiveDirection);
+        Vector3 crossDirection = Vector3.Cross(self.up, objectiveDirection);
         
         //
         Quaternion idealRotation = Quaternion.LookRotation(self.position + crossDirection);

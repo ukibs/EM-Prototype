@@ -105,7 +105,7 @@ public class ProvLevelManager : MonoBehaviour
         if(finished && fade.alpha >= 1)
         {
             //SceneManager.LoadScene("Map");
-            SceneManager.LoadScene("Menu");
+            SceneManager.LoadScene("Main Menu");
         }
         //
         CheckControls();

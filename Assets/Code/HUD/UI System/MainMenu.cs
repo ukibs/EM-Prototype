@@ -17,6 +17,12 @@ public class MainMenu : MonoBehaviour
     public GameObject loadingScreen, loadingIcon;
     public Text loadingText;
 
+    void Start()
+    {
+        //
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
 
     public void StartGame(string levelName)
     {

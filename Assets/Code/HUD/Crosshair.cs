@@ -40,7 +40,7 @@ public class Crosshair : MonoBehaviour
     
     private void Awake()
     {
-        InitializeCrosshair();
+        //InitializeCrosshair();
     }
 
     void Start()
@@ -48,6 +48,8 @@ public class Crosshair : MonoBehaviour
         mGameManager = FindObjectOfType<GameManager>();
         mInputManager = FindObjectOfType<InputManager>();
         mRobotControl = FindObjectOfType<RobotControl>();
+
+        InitializeCrosshair();
     }
 
     void Update()
@@ -124,10 +126,7 @@ public class Crosshair : MonoBehaviour
         transform.GetChild(1).transform.GetChild(1).transform.localScale = newExteriorScale;
 
         // Now set the initial attackMode
-        if (mRobotControl)
-            currentAttackMode = mRobotControl.ActiveAttackMode;
-        else
-            Debug.Log("RobotControl not detected");
+        currentAttackMode = mRobotControl.ActiveAttackMode;
     }
     
     #endregion

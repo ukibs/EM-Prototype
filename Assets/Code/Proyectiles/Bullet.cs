@@ -314,18 +314,24 @@ public class Bullet : MonoBehaviour {
         int stepsToCheck = (int)(lifeTime / timePerTic);
         Vector3[] positions = new Vector3[stepsToCheck];
         //
-        for(int i = 0; i < stepsToCheck; i++)
+        float anticipatedDragEffect = 1 - (rb.drag * timePerTic);
+        float speedInStep = rb.velocity.magnitude;
+        //
+        positions[0] = transform.position;
+
+        //
+        for (int i = 1; i < stepsToCheck; i++)
         {
             // TODO: Habrá que tener en cuenta el drag
             // Creo
             //GeneralFunctions.AnticipateObjectivePositionForAiming();
             //GeneralFunctions.GetVelocityWithDistanceAndDrag(rb.velocity.magnitude, , rb.drag, rb.mass);
-            float fallInThatTime = -9.81f * Mathf.Pow(timePerTic * i, 2) / 2;
+            float fallInThatTime = Physics.gravity.y * Mathf.Pow(timePerTic * i, 2) / 2;
             //
-            float anticipatedDragEffect = 1 - (rb.drag * timePerTic);
-            float speedInStep = rb.velocity.magnitude * anticipatedDragEffect;
+            speedInStep = speedInStep * anticipatedDragEffect;
             //
             positions[i] = transform.position + (rb.velocity.normalized * speedInStep * timePerTic * i) + new Vector3(0,fallInThatTime,0);
+            //positions[i] = positions[i-1] + (rb.velocity.normalized * speedInStep * timePerTic) + new Vector3(0, fallInThatTime, 0);
         }
         //
         detectionTrailRenderer.positionCount = stepsToCheck;
