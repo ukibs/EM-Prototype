@@ -166,10 +166,11 @@ public class Bullet : MonoBehaviour {
         if (currentLifeTime >= lifeTime)
         {
             Debug.Log("Bullet lifetime expired");
-            rb.velocity = Vector3.zero;
-            if (trailRenderer)
-                trailRenderer.Clear();
-            bulletPool.ReturnBullet(gameObject);
+            //rb.velocity = Vector3.zero;
+            //if (trailRenderer)
+            //    trailRenderer.Clear();
+            //bulletPool.ReturnBullet(gameObject);
+            ReturnBulletToPool();
             //
             //if (dangerousEnough)
             //    bulletPool.RemoveDangerousBulletFromList(gameObject);
@@ -275,6 +276,8 @@ public class Bullet : MonoBehaviour {
         rb.velocity = Vector3.zero;
         if (trailRenderer)
             trailRenderer.Clear();
+        if (detectionTrailRenderer)
+            detectionTrailRenderer.positionCount = 0;
         bulletPool.ReturnBullet(gameObject);
     }
     

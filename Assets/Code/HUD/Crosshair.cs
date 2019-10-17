@@ -122,9 +122,12 @@ public class Crosshair : MonoBehaviour
         transform.GetChild(0).transform.GetChild(0).transform.localScale = newInteriorScale;
         transform.GetChild(1).transform.GetChild(0).transform.localScale = newExteriorScale;
         transform.GetChild(1).transform.GetChild(1).transform.localScale = newExteriorScale;
-        
+
         // Now set the initial attackMode
-        currentAttackMode = mRobotControl.ActiveAttackMode;
+        if (mRobotControl)
+            currentAttackMode = mRobotControl.ActiveAttackMode;
+        else
+            Debug.Log("RobotControl not detected");
     }
     
     #endregion

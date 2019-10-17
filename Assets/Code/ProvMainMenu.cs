@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 
 
-public class MainMenu : MonoBehaviour
+public class ProvMainMenu : MonoBehaviour
 {
     public string currentVersion = "0.2.1";
     public GUISkin guiSkin;

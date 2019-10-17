@@ -198,6 +198,9 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
 
     protected void UpdateFormationWeapon(float dt)
     {
+        // TODO: Gestionarlo menos guarro
+        float distanceToPlayer = (transform.position - player.transform.position).magnitude;
+        if (distanceToPlayer > minimalShootDistance) return;
         //
         formationWeaponCooldown += dt;
         //

@@ -227,7 +227,7 @@ public class ProvLevelManager : MonoBehaviour
             if(EnemyAnalyzer.isActive)
                 EnemyAnalyzer.Release();
             //
-            SceneManager.LoadScene("Menu");
+            SceneManager.LoadScene("Main Menu");
         }
         // 
         if (GameControl.paused)
