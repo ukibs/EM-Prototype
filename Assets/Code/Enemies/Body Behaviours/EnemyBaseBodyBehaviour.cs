@@ -77,8 +77,9 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
     protected float movementStatus = 1;
 
     // Arma de la formación, sólo la usará si es el líder
-    protected WeaponData weaponData;
+    protected WeaponData formationWeaponData;
     protected float formationWeaponCooldown = 0;
+    protected GameObject charguingFormationProyectile = null;
 
     #endregion
 
@@ -142,7 +143,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
 
         // Uso del arma de la formación si la tiene el bicho
         // De momento lo hacmos aqui
-        if (weaponData)
+        if (formationWeaponData)
         {
             UpdateFormationWeapon(dt);
         }
@@ -197,34 +198,50 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
 
     protected void UpdateFormationWeapon(float dt)
     {
+        //
         formationWeaponCooldown += dt;
-        if(formationWeaponCooldown >= weaponData.weapon.rateOfFire)
+        //
+        if (formationWeaponData.weapon.preparingProyectilePrefab && !charguingFormationProyectile)
+        {
+            charguingFormationProyectile = Instantiate(formationWeaponData.weapon.preparingProyectilePrefab,
+                                                        transform.TransformPoint(enemyFormation.formationInfo.attackPosition),
+                                                        Quaternion.identity);
+        }
+        else if (charguingFormationProyectile)
+        {
+            charguingFormationProyectile.transform.localScale = Vector3.one * (formationWeaponCooldown);
+            charguingFormationProyectile.transform.position = transform.TransformPoint(enemyFormation.formationInfo.attackPosition);
+        }
+        //
+        if(formationWeaponCooldown >= formationWeaponData.weapon.rateOfFire)
         {
             Debug.Log("Firing formation weapon");
             FireFormationWeapon(dt);
             formationWeaponCooldown = 0;
+            //
+            //if (charguingFormationProyectile) Destroy(charguingFormationProyectile);
         }
     }
 
     protected void FireFormationWeapon(float dt)
     {
-        GameObject nextBullet = BulletPool.instance.GetBullet(weaponData.weapon.proyectilePrefab);
+        GameObject nextBullet = BulletPool.instance.GetBullet(formationWeaponData.weapon.proyectilePrefab);
         //Debug.Log(nextBullet);
         //
         Vector3 attackPosition = transform.TransformPoint(enemyFormation.formationInfo.attackPosition);
         //
         Vector3 anticipatedPlayerPosition = GeneralFunctions.AnticipateObjectivePositionForAiming(
             attackPosition, player.transform.position, PlayerReference.playerRb.velocity, 
-            weaponData.weapon.muzzleSpeed, dt);
+            formationWeaponData.weapon.muzzleSpeed, dt);
         // Gravity
         anticipatedPlayerPosition.y -= GeneralFunctions.GetProyectileFallToObjective(attackPosition, anticipatedPlayerPosition,
-            weaponData.weapon.muzzleSpeed);
+            formationWeaponData.weapon.muzzleSpeed);
 
         
         Vector3 attackDirection = anticipatedPlayerPosition - attackPosition;
         //
         GeneralFunctions.ShootProjectileFromPool(nextBullet, attackPosition,
-            Quaternion.LookRotation(attackDirection), attackDirection.normalized, weaponData.weapon.muzzleSpeed, dt, ShootCalculation.MuzzleSpeed);
+            Quaternion.LookRotation(attackDirection), attackDirection.normalized, formationWeaponData.weapon.muzzleSpeed, dt, ShootCalculation.MuzzleSpeed);
     }
 
     protected void UpdateOfFootStatus(float dt)
@@ -441,12 +458,12 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
                         if (enemyFormation.FormationLeader != this)
                         {
                             currentAction = behaviour[i];
-                            weaponData = null;
+                            formationWeaponData = null;
                         }                            
                         // Le asignamos el arma pero no el comportamiento
                         // Ya que será él el que marque el ritmo
                         else
-                            weaponData = enemyFormation.formationInfo.weaponData;
+                            formationWeaponData = enemyFormation.formationInfo.weaponData;
                         return;
                     }
                     break;

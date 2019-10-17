@@ -51,6 +51,7 @@ public class ExplosiveBullet : MonoBehaviour
     private Rigidbody proyectileRb;
     private AudioObjectManager audioObjectManager;
     private BulletPool bulletPool;
+    private Bullet bulletScript;
 
     protected void Start()
     {
@@ -58,6 +59,7 @@ public class ExplosiveBullet : MonoBehaviour
         proyectileRb = GetComponent<Rigidbody>();
         audioObjectManager = FindObjectOfType<AudioObjectManager>();
         bulletPool = FindObjectOfType<BulletPool>();
+        bulletScript = GetComponent<Bullet>();
 
         // Tenemos que mirar bien la conversion kg/TNT -> julios -> newton
         // Julios = newtons/m
@@ -134,8 +136,10 @@ public class ExplosiveBullet : MonoBehaviour
         audioObjectManager.CreateAudioObject(explosionClip, transform.position);
         //
         //Destroy(gameObject);
-        proyectileRb.velocity = Vector3.zero;
-        bulletPool.ReturnBullet(gameObject);
+        //proyectileRb.velocity = Vector3.zero;
+        //bulletPool.ReturnBullet(gameObject);
+
+        bulletScript.ReturnBulletToPool();
     }
 
     //

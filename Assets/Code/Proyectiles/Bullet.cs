@@ -27,6 +27,9 @@ public class Bullet : MonoBehaviour {
     public AudioClip impactOnPlayer;
     public AudioClip impactOnEnemy;
 
+    // TODO: Hcaerlo bien
+    public bool restarted = false;
+
     // TODO: Decidir si implementamos el funcionamiendo de misil aqui como opción (impulso constante en vez de inicial)
 
     protected Rigidbody rb;
@@ -110,6 +113,13 @@ public class Bullet : MonoBehaviour {
         // Mientras nos apañamos con esto
         if (drawTrayectory)
         {
+            //
+            if (restarted)
+            {
+                AllocateTrailRenderer();
+                restarted = false;
+            }
+            //
             currentTimeBetweenRecalculation += dt;
             if (currentTimeBetweenRecalculation > maxTimeBetweenRecalculation)
             {
@@ -251,15 +261,21 @@ public class Bullet : MonoBehaviour {
         {
             //Debug.Log("Not explosive component, destroying object");
             // Destroy(gameObject);
-            rb.velocity = Vector3.zero;
-            if (trailRenderer)
-                trailRenderer.Clear();
-            bulletPool.ReturnBullet(gameObject);
+            ReturnBulletToPool();
             // TODO: Hcaerlo mas limpio
             //if(dangerousEnough)
             //    bulletPool.RemoveDangerousBulletFromList(gameObject);
         }
             
+    }
+
+    //
+    public void ReturnBulletToPool()
+    {
+        rb.velocity = Vector3.zero;
+        if (trailRenderer)
+            trailRenderer.Clear();
+        bulletPool.ReturnBullet(gameObject);
     }
     
 

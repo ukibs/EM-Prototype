@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3977613519856096693}
   - component: {fileID: 5978335928357778064}
   m_Layer: 0
-  m_Name: AcidShot_Trail
+  m_Name: AcidShot_Trail Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1303,9 +1303,9 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.06285069, g: 0.8207547, b: 0, a: 1}
-        key1: {r: 0.9811321, g: 0.98113203, b: 0.041651815, a: 0}
-        key2: {r: 0.12765956, g: 1, b: 0, a: 0}
+        key0: {r: 0.81960785, g: 0.031446412, b: 0, a: 1}
+        key1: {r: 0.98039216, g: 0.113534324, b: 0.043137226, a: 0}
+        key2: {r: 1, g: 0.03915456, b: 0, a: 0}
         key3: {r: 1, g: 1, b: 1, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}

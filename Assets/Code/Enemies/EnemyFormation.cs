@@ -50,6 +50,8 @@ public class EnemyFormation
     {
         //
         //Debug.Log("Debugging leader: " + FormationLeader);
+        // Ñapa
+        if (!FormationLeader) return Vector3.zero;
         //
         int formationIndex = formationMembers.IndexOf(behaviour);
         Vector3 placeInWorld = FormationLeader.transform.TransformPoint(positions[formationIndex]);

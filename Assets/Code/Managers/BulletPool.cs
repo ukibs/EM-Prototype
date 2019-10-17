@@ -128,13 +128,14 @@ public class BulletPool : MonoBehaviour
                 if (bulletPoolsPerType[i].dangerousEnough)
                 {
                     // Instanciamos el trail renderer
-                    if (nextBulletScript.drawTrayectory)
-                    {
-                        //detectionTrail = Instantiate(carolHelp.dangerousProyetilesTrailPrefab, transform.position, Quaternion.identity);
-                        //detectionTrailRenderer = detectionTrail.GetComponent<LineRenderer>();
-                        //
-                        nextBulletScript.AllocateTrailRenderer();
-                    }
+                    //if (nextBulletScript.drawTrayectory)
+                    //{
+                    //    //detectionTrail = Instantiate(carolHelp.dangerousProyetilesTrailPrefab, transform.position, Quaternion.identity);
+                    //    //detectionTrailRenderer = detectionTrail.GetComponent<LineRenderer>();
+                    //    //
+                    //    nextBulletScript.AllocateTrailRenderer();
+                    //}
+                    nextBulletScript.restarted = true;
 
                     //
                     carolHelp.TriggerGeneralAdvice("DangerIncoming");

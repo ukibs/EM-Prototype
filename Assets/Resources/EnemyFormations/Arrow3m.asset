@@ -16,5 +16,5 @@ MonoBehaviour:
     formationType: 0
     distanceBetweenMembers: 2
     maxMembersPerRow: 9
-    attackPosition: {x: 0, y: 0, z: 10}
+    attackPosition: {x: 0, y: -10, z: -5}
     weaponData: {fileID: 11400000, guid: e5256d42f3a66bf41a3e03bd15fb55a2, type: 2}

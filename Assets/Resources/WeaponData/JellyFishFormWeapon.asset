@@ -17,8 +17,10 @@ MonoBehaviour:
     range: 50
     proyectilePrefab: {fileID: 6014629757712964908, guid: 57f4c34965c1fd948bdba67cb5099fdd,
       type: 3}
+    preparingProyectilePrefab: {fileID: 6014629757712964908, guid: 781111b48af80144388c2ecc23c3ab0e,
+      type: 3}
     shootForce: 10
-    muzzleSpeed: 300
+    muzzleSpeed: 200
     typeOfFire: 0
     firingSystem: 0
     shootCalculation: 1

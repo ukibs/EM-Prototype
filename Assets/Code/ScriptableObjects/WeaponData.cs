@@ -27,6 +27,7 @@ public class Weapon
     [Tooltip("Minimum range for weapon starting to attack.")]
     public float range = 50;
     public GameObject proyectilePrefab;
+    public GameObject preparingProyectilePrefab;
     // Probablemente guardemos estos valores en la balas
     public float shootForce = 10;
     public float muzzleSpeed = 500;
