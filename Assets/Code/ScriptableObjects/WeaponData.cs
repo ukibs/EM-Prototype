@@ -50,6 +50,11 @@ public class Proyectile
     public float diameter;
     [Tooltip("Short for quick bullets long for artillery and other slow ones")]
     public float lifeTime = 10;
+    //
+    [Tooltip("Maximum mass for formation proyectiles")]
+    public float maxMass;
+    [Tooltip("Maximum explosive load for formation proyectiles, in TNT equivalent")]
+    public float maxExplosiveLoad;
     // De momento lo manejamos así
     public bool dangerousEnough = false;
     //

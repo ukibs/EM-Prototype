@@ -841,17 +841,22 @@ public class ProvisionalHUD : MonoBehaviour {
             DrawEpicenterInRadar(playerDirection, radarXPositon, radarYPosition, markerSize);
         // Y enemigos
         // TODO: Cogerlo por refencia del manager apropiado cuando lo tengamos listo
-        Targeteable[] enemies = FindObjectsOfType<Targeteable>();
-        if (enemies.Length == 0)
-            return;
+        //Targeteable[] enemies = FindObjectsOfType<Targeteable>();
+        List<GameObject> allActiveEnemies = enemyManager.AllActiveEnemies;
+        //
+        allActiveEnemies = enemyManager.FormationLeaders;
+
+        // TODO: Sacar la fuerza de las formaciones para indicar su nivel de peligro
+        List<EnemyFormation> enemyFormations = enemyManager.EnemyFormations;
+
         // Aqui pasamos por todos los enemigos
-        for (int i = 0; i < enemies.Length; i++)
+        for (int i = 0; i < allActiveEnemies.Count; i++)
         {
             //
-            if (!enemies[i].active)
-                continue;
+            //if (!enemies[i].active)
+            //    continue;
             //
-            Vector3 offset = enemies[i].transform.position - playerIntegrity.transform.position;
+            Vector3 offset = allActiveEnemies[i].transform.position - playerIntegrity.transform.position;
             // TODO: Sacar también altura
             offset.y = 0;
             //
@@ -872,7 +877,7 @@ public class ProvisionalHUD : MonoBehaviour {
             posInRadar.x = radius * Mathf.Cos(angle) + (radarDimensions.x / 2);
             posInRadar.y = radius * Mathf.Sin(angle) + (radarDimensions.y / 2);
             // Y dibujamos
-            EnemyIdentifier enemyIdentifier = enemies[i].GetComponentInParent<EnemyIdentifier>();
+            EnemyIdentifier enemyIdentifier = allActiveEnemies[i].GetComponentInParent<EnemyIdentifier>();
             //
             if(enemyIdentifier != null)
             GUI.DrawTexture(new Rect(radarXPositon + posInRadar.x, 

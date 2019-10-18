@@ -13,7 +13,13 @@ public class EnemyFormation
 
     public FormationInfo formationInfo;
 
+    #region Properties
+
     public EnemyBaseBodyBehaviour FormationLeader { get { return formationMembers[0]; } }
+
+    public float FormationStrength { get { return formationMembers.Count / positions.Length; } }
+
+    #endregion
 
     // Constructor
     public EnemyFormation(FormationInfo formationInfo, int formationSize)

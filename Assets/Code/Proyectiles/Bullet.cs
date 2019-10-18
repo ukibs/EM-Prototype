@@ -55,6 +55,7 @@ public class Bullet : MonoBehaviour {
     protected TrailRenderer trailRenderer;
 
     public float CurrentLifeTime { set { currentLifeTime = value; } }
+    public Rigidbody Rb { get { return rb; } }
 
 	// Use this for initialization
 	protected virtual void Start () {

@@ -48,11 +48,43 @@ public class EnemyManager : MonoBehaviour
 
     // Con esto gestionaremos las formaciones enemigas
     private List<EnemyFormation> enemyFormations;
+    private List<GameObject> loneWolfs; // TODO: Trabajar esto con enemigos sin formación
 
+    #region Properties
 
     public int[] ActiveEnemiesAmount { get { return activeEnemiesAmount; } }
     public Vector3 EpicenterPoint { get { return epicenterPoint; } }
     public EpicenterMode CurrentEpicenterMode { get { return epicenterMode; } }
+
+    public List<GameObject> AllActiveEnemies
+    {
+        get
+        {
+            List<GameObject> allActiveEnemies = new List<GameObject>();
+            for(int i = 0; i < activeEnemies.Length; i++)
+            {
+                allActiveEnemies.AddRange(activeEnemies[i]);
+            }
+            return allActiveEnemies;
+        }
+    }
+
+    public List<EnemyFormation> EnemyFormations { get { return enemyFormations; } }
+
+    public List<GameObject> FormationLeaders
+    {
+        get
+        {
+            List<GameObject> formationLeaders = new List<GameObject>(enemyFormations.Count);
+            for (int i = 0; i < enemyFormations.Count; i++)
+            {
+                formationLeaders.Add(enemyFormations[i].FormationLeader.gameObject);
+            }
+            return formationLeaders;
+        }
+    }
+
+    #endregion
 
     // Start is called before the first frame update
     void Start()

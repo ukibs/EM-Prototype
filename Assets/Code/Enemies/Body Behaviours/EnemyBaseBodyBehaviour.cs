@@ -254,6 +254,16 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
             Quaternion.LookRotation(attackDirection), attackDirection.normalized, formationWeaponData.weapon.muzzleSpeed, dt, ShootCalculation.MuzzleSpeed);
     }
 
+    protected void SetFormationProyectileStrength(GameObject nextProyectile)
+    {
+        Bullet bullet = nextProyectile.GetComponent<Bullet>();
+        ExplosiveBullet explosiveBullet = nextProyectile.GetComponent<ExplosiveBullet>();
+
+        bullet.Rb.mass = formationWeaponData.proyectile.maxMass * enemyFormation.FormationStrength;
+        if (explosiveBullet)
+            explosiveBullet.explosiveLoad = formationWeaponData.proyectile.maxExplosiveLoad * enemyFormation.FormationStrength;
+    }
+
     protected void UpdateOfFootStatus(float dt)
     {
         // Avanzamos el chequeo de desequilibrio y si está desequilibrado que no pueda actuar
