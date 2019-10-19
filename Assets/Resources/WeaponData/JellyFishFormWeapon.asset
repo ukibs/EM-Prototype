@@ -29,6 +29,8 @@ MonoBehaviour:
   proyectile:
     diameter: 0
     lifeTime: 10
+    maxMass: 0.01
+    maxExplosiveLoad: 200
     dangerousEnough: 1
     impactParticlesPrefab: {fileID: 0}
     bulletHolePrefab: {fileID: 0}
