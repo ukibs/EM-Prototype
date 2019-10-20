@@ -11,8 +11,10 @@ public class WeakPoint : Targeteable
     #region Public Attibutes
 
     public float maxHealthPoints = 30;
+    public Material unveiledMaterial;
     public bool reactionOnDamage = false;
     public GigaWormBehaviour gigaWormBehaviour;
+    public GameObject destructionParticles;
 
     #endregion
 
@@ -63,11 +65,22 @@ public class WeakPoint : Targeteable
                 carolBaseHelp.WeakPointDestroyed();
                 //TODO: Meteremos el churrazo de sangre
                 active = false;
+                Instantiate(destructionParticles, transform.position, Quaternion.identity);
+                gameObject.SetActive(false);
                 //Destroy(this);
                 //Destroy(gameObject);
                 EnemyAnalyzer.Release();
             }
         }
         
+    }
+
+    public void Unveil()
+    {
+        //
+        active = true;
+        //
+        MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
+        meshRenderer.material = unveiledMaterial;
     }
 }

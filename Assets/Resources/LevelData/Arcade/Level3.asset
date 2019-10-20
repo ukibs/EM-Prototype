@@ -24,7 +24,7 @@ MonoBehaviour:
     enemiesSpawnSettings:
     - enemyPrefab: {fileID: 8576012526104695649, guid: bbecddc7d0948034fbb2f430c2cf373d,
         type: 3}
-      formationData: {fileID: 11400000, guid: 347c4fdad4f4ded4fad65872f9524aa0, type: 2}
+      formationData: {fileID: 11400000, guid: f88550f285a6a154cb01560f3bba886c, type: 2}
       enemiesToSpawn: 9
       enemySpawnIncrement: 0
       timeBetweenSpawns: 5

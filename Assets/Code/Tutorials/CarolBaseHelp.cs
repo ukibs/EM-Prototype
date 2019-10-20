@@ -190,7 +190,8 @@ public class CarolBaseHelp : MonoBehaviour
             {
                 // Lo ponemos como activo para que pueda ser targeteado
                 // TODO: Poner nombre de variable más claro, coño
-                weakPoint.active = true;
+                weakPoint.Unveil();
+                //weakPoint.active = true;
                 anyFound = true;
                 audioObjectManager.CreateAudioObject(weakPointFoundBip, player.transform.position);
             }

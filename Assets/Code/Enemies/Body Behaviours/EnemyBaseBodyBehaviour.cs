@@ -168,16 +168,20 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
     protected virtual void OnDrawGizmos()
     {
         //
-        
+
         //
-        //if (currentAction == Actions.GoingToPlayer && pathToUse != null && pathToUse.Count > 0)
-        //{
-        //    Debug.DrawRay(transform.position, pathToUse[0].transform.position - transform.position, Color.yellow);
-        //    if(pathToUse.Count > 1)
-        //        Debug.DrawRay(pathToUse[0].transform.position, pathToUse[1].transform.position - pathToUse[0].transform.position, Color.yellow);
-        //}
+        if (currentAction == Actions.GoingToPlayer && pathToUse != null && pathToUse.Count > 0)
+        {
+            Debug.DrawRay(transform.position, pathToUse[0].transform.position - transform.position, Color.yellow);
+            if (pathToUse.Count > 1)
+                Debug.DrawRay(pathToUse[0].transform.position, pathToUse[1].transform.position - pathToUse[0].transform.position, Color.yellow);
+            if (pathToUse.Count > 2)
+                Debug.DrawRay(pathToUse[1].transform.position, pathToUse[2].transform.position - pathToUse[1].transform.position, Color.yellow);
+            if (pathToUse.Count > 3)
+                Debug.DrawRay(pathToUse[2].transform.position, pathToUse[3].transform.position - pathToUse[2].transform.position, Color.yellow);
+        }
         //
-        if(currentAction == Actions.GoInFormation)
+        if (currentAction == Actions.GoInFormation)
         {
             //Vector3 objectivePosition = enemyFormation.GetFormationPlaceInWorld(this);
             //Vector3 objectiveDirection = objectivePosition - transform.position;
@@ -511,7 +515,17 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
     /// <returns></returns>
     protected bool PlayerOnSight()
     {
-        return false;
+        // TODO: Que ignore a otros enemigos
+        RaycastHit hitInfo;
+        int layerMask = 1 << 9;
+        layerMask = ~layerMask;
+        Vector3 playerDirection = player.transform.position - transform.position;
+        if(Physics.Raycast(transform.position, playerDirection, out hitInfo, playerDirection.magnitude - 1, layerMask))
+        {
+            //Debug.Log(hitInfo.transform.name + " in path of sight");
+            return false;
+        }
+        return true;
     }
 
     // De momento usamos este aqui

@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 5538520636394636694}
   - component: {fileID: 5515098343755460863}
   - component: {fileID: 4327579352153537176}
+  - component: {fileID: 6482632419427591917}
   m_Layer: 0
   m_Name: Big Energy Missile
   m_TagString: Untagged
@@ -71,6 +72,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -124,6 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cca406881df4e634db8e1b9dc80de919, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerBullet: 0
   diameter: 10
   length: 0
   lifeTime: 20
@@ -136,6 +139,7 @@ MonoBehaviour:
   bulletHoleBugPrefab: {fileID: 0}
   impactOnPlayer: {fileID: 0}
   impactOnEnemy: {fileID: 0}
+  restarted: 0
 --- !u!114 &5538520636394636694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,7 +173,7 @@ MonoBehaviour:
   propulsionForce: 5
   propulsionSpeed: 150
   seeksObjective: 1
-  rotationSpeed: 90
+  rotationSpeed: 180
 --- !u!96 &4327579352153537176
 TrailRenderer:
   serializedVersion: 2
@@ -196,6 +200,7 @@ TrailRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -274,3 +279,21 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &6482632419427591917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6014629757712964908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 572550190cd4af2498fb84d9f37d3c61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosiveLoad: 200
+  generatesFragments: 0
+  fragmentPrefab: {fileID: 0}
+  fragmentsPerHeight: 4
+  fragmentsPerWidth: 4
+  explosionClip: {fileID: 8300000, guid: c56a218742cb635489bbfef30efad2ee, type: 3}

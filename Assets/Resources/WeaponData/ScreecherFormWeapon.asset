@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a75dfd23e5a30364b93b11ac14a770d1, type: 3}
-  m_Name: JellyFishFormWeapon
+  m_Name: ScreecherFormWeapon
   m_EditorClassIdentifier: 
   weapon:
     rateOfFire: 2
     range: 50
-    proyectilePrefab: {fileID: 6014629757712964908, guid: 57f4c34965c1fd948bdba67cb5099fdd,
+    proyectilePrefab: {fileID: 6014629757712964908, guid: c292e903f19618d4aa76b471f599d404,
       type: 3}
     preparingProyectilePrefab: {fileID: 6014629757712964908, guid: 781111b48af80144388c2ecc23c3ab0e,
       type: 3}
@@ -30,7 +30,7 @@ MonoBehaviour:
     diameter: 0
     lifeTime: 10
     maxMass: 0.001
-    maxExplosiveLoad: 200
+    maxExplosiveLoad: 100
     dangerousEnough: 1
     impactParticlesPrefab: {fileID: 0}
     bulletHolePrefab: {fileID: 0}
