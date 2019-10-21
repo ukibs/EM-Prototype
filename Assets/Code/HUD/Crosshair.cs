@@ -33,6 +33,10 @@ public class Crosshair : MonoBehaviour
     private RobotControl mRobotControl;
     private AttackMode currentAttackMode;
     private float currentInteriorScale;
+
+    private RectTransform interiorRectT;
+    private RectTransform exteriorCWRectT;
+    private RectTransform exteriorCCWRectT;
     
     #endregion
 
@@ -89,14 +93,25 @@ public class Crosshair : MonoBehaviour
         // Scale the interior part of the Crosshair
         float easeUp = -(Mathf.Cos(Mathf.PI * 4 * t) + 1);
         float easeDown = (Mathf.Cos(Mathf.PI * 4 * t) + 1);
-
+        float maxScaleOffset = 30;
+        float cosDegreesPerSecond = 10;
         
         // Rotate the exterior part
         float maxOmega = 360.0f;
         float omega = 180.0f;
         float alpha = 360.0f;
+
+        // If the player is shooting
+        int playerIsShooting = mRobotControl.CurrentActionCharging == ActionCharguing.Attack ? 1 : 0;
         
+        //
+        float interiorScale = 100 + (playerIsShooting * maxScaleOffset * Mathf.Cos(t * cosDegreesPerSecond));
+        interiorRectT.sizeDelta = new Vector2 (interiorScale, interiorScale);
         
+        //
+        exteriorCWRectT.localRotation = Quaternion.AngleAxis(playerIsShooting * t * maxOmega, Vector3.forward);
+        exteriorCCWRectT.localRotation = Quaternion.AngleAxis(-(playerIsShooting * t * maxOmega), Vector3.forward);
+
     }
 
     /// <summary>
@@ -108,7 +123,12 @@ public class Crosshair : MonoBehaviour
         interiorSprite = transform.GetChild(0).transform.GetChild(0).GetComponent<Sprite>();
         exteriorCWSprite = transform.GetChild(1).transform.GetChild(0).GetComponent<Sprite>();
         exteriorCCWSprite = transform.GetChild(1).transform.GetChild(1).GetComponent<Sprite>();
-        
+
+        // And its Rect Transforms
+        interiorRectT = transform.GetChild(0).transform.GetChild(0).GetComponent<RectTransform>();
+        exteriorCWRectT = transform.GetChild(1).transform.GetChild(0).GetComponent<RectTransform>();
+        exteriorCCWRectT = transform.GetChild(1).transform.GetChild(1).GetComponent<RectTransform>();
+
         // Set the rotation of the counter clockwise exterior part of the crosshair
         Vector3 ccwEulerAngles = new Vector3(0.0f, 0.0f, 90.0f);
         transform.GetChild(1).transform.GetChild(1).transform.eulerAngles = ccwEulerAngles;

@@ -17,7 +17,6 @@ GameObject:
   - component: {fileID: 5538520636394636694}
   - component: {fileID: 5515098343755460863}
   - component: {fileID: 4327579352153537176}
-  - component: {fileID: 6482632419427591917}
   m_Layer: 0
   m_Name: Big Energy Missile
   m_TagString: Untagged
@@ -152,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 572550190cd4af2498fb84d9f37d3c61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosiveLoad: 1000
+  explosiveLoad: 500
   generatesFragments: 0
   fragmentPrefab: {fileID: 0}
   fragmentsPerHeight: 4
@@ -279,21 +278,3 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
---- !u!114 &6482632419427591917
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6014629757712964908}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 572550190cd4af2498fb84d9f37d3c61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  explosiveLoad: 200
-  generatesFragments: 0
-  fragmentPrefab: {fileID: 0}
-  fragmentsPerHeight: 4
-  fragmentsPerWidth: 4
-  explosionClip: {fileID: 8300000, guid: c56a218742cb635489bbfef30efad2ee, type: 3}
