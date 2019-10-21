@@ -5,10 +5,6 @@ using UnityEngine.UI;
 
 public class Crosshair : MonoBehaviour
 {
-    #region UI
-
-    #endregion
-
     #region Public Variables
 
     [Header("UI Adjustments")]
@@ -37,6 +33,11 @@ public class Crosshair : MonoBehaviour
     private RectTransform interiorRectT;
     private RectTransform exteriorCWRectT;
     private RectTransform exteriorCCWRectT;
+
+
+    private Vector3 idleInteriorRot = new Vector3(0.0f, 0.0f, 0.0f);
+    private Vector3 idleExteriorCWRot = new Vector3(0.0f, 0.0f, 90.0f);
+    private Vector3 idleExteriorCCWRot = new Vector3(0.0f, 0.0f, 0.0f);
     
     #endregion
 
@@ -44,7 +45,7 @@ public class Crosshair : MonoBehaviour
     
     private void Awake()
     {
-        //InitializeCrosshair();
+        InitializeCrosshair();
     }
 
     void Start()
@@ -58,6 +59,23 @@ public class Crosshair : MonoBehaviour
 
     void Update()
     {
+        /* TODO: dejar todo hecho con maquinas de estados, ya que el crosshair necesita ser manejado con estados para evitar problemas visuales
+         * Behaviours:
+         *     1. RAPIDFIRE:
+         *         Interior: escala por disparo, dando feedback en cada disparo.
+         *         Exterior: esquinas opuestas giran en el mismo sentido con giro acelerado.
+         *         Si el overheat se queda: cambio de color dependiendo de cuando overheat lleve y añadir un movimiento de la parte
+         *             exterior en plan como si estuviera lleno de presión.
+         * 
+         *     2. PULSO:
+         *         Interior: se ampliará un poco hasta llegar como máximo a 1.5 veces su tamaño, ir probando como se ve.
+         *         Exterior: girarán las esquinas opuestas y escalará a más en función de cuanta carga tenga.
+         *
+         *     3. CARGADO:
+         *         Interior: girará y escalará a menos para mostrar un disparo más preciso.
+         *         Exterior: girarán las esquinas opuestas y escalará a menos para mostrar un disparo más precios.
+         */
+        
         // TODO: cambiar el switch a, en vez de funcionar con enteros, funcione con los tipos de ataque del usuario
         switch (currentAttackMode)
         {
@@ -105,13 +123,12 @@ public class Crosshair : MonoBehaviour
         int playerIsShooting = mRobotControl.CurrentActionCharging == ActionCharguing.Attack ? 1 : 0;
         
         //
-        float interiorScale = 100 + (playerIsShooting * maxScaleOffset * Mathf.Cos(t * cosDegreesPerSecond));
+        float interiorScale = 100 + (playerIsShooting * maxScaleOffset * Mathf.Cos(t * cosDegreesPerSecond * cosDegreesPerSecond));
         interiorRectT.sizeDelta = new Vector2 (interiorScale, interiorScale);
         
         //
         exteriorCWRectT.localRotation = Quaternion.AngleAxis(playerIsShooting * t * maxOmega, Vector3.forward);
         exteriorCCWRectT.localRotation = Quaternion.AngleAxis(-(playerIsShooting * t * maxOmega), Vector3.forward);
-
     }
 
     /// <summary>
