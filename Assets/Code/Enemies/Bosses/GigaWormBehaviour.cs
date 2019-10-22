@@ -7,7 +7,7 @@ using UnityEngine;
 /// Comportamiento del Giga Gusano (Tuto)
 /// Haremos uno más complejo más adelante
 /// </summary>
-public class GigaWormBehaviour : Targeteable
+public class GigaWormBehaviour : BossBaseBehaviour
 {
     #region Status Enums
 
@@ -93,11 +93,11 @@ public class GigaWormBehaviour : Targeteable
     #region Private Attributes
 
     private WormStatus currentState = WormStatus.Wandering;
-    private RobotControl player;
+    //private RobotControl player;
     //private Rigidbody rb;
-    private ProvLevelManager levelManager;
-    private CarolBaseHelp carolHelp;
-    private CameraReference cameraReference;
+    //private ProvLevelManager levelManager;
+    //private CarolBaseHelp carolHelp;
+    //private CameraReference cameraReference;
 
     //
     private float currentTimeUnderground;
@@ -117,13 +117,10 @@ public class GigaWormBehaviour : Targeteable
     private int mawsCollidingPlayer = 0;
 
     //
-    //private bool playerOut = true;
-
-    //
     private float currentStunDuration = 0;
 
     //
-    private AudioSource audioSource;
+    //private AudioSource audioSource;
 
     //
     private CrushingEsophagus[] crushingEsophaguses;
@@ -149,27 +146,30 @@ public class GigaWormBehaviour : Targeteable
     // Seno?
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
-        player = FindObjectOfType<RobotControl>();
+        base.Start();
+        //player = FindObjectOfType<RobotControl>();
         //Debug.Log("Player found? " + player);
         //rb = GetComponent<Rigidbody>();
         currentSpeed = wanderingMovementSpeed;
-        audioSource = GetComponent<AudioSource>();
-        levelManager = FindObjectOfType<ProvLevelManager>();
-        carolHelp = FindObjectOfType<CarolBaseHelp>();
-        cameraReference = FindObjectOfType<CameraReference>();
+        //audioSource = GetComponent<AudioSource>();
+        //levelManager = FindObjectOfType<ProvLevelManager>();
+        //carolHelp = FindObjectOfType<CarolBaseHelp>();
+        //cameraReference = FindObjectOfType<CameraReference>();
         //
         crushingEsophaguses = GetComponentsInChildren<CrushingEsophagus>();
         gigaWormInsides = FindObjectOfType<GigaWormInsides>();
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
         //
         if (player == null)
             return;
+        //
+        base.Update();
         //
         float dt = Time.deltaTime;
         //

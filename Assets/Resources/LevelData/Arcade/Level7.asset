@@ -31,14 +31,14 @@ MonoBehaviour:
       maxActiveEnemies: 1
     - enemyPrefab: {fileID: 8576012526104695649, guid: 91acf057a8df05f489f5134c3a5694ce,
         type: 3}
-      formationData: {fileID: 0}
+      formationData: {fileID: 11400000, guid: f88550f285a6a154cb01560f3bba886c, type: 2}
       enemiesToSpawn: 1
       enemySpawnIncrement: 0
       timeBetweenSpawns: 5
       maxActiveEnemies: 1
-    - enemyPrefab: {fileID: 8576012526104695649, guid: 91acf057a8df05f489f5134c3a5694ce,
+    - enemyPrefab: {fileID: 3529049209132307780, guid: 145e699f523febf42847873f2b80ac06,
         type: 3}
-      formationData: {fileID: 0}
+      formationData: {fileID: 11400000, guid: 04b66144ca93c4c4e91ba743e354cd93, type: 2}
       enemiesToSpawn: 1
       enemySpawnIncrement: 0
       timeBetweenSpawns: 5
