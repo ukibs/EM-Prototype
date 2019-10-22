@@ -27,7 +27,7 @@ public class Crosshair : MonoBehaviour
     private GameManager mGameManager;
     private InputManager mInputManager;
     private RobotControl mRobotControl;
-    private AttackMode currentAttackMode;
+    //private AttackMode currentAttackMode;
     private float currentInteriorScale;
 
     private RectTransform interiorRectT;
@@ -45,7 +45,7 @@ public class Crosshair : MonoBehaviour
     
     private void Awake()
     {
-        InitializeCrosshair();
+        //InitializeCrosshair();
     }
 
     void Start()
@@ -75,26 +75,66 @@ public class Crosshair : MonoBehaviour
          *         Interior: girará y escalará a menos para mostrar un disparo más preciso.
          *         Exterior: girarán las esquinas opuestas y escalará a menos para mostrar un disparo más precios.
          */
-        
+
         // TODO: cambiar el switch a, en vez de funcionar con enteros, funcione con los tipos de ataque del usuario
-        switch (currentAttackMode)
+
+        //
+        float maxScaleOffset = 30;
+        float cosDegreesPerSecond = 10;
+        //
+        float t = Time.time;
+        // If the player is shooting
+        int playerIsShooting = mRobotControl.CurrentActionCharging == ActionCharguing.Attack ? 1 : 0;
+        //
+        float chargedAmount = mRobotControl.ChargedAmount;
+        //
+        float interiorScale;
+        float exteriorScale;
+        //
+        switch (mRobotControl.ActiveAttackMode/* currentAttackMode*/)
         {
             case AttackMode.Invalid:
                 // It should never enter this state
                 break;
 
             case AttackMode.RapidFire:
-                RapidFireBehaviour();
+                //RapidFireBehaviour();
+                //
+                interiorScale = 100 + (playerIsShooting * maxScaleOffset * Mathf.Cos(t * cosDegreesPerSecond * cosDegreesPerSecond));
+                interiorRectT.sizeDelta = new Vector2(interiorScale, interiorScale);
+
+                //
+                exteriorCWRectT.localRotation = Quaternion.AngleAxis(playerIsShooting * t * maxOmega, Vector3.forward);
+                exteriorCCWRectT.localRotation = Quaternion.AngleAxis(-(playerIsShooting * t * maxOmega), Vector3.forward);
                 break;
             
             case AttackMode.Pulse:
+                interiorScale = 100 + (100 * chargedAmount / 2);
+                interiorRectT.sizeDelta = new Vector2(interiorScale, interiorScale);
+
+                exteriorScale = 100 + (100 * chargedAmount / 2);
+                exteriorCWRectT.sizeDelta = new Vector2(interiorScale, interiorScale);
+                exteriorCCWRectT.sizeDelta = new Vector2(interiorScale, interiorScale);
+
+                //
+                exteriorCWRectT.localRotation = Quaternion.AngleAxis(playerIsShooting * t * maxOmega, Vector3.forward);
+                exteriorCCWRectT.localRotation = Quaternion.AngleAxis(-(playerIsShooting * t * maxOmega), Vector3.forward);
                 break;
             
             case AttackMode.Canon:
+                interiorScale = 100 - (100 * chargedAmount / 2);
+                interiorRectT.sizeDelta = new Vector2(interiorScale, interiorScale);
+                interiorRectT.localRotation = Quaternion.AngleAxis(playerIsShooting * t * maxOmega, Vector3.forward);
+
+                exteriorScale = 100 - (100 * chargedAmount / 2);
+                exteriorCWRectT.sizeDelta = new Vector2(interiorScale, interiorScale);
+                exteriorCCWRectT.sizeDelta = new Vector2(interiorScale, interiorScale);
+
+                //
+                exteriorCWRectT.localRotation = Quaternion.AngleAxis(playerIsShooting * t * maxOmega, Vector3.forward);
+                exteriorCCWRectT.localRotation = Quaternion.AngleAxis(-(playerIsShooting * t * maxOmega), Vector3.forward);
                 break;
             
-            case AttackMode.ParticleCascade:
-                break;
         }
     }
     
@@ -163,7 +203,7 @@ public class Crosshair : MonoBehaviour
         transform.GetChild(1).transform.GetChild(1).transform.localScale = newExteriorScale;
 
         // Now set the initial attackMode
-        currentAttackMode = mRobotControl.ActiveAttackMode;
+        //currentAttackMode = mRobotControl.ActiveAttackMode;
     }
     
     #endregion
