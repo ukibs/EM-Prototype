@@ -16,7 +16,7 @@ MonoBehaviour:
     inGameName: Big Screecher Attack
     gameMode: 0
     victoryCondition: 2
-    enemiesToDefeat: 20
+    enemiesToDefeat: 2
     attackActionsAvailable: 3
     defenseActionsAvailable: 1
     jumpActionsAvailable: 1
@@ -32,17 +32,17 @@ MonoBehaviour:
     - enemyPrefab: {fileID: 8576012526104695649, guid: 91acf057a8df05f489f5134c3a5694ce,
         type: 3}
       formationData: {fileID: 11400000, guid: f88550f285a6a154cb01560f3bba886c, type: 2}
-      enemiesToSpawn: 1
+      enemiesToSpawn: 5
       enemySpawnIncrement: 0
       timeBetweenSpawns: 5
-      maxActiveEnemies: 1
+      maxActiveEnemies: 8
     - enemyPrefab: {fileID: 3529049209132307780, guid: 145e699f523febf42847873f2b80ac06,
         type: 3}
       formationData: {fileID: 11400000, guid: 04b66144ca93c4c4e91ba743e354cd93, type: 2}
-      enemiesToSpawn: 1
+      enemiesToSpawn: 60
       enemySpawnIncrement: 0
       timeBetweenSpawns: 5
-      maxActiveEnemies: 1
+      maxActiveEnemies: 100
     terrainElementsSettings:
     - terrainPrefab: {fileID: 3326227640253247155, guid: e805da38f2157cf44bd8ebbbe826ba67,
         type: 3}
@@ -57,5 +57,10 @@ MonoBehaviour:
     - terrainPrefab: {fileID: 3326227640253247155, guid: 29ed9fee3b49fe04793523d566926bed,
         type: 3}
       terrainRatio: 3
+      terrainMax: 0
+      terrainMin: 0
+    - terrainPrefab: {fileID: 3326227640253247155, guid: cee649da1f6f3c6418e08952112853d4,
+        type: 3}
+      terrainRatio: 2
       terrainMax: 0
       terrainMin: 0
