@@ -43,6 +43,8 @@ public class ProvLevelManager : MonoBehaviour
     public bool Finished { get { return finished; } }
     public bool Victory {  get { return victory; } }
 
+    public VictoryCondition LevelVictoryCondition { get { return victoryCondition; } }
+
     // Start is called before the first frame update
     void Start()
     {

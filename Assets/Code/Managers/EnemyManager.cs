@@ -34,6 +34,7 @@ public class EnemyManager : MonoBehaviour
     private Transform playerTransform;
     private EnemySpawnPoint[] enemySpawnPoints;
     private CarolBaseHelp carolHelp;
+    private ProvLevelManager levelManager;
 
     // Vamos a manejarlo aqui de moemnto para no saturar el audio
     //private List<AudioClip> activeFiringClips;
@@ -49,6 +50,9 @@ public class EnemyManager : MonoBehaviour
     // Con esto gestionaremos las formaciones enemigas
     private List<EnemyFormation> enemyFormations;
     private List<GameObject> loneWolfs; // TODO: Trabajar esto con enemigos sin formación
+
+    // Variable para manejar bosses aparte en el índice de spameo
+    private int enemyStartIndex = 0;
 
     #region Properties
 
@@ -104,6 +108,13 @@ public class EnemyManager : MonoBehaviour
         DetermineEpicenterPoint();
         //
         enemyFormations = new List<EnemyFormation>();
+
+        // En caso de boss lo activamos desde el principio
+        if (levelManager.LevelVictoryCondition == VictoryCondition.SlayTheBeast)
+        {
+            ActivateEnemies(0);
+            enemyStartIndex = 1;
+        }
     }
 
     // Update is called once per frame
@@ -112,7 +123,7 @@ public class EnemyManager : MonoBehaviour
         //
         float dt = Time.deltaTime;
         //
-        for (int i = 0; i < enemiesSpawnSettings.Length; i++)
+        for (int i = enemyStartIndex; i < enemiesSpawnSettings.Length; i++)
         {
             //
             timeFromLastSpawn[i] += dt;

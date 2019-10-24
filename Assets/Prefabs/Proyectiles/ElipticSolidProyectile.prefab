@@ -32,6 +32,7 @@ Transform:
   m_Children:
   - {fileID: 6089832457001720882}
   - {fileID: 7397106347623286211}
+  - {fileID: 8300607693910912695}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -57,7 +58,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1449818831234027966}
   serializedVersion: 2
-  m_Mass: 0.000013116689
+  m_Mass: 0.00001233646
   m_Drag: 0.1
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -184,6 +185,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: AcidShot_Trail Red
       objectReference: {fileID: 0}
+    - target: {fileID: 8801764043903978978, guid: a2bc4ddc6a47af7478b62a9d66cb0adc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8265540234682333196, guid: a2bc4ddc6a47af7478b62a9d66cb0adc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -261,4 +267,79 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8265540234682333196, guid: a2bc4ddc6a47af7478b62a9d66cb0adc,
     type: 3}
   m_PrefabInstance: {fileID: 1446451547930099151}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7478498918332392580
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 883412999680920656}
+    m_Modifications:
+    - target: {fileID: 8534704712629419476, guid: f9a528cd81947cf4e912c916711f4c3c,
+        type: 3}
+      propertyPath: m_Name
+      value: 'vfx_SparksVariant_Loop '
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511337679448918579, guid: f9a528cd81947cf4e912c916711f4c3c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511337679448918579, guid: f9a528cd81947cf4e912c916711f4c3c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 7.43
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511337679448918579, guid: f9a528cd81947cf4e912c916711f4c3c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511337679448918579, guid: f9a528cd81947cf4e912c916711f4c3c,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511337679448918579, guid: f9a528cd81947cf4e912c916711f4c3c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511337679448918579, guid: f9a528cd81947cf4e912c916711f4c3c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511337679448918579, guid: f9a528cd81947cf4e912c916711f4c3c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511337679448918579, guid: f9a528cd81947cf4e912c916711f4c3c,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511337679448918579, guid: f9a528cd81947cf4e912c916711f4c3c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511337679448918579, guid: f9a528cd81947cf4e912c916711f4c3c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511337679448918579, guid: f9a528cd81947cf4e912c916711f4c3c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f9a528cd81947cf4e912c916711f4c3c, type: 3}
+--- !u!4 &8300607693910912695 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1511337679448918579, guid: f9a528cd81947cf4e912c916711f4c3c,
+    type: 3}
+  m_PrefabInstance: {fileID: 7478498918332392580}
   m_PrefabAsset: {fileID: 0}

@@ -234,5 +234,12 @@ public class CarolBaseHelp : MonoBehaviour
 
         }
     }
+
+    // Esto dirigido desde los bosses
+    public void SetStepObjects(CarolStepObject[] carolStepObjects)
+    {
+        this.carolStepObjects = carolStepObjects;
+        stepProgress = 0;
+    }
 }
 

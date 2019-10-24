@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BossBaseBehaviour : Targeteable
 {
+    public CarolStepObject[] carolStepObjects;
 
     #region Private Attributes
 
@@ -24,6 +25,9 @@ public class BossBaseBehaviour : Targeteable
         levelManager = FindObjectOfType<ProvLevelManager>();
         carolHelp = FindObjectOfType<CarolBaseHelp>();
         cameraReference = FindObjectOfType<CameraReference>();
+        //
+        if(carolStepObjects.Length > 0)
+            carolHelp.SetStepObjects(carolStepObjects);
     }
 
     // Update is called once per frame
