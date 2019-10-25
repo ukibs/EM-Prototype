@@ -507,6 +507,8 @@ public class GigaWormBehaviour : BossBaseBehaviour
                 {
                     GeneralFunctions.PlaySoundEffect(audioSource, allExteriorWeakPointDestroyedClip);
                 }
+                // Activamos los enemigos del grupo 1 (el 0 es el porpio boss)
+                enemyManager.ActivateEnemies(1, transform.position + (Vector3.up * 100));
                 break;
             // Para la final
             case WormStatus.Stunned:

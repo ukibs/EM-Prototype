@@ -14,6 +14,7 @@ public class BossBaseBehaviour : Targeteable
     protected CarolBaseHelp carolHelp;
     protected CameraReference cameraReference;
     protected AudioSource audioSource;
+    protected EnemyManager enemyManager;
 
     #endregion
 
@@ -25,6 +26,7 @@ public class BossBaseBehaviour : Targeteable
         levelManager = FindObjectOfType<ProvLevelManager>();
         carolHelp = FindObjectOfType<CarolBaseHelp>();
         cameraReference = FindObjectOfType<CameraReference>();
+        enemyManager = FindObjectOfType<EnemyManager>();
         //
         if(carolStepObjects.Length > 0)
             carolHelp.SetStepObjects(carolStepObjects);

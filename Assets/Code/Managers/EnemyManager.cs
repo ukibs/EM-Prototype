@@ -52,6 +52,7 @@ public class EnemyManager : MonoBehaviour
     private List<GameObject> loneWolfs; // TODO: Trabajar esto con enemigos sin formación
 
     // Variable para manejar bosses aparte en el índice de spameo
+    // NOTA: Igual no lo usamos al final
     private int enemyStartIndex = 0;
 
     #region Properties
@@ -108,6 +109,7 @@ public class EnemyManager : MonoBehaviour
         DetermineEpicenterPoint();
         //
         enemyFormations = new List<EnemyFormation>();
+        levelManager = FindObjectOfType<ProvLevelManager>();
 
         // En caso de boss lo activamos desde el principio
         if (levelManager.LevelVictoryCondition == VictoryCondition.SlayTheBeast)
@@ -122,6 +124,16 @@ public class EnemyManager : MonoBehaviour
     {
         //
         float dt = Time.deltaTime;
+        // En el boss no actualizamos el spameo de enemigos
+        // Lo gestionará el propio boss
+        if(levelManager.LevelVictoryCondition != VictoryCondition.SlayTheBeast)
+            UpdateEnemySpawnCounts(dt);
+    }
+
+    #region New Spawn Methods
+
+    void UpdateEnemySpawnCounts(float dt)
+    {
         //
         for (int i = enemyStartIndex; i < enemiesSpawnSettings.Length; i++)
         {
@@ -139,12 +151,10 @@ public class EnemyManager : MonoBehaviour
                 if (activeEnemiesAmount[i] < enemiesSpawnSettings[i].maxActiveEnemies)
                     //SpawnEnemies(i);
                     ActivateEnemies(i);
-                
+
             }
         }
     }
-
-    #region New Spawn Methods
 
     void DetermineEpicenterPoint()
     {
@@ -186,37 +196,53 @@ public class EnemyManager : MonoBehaviour
     }
 
     /// <summary>
-    /// TODO: Que spamee todo el grupo o no spamee
+    /// Activa los enemigos y los coloca donde corresponde
+    /// Puede ser llamado por el boss
     /// </summary>
     /// <param name="i"></param>
-    void ActivateEnemies(int i)
+    public void ActivateEnemies(int i, Vector3 spawnPoint = new Vector3())
     {
         //Metodo con spawn points
-        EnemyType typeToSpawn = enemiesSpawnSettings[i].enemyPrefab.GetComponent<EnemyIdentifier>().enemyType;
-        Transform groupSpawn = GetRandomSpawmPointNearerThanX(typeToSpawn, farestSpawnDistanceToEpicenter);
-        // Control de errores
-        if (groupSpawn == null)
-            return;
+        EnemyIdentifier enemyIdentifier = enemiesSpawnSettings[i].enemyPrefab.GetComponent<EnemyIdentifier>();
+        Transform groupSpawn;
+        Vector3 pointForGroupSpawn;
         //
-        Vector3 pointForGroupSpawn = groupSpawn.position;
+        if (spawnPoint != Vector3.zero)
+        {
+            pointForGroupSpawn = spawnPoint;
+        }
+        else if (enemyIdentifier)
+        {
+            EnemyType typeToSpawn = enemyIdentifier.enemyType;
+            groupSpawn = GetRandomSpawmPointNearerThanX(typeToSpawn, farestSpawnDistanceToEpicenter);
+            // Control de errores
+            if (groupSpawn == null)
+                return;
+            pointForGroupSpawn = groupSpawn.position;
+        }
+        else
+        {
+            // TODO: Desarrorlo
+            pointForGroupSpawn = epicenterPoint;
+        }
 
         // NOTA: Control de error
         // De primeras no debería haber tamaño de spawn 0
         // Aparte, ahora sale todo el grupo o no sale
         if (enemiesSpawnSettings[i].enemiesToSpawn > 0
-            && enemiesSpawnSettings[i].enemiesToSpawn < enemiesSpawnSettings[i].maxActiveEnemies - activeEnemies[i].Count)
+            && enemiesSpawnSettings[i].enemiesToSpawn <= enemiesSpawnSettings[i].maxActiveEnemies - activeEnemies[i].Count)
         {
             // Si no hay enemigos activos de ese tipo, aviso de Carol
             if (activeEnemies[i].Count == 0)
                 carolHelp.TriggerGeneralAdvice("EnemiesIncoming");
             // Primero iniciamos la formación
             EnemyFormation newEnemyFormation = null;
-            if(enemiesSpawnSettings[i].formationData != null) {
+            if (enemiesSpawnSettings[i].formationData != null) {
                 //
                 //newEnemyFormation = new EnemyFormation(enemiesSpawnSettings[i].enemiesToSpawn, 
                 //    enemiesSpawnSettings[i].formationData.formationInfo.formationType, 
                 //    enemiesSpawnSettings[i].formationData.formationInfo.distanceBetweenMembers);
-                newEnemyFormation = new EnemyFormation(enemiesSpawnSettings[i].formationData.formationInfo, 
+                newEnemyFormation = new EnemyFormation(enemiesSpawnSettings[i].formationData.formationInfo,
                     enemiesSpawnSettings[i].enemiesToSpawn);
                 //
                 enemyFormations.Add(newEnemyFormation);
@@ -246,14 +272,14 @@ public class EnemyManager : MonoBehaviour
                 GameObject nextEnemy = reserveEnemies[i][0];
                 reserveEnemies[i].Remove(nextEnemy);
                 // TODO: Revisar que falla aquí
-                if(nextEnemy.gameObject == null)
+                if (nextEnemy.gameObject == null)
                 {
                     Debug.Log(nextEnemy);
                     continue;
                 }
                 // TODO: Revisar lo de la posición al activarlos
                 nextEnemy.SetActive(true);
-                nextEnemy.transform.position = positionToSpawn;                
+                nextEnemy.transform.position = positionToSpawn;
                 EnemyConsistency enemyConsistency = nextEnemy.GetComponent<EnemyConsistency>();
                 //
                 if (enemyConsistency == null)
@@ -266,12 +292,12 @@ public class EnemyManager : MonoBehaviour
                 activeEnemies[i].Add(nextEnemy);
 
                 // Si he formación lo metemos a ella
-                if(newEnemyFormation != null)
+                if (newEnemyFormation != null)
                 {
                     //TODO: Meterlo en la formación
                     EnemyBaseBodyBehaviour behaviour = nextEnemy.GetComponent<EnemyBaseBodyBehaviour>();
                     // TODO: Arregalro para que no haga falta hacer esto
-                    if(behaviour == null) behaviour = nextEnemy.GetComponentInChildren<EnemyBaseBodyBehaviour>();
+                    if (behaviour == null) behaviour = nextEnemy.GetComponentInChildren<EnemyBaseBodyBehaviour>();
                     //
                     newEnemyFormation.formationMembers.Add(behaviour);
                     behaviour.enemyFormation = newEnemyFormation;
@@ -279,8 +305,10 @@ public class EnemyManager : MonoBehaviour
 
                 //GameObject nextEnemy = Instantiate(enemyPrefabsToUse[i], pointForGroupSpawn, Quaternion.identity);
             }
-            
+
         }
+        else
+            Debug.Log("Zero enemies to spawn or no more room for enemies");
     }
 
     //
