@@ -1017,6 +1017,25 @@ MonoBehaviour:
       enableFptlForForwardOpaque: 0
       enableBigTilePrepass: 0
       isFptlEnabled: 0
+--- !u!1 &1205309528 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8031830104222373686, guid: aca223bd86275e946a8a3c09be1d7f17,
+    type: 3}
+  m_PrefabInstance: {fileID: 1699937595}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1205309529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205309528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38e04d051a55cb143bd93b48db570b5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zDistance: -2
 --- !u!1 &1205987814 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6786210232733957762, guid: d10498cac90453b4f93333b0d9d054b0,
@@ -1160,6 +1179,21 @@ PrefabInstance:
     - target: {fileID: 8026375326962366908, guid: aca223bd86275e946a8a3c09be1d7f17,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8048433712323786730, guid: aca223bd86275e946a8a3c09be1d7f17,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7991307769001849490, guid: aca223bd86275e946a8a3c09be1d7f17,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7992669006062313196, guid: aca223bd86275e946a8a3c09be1d7f17,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
