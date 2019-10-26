@@ -285,8 +285,11 @@ public class EnemyManager : MonoBehaviour
                 if (enemyConsistency == null)
                     enemyConsistency = nextEnemy.GetComponentInChildren<EnemyConsistency>();
                 //
-                enemyConsistency.ManagerIndex = i;
-                enemyConsistency.ResetStatus();
+                if(enemyConsistency != null)
+                {
+                    enemyConsistency.ManagerIndex = i;
+                    enemyConsistency.ResetStatus();
+                }                
 
                 // Y lo añadimos a enemigos activos
                 activeEnemies[i].Add(nextEnemy);

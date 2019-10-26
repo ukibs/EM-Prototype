@@ -821,10 +821,10 @@ public class ProvisionalHUD : MonoBehaviour {
     void DrawRadarWithEnemies()
     {
         //
-        float radarXPositon = Screen.width * 33 / 1000;
-        float radarYPosition = Screen.height * 96 / 100;
-        float markerSize = 10;
-        float markerCenter = markerSize / 2;
+        RadarDimensions.radarXPositon = Screen.width * 33 / 1000;
+        RadarDimensions.radarYPosition = Screen.height * 96 / 100;
+        RadarDimensions.markerSize = 10;
+        RadarDimensions.markerCenter = RadarDimensions.markerSize / 2;
         // Igual pillamos el current up del player
         // La camara, coño
         float playerDirection = Vector3.SignedAngle(Vector3.forward, cameraControl.transform.forward, Vector3.up);
@@ -833,12 +833,13 @@ public class ProvisionalHUD : MonoBehaviour {
         // TODO: Decidir si dinámico el alcance del radar
 
         // Primero dibujamos el radar
-        GUI.DrawTexture(new Rect(radarXPositon, 
-            radarYPosition - radarDimensions.y, 
+        GUI.DrawTexture(new Rect(RadarDimensions.radarXPositon,
+            RadarDimensions.radarYPosition - radarDimensions.y, 
             radarDimensions.x, radarDimensions.y), radarTexture);
         // Epicentro si toca
-        if(enemyManager != null)
-            DrawEpicenterInRadar(playerDirection, radarXPositon, radarYPosition, markerSize);
+        if (enemyManager != null)
+            //DrawEpicenterInRadar(playerDirection, RadarDimensions.radarXPositon, RadarDimensions.radarYPosition, RadarDimensions.markerSize);
+            DrawElementInRadar(enemyManager.EpicenterPoint, playerDirection, targetedEnemyEstimatedFuturePositionTexture);
         // Y enemigos
         // TODO: Cogerlo por refencia del manager apropiado cuando lo tengamos listo
         //Targeteable[] enemies = FindObjectsOfType<Targeteable>();
@@ -853,36 +854,9 @@ public class ProvisionalHUD : MonoBehaviour {
         for (int i = 0; i < allActiveEnemies.Count; i++)
         {
             //
-            //if (!enemies[i].active)
-            //    continue;
-            //
-            Vector3 offset = allActiveEnemies[i].transform.position - playerIntegrity.transform.position;
-            // TODO: Sacar también altura
-            offset.y = 0;
-            //
-            float xzDistance = offset.magnitude;
-            if (xzDistance > radarRange)
-                offset = Vector3.ClampMagnitude(offset, radarRange);
-
-            // Sacamos la posición para el radar
-            Vector2 posInRadar = new Vector2(offset.x * radarDimensions.x / radarRange / 2 + (radarDimensions.x / 2),
-                                    offset.z * radarDimensions.y / radarRange / 2 + (radarDimensions.y / 2));
-            // La adaptamos a la orientación del player
-            // Desde el centro del radar, animalicao
-            float radius = Mathf.Sqrt(Mathf.Pow(posInRadar.x - (radarDimensions.x/2), 2) 
-                                + Mathf.Pow(posInRadar.y - (radarDimensions.y / 2), 2));
-            float angle = Mathf.Atan2(posInRadar.y - (radarDimensions.y / 2), 
-                            posInRadar.x - (radarDimensions.x / 2));
-            angle += playerDirection;
-            posInRadar.x = radius * Mathf.Cos(angle) + (radarDimensions.x / 2);
-            posInRadar.y = radius * Mathf.Sin(angle) + (radarDimensions.y / 2);
-            // Y dibujamos
             EnemyIdentifier enemyIdentifier = allActiveEnemies[i].GetComponentInParent<EnemyIdentifier>();
             //
-            if(enemyIdentifier != null)
-            GUI.DrawTexture(new Rect(radarXPositon + posInRadar.x, 
-                radarYPosition - posInRadar.y - markerCenter, markerSize, markerSize), 
-                enemyInScreenTextures[(int)enemyIdentifier.enemyType]);
+            DrawElementInRadar(allActiveEnemies[i].transform.position, playerDirection, enemyInScreenTextures[(int)enemyIdentifier.enemyType]);
         }
 
         // Y los ataques peligrosos también
@@ -891,66 +865,39 @@ public class ProvisionalHUD : MonoBehaviour {
         for(int i = 0; i < bulletPool.DangerousBullets.Count; i++)
         {
             //
-            Vector3 offset = bulletPool.DangerousBullets[i].transform.position - playerIntegrity.transform.position;
-            // TODO: Sacar también altura
-            offset.y = 0;
-            //
-            float xzDistance = offset.magnitude;
-            if (xzDistance > radarRange)
-                offset = Vector3.ClampMagnitude(offset, radarRange);
-            //
-            Vector2 posInRadar = new Vector2(offset.x * radarDimensions.x / radarRange / 2 + (radarDimensions.x / 2),
-                                        offset.z * radarDimensions.y / radarRange / 2 + (radarDimensions.y / 2));
-            // La adaptamos a la orientación del player
-            // Desde el centro del radar, animalicao
-            float radius = Mathf.Sqrt(Mathf.Pow(posInRadar.x - (radarDimensions.x / 2), 2)
-                                + Mathf.Pow(posInRadar.y - (radarDimensions.y / 2), 2));
-            float angle = Mathf.Atan2(posInRadar.y - (radarDimensions.y / 2),
-                            posInRadar.x - (radarDimensions.x / 2));
-            angle += playerDirection;
-            posInRadar.x = radius * Mathf.Cos(angle) + (radarDimensions.x / 2);
-            posInRadar.y = radius * Mathf.Sin(angle) + (radarDimensions.y / 2);
-            //
-            GUI.DrawTexture(new Rect(radarXPositon + posInRadar.x, 
-                radarYPosition - posInRadar.y - markerCenter, markerSize, markerSize), alertTexture);
+            DrawElementInRadar(bulletPool.DangerousBullets[i].transform.position, playerDirection, alertTexture);
         }
     }
 
-    /// <summary>
-    /// Dibuja epicentro en el radar
-    /// </summary>
-    private void DrawEpicenterInRadar(float playerDirection, float radarXPositon, float radarYPosition, float markerSize)
+    void DrawElementInRadar(Vector3 elementWorldPosition, float playerDirection, Texture textureToUse)
     {
-        if (enemyManager.CurrentEpicenterMode == EnemyManager.EpicenterMode.FixedPoint)
-        {
-            //
-            float markerCenter = markerSize / 2;
-            //
-            Vector3 epicenterOffset = enemyManager.EpicenterPoint - playerIntegrity.transform.position;
-            epicenterOffset.y = 0;
-            //
-            if (epicenterOffset.magnitude > radarRange)
-                epicenterOffset = Vector3.ClampMagnitude(epicenterOffset, radarRange);
-            //
-            // Sacamos la posición para el radar
-            Vector2 posInRadar = new Vector2(epicenterOffset.x * radarDimensions.x / radarRange / 2 + (radarDimensions.x / 2),
-                                    epicenterOffset.z * radarDimensions.y / radarRange / 2 + (radarDimensions.y / 2));
-            // La adaptamos a la orientación del player
-            // Desde el centro del radar, animalicao
-            float radius = Mathf.Sqrt(Mathf.Pow(posInRadar.x - (radarDimensions.x / 2), 2)
-                                + Mathf.Pow(posInRadar.y - (radarDimensions.y / 2), 2));
-            float angle = Mathf.Atan2(posInRadar.y - (radarDimensions.y / 2),
-                            posInRadar.x - (radarDimensions.x / 2));
-            angle += playerDirection;
-            posInRadar.x = radius * Mathf.Cos(angle) + (radarDimensions.x / 2);
-            posInRadar.y = radius * Mathf.Sin(angle) + (radarDimensions.y / 2);
-            // Y dibujamos
-            GUI.DrawTexture(new Rect(radarXPositon + posInRadar.x, 
-                radarYPosition - posInRadar.y - markerCenter, markerSize, markerSize),
-                enemyHealthTexture);
-        }
-    }
+        Vector3 offset = elementWorldPosition - playerIntegrity.transform.position;
+        // TODO: Sacar también altura
+        offset.y = 0;
+        //
+        float xzDistance = offset.magnitude;
+        if (xzDistance > radarRange)
+            offset = Vector3.ClampMagnitude(offset, radarRange);
 
+        // Sacamos la posición para el radar
+        Vector2 posInRadar = new Vector2(offset.x * radarDimensions.x / radarRange / 2 + (radarDimensions.x / 2),
+                                offset.z * radarDimensions.y / radarRange / 2 + (radarDimensions.y / 2));
+        // La adaptamos a la orientación del player
+        // Desde el centro del radar, animalicao
+        float radius = Mathf.Sqrt(Mathf.Pow(posInRadar.x - (radarDimensions.x / 2), 2)
+                            + Mathf.Pow(posInRadar.y - (radarDimensions.y / 2), 2));
+        float angle = Mathf.Atan2(posInRadar.y - (radarDimensions.y / 2),
+                        posInRadar.x - (radarDimensions.x / 2));
+        angle += playerDirection;
+        posInRadar.x = radius * Mathf.Cos(angle) + (radarDimensions.x / 2);
+        posInRadar.y = radius * Mathf.Sin(angle) + (radarDimensions.y / 2);
+        // Y dibujamos
+        GUI.DrawTexture(new Rect(RadarDimensions.radarXPositon + posInRadar.x,
+            RadarDimensions.radarYPosition - posInRadar.y - RadarDimensions.markerCenter,
+            RadarDimensions.markerSize, RadarDimensions.markerSize),
+            textureToUse);
+    }
+    
     //
     private void DrawDangerousBulletsDangerIndicators()
     {
@@ -989,4 +936,13 @@ public class DamageIndicator
     public float timeAlive;
     public float alpha;
     public DamageType damageType;
+}
+
+public static class RadarDimensions
+{
+    public static float radarXPositon = Screen.width * 33 / 1000;
+    public static float radarYPosition = Screen.height * 96 / 100;
+    public static float markerSize = 10;
+    public static float markerCenter = markerSize / 2;
+    
 }
