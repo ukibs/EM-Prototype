@@ -13,7 +13,7 @@ public class MapAndStatsManager : MonoBehaviour
 
     private GameManager gameManager;
     private Transform cameraTransform;
-    private Vector3[] cameraPositions;
+    private Vector3[] playerAbilitiesPositions;
     private int positionsIndex = 0;
     private float timeFromTransitionOrder = 0;
     //private Stat 
@@ -57,11 +57,11 @@ public class MapAndStatsManager : MonoBehaviour
         //
         cameraTransform = Camera.main.transform;
         //
-        cameraPositions = new Vector3[2];
+        playerAbilitiesPositions = new Vector3[2];
         //cameraPositions[0] = new Vector3(0, 0, 0);
         //cameraPositions[1] = new Vector3(Screen.width * 1.5f, 0, 0);
-        cameraPositions[0] = cameraTransform.position;
-        cameraPositions[1] = new Vector3(cameraPositions[0].x + 15, cameraPositions[0].y, cameraPositions[0].z);
+        playerAbilitiesPositions[0] = cameraTransform.GetChild(0).localPosition;
+        playerAbilitiesPositions[1] = new Vector3(playerAbilitiesPositions[0].x - 15, playerAbilitiesPositions[0].y, playerAbilitiesPositions[0].z);
         //
         CheckUnlockedStuff();
     }
@@ -79,8 +79,10 @@ public class MapAndStatsManager : MonoBehaviour
         //
         timeFromTransitionOrder += dt;
         //
-        cameraTransform.position = Vector3.Lerp(cameraTransform.position, 
-            cameraPositions[positionsIndex], timeFromTransitionOrder / transitionTime);
+        //cameraTransform.position = Vector3.Lerp(cameraTransform.position, 
+        //    cameraPositions[positionsIndex], timeFromTransitionOrder / transitionTime);
+        cameraTransform.GetChild(0).localPosition = Vector3.Lerp(cameraTransform.GetChild(0).localPosition,
+            playerAbilitiesPositions[positionsIndex], timeFromTransitionOrder / transitionTime);
     }
 
     private void OnGUI()
@@ -101,7 +103,7 @@ public class MapAndStatsManager : MonoBehaviour
     public void SwitchSection()
     {
         positionsIndex++;
-        positionsIndex = positionsIndex % cameraPositions.Length;
+        positionsIndex = positionsIndex % playerAbilitiesPositions.Length;
         //Debug.Log("Positions index: " + positionsIndex);
         timeFromTransitionOrder = 0;
     }
