@@ -329,7 +329,31 @@ public class EnemyManager : MonoBehaviour
     }
 
     #endregion
-    
+
+    #region Formation Methods
+
+    public void CheckFusionableFormations(EnemyFormation ownFormation)
+    {
+        //
+        for(int i = 0; i < enemyFormations.Count; i++)
+        {
+            if(enemyFormations[i] != ownFormation &&
+                ownFormation.FormationStrength + enemyFormations[i].FormationStrength <= 1)
+            {
+                FuseFormations(ownFormation, enemyFormations[i]);
+            }
+        }
+    }
+
+    public void FuseFormations(EnemyFormation formationToStrengthen, EnemyFormation formationToDissolve)
+    {
+        //Debug.Log("Fusing formations " + formationToStrengthen + " and " + formationToDissolve);
+        formationToStrengthen.formationMembers.AddRange(formationToDissolve.formationMembers);
+        enemyFormations.Remove(formationToDissolve);
+    }
+
+    #endregion
+
 
     //
     public void InitiateManager(LevelInfo levelInfo)

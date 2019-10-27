@@ -51,6 +51,7 @@ MonoBehaviour:
     type: 3}
   exteriorCrosshairTexture: {fileID: 2800000, guid: 6d368e829ddeea64fb4d10bf328e73e9,
     type: 3}
+  crossPrefab: {fileID: 0}
   circleTexture: {fileID: 2800000, guid: d0df108dc7a0f634d9c23e8471eee24e, type: 3}
   enemyMarkerTextureRed: {fileID: 2800000, guid: 2f8dee006ce91f549a505b7638e312d7,
     type: 3}
@@ -60,7 +61,8 @@ MonoBehaviour:
     type: 3}
   enemyInScreenTextures:
   - {fileID: 2800000, guid: 3384d4f3f66653e47a03329828278a57, type: 3}
-  - {fileID: 2800000, guid: 5136454b9b34ade4b81113322dff59a6, type: 3}
+  - {fileID: 2800000, guid: 84ba6e5311b09a144a67aa58b3365212, type: 3}
+  - {fileID: 2800000, guid: 3e09c98a41975ee46981e407e7abd28a, type: 3}
   - {fileID: 2800000, guid: b01b57f3fd7e5c940bbcf4d8f12bd54d, type: 3}
   targetedEnemyEstimatedFuturePositionTexture: {fileID: 2800000, guid: 9d5d6ce2ecad855448c8d4392c05225f,
     type: 3}

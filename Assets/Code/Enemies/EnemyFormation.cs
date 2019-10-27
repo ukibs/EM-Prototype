@@ -17,7 +17,7 @@ public class EnemyFormation
 
     public EnemyBaseBodyBehaviour FormationLeader { get { return formationMembers[0]; } }
 
-    public float FormationStrength { get { return formationMembers.Count / positions.Length; } }
+    public float FormationStrength { get { return (float)formationMembers.Count / (float)positions.Length; } }
 
     #endregion
 

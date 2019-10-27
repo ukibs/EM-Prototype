@@ -25,10 +25,10 @@ MonoBehaviour:
     - enemyPrefab: {fileID: 3529049209132307780, guid: 145e699f523febf42847873f2b80ac06,
         type: 3}
       formationData: {fileID: 11400000, guid: 04b66144ca93c4c4e91ba743e354cd93, type: 2}
-      enemiesToSpawn: 180
+      enemiesToSpawn: 40
       enemySpawnIncrement: 0
       timeBetweenSpawns: 5
-      maxActiveEnemies: 300
+      maxActiveEnemies: 120
     terrainElementsSettings:
     - terrainPrefab: {fileID: 3326227640253247155, guid: e805da38f2157cf44bd8ebbbe826ba67,
         type: 3}

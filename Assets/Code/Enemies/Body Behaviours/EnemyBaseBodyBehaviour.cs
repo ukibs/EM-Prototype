@@ -64,6 +64,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
     protected EnemyConsistency bodyConsistency;
     protected TerrainManager terrainManager;
     protected AudioSource audioSource;
+    protected EnemyManager enemyManager;
 
     // De momento lo hacemos con posiciones
     protected List<Waypoint> pathToUse;
@@ -103,6 +104,7 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
         bodyConsistency = GetComponent<EnemyConsistency>();
         terrainManager = FindObjectOfType<TerrainManager>();
         audioSource = GetComponent<AudioSource>();
+        enemyManager = FindObjectOfType<EnemyManager>();
     }
 
     protected virtual void FixedUpdate()
@@ -486,11 +488,15 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
                             currentAction = behaviour[i];
                             formationWeaponData = null;
                             return;
-                        }                            
+                        }
                         // Le asignamos el arma pero no el comportamiento
                         // Ya que será él el que marque el ritmo
                         else
+                        {
                             formationWeaponData = enemyFormation.formationInfo.weaponData;
+                            // TODO: Chequeo de fuerza de formaciones
+                            enemyManager.CheckFusionableFormations(enemyFormation);
+                        }
                         
                     }
                     break;

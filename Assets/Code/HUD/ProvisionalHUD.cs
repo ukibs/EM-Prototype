@@ -729,17 +729,30 @@ public class ProvisionalHUD : MonoBehaviour {
             if (inScreen)
             {
                 //
-                //EnemyIdentifier enemyIdentifier = enemies[i].GetComponentInParent<EnemyIdentifier>();
-                //
-                //GUI.DrawTexture(new Rect(
-                //    posInScreen.x * Screen.width - 15,
-                //    Screen.height - posInScreen.y * Screen.height - 50, 30, 30),
-                //    enemyInScreenTextures[0]);
-                //enemyInScreenTextures[(int)enemyIdentifier.enemyType]);
+                // EnemyIdentifier enemyIdentifier = enemies[i].GetComponentInParent<EnemyIdentifier>();
+                EnemyBaseBodyBehaviour behaviour = enemies[i].GetComponentInParent<EnemyBaseBodyBehaviour>();
+                Texture textureToUse = enemyInScreenTextures[0];
+                if (behaviour != null && behaviour.enemyFormation != null)
+                {
+                    float formationStrength = behaviour.enemyFormation.FormationStrength;
+
+                    
+                    if (formationStrength >= 0.75f) textureToUse = enemyInScreenTextures[3];
+                    else if (formationStrength >= 0.5f) textureToUse = enemyInScreenTextures[2];
+                    else if (formationStrength >= 0.25f) textureToUse = enemyInScreenTextures[1];
+                }
+                else
+                    textureToUse = enemyInScreenTextures[3];
+
                 GUI.DrawTexture(new Rect(
                     posInScreen.x * Screen.width - 15,
-                    Screen.height - posInScreen.y * Screen.height - 15, 30, 30),
-                    circleTexture);
+                    Screen.height - posInScreen.y * Screen.height - 50, 30, 30),
+                    textureToUse);
+                //enemyInScreenTextures[(int)enemyIdentifier.enemyType]);
+                //GUI.DrawTexture(new Rect(
+                //    posInScreen.x * Screen.width - 15,
+                //    Screen.height - posInScreen.y * Screen.height - 15, 30, 30),
+                //    circleTexture);
             }
         }
     }
@@ -821,10 +834,10 @@ public class ProvisionalHUD : MonoBehaviour {
     void DrawRadarWithEnemies()
     {
         //
-        RadarDimensions.radarXPositon = Screen.width * 33 / 1000;
-        RadarDimensions.radarYPosition = Screen.height * 96 / 100;
-        RadarDimensions.markerSize = 10;
-        RadarDimensions.markerCenter = RadarDimensions.markerSize / 2;
+        //RadarDimensions.radarXPositon = Screen.width * 33 / 1000;
+        //RadarDimensions.radarYPosition = Screen.height * 96 / 100;
+        //RadarDimensions.markerSize = 10;
+        //RadarDimensions.markerCenter = RadarDimensions.markerSize / 2;
         // Igual pillamos el current up del player
         // La camara, coño
         float playerDirection = Vector3.SignedAngle(Vector3.forward, cameraControl.transform.forward, Vector3.up);
@@ -851,12 +864,21 @@ public class ProvisionalHUD : MonoBehaviour {
         List<EnemyFormation> enemyFormations = enemyManager.EnemyFormations;
 
         // Aqui pasamos por todos los enemigos
-        for (int i = 0; i < allActiveEnemies.Count; i++)
+        for (int i = 0; i < enemyFormations.Count; i++)
         {
             //
             EnemyIdentifier enemyIdentifier = allActiveEnemies[i].GetComponentInParent<EnemyIdentifier>();
             //
-            DrawElementInRadar(allActiveEnemies[i].transform.position, playerDirection, enemyInScreenTextures[(int)enemyIdentifier.enemyType]);
+            float formationStrength = enemyFormations[i].FormationStrength;
+            
+            Texture textureToUse = enemyInScreenTextures[0];
+            if(formationStrength >= 0.75f) textureToUse = enemyInScreenTextures[3];
+            else if (formationStrength >= 0.5f) textureToUse = enemyInScreenTextures[2];
+            else if (formationStrength >= 0.25f) textureToUse = enemyInScreenTextures[1];
+            //Debug.Log("Formation strngth: " + formationStrength + ", texture to use: " + textureToUse.name);
+            //
+            //DrawElementInRadar(allActiveEnemies[i].transform.position, playerDirection, enemyInScreenTextures[(int)enemyIdentifier.enemyType]);
+            DrawElementInRadar(allActiveEnemies[i].transform.position, playerDirection, textureToUse);
         }
 
         // Y los ataques peligrosos también
