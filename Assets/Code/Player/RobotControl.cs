@@ -452,9 +452,10 @@ public class RobotControl : MonoBehaviour {
                 // TODO: Ajustar el stimated para que pille bien 
                 Vector3 pointToLook = EnemyAnalyzer.estimatedToHitPosition;
                 transform.LookAt(pointToLook, currentUp);
-            }                
+            }
             else
-                transform.LookAt(transform.position + cameraControl.transform.forward, currentUp);
+                //transform.LookAt(transform.position + cameraControl.transform.forward, currentUp);
+                transform.rotation = mainCamera.rotation;
         }
         else
         {
