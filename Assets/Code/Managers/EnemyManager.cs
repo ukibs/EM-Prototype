@@ -350,6 +350,7 @@ public class EnemyManager : MonoBehaviour
         //Debug.Log("Fusing formations " + formationToStrengthen + " and " + formationToDissolve);
         formationToStrengthen.formationMembers.AddRange(formationToDissolve.formationMembers);
         enemyFormations.Remove(formationToDissolve);
+        carolHelp.TriggerGeneralAdvice("SwarmsReforming");
     }
 
     #endregion

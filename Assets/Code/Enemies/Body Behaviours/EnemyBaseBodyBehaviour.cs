@@ -213,7 +213,9 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
     {
         // TODO: Gestionarlo menos guarro
         float distanceToPlayer = (transform.position - player.transform.position).magnitude;
-        if (distanceToPlayer > minimalShootDistance) return;
+        // Ñapa: Le memtemos un pequeño extra para que no se lie tanto con el
+        // Encircle player
+        if (distanceToPlayer > minimalShootDistance + 50) return;
         //
         formationWeaponCooldown += dt;
         //
@@ -241,7 +243,8 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
 
     protected void FireFormationWeapon(float dt)
     {
-        GameObject nextBullet = BulletPool.instance.GetBullet(formationWeaponData.weapon.proyectilePrefab);
+        GameObject nextBullet = 
+            BulletPool.instance.GetBullet(formationWeaponData.weapon.proyectilePrefab, enemyFormation.FormationStrength);
         //Debug.Log(nextBullet);
         //
         Vector3 attackPosition = transform.TransformPoint(enemyFormation.formationInfo.attackPosition);
@@ -258,6 +261,10 @@ public class EnemyBaseBodyBehaviour : MonoBehaviour
         //
         GeneralFunctions.ShootProjectileFromPool(nextBullet, attackPosition,
             Quaternion.LookRotation(attackDirection), attackDirection.normalized, formationWeaponData.weapon.muzzleSpeed, dt, ShootCalculation.MuzzleSpeed);
+        //
+        Missile missile = nextBullet.GetComponent<Missile>();
+        if (missile && missile.seeksObjective)
+            missile.AssignObjective(player.transform);
     }
 
     protected void SetFormationProyectileStrength(GameObject nextProyectile)

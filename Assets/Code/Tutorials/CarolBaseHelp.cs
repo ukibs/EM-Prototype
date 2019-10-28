@@ -228,11 +228,6 @@ public class CarolBaseHelp : MonoBehaviour
                 PlayClip(generalAdvices[i].carolStep.audioClip);
             }
         }
-        //
-        if(tag == "Danger Incoming")
-        {
-
-        }
     }
 
     // Esto dirigido desde los bosses

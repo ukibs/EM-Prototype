@@ -16,7 +16,7 @@ MonoBehaviour:
     inGameName: Melee Jellyfishes
     gameMode: 0
     victoryCondition: 1
-    enemiesToDefeat: 200
+    enemiesToDefeat: 100
     attackActionsAvailable: 2
     defenseActionsAvailable: 0
     jumpActionsAvailable: 1
@@ -25,10 +25,10 @@ MonoBehaviour:
     - enemyPrefab: {fileID: 3529049209132307780, guid: 7b08991963d6e1e498d6df118dfcb8c9,
         type: 3}
       formationData: {fileID: 11400000, guid: fc5ec908d68d3984190d3e990b9d5bf7, type: 2}
-      enemiesToSpawn: 180
+      enemiesToSpawn: 40
       enemySpawnIncrement: 0
       timeBetweenSpawns: 5
-      maxActiveEnemies: 250
+      maxActiveEnemies: 120
     terrainElementsSettings:
     - terrainPrefab: {fileID: 3326227640253247155, guid: e805da38f2157cf44bd8ebbbe826ba67,
         type: 3}

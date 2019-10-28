@@ -99,8 +99,14 @@ public class BulletPool : MonoBehaviour
         }
     }
 
-    //
-    public GameObject GetBullet(GameObject bulletPrefab)
+    /// <summary>
+    /// Coge un proyectil del pool
+    /// Bullet power en caso de trabajr con una formación
+    /// </summary>
+    /// <param name="bulletPrefab"></param>
+    /// <param name="bulletPower"></param>
+    /// <returns></returns>
+    public GameObject GetBullet(GameObject bulletPrefab, float bulletPower = -1)
     {
         //
         GameObject nextBullet = null;
@@ -124,23 +130,32 @@ public class BulletPool : MonoBehaviour
                 //
                 bulletPoolsPerType[i].reserveBullets.Remove(nextBullet);
                 bulletPoolsPerType[i].activeBullets.Add(nextBullet);
-                //
-                if (bulletPoolsPerType[i].dangerousEnough)
+                // TODO: Manejar aqui el peligro del proyectil con la fuerza de la formación
+                // Si es distinto de -1 es que no tiene un tamaño fijo
+                if(bulletPower != -1)
                 {
-                    // Instanciamos el trail renderer
-                    //if (nextBulletScript.drawTrayectory)
-                    //{
-                    //    //detectionTrail = Instantiate(carolHelp.dangerousProyetilesTrailPrefab, transform.position, Quaternion.identity);
-                    //    //detectionTrailRenderer = detectionTrail.GetComponent<LineRenderer>();
-                    //    //
-                    //    nextBulletScript.AllocateTrailRenderer();
-                    //}
+                    if (bulletPower > 0.5f) nextBulletScript.dangerousEnough = true;
+                    else nextBulletScript.dangerousEnough = false;
+                }
+                //
+                //if (bulletPoolsPerType[i].dangerousEnough)
+                if (nextBulletScript.dangerousEnough)
+                {
                     nextBulletScript.restarted = true;
 
-                    //
-                    carolHelp.TriggerGeneralAdvice("DangerIncoming");
+                    // TODO: Vamos a trabajar con dos avisos, Peligro y Gran peligro
+                    if (bulletPower != -1 && bulletPower < 0.75)
+                        carolHelp.TriggerGeneralAdvice("DangerIncoming");
+                    else
+                        carolHelp.TriggerGeneralAdvice("GreatDangerIncoming");
                     //
                     AddDangerousBulletToList(nextBullet);
+
+                    // TODO: Revisar con esto el problema de unity congelandose al editar prefabs
+                    //if (SystemInfo.graphicsDeviceName.Contains("Intel") || SystemInfo.graphicsDeviceName.Contains("Integrated") || SystemInfo.graphicsDeviceName.Contains("0D"))
+                    //{
+                    //    //Show Debug
+                    //}
                 }
                 //
                 continue;
