@@ -89,7 +89,8 @@ public class CarolBaseHelp : MonoBehaviour
             CurrentStep != null && CurrentStep.stepText != "")
         {
             //
-            Rect textRect = new Rect(Screen.width / 2 - 250, Screen.height - 100, 750, 30);
+            //Rect textRect = new Rect(Screen.width / 2 - 250, Screen.height - 100, 750, 30);
+            Rect textRect = new Rect(Screen.width * 55 / 1000, Screen.height * 20 / 100, 750, 30);
             //
             GUI.Label(textRect, CurrentStep.stepText, gUISkin.label);
         }

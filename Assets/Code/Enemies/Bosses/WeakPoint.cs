@@ -45,10 +45,10 @@ public class WeakPoint : Targeteable
     {
         // TODO: Cambiar la detección a proximidad
         // Seguramente lo haga la propia Carol
-        /*if(active == false && currentHealthPoints > 0)
+        if(active == false && currentHealthPoints > 0)
         {
-            active = true;
-        }*/
+            Unveil();
+        }
         //
         if(currentHealthPoints > 0)
         {

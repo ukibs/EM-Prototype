@@ -16,7 +16,7 @@ public class EnemyCollider : MonoBehaviour
         Count
     }
 
-    [Tooltip("Armor thickness on this side")]
+    [Tooltip("Armor thickness on this side, on steel mm equivalent")]
     public float armor = 10;
     //
     public MeshRenderer[] associatedMeshRenderers;

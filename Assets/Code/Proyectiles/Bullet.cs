@@ -335,8 +335,16 @@ public class Bullet : MonoBehaviour {
             //positions[i] = positions[i-1] + (rb.velocity.normalized * speedInStep * timePerTic) + new Vector3(0, fallInThatTime, 0);
         }
         //
-        detectionTrailRenderer.positionCount = stepsToCheck;
-        detectionTrailRenderer.SetPositions(positions);
+        if (detectionTrailRenderer)
+        {
+            detectionTrailRenderer.positionCount = stepsToCheck;
+            detectionTrailRenderer.SetPositions(positions);
+        }
+        else
+        {
+            Debug.Log("Trying to allocate non-existant line renderer");
+        }
+        
     }
 
     #endregion

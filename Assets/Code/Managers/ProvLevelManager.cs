@@ -116,8 +116,9 @@ public class ProvLevelManager : MonoBehaviour
     // TODO: Dibujar esto en el HUD
     private void OnGUI()
     {
-        //
-        if(gameManager.gameMode == GameMode.Arcade)
+        // TODO: Mover todo esto al HUD
+        //if(gameManager.gameMode == GameMode.Arcade)
+        if(victoryCondition != VictoryCondition.SlayTheBeast)
         {
             // Ya lo haremos en el hud mas adelante
             GUI.Label(new Rect(Screen.width * 55 / 1000, Screen.height * 20 / 100, 300, 30), "Enemies destroyed", guiSkin.label);
@@ -131,6 +132,10 @@ public class ProvLevelManager : MonoBehaviour
             int totalActiveEnemies = FindObjectsOfType<EnemyConsistency>().Length;
             GUI.Label(new Rect(Screen.width / 2 - 150, Screen.height * 75 / 100 + 50, 300, 50),
                "Active Enemies: " + totalActiveEnemies, guiSkin.label);
+        }
+        else
+        {
+            // Esto de momento lo mostramos en CarolHelp
         }
         
         // Y pausa
