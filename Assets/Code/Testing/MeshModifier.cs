@@ -6,6 +6,8 @@ using UnityEngine;
 public class MeshModifier : MonoBehaviour
 {
     //
+    //esto es una prueba por germanSanchez
+
     public Vector2 pointsOffset = new Vector2(0, 0.3f);
 
     //
