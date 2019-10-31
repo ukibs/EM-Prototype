@@ -103,8 +103,6 @@ public class GigaWormBehaviour : BossBaseBehaviour
     private float currentTimeUnderground;
     private bool goesUnderground = false;
 
-    private float currentSpeed = 0;
-
     //
     private float currentMawOpeningStatus;
     private MawStatus mawStatus = MawStatus.Closed;
@@ -120,9 +118,6 @@ public class GigaWormBehaviour : BossBaseBehaviour
     private float currentStunDuration = 0;
 
     //
-    //private AudioSource audioSource;
-
-    //
     private CrushingEsophagus[] crushingEsophaguses;
     private GigaWormInsides gigaWormInsides;
 
@@ -130,10 +125,7 @@ public class GigaWormBehaviour : BossBaseBehaviour
 
     #region Properties
 
-    public float CurrentSpeed { get { return currentSpeed; } }
-
     // Propiedades para la parte interna
-    //public bool PlayerOut { set { playerOut = value; } }
     public Transform ExitPoint { get { return exitPoint; } }
     public bool Active { set { active = value; } }
     public WormStatus CurrentState { get { return currentState; } }
@@ -251,7 +243,7 @@ public class GigaWormBehaviour : BossBaseBehaviour
         
     }
 
-    private void OnDrawGizmos()
+    protected void OnDrawGizmos()
     {
         //
         if (player != null)
@@ -263,7 +255,7 @@ public class GigaWormBehaviour : BossBaseBehaviour
         }
     }
 
-    void UpdateBehaviour(Vector3 playerDirection, float dt)
+    protected void UpdateBehaviour(Vector3 playerDirection, float dt)
     {
         //
         switch (currentState)
@@ -383,7 +375,7 @@ public class GigaWormBehaviour : BossBaseBehaviour
     }
 
     // TODO: Funciona, pero hay que revisar el modelado de la mandíbula
-    void CheckMawsCollision(Collision collision)
+    private void CheckMawsCollision(Collision collision)
     {
         //
         if (mawStatus != MawStatus.Closing)
@@ -400,7 +392,7 @@ public class GigaWormBehaviour : BossBaseBehaviour
     }
 
     //
-    void UpdateMaw(Vector3 playerDirection, float dt)
+    private void UpdateMaw(Vector3 playerDirection, float dt)
     {
         //
         float playerDistance = playerDirection.magnitude;
@@ -485,7 +477,7 @@ public class GigaWormBehaviour : BossBaseBehaviour
     }
 
     // Llamada desde los weakpoints cuando son destruidos
-    public void LoseWeakPoint()
+    public override void LoseWeakPoint(string tag = "")
     {
         switch (currentState)
         {
@@ -523,7 +515,7 @@ public class GigaWormBehaviour : BossBaseBehaviour
     }
 
     // Para casos en que el weakpoint active algo al ser dañado en vez de destruido
-    public void RespondToDamagedWeakPoint()
+    public override void RespondToDamagedWeakPoint(string tag = "")
     {
         if(currentState == WormStatus.Stunned)
         {
@@ -534,7 +526,7 @@ public class GigaWormBehaviour : BossBaseBehaviour
     }
 
     //
-    public void ImpactWithTerrain(bool hardEnough)
+    public override void ImpactWithTerrain(bool hardEnough)
     {
         //
         Debug.Log("Maws impacting with terrain: " + mawStatus + ", " + hardEnough);
@@ -554,7 +546,7 @@ public class GigaWormBehaviour : BossBaseBehaviour
     }
 
     //
-    void MovePlayerToInterior()
+    private void MovePlayerToInterior()
     {
         player.transform.position = interiorEntrance.position;
         player.transform.rotation = Quaternion.LookRotation(Vector3.back);

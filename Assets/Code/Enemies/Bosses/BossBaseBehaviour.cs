@@ -16,6 +16,15 @@ public class BossBaseBehaviour : Targeteable
     protected AudioSource audioSource;
     protected EnemyManager enemyManager;
 
+    //
+    protected float currentSpeed;
+
+    #endregion
+
+    #region Properties
+
+    public float CurrentSpeed { get { return currentSpeed; } }
+
     #endregion
 
     // Start is called before the first frame update
@@ -37,4 +46,15 @@ public class BossBaseBehaviour : Targeteable
     {
         
     }
+
+    #region Methods
+
+    public virtual void LoseWeakPoint(string tag = "") {}
+
+    public virtual void RespondToDamagedWeakPoint(string tag = "") {}
+
+    public virtual void ImpactWithTerrain(bool hardEnough) {}
+
+    #endregion
+
 }

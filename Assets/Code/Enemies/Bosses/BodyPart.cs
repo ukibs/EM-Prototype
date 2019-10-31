@@ -6,7 +6,7 @@ public class BodyPart : MonoBehaviour
 {
     //
     public Transform previousBodyPart;
-    public GigaWormBehaviour gigaWormBehaviour;
+    public BossBaseBehaviour bossBehaviour;
     public BigWormBodyBehaviour bigWormBehaviour;
     
 
@@ -29,9 +29,9 @@ public class BodyPart : MonoBehaviour
             transform.position = new Vector3(transform.position.x, bigWormBehaviour.underSandIdealHeight, transform.position.z);
         }
         //
-        if(gigaWormBehaviour != null)
+        if(bossBehaviour != null)
         {
-            speedToUse = gigaWormBehaviour.CurrentSpeed;
+            speedToUse = bossBehaviour.CurrentSpeed;
         }
     }
 
@@ -58,6 +58,6 @@ public class BodyPart : MonoBehaviour
     {
         // TODO: Trabajar bien la velocidad del gusano
         if (bigWormBehaviour != null) speedToUse = bigWormBehaviour.headRb.velocity.magnitude;
-        if (gigaWormBehaviour != null) speedToUse = gigaWormBehaviour.CurrentSpeed;
+        if (bossBehaviour != null) speedToUse = bossBehaviour.CurrentSpeed;
     }
 }
