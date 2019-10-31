@@ -13,8 +13,9 @@ public class WeakPoint : Targeteable
     public float maxHealthPoints = 30;
     public Material unveiledMaterial;
     public bool reactionOnDamage = false;
-    public GigaWormBehaviour gigaWormBehaviour;
+    public BossBaseBehaviour bossBehaviour;
     public GameObject destructionParticles;
+    public string tagForBoss;
 
     #endregion
 
@@ -56,12 +57,12 @@ public class WeakPoint : Targeteable
             //
             if (reactionOnDamage)
             {
-                gigaWormBehaviour.RespondToDamagedWeakPoint();
+                bossBehaviour.RespondToDamagedWeakPoint(tagForBoss);
             }
             //
             if (currentHealthPoints <= 0)
             {
-                gigaWormBehaviour.LoseWeakPoint();
+                bossBehaviour.LoseWeakPoint(tagForBoss);
                 carolBaseHelp.WeakPointDestroyed();
                 //TODO: Meteremos el churrazo de sangre
                 active = false;

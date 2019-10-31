@@ -7,6 +7,8 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
     #region Public Attributes
 
     public float startSpeed = 30;
+    public float startHeight = 75;
+    public float rotationSpeed = 30;
 
     #endregion
 
@@ -16,6 +18,7 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
     private GameObject posteriorSegment;
 
     private BodyPart bodyPartBehaviour;
+    private GigaSegmentedBehaviour posteriorSegmentBehaviour;
 
     #endregion
 
@@ -28,6 +31,8 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
     // Start is called before the first frame update
     protected override void Start()
     {
+        //
+        transform.position += Vector3.up * startHeight;
         //
         GetPreviousAndPosteriorSegements();
         //
@@ -46,7 +51,8 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
         if (IsActiveHead)
         {
             transform.Translate(Vector3.forward * currentSpeed * dt);
-            transform.Rotate(Vector3.up * 1 * dt);
+            //transform.Rotate(Vector3.up * 1 * dt);
+            transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed, dt);
         }
     }
 
@@ -63,6 +69,7 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
         else
         {
             previousSegment = transform.parent.GetChild(index - 1).gameObject;
+            //
             bodyPartBehaviour = gameObject.AddComponent<BodyPart>();
             bodyPartBehaviour.previousBodyPart = previousSegment.transform;
             bodyPartBehaviour.bossBehaviour = this;
@@ -72,13 +79,32 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
         if (index == transform.parent.childCount - 1)
         {
             // En este caso es la cola, desactivamos el weakpoint de conexion
-            transform.GetChild(3).gameObject.SetActive(false);
+            transform.GetChild(2).gameObject.SetActive(false);
         }
         else
+        {
             posteriorSegment = transform.parent.GetChild(index + 1).gameObject;
+            //
+            posteriorSegmentBehaviour = posteriorSegment.GetComponent<GigaSegmentedBehaviour>();
+        }
+            
     }
 
-    public override void LoseWeakPoint(string tag = "") { }
+    public void LoseConnectionWithPrev()
+    {
+        Destroy(bodyPartBehaviour);
+        previousSegment = null;
+    }
+
+    public override void LoseWeakPoint(string tag = "")
+    {
+        Debug.Log("Destuction tag: " + tag);
+        //
+        if (tag.Equals("Connection"))
+        {
+            posteriorSegmentBehaviour.LoseConnectionWithPrev();
+        }
+    }
 
     public override void RespondToDamagedWeakPoint(string tag = "") { }
 
