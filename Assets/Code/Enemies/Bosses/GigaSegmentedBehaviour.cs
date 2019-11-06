@@ -4,11 +4,27 @@ using UnityEngine;
 
 public class GigaSegmentedBehaviour : BossBaseBehaviour
 {
+
+    public enum Status
+    {
+        Invalid = -1,
+
+        Wandering,
+        Sprinting,
+
+        Count
+    }
+
     #region Public Attributes
 
     public float startSpeed = 30;
+    public float verticaSpeed = 10;
+    public float sprintSpeed = 60;
     public float startHeight = 75;
     public float rotationSpeed = 30;
+    public float minHeight = 50;
+    public float maxHeight = 200;
+    public float sprintDuration = 10;
 
     #endregion
 
@@ -18,13 +34,34 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
     private GameObject posteriorSegment;
 
     private BodyPart bodyPartBehaviour;
+    private GigaSegmentedBehaviour previousSegmentBehaviour;
     private GigaSegmentedBehaviour posteriorSegmentBehaviour;
+
+    private float currentDesiredHeight;
+    private float sprintCurrentDuration;
+
+    private Status currentStatus;
 
     #endregion
 
     #region Properties
 
-    public bool IsActiveHead{ get { return previousSegment == null; } }
+    public bool IsActiveHead { get { return previousSegment == null; } }
+    public GigaSegmentedBehaviour HeadBehaviour
+    {
+        get
+        {
+            if (IsActiveHead)
+            {
+                return this;
+            }
+            else
+            {
+                return previousSegmentBehaviour;
+            }
+        }
+        
+    }
 
     #endregion
 
@@ -39,6 +76,8 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
         base.Start();
         //
         currentSpeed = startSpeed;
+        //
+        DecideNewHeight();
     }
 
     // Update is called once per frame
@@ -50,9 +89,24 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
         //
         if (IsActiveHead)
         {
-            transform.Translate(Vector3.forward * currentSpeed * dt);
+            //
+            float heightOffset = currentDesiredHeight - transform.position.y;
+            Vector3 verticalMovement = Vector3.up * Mathf.Sign(heightOffset) * verticaSpeed;
+            //
+            if (Mathf.Abs(heightOffset) < 5) DecideNewHeight();
+            // Manejamos el vertical movement un poco aparte por si le ponemos una velocidad propia
+            transform.Translate(((Vector3.forward * currentSpeed) + (verticalMovement)) * dt);
             //transform.Rotate(Vector3.up * 1 * dt);
-            transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed, dt);
+            transform.rotation = GeneralFunctions.UpdateRotationOnCross(transform, player.transform.position, rotationSpeed, dt);
+            //
+            if(currentStatus == Status.Sprinting)
+            {
+                sprintCurrentDuration += dt;
+                if (sprintCurrentDuration >= sprintDuration)
+                {
+                    StopSprint();
+                }
+            }            
         }
     }
 
@@ -70,9 +124,11 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
         {
             previousSegment = transform.parent.GetChild(index - 1).gameObject;
             //
+            previousSegmentBehaviour = previousSegment.GetComponent<GigaSegmentedBehaviour>();
+            // TODO: Revisar esta parte
             bodyPartBehaviour = gameObject.AddComponent<BodyPart>();
             bodyPartBehaviour.previousBodyPart = previousSegment.transform;
-            bodyPartBehaviour.bossBehaviour = this;
+            bodyPartBehaviour.bossBehaviour = HeadBehaviour;
         }
             
         //
@@ -90,6 +146,35 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
             
     }
 
+    private void StartSprint()
+    {
+        //
+        if (IsActiveHead)
+        {
+            currentSpeed = sprintSpeed;
+            sprintCurrentDuration = 0;
+            currentStatus = Status.Sprinting;
+            Debug.Log("Starting sprint");
+        }
+        else
+        {
+            previousSegmentBehaviour.StartSprint();
+        }
+    }
+
+    private void StopSprint()
+    {
+        currentSpeed = startSpeed;
+        currentStatus = Status.Wandering;
+        Debug.Log("Finishing sprint");
+    }
+
+    private void DecideNewHeight()
+    {
+        currentDesiredHeight = Random.Range(minHeight, maxHeight);
+        //Debug.Log("New desired height: " + currentDesiredHeight);
+    }
+
     public void LoseConnectionWithPrev()
     {
         Destroy(bodyPartBehaviour);
@@ -103,6 +188,11 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
         if (tag.Equals("Connection"))
         {
             posteriorSegmentBehaviour.LoseConnectionWithPrev();
+            // TODO: Manejar aqui reaisgnacion en body part
+        }
+        else if (tag.Equals("Generator"))
+        {
+            StartSprint();
         }
     }
 

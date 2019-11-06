@@ -58,6 +58,14 @@ public class BodyPart : MonoBehaviour
     {
         // TODO: Trabajar bien la velocidad del gusano
         if (bigWormBehaviour != null) speedToUse = bigWormBehaviour.headRb.velocity.magnitude;
-        if (bossBehaviour != null) speedToUse = bossBehaviour.CurrentSpeed;
+        if (bossBehaviour != null) {
+            //
+            if(speedToUse != bossBehaviour.CurrentSpeed)
+            {
+                Debug.Log("Old speed: " + speedToUse + ", new speed: " + bossBehaviour.CurrentSpeed);
+                //
+                speedToUse = bossBehaviour.CurrentSpeed;                
+            }
+        }
     }
 }
