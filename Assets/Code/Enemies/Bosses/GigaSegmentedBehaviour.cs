@@ -26,6 +26,8 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
     public float maxHeight = 200;
     public float sprintDuration = 10;
 
+    public Material headMaterial;
+
     #endregion
 
     #region Private Attributes
@@ -41,6 +43,8 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
     private float sprintCurrentDuration;
 
     private Status currentStatus;
+
+    private bool headAssigned = false;
 
     #endregion
 
@@ -83,31 +87,21 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
     // Update is called once per frame
     protected override void Update()
     {
+        // Vamos a hacer que la coja aqui una vez al empezar. Ya que parece que no está todavía bien asignado en el start
+        if (!headAssigned)
+        {
+            headAssigned = true;
+            if(!IsActiveHead)
+                bodyPartBehaviour.bossBehaviour = HeadBehaviour;
+        }
+            
+        //
         base.Update();
         //
         float dt = Time.deltaTime;
         //
-        if (IsActiveHead)
-        {
-            //
-            float heightOffset = currentDesiredHeight - transform.position.y;
-            Vector3 verticalMovement = Vector3.up * Mathf.Sign(heightOffset) * verticaSpeed;
-            //
-            if (Mathf.Abs(heightOffset) < 5) DecideNewHeight();
-            // Manejamos el vertical movement un poco aparte por si le ponemos una velocidad propia
-            transform.Translate(((Vector3.forward * currentSpeed) + (verticalMovement)) * dt);
-            //transform.Rotate(Vector3.up * 1 * dt);
-            transform.rotation = GeneralFunctions.UpdateRotationOnCross(transform, player.transform.position, rotationSpeed, dt);
-            //
-            if(currentStatus == Status.Sprinting)
-            {
-                sprintCurrentDuration += dt;
-                if (sprintCurrentDuration >= sprintDuration)
-                {
-                    StopSprint();
-                }
-            }            
-        }
+        UpdateHeadBehaviour(dt);
+        
     }
 
     #region Methods
@@ -119,6 +113,7 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
         if (index == 0)
         {
             // En este caso es la cabeza activa
+            GetHeadMaterial();
         }
         else
         {
@@ -146,7 +141,32 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
             
     }
 
-    private void StartSprint()
+    private void UpdateHeadBehaviour(float dt)
+    {
+        if (IsActiveHead)
+        {
+            //
+            float heightOffset = currentDesiredHeight - transform.position.y;
+            Vector3 verticalMovement = Vector3.up * Mathf.Sign(heightOffset) * verticaSpeed;
+            //
+            if (Mathf.Abs(heightOffset) < 5) DecideNewHeight();
+            // Manejamos el vertical movement un poco aparte por si le ponemos una velocidad propia
+            transform.Translate(((Vector3.forward * currentSpeed) + (verticalMovement)) * dt);
+            //transform.Rotate(Vector3.up * 1 * dt);
+            transform.rotation = GeneralFunctions.UpdateRotationOnCross(transform, player.transform.position, rotationSpeed, dt);
+            //
+            if (currentStatus == Status.Sprinting)
+            {
+                sprintCurrentDuration += dt;
+                if (sprintCurrentDuration >= sprintDuration)
+                {
+                    StopSprint();
+                }
+            }
+        }
+    }
+
+    public void StartSprint()
     {
         //
         if (IsActiveHead)
@@ -177,8 +197,33 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
 
     public void LoseConnectionWithPrev()
     {
+        //
         Destroy(bodyPartBehaviour);
         previousSegment = null;
+        //
+        GetHeadMaterial();
+        // And tell your previous ones to reasign head reference
+        posteriorSegmentBehaviour.ReassignHead(this);
+    }
+
+    public void GetHeadMaterial()
+    {
+        Transform chasis = transform.GetChild(3);
+        //
+        for (int i = 0; i < chasis.childCount; i++)
+        {
+            chasis.GetChild(i).GetComponent<MeshRenderer>().material = headMaterial;
+        }
+    }
+
+    public void ReassignHead(GigaSegmentedBehaviour gigaSegmentedBehaviour)
+    {
+        bodyPartBehaviour.bossBehaviour = gigaSegmentedBehaviour;
+        //
+        if(posteriorSegmentBehaviour != null)
+        {
+            posteriorSegmentBehaviour.ReassignHead(gigaSegmentedBehaviour);
+        }
     }
 
     public override void LoseWeakPoint(string tag = "")
@@ -189,6 +234,7 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
         {
             posteriorSegmentBehaviour.LoseConnectionWithPrev();
             // TODO: Manejar aqui reaisgnacion en body part
+            HeadBehaviour.StartSprint();
         }
         else if (tag.Equals("Generator"))
         {

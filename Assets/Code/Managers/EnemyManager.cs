@@ -281,7 +281,7 @@ public class EnemyManager : MonoBehaviour
                 nextEnemy.SetActive(true);
                 nextEnemy.transform.position = positionToSpawn;
                 EnemyConsistency enemyConsistency = nextEnemy.GetComponent<EnemyConsistency>();
-                //
+                // TODO: Cuando esté bien organizado este paso no debería ahcer falta
                 if (enemyConsistency == null)
                     enemyConsistency = nextEnemy.GetComponentInChildren<EnemyConsistency>();
                 //
@@ -289,7 +289,10 @@ public class EnemyManager : MonoBehaviour
                 {
                     enemyConsistency.ManagerIndex = i;
                     enemyConsistency.ResetStatus();
-                }                
+                }
+                // Ponemos los bosses de lado de momento
+                if (levelManager.LevelVictoryCondition == VictoryCondition.SlayTheBeast && i == 0)
+                    nextEnemy.transform.Rotate(Vector3.up * -90);
 
                 // Y lo añadimos a enemigos activos
                 activeEnemies[i].Add(nextEnemy);

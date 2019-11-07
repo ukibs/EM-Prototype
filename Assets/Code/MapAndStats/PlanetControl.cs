@@ -32,22 +32,34 @@ public class PlanetControl : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawSphere(levels[lvlIndex].position, 1);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawRay(transform.position, transform.forward * 10);
+
+        Vector3 levelDirection = levels[lvlIndex].position - transform.position;
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position, levelDirection * 10);
     }
     void AlignToLvl()
     {
         Transform currentLvl = levels[lvlIndex];
-        /*
+        
         Vector3 levelDir = currentLvl.position - transform.position;
         Vector3 levelDirRev = transform.position - currentLvl.position;
         //Vector3 cameraDir = transform.position - cameraTransform.position;
+        Vector3 forward = transform.forward;
 
-        transform.LookAt(transform.position + levelDirRev);
+        //transform.LookAt(transform.position + levelDirRev);
 
-        Quaternion levelRotation = Quaternion.LookRotation(levelDir);*/
+        Quaternion levelRotation = Quaternion.LookRotation(levelDir);
+        Quaternion levelToCameraRotation = Quaternion.FromToRotation(levelDirRev, forward);
 
-        Vector3 lvlPosition = currentLvl.position;
+        //Quaternion.Inverse(target.rotation);
+        transform.rotation *= (levelToCameraRotation);
 
-        transform.LookAt(lvlPosition);
+        //Vector3 lvlPosition = currentLvl.position;
+
+        //transform.LookAt(lvlPosition);
         //Quaternion cameraRotation = Quaternion.LookRotation(cameraDir);
 
         //float angle = Vector3.Angle(levelDir, cameraDir);
