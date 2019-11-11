@@ -282,7 +282,7 @@ public class GigaWormBehaviour : BossBaseBehaviour
                 // Velocity no sirve con kinematicos
                 //rb.velocity = transform.forward * 100;
                 //
-                head.Translate(Vector3.forward * wanderingMovementSpeed * dt);
+                head.Translate(Vector3.forward * currentSpeed * dt);
                 //Debug.Log("I'm wandering");
 
                 //

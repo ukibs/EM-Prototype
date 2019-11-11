@@ -833,7 +833,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previousBodyPart: {fileID: 735443164971732930}
-  gigaWormBehaviour: {fileID: 2634853563957990691}
+  bossBehaviour: {fileID: 0}
   bigWormBehaviour: {fileID: 0}
 --- !u!54 &2487194058738291256
 Rigidbody:
@@ -1789,7 +1789,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previousBodyPart: {fileID: 7122461310046273769}
-  gigaWormBehaviour: {fileID: 1275841468419267348}
+  bossBehaviour: {fileID: 1275841468419267348}
   bigWormBehaviour: {fileID: 0}
 --- !u!1 &941770216517735863
 GameObject:
@@ -1889,7 +1889,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previousBodyPart: {fileID: 5354679510303221644}
-  gigaWormBehaviour: {fileID: 1275841468419267348}
+  bossBehaviour: {fileID: 1275841468419267348}
   bigWormBehaviour: {fileID: 0}
 --- !u!1 &1555974350095967405
 GameObject:
@@ -1974,7 +1974,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previousBodyPart: {fileID: 8493654698684321676}
-  gigaWormBehaviour: {fileID: 2634853563957990691}
+  bossBehaviour: {fileID: 0}
   bigWormBehaviour: {fileID: 0}
 --- !u!54 &8996018087345874823
 Rigidbody:
@@ -2103,8 +2103,9 @@ MonoBehaviour:
   maxHealthPoints: 30
   unveiledMaterial: {fileID: 0}
   reactionOnDamage: 0
-  gigaWormBehaviour: {fileID: 2634853563957990691}
+  bossBehaviour: {fileID: 0}
   destructionParticles: {fileID: 0}
+  tagForBoss: 
 --- !u!1 &2176978142538850245
 GameObject:
   m_ObjectHideFlags: 0
@@ -2294,7 +2295,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previousBodyPart: {fileID: 3312910710904799600}
-  gigaWormBehaviour: {fileID: 1275841468419267348}
+  bossBehaviour: {fileID: 1275841468419267348}
   bigWormBehaviour: {fileID: 0}
 --- !u!1 &3057958841291365306
 GameObject:
@@ -2469,9 +2470,10 @@ MonoBehaviour:
   maxHealthPoints: 30
   unveiledMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
   reactionOnDamage: 0
-  gigaWormBehaviour: {fileID: 1275841468419267348}
+  bossBehaviour: {fileID: 1275841468419267348}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
+  tagForBoss: 
 --- !u!1 &4481701548776196048
 GameObject:
   m_ObjectHideFlags: 0
@@ -2523,7 +2525,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previousBodyPart: {fileID: 3041795582765540710}
-  gigaWormBehaviour: {fileID: 2634853563957990691}
+  bossBehaviour: {fileID: 0}
   bigWormBehaviour: {fileID: 0}
 --- !u!54 &4199866791624177403
 Rigidbody:
@@ -2652,8 +2654,9 @@ MonoBehaviour:
   maxHealthPoints: 30
   unveiledMaterial: {fileID: 0}
   reactionOnDamage: 0
-  gigaWormBehaviour: {fileID: 2634853563957990691}
+  bossBehaviour: {fileID: 0}
   destructionParticles: {fileID: 0}
+  tagForBoss: 
 --- !u!1 &4611439203918726565
 GameObject:
   m_ObjectHideFlags: 0
@@ -2765,9 +2768,10 @@ MonoBehaviour:
   maxHealthPoints: 30
   unveiledMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
   reactionOnDamage: 0
-  gigaWormBehaviour: {fileID: 1275841468419267348}
+  bossBehaviour: {fileID: 1275841468419267348}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
+  tagForBoss: 
 --- !u!1 &5002091342124405948
 GameObject:
   m_ObjectHideFlags: 0
@@ -2820,7 +2824,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previousBodyPart: {fileID: 4972402858937087492}
-  gigaWormBehaviour: {fileID: 2634853563957990691}
+  bossBehaviour: {fileID: 0}
   bigWormBehaviour: {fileID: 0}
 --- !u!54 &3642020632117052876
 Rigidbody:
@@ -3133,7 +3137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previousBodyPart: {fileID: 5524383307348142075}
-  gigaWormBehaviour: {fileID: 1275841468419267348}
+  bossBehaviour: {fileID: 1275841468419267348}
   bigWormBehaviour: {fileID: 0}
 --- !u!1 &5621706658335572640
 GameObject:
@@ -3307,9 +3311,10 @@ MonoBehaviour:
   maxHealthPoints: 30
   unveiledMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
   reactionOnDamage: 0
-  gigaWormBehaviour: {fileID: 1275841468419267348}
+  bossBehaviour: {fileID: 1275841468419267348}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
+  tagForBoss: 
 --- !u!1 &6619930577936644643
 GameObject:
   m_ObjectHideFlags: 0
@@ -3422,8 +3427,9 @@ MonoBehaviour:
   maxHealthPoints: 30
   unveiledMaterial: {fileID: 0}
   reactionOnDamage: 0
-  gigaWormBehaviour: {fileID: 1275841468419267348}
+  bossBehaviour: {fileID: 0}
   destructionParticles: {fileID: 0}
+  tagForBoss: 
 --- !u!1 &6619930577936644645
 GameObject:
   m_ObjectHideFlags: 0
@@ -3536,8 +3542,9 @@ MonoBehaviour:
   maxHealthPoints: 30
   unveiledMaterial: {fileID: 0}
   reactionOnDamage: 0
-  gigaWormBehaviour: {fileID: 1275841468419267348}
+  bossBehaviour: {fileID: 0}
   destructionParticles: {fileID: 0}
+  tagForBoss: 
 --- !u!1 &6619930577936644647
 GameObject:
   m_ObjectHideFlags: 0
@@ -3650,8 +3657,9 @@ MonoBehaviour:
   maxHealthPoints: 30
   unveiledMaterial: {fileID: 0}
   reactionOnDamage: 0
-  gigaWormBehaviour: {fileID: 1275841468419267348}
+  bossBehaviour: {fileID: 0}
   destructionParticles: {fileID: 0}
+  tagForBoss: 
 --- !u!1 &6619930577936644649
 GameObject:
   m_ObjectHideFlags: 0
@@ -5996,7 +6004,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previousBodyPart: {fileID: 7142227216575222591}
-  gigaWormBehaviour: {fileID: 1275841468419267348}
+  bossBehaviour: {fileID: 1275841468419267348}
   bigWormBehaviour: {fileID: 0}
 --- !u!1 &7182736997019920796
 GameObject:
@@ -6141,7 +6149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previousBodyPart: {fileID: 305566956774945773}
-  gigaWormBehaviour: {fileID: 2634853563957990691}
+  bossBehaviour: {fileID: 0}
   bigWormBehaviour: {fileID: 0}
 --- !u!54 &2610481836446638280
 Rigidbody:
@@ -6450,7 +6458,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previousBodyPart: {fileID: 6482614782302954092}
-  gigaWormBehaviour: {fileID: 2634853563957990691}
+  bossBehaviour: {fileID: 0}
   bigWormBehaviour: {fileID: 0}
 --- !u!54 &3179796082188703324
 Rigidbody:
@@ -6536,7 +6544,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previousBodyPart: {fileID: 6155527460338887717}
-  gigaWormBehaviour: {fileID: 1275841468419267348}
+  bossBehaviour: {fileID: 1275841468419267348}
   bigWormBehaviour: {fileID: 0}
 --- !u!1 &8796976761957797131
 GameObject:
@@ -6649,8 +6657,9 @@ MonoBehaviour:
   maxHealthPoints: 30
   unveiledMaterial: {fileID: 0}
   reactionOnDamage: 0
-  gigaWormBehaviour: {fileID: 2634853563957990691}
+  bossBehaviour: {fileID: 0}
   destructionParticles: {fileID: 0}
+  tagForBoss: 
 --- !u!1001 &19500365511799243
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -94,6 +94,7 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
             if(!IsActiveHead)
                 bodyPartBehaviour.bossBehaviour = HeadBehaviour;
         }
+
             
         //
         base.Update();
