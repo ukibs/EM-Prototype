@@ -15,6 +15,16 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
         Count
     }
 
+    public enum AttackState
+    {
+        Invalid = -1,
+
+        Lifting,
+        Cooldown,
+
+        Count
+    }
+
     #region Public Attributes
 
     public float startSpeed = 30;
@@ -27,6 +37,12 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
     public float sprintDuration = 10;
 
     public Material headMaterial;
+
+    // Attack variables
+    public float maxLiftForcePerSegment = 100;
+    public float liftDuration = 5;
+    public float attackCooldown = 5;
+    
 
     #endregion
 
@@ -45,6 +61,12 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
     private Status currentStatus;
 
     private bool headAssigned = false;
+
+    //
+    private AttackState currentAttackState;
+    private List<Rigidbody> liftedBodies;
+    private float accumulatedLiftMass;
+    private float currentAttackCooldown;
 
     #endregion
 
@@ -67,6 +89,20 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
         
     }
 
+    public float TotalLiftForce
+    {
+        get
+        {
+            //
+            float accumulatedLiftForce = maxLiftForcePerSegment;
+            //
+            if (posteriorSegmentBehaviour != null)
+                accumulatedLiftForce += posteriorSegmentBehaviour.TotalLiftForce;
+            //
+            return accumulatedLiftForce;
+        }
+    }
+
     #endregion
 
     // Start is called before the first frame update
@@ -82,6 +118,8 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
         currentSpeed = startSpeed;
         //
         DecideNewHeight();
+        //
+        liftedBodies = new List<Rigidbody>(10);
     }
 
     // Update is called once per frame
@@ -164,6 +202,22 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
                     StopSprint();
                 }
             }
+            // Actualizamos behaviour de ataque
+            // TODO: Poner algo aqui para que empiece ignorando a EM
+            if (true)
+            {
+                switch (currentAttackState)
+                {
+                    case AttackState.Cooldown:
+
+                        break;
+
+                    case AttackState.Lifting:
+
+                        break;
+                }
+            }
+
         }
     }
 
@@ -205,6 +259,42 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
         GetHeadMaterial();
         // And tell your previous ones to reasign head reference
         posteriorSegmentBehaviour.ReassignHead(this);
+    }
+
+    private void GetRigidbodiesToLaunch()
+    {
+        // TODO: Recordar que la lista de objetos enganchados tendrá que estar limpia
+
+        //
+        Collider[] possibleBodies = Physics.OverlapSphere(transform.position, 500);
+        //
+        for(int i = 0; i < possibleBodies.Length; i++)
+        {
+            // Primero que tenga esta tag
+            if(possibleBodies[i].tag == "Hard Terrain")
+            {
+                // Luego que tenga rigidbody
+                Rigidbody possibleRb = possibleBodies[i].GetComponent<Rigidbody>();
+                if (possibleRb != null)
+                {
+                    // 
+                    accumulatedLiftMass += possibleRb.mass;
+                    liftedBodies.Add(possibleRb);
+                    //
+                    if (accumulatedLiftMass >= TotalLiftForce)
+                        return;
+                }
+            }
+            
+        }
+    }
+
+    private void UpdateLifting()
+    {
+        for(int i = 0; i < liftedBodies.Capacity; i++)
+        {
+            
+        }
     }
 
     public void GetHeadMaterial()
