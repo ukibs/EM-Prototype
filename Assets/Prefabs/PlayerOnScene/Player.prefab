@@ -493,7 +493,7 @@ MonoBehaviour:
   loadingAtMaxClip: {fileID: 8300000, guid: 57070e1de6006704189834388197b51f, type: 3}
   releasingPulseClip: {fileID: 8300000, guid: c57b5957cb556144f83555d756c146bd, type: 3}
   releasingCanonClip: {fileID: 8300000, guid: 6442c39d8e13a1146ae1f5eddce8f30a, type: 3}
-  rapidFireClip: {fileID: 8300000, guid: b602fac39daf4bc4084ed7fdaf30e823, type: 3}
+  rapidFireClip: {fileID: 8300000, guid: 6a3e76748672516418475d1e8245a351, type: 3}
   overHeatClip: {fileID: 8300000, guid: 76b38e3e997b95b4c996b565fd03a33a, type: 3}
   rotationTime: 0.1
   not2dDMaxDuration: 0.3
