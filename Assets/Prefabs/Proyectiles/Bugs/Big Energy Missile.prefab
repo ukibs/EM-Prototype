@@ -157,7 +157,7 @@ MonoBehaviour:
   fragmentPrefab: {fileID: 0}
   fragmentsPerHeight: 4
   fragmentsPerWidth: 4
-  explosionClip: {fileID: 8300000, guid: bcdcbbf975cd6f147a210e50911ba8d2, type: 3}
+  explosionClip: {fileID: 8300000, guid: 20d13af8ec1887446b6a3c6df3caaae3, type: 3}
 --- !u!114 &5515098343755460863
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -490,7 +490,7 @@ MonoBehaviour:
   frontShield: {fileID: 852212136279935993}
   loadingClip: {fileID: 8300000, guid: 99b942fa78a6d064ca2da303ed13a3f8, type: 3}
   loadingAtMaxClip: {fileID: 8300000, guid: 57070e1de6006704189834388197b51f, type: 3}
-  releasingPulseClip: {fileID: 8300000, guid: fbd915f84b22dcc4b98ed424e9d294c4, type: 3}
+  releasingPulseClip: {fileID: 8300000, guid: c57b5957cb556144f83555d756c146bd, type: 3}
   releasingCanonClip: {fileID: 8300000, guid: 6442c39d8e13a1146ae1f5eddce8f30a, type: 3}
   rapidFireClip: {fileID: 8300000, guid: b602fac39daf4bc4084ed7fdaf30e823, type: 3}
   overHeatClip: {fileID: 8300000, guid: 76b38e3e997b95b4c996b565fd03a33a, type: 3}
@@ -555,7 +555,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerFace: {fileID: 7651396667440439992}
   playerDeadFace: {fileID: 2100000, guid: af711cfacaaddb24690be92970e4f048, type: 2}
-  shieldDepletionClip: {fileID: 8300000, guid: d4c6552cb2acee64884421743f617484, type: 3}
+  shieldDepletionClip: {fileID: 8300000, guid: 4433c235bc387434b967cf30bdd4fed3, type: 3}
 --- !u!82 &2801720779828614617
 AudioSource:
   m_ObjectHideFlags: 0

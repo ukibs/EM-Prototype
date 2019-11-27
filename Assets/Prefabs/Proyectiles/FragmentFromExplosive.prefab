@@ -69,6 +69,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -136,6 +137,7 @@ TrailRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -226,7 +228,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cca406881df4e634db8e1b9dc80de919, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerBullet: 0
   diameter: 0.1
+  length: 0
   lifeTime: 10
   dangerousEnough: 0
   drawTrayectory: 0
@@ -237,4 +241,5 @@ MonoBehaviour:
   impactOnBugParticlesPrefab: {fileID: 0}
   bulletHoleBugPrefab: {fileID: 0}
   impactOnPlayer: {fileID: 8300000, guid: dc09fccc5ec9cc445955ba40c1778570, type: 3}
-  impactOnEnemy: {fileID: 8300000, guid: fdb57e71a173345439d60e6eb03427bf, type: 3}
+  impactOnEnemy: {fileID: 8300000, guid: c637d0d3d3a175945a7396c1adc3934b, type: 3}
+  restarted: 0

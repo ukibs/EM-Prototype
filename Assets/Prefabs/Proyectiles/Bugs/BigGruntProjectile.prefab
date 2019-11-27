@@ -69,6 +69,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -138,6 +139,7 @@ MonoBehaviour:
     type: 3}
   impactOnPlayer: {fileID: 8300000, guid: fdb57e71a173345439d60e6eb03427bf, type: 3}
   impactOnEnemy: {fileID: 8300000, guid: fdb57e71a173345439d60e6eb03427bf, type: 3}
+  restarted: 0
 --- !u!1001 &3306868607422085910
 PrefabInstance:
   m_ObjectHideFlags: 0

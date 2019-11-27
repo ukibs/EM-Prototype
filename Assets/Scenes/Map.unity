@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.04720289, g: 0.06655227, b: 0.10552798, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -145,7 +145,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 105683135}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 15.37, y: -0.06, z: 6.87}
+  m_LocalPosition: {x: 36.4, y: -0.06, z: 6.87}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1743014257}
@@ -437,7 +437,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Profile: {fileID: 11400000, guid: a559b5c0061fb9346ae8f9c9ca780081, type: 2}
   m_StaticLightingSkyUniqueID: 2
-  m_SkySettings: {fileID: 1184398360}
+  m_SkySettings: {fileID: 462000618}
   m_SkySettingsFromProfile: {fileID: 7987345948961967663, guid: a559b5c0061fb9346ae8f9c9ca780081,
     type: 2}
 --- !u!114 &207230151
@@ -598,6 +598,82 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 262652120}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &462000618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3df29e7cc05fbec4aa43e06ea875565d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  rotation:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 360
+  skyIntensityMode:
+    m_OverrideState: 0
+    m_Value: 0
+  exposure:
+    m_OverrideState: 0
+    m_Value: 0
+  multiplier:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+  upperHemisphereLuxValue:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+  desiredLuxValue:
+    m_OverrideState: 0
+    m_Value: 20000
+  updateMode:
+    m_OverrideState: 0
+    m_Value: 0
+  updatePeriod:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+  includeSunInBaking:
+    m_OverrideState: 0
+    m_Value: 0
+  sunSize:
+    m_OverrideState: 0
+    m_Value: 0.04
+    min: 0
+    max: 1
+  sunSizeConvergence:
+    m_OverrideState: 0
+    m_Value: 5
+    min: 1
+    max: 10
+  atmosphereThickness:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+    max: 5
+  skyTint:
+    m_OverrideState: 0
+    m_Value: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    hdr: 0
+    showAlpha: 1
+    showEyeDropper: 1
+  groundColor:
+    m_OverrideState: 0
+    m_Value: {r: 0.369, g: 0.349, b: 0.341, a: 1}
+    hdr: 0
+    showAlpha: 1
+    showEyeDropper: 1
+  enableSunDisk:
+    m_OverrideState: 0
+    m_Value: 1
 --- !u!1 &470465215
 GameObject:
   m_ObjectHideFlags: 0
@@ -940,7 +1016,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 652886582}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e7f69eca8990f6d4388843cbfbd19d9b, type: 3}
   m_Name: 
@@ -1016,14 +1092,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 652886582}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.113592885, y: 0.046475742, z: -0.0053196074, w: 0.9924255}
   m_LocalPosition: {x: 0, y: 0, z: 1.41}
   m_LocalScale: {x: 4.916, y: 4.916, z: 4.916}
   m_Children:
   - {fileID: 828752931}
   m_Father: {fileID: 0}
   m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -13.001, y: 5.504, z: -1.2420001}
 --- !u!1001 &732515920
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1346,13 +1422,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 827840833}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.75, y: -2.28, z: -0.56}
+  m_LocalRotation: {x: -0.68787163, y: -0.061715715, z: -0.06462611, w: 0.72031057}
+  m_LocalPosition: {x: -2.76, y: -2.29, z: -0.24}
   m_LocalScale: {x: 0.5, y: 0.2000001, z: 0.50000024}
   m_Children: []
   m_Father: {fileID: 828752931}
   m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -87.36101, y: 0, z: -10.254001}
 --- !u!114 &827840835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1365,7 +1441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 351b060fffd1852428393f91d05d78cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlightMaterial: {fileID: 2100000, guid: 3c40c8fdc50a841579d7cb15882ac9d9, type: 2}
+  highlightMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
   levelData: {fileID: 11400000, guid: 3546fb5442ef17d4e86069d5a5882939, type: 2}
 --- !u!136 &827840836
 CapsuleCollider:
@@ -1600,13 +1676,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 849079585}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.58, y: 0.17999995, z: 0.05}
+  m_LocalRotation: {x: -0.35823634, y: -0.06707411, z: -0.09776884, w: 0.9260718}
+  m_LocalPosition: {x: -2.594, y: 0.11, z: 0.12}
   m_LocalScale: {x: 0.5, y: 0.2, z: 0.5}
   m_Children: []
   m_Father: {fileID: 828752931}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -42.58, y: -4.2200003, z: -10.408001}
 --- !u!114 &849079587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1619,7 +1695,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 351b060fffd1852428393f91d05d78cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlightMaterial: {fileID: 2100000, guid: 3c40c8fdc50a841579d7cb15882ac9d9, type: 2}
+  highlightMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
   levelData: {fileID: 11400000, guid: df51eb2f39057c14aa7d4aa0d6410329, type: 2}
 --- !u!136 &849079588
 CapsuleCollider:
@@ -1858,82 +1934,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 908122331}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1184398360
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3df29e7cc05fbec4aa43e06ea875565d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  active: 1
-  m_AdvancedMode: 0
-  rotation:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 360
-  skyIntensityMode:
-    m_OverrideState: 0
-    m_Value: 0
-  exposure:
-    m_OverrideState: 0
-    m_Value: 0
-  multiplier:
-    m_OverrideState: 0
-    m_Value: 1
-    min: 0
-  upperHemisphereLuxValue:
-    m_OverrideState: 0
-    m_Value: 1
-    min: 0
-  desiredLuxValue:
-    m_OverrideState: 0
-    m_Value: 20000
-  updateMode:
-    m_OverrideState: 0
-    m_Value: 0
-  updatePeriod:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-  includeSunInBaking:
-    m_OverrideState: 0
-    m_Value: 0
-  sunSize:
-    m_OverrideState: 0
-    m_Value: 0.04
-    min: 0
-    max: 1
-  sunSizeConvergence:
-    m_OverrideState: 0
-    m_Value: 5
-    min: 1
-    max: 10
-  atmosphereThickness:
-    m_OverrideState: 0
-    m_Value: 1
-    min: 0
-    max: 5
-  skyTint:
-    m_OverrideState: 0
-    m_Value: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    hdr: 0
-    showAlpha: 1
-    showEyeDropper: 1
-  groundColor:
-    m_OverrideState: 0
-    m_Value: {r: 0.369, g: 0.349, b: 0.341, a: 1}
-    hdr: 0
-    showAlpha: 1
-    showEyeDropper: 1
-  enableSunDisk:
-    m_OverrideState: 0
-    m_Value: 1
 --- !u!1 &1189865128
 GameObject:
   m_ObjectHideFlags: 0
@@ -2385,13 +2385,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1349702551}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.83, y: 0.17999995, z: 0.73}
+  m_LocalRotation: {x: 0.3656398, y: -0.83434296, z: 0.39570555, w: 0.116604514}
+  m_LocalPosition: {x: -3.79, y: -0.43, z: 0.19}
   m_LocalScale: {x: 0.5, y: 0.2000001, z: 0.50000024}
   m_Children: []
   m_Father: {fileID: 828752931}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 48.209003, y: -188.178, z: -50.993004}
 --- !u!114 &1349702553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2404,7 +2404,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 351b060fffd1852428393f91d05d78cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlightMaterial: {fileID: 2100000, guid: 3c40c8fdc50a841579d7cb15882ac9d9, type: 2}
+  highlightMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
   levelData: {fileID: 11400000, guid: 5e7b8d03191827b4c9b6ab6f35fa0c7b, type: 2}
 --- !u!136 &1349702554
 CapsuleCollider:
@@ -3246,13 +3246,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2082594211}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.9, y: 0.49, z: 1.81}
+  m_LocalRotation: {x: 0.03678159, y: 0.4391681, z: -0.56078553, w: 0.7009266}
+  m_LocalPosition: {x: -1.968, y: -0.78, z: 0.21}
   m_LocalScale: {x: 0.5, y: 0.2000001, z: 0.50000024}
   m_Children: []
   m_Father: {fileID: 828752931}
   m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 32.965, y: 43.205, z: -63.959003}
 --- !u!114 &2082594213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3265,7 +3265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 351b060fffd1852428393f91d05d78cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlightMaterial: {fileID: 2100000, guid: 3c40c8fdc50a841579d7cb15882ac9d9, type: 2}
+  highlightMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
   levelData: {fileID: 11400000, guid: 23c41a06a8220f54d98e00372259f166, type: 2}
 --- !u!136 &2082594214
 CapsuleCollider:
