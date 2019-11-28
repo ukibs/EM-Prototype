@@ -14,7 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ProtLevel.unity
     guid: d54a1667f5df4294880c2db6b117952e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/ProtLevel BOSS.unity
     guid: 20b81b676c464494ab839cccf1cba18d
   - enabled: 0

@@ -674,7 +674,9 @@ public class ProvisionalHUD : MonoBehaviour {
             float distance = (playerIntegrity.transform.position - enemyConsistency.transform.position).magnitude;
             int distanceToShow = (int)distance;
             GUI.Label(new Rect(Screen.width / 2 + 150, Screen.height / 2, 300, 20), "Distance: " + distanceToShow, guiSkin.label);
-
+            // TODO: Mostrar también velocidad del bicho
+            float enemySpeed = (int)EnemyAnalyzer.enemyRb.velocity.magnitude;
+            GUI.Label(new Rect(Screen.width / 2 + 150, Screen.height / 2 + 30, 300, 20), "Speed: " + enemySpeed + " m/s", guiSkin.label);
 
             // Raycast para saber si el enemigo está a tiro
             RaycastHit hitInfo;
@@ -958,13 +960,4 @@ public class DamageIndicator
     public float timeAlive;
     public float alpha;
     public DamageType damageType;
-}
-
-public static class RadarDimensions
-{
-    public static float radarXPositon = Screen.width * 33 / 1000;
-    public static float radarYPosition = Screen.height * 96 / 100;
-    public static float markerSize = 10;
-    public static float markerCenter = markerSize / 2;
-    
 }

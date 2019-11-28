@@ -264,6 +264,7 @@ public class PlayerIntegrity : MonoBehaviour
         //
         if (currentHealth <= 0)
         {
+            currentHealth = 0;
             // Muerte
             Debug.Log("YOU DIED, BITCH");
             ManageDeath();
