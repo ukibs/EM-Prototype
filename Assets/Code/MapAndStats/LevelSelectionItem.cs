@@ -24,6 +24,7 @@ public class LevelSelectionItem : MapAndStatsItem
     //public int levelNumber;
 
     public LevelData levelData;
+    public float yOffset = 40f;
 
     #region Unity Methods
 
@@ -79,21 +80,24 @@ public class LevelSelectionItem : MapAndStatsItem
     // Intentar no repetir nombres y demás
     void ShowLevelInfo()
     {
+        Vector2 pos = new Vector2(100, 100);
         //
-        Vector2 nextPosition = new Vector2(Screen.width / 2 + 50, 100);
         Vector2 rectSize = new Vector2(300, 50);
-        Rect levelInfoRect = new Rect(nextPosition, rectSize);
+        Rect levelInfoRect = new Rect(pos, rectSize)
+        {
+            position = pos
+        };
         //
         GUI.Label(levelInfoRect, levelData.levelInfo.inGameName, guiSkin.customStyles[3]);
-        //
-        nextPosition.y += 60;
-        levelInfoRect.position = nextPosition;
+
+        pos.y += yOffset;
+        levelInfoRect.position = pos;
         GUI.Label(levelInfoRect, "Expected enemies ", guiSkin.label);
         //
         for (int i = 0; i < levelData.levelInfo.enemiesSpawnSettings.Length; i++)
         {
-            nextPosition.y += 60;
-            levelInfoRect.position = nextPosition;
+            pos.y += yOffset;
+            levelInfoRect.position = pos;
             GUI.Label(levelInfoRect, levelData.levelInfo.enemiesSpawnSettings[i].enemyPrefab.name, guiSkin.label);
             //GUI.Label(levelInfoRect, i + "", guiSkin.label);
         }

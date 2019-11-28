@@ -345,6 +345,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highlightMaterial: {fileID: 2100000, guid: 3c40c8fdc50a841579d7cb15882ac9d9, type: 2}
   levelData: {fileID: 0}
+  yOffset: 100
 --- !u!136 &180627479
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -437,7 +438,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Profile: {fileID: 11400000, guid: a559b5c0061fb9346ae8f9c9ca780081, type: 2}
   m_StaticLightingSkyUniqueID: 2
-  m_SkySettings: {fileID: 462000618}
+  m_SkySettings: {fileID: 292796960}
   m_SkySettingsFromProfile: {fileID: 7987345948961967663, guid: a559b5c0061fb9346ae8f9c9ca780081,
     type: 2}
 --- !u!114 &207230151
@@ -538,6 +539,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highlightMaterial: {fileID: 2100000, guid: 3c40c8fdc50a841579d7cb15882ac9d9, type: 2}
   levelData: {fileID: 0}
+  yOffset: 100
 --- !u!136 &262652123
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -598,7 +600,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 262652120}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &462000618
+--- !u!114 &292796960
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -799,6 +801,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highlightMaterial: {fileID: 2100000, guid: 3c40c8fdc50a841579d7cb15882ac9d9, type: 2}
   levelData: {fileID: 11400000, guid: f36f38773f88ff244a26c84e48e94cef, type: 2}
+  yOffset: 100
 --- !u!136 &482343296
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1092,14 +1095,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 652886582}
-  m_LocalRotation: {x: -0.113592885, y: 0.046475742, z: -0.0053196074, w: 0.9924255}
-  m_LocalPosition: {x: 0, y: 0, z: 1.41}
+  m_LocalRotation: {x: -0.10072756, y: 0.24711296, z: 0.02583696, w: 0.9633907}
+  m_LocalPosition: {x: 4.2, y: -0.1, z: 1}
   m_LocalScale: {x: 4.916, y: 4.916, z: 4.916}
   m_Children:
   - {fileID: 828752931}
   m_Father: {fileID: 0}
   m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: -13.001, y: 5.504, z: -1.2420001}
+  m_LocalEulerAnglesHint: {x: -11.938001, y: 28.773, z: 0}
 --- !u!1001 &732515920
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1443,6 +1446,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highlightMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
   levelData: {fileID: 11400000, guid: 3546fb5442ef17d4e86069d5a5882939, type: 2}
+  yOffset: 100
 --- !u!136 &827840836
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1697,6 +1701,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highlightMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
   levelData: {fileID: 11400000, guid: df51eb2f39057c14aa7d4aa0d6410329, type: 2}
+  yOffset: 100
 --- !u!136 &849079588
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1874,6 +1879,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highlightMaterial: {fileID: 2100000, guid: 3c40c8fdc50a841579d7cb15882ac9d9, type: 2}
   levelData: {fileID: 11400000, guid: 7a4783b8ba6be714283fbfcd9686d139, type: 2}
+  yOffset: 100
 --- !u!136 &908122334
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2406,6 +2412,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highlightMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
   levelData: {fileID: 11400000, guid: 5e7b8d03191827b4c9b6ab6f35fa0c7b, type: 2}
+  yOffset: 100
 --- !u!136 &1349702554
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2514,6 +2521,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highlightMaterial: {fileID: 2100000, guid: 3c40c8fdc50a841579d7cb15882ac9d9, type: 2}
   levelData: {fileID: 11400000, guid: 1556f07fb831bf04e9afe0e27a8cf229, type: 2}
+  yOffset: 100
 --- !u!136 &1454319851
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2622,6 +2630,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highlightMaterial: {fileID: 2100000, guid: 3c40c8fdc50a841579d7cb15882ac9d9, type: 2}
   levelData: {fileID: 11400000, guid: 4bd3bc54e1946a24f924b30ff8a40864, type: 2}
+  yOffset: 100
 --- !u!136 &1470812965
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3267,6 +3276,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highlightMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
   levelData: {fileID: 11400000, guid: 23c41a06a8220f54d98e00372259f166, type: 2}
+  yOffset: 100
 --- !u!136 &2082594214
 CapsuleCollider:
   m_ObjectHideFlags: 0
