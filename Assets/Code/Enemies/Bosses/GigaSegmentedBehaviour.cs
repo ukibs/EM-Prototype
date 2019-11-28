@@ -63,10 +63,11 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
     private bool headAssigned = false;
 
     //
-    private AttackState currentAttackState;
-    private List<Rigidbody> liftedBodies;
+    private AttackState currentAttackState = AttackState.Cooldown;
+    private List<LiftedObject> liftedObjects;
     private float accumulatedLiftMass;
     private float currentAttackCooldown;
+    private float currentLiftDuration;
 
     #endregion
 
@@ -83,7 +84,8 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
             }
             else
             {
-                return previousSegmentBehaviour;
+                //Debug.Log(previousSegmentBehaviour.gameObject);
+                return previousSegmentBehaviour.HeadBehaviour;
             }
         }
         
@@ -105,6 +107,8 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
 
     #endregion
 
+    #region Unity Methods
+
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -119,7 +123,7 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
         //
         DecideNewHeight();
         //
-        liftedBodies = new List<Rigidbody>(10);
+        liftedObjects = new List<LiftedObject>(10);
     }
 
     // Update is called once per frame
@@ -129,7 +133,7 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
         if (!headAssigned)
         {
             headAssigned = true;
-            if(!IsActiveHead)
+            if (!IsActiveHead)
                 bodyPartBehaviour.bossBehaviour = HeadBehaviour;
         }
 
@@ -142,6 +146,30 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
         UpdateHeadBehaviour(dt);
         
     }
+
+    private void OnDrawGizmos()
+    {
+        //
+        //if (previousSegment)
+        //{
+        //    Vector3 previousDirection = previousSegment.transform.position - transform.position;
+        //    Gizmos.color = Color.blue;
+        //    Gizmos.DrawLine(transform.position, previousSegment.transform.position);
+        //    Gizmos.DrawLine(transform.position, transform.position + (Vector3.up * 100));
+        //}
+        //
+        if (IsActiveHead && currentAttackState == AttackState.Lifting)
+        {
+            //
+            for(int i = 0; i < liftedObjects.Count; i++)
+            {
+                Gizmos.color = Color.blue;
+                Gizmos.DrawLine(liftedObjects[i].initialPosition, liftedObjects[i].finalPosition);
+            }
+        }
+    }
+
+    #endregion
 
     #region Methods
 
@@ -209,11 +237,29 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
                 switch (currentAttackState)
                 {
                     case AttackState.Cooldown:
-
+                        currentAttackCooldown += dt;
+                        if(currentAttackCooldown >= attackCooldown)
+                        {
+                            currentAttackCooldown = 0;
+                            GetRigidbodiesToLaunch();
+                            currentAttackState = AttackState.Lifting;
+                            //
+                            Debug.Log("Start lifting");
+                        }
                         break;
 
                     case AttackState.Lifting:
+                        currentLiftDuration += dt;
+                        UpdateLifting();
 
+                        if(currentLiftDuration >= liftDuration)
+                        {
+                            currentLiftDuration = 0;
+                            // fsvfsdsd
+                            currentAttackState = AttackState.Cooldown;
+                            //
+                            Debug.Log("End lifting");
+                        }
                         break;
                 }
             }
@@ -261,41 +307,7 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
         posteriorSegmentBehaviour.ReassignHead(this);
     }
 
-    private void GetRigidbodiesToLaunch()
-    {
-        // TODO: Recordar que la lista de objetos enganchados tendrá que estar limpia
-
-        //
-        Collider[] possibleBodies = Physics.OverlapSphere(transform.position, 500);
-        //
-        for(int i = 0; i < possibleBodies.Length; i++)
-        {
-            // Primero que tenga esta tag
-            if(possibleBodies[i].tag == "Hard Terrain")
-            {
-                // Luego que tenga rigidbody
-                Rigidbody possibleRb = possibleBodies[i].GetComponent<Rigidbody>();
-                if (possibleRb != null)
-                {
-                    // 
-                    accumulatedLiftMass += possibleRb.mass;
-                    liftedBodies.Add(possibleRb);
-                    //
-                    if (accumulatedLiftMass >= TotalLiftForce)
-                        return;
-                }
-            }
-            
-        }
-    }
-
-    private void UpdateLifting()
-    {
-        for(int i = 0; i < liftedBodies.Capacity; i++)
-        {
-            
-        }
-    }
+    
 
     public void GetHeadMaterial()
     {
@@ -316,6 +328,59 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
             posteriorSegmentBehaviour.ReassignHead(gigaSegmentedBehaviour);
         }
     }
+    
+    #endregion
+
+    #region Attack Methods
+
+    private void GetRigidbodiesToLaunch()
+    {
+        // TODO: Recordar que la lista de objetos enganchados tendrá que estar limpia
+        liftedObjects.Clear();
+        //
+        Collider[] possibleBodies = Physics.OverlapSphere(transform.position, 500);
+        //
+        for (int i = 0; i < possibleBodies.Length; i++)
+        {
+            // Primero que tenga esta tag
+            if (possibleBodies[i].tag == "Hard Terrain")
+            {
+                // Luego que tenga rigidbody
+                Rigidbody possibleRb = possibleBodies[i].GetComponent<Rigidbody>();
+                if (possibleRb != null)
+                {
+                    // 
+                    accumulatedLiftMass += possibleRb.mass;
+                    //
+                    LiftedObject newLiftedObject = new LiftedObject(possibleRb, possibleRb.position, possibleRb.position + (Vector3.up * 200));
+                    //
+                    liftedObjects.Add(newLiftedObject);
+                    //
+                    if (accumulatedLiftMass >= TotalLiftForce)
+                        return;
+                }
+            }
+
+        }
+    }
+
+    private void UpdateLifting()
+    {
+        for (int i = 0; i < liftedObjects.Count; i++)
+        {
+            liftedObjects[i].liftedRb.position = 
+                Vector3.Lerp(liftedObjects[i].initialPosition, liftedObjects[i].finalPosition, currentLiftDuration / liftDuration);
+        }
+    }
+
+    private void LaunchStuff()
+    {
+
+    }
+
+    #endregion
+
+    #region BaseBossBehaviour
 
     public override void LoseWeakPoint(string tag = "")
     {
@@ -338,4 +403,18 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
     public override void ImpactWithTerrain(bool hardEnough) { }
 
     #endregion
+}
+
+public class LiftedObject
+{
+    public Rigidbody liftedRb;
+    public Vector3 initialPosition;
+    public Vector3 finalPosition;
+
+    public LiftedObject(Rigidbody liftedRb, Vector3 initialPosition, Vector3 finalPosition)
+    {
+        this.liftedRb = liftedRb;
+        this.initialPosition = initialPosition;
+        this.finalPosition = finalPosition;
+    }
 }

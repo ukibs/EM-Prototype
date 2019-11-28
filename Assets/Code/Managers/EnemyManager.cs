@@ -18,16 +18,8 @@ public class EnemyManager : MonoBehaviour
 
     public EpicenterMode epicenterMode;
     public EnemySpawnSettings[] enemiesSpawnSettings;
-    //public GameObject[] enemyPrefabsToUse;
-    ////public int[] initialGroupToSpawnSize;
-    //public int[] groupsToSpawnSizes;
-    //public int[] enemySpawnIncrement;
-    //public int[] maxEnemiesInAction;
-    //public float[] timeBetweenSpawns;
-    //public float minSpawnDistance = 100;
-    //public float maxSpawnDistance = 200;
     public int spawnLimit = -1;
-    public float farestSpawnDistanceToEpicenter = 1000;
+    public float farestSpawnDistanceToEpicenter = 500;
 
     private float[] timeFromLastSpawn;
     private int[] activeEnemiesAmount;
