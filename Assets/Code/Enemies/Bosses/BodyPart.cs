@@ -62,7 +62,7 @@ public class BodyPart : MonoBehaviour
             //
             if(speedToUse != bossBehaviour.CurrentSpeed)
             {
-                Debug.Log("Old speed: " + speedToUse + ", new speed: " + bossBehaviour.CurrentSpeed);
+                //Debug.Log("Old speed: " + speedToUse + ", new speed: " + bossBehaviour.CurrentSpeed);
                 //
                 speedToUse = bossBehaviour.CurrentSpeed;                
             }

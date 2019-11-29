@@ -42,7 +42,6 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
     public float maxLiftForcePerSegment = 100;
     public float liftDuration = 5;
     public float attackCooldown = 5;
-    
 
     #endregion
 
@@ -68,6 +67,7 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
     private float accumulatedLiftMass;
     private float currentAttackCooldown;
     private float currentLiftDuration;
+    private List<GameObject> liftedObjectsTrails;
 
     #endregion
 
@@ -124,6 +124,7 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
         DecideNewHeight();
         //
         liftedObjects = new List<LiftedObject>(10);
+        InitiateLiftedObjectsTrails();
     }
 
     // Update is called once per frame
@@ -258,6 +259,8 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
                             // fsvfsdsd
                             currentAttackState = AttackState.Cooldown;
                             //
+                            ThrowBodies(dt);
+                            //
                             Debug.Log("End lifting");
                         }
                         break;
@@ -275,7 +278,7 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
             currentSpeed = sprintSpeed;
             sprintCurrentDuration = 0;
             currentStatus = Status.Sprinting;
-            Debug.Log("Starting sprint");
+            //Debug.Log("Starting sprint");
         }
         else
         {
@@ -287,7 +290,7 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
     {
         currentSpeed = startSpeed;
         currentStatus = Status.Wandering;
-        Debug.Log("Finishing sprint");
+        //Debug.Log("Finishing sprint");
     }
 
     private void DecideNewHeight()
@@ -333,6 +336,20 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
 
     #region Attack Methods
 
+    private void InitiateLiftedObjectsTrails()
+    {
+        //
+        int provisionalSize = 20;
+        //
+        liftedObjectsTrails = new List<GameObject>(provisionalSize);
+        //
+        for (int i = 0; i < liftedObjects.Capacity; i++)
+        {
+            GameObject newLiftedObjectTrail = Instantiate(carolHelp.dangerousProyetilesTrailPrefab);
+            liftedObjectsTrails.Add(newLiftedObjectTrail);
+        }
+    }
+
     private void GetRigidbodiesToLaunch()
     {
         // TODO: Recordar que la lista de objetos enganchados tendrá que estar limpia
@@ -373,9 +390,28 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
         }
     }
 
-    private void LaunchStuff()
+    private void ThrowBodies(float dt)
     {
+        //
+        float desiredProyectileSpeed = 500;
+        // Inital approach
+        for (int i = 0; i < liftedObjects.Count; i++)
+        {
+            //
+            Vector3 playerStimatedPosition = GeneralFunctions.AnticipateObjectivePositionForAiming(
+                liftedObjects[i].liftedRb.position, 
+                player.transform.position, 
+                PlayerReference.playerRb.velocity, desiredProyectileSpeed, dt);
+            playerStimatedPosition.y += GeneralFunctions.GetProyectileFallToObjective(liftedObjects[i].liftedRb.position,
+                player.transform.position, desiredProyectileSpeed);
+            //
+            Vector3 playerStimatedDirection = player.transform.position - liftedObjects[i].liftedRb.position;
 
+            // TODO: HAcer que Carol o el bullet pool pinte las trayectorias
+
+            // De momento le asignamos la velicdad a palo seco
+            liftedObjects[i].liftedRb.AddForce(playerStimatedDirection.normalized * desiredProyectileSpeed, ForceMode.VelocityChange);
+        }
     }
 
     #endregion
