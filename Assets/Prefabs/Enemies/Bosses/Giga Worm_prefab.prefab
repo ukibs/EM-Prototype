@@ -6732,6 +6732,22 @@ PrefabInstance:
       propertyPath: gigaWormBehaviour
       value: 
       objectReference: {fileID: 1275841468419267348}
+    - target: {fileID: 7580580248267086526, guid: 335014e28dbf6f744a60426f9d76f2e6,
+        type: 3}
+      propertyPath: bossBehaviour
+      value: 
+      objectReference: {fileID: 1275841468419267348}
+    - target: {fileID: 7580580248267086526, guid: 335014e28dbf6f744a60426f9d76f2e6,
+        type: 3}
+      propertyPath: destructionParticles
+      value: 
+      objectReference: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
+        type: 3}
+    - target: {fileID: 7580580248267086526, guid: 335014e28dbf6f744a60426f9d76f2e6,
+        type: 3}
+      propertyPath: unveiledMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 335014e28dbf6f744a60426f9d76f2e6, type: 3}
 --- !u!114 &7599515309067692917 stripped

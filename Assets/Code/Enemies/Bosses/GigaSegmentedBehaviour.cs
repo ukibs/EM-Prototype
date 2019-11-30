@@ -533,11 +533,6 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
         HideLineRenderers();
     }
 
-    //private object WaitForSecondsRealtime(int v)
-    //{
-    //    throw new NotImplementedException();
-    //}
-
     /// <summary>
     /// 
     /// </summary>
