@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -61,6 +62,8 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
 
     private bool headAssigned = false;
 
+    private Rigidbody rb;
+
     //
     private AttackState currentAttackState = AttackState.Cooldown;
     private List<LiftedObject> liftedObjects;
@@ -68,6 +71,10 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
     private float currentAttackCooldown;
     private float currentLiftDuration;
     private List<GameObject> liftedObjectsTrails;
+
+    private float currentLiftForce;
+
+    private bool isAlive = true;
 
     #endregion
 
@@ -96,7 +103,7 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
         get
         {
             //
-            float accumulatedLiftForce = maxLiftForcePerSegment;
+            float accumulatedLiftForce = currentLiftForce;
             //
             if (posteriorSegmentBehaviour != null)
                 accumulatedLiftForce += posteriorSegmentBehaviour.TotalLiftForce;
@@ -125,6 +132,10 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
         //
         liftedObjects = new List<LiftedObject>(10);
         InitiateLiftedObjectsTrails();
+        //
+        currentLiftForce = maxLiftForcePerSegment;
+        //
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -177,7 +188,9 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
     private void GetPreviousAndPosteriorSegements()
     {
         int index = transform.GetSiblingIndex();
-        //
+        // Debug.Log("Sibling index: " + index);
+
+        // Chequeo de parte previa
         if (index == 0)
         {
             // En este caso es la cabeza activa
@@ -194,7 +207,7 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
             bodyPartBehaviour.bossBehaviour = HeadBehaviour;
         }
             
-        //
+        // Chequeo de parte posterior
         if (index == transform.parent.childCount - 1)
         {
             // En este caso es la cola, desactivamos el weakpoint de conexion
@@ -211,8 +224,13 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
 
     private void UpdateHeadBehaviour(float dt)
     {
+        //
+        if (!isAlive) return;
+        //
         if (IsActiveHead)
         {
+            //
+            Vector3 playerOffset = player.transform.position - transform.position;
             //
             float heightOffset = currentDesiredHeight - transform.position.y;
             Vector3 verticalMovement = Vector3.up * Mathf.Sign(heightOffset) * verticaSpeed;
@@ -220,8 +238,14 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
             if (Mathf.Abs(heightOffset) < 5) DecideNewHeight();
             // Manejamos el vertical movement un poco aparte por si le ponemos una velocidad propia
             transform.Translate(((Vector3.forward * currentSpeed) + (verticalMovement)) * dt);
-            //transform.Rotate(Vector3.up * 1 * dt);
-            transform.rotation = GeneralFunctions.UpdateRotationOnCross(transform, player.transform.position, rotationSpeed, dt);
+
+            // Según la distancia al player que lo rodee o vaya hacie él
+            // TODO: Deshardcodearlo
+            if (playerOffset.magnitude < 500)
+                transform.rotation = GeneralFunctions.UpdateRotationOnCross(transform, player.transform.position, rotationSpeed, dt);
+            else
+                transform.rotation = GeneralFunctions.UpdateRotationInOneAxis(transform, player.transform.position, rotationSpeed, dt);
+
             //
             if (currentStatus == Status.Sprinting)
             {
@@ -298,7 +322,7 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
 
     private void DecideNewHeight()
     {
-        currentDesiredHeight = Random.Range(minHeight, maxHeight);
+        currentDesiredHeight = UnityEngine.Random.Range(minHeight, maxHeight);
         //Debug.Log("New desired height: " + currentDesiredHeight);
     }
 
@@ -312,9 +336,7 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
         // And tell your previous ones to reasign head reference
         posteriorSegmentBehaviour.ReassignHead(this);
     }
-
     
-
     public void GetHeadMaterial()
     {
         Transform chasis = transform.GetChild(3);
@@ -332,6 +354,33 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
         if(posteriorSegmentBehaviour != null)
         {
             posteriorSegmentBehaviour.ReassignHead(gigaSegmentedBehaviour);
+        }
+    }
+
+    private void CheckDeath()
+    {
+        //
+        Debug.Log("Checking death -> Current lift force: " + currentLiftForce + ", Previous Segment Behaviour: " + previousSegmentBehaviour +
+            ", Posterior Segment Behaviour: " + posteriorSegmentBehaviour);
+        //
+        if(currentLiftForce <= 50 && previousSegmentBehaviour == null && posteriorSegmentBehaviour == null)
+        {
+            // Aquí muere el segmento
+
+            // Primero rigidbody de cadaver
+            rb.isKinematic = false;
+            rb.useGravity = true;
+
+            // Gestión de layer
+            //int newLayer = 
+            //gameObject.layer = 
+
+            //
+            isAlive = false;
+            Debug.Log("Segment dead");
+
+            // Y finalmente gestionamos la condición de victoria
+
         }
     }
     
@@ -380,7 +429,7 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
                     if (accumulatedLiftMass >= TotalLiftForce)
                     {
                         //
-                        Debug.Log("Lifting " + liftedObjects.Count + " objects with a total accumulated mass of" + accumulatedLiftMass);
+                        //Debug.Log("Lifting " + liftedObjects.Count + " objects with a total accumulated mass of" + accumulatedLiftMass);
                         accumulatedLiftMass = 0;
                         return;
                     }
@@ -474,6 +523,41 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
             Debug.Log("Trying to allocate non-existant line renderer");
         }
 
+        //
+        StartCoroutine(CountdownToHideTrails());
+    }
+
+    IEnumerator CountdownToHideTrails()
+    {
+        yield return new WaitForSeconds(2);
+        HideLineRenderers();
+    }
+
+    //private object WaitForSecondsRealtime(int v)
+    //{
+    //    throw new NotImplementedException();
+    //}
+
+    /// <summary>
+    /// 
+    /// </summary>
+    void HideLineRenderers()
+    {
+        //
+        for(int i = 0; i < liftedObjectsTrails.Count; i++)
+        {
+            //
+            LineRenderer lineRenderer = liftedObjectsTrails[i].GetComponent<LineRenderer>();
+            //
+            if (lineRenderer.positionCount > 0)
+            {
+                lineRenderer.positionCount = 0;
+            }
+            else
+            {
+                return;
+            }
+        }
     }
 
     #endregion
@@ -487,16 +571,27 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
         if (tag.Equals("Connection"))
         {
             posteriorSegmentBehaviour.LoseConnectionWithPrev();
+            posteriorSegmentBehaviour = null;
+            posteriorSegment = null;
+            //
+            CheckDeath();
             // TODO: Manejar aqui reaisgnacion en body part
             HeadBehaviour.StartSprint();
             //
             enemyManager.ActivateEnemies(2, transform.position);
+            
         }
         else if (tag.Equals("Generator"))
         {
+            // De momento trabajamos con este valor
+            currentLiftForce -= 25;
+            //
+            CheckDeath();
+            //
             StartSprint();
             //
             enemyManager.ActivateEnemies(1, transform.position);
+            
         }
     }
 

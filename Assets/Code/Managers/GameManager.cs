@@ -292,7 +292,7 @@ public class PlayerAttributes
     public float sphericShieldStrength = 100;
     //
     public ImprovableAttribute maxShield;
-    public float maxHealth = 750;
+    public int maxHealth = 3;
     public float armor = 150;
     public float shieldRechargeRate = 100;
     public float repairRate = 10;

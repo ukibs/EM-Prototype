@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 572550190cd4af2498fb84d9f37d3c61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosiveLoad: 500
+  explosiveLoad: 100
   generatesFragments: 0
   fragmentPrefab: {fileID: 0}
   fragmentsPerHeight: 4

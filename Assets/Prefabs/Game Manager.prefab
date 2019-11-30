@@ -66,7 +66,7 @@ MonoBehaviour:
       maxPurchaseableImprovements: 10
       improvementCost: 25
     currentDensity: 10000
-    movementForcePerSecond: 300
+    movementForcePerSecond: 500
     jumpForce: 8
     sphericShieldStrength: 100
     maxShield:

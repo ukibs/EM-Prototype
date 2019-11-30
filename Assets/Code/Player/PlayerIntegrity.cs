@@ -70,12 +70,12 @@ public class PlayerIntegrity : MonoBehaviour
         //
         if (shieldsDepleted && robotControl.IsResting)
             shieldsDepleted = false;
-        //
-        if (robotControl.IsResting)
-        {
-            currentHealth += dt * gameManager.playerAttributes.repairRate;
-            currentHealth = Mathf.Clamp(currentHealth, 0, gameManager.playerAttributes.maxHealth);
-        }
+        // TODO: Cambiar dinámica de vida
+        //if (robotControl.IsResting)
+        //{
+        //    currentHealth += dt * gameManager.playerAttributes.repairRate;
+        //    currentHealth = Mathf.Clamp(currentHealth, 0, gameManager.playerAttributes.maxHealth);
+        //}
 
         //
         //previousStepRbVelocity = bodyRB.velocity;
@@ -248,8 +248,13 @@ public class PlayerIntegrity : MonoBehaviour
         if (currentShield < 0)
         {
             // Recuerda que el escudo perdido sobrante llega como negativo
-            currentHealth += currentShield;
-            currentShield = 0;
+            //currentHealth += currentShield;
+            //currentShield = 0;
+
+            // TODO: Añadir efecto chachi en el HUD
+            currentHealth--;
+            currentShield = gameManager.playerAttributes.maxShield.CurrentValue;
+
             shieldsDepleted = true;
             damageType = DamageType.Hull;
             GeneralFunctions.PlaySoundEffect(audioSource, shieldDepletionClip);
@@ -280,8 +285,13 @@ public class PlayerIntegrity : MonoBehaviour
         {
             // Recuerda que el escudo perdido sobrante llega como negativo
             //float damageToHealth = Mathf.Min(currentShield + armor, 0);
-            currentHealth += currentShield;
-            currentShield = 0;
+            //currentHealth += currentShield;
+            //currentShield = 0;
+
+            // TODO: Añadir efecto chachi en el HUD
+            currentHealth--;
+            currentShield = gameManager.playerAttributes.maxShield.CurrentValue;
+
             shieldsDepleted = true;
             GeneralFunctions.PlaySoundEffect(audioSource, shieldDepletionClip);
         }
