@@ -117,14 +117,14 @@ public class Bullet : MonoBehaviour {
             //
             if (restarted)
             {
-                AllocateTrailRenderer();
+                AllocateTrayectoryLineRenderer();
                 restarted = false;
             }
             //
             currentTimeBetweenRecalculation += dt;
             if (currentTimeBetweenRecalculation > maxTimeBetweenRecalculation)
             {
-                AllocateTrailRenderer();
+                AllocateTrayectoryLineRenderer();
                 currentTimeBetweenRecalculation -= maxTimeBetweenRecalculation;
             }
         }
@@ -308,7 +308,7 @@ public class Bullet : MonoBehaviour {
     }
 
     // Colocamos trail renderer indicando trayectoria
-    public void AllocateTrailRenderer()
+    public void AllocateTrayectoryLineRenderer()
     {
         //
         float timePerTic = 0.5f;

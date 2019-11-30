@@ -245,14 +245,13 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
                             GetRigidbodiesToLaunch();
                             currentAttackState = AttackState.Lifting;
                             //
-                            Debug.Log("Start lifting");
+                            //Debug.Log("Start lifting");
                         }
                         break;
 
                     case AttackState.Lifting:
                         currentLiftDuration += dt;
-                        UpdateLifting();
-
+                        
                         if(currentLiftDuration >= liftDuration)
                         {
                             currentLiftDuration = 0;
@@ -261,7 +260,11 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
                             //
                             ThrowBodies(dt);
                             //
-                            Debug.Log("End lifting");
+                            //Debug.Log("End lifting");
+                        }
+                        else
+                        {
+                            UpdateLifting();
                         }
                         break;
                 }
@@ -339,11 +342,11 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
     private void InitiateLiftedObjectsTrails()
     {
         //
-        int provisionalSize = 20;
+        int provisionalSize = 100;
         //
         liftedObjectsTrails = new List<GameObject>(provisionalSize);
         //
-        for (int i = 0; i < liftedObjects.Capacity; i++)
+        for (int i = 0; i < liftedObjectsTrails.Capacity; i++)
         {
             GameObject newLiftedObjectTrail = Instantiate(carolHelp.dangerousProyetilesTrailPrefab);
             liftedObjectsTrails.Add(newLiftedObjectTrail);
@@ -352,10 +355,11 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
 
     private void GetRigidbodiesToLaunch()
     {
-        // TODO: Recordar que la lista de objetos enganchados tendrá que estar limpia
+        // Recordar que la lista de objetos enganchados tendrá que estar limpia
         liftedObjects.Clear();
-        //
-        Collider[] possibleBodies = Physics.OverlapSphere(transform.position, 500);
+        // TODO: Mover al radio a variable pública
+        Collider[] possibleBodies = Physics.OverlapSphere(transform.position, 750);
+        //Debug.Log("" + possibleBodies.Length + " possible bodies");
         //
         for (int i = 0; i < possibleBodies.Length; i++)
         {
@@ -374,11 +378,17 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
                     liftedObjects.Add(newLiftedObject);
                     //
                     if (accumulatedLiftMass >= TotalLiftForce)
+                    {
+                        //
+                        Debug.Log("Lifting " + liftedObjects.Count + " objects with a total accumulated mass of" + accumulatedLiftMass);
+                        accumulatedLiftMass = 0;
                         return;
+                    }
                 }
             }
 
         }
+        
     }
 
     private void UpdateLifting()
@@ -408,10 +418,62 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
             Vector3 playerStimatedDirection = player.transform.position - liftedObjects[i].liftedRb.position;
 
             // TODO: HAcer que Carol o el bullet pool pinte las trayectorias
-
+            if (i < liftedObjectsTrails.Count)
+                AllocateTrayectoryLineRenderer(liftedObjects[i].liftedRb, liftedObjectsTrails[i],
+                    playerStimatedDirection.normalized * desiredProyectileSpeed);
+            else
+                Debug.Log("More bodies than expected");
             // De momento le asignamos la velicdad a palo seco
             liftedObjects[i].liftedRb.AddForce(playerStimatedDirection.normalized * desiredProyectileSpeed, ForceMode.VelocityChange);
+            //
+            carolHelp.TriggerGeneralAdvice("GreatDangerIncoming");
         }
+    }
+
+    // Versión del line renderer de trayectoria para los fragemtos que arroja
+    public void AllocateTrayectoryLineRenderer(Rigidbody liftedBody, GameObject lineClone, Vector3 bodySpeed)
+    {
+        //
+        float hardCodedFlyTime = 10;
+        float hardCodedDrag = 0.1f;
+        //
+        float timePerTic = 0.5f;
+        int stepsToCheck = (int)(hardCodedFlyTime / timePerTic);
+        Vector3[] positions = new Vector3[stepsToCheck];
+        //
+        float anticipatedDragEffect = 1 - (hardCodedDrag * timePerTic);
+        float speedInStep = bodySpeed.magnitude;
+        //
+        positions[0] = liftedBody.position;
+
+        //
+        for (int i = 1; i < stepsToCheck; i++)
+        {
+            // TODO: Habrá que tener en cuenta el drag
+            // Creo
+            //GeneralFunctions.AnticipateObjectivePositionForAiming();
+            //GeneralFunctions.GetVelocityWithDistanceAndDrag(rb.velocity.magnitude, , rb.drag, rb.mass);
+            float fallInThatTime = Physics.gravity.y * Mathf.Pow(timePerTic * i, 2) / 2;
+            //
+            speedInStep = speedInStep * anticipatedDragEffect;
+            //
+            positions[i] = liftedBody.position + (bodySpeed.normalized * speedInStep * timePerTic * i) + new Vector3(0, fallInThatTime, 0);
+            //positions[i] = positions[i-1] + (rb.velocity.normalized * speedInStep * timePerTic) + new Vector3(0, fallInThatTime, 0);
+        }
+        //
+        if (lineClone)
+        {
+            //
+            LineRenderer lineRenderer = lineClone.GetComponent<LineRenderer>();
+            //
+            lineRenderer.positionCount = stepsToCheck;
+            lineRenderer.SetPositions(positions);
+        }
+        else
+        {
+            Debug.Log("Trying to allocate non-existant line renderer");
+        }
+
     }
 
     #endregion
@@ -427,10 +489,14 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
             posteriorSegmentBehaviour.LoseConnectionWithPrev();
             // TODO: Manejar aqui reaisgnacion en body part
             HeadBehaviour.StartSprint();
+            //
+            enemyManager.ActivateEnemies(2, transform.position);
         }
         else if (tag.Equals("Generator"))
         {
             StartSprint();
+            //
+            enemyManager.ActivateEnemies(1, transform.position);
         }
     }
 
