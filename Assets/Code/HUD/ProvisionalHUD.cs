@@ -138,7 +138,7 @@ public class ProvisionalHUD : MonoBehaviour {
     private void OnGUI()
     {
         // draw Overlay using the entire screen
-        GUI.DrawTexture(new Rect(0, 0,Screen.width, Screen.height), overlayTexture);
+        //GUI.DrawTexture(new Rect(0, 0,Screen.width, Screen.height), overlayTexture);
 
         //
         PlayerHealthAndShields();
@@ -191,7 +191,7 @@ public class ProvisionalHUD : MonoBehaviour {
         }
 
         //
-        ShowPlayerSpeed();
+        //ShowPlayerSpeed();
 
         //
         //ShowChargedAmount();
@@ -443,10 +443,10 @@ public class ProvisionalHUD : MonoBehaviour {
     void PlayerHealthAndShields()
     {
         //
-        float barMaxLength = Screen.width * 54 / 100;
-        float barHeight = Screen.height * 1 / 15;
-        float generalStartPoint = Screen.width * 23/100 /*- (barMaxLength * 3 / 2)*/;
-        float barPosY = Screen.height * 7 / 100;
+        float barMaxLength = 300;
+        float barHeight = 30;
+        float generalStartPoint = 100;
+        float barPosY = Screen.height - 100;
 
         // Dibujamos el frame lo primero
         GUI.DrawTexture(new Rect(generalStartPoint, barPosY, barMaxLength, barHeight), shieldAndHealthFrame);
@@ -465,8 +465,7 @@ public class ProvisionalHUD : MonoBehaviour {
             float shieldBarLenght = currentShield * barMaxLength;
             // Que se centre la barra conforme se vacia/llena
             float shieldStartPoint = generalStartPoint + ((barMaxLength - shieldBarLenght) / 2);
-            GUI.DrawTextureWithTexCoords(new Rect(shieldStartPoint, barPosY, shieldBarLenght, barHeight), playerShieldTexture,
-                new Rect((1 - currentShield) / 2, 0, currentShield, 1));
+            GUI.DrawTexture(new Rect(shieldStartPoint, barPosY, shieldBarLenght, barHeight), playerShieldTexture);
         }
         // Cuando estén agotados
         else
@@ -780,7 +779,7 @@ public class ProvisionalHUD : MonoBehaviour {
     public void AddDamageIndicator(float angle, DamageType damageType)
     {
         DamageIndicator newDamageIndicator = new DamageIndicator();
-        newDamageIndicator.angle = angle;
+        newDamageIndicator.angle = angle + 180;
         newDamageIndicator.damageType = damageType;
         //
         damageIndicators.Add(newDamageIndicator);
