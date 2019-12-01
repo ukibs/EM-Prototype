@@ -76,6 +76,8 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
 
     private bool isAlive = true;
 
+    private List<Vector3> preLauchPositions;
+
     #endregion
 
     #region Properties
@@ -136,6 +138,8 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
         currentLiftForce = maxLiftForcePerSegment;
         //
         rb = GetComponent<Rigidbody>();
+        //
+        InitializePreLaunchPositionsListMatrix();
     }
 
     // Update is called once per frame
@@ -170,14 +174,21 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
         //    Gizmos.DrawLine(transform.position, transform.position + (Vector3.up * 100));
         //}
         //
-        if (IsActiveHead && currentAttackState == AttackState.Lifting)
+        //if (IsActiveHead && currentAttackState == AttackState.Lifting)
+        //{
+        //    //
+        //    for(int i = 0; i < liftedObjects.Count; i++)
+        //    {
+        //        Gizmos.color = Color.blue;
+        //        Gizmos.DrawLine(liftedObjects[i].initialPosition, liftedObjects[i].finalPosition);
+        //    }
+        //}
+
+        //
+        for(int i = 0; i < preLauchPositions.Count - 1; i++)
         {
-            //
-            for(int i = 0; i < liftedObjects.Count; i++)
-            {
-                Gizmos.color = Color.blue;
-                Gizmos.DrawLine(liftedObjects[i].initialPosition, liftedObjects[i].finalPosition);
-            }
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(preLauchPositions[i], preLauchPositions[i+1]);
         }
     }
 
@@ -388,6 +399,81 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
 
     #region Attack Methods
 
+    private void InitializePreLaunchPositionsListSpiral()
+    {
+        //
+        preLauchPositions = new List<Vector3>();
+        //
+        float a = 1.1f;    // Constante
+        //float e;    // Vamos a decir que es i
+        float k = 3;    // Constante
+        float fi = 30;   // Angulo
+        // r = a * Mathf.Pow(e, k * fi);
+        //
+        for (int i = 0; i < 300; i++)
+        {
+            //
+            float angle = i * fi;
+            float radius = a * Mathf.Pow(i, k * fi * Mathf.Deg2Rad);
+            //
+            float xPosition = radius * Mathf.Cos(angle);
+            float yPosition = radius * Mathf.Sin(angle);
+            //
+            //preLauchPositions[i] = new Vector3(xPosition, yPosition, 0);
+            preLauchPositions.Add(new Vector3(xPosition, yPosition, 0));
+        }
+    }
+
+    private void InitializePreLaunchPositionsListMatrix()
+    {
+        //
+        preLauchPositions = new List<Vector3>();
+        //
+        int rowLength = 2;
+        int columnLength = 2;
+        float spaceBetweenPositions = 2;
+        int rowIndex = 0;
+        int columnIndex = 0;
+        //
+        for (int i = 0; i < 300; i++)
+        {
+            //
+
+            //
+            float xPosition = columnIndex * spaceBetweenPositions;
+            float yPosition = rowIndex * spaceBetweenPositions;
+            //
+            if (columnIndex == rowIndex) columnIndex++;
+            else rowIndex++;
+            //
+            if (columnIndex == columnLength - 1 && rowIndex == rowLength - 1)
+            {
+                columnLength++; rowLength++;
+                columnIndex++;
+                rowIndex = 0;
+            }
+            else if(columnIndex == columnLength - 2)
+            {
+                if(rowIndex < rowLength - 1)
+                {
+                    rowIndex++;
+                    columnIndex--;
+                }
+                else
+                {
+                    columnIndex = 0;
+                    columnLength++;
+                }
+                
+            }
+            //
+            //preLauchPositions[i] = new Vector3(xPosition, yPosition, 0);
+            preLauchPositions.Add(new Vector3(xPosition, yPosition, 0));
+        }
+    }
+
+    
+
     private void InitiateLiftedObjectsTrails()
     {
         //
@@ -422,7 +508,7 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
                     // 
                     accumulatedLiftMass += possibleRb.mass;
                     //
-                    LiftedObject newLiftedObject = new LiftedObject(possibleRb, possibleRb.position, possibleRb.position + (Vector3.up * 200));
+                    LiftedObject newLiftedObject = new LiftedObject(possibleRb, possibleRb.position, possibleRb.position + (Vector3.up * 500));
                     //
                     liftedObjects.Add(newLiftedObject);
                     //
@@ -444,8 +530,24 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
     {
         for (int i = 0; i < liftedObjects.Count; i++)
         {
-            liftedObjects[i].liftedRb.position = 
-                Vector3.Lerp(liftedObjects[i].initialPosition, liftedObjects[i].finalPosition, currentLiftDuration / liftDuration);
+            // Ñapa para cuando se salen del array de posiciones
+            Vector3 finalPosition;
+            if (i < preLauchPositions.Count) finalPosition = liftedObjects[0].finalPosition + preLauchPositions[i];
+            else finalPosition = liftedObjects[i].finalPosition;
+            //
+            liftedObjects[i].liftedRb.position =
+                Vector3.Lerp(liftedObjects[i].initialPosition,
+                //liftedObjects[0].liftedRb.transform.TransformPoint(preLauchPositions[i]), 
+                liftedObjects[0].finalPosition + preLauchPositions[i],
+                Mathf.Sqrt(currentLiftDuration / liftDuration));
+            //
+            liftedObjects[i].liftedRb.transform.LookAt(player.transform.position);
+            // Ñapa para las "costillas"
+            if(liftedObjects[i].liftedRb.mass == 1)
+            {
+                liftedObjects[i].liftedRb.transform.rotation *= Quaternion.Euler(Vector3.up * 90);
+            }
+
         }
     }
 
@@ -453,13 +555,23 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
     {
         //
         float desiredProyectileSpeed = 500;
+        //
+        //
+        //Vector3 playerStimatedPosition = GeneralFunctions.AnticipateObjectivePositionForAiming(
+        //    liftedObjects[0].liftedRb.position,
+        //    player.transform.position,
+        //    PlayerReference.playerRb.velocity, desiredProyectileSpeed, dt);
+        //playerStimatedPosition.y += GeneralFunctions.GetProyectileFallToObjective(liftedObjects[0].liftedRb.position,
+        //    player.transform.position, desiredProyectileSpeed);
+        //
+        //Vector3 playerStimatedDirection = player.transform.position - liftedObjects[0].liftedRb.position;
         // Inital approach
         for (int i = 0; i < liftedObjects.Count; i++)
         {
             //
             Vector3 playerStimatedPosition = GeneralFunctions.AnticipateObjectivePositionForAiming(
-                liftedObjects[i].liftedRb.position, 
-                player.transform.position, 
+                liftedObjects[i].liftedRb.position,
+                player.transform.position,
                 PlayerReference.playerRb.velocity, desiredProyectileSpeed, dt);
             playerStimatedPosition.y += GeneralFunctions.GetProyectileFallToObjective(liftedObjects[i].liftedRb.position,
                 player.transform.position, desiredProyectileSpeed);

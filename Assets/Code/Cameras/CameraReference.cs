@@ -74,10 +74,11 @@ public class CameraReference : MonoBehaviour {
                 currentEulers.z = 0;
                 transform.eulerAngles = currentEulers;
                 // Vamos a acotar la rotación en x
-                //OJO ñapa
-                Quaternion rotationConstraints = Quaternion.Euler(60, 30, 0);
+                // TODO: OJO ñapa
+                float maxX = 85;
+                float minX = -85;
                 Quaternion currentRotation = transform.rotation;
-                currentRotation.x = Mathf.Clamp(currentRotation.x, -rotationConstraints.x, rotationConstraints.y);
+                currentRotation.x = Mathf.Clamp(currentRotation.x, minX, maxX);
                 
                 transform.rotation = currentRotation;
             }
