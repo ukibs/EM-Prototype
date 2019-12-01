@@ -92,7 +92,7 @@ public class RobotControl : MonoBehaviour {
     public GameObject frontShield;
 
     // De momento lo ponemos aqui
-    //public GameObject shootParticlePrefab;
+    public GameObject shootParticlePrefab;
 
     //
     public AudioClip loadingClip;
@@ -936,7 +936,7 @@ public class RobotControl : MonoBehaviour {
 
             //
             CharguedProyectileAttack(proyectileToUse, machineGunPoints[nextRapidFireSide], dt);
-
+            
             // 
             //chargedAmount = 0.01f;
             //rapidFireCooldown -= 1 / gameManager.playerAttributes.rapidFireRate;
@@ -976,6 +976,8 @@ public class RobotControl : MonoBehaviour {
         //
         rb.AddForce(-chargedProyectilePoint.forward * forceToApply, ForceMode.Impulse);
         ChangeDampingType(DampingType.ThreeDimensional);
+        //
+        Instantiate(shootParticlePrefab, muzzlePoint.position, muzzlePoint.rotation);
     }
 
     #endregion
