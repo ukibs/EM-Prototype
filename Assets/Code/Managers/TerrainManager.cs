@@ -29,7 +29,7 @@ public class TerrainManager : MonoBehaviour
     public Waypoint[] AllWaypoints { get { return allWaypoints; } }
 
     //
-    private float maxTestMultiMoveTime = 1;
+    private float maxTestMultiMoveTime = 0.1f;
     private float currentTestMultiMoveTime = 0;
 
     // Start is called before the first frame update
@@ -413,7 +413,7 @@ public class TerrainManager : MonoBehaviour
             //
             int displacementY = (int)playerOffsetInUnits.y;
             int displaceMentYSign = (int)Mathf.Sign(displacementY);
-            //int absoluteDisplaceMentY = Mathf.Abs(displacementY);
+            int absoluteDisplaceMentY = Mathf.Abs(displacementY);
             // 
             sideToGet = 0;
             sideToPut = 0;
@@ -479,7 +479,7 @@ public class TerrainManager : MonoBehaviour
             //
             int displacementX = (int)playerOffsetInUnits.x;
             int displacementXSign = (int)Mathf.Sign(displacementX);
-            //int absoluteDisplaceMentX = Mathf.Abs(displacementX);
+            int absoluteDisplaceMentX = Mathf.Abs(displacementX);
             //
             sideToGet = 0;
             sideToPut = 0;
@@ -502,9 +502,9 @@ public class TerrainManager : MonoBehaviour
                     break;
             }
             //
-            //for (int h = 0; h < Mathf.Abs(displacementX); h++)
+            //for (int h = 0; h < absoluteDisplaceMentX; h++)
             //{
-                
+
                 // Colocamos el que hemos cabiado
                 for (int i = 0; i < squareSize; i++)
                 {

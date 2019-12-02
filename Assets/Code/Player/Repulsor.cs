@@ -211,7 +211,7 @@ public class Repulsor : MonoBehaviour {
     void ApplyRepulsion(float distanceFromFloor)
     {
         // Vamos a hacerlo al cuadrado para hacer más remarcado el efecto
-        offsetCompensation = Mathf.Pow( 1 - (distanceFromFloor / idealDistanceFromFloor), 3);
+        offsetCompensation = Mathf.Pow( 1 - (distanceFromFloor / idealDistanceFromFloor), 2);
         offsetCompensation = Mathf.Max(offsetCompensation, 0);
         
         // TODO: Montarlo para que funcione también cuando cambie el up
@@ -226,7 +226,7 @@ public class Repulsor : MonoBehaviour {
         //float compensationOffset = distanceFromFloor / idealDistanceFromFloor;
         // rb.AddForce(Vector3.up * repulsionStrength * compensationOffset);
         //rb.AddForce(transform.up * repulsionStrength * (offsetCompensation +  speedCompensation) );
-        rb.AddForce(transform.up * (repulsionStrength * offsetCompensation + speedCompensation));
+        rb.AddForce(transform.up * (offsetCompensation + speedCompensation + 1));
 
         // TODO: Revisar esto
         UpdateDustEmitterParticleSystem(offsetCompensation, fallingSpeed / 2);
