@@ -60,14 +60,14 @@ MonoBehaviour:
     maxOverheat: 2
     massPerSecond: 100
     forcePerSecond:
-      baseValue: 150
+      baseValue: 200
       improvementValue: 10
       improvementsPurchased: 0
       maxPurchaseableImprovements: 10
       improvementCost: 25
     currentDensity: 10000
     movementForcePerSecond: 500
-    jumpForce: 8
+    jumpForce: 20
     sphericShieldStrength: 100
     maxShield:
       baseValue: 3000

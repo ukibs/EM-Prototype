@@ -25,7 +25,7 @@ public class PlayerIntegrity : MonoBehaviour
     //Vector3 previousStepRbVelocity;
 
     //
-    private bool shieldsDepleted = false;
+    //private bool shieldsDepleted = false;
     //private float extraDefense = 0;
 
     // Manejamos con esto la invulnerabilidad
@@ -69,14 +69,15 @@ public class PlayerIntegrity : MonoBehaviour
         //
         float dt = Time.deltaTime;
         // De momento hacemos que se recargen con el tiempo
-        if (!shieldsDepleted)
-        {
+        //if (!shieldsDepleted)
+        //{
             currentShield += dt * gameManager.playerAttributes.shieldRechargeRate;
             currentShield = Mathf.Clamp(currentShield, 0, gameManager.playerAttributes.maxShield.CurrentValue);
-        }
+        //}
         //
-        if (shieldsDepleted && robotControl.IsResting)
-            shieldsDepleted = false;
+        //if (shieldsDepleted && robotControl.IsResting)
+        //    shieldsDepleted = false;
+
         // TODO: Cambiar dinámica de vida
         //if (robotControl.IsResting)
         //{
@@ -268,8 +269,9 @@ public class PlayerIntegrity : MonoBehaviour
 
             // TODO: Añadir efecto chachi en el HUD
             currentHealth--;
+            invulnerable = true;
 
-            shieldsDepleted = true;
+            //shieldsDepleted = true;
             damageType = DamageType.Hull;
             GeneralFunctions.PlaySoundEffect(audioSource, shieldDepletionClip);
         }
@@ -291,7 +293,7 @@ public class PlayerIntegrity : MonoBehaviour
         else
         {
             //currentShield = gameManager.playerAttributes.maxShield.CurrentValue;
-            invulnerable = true;
+            //invulnerable = true;
             // TODO: Crear uno para este caso
             carolHelp.TriggerGeneralAdvice("");
         }
@@ -316,7 +318,7 @@ public class PlayerIntegrity : MonoBehaviour
             //currentShield = gameManager.playerAttributes.maxShield.CurrentValue;
             invulnerable = true;
 
-            shieldsDepleted = true;
+            //shieldsDepleted = true;
             GeneralFunctions.PlaySoundEffect(audioSource, shieldDepletionClip);
         }
 
@@ -330,7 +332,6 @@ public class PlayerIntegrity : MonoBehaviour
         else
         {
             //currentShield = gameManager.playerAttributes.maxShield.CurrentValue;
-            invulnerable = true;
             // TODO: Crear uno para este caso
             carolHelp.TriggerGeneralAdvice("");
         }

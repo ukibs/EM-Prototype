@@ -1419,9 +1419,9 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   carolStepObjects: []
-  startSpeed: 15
-  verticaSpeed: 10
-  sprintSpeed: 20
+  startSpeed: 30
+  verticaSpeed: 15
+  sprintSpeed: 100
   startHeight: 75
   rotationSpeed: 30
   minHeight: -100
@@ -3568,9 +3568,9 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   carolStepObjects: []
-  startSpeed: 15
-  verticaSpeed: 10
-  sprintSpeed: 20
+  startSpeed: 30
+  verticaSpeed: 15
+  sprintSpeed: 100
   startHeight: 75
   rotationSpeed: 30
   minHeight: -100
@@ -6140,9 +6140,9 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   carolStepObjects: []
-  startSpeed: 15
-  verticaSpeed: 10
-  sprintSpeed: 20
+  startSpeed: 30
+  verticaSpeed: 15
+  sprintSpeed: 100
   startHeight: 75
   rotationSpeed: 30
   minHeight: -100
@@ -6317,9 +6317,9 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   carolStepObjects: []
-  startSpeed: 15
-  verticaSpeed: 10
-  sprintSpeed: 20
+  startSpeed: 30
+  verticaSpeed: 15
+  sprintSpeed: 100
   startHeight: 75
   rotationSpeed: 30
   minHeight: -100
@@ -6912,9 +6912,9 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   carolStepObjects: []
-  startSpeed: 15
-  verticaSpeed: 10
-  sprintSpeed: 20
+  startSpeed: 30
+  verticaSpeed: 15
+  sprintSpeed: 100
   startHeight: 75
   rotationSpeed: 30
   minHeight: -100
@@ -7427,9 +7427,9 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   carolStepObjects: []
-  startSpeed: 15
-  verticaSpeed: 10
-  sprintSpeed: 20
+  startSpeed: 30
+  verticaSpeed: 15
+  sprintSpeed: 100
   startHeight: 75
   rotationSpeed: 30
   minHeight: -100
@@ -7836,9 +7836,9 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   carolStepObjects: []
-  startSpeed: 15
-  verticaSpeed: 10
-  sprintSpeed: 20
+  startSpeed: 30
+  verticaSpeed: 15
+  sprintSpeed: 100
   startHeight: 75
   rotationSpeed: 30
   minHeight: -100
@@ -8222,9 +8222,9 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   carolStepObjects: []
-  startSpeed: 15
-  verticaSpeed: 10
-  sprintSpeed: 20
+  startSpeed: 30
+  verticaSpeed: 15
+  sprintSpeed: 100
   startHeight: 75
   rotationSpeed: 30
   minHeight: -100
@@ -8794,9 +8794,9 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   carolStepObjects: []
-  startSpeed: 15
-  verticaSpeed: 10
-  sprintSpeed: 20
+  startSpeed: 30
+  verticaSpeed: 15
+  sprintSpeed: 100
   startHeight: 75
   rotationSpeed: 30
   minHeight: -100
@@ -9761,9 +9761,9 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   carolStepObjects: []
-  startSpeed: 15
-  verticaSpeed: 10
-  sprintSpeed: 20
+  startSpeed: 30
+  verticaSpeed: 15
+  sprintSpeed: 100
   startHeight: 75
   rotationSpeed: 30
   minHeight: -100
@@ -12194,9 +12194,9 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   carolStepObjects: []
-  startSpeed: 15
-  verticaSpeed: 10
-  sprintSpeed: 20
+  startSpeed: 30
+  verticaSpeed: 15
+  sprintSpeed: 100
   startHeight: 75
   rotationSpeed: 30
   minHeight: -100
@@ -12967,9 +12967,9 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   carolStepObjects: []
-  startSpeed: 15
-  verticaSpeed: 10
-  sprintSpeed: 20
+  startSpeed: 30
+  verticaSpeed: 15
+  sprintSpeed: 100
   startHeight: 75
   rotationSpeed: 30
   minHeight: -100

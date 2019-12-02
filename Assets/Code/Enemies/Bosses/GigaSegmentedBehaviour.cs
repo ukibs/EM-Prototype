@@ -78,6 +78,7 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
     private bool isAlive = true;
 
     private List<Vector3> preLauchPositions;
+    private float spaceBetweenObjectsToUse;
 
     #endregion
 
@@ -430,13 +431,13 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
         }
     }
 
-    //
+    // TODO: Igual quitamos el space between positions global y lo pasamos como parámetro
     private void InitializePreLaunchPositionsListMatrix()
     {
         //
         preLauchPositions = new List<Vector3>();
         //
-        float spaceBetweenPositions = 20;
+        float spaceBetweenPositions = spaceBetweenObjectsToUse;
         int sideSize = 3;
         int previousMatrixSize = 1;
         // The first one is the central
@@ -487,13 +488,17 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
     {
         // Recordar que la lista de objetos enganchados tendrá que estar limpia
         liftedObjects.Clear();
+        //
+        List<LiftedObjectsGroup> liftedGroups = new List<LiftedObjectsGroup>(4);
         // TODO: Mover al radio a variable pública
-        Collider[] possibleBodies = Physics.OverlapSphere(transform.position, 750);
+        float rangeToUse = 1500;
+        Collider[] possibleBodies = Physics.OverlapSphere(transform.position, rangeToUse);
         //Debug.Log("" + possibleBodies.Length + " possible bodies");
         //
         for (int i = 0; i < possibleBodies.Length; i++)
         {
             // Primero que tenga esta tag
+            // Igual usamos la de enemigo también (cuidado no atrapar a los que está vivos)
             if (possibleBodies[i].tag == "Hard Terrain")
             {
                 // Luego que tenga rigidbody
@@ -505,21 +510,74 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
                     //
                     LiftedObject newLiftedObject = 
                         new LiftedObject(possibleRb, possibleRb.position, possibleRb.position + (Vector3.up * 500), possibleRb.rotation);
-                    //
-                    liftedObjects.Add(newLiftedObject);
-                    //
-                    if (accumulatedLiftMass >= TotalLiftForce)
+                    // Vamos a ver que grupo le toca
+                    float objectMass = possibleRb.mass;
+                    LiftedObjectsGroup possibleExistantGroup = liftedGroups.Find(x => x.objectMass == objectMass);
+                    if (liftedGroups.Count == 0 || possibleExistantGroup == null)
                     {
-                        //
-                        //Debug.Log("Lifting " + liftedObjects.Count + " objects with a total accumulated mass of" + accumulatedLiftMass);
-                        accumulatedLiftMass = 0;
-                        return;
+                        liftedGroups.Add(new LiftedObjectsGroup(newLiftedObject));
+                        // TODO: Meter aquí las separaciones personalizadas
+                        switch (objectMass)
+                        {
+                            // Columnas de hueso
+                            case 1: liftedGroups[liftedGroups.Count - 1].spaceBetweenObjects = 2f; break;
+                            // Pedrolos grodos
+                            case 100: liftedGroups[liftedGroups.Count - 1].spaceBetweenObjects = 25; break;
+                            // Otros (Ya iremos probando)
+                            default: liftedGroups[liftedGroups.Count - 1].spaceBetweenObjects = 15; break;
+                        }
                     }
+                    else if(!possibleExistantGroup.full)
+                    {
+                        possibleExistantGroup.liftedObjects.Add(newLiftedObject);
+                        //
+                        if (possibleExistantGroup.GroupMass >= TotalLiftForce)
+                        {
+                            possibleExistantGroup.full = true;
+                            // Salimos del for si todos los grupos están llenos
+                            if (CheckIfAllGroupsAreFull(liftedGroups))
+                                continue;
+                        }
+                    }
+                    //
+                    //liftedObjects.Add(newLiftedObject);
+                    //
+                    //if (accumulatedLiftMass >= TotalLiftForce)
+                    //{
+                    //    //
+                    //    //Debug.Log("Lifting " + liftedObjects.Count + " objects with a total accumulated mass of" + accumulatedLiftMass);
+                    //    accumulatedLiftMass = 0;
+                    //    return;
+                    //}
+
+                    
                 }
             }
-
         }
-        
+        // Y decidimos que grupo tiene más chicha
+        float maxMass = 0;
+        for (int i = 0; i < liftedGroups.Count; i++)
+        {
+            if(liftedGroups[i].GroupMass > maxMass)
+            {
+                liftedObjects = liftedGroups[i].liftedObjects;
+                spaceBetweenObjectsToUse = liftedGroups[i].spaceBetweenObjects;
+            }
+        }
+        // Y habrá que reajustar la matriz de lifting
+        InitializePreLaunchPositionsListMatrix();
+
+    }
+
+    private bool CheckIfAllGroupsAreFull(List<LiftedObjectsGroup> liftedGroups)
+    {
+        //
+        for(int i = 0; i < liftedGroups.Count; i++)
+        {
+            if (!liftedGroups[i].full) return false;
+        }
+        //
+        return true;
     }
 
     private void UpdateLifting()
@@ -535,12 +593,12 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
         for (int i = 0; i < liftedObjects.Count; i++)
         {
             // Ñapa para cuando se salen del array de posiciones
-            Vector3 finalPosition;
-            if (i < preLauchPositions.Count) finalPosition = liftedObjects[0].finalPosition + preLauchPositions[i];
-            else finalPosition = liftedObjects[i].finalPosition;
+            Vector3 adaptedPosition;
+            if (i < preLauchPositions.Count) adaptedPosition = matrixRef.transform.TransformPoint(preLauchPositions[i]);
+            else adaptedPosition = liftedObjects[i].finalPosition;
             //
             //Vector3 adaptedPosition = liftedObjects[0].liftedRb.transform.TransformPoint(preLauchPositions[i]);
-            Vector3 adaptedPosition = matrixRef.transform.TransformPoint(preLauchPositions[i]);
+            //Vector3 adaptedPosition = matrixRef.transform.TransformPoint(preLauchPositions[i]);
             //
             liftedObjects[i].liftedRb.position =
                 Vector3.Lerp(liftedObjects[i].initialPosition,
@@ -548,17 +606,21 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
                 //liftedObjects[0].finalPosition + preLauchPositions[i],
                 adaptedPosition,
                 Mathf.Sqrt(currentLiftDuration / liftDuration));
-            
+
             // Rotación
-            //if(i == 0)
-            //{
+            if (i == 0)
+            {
                 liftedObjects[i].liftedRb.transform.LookAt(player.transform.position);
                 // Ñapa para las "costillas"
                 if (liftedObjects[i].liftedRb.mass == 1)
                 {
                     liftedObjects[i].liftedRb.transform.rotation *= Quaternion.Euler(Vector3.up * 90);
                 }
-            //}                
+            }
+            else
+            {
+                liftedObjects[i].liftedRb.transform.rotation = liftedObjects[0].liftedRb.transform.rotation;
+            }
             //else
             //{
             //    //
@@ -581,9 +643,10 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
 
     private void ThrowBodies(float dt)
     {
+        // Si no ha atrapado ningún objeto pasamos
+        if (liftedObjects.Count == 0) return;
         //
         float desiredProyectileSpeed = 500;
-        //
         //
         Vector3 playerStimatedPosition = GeneralFunctions.AnticipateObjectivePositionForAiming(
             liftedObjects[0].liftedRb.position,
@@ -752,5 +815,23 @@ public class LiftedObject
         this.initialPosition = initialPosition;
         this.finalPosition = finalPosition;
         this.initialRotation = initialRotation;
+    }
+}
+
+public class LiftedObjectsGroup
+{
+    public List<LiftedObject> liftedObjects;
+    public float objectMass;
+    public bool full = false;
+    //
+    public float spaceBetweenObjects;
+
+    public float GroupMass { get { return objectMass * liftedObjects.Count; } }
+
+    public LiftedObjectsGroup(LiftedObject liftedObject)
+    {
+        objectMass = liftedObject.liftedRb.mass;
+        liftedObjects = new List<LiftedObject>();
+        liftedObjects.Add(liftedObject);
     }
 }
