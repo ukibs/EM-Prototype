@@ -589,6 +589,7 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
             liftedObjects[0].liftedRb.position,
             player.transform.position,
             PlayerReference.playerRb.velocity, desiredProyectileSpeed, dt);
+        //
         playerStimatedPosition.y += GeneralFunctions.GetProyectileFallToObjective(liftedObjects[0].liftedRb.position,
             player.transform.position, desiredProyectileSpeed);
         //

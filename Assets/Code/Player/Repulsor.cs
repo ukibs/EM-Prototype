@@ -217,14 +217,17 @@ public class Repulsor : MonoBehaviour {
         // TODO: Montarlo para que funcione también cuando cambie el up
         // Recuerda, y negativa hacia abajo
         float fallingSpeed = Mathf.Min(rb.velocity.y, 0);
-        fallingSpeed = Mathf.Abs(fallingSpeed);
-        float speedCompensation = Mathf.Pow(fallingSpeed / 2, 1);
+        //fallingSpeed = Mathf.Abs(fallingSpeed);
+        // No multiplicamos por peso del player porque vale 1
+        float speedCompensation = Mathf.Max(-fallingSpeed, repulsionStrength);
+        speedCompensation = 0;
 
         //float compensationOffset = 1 - (distanceFromFloor / idealDistanceFromFloor);
         //float compensationOffset = distanceFromFloor / idealDistanceFromFloor;
         // rb.AddForce(Vector3.up * repulsionStrength * compensationOffset);
-        rb.AddForce(transform.up * repulsionStrength * (offsetCompensation +  speedCompensation) );
-        
+        //rb.AddForce(transform.up * repulsionStrength * (offsetCompensation +  speedCompensation) );
+        rb.AddForce(transform.up * (repulsionStrength * offsetCompensation + speedCompensation));
+
         // TODO: Revisar esto
         UpdateDustEmitterParticleSystem(offsetCompensation, fallingSpeed / 2);
         
