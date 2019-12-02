@@ -110,7 +110,7 @@ public class Repulsor : MonoBehaviour {
                 // Extra para no pasarnos de corto ni de largo
                 // ÑApaaaaaa
                 Vector3 fixedVelocidty = rb.velocity;
-                fixedVelocidty.y = Mathf.Clamp(fixedVelocidty.y, gameManager.playerAttributes.jumpForce, gameManager.playerAttributes.jumpForce * 2);
+                fixedVelocidty.y = Mathf.Clamp(fixedVelocidty.y, gameManager.playerAttributes.jumpForce, gameManager.playerAttributes.jumpForce);
                 rb.velocity = fixedVelocidty;
             }
             // Metemos aqui la opción de impulsarnos hacia el suelo

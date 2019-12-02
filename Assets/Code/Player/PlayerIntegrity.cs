@@ -19,6 +19,7 @@ public class PlayerIntegrity : MonoBehaviour
     private ProvisionalHUD hud;
     private AudioSource audioSource;
     private ProvLevelManager levelManager;
+    private CarolBaseHelp carolHelp;
 
     //
     //Vector3 previousStepRbVelocity;
@@ -26,6 +27,11 @@ public class PlayerIntegrity : MonoBehaviour
     //
     private bool shieldsDepleted = false;
     //private float extraDefense = 0;
+
+    // Manejamos con esto la invulnerabilidad
+    private bool invulnerable = false;
+    private float invDuration = 1;
+    private float invCurrentDuration;
 
     #region Properties
 
@@ -51,6 +57,7 @@ public class PlayerIntegrity : MonoBehaviour
         hud = FindObjectOfType<ProvisionalHUD>();
         audioSource = GetComponent<AudioSource>();
         levelManager = FindObjectOfType<ProvLevelManager>();
+        carolHelp = FindObjectOfType<CarolBaseHelp>();
         //
         currentHealth = gameManager.playerAttributes.maxHealth;
         currentShield = gameManager.playerAttributes.maxShield.CurrentValue;
@@ -79,6 +86,9 @@ public class PlayerIntegrity : MonoBehaviour
 
         //
         //previousStepRbVelocity = bodyRB.velocity;
+
+        //
+        UpdateInvulnerability(dt);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -116,9 +126,12 @@ public class PlayerIntegrity : MonoBehaviour
         //        case DefenseMode.Front: extraDefense = 9999; break;
         //    }
         //}
-        
+
         // COgemos los dos rigidbodies
         //Rigidbody otherRb = collidingRB;
+
+        // Ignoramos el daño en invulnerable
+        if (invulnerable) return;
 
         //
         Bullet bulletComponent = otherGameObject.GetComponent<Bullet>();
@@ -210,6 +223,8 @@ public class PlayerIntegrity : MonoBehaviour
     public void ReceiveBlastDamage(Vector3 forceAndDirection)
     {
         //
+        if (invulnerable) return;
+        //
         Vector3 impactDirection = transform.position - forceAndDirection;
         float impactAngle = Vector3.SignedAngle(Camera.main.transform.forward, impactDirection, transform.up);
         // Recordar que para fuerzas de empuje trabajamos en toneladas
@@ -253,7 +268,6 @@ public class PlayerIntegrity : MonoBehaviour
 
             // TODO: Añadir efecto chachi en el HUD
             currentHealth--;
-            currentShield = gameManager.playerAttributes.maxShield.CurrentValue;
 
             shieldsDepleted = true;
             damageType = DamageType.Hull;
@@ -274,11 +288,20 @@ public class PlayerIntegrity : MonoBehaviour
             Debug.Log("YOU DIED, BITCH");
             ManageDeath();
         }
+        else
+        {
+            //currentShield = gameManager.playerAttributes.maxShield.CurrentValue;
+            invulnerable = true;
+            // TODO: Crear uno para este caso
+            carolHelp.TriggerGeneralAdvice("");
+        }
     }
 
     // Daño de entorno, que se salta ciertas cosas
     public void ReceiveEnvionmentalDamage(float damageAmount)
     {
+        //
+        if (invulnerable) return;
         //
         currentShield -= damageAmount;
         if (currentShield < 0)
@@ -290,7 +313,8 @@ public class PlayerIntegrity : MonoBehaviour
 
             // TODO: Añadir efecto chachi en el HUD
             currentHealth--;
-            currentShield = gameManager.playerAttributes.maxShield.CurrentValue;
+            //currentShield = gameManager.playerAttributes.maxShield.CurrentValue;
+            invulnerable = true;
 
             shieldsDepleted = true;
             GeneralFunctions.PlaySoundEffect(audioSource, shieldDepletionClip);
@@ -302,6 +326,32 @@ public class PlayerIntegrity : MonoBehaviour
             // Muerte
             Debug.Log("YOU DIED, BITCH");
             ManageDeath();
+        }
+        else
+        {
+            //currentShield = gameManager.playerAttributes.maxShield.CurrentValue;
+            invulnerable = true;
+            // TODO: Crear uno para este caso
+            carolHelp.TriggerGeneralAdvice("");
+        }
+    }
+
+    //
+    public void UpdateInvulnerability(float dt)
+    {
+        //
+        if (invulnerable)
+        {
+            //
+            invCurrentDuration += dt;
+            //
+            currentShield = (invCurrentDuration / invDuration) * (gameManager.playerAttributes.maxShield.CurrentValue);
+            //
+            if(invCurrentDuration >= invDuration)
+            {
+                invulnerable = false;
+                invCurrentDuration = 0;
+            }
         }
     }
 

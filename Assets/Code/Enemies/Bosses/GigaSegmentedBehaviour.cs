@@ -48,6 +48,7 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
 
     #region Private Attributes
 
+    private GameObject matrixRef;
     private GameObject previousSegment;
     private GameObject posteriorSegment;
 
@@ -121,6 +122,7 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
     // Start is called before the first frame update
     protected override void Start()
     {
+        matrixRef = new GameObject("matrixRef");
         //
         transform.position += Vector3.up * startHeight;
         //
@@ -188,8 +190,12 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
         for(int i = 0; i < preLauchPositions.Count - 1; i++)
         {
             Gizmos.color = Color.green;
-            Gizmos.DrawLine(preLauchPositions[i], preLauchPositions[i+1]);
+            Gizmos.DrawLine(preLauchPositions[i], preLauchPositions[i] + (Vector3.forward * i/10));
         }
+
+        //
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(matrixRef.transform.position, matrixRef.transform.position + (matrixRef.transform.forward * 200));
     }
 
     #endregion
@@ -424,51 +430,40 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
         }
     }
 
+    //
     private void InitializePreLaunchPositionsListMatrix()
     {
         //
         preLauchPositions = new List<Vector3>();
         //
-        int rowLength = 2;
-        int columnLength = 2;
-        float spaceBetweenPositions = 2;
-        int rowIndex = 0;
-        int columnIndex = 0;
+        float spaceBetweenPositions = 20;
+        int sideSize = 3;
+        int previousMatrixSize = 1;
+        // The first one is the central
+        float xPosition = 0;
+        float yPosition = 0;
+        preLauchPositions.Add(new Vector3(xPosition, yPosition, 0));
         //
-        for (int i = 0; i < 300; i++)
+        for (int i = 0; i < 256; i+= sideSize * sideSize - previousMatrixSize)
         {
-            //
-
-            //
-            float xPosition = columnIndex * spaceBetweenPositions;
-            float yPosition = rowIndex * spaceBetweenPositions;
-            //
-            if (columnIndex == rowIndex) columnIndex++;
-            else rowIndex++;
-            //
-            if (columnIndex == columnLength - 1 && rowIndex == rowLength - 1)
+            // Recorremos la "nueva matriz" pero solo trabajaremos sobre los bordes
+            for(int j = 0; j < sideSize; j++)
             {
-                columnLength++; rowLength++;
-                columnIndex++;
-                rowIndex = 0;
-            }
-            else if(columnIndex == columnLength - 2)
-            {
-                if(rowIndex < rowLength - 1)
+                for (int k = 0; k < sideSize; k++)
                 {
-                    rowIndex++;
-                    columnIndex--;
+                    // Esto implica que estamos en cualquiera de los bordes
+                    if(j == 0 || j == sideSize - 1 || k == 0 || k == sideSize - 1)
+                    {
+                        xPosition = (j - (int)(sideSize / 2) ) * spaceBetweenPositions;
+                        yPosition = (k - (int)(sideSize / 2) ) * spaceBetweenPositions;
+                        preLauchPositions.Add(new Vector3(xPosition, yPosition, 0));
+                    }
                 }
-                else
-                {
-                    columnIndex = 0;
-                    columnLength++;
-                }
-                
             }
             //
-            //preLauchPositions[i] = new Vector3(xPosition, yPosition, 0);
-            preLauchPositions.Add(new Vector3(xPosition, yPosition, 0));
+            previousMatrixSize = sideSize * sideSize;
+            //
+            sideSize += 2;
         }
     }
 
@@ -508,7 +503,8 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
                     // 
                     accumulatedLiftMass += possibleRb.mass;
                     //
-                    LiftedObject newLiftedObject = new LiftedObject(possibleRb, possibleRb.position, possibleRb.position + (Vector3.up * 500));
+                    LiftedObject newLiftedObject = 
+                        new LiftedObject(possibleRb, possibleRb.position, possibleRb.position + (Vector3.up * 500), possibleRb.rotation);
                     //
                     liftedObjects.Add(newLiftedObject);
                     //
@@ -528,6 +524,14 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
 
     private void UpdateLifting()
     {
+        // Ñapa de seguridad
+        if (liftedObjects.Count == 0) return;
+        // Vamos a hacer que el ataque se acumule sobre la cabeza activa
+        liftedObjects[0].finalPosition = transform.position + (Vector3.up * 300);
+        matrixRef.transform.forward = player.transform.position - liftedObjects[0].finalPosition;
+        matrixRef.transform.position = transform.position + (Vector3.up * 300);
+        //Debug.Log()
+        //
         for (int i = 0; i < liftedObjects.Count; i++)
         {
             // Ñapa para cuando se salen del array de posiciones
@@ -535,18 +539,42 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
             if (i < preLauchPositions.Count) finalPosition = liftedObjects[0].finalPosition + preLauchPositions[i];
             else finalPosition = liftedObjects[i].finalPosition;
             //
+            //Vector3 adaptedPosition = liftedObjects[0].liftedRb.transform.TransformPoint(preLauchPositions[i]);
+            Vector3 adaptedPosition = matrixRef.transform.TransformPoint(preLauchPositions[i]);
+            //
             liftedObjects[i].liftedRb.position =
                 Vector3.Lerp(liftedObjects[i].initialPosition,
                 //liftedObjects[0].liftedRb.transform.TransformPoint(preLauchPositions[i]), 
-                liftedObjects[0].finalPosition + preLauchPositions[i],
+                //liftedObjects[0].finalPosition + preLauchPositions[i],
+                adaptedPosition,
                 Mathf.Sqrt(currentLiftDuration / liftDuration));
-            //
-            liftedObjects[i].liftedRb.transform.LookAt(player.transform.position);
-            // Ñapa para las "costillas"
-            if(liftedObjects[i].liftedRb.mass == 1)
-            {
-                liftedObjects[i].liftedRb.transform.rotation *= Quaternion.Euler(Vector3.up * 90);
-            }
+            
+            // Rotación
+            //if(i == 0)
+            //{
+                liftedObjects[i].liftedRb.transform.LookAt(player.transform.position);
+                // Ñapa para las "costillas"
+                if (liftedObjects[i].liftedRb.mass == 1)
+                {
+                    liftedObjects[i].liftedRb.transform.rotation *= Quaternion.Euler(Vector3.up * 90);
+                }
+            //}                
+            //else
+            //{
+            //    //
+            //    Quaternion objectiveRotation = liftedObjects[i].liftedRb.rotation;
+            //    // Ñapa para las "costillas"
+            //    if (liftedObjects[i].liftedRb.mass == 1)
+            //    {
+            //        objectiveRotation *= Quaternion.Euler(Vector3.up * 90);
+            //    }
+            //    //
+            //    liftedObjects[i].liftedRb.rotation = 
+            //        Quaternion.Slerp(liftedObjects[i].initialRotation, 
+            //            objectiveRotation, 
+            //            Mathf.Sqrt(currentLiftDuration / liftDuration));
+            //}
+            
 
         }
     }
@@ -557,26 +585,26 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
         float desiredProyectileSpeed = 500;
         //
         //
-        //Vector3 playerStimatedPosition = GeneralFunctions.AnticipateObjectivePositionForAiming(
-        //    liftedObjects[0].liftedRb.position,
-        //    player.transform.position,
-        //    PlayerReference.playerRb.velocity, desiredProyectileSpeed, dt);
-        //playerStimatedPosition.y += GeneralFunctions.GetProyectileFallToObjective(liftedObjects[0].liftedRb.position,
-        //    player.transform.position, desiredProyectileSpeed);
+        Vector3 playerStimatedPosition = GeneralFunctions.AnticipateObjectivePositionForAiming(
+            liftedObjects[0].liftedRb.position,
+            player.transform.position,
+            PlayerReference.playerRb.velocity, desiredProyectileSpeed, dt);
+        playerStimatedPosition.y += GeneralFunctions.GetProyectileFallToObjective(liftedObjects[0].liftedRb.position,
+            player.transform.position, desiredProyectileSpeed);
         //
-        //Vector3 playerStimatedDirection = player.transform.position - liftedObjects[0].liftedRb.position;
+        Vector3 playerStimatedDirection = player.transform.position - liftedObjects[0].liftedRb.position;
         // Inital approach
         for (int i = 0; i < liftedObjects.Count; i++)
         {
             //
-            Vector3 playerStimatedPosition = GeneralFunctions.AnticipateObjectivePositionForAiming(
-                liftedObjects[i].liftedRb.position,
-                player.transform.position,
-                PlayerReference.playerRb.velocity, desiredProyectileSpeed, dt);
-            playerStimatedPosition.y += GeneralFunctions.GetProyectileFallToObjective(liftedObjects[i].liftedRb.position,
-                player.transform.position, desiredProyectileSpeed);
-            //
-            Vector3 playerStimatedDirection = player.transform.position - liftedObjects[i].liftedRb.position;
+            //Vector3 playerStimatedPosition = GeneralFunctions.AnticipateObjectivePositionForAiming(
+            //    liftedObjects[i].liftedRb.position,
+            //    player.transform.position,
+            //    PlayerReference.playerRb.velocity, desiredProyectileSpeed, dt);
+            //playerStimatedPosition.y += GeneralFunctions.GetProyectileFallToObjective(liftedObjects[i].liftedRb.position,
+            //    player.transform.position, desiredProyectileSpeed);
+            ////
+            //Vector3 playerStimatedDirection = player.transform.position - liftedObjects[i].liftedRb.position;
 
             // TODO: HAcer que Carol o el bullet pool pinte las trayectorias
             if (i < liftedObjectsTrails.Count)
@@ -585,7 +613,8 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
             else
                 Debug.Log("More bodies than expected");
             // De momento le asignamos la velicdad a palo seco
-            liftedObjects[i].liftedRb.AddForce(playerStimatedDirection.normalized * desiredProyectileSpeed, ForceMode.VelocityChange);
+            //liftedObjects[i].liftedRb.AddForce(playerStimatedDirection.normalized * desiredProyectileSpeed, ForceMode.VelocityChange);
+            liftedObjects[i].liftedRb.velocity = playerStimatedDirection.normalized * desiredProyectileSpeed;
             //
             carolHelp.TriggerGeneralAdvice("GreatDangerIncoming");
         }
@@ -714,11 +743,13 @@ public class LiftedObject
     public Rigidbody liftedRb;
     public Vector3 initialPosition;
     public Vector3 finalPosition;
+    public Quaternion initialRotation;
 
-    public LiftedObject(Rigidbody liftedRb, Vector3 initialPosition, Vector3 finalPosition)
+    public LiftedObject(Rigidbody liftedRb, Vector3 initialPosition, Vector3 finalPosition, Quaternion initialRotation)
     {
         this.liftedRb = liftedRb;
         this.initialPosition = initialPosition;
         this.finalPosition = finalPosition;
+        this.initialRotation = initialRotation;
     }
 }

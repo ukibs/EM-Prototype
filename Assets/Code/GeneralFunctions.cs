@@ -156,7 +156,7 @@ public static class GeneralFunctions
         Vector3 crossDirection = Vector3.Cross(self.up, objectiveDirection);
         
         //
-        Quaternion idealRotation = Quaternion.LookRotation(self.position + crossDirection);
+        Quaternion idealRotation = Quaternion.LookRotation(/*self.position + */crossDirection);
         rotationToReturn = Quaternion.RotateTowards(rotationToReturn, idealRotation, rotationSpeed * dt);
 
         //
