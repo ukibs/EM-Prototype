@@ -103,6 +103,7 @@ public class Repulsor : MonoBehaviour {
         // Salto con el repulsor en vez de con las palas
         if (inputManager.JumpButton && robotControl.ActiveJumpMode == JumpMode.RepulsorJump)
         {
+            // TODO: Meter un margen extra aqui
             if (isOnFloor)
             {
                 //
