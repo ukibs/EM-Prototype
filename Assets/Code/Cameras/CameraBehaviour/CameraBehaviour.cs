@@ -58,6 +58,11 @@ public class CameraBehaviour : MonoBehaviour
     
     void Update()
     {
+        
+    }
+
+    private void LateUpdate()
+    {
         //Debug.Log(transitioning);
         if (transitioning)
         {
@@ -69,11 +74,11 @@ public class CameraBehaviour : MonoBehaviour
             transform.rotation = currentBehaviour.rotation;
         }
     }
-    
+
     #endregion
-    
+
     #region Methods
-    
+
     /// <summary>
     /// Transitioning to the current transform
     /// </summary>

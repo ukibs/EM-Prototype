@@ -125,15 +125,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8ba02072adb00b42ba9c81091ba3b4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 30
+  maxSpeed: 50
   minimalLungeDistance: 15
-  minimalShootDistance: 200
+  minimalShootDistance: 400
   ofFootMaxTime: 5
   timeBetweenActionChecking: 1
   rotationSpeed: 360
   behaviour: 090000000100000000000000
   weapons: []
-  idealHeight: 100
+  idealHeight: 80
   liftForcePerSecond: 350
 --- !u!114 &2843957817159059626
 MonoBehaviour:

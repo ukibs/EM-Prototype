@@ -185,35 +185,38 @@ public class SpringCamera : MonoBehaviour {
     {
         // To look at the indicated point
         // Si el target es el player el objetivo viene determinado por los controloes
-        if (currentTarget == targetPlayer)
-            targetPos = currentTarget.TransformPoint(targetOffset);
-        
-        // Transición gradual entre objetivos para no marear al player
-        if (transitionProgression < transitionTimeBetweenEnemies)
-        {
-            Quaternion enemyDirection = Quaternion.LookRotation(targetPos - transform.position);
+        //if (currentTarget == targetPlayer)
+        //    targetPos = currentTarget.TransformPoint(targetOffset);
 
-            transform.rotation = Quaternion.Slerp(previousObjectiveRotation, enemyDirection,
-                transitionProgression / transitionTimeBetweenEnemies);
+        //// Transición gradual entre objetivos para no marear al player
+        //if (transitionProgression < transitionTimeBetweenEnemies)
+        //{
+        //    Quaternion enemyDirection = Quaternion.LookRotation(targetPos - transform.position);
 
-            transitionProgression += dt;
-        }
-        else if (previousObjective == currentTarget)
-        {
-            // TODO: Revisar que falla con el estiamte position
-            //transform.LookAt(currentTarget.position);
-            transform.LookAt(targetPos);
-        }
-        // Aquí hacemos la transición
-        else
-        {
-            //
-            //Debug.Log("Switching objective");
-            //
-            transitionProgression = 0;
-            previousObjective = currentTarget;
-            previousObjectiveRotation = transform.rotation;
-        }
+        //    transform.rotation = Quaternion.Slerp(previousObjectiveRotation, enemyDirection,
+        //        transitionProgression / transitionTimeBetweenEnemies);
+
+        //    transitionProgression += dt;
+        //}
+        //else if (previousObjective == currentTarget)
+        //{
+        //    // TODO: Revisar que falla con el estiamte position
+        //    //transform.LookAt(currentTarget.position);
+        //    transform.LookAt(targetPos);
+        //}
+        //// Aquí hacemos la transición
+        //else
+        //{
+        //    //
+        //    //Debug.Log("Switching objective");
+        //    //
+        //    transitionProgression = 0;
+        //    previousObjective = currentTarget;
+        //    previousObjectiveRotation = transform.rotation;
+        //}
+
+        //
+        transform.rotation = cameraReference.transform.rotation;
     }
 
     // TODO: Hacer que la cámara se enfoque en el punto que va a ocupar el enemigo

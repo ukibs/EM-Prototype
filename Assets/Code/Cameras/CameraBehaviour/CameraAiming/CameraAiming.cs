@@ -49,7 +49,7 @@ public class CameraAiming : MonoBehaviour
 
     private void ProcessCurrentObjective()
     {
-        float spd = 2.75f;
+        //float spd = 2.75f;
         // if this camera is the current objective.
         if (!currentObjective) return;
         // use camera reference's position to make an instant following.
@@ -66,28 +66,6 @@ public class CameraAiming : MonoBehaviour
         //    transitionProg = 0f;
         //}
         //transform.rotation = rot;
-
-        //Transición gradual entre objetivos para no marear al player
-        //TODO: Chequear si es necesaria aqui también
-        //Probablemente valga con tenerla en la cámara
-
-        //if (transitionProgression < transitionTimeBetweenEnemies)
-        //{
-        //    Quaternion enemyDirection = Quaternion.LookRotation(cameraControl.CurrentTarget.position - transform.position);
-        //    transform.rotation = Quaternion.Slerp(previousObjectiveRotation, enemyDirection,
-        //        transitionProgression / transitionTimeBetweenEnemies);
-        //    transitionProgression += dt;
-        //}
-        //else if (previousObjective == cameraControl.CurrentTarget)
-        //{
-        //    transform.LookAt(cameraControl.CurrentTarget);
-        //}
-        //// Aquí hacemos la transición
-        //else
-        //{
-        //    transitionProgression = 0;
-        //    previousObjective = cameraControl.CurrentTarget;
-        //    previousObjectiveRotation = transform.rotation;
-        //}
+        
     }
 }
