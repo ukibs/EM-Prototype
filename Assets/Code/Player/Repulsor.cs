@@ -13,6 +13,9 @@ public class Repulsor : MonoBehaviour {
 
     public AudioClip jumpClip;
 
+    [Tooltip("ERNESTO: Juega aqui para tu efecto")]
+    public Vector3 additionalGravity = new Vector3(0, -20, 0);
+
     // TODO: Meter clip de caída detenida
     // Y que suene fuerte si es un buen frenazo
 
@@ -71,6 +74,10 @@ public class Repulsor : MonoBehaviour {
         //
         Vector3 floorPoint;
 
+        // Ñapa gravítica para Ernesto
+        if (rb.velocity.y < 0 && !inputManager.JumpButton)
+            rb.velocity += additionalGravity * dt;
+
         //isOnFloor = CheckFloor(out floorPoint);
         isOnFloor = CheckFloorWithSphere(out floorPoint);
 
@@ -98,6 +105,7 @@ public class Repulsor : MonoBehaviour {
         }
         //
         dashCooldown += dt;
+        
 	}
 
     void RepulsorJump()
@@ -117,13 +125,13 @@ public class Repulsor : MonoBehaviour {
                 rb.velocity = fixedVelocidty;
             }
             // Metemos aqui la opción de impulsarnos hacia el suelo
-            else if (timeWithoutFloor > 1) 
-            {
-                //
-                rb.AddForce(-transform.up * gameManager.playerAttributes.jumpForce * 10, ForceMode.Impulse);
-                //
-                timeWithoutFloor = 0;
-            }
+            //else if (timeWithoutFloor > 1) 
+            //{
+            //    //
+            //    rb.AddForce(-transform.up * gameManager.playerAttributes.jumpForce * 10, ForceMode.Impulse);
+            //    //
+            //    timeWithoutFloor = 0;
+            //}
             else
             {
                 return;
@@ -193,8 +201,8 @@ public class Repulsor : MonoBehaviour {
         // Cogemos el valor de proyectiles enemigos, e invertimos
         int layerMask = 1 << 12;
         layerMask = ~layerMask;
-        //
-        if (Physics.SphereCast(transform.position, 0.5f, Vector3.down, out hitInfo, idealDistanceFromFloor, layerMask))
+        // Un extra de distancia para ver si solventamos el problema del salto
+        if (Physics.SphereCast(transform.position, 0.5f, Vector3.down, out hitInfo, idealDistanceFromFloor * 1.2f, layerMask))
         {
             float distanceFromFloor = (transform.position - hitInfo.point).magnitude;
 
@@ -212,6 +220,8 @@ public class Repulsor : MonoBehaviour {
     /// <param name="distanceFromFloor"></param>
     void ApplyRepulsion(float distanceFromFloor)
     {
+        //
+        if (distanceFromFloor > idealDistanceFromFloor) return;
         // Vamos a hacerlo al cuadrado para hacer más remarcado el efecto
         offsetCompensation = 1 + Mathf.Pow( 1 - (distanceFromFloor / idealDistanceFromFloor), 3);
         //offsetCompensation = Mathf.Max(offsetCompensation, 0);

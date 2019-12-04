@@ -513,11 +513,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   idealDistanceFromFloor: 5
-  repulsionStrength: 100
+  maxRepulsionStrength: 10
   repulsionDamp: 0
   dustEmitterStatic: {fileID: 3489418989879759979}
   dustEmitterMovement: {fileID: 4202477923620001233}
   jumpClip: {fileID: 8300000, guid: 1d47e24af160e804dbd7fc86a9c1448b, type: 3}
+  additionalGravity: {x: 0, y: -20, z: 0}
 --- !u!114 &114977535009352440
 MonoBehaviour:
   m_ObjectHideFlags: 0
