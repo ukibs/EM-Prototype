@@ -30,6 +30,9 @@ public class MainMenu : MonoBehaviour
         Cursor.visible = true;
         //
         videoPlayer = GetComponent<VideoPlayer>();
+        videoPlayer.Prepare();
+        //videoPlayer.Play();
+        //videoPlayer.Stop();
     }
 
     private void Update()
@@ -88,6 +91,7 @@ public class MainMenu : MonoBehaviour
 
     public void QuitGame()
     {
+        videoPlayer.Stop();
         Application.Quit();
     }
     public void TitleDescription (string text)
