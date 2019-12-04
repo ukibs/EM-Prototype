@@ -42,7 +42,7 @@ public class SpringCamera : MonoBehaviour {
     //
     private Transform previousObjective;
     private Quaternion previousObjectiveRotation;
-    private float transitionProgression = 0;
+    //private float transitionProgression = 0;
 
     #endregion
 

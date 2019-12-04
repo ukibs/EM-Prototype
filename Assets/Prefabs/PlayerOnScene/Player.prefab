@@ -512,7 +512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78059fdab7f63be44b32ec95ac9b6ed7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idealDistanceFromFloor: 3
+  idealDistanceFromFloor: 5
   repulsionStrength: 100
   repulsionDamp: 0
   dustEmitterStatic: {fileID: 3489418989879759979}

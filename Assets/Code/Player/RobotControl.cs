@@ -845,6 +845,9 @@ public class RobotControl : MonoBehaviour {
         //
         rb.AddForce(-transform.forward * pulseForceToApply, ForceMode.Impulse);
         ChangeDampingType(DampingType.ThreeDimensional);
+        //
+        GameObject muzzleParticles = Instantiate(shootParticlePrefab, chargedProyectilePoint.position, chargedProyectilePoint.rotation);
+        muzzleParticles.transform.localScale = Vector3.one * (1 + (chargedAmount * 10));
     }
 
     //
@@ -977,7 +980,8 @@ public class RobotControl : MonoBehaviour {
         rb.AddForce(-chargedProyectilePoint.forward * forceToApply, ForceMode.Impulse);
         ChangeDampingType(DampingType.ThreeDimensional);
         //
-        Instantiate(shootParticlePrefab, muzzlePoint.position, muzzlePoint.rotation);
+        GameObject muzzleParticles = Instantiate(shootParticlePrefab, muzzlePoint.position, muzzlePoint.rotation);
+        muzzleParticles.transform.localScale = Vector3.one * (1 + (chargedAmount * 10));
     }
 
     #endregion

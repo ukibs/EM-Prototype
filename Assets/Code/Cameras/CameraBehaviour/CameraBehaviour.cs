@@ -19,11 +19,11 @@ public class CameraBehaviour : MonoBehaviour
     private Transform beforeBehaviour = null;
 
     #endregion
-    
-    #region Public
 
+    #region Public
+        public Transform initialBehaviour;
     #endregion
-    
+
     #region Properties
 
     public Transform CurrentBehaviour
@@ -52,7 +52,8 @@ public class CameraBehaviour : MonoBehaviour
     
     void Start()
     {
-        currentBehaviour = transform;
+        //currentBehaviour = transform;
+        currentBehaviour = initialBehaviour;
     }
 
     

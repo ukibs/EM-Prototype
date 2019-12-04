@@ -34,7 +34,8 @@ namespace CameraManager
         [SerializeField]
         private CameraAiming ca;
 
-        [SerializeField] private InputManager im;
+        //[SerializeField]
+        private InputManager im;
         private bool sprinting = false;
         #endregion
 

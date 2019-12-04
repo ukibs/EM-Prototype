@@ -5,7 +5,7 @@ using UnityEngine;
 public class Repulsor : MonoBehaviour {
 
     public float idealDistanceFromFloor = 1;
-    public float repulsionStrength = 10;
+    public float maxRepulsionStrength = 10;
     public float repulsionDamp = 0.2f;
 
     public ParticleSystem dustEmitterStatic;
@@ -56,6 +56,8 @@ public class Repulsor : MonoBehaviour {
         playerIntegrity = GetComponent<PlayerIntegrity>();
         //
         StopDustEmitterParticleSystem(dustEmitterMovement);
+        //
+        transform.position = Vector3.up * idealDistanceFromFloor;
 	}
 	
 	// Update is called once per frame
@@ -194,7 +196,6 @@ public class Repulsor : MonoBehaviour {
         //
         if (Physics.SphereCast(transform.position, 0.5f, Vector3.down, out hitInfo, idealDistanceFromFloor, layerMask))
         {
-            //Debug.Log("Repulsing");
             float distanceFromFloor = (transform.position - hitInfo.point).magnitude;
 
             ApplyRepulsion(distanceFromFloor);
@@ -212,22 +213,31 @@ public class Repulsor : MonoBehaviour {
     void ApplyRepulsion(float distanceFromFloor)
     {
         // Vamos a hacerlo al cuadrado para hacer más remarcado el efecto
-        offsetCompensation = Mathf.Pow( 1 - (distanceFromFloor / idealDistanceFromFloor), 2);
-        offsetCompensation = Mathf.Max(offsetCompensation, 0);
+        offsetCompensation = 1 + Mathf.Pow( 1 - (distanceFromFloor / idealDistanceFromFloor), 3);
+        //offsetCompensation = Mathf.Max(offsetCompensation, 0);
+
+        //
+        if(offsetCompensation < 1.1f) offsetCompensation = 1;
         
         // TODO: Montarlo para que funcione también cuando cambie el up
         // Recuerda, y negativa hacia abajo
         float fallingSpeed = Mathf.Min(rb.velocity.y, 0);
         //fallingSpeed = Mathf.Abs(fallingSpeed);
         // No multiplicamos por peso del player porque vale 1
-        float speedCompensation = Mathf.Max(-fallingSpeed, repulsionStrength);
-        speedCompensation = 0;
+        float speedCompensation = Mathf.Min(-fallingSpeed, maxRepulsionStrength);
+        //speedCompensation = 0;
+        //speedCompensation = 0;
 
         //float compensationOffset = 1 - (distanceFromFloor / idealDistanceFromFloor);
         //float compensationOffset = distanceFromFloor / idealDistanceFromFloor;
         // rb.AddForce(Vector3.up * repulsionStrength * compensationOffset);
         //rb.AddForce(transform.up * repulsionStrength * (offsetCompensation +  speedCompensation) );
-        rb.AddForce(transform.up * (offsetCompensation + speedCompensation + 1));
+
+        // A tener en cuenta, 1 es 
+        Vector3 forceToApply = transform.up * (offsetCompensation + speedCompensation) * rb.mass;
+        rb.AddForce(forceToApply, ForceMode.Impulse);
+        Debug.Log("Applying " + forceToApply + " repulsion force. Offset compensation: " + 
+            offsetCompensation + ", speed compensation: " + speedCompensation);
 
         // TODO: Revisar esto
         UpdateDustEmitterParticleSystem(offsetCompensation, fallingSpeed / 2);
