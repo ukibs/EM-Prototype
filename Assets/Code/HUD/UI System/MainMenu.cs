@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class MainMenu : MonoBehaviour
 {
@@ -17,11 +18,28 @@ public class MainMenu : MonoBehaviour
     public GameObject loadingScreen, loadingIcon;
     public Text loadingText;
 
+    public VideoPlayer videoPlayer;
+
     void Start()
     {
         //
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        //
+        videoPlayer = GetComponent<VideoPlayer>();
+    }
+
+    private void Update()
+    {
+        //
+        if (Input.anyKeyDown)
+        {
+            if (videoPlayer.isPlaying)
+            {
+                videoPlayer.Stop();
+            }
+        }
+        //
     }
 
     public void StartGame(string levelName)

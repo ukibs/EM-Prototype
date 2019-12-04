@@ -61,7 +61,7 @@ public class Repulsor : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 
         //
         if (playerIntegrity != null && playerIntegrity.IsDead) return;
@@ -217,7 +217,7 @@ public class Repulsor : MonoBehaviour {
         //offsetCompensation = Mathf.Max(offsetCompensation, 0);
 
         //
-        if(offsetCompensation < 1.1f) offsetCompensation = 1;
+        if(offsetCompensation < 1.1f) offsetCompensation = 0;
         
         // TODO: Montarlo para que funcione también cuando cambie el up
         // Recuerda, y negativa hacia abajo
