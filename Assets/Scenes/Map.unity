@@ -343,7 +343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 351b060fffd1852428393f91d05d78cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlightMaterial: {fileID: 2100000, guid: 3c40c8fdc50a841579d7cb15882ac9d9, type: 2}
+  highlightMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   levelData: {fileID: 0}
   yOffset: 100
 --- !u!136 &180627479
@@ -377,7 +377,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 14a62851a7afbca4f85977a675a41243, type: 2}
+  - {fileID: 2100000, guid: e546f89d62d8024449df4a3b5238eb16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -438,7 +438,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Profile: {fileID: 11400000, guid: a559b5c0061fb9346ae8f9c9ca780081, type: 2}
   m_StaticLightingSkyUniqueID: 2
-  m_SkySettings: {fileID: 235097548}
+  m_SkySettings: {fileID: 949061280}
   m_SkySettingsFromProfile: {fileID: 7987345948961967663, guid: a559b5c0061fb9346ae8f9c9ca780081,
     type: 2}
 --- !u!114 &207230151
@@ -491,82 +491,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zDistance: -2
---- !u!114 &235097548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3df29e7cc05fbec4aa43e06ea875565d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  active: 1
-  m_AdvancedMode: 0
-  rotation:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-    max: 360
-  skyIntensityMode:
-    m_OverrideState: 0
-    m_Value: 0
-  exposure:
-    m_OverrideState: 0
-    m_Value: 0
-  multiplier:
-    m_OverrideState: 0
-    m_Value: 1
-    min: 0
-  upperHemisphereLuxValue:
-    m_OverrideState: 0
-    m_Value: 1
-    min: 0
-  desiredLuxValue:
-    m_OverrideState: 0
-    m_Value: 20000
-  updateMode:
-    m_OverrideState: 0
-    m_Value: 0
-  updatePeriod:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-  includeSunInBaking:
-    m_OverrideState: 0
-    m_Value: 0
-  sunSize:
-    m_OverrideState: 0
-    m_Value: 0.04
-    min: 0
-    max: 1
-  sunSizeConvergence:
-    m_OverrideState: 0
-    m_Value: 5
-    min: 1
-    max: 10
-  atmosphereThickness:
-    m_OverrideState: 0
-    m_Value: 1
-    min: 0
-    max: 5
-  skyTint:
-    m_OverrideState: 0
-    m_Value: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    hdr: 0
-    showAlpha: 1
-    showEyeDropper: 1
-  groundColor:
-    m_OverrideState: 0
-    m_Value: {r: 0.369, g: 0.349, b: 0.341, a: 1}
-    hdr: 0
-    showAlpha: 1
-    showEyeDropper: 1
-  enableSunDisk:
-    m_OverrideState: 0
-    m_Value: 1
 --- !u!1 &262652120
 GameObject:
   m_ObjectHideFlags: 0
@@ -613,7 +537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 351b060fffd1852428393f91d05d78cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlightMaterial: {fileID: 2100000, guid: 3c40c8fdc50a841579d7cb15882ac9d9, type: 2}
+  highlightMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   levelData: {fileID: 0}
   yOffset: 100
 --- !u!136 &262652123
@@ -647,7 +571,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 14a62851a7afbca4f85977a675a41243, type: 2}
+  - {fileID: 2100000, guid: e546f89d62d8024449df4a3b5238eb16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -799,7 +723,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 351b060fffd1852428393f91d05d78cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlightMaterial: {fileID: 2100000, guid: 3c40c8fdc50a841579d7cb15882ac9d9, type: 2}
+  highlightMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   levelData: {fileID: 11400000, guid: f36f38773f88ff244a26c84e48e94cef, type: 2}
   yOffset: 100
 --- !u!136 &482343296
@@ -833,7 +757,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 14a62851a7afbca4f85977a675a41243, type: 2}
+  - {fileID: 2100000, guid: e546f89d62d8024449df4a3b5238eb16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1006,7 +930,7 @@ GameObject:
   - component: {fileID: 652886584}
   - component: {fileID: 652886583}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: Planet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1059,7 +983,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  - {fileID: 2100000, guid: f2293e7ce65836145959a59dfac91fc9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1444,7 +1368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 351b060fffd1852428393f91d05d78cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlightMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  highlightMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   levelData: {fileID: 11400000, guid: 3546fb5442ef17d4e86069d5a5882939, type: 2}
   yOffset: 100
 --- !u!136 &827840836
@@ -1478,7 +1402,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 14a62851a7afbca4f85977a675a41243, type: 2}
+  - {fileID: 2100000, guid: e546f89d62d8024449df4a3b5238eb16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1699,7 +1623,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 351b060fffd1852428393f91d05d78cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlightMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  highlightMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   levelData: {fileID: 11400000, guid: df51eb2f39057c14aa7d4aa0d6410329, type: 2}
   yOffset: 100
 --- !u!136 &849079588
@@ -1733,7 +1657,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 14a62851a7afbca4f85977a675a41243, type: 2}
+  - {fileID: 2100000, guid: e546f89d62d8024449df4a3b5238eb16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1877,7 +1801,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 351b060fffd1852428393f91d05d78cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlightMaterial: {fileID: 2100000, guid: 3c40c8fdc50a841579d7cb15882ac9d9, type: 2}
+  highlightMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   levelData: {fileID: 11400000, guid: 7a4783b8ba6be714283fbfcd9686d139, type: 2}
   yOffset: 100
 --- !u!136 &908122334
@@ -1911,7 +1835,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 14a62851a7afbca4f85977a675a41243, type: 2}
+  - {fileID: 2100000, guid: e546f89d62d8024449df4a3b5238eb16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1940,6 +1864,82 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 908122331}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &949061280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3df29e7cc05fbec4aa43e06ea875565d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  rotation:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 360
+  skyIntensityMode:
+    m_OverrideState: 0
+    m_Value: 0
+  exposure:
+    m_OverrideState: 0
+    m_Value: 0
+  multiplier:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+  upperHemisphereLuxValue:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+  desiredLuxValue:
+    m_OverrideState: 0
+    m_Value: 20000
+  updateMode:
+    m_OverrideState: 0
+    m_Value: 0
+  updatePeriod:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+  includeSunInBaking:
+    m_OverrideState: 0
+    m_Value: 0
+  sunSize:
+    m_OverrideState: 0
+    m_Value: 0.04
+    min: 0
+    max: 1
+  sunSizeConvergence:
+    m_OverrideState: 0
+    m_Value: 5
+    min: 1
+    max: 10
+  atmosphereThickness:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+    max: 5
+  skyTint:
+    m_OverrideState: 0
+    m_Value: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    hdr: 0
+    showAlpha: 1
+    showEyeDropper: 1
+  groundColor:
+    m_OverrideState: 0
+    m_Value: {r: 0.369, g: 0.349, b: 0.341, a: 1}
+    hdr: 0
+    showAlpha: 1
+    showEyeDropper: 1
+  enableSunDisk:
+    m_OverrideState: 0
+    m_Value: 1
 --- !u!1 &1189865128
 GameObject:
   m_ObjectHideFlags: 0
@@ -2410,7 +2410,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 351b060fffd1852428393f91d05d78cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlightMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  highlightMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   levelData: {fileID: 11400000, guid: 5e7b8d03191827b4c9b6ab6f35fa0c7b, type: 2}
   yOffset: 100
 --- !u!136 &1349702554
@@ -2444,7 +2444,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 14a62851a7afbca4f85977a675a41243, type: 2}
+  - {fileID: 2100000, guid: e546f89d62d8024449df4a3b5238eb16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2519,7 +2519,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 351b060fffd1852428393f91d05d78cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlightMaterial: {fileID: 2100000, guid: 3c40c8fdc50a841579d7cb15882ac9d9, type: 2}
+  highlightMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   levelData: {fileID: 11400000, guid: 1556f07fb831bf04e9afe0e27a8cf229, type: 2}
   yOffset: 100
 --- !u!136 &1454319851
@@ -2553,7 +2553,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 14a62851a7afbca4f85977a675a41243, type: 2}
+  - {fileID: 2100000, guid: e546f89d62d8024449df4a3b5238eb16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2628,7 +2628,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 351b060fffd1852428393f91d05d78cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlightMaterial: {fileID: 2100000, guid: 3c40c8fdc50a841579d7cb15882ac9d9, type: 2}
+  highlightMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   levelData: {fileID: 11400000, guid: 4bd3bc54e1946a24f924b30ff8a40864, type: 2}
   yOffset: 100
 --- !u!136 &1470812965
@@ -2662,7 +2662,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 14a62851a7afbca4f85977a675a41243, type: 2}
+  - {fileID: 2100000, guid: e546f89d62d8024449df4a3b5238eb16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3274,7 +3274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 351b060fffd1852428393f91d05d78cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlightMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  highlightMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   levelData: {fileID: 11400000, guid: 23c41a06a8220f54d98e00372259f166, type: 2}
   yOffset: 100
 --- !u!136 &2082594214
@@ -3308,7 +3308,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 14a62851a7afbca4f85977a675a41243, type: 2}
+  - {fileID: 2100000, guid: e546f89d62d8024449df4a3b5238eb16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

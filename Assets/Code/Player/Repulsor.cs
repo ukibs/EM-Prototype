@@ -61,7 +61,7 @@ public class Repulsor : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void Update () {
 
         //
         if (playerIntegrity != null && playerIntegrity.IsDead) return;
