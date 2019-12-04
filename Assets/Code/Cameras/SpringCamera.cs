@@ -299,7 +299,7 @@ public class SpringCamera : MonoBehaviour {
             //
             //Debug.Log(enemies[i].transform.name + ", in " + posInScreen);
             if (inScreen && distanceToCenter < minScreenDistance
-                 && EnemyOnSight(targeteableEnemies[i].transform.TransformPoint(targeteableEnemies[i].centralPointOffset)))
+                 /*&& EnemyOnSight(targeteableEnemies[i].transform.TransformPoint(targeteableEnemies[i].centralPointOffset))*/)
             {
                 minScreenDistance = distanceToCenter;
                 nearestScreenEnemy = i;

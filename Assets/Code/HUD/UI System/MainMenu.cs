@@ -18,7 +18,10 @@ public class MainMenu : MonoBehaviour
     public GameObject loadingScreen, loadingIcon;
     public Text loadingText;
 
-    public VideoPlayer videoPlayer;
+    private VideoPlayer videoPlayer;
+    public float maxTimeToVideo = 30;
+
+    private float currentTimeToVideo;
 
     void Start()
     {
@@ -38,8 +41,23 @@ public class MainMenu : MonoBehaviour
             {
                 videoPlayer.Stop();
             }
+            else
+            {
+                videoPlayer.Play();
+            }
         }
         //
+        if (!videoPlayer.isPlaying)
+        {
+            currentTimeToVideo += Time.deltaTime;
+            //
+            if(currentTimeToVideo >= maxTimeToVideo)
+            {
+                Debug.Log("Playing video");
+                videoPlayer.Play();
+                currentTimeToVideo = 0;
+            }
+        }
     }
 
     public void StartGame(string levelName)

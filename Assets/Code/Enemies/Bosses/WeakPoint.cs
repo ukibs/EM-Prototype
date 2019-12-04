@@ -49,6 +49,8 @@ public class WeakPoint : Targeteable
         if(active == false && currentHealthPoints > 0)
         {
             Unveil();
+            // TODO: Revisar esto
+            carolBaseHelp.TriggerIt();
         }
         //
         if(currentHealthPoints > 0)
