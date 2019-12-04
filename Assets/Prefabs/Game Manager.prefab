@@ -75,7 +75,7 @@ MonoBehaviour:
       improvementsPurchased: 0
       maxPurchaseableImprovements: 30
       improvementCost: 25
-    maxHealth: 750
+    maxHealth: 3
     armor: 150
     shieldRechargeRate: 100
     repairRate: 10

@@ -69,7 +69,7 @@ public class TerrainManager : MonoBehaviour
     private void OnDrawGizmos()
     {
         //
-        //DrawTerrainOrder();
+        DrawTerrainOrder();
         //
         Gizmos.color = Color.yellow;
         Gizmos.DrawSphere(nearestWaypointToPlayer.transform.position, 10);
@@ -538,8 +538,29 @@ public class TerrainManager : MonoBehaviour
         //activeBlocksMatrix = newActiveBlocksOrder;
         // Y marcmos el nuevo bloque central
         //centralBlock = activeBlocksMatrix 
+
+        //
+        //CheckTerrainAlignment();
         //
         AssignNeighbours();
+    }
+
+    // Ojo que tira mal
+    void CheckTerrainAlignment()
+    {
+        //
+
+        //
+        for (int i = 0; i < squareSize; i++)
+        {
+            for (int j = 0; i < squareSize; i++)
+            {
+                Vector3 blockIdealPosition = activeBlocksMatrix[centralBlock, centralBlock].transform.position
+                    + new Vector3(blockSize * (centralBlock - i), 0, blockSize * (centralBlock - j));
+                // De momento a la brava
+                activeBlocksMatrix[i, j].transform.position = blockIdealPosition;
+            }
+        }
     }
 
     // Función para mandar todo de vuelta al centro cuando se aleje demasiado de éste
