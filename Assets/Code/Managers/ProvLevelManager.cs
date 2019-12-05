@@ -45,6 +45,9 @@ public class ProvLevelManager : MonoBehaviour
 
     public VictoryCondition LevelVictoryCondition { get { return victoryCondition; } }
 
+    public int EnemiesDestroyed { get { return enemiesDestroyed; } }
+    public int EnemiesToDestroy { get { return enemiesToDestroy; } }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -316,8 +319,14 @@ public class ProvLevelManager : MonoBehaviour
                 enemiesDestroyed++;
                 break;
             // Nota: En estas el objetivo a batir será el primero de la lista
+            
             case VictoryCondition.DefeatCertainEnemy:
                 if (enemyToAnotateName == enemyToKillName)
+                    enemiesDestroyed++;
+                break;
+            // Ñapaaaa
+            case VictoryCondition.SlayTheBeast:         // Nota: La victoria como tal la seguirá decidiendo el propio boss
+                if (enemyToAnotateName == "Giga Segment")
                     enemiesDestroyed++;
                 break;
         }

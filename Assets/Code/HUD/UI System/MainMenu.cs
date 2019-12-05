@@ -18,10 +18,12 @@ public class MainMenu : MonoBehaviour
     public GameObject loadingScreen, loadingIcon;
     public Text loadingText;
 
-    private VideoPlayer videoPlayer;
+    public VideoClip[] videoClips;
     public float maxTimeToVideo = 30;
 
+    private VideoPlayer videoPlayer;
     private float currentTimeToVideo;
+    private int currentVideoIndex = 0;
 
     void Start()
     {
@@ -33,6 +35,7 @@ public class MainMenu : MonoBehaviour
         videoPlayer.Prepare();
         //videoPlayer.Play();
         //videoPlayer.Stop();
+        videoPlayer.clip = videoClips[0];
     }
 
     private void Update()
@@ -43,6 +46,10 @@ public class MainMenu : MonoBehaviour
             if (videoPlayer.isPlaying)
             {
                 videoPlayer.Stop();
+                //
+                currentVideoIndex++;
+                if (currentVideoIndex == videoClips.Length) currentVideoIndex = 0;
+                videoPlayer.clip = videoClips[currentVideoIndex];
             }
             else
             {

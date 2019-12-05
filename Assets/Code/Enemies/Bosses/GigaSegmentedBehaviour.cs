@@ -378,8 +378,8 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
     private void CheckDeath()
     {
         //
-        Debug.Log("Checking death -> Current lift force: " + currentLiftForce + ", Previous Segment Behaviour: " + previousSegmentBehaviour +
-            ", Posterior Segment Behaviour: " + posteriorSegmentBehaviour);
+        //Debug.Log("Checking death -> Current lift force: " + currentLiftForce + ", Previous Segment Behaviour: " + previousSegmentBehaviour +
+        //    ", Posterior Segment Behaviour: " + posteriorSegmentBehaviour);
         //
         if(currentLiftForce <= 50 && previousSegmentBehaviour == null && posteriorSegmentBehaviour == null)
         {
@@ -398,7 +398,11 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
             Debug.Log("Segment dead");
 
             // Y finalmente gestionamos la condición de victoria
-
+            levelManager.AnnotateKill("Giga Segment");
+            if (levelManager.EnemiesDestroyed == levelManager.EnemiesToDestroy)
+            {
+                levelManager.ConfirmVictory();
+            }
         }
     }
     
