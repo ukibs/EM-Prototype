@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputManager : MonoBehaviour {
+public class InputManager : MonoBehaviour
+{
 
     #region Private Attributes
 
@@ -47,7 +48,7 @@ public class InputManager : MonoBehaviour {
     public bool FireButton { get { return fireButton; } }
     public bool FireButtonDown { get { return fireButtonDown; } }
     public Vector2 MouseMovement { get { return mouseMovement; } }
-    
+
     public bool MarkObjectiveButton { get { return markObjectiveButton; } }
     public bool DefenseButton { get { return defenseButton; } }
     public Vector2 RightStickAxis { get { return rightStickAxis; } }
@@ -83,14 +84,16 @@ public class InputManager : MonoBehaviour {
     #endregion
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
 
         //previousMousePosition = Input.mousePosition;
 
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
 
         // TODO: Separar flechas del teclado de los ejes normales (wasd)
         // TODO: Ya estaba normalizado. Revisar si la brusquedad viene cuando se aplica a la rotación del player
@@ -104,7 +107,7 @@ public class InputManager : MonoBehaviour {
         //
         UpdateSelectionCross();
 
-        sprintButton = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.Joystick1Button2) /* Gamepad X*/;
+        sprintButton = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.Joystick1Button1) /* Gamepad B*/;
 
         jumpButton = Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Joystick1Button0) /* Gamepad A*/;
 
@@ -117,7 +120,7 @@ public class InputManager : MonoBehaviour {
         markObjectiveButton = Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Joystick1Button9) /* R3 */;
 
         // Switch buttons
-        switchWeaponButton = Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Joystick1Button1);
+        switchWeaponButton = Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Joystick1Button5);
         switchDefenseButton = Input.GetKeyDown(KeyCode.Alpha2) || changeDefenseDown;
         switchJumpButton = Input.GetKeyDown(KeyCode.Alpha3) || changeJumpDown;
         switchSprintButton = Input.GetKeyDown(KeyCode.Alpha4) || changeSprintDown;
@@ -141,7 +144,7 @@ public class InputManager : MonoBehaviour {
     {
         //
         //Vector2 newmousePosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-        
+
         //mouseMovement = newmousePosition - previousMousePosition;
         //previousMousePosition = newmousePosition;
 
