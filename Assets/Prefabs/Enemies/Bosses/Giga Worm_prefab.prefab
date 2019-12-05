@@ -2372,6 +2372,7 @@ GameObject:
   - component: {fileID: 7332483853606304379}
   - component: {fileID: 1331517302104412843}
   - component: {fileID: 592128332670395531}
+  - component: {fileID: 3070293531461708959}
   m_Layer: 0
   m_Name: WeakPoint2
   m_TagString: Untagged
@@ -2474,6 +2475,23 @@ MonoBehaviour:
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: 
+--- !u!114 &3070293531461708959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4395225473883427445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 100
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &4481701548776196048
 GameObject:
   m_ObjectHideFlags: 0
@@ -2670,6 +2688,7 @@ GameObject:
   - component: {fileID: 4459635276008778471}
   - component: {fileID: 6581615225517954940}
   - component: {fileID: 2024869825865760490}
+  - component: {fileID: 2288501356417276764}
   m_Layer: 0
   m_Name: WeakPoint1
   m_TagString: Untagged
@@ -2772,6 +2791,23 @@ MonoBehaviour:
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: 
+--- !u!114 &2288501356417276764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4611439203918726565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 100
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &5002091342124405948
 GameObject:
   m_ObjectHideFlags: 0
@@ -3213,6 +3249,7 @@ GameObject:
   - component: {fileID: 8626980003827438388}
   - component: {fileID: 3207076374162201201}
   - component: {fileID: 5764468080910039573}
+  - component: {fileID: 3360828408202083218}
   m_Layer: 0
   m_Name: WeakPoint3
   m_TagString: Untagged
@@ -3315,6 +3352,23 @@ MonoBehaviour:
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: 
+--- !u!114 &3360828408202083218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6546960791852547681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 100
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &6619930577936644643
 GameObject:
   m_ObjectHideFlags: 0
@@ -6098,6 +6152,23 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0.0000019073486, y: 0, z: 0}
+--- !u!114 &1311904998597722888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7345062221861746045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 10
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &7400318963727910511
 GameObject:
   m_ObjectHideFlags: 0
@@ -6750,27 +6821,33 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 335014e28dbf6f744a60426f9d76f2e6, type: 3}
---- !u!114 &7599515309067692917 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7580580248267086526, guid: 335014e28dbf6f744a60426f9d76f2e6,
-    type: 3}
-  m_PrefabInstance: {fileID: 19500365511799243}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &4403952476320653262 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4420489789855854085, guid: 335014e28dbf6f744a60426f9d76f2e6,
     type: 3}
   m_PrefabInstance: {fileID: 19500365511799243}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7599515309067692917 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7580580248267086526, guid: 335014e28dbf6f744a60426f9d76f2e6,
+    type: 3}
+  m_PrefabInstance: {fileID: 19500365511799243}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7345062221861746045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &198771475111684730 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 182231823908150193, guid: 335014e28dbf6f744a60426f9d76f2e6,
+    type: 3}
+  m_PrefabInstance: {fileID: 19500365511799243}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7345062221861746045 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7326125511894615222, guid: 335014e28dbf6f744a60426f9d76f2e6,
     type: 3}
   m_PrefabInstance: {fileID: 19500365511799243}
   m_PrefabAsset: {fileID: 0}

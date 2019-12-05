@@ -246,8 +246,8 @@ public class Repulsor : MonoBehaviour {
         // A tener en cuenta, 1 es 
         Vector3 forceToApply = transform.up * (offsetCompensation + speedCompensation) * rb.mass;
         rb.AddForce(forceToApply, ForceMode.Impulse);
-        Debug.Log("Applying " + forceToApply + " repulsion force. Offset compensation: " + 
-            offsetCompensation + ", speed compensation: " + speedCompensation);
+        //Debug.Log("Applying " + forceToApply + " repulsion force. Offset compensation: " + 
+        //    offsetCompensation + ", speed compensation: " + speedCompensation);
 
         // TODO: Revisar esto
         UpdateDustEmitterParticleSystem(offsetCompensation, fallingSpeed / 2);

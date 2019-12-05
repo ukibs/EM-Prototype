@@ -58,7 +58,8 @@ public class EnemyCollider : MonoBehaviour
             body = transform.parent.GetComponentInChildren<EnemyConsistency>();
         }
         //
-        bodyBehaviour = body.GetComponent<EnemyBaseBodyBehaviour>();
+        if(body != null)
+            bodyBehaviour = body.GetComponent<EnemyBaseBodyBehaviour>();
 
         //
         //bodyRb = body.GetComponent<Rigidbody>();
@@ -160,6 +161,8 @@ public class EnemyCollider : MonoBehaviour
     // Para recibir daño del ataque de pulso en la parte del cuerpo
     public void ReceivePulseDamage(Vector3 directionWithForce)
     {
+        //Chequeo ñapa para el boss
+        if (body == null) return; 
         //
         //Debug.Log("Receiving pulse damage with " + directionWithForce + " force");
         //

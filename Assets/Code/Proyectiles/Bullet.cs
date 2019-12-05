@@ -241,7 +241,7 @@ public class Bullet : MonoBehaviour {
         {
             clipToUse = impactOnEnemy;
             particlesToUse = impactOnBugParticlesPrefab;
-            weakPoint.ReceiveBulletImpact();
+            weakPoint.ReceiveBulletImpact(rb, this);
         }
 
         // Efecto de sonido

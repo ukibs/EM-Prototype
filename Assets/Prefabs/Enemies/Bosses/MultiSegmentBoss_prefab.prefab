@@ -793,6 +793,7 @@ GameObject:
   - component: {fileID: 1142229019318844453}
   - component: {fileID: 4629021994346392057}
   - component: {fileID: 3594027399936908205}
+  - component: {fileID: 747597596708634224}
   m_Layer: 0
   m_Name: BodyConnection
   m_TagString: Untagged
@@ -886,16 +887,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
-  markWhenNotTargeted: 0
+  active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
-  maxHealthPoints: 30
+  maxHealthPoints: 200
   unveiledMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 1621488742052629413}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: Connection
+--- !u!114 &747597596708634224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846914986102133727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 80
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &933615281902641121
 GameObject:
   m_ObjectHideFlags: 0
@@ -909,6 +927,7 @@ GameObject:
   - component: {fileID: 240214413974302213}
   - component: {fileID: 6237579817606883080}
   - component: {fileID: 7938208893467248872}
+  - component: {fileID: 8278647326756010869}
   m_Layer: 0
   m_Name: GeneratorL
   m_TagString: Untagged
@@ -1002,16 +1021,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
-  markWhenNotTargeted: 0
+  active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
-  maxHealthPoints: 30
+  maxHealthPoints: 100
   unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 2345770036371679116}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: Generator
+--- !u!114 &8278647326756010869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 933615281902641121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 100
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &966996118755680669
 GameObject:
   m_ObjectHideFlags: 0
@@ -1025,6 +1061,7 @@ GameObject:
   - component: {fileID: 4193984587789569200}
   - component: {fileID: 8612750400793676303}
   - component: {fileID: 7525823524246214061}
+  - component: {fileID: 3230489437418965179}
   m_Layer: 0
   m_Name: GeneratorR
   m_TagString: Untagged
@@ -1118,16 +1155,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
-  markWhenNotTargeted: 0
+  active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
-  maxHealthPoints: 30
+  maxHealthPoints: 100
   unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 5568782101548722003}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: Generator
+--- !u!114 &3230489437418965179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 966996118755680669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 100
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &1093958113299313618
 GameObject:
   m_ObjectHideFlags: 0
@@ -1762,6 +1816,7 @@ GameObject:
   - component: {fileID: 5401601711893692678}
   - component: {fileID: 6806317418714772663}
   - component: {fileID: 8882034927664244010}
+  - component: {fileID: 5232238256448841238}
   m_Layer: 0
   m_Name: GeneratorR
   m_TagString: Untagged
@@ -1855,16 +1910,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
-  markWhenNotTargeted: 0
+  active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
-  maxHealthPoints: 30
+  maxHealthPoints: 100
   unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 501195913142147998}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: Generator
+--- !u!114 &5232238256448841238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731368233425250479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 100
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &1780242213930851789
 GameObject:
   m_ObjectHideFlags: 0
@@ -2064,6 +2136,7 @@ GameObject:
   - component: {fileID: 169842597291928819}
   - component: {fileID: 3139991512261974891}
   - component: {fileID: 515735512114614677}
+  - component: {fileID: 7923623022138697721}
   m_Layer: 0
   m_Name: GeneratorL
   m_TagString: Untagged
@@ -2157,16 +2230,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
-  markWhenNotTargeted: 0
+  active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
-  maxHealthPoints: 30
+  maxHealthPoints: 100
   unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 5568782101548722003}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: Generator
+--- !u!114 &7923623022138697721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2029738356279089784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 100
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &2134789458157107774
 GameObject:
   m_ObjectHideFlags: 0
@@ -2273,6 +2363,7 @@ GameObject:
   - component: {fileID: 1880219455134154572}
   - component: {fileID: 1786531479540890809}
   - component: {fileID: 8010081519794758341}
+  - component: {fileID: 7955984446008698237}
   m_Layer: 0
   m_Name: GeneratorR
   m_TagString: Untagged
@@ -2366,16 +2457,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
-  markWhenNotTargeted: 0
+  active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
-  maxHealthPoints: 30
+  maxHealthPoints: 100
   unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 6608030887761593524}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: Generator
+--- !u!114 &7955984446008698237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2143513866983822580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 100
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &2147669931606198878
 GameObject:
   m_ObjectHideFlags: 0
@@ -2389,6 +2497,7 @@ GameObject:
   - component: {fileID: 8934788007749814783}
   - component: {fileID: 1177087811030064470}
   - component: {fileID: 2549577103984953788}
+  - component: {fileID: 7707569199067063132}
   m_Layer: 0
   m_Name: BodyConnection
   m_TagString: Untagged
@@ -2482,16 +2591,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
-  markWhenNotTargeted: 0
+  active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
-  maxHealthPoints: 30
+  maxHealthPoints: 200
   unveiledMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 4726568398933831438}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: Connection
+--- !u!114 &7707569199067063132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2147669931606198878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 80
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &2302478372132292370
 GameObject:
   m_ObjectHideFlags: 0
@@ -2598,6 +2724,7 @@ GameObject:
   - component: {fileID: 6185524394063994033}
   - component: {fileID: 4920397019902424576}
   - component: {fileID: 4879786788404213736}
+  - component: {fileID: 478089603621481374}
   m_Layer: 0
   m_Name: GeneratorL
   m_TagString: Untagged
@@ -2691,16 +2818,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
-  markWhenNotTargeted: 0
+  active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
-  maxHealthPoints: 30
+  maxHealthPoints: 100
   unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 1621488742052629413}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: Generator
+--- !u!114 &478089603621481374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2312761487225355524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 100
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &2447574780289985907
 GameObject:
   m_ObjectHideFlags: 0
@@ -2807,6 +2951,7 @@ GameObject:
   - component: {fileID: 7351138105885131555}
   - component: {fileID: 969383450624509316}
   - component: {fileID: 339192337253208076}
+  - component: {fileID: 3532107947986064616}
   m_Layer: 0
   m_Name: GeneratorL
   m_TagString: Untagged
@@ -2900,16 +3045,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
-  markWhenNotTargeted: 0
+  active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
-  maxHealthPoints: 30
+  maxHealthPoints: 100
   unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 1818215112516815146}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: Generator
+--- !u!114 &3532107947986064616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2524858418287991314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 100
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &2566679043901945514
 GameObject:
   m_ObjectHideFlags: 0
@@ -3058,6 +3220,7 @@ GameObject:
   - component: {fileID: 6993310628598071710}
   - component: {fileID: 2201457207160383824}
   - component: {fileID: 961212360315426825}
+  - component: {fileID: 5736330406266674912}
   m_Layer: 0
   m_Name: GeneratorL
   m_TagString: Untagged
@@ -3151,16 +3314,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
-  markWhenNotTargeted: 0
+  active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
-  maxHealthPoints: 30
+  maxHealthPoints: 100
   unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 7506099352972232277}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: Generator
+--- !u!114 &5736330406266674912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2718305567894501477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 100
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &2730459673013074144
 GameObject:
   m_ObjectHideFlags: 0
@@ -3303,6 +3483,7 @@ GameObject:
   - component: {fileID: 8217642130297796804}
   - component: {fileID: 8656403872640089872}
   - component: {fileID: 4667817698616672947}
+  - component: {fileID: 5881090839617748934}
   m_Layer: 0
   m_Name: GeneratorR
   m_TagString: Untagged
@@ -3396,16 +3577,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
-  markWhenNotTargeted: 0
+  active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
-  maxHealthPoints: 30
+  maxHealthPoints: 100
   unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 1818215112516815146}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: Generator
+--- !u!114 &5881090839617748934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2804331419998141485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 100
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &2924412122433218633
 GameObject:
   m_ObjectHideFlags: 0
@@ -3782,6 +3980,7 @@ GameObject:
   - component: {fileID: 6349839877679748116}
   - component: {fileID: 6552325990008494601}
   - component: {fileID: 1042509311164551135}
+  - component: {fileID: 8800831442201284094}
   m_Layer: 0
   m_Name: GeneratorR
   m_TagString: Untagged
@@ -3875,16 +4074,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
-  markWhenNotTargeted: 0
+  active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
-  maxHealthPoints: 30
+  maxHealthPoints: 100
   unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 2221599742085936804}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: Generator
+--- !u!114 &8800831442201284094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3252434486561891343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 100
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &3281815793865181042
 GameObject:
   m_ObjectHideFlags: 0
@@ -3898,6 +4114,7 @@ GameObject:
   - component: {fileID: 1333862841312345333}
   - component: {fileID: 130859333908157845}
   - component: {fileID: 8434201083757486899}
+  - component: {fileID: 7380607052585982698}
   m_Layer: 0
   m_Name: BodyConnection
   m_TagString: Untagged
@@ -3991,16 +4208,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
-  markWhenNotTargeted: 0
+  active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
-  maxHealthPoints: 30
+  maxHealthPoints: 200
   unveiledMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 3054582296352619825}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: Connection
+--- !u!114 &7380607052585982698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3281815793865181042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 80
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &3556555180771829251
 GameObject:
   m_ObjectHideFlags: 0
@@ -4179,6 +4413,7 @@ GameObject:
   - component: {fileID: 8670524480756716230}
   - component: {fileID: 203247745295361236}
   - component: {fileID: 4336580292449851053}
+  - component: {fileID: 4050595848057851550}
   m_Layer: 0
   m_Name: GeneratorR
   m_TagString: Untagged
@@ -4272,16 +4507,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
-  markWhenNotTargeted: 0
+  active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
-  maxHealthPoints: 30
+  maxHealthPoints: 100
   unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 3054582296352619825}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: Generator
+--- !u!114 &4050595848057851550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3885622425476098009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 100
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &3891214212581130794
 GameObject:
   m_ObjectHideFlags: 0
@@ -4667,6 +4919,7 @@ GameObject:
   - component: {fileID: 2213414913944319049}
   - component: {fileID: 7131221531647246798}
   - component: {fileID: 7200849375352238034}
+  - component: {fileID: 7156143349258096506}
   m_Layer: 0
   m_Name: BodyConnection
   m_TagString: Untagged
@@ -4760,16 +5013,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
-  markWhenNotTargeted: 0
+  active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
-  maxHealthPoints: 30
+  maxHealthPoints: 200
   unveiledMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 6608030887761593524}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: Connection
+--- !u!114 &7156143349258096506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4108806090715507059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 80
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &4308818047417447200
 GameObject:
   m_ObjectHideFlags: 0
@@ -5062,6 +5332,7 @@ GameObject:
   - component: {fileID: 2136387821766237407}
   - component: {fileID: 212101194816631259}
   - component: {fileID: 515531121698374349}
+  - component: {fileID: 1812315995200363312}
   m_Layer: 0
   m_Name: BodyConnection
   m_TagString: Untagged
@@ -5155,16 +5426,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
-  markWhenNotTargeted: 0
+  active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
-  maxHealthPoints: 30
+  maxHealthPoints: 200
   unveiledMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 2221599742085936804}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: Connection
+--- !u!114 &1812315995200363312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4723734342043798833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 80
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &4841915535196080359
 GameObject:
   m_ObjectHideFlags: 0
@@ -5271,6 +5559,7 @@ GameObject:
   - component: {fileID: 5838643506851436964}
   - component: {fileID: 641003606526188859}
   - component: {fileID: 2551366800261440294}
+  - component: {fileID: 4204478055851206243}
   m_Layer: 0
   m_Name: BodyConnection
   m_TagString: Untagged
@@ -5364,16 +5653,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
-  markWhenNotTargeted: 0
+  active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
-  maxHealthPoints: 30
+  maxHealthPoints: 200
   unveiledMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 2345770036371679116}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: Connection
+--- !u!114 &4204478055851206243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4861359822995511155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 80
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &4867754191747817456
 GameObject:
   m_ObjectHideFlags: 0
@@ -5666,6 +5972,7 @@ GameObject:
   - component: {fileID: 8523046101070022729}
   - component: {fileID: 4028935174144034350}
   - component: {fileID: 2047598580516558603}
+  - component: {fileID: 7367725098458913495}
   m_Layer: 0
   m_Name: BodyConnection
   m_TagString: Untagged
@@ -5759,16 +6066,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
-  markWhenNotTargeted: 0
+  active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
-  maxHealthPoints: 30
+  maxHealthPoints: 200
   unveiledMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 2647420395086295205}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: Connection
+--- !u!114 &7367725098458913495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5087241617386497100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 80
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &5098624100502550612
 GameObject:
   m_ObjectHideFlags: 0
@@ -5968,6 +6292,7 @@ GameObject:
   - component: {fileID: 5518877046057601039}
   - component: {fileID: 2574504672315224979}
   - component: {fileID: 2574504672315224980}
+  - component: {fileID: 1553287039921329181}
   m_Layer: 0
   m_Name: GeneratorL
   m_TagString: Untagged
@@ -6061,16 +6386,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
-  markWhenNotTargeted: 0
+  active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
-  maxHealthPoints: 30
+  maxHealthPoints: 100
   unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 2574504672315224989}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: Generator
+--- !u!114 &1553287039921329181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5231628631939842439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 100
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &5307560036796419126
 GameObject:
   m_ObjectHideFlags: 0
@@ -6531,6 +6873,7 @@ GameObject:
   - component: {fileID: 5596201580948074492}
   - component: {fileID: 8123714933639614828}
   - component: {fileID: 6634942907903034714}
+  - component: {fileID: 605566523546198455}
   m_Layer: 0
   m_Name: GeneratorR
   m_TagString: Untagged
@@ -6624,16 +6967,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
-  markWhenNotTargeted: 0
+  active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
-  maxHealthPoints: 30
+  maxHealthPoints: 100
   unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 2345770036371679116}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: Generator
+--- !u!114 &605566523546198455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5448362485439345740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 100
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &5544897141846086042
 GameObject:
   m_ObjectHideFlags: 0
@@ -6740,6 +7100,7 @@ GameObject:
   - component: {fileID: 2150913752841344212}
   - component: {fileID: 4767576469871683643}
   - component: {fileID: 8582678399662099531}
+  - component: {fileID: 6454962570268469001}
   m_Layer: 0
   m_Name: GeneratorR
   m_TagString: Untagged
@@ -6833,16 +7194,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
-  markWhenNotTargeted: 0
+  active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
-  maxHealthPoints: 30
+  maxHealthPoints: 100
   unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 4726568398933831438}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: Generator
+--- !u!114 &6454962570268469001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5545683675050334225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 100
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &5637871714645474660
 GameObject:
   m_ObjectHideFlags: 0
@@ -7069,6 +7447,7 @@ GameObject:
   - component: {fileID: 2536544153598509271}
   - component: {fileID: 5642932702159668482}
   - component: {fileID: 2039704180780160131}
+  - component: {fileID: 2578102472958733575}
   m_Layer: 0
   m_Name: BodyConnection
   m_TagString: Untagged
@@ -7162,16 +7541,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
-  markWhenNotTargeted: 0
+  active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
-  maxHealthPoints: 30
+  maxHealthPoints: 200
   unveiledMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 1818215112516815146}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: Connection
+--- !u!114 &2578102472958733575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5713940504994424795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 80
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &5726162465285691263
 GameObject:
   m_ObjectHideFlags: 0
@@ -7548,6 +7944,7 @@ GameObject:
   - component: {fileID: 1037226186570483656}
   - component: {fileID: 6014539212280962369}
   - component: {fileID: 4240967785559137071}
+  - component: {fileID: 1773514863913794738}
   m_Layer: 0
   m_Name: GeneratorL
   m_TagString: Untagged
@@ -7641,16 +8038,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
-  markWhenNotTargeted: 0
+  active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
-  maxHealthPoints: 30
+  maxHealthPoints: 100
   unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 2647420395086295205}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: Generator
+--- !u!114 &1773514863913794738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5863920683854140016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 100
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &5992765152370473849
 GameObject:
   m_ObjectHideFlags: 0
@@ -7664,6 +8078,7 @@ GameObject:
   - component: {fileID: 3762307123389622272}
   - component: {fileID: 5966007557421470183}
   - component: {fileID: 2658617606121516372}
+  - component: {fileID: 9059843380748670806}
   m_Layer: 0
   m_Name: BodyConnection
   m_TagString: Untagged
@@ -7757,16 +8172,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
-  markWhenNotTargeted: 0
+  active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
-  maxHealthPoints: 30
+  maxHealthPoints: 200
   unveiledMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 501195913142147998}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: Connection
+--- !u!114 &9059843380748670806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5992765152370473849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 80
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &6047378484919484478
 GameObject:
   m_ObjectHideFlags: 0
@@ -8050,6 +8482,7 @@ GameObject:
   - component: {fileID: 4922287618122787794}
   - component: {fileID: 2503139835401393856}
   - component: {fileID: 3971653908160992933}
+  - component: {fileID: 2138973712798180158}
   m_Layer: 0
   m_Name: GeneratorR
   m_TagString: Untagged
@@ -8143,16 +8576,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
-  markWhenNotTargeted: 0
+  active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
-  maxHealthPoints: 30
+  maxHealthPoints: 100
   unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 1621488742052629413}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: Generator
+--- !u!114 &2138973712798180158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6100291485783865066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 100
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &6119729349703689437
 GameObject:
   m_ObjectHideFlags: 0
@@ -8436,6 +8886,7 @@ GameObject:
   - component: {fileID: 1600620190069954072}
   - component: {fileID: 3333573528428991926}
   - component: {fileID: 7561426491443416711}
+  - component: {fileID: 1945063515228256154}
   m_Layer: 0
   m_Name: GeneratorR
   m_TagString: Untagged
@@ -8529,16 +8980,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
-  markWhenNotTargeted: 0
+  active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
-  maxHealthPoints: 30
+  maxHealthPoints: 100
   unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 2647420395086295205}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: Generator
+--- !u!114 &1945063515228256154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6216964645920720884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 100
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &6318730326292098727
 GameObject:
   m_ObjectHideFlags: 0
@@ -9287,6 +9755,7 @@ GameObject:
   - component: {fileID: 4559401342858497800}
   - component: {fileID: 4737076078948788060}
   - component: {fileID: 8181988434387988311}
+  - component: {fileID: 7853207632887504377}
   m_Layer: 0
   m_Name: BodyConnection
   m_TagString: Untagged
@@ -9380,16 +9849,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
-  markWhenNotTargeted: 0
+  active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
-  maxHealthPoints: 30
+  maxHealthPoints: 200
   unveiledMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 7506099352972232277}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: Connection
+--- !u!114 &7853207632887504377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6689833366648062300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 80
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &6779060037816396187
 GameObject:
   m_ObjectHideFlags: 0
@@ -9589,6 +10075,7 @@ GameObject:
   - component: {fileID: 7785977784050221573}
   - component: {fileID: 4244478256405203838}
   - component: {fileID: 8007697837428563082}
+  - component: {fileID: 6287671105150467696}
   m_Layer: 0
   m_Name: GeneratorL
   m_TagString: Untagged
@@ -9682,16 +10169,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
-  markWhenNotTargeted: 0
+  active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
-  maxHealthPoints: 30
+  maxHealthPoints: 100
   unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 2221599742085936804}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: Generator
+--- !u!114 &6287671105150467696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6802030033133760629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 100
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &6835738384989307635
 GameObject:
   m_ObjectHideFlags: 0
@@ -9975,6 +10479,7 @@ GameObject:
   - component: {fileID: 6205808475848463963}
   - component: {fileID: 7315161980356201096}
   - component: {fileID: 8975301642305110030}
+  - component: {fileID: 2676303955231479342}
   m_Layer: 0
   m_Name: GeneratorL
   m_TagString: Untagged
@@ -10068,16 +10573,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
-  markWhenNotTargeted: 0
+  active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
-  maxHealthPoints: 30
+  maxHealthPoints: 100
   unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 6608030887761593524}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: Generator
+--- !u!114 &2676303955231479342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6850121083544836293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 100
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &6904059124599804156
 GameObject:
   m_ObjectHideFlags: 0
@@ -10370,6 +10892,7 @@ GameObject:
   - component: {fileID: 2581673860103154028}
   - component: {fileID: 5306071237874143164}
   - component: {fileID: 3034856192836285126}
+  - component: {fileID: 5507987760973986303}
   m_Layer: 0
   m_Name: GeneratorL
   m_TagString: Untagged
@@ -10463,16 +10986,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
-  markWhenNotTargeted: 0
+  active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
-  maxHealthPoints: 30
+  maxHealthPoints: 100
   unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 501195913142147998}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: Generator
+--- !u!114 &5507987760973986303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7183292522209682762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 100
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &7264094344763836859
 GameObject:
   m_ObjectHideFlags: 0
@@ -11230,6 +11770,7 @@ GameObject:
   - component: {fileID: 557377751888477692}
   - component: {fileID: 6734883783114857301}
   - component: {fileID: 5684482392628591075}
+  - component: {fileID: 2023772705129426601}
   m_Layer: 0
   m_Name: GeneratorL
   m_TagString: Untagged
@@ -11323,16 +11864,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
-  markWhenNotTargeted: 0
+  active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
-  maxHealthPoints: 30
+  maxHealthPoints: 100
   unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 3054582296352619825}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: Generator
+--- !u!114 &2023772705129426601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7817864083380322857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 100
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &7854228232804114909
 GameObject:
   m_ObjectHideFlags: 0
@@ -11346,6 +11904,7 @@ GameObject:
   - component: {fileID: 7229630189230627429}
   - component: {fileID: 2574504672315224981}
   - component: {fileID: 2574504672315224982}
+  - component: {fileID: 7015273324691840973}
   m_Layer: 0
   m_Name: GeneratorR
   m_TagString: Untagged
@@ -11439,16 +11998,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
-  markWhenNotTargeted: 0
+  active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
-  maxHealthPoints: 30
+  maxHealthPoints: 100
   unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 2574504672315224989}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: Generator
+--- !u!114 &7015273324691840973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7854228232804114909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 100
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &7909984006414592257
 GameObject:
   m_ObjectHideFlags: 0
@@ -11591,6 +12167,7 @@ GameObject:
   - component: {fileID: 3162561271889837094}
   - component: {fileID: 8845576919965591972}
   - component: {fileID: 8449204861554429452}
+  - component: {fileID: 8563594194399401515}
   m_Layer: 0
   m_Name: BodyConnection
   m_TagString: Untagged
@@ -11684,16 +12261,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
-  markWhenNotTargeted: 0
+  active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
-  maxHealthPoints: 30
+  maxHealthPoints: 200
   unveiledMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 5568782101548722003}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: Connection
+--- !u!114 &8563594194399401515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7974672709280394299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 80
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &8062069714296988786
 GameObject:
   m_ObjectHideFlags: 0
@@ -12022,6 +12616,7 @@ GameObject:
   - component: {fileID: 7533407579550643014}
   - component: {fileID: 2574504672315224983}
   - component: {fileID: 2574504672315224984}
+  - component: {fileID: 1493035082658547128}
   m_Layer: 0
   m_Name: BodyConnection
   m_TagString: Untagged
@@ -12115,16 +12710,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
-  markWhenNotTargeted: 0
+  active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
-  maxHealthPoints: 30
+  maxHealthPoints: 200
   unveiledMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 2574504672315224989}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: Connection
+--- !u!114 &1493035082658547128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8370667647556800440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 80
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &8418086069223430657
 GameObject:
   m_ObjectHideFlags: 0
@@ -12702,6 +13314,7 @@ GameObject:
   - component: {fileID: 5156187497166529134}
   - component: {fileID: 1221742187151199400}
   - component: {fileID: 7228959410393324094}
+  - component: {fileID: 9114610830786946028}
   m_Layer: 0
   m_Name: GeneratorL
   m_TagString: Untagged
@@ -12795,16 +13408,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
-  markWhenNotTargeted: 0
+  active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
-  maxHealthPoints: 30
+  maxHealthPoints: 100
   unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 4726568398933831438}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: Generator
+--- !u!114 &9114610830786946028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8925860472298519436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 100
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &8976381858631344865
 GameObject:
   m_ObjectHideFlags: 0
@@ -13181,6 +13811,7 @@ GameObject:
   - component: {fileID: 1164423688284378812}
   - component: {fileID: 7021025465238844907}
   - component: {fileID: 8691679737651654002}
+  - component: {fileID: 4552522141886872129}
   m_Layer: 0
   m_Name: GeneratorR
   m_TagString: Untagged
@@ -13274,16 +13905,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833f118ee1ef2734794696791a87a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  active: 1
-  markWhenNotTargeted: 0
+  active: 0
+  markWhenNotTargeted: 1
   centralPointOffset: {x: 0, y: 0, z: 0}
-  maxHealthPoints: 30
+  maxHealthPoints: 100
   unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 7506099352972232277}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
     type: 3}
   tagForBoss: Generator
+--- !u!114 &4552522141886872129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9045229834504594517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aae76bf4e71814cb7668e82dbfb66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armor: 100
+  associatedMeshRenderers: []
+  isTargeteable: 0
+  maxLocationHealth: 0
+  onDamage: 0
 --- !u!1 &9082502014707267906
 GameObject:
   m_ObjectHideFlags: 0

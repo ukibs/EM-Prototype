@@ -830,6 +830,12 @@ public class RobotControl : MonoBehaviour {
             pointFromPlayer = elementsOnReachOfPulseAttack.affectedEnemyConsistencies[i].transform.position - transform.position;
             elementsOnReachOfPulseAttack.affectedEnemyConsistencies[i].ReceivePulseDamage(pointFromPlayer.normalized * pulseForceToApply);
         }
+        // Weakpoints 
+        for (int i = 0; i < elementsOnReachOfPulseAttack.affectedWeakPoints.Count; i++)
+        {
+            pointFromPlayer = elementsOnReachOfPulseAttack.affectedWeakPoints[i].transform.position - transform.position;
+            elementsOnReachOfPulseAttack.affectedWeakPoints[i].ReceivePulseDamage(pointFromPlayer.normalized * pulseForceToApply);
+        }
         // Destructible terrains
         for (int i = 0; i < elementsOnReachOfPulseAttack.affectedDestructibleTerrains.Count; i++)
         {
@@ -875,6 +881,13 @@ public class RobotControl : MonoBehaviour {
                 enemyConsistency = collidersOnReach[i].GetComponentInParent<EnemyConsistency>();
             if (enemyConsistency != null)
                 affectedByPulseAttack.affectedEnemyConsistencies.Add(enemyConsistency);
+            //
+            WeakPoint weakPoint = collidersOnReach[i].GetComponent<WeakPoint>();
+            if (weakPoint != null)
+            {
+                Debug.Log("Adding weakpoint");
+                affectedByPulseAttack.affectedWeakPoints.Add(weakPoint);
+            }                
             // Terrenos destruibles
             DestructibleTerrain destructibleTerrain = collidersOnReach[i].GetComponent<DestructibleTerrain>();
             if (destructibleTerrain == null)
@@ -1001,6 +1014,7 @@ public class AffectedByPulseAttack
 {
     public List<EnemyCollider> affectedEnemyColliders;
     public List<EnemyConsistency> affectedEnemyConsistencies;
+    public List<WeakPoint> affectedWeakPoints;
     public List<DestructibleTerrain> affectedDestructibleTerrains;
     // Tener en cuenta que solo se verán afectados los rigibodies que no sean enemgios activos
     public List<Rigidbody> affectedRigidbodies;
@@ -1009,6 +1023,7 @@ public class AffectedByPulseAttack
     {
         affectedEnemyColliders = new List<EnemyCollider>(10);
         affectedEnemyConsistencies = new List<EnemyConsistency>(5);
+        affectedWeakPoints = new List<WeakPoint>(1);
         affectedDestructibleTerrains = new List<DestructibleTerrain>(1);
         affectedRigidbodies = new List<Rigidbody>(5);
     }

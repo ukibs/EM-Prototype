@@ -483,7 +483,7 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
         //
         for (int i = 0; i < liftedObjectsTrails.Capacity; i++)
         {
-            GameObject newLiftedObjectTrail = Instantiate(carolHelp.dangerousProyetilesTrailPrefab);
+            GameObject newLiftedObjectTrail = Instantiate(carolHelp.dangerousProyetilesTrailPrefab, Vector3.up * -10, Quaternion.identity);
             liftedObjectsTrails.Add(newLiftedObjectTrail);
         }
     }

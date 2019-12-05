@@ -22,6 +22,9 @@ public class PlayerIntegrity : MonoBehaviour
     private CarolBaseHelp carolHelp;
 
     //
+    private Vector3 previousPosition;
+
+    //
     //Vector3 previousStepRbVelocity;
 
     //
@@ -90,6 +93,8 @@ public class PlayerIntegrity : MonoBehaviour
 
         //
         UpdateInvulnerability(dt);
+        //
+        CheckAbnormalTranslate();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -340,7 +345,19 @@ public class PlayerIntegrity : MonoBehaviour
     //
     void CheckAbnormalTranslate()
     {
-
+        //
+        float maxAcceptableTranslate = 50;
+        //
+        Vector3 positionOffset = previousPosition - transform.position;
+        if (positionOffset.magnitude > maxAcceptableTranslate)
+        {
+            transform.position = previousPosition + Vector3.ClampMagnitude(positionOffset, maxAcceptableTranslate);
+            currentHealth--;
+            invulnerable = true;
+            bodyRB.velocity = Vector3.zero;
+        }
+        //
+        previousPosition = transform.position;
     }
 
     //
