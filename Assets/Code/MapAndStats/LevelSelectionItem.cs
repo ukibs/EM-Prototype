@@ -26,11 +26,17 @@ public class LevelSelectionItem : MapAndStatsItem
     public LevelData levelData;
     public float yOffset = 40f;
 
+    private Camera mainCamera;
+    private Vector3 mcInitialPositon;
+
     #region Unity Methods
 
     protected override void Start()
     {
         base.Start();
+
+        mainCamera = Camera.main;
+        mcInitialPositon = mainCamera.transform.position;
     }
 
     private void OnGUI()
@@ -58,10 +64,7 @@ public class LevelSelectionItem : MapAndStatsItem
         GameManager.instance.CurrentLevelInfo = levelData.levelInfo;
         GameManager.instance.gameMode = levelData.levelInfo.gameMode;
         // Accedemos al nivel
-        if (levelData.levelInfo.gameMode == GameMode.Arcade)
-            SceneManager.LoadScene("ProtLevel");
-        else
-            SceneManager.LoadScene("ProtLevel BOSS");
+        StartCoroutine(LoadLevel("ProtLevel"));
     }
 
     public override void HighlightButton()
@@ -100,6 +103,44 @@ public class LevelSelectionItem : MapAndStatsItem
             levelInfoRect.position = pos;
             GUI.Label(levelInfoRect, levelData.levelInfo.enemiesSpawnSettings[i].enemyPrefab.name, guiSkin.label);
             //GUI.Label(levelInfoRect, i + "", guiSkin.label);
+        }
+    }
+
+    #endregion
+
+    #region AsyncLoad Methods
+
+    public IEnumerator LoadLevel(string level)
+    {
+        //levelMenu.SetActive(true);
+
+        float counter = 1;
+        float currentCounter = 0;
+        
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(level);
+
+        asyncLoad.allowSceneActivation = false;
+
+        while (!asyncLoad.isDone)
+        {
+            mainCamera.transform.position = 
+                Vector3.Lerp(mcInitialPositon, transform.position, Mathf.Min(asyncLoad.progress, currentCounter));
+            currentCounter += Time.deltaTime;
+
+            if (asyncLoad.progress >= .9f && currentCounter >= counter)
+            {
+                //loadingText.text = "Press any key to continue";
+                //loadingIcon.SetActive(false);
+
+                //if (Input.anyKeyDown)
+                //{
+                    asyncLoad.allowSceneActivation = true;
+
+                //    Time.timeScale = 1f;
+                //}
+            }
+
+            yield return null;
         }
     }
 
