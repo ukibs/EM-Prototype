@@ -188,15 +188,15 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
         //}
 
         //
-        for(int i = 0; i < preLauchPositions.Count - 1; i++)
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawLine(preLauchPositions[i], preLauchPositions[i] + (Vector3.forward * i/10));
-        }
+        //for(int i = 0; i < preLauchPositions.Count - 1; i++)
+        //{
+        //    Gizmos.color = Color.green;
+        //    Gizmos.DrawLine(preLauchPositions[i], preLauchPositions[i] + (Vector3.forward * i/10));
+        //}
 
         //
-        Gizmos.color = Color.blue;
-        Gizmos.DrawLine(matrixRef.transform.position, matrixRef.transform.position + (matrixRef.transform.forward * 200));
+        //Gizmos.color = Color.blue;
+        //Gizmos.DrawLine(matrixRef.transform.position, matrixRef.transform.position + (matrixRef.transform.forward * 200));
     }
 
     #endregion

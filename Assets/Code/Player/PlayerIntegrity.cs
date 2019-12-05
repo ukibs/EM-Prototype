@@ -338,6 +338,12 @@ public class PlayerIntegrity : MonoBehaviour
     }
 
     //
+    void CheckAbnormalTranslate()
+    {
+
+    }
+
+    //
     public void UpdateInvulnerability(float dt)
     {
         //

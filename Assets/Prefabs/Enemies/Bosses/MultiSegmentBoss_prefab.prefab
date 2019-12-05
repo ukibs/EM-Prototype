@@ -839,7 +839,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  - {fileID: 2100000, guid: 966063d9b4d62054d9a23fd95bc74e6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -890,7 +890,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
-  unveiledMaterial: {fileID: 0}
+  unveiledMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 1621488742052629413}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
@@ -955,7 +955,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  - {fileID: 2100000, guid: e546f89d62d8024449df4a3b5238eb16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1006,7 +1006,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
-  unveiledMaterial: {fileID: 0}
+  unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 2345770036371679116}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
@@ -1071,7 +1071,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  - {fileID: 2100000, guid: e546f89d62d8024449df4a3b5238eb16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1122,7 +1122,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
-  unveiledMaterial: {fileID: 0}
+  unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 5568782101548722003}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
@@ -1421,9 +1421,9 @@ MonoBehaviour:
   carolStepObjects: []
   startSpeed: 30
   verticaSpeed: 15
-  sprintSpeed: 100
+  sprintSpeed: 150
   startHeight: 75
-  rotationSpeed: 30
+  rotationSpeed: 10
   minHeight: -100
   maxHeight: 300
   sprintDuration: 10
@@ -1808,7 +1808,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  - {fileID: 2100000, guid: e546f89d62d8024449df4a3b5238eb16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1859,7 +1859,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
-  unveiledMaterial: {fileID: 0}
+  unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 501195913142147998}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
@@ -2110,7 +2110,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  - {fileID: 2100000, guid: e546f89d62d8024449df4a3b5238eb16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2161,7 +2161,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
-  unveiledMaterial: {fileID: 0}
+  unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 5568782101548722003}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
@@ -2319,7 +2319,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  - {fileID: 2100000, guid: e546f89d62d8024449df4a3b5238eb16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2370,7 +2370,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
-  unveiledMaterial: {fileID: 0}
+  unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 6608030887761593524}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
@@ -2435,7 +2435,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  - {fileID: 2100000, guid: 966063d9b4d62054d9a23fd95bc74e6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2486,7 +2486,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
-  unveiledMaterial: {fileID: 0}
+  unveiledMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 4726568398933831438}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
@@ -2644,7 +2644,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  - {fileID: 2100000, guid: e546f89d62d8024449df4a3b5238eb16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2695,7 +2695,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
-  unveiledMaterial: {fileID: 0}
+  unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 1621488742052629413}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
@@ -2853,7 +2853,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  - {fileID: 2100000, guid: e546f89d62d8024449df4a3b5238eb16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2904,7 +2904,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
-  unveiledMaterial: {fileID: 0}
+  unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 1818215112516815146}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
@@ -3104,7 +3104,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  - {fileID: 2100000, guid: e546f89d62d8024449df4a3b5238eb16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3155,7 +3155,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
-  unveiledMaterial: {fileID: 0}
+  unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 7506099352972232277}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
@@ -3349,7 +3349,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  - {fileID: 2100000, guid: e546f89d62d8024449df4a3b5238eb16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3400,7 +3400,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
-  unveiledMaterial: {fileID: 0}
+  unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 1818215112516815146}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
@@ -3570,9 +3570,9 @@ MonoBehaviour:
   carolStepObjects: []
   startSpeed: 30
   verticaSpeed: 15
-  sprintSpeed: 100
+  sprintSpeed: 150
   startHeight: 75
-  rotationSpeed: 30
+  rotationSpeed: 10
   minHeight: -100
   maxHeight: 300
   sprintDuration: 10
@@ -3828,7 +3828,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  - {fileID: 2100000, guid: e546f89d62d8024449df4a3b5238eb16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3879,7 +3879,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
-  unveiledMaterial: {fileID: 0}
+  unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 2221599742085936804}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
@@ -3944,7 +3944,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  - {fileID: 2100000, guid: 966063d9b4d62054d9a23fd95bc74e6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3995,7 +3995,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
-  unveiledMaterial: {fileID: 0}
+  unveiledMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 3054582296352619825}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
@@ -4225,7 +4225,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  - {fileID: 2100000, guid: e546f89d62d8024449df4a3b5238eb16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4276,7 +4276,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
-  unveiledMaterial: {fileID: 0}
+  unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 3054582296352619825}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
@@ -4713,7 +4713,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  - {fileID: 2100000, guid: 966063d9b4d62054d9a23fd95bc74e6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4764,7 +4764,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
-  unveiledMaterial: {fileID: 0}
+  unveiledMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 6608030887761593524}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
@@ -5108,7 +5108,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  - {fileID: 2100000, guid: 966063d9b4d62054d9a23fd95bc74e6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5159,7 +5159,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
-  unveiledMaterial: {fileID: 0}
+  unveiledMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 2221599742085936804}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
@@ -5317,7 +5317,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  - {fileID: 2100000, guid: 966063d9b4d62054d9a23fd95bc74e6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5368,7 +5368,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
-  unveiledMaterial: {fileID: 0}
+  unveiledMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 2345770036371679116}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
@@ -5712,7 +5712,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  - {fileID: 2100000, guid: 966063d9b4d62054d9a23fd95bc74e6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5763,7 +5763,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
-  unveiledMaterial: {fileID: 0}
+  unveiledMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 2647420395086295205}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
@@ -6014,7 +6014,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  - {fileID: 2100000, guid: e546f89d62d8024449df4a3b5238eb16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6065,7 +6065,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
-  unveiledMaterial: {fileID: 0}
+  unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 2574504672315224989}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
@@ -6142,9 +6142,9 @@ MonoBehaviour:
   carolStepObjects: []
   startSpeed: 30
   verticaSpeed: 15
-  sprintSpeed: 100
+  sprintSpeed: 150
   startHeight: 75
-  rotationSpeed: 30
+  rotationSpeed: 10
   minHeight: -100
   maxHeight: 300
   sprintDuration: 10
@@ -6319,9 +6319,9 @@ MonoBehaviour:
   carolStepObjects: []
   startSpeed: 30
   verticaSpeed: 15
-  sprintSpeed: 100
+  sprintSpeed: 150
   startHeight: 75
-  rotationSpeed: 30
+  rotationSpeed: 10
   minHeight: -100
   maxHeight: 300
   sprintDuration: 10
@@ -6577,7 +6577,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  - {fileID: 2100000, guid: e546f89d62d8024449df4a3b5238eb16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6628,7 +6628,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
-  unveiledMaterial: {fileID: 0}
+  unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 2345770036371679116}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
@@ -6786,7 +6786,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  - {fileID: 2100000, guid: e546f89d62d8024449df4a3b5238eb16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6837,7 +6837,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
-  unveiledMaterial: {fileID: 0}
+  unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 4726568398933831438}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
@@ -6914,9 +6914,9 @@ MonoBehaviour:
   carolStepObjects: []
   startSpeed: 30
   verticaSpeed: 15
-  sprintSpeed: 100
+  sprintSpeed: 150
   startHeight: 75
-  rotationSpeed: 30
+  rotationSpeed: 10
   minHeight: -100
   maxHeight: 300
   sprintDuration: 10
@@ -7115,7 +7115,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  - {fileID: 2100000, guid: 966063d9b4d62054d9a23fd95bc74e6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7166,7 +7166,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
-  unveiledMaterial: {fileID: 0}
+  unveiledMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 1818215112516815146}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
@@ -7429,9 +7429,9 @@ MonoBehaviour:
   carolStepObjects: []
   startSpeed: 30
   verticaSpeed: 15
-  sprintSpeed: 100
+  sprintSpeed: 150
   startHeight: 75
-  rotationSpeed: 30
+  rotationSpeed: 10
   minHeight: -100
   maxHeight: 300
   sprintDuration: 10
@@ -7594,7 +7594,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  - {fileID: 2100000, guid: e546f89d62d8024449df4a3b5238eb16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7645,7 +7645,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
-  unveiledMaterial: {fileID: 0}
+  unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 2647420395086295205}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
@@ -7710,7 +7710,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  - {fileID: 2100000, guid: 966063d9b4d62054d9a23fd95bc74e6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7761,7 +7761,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
-  unveiledMaterial: {fileID: 0}
+  unveiledMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 501195913142147998}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
@@ -7838,9 +7838,9 @@ MonoBehaviour:
   carolStepObjects: []
   startSpeed: 30
   verticaSpeed: 15
-  sprintSpeed: 100
+  sprintSpeed: 150
   startHeight: 75
-  rotationSpeed: 30
+  rotationSpeed: 10
   minHeight: -100
   maxHeight: 300
   sprintDuration: 10
@@ -8096,7 +8096,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  - {fileID: 2100000, guid: e546f89d62d8024449df4a3b5238eb16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8147,7 +8147,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
-  unveiledMaterial: {fileID: 0}
+  unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 1621488742052629413}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
@@ -8224,9 +8224,9 @@ MonoBehaviour:
   carolStepObjects: []
   startSpeed: 30
   verticaSpeed: 15
-  sprintSpeed: 100
+  sprintSpeed: 150
   startHeight: 75
-  rotationSpeed: 30
+  rotationSpeed: 10
   minHeight: -100
   maxHeight: 300
   sprintDuration: 10
@@ -8482,7 +8482,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  - {fileID: 2100000, guid: e546f89d62d8024449df4a3b5238eb16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8533,7 +8533,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
-  unveiledMaterial: {fileID: 0}
+  unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 2647420395086295205}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
@@ -8796,9 +8796,9 @@ MonoBehaviour:
   carolStepObjects: []
   startSpeed: 30
   verticaSpeed: 15
-  sprintSpeed: 100
+  sprintSpeed: 150
   startHeight: 75
-  rotationSpeed: 30
+  rotationSpeed: 10
   minHeight: -100
   maxHeight: 300
   sprintDuration: 10
@@ -9333,7 +9333,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  - {fileID: 2100000, guid: 966063d9b4d62054d9a23fd95bc74e6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9384,7 +9384,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
-  unveiledMaterial: {fileID: 0}
+  unveiledMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 7506099352972232277}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
@@ -9635,7 +9635,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  - {fileID: 2100000, guid: e546f89d62d8024449df4a3b5238eb16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9686,7 +9686,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
-  unveiledMaterial: {fileID: 0}
+  unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 2221599742085936804}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
@@ -9763,9 +9763,9 @@ MonoBehaviour:
   carolStepObjects: []
   startSpeed: 30
   verticaSpeed: 15
-  sprintSpeed: 100
+  sprintSpeed: 150
   startHeight: 75
-  rotationSpeed: 30
+  rotationSpeed: 10
   minHeight: -100
   maxHeight: 300
   sprintDuration: 10
@@ -10021,7 +10021,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  - {fileID: 2100000, guid: e546f89d62d8024449df4a3b5238eb16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10072,7 +10072,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
-  unveiledMaterial: {fileID: 0}
+  unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 6608030887761593524}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
@@ -10416,7 +10416,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  - {fileID: 2100000, guid: e546f89d62d8024449df4a3b5238eb16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10467,7 +10467,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
-  unveiledMaterial: {fileID: 0}
+  unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 501195913142147998}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
@@ -11276,7 +11276,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  - {fileID: 2100000, guid: e546f89d62d8024449df4a3b5238eb16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -11327,7 +11327,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
-  unveiledMaterial: {fileID: 0}
+  unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 3054582296352619825}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
@@ -11392,7 +11392,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  - {fileID: 2100000, guid: e546f89d62d8024449df4a3b5238eb16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -11443,7 +11443,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
-  unveiledMaterial: {fileID: 0}
+  unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 2574504672315224989}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
@@ -11637,7 +11637,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  - {fileID: 2100000, guid: 966063d9b4d62054d9a23fd95bc74e6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -11688,7 +11688,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
-  unveiledMaterial: {fileID: 0}
+  unveiledMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 5568782101548722003}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
@@ -12068,7 +12068,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  - {fileID: 2100000, guid: 966063d9b4d62054d9a23fd95bc74e6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -12119,7 +12119,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
-  unveiledMaterial: {fileID: 0}
+  unveiledMaterial: {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 2574504672315224989}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
@@ -12196,9 +12196,9 @@ MonoBehaviour:
   carolStepObjects: []
   startSpeed: 30
   verticaSpeed: 15
-  sprintSpeed: 100
+  sprintSpeed: 150
   startHeight: 75
-  rotationSpeed: 30
+  rotationSpeed: 10
   minHeight: -100
   maxHeight: 300
   sprintDuration: 10
@@ -12748,7 +12748,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  - {fileID: 2100000, guid: e546f89d62d8024449df4a3b5238eb16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -12799,7 +12799,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
-  unveiledMaterial: {fileID: 0}
+  unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 4726568398933831438}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
@@ -12969,9 +12969,9 @@ MonoBehaviour:
   carolStepObjects: []
   startSpeed: 30
   verticaSpeed: 15
-  sprintSpeed: 100
+  sprintSpeed: 150
   startHeight: 75
-  rotationSpeed: 30
+  rotationSpeed: 10
   minHeight: -100
   maxHeight: 300
   sprintDuration: 10
@@ -13227,7 +13227,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41e514da42ed3fa489ce343e7772e955, type: 2}
+  - {fileID: 2100000, guid: e546f89d62d8024449df4a3b5238eb16, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -13278,7 +13278,7 @@ MonoBehaviour:
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
   maxHealthPoints: 30
-  unveiledMaterial: {fileID: 0}
+  unveiledMaterial: {fileID: 2100000, guid: b949af815dbd0bc48b8f82e8390b0fb2, type: 2}
   reactionOnDamage: 0
   bossBehaviour: {fileID: 7506099352972232277}
   destructionParticles: {fileID: 1837716235657633640, guid: cada998f4911b064fa1043b1277728ef,
