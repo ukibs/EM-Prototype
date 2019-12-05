@@ -7,6 +7,7 @@ public class Repulsor : MonoBehaviour {
     public float idealDistanceFromFloor = 1;
     public float maxRepulsionStrength = 10;
     public float repulsionDamp = 0.2f;
+    public float jumpCooldown = 0.3f;
 
     public ParticleSystem dustEmitterStatic;
     public ParticleSystem dustEmitterMovement;
@@ -40,6 +41,9 @@ public class Repulsor : MonoBehaviour {
     //
     private float timeWithoutFloor = 0;
     private float dashCooldown = 0;
+
+    //
+    private float currentJumpCooldown;
 
     #region Properties
 
@@ -91,6 +95,7 @@ public class Repulsor : MonoBehaviour {
         {
             UpdateDustEmitter(floorPoint);
             timeWithoutFloor = 0;
+            currentJumpCooldown += dt;
         }
         else
         {
@@ -114,7 +119,7 @@ public class Repulsor : MonoBehaviour {
         if (inputManager.JumpButton && robotControl.ActiveJumpMode == JumpMode.RepulsorJump)
         {
             // TODO: Meter un margen extra aqui
-            if (isOnFloor)
+            if (isOnFloor && currentJumpCooldown >= jumpCooldown)
             {
                 //
                 rb.AddForce(transform.up * gameManager.playerAttributes.jumpForce, ForceMode.Impulse);
@@ -123,6 +128,7 @@ public class Repulsor : MonoBehaviour {
                 Vector3 fixedVelocidty = rb.velocity;
                 fixedVelocidty.y = Mathf.Clamp(fixedVelocidty.y, gameManager.playerAttributes.jumpForce, gameManager.playerAttributes.jumpForce);
                 rb.velocity = fixedVelocidty;
+                currentJumpCooldown = 0;
             }
             // Metemos aqui la opción de impulsarnos hacia el suelo
             //else if (timeWithoutFloor > 1) 

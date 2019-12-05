@@ -66,6 +66,7 @@ public class MainMenu : MonoBehaviour
                 Debug.Log("Playing video");
                 videoPlayer.Play();
                 currentTimeToVideo = 0;
+                currentVideoIndex++;
             }
         }
     }
