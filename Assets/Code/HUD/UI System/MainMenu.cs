@@ -31,14 +31,22 @@ public class MainMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         //
-        videoPlayer = GetComponent<VideoPlayer>();
-        videoPlayer.Prepare();
-        //videoPlayer.Play();
-        //videoPlayer.Stop();
-        videoPlayer.clip = videoClips[0];
+        if (videoClips.Length > 0)
+        {
+            videoPlayer = GetComponent<VideoPlayer>();
+            videoPlayer.Prepare();
+            videoPlayer.clip = videoClips[0];
+        }
+        
     }
 
     private void Update()
+    {
+        if (videoClips.Length > 0)
+            UpdateVideoStuff();
+    }
+
+    private void UpdateVideoStuff()
     {
         //
         if (Input.anyKeyDown)
@@ -61,7 +69,7 @@ public class MainMenu : MonoBehaviour
         {
             currentTimeToVideo += Time.deltaTime;
             //
-            if(currentTimeToVideo >= maxTimeToVideo)
+            if (currentTimeToVideo >= maxTimeToVideo)
             {
                 Debug.Log("Playing video");
                 videoPlayer.Play();
@@ -99,7 +107,10 @@ public class MainMenu : MonoBehaviour
 
     public void QuitGame()
     {
-        videoPlayer.Stop();
+        //
+        if(videoPlayer != null)
+            videoPlayer.Stop();
+        //
         Application.Quit();
     }
     public void TitleDescription (string text)

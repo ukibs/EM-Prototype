@@ -1672,11 +1672,7 @@ MonoBehaviour:
   loadingScreen: {fileID: 1712747801}
   loadingIcon: {fileID: 1205987814}
   loadingText: {fileID: 461949883}
-  videoClips:
-  - {fileID: 32900000, guid: 051f64339b6d0034dbaad12f3158f1e6, type: 3}
-  - {fileID: 32900000, guid: 44a59312474f87349a02fa4a5a6791c3, type: 3}
-  - {fileID: 32900000, guid: 7e0237a217f8df644a5d84c5de3b2492, type: 3}
-  - {fileID: 32900000, guid: fb8cad154fb403b41a71c3bd8ea021a7, type: 3}
+  videoClips: []
   maxTimeToVideo: 5
 --- !u!328 &2033481565
 VideoPlayer:

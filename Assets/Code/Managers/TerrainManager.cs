@@ -58,8 +58,14 @@ public class TerrainManager : MonoBehaviour
         }
 
         // Si el player se ha alejado lo suficiente del centro...
-        if(playerTransform.position.magnitude > maxDistanceFromCenter)
+        Vector3 playerOffsetFromCenter = playerTransform.position;
+        playerOffsetFromCenter.y = 0;
+        // Obviamos y (al menos de momento)
+        if (playerOffsetFromCenter.magnitude > maxDistanceFromCenter)
         {
+            //
+            PlayerReference.playerIntegrity.TranslationAllowed = true;
+            //
             RealocateEverything();
             Debug.Log("Realocating everything");
         }

@@ -35,6 +35,7 @@ public class PlayerIntegrity : MonoBehaviour
     private bool invulnerable = false;
     private float invDuration = 1;
     private float invCurrentDuration;
+    private bool translationAllowed = false;
 
     #region Properties
 
@@ -48,6 +49,8 @@ public class PlayerIntegrity : MonoBehaviour
     }
 
     public bool IsDead { get { return currentHealth <= 0; } }
+
+    public bool TranslationAllowed { set { translationAllowed = value; } }
 
     #endregion
 
@@ -345,6 +348,16 @@ public class PlayerIntegrity : MonoBehaviour
     //
     void CheckAbnormalTranslate()
     {
+        // Según como haya ocurrido lo permitimos
+        if (translationAllowed)
+        {
+            Debug.Log("Abnormal translation allowed");
+            previousPosition = transform.position;
+            translationAllowed = false;
+            return;
+        }
+        //
+        Debug.Log("Stopping abnormal translation");
         //
         float maxAcceptableTranslate = 50;
         //

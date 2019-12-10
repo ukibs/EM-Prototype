@@ -229,6 +229,8 @@ public class GigaWormBehaviour : BossBaseBehaviour
             if (currentState == WormStatus.Stunned)
             {
                 // Mandamos al player al interior del gusano
+                PlayerReference.playerIntegrity.TranslationAllowed = true;
+                // Después de permitir el movimiento
                 MovePlayerToInterior();
                 gigaWormInsides.PlayerOut = false;
                 active = false;

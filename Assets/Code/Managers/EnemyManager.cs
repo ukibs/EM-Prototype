@@ -27,6 +27,7 @@ public class EnemyManager : MonoBehaviour
     private EnemySpawnPoint[] enemySpawnPoints;
     private CarolBaseHelp carolHelp;
     private ProvLevelManager levelManager;
+    private BossBaseBehaviour bossBehaviour;
 
     // Vamos a manejarlo aqui de moemnto para no saturar el audio
     //private List<AudioClip> activeFiringClips;
@@ -108,6 +109,9 @@ public class EnemyManager : MonoBehaviour
         {
             ActivateEnemies(0);
             enemyStartIndex = 1;
+            // TODO: De momento pillamos solo el primero que nos devuelva
+            // Por el segementado, ya veremos que hacemos con él
+            bossBehaviour = activeEnemies[0][0].GetComponentInChildren<BossBaseBehaviour>();
         }
     }
 
@@ -119,7 +123,15 @@ public class EnemyManager : MonoBehaviour
         // En el boss no actualizamos el spameo de enemigos
         // Lo gestionará el propio boss
         if(levelManager.LevelVictoryCondition != VictoryCondition.SlayTheBeast)
+        {
             UpdateEnemySpawnCounts(dt);
+        }
+        // En modo boss el epicentro será el propio boss
+        // TODO: Hacer esto mas formal
+        else
+        {
+            epicenterPoint = bossBehaviour.transform.position;
+        }
     }
 
     #region New Spawn Methods
