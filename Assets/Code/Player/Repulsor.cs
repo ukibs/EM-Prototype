@@ -17,6 +17,11 @@ public class Repulsor : MonoBehaviour {
     [Tooltip("ERNESTO: Juega aqui para tu efecto")]
     public Vector3 additionalGravity = new Vector3(0, -20, 0);
 
+    [Tooltip("Max height we concede the player before forcing the falling speed")]
+    public float maxAcceptableHeight = 500;
+    [Tooltip("Extra falling speed")]
+    public Vector3 extraFallingSpeed = new Vector3(0, -60, 0);
+
     // TODO: Meter clip de caída detenida
     // Y que suene fuerte si es un buen frenazo
 
@@ -81,6 +86,10 @@ public class Repulsor : MonoBehaviour {
         // Ñapa gravítica para Ernesto
         if (rb.velocity.y < 0 && !inputManager.JumpButton)
             rb.velocity += additionalGravity * dt;
+
+        // Control de altura máxima
+        if (transform.position.y >= maxAcceptableHeight)
+            rb.velocity += extraFallingSpeed * dt;
 
         //isOnFloor = CheckFloor(out floorPoint);
         isOnFloor = CheckFloorWithSphere(out floorPoint);
@@ -155,7 +164,8 @@ public class Repulsor : MonoBehaviour {
         {
             //
             //Vector3 xzVelocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-            //
+            // TODO: Revisar esto
+            // Igual hay que cvambiar al 3dDamoping
             robotControl.ChangeDampingType(DampingType.None);
             rb.AddForce(xzDirection * gameManager.playerAttributes.jumpForce * 10, ForceMode.Impulse);
             //

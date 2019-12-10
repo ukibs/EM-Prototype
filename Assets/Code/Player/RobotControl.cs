@@ -969,16 +969,23 @@ public class RobotControl : MonoBehaviour {
     /// </summary>
     void CharguedProyectileAttack(GameObject proyectilePrefab, Transform muzzlePoint, float dt)
     {
-        // Establecemos la masa
-        proyectileRb.mass = gameManager.playerAttributes.massPerSecond * chargedAmount / 1000000;
-        // Y la fuerza a aplicar
-        float forceToApply = gameManager.playerAttributes.forcePerSecond.CurrentValue * chargedAmount;
+        
         //
         //GameObject nextProyectile = GeneralFunctions.ShootProjectile(proyectilePrefab, muzzlePoint.position, muzzlePoint.rotation,
         //    muzzlePoint.forward, forceToApply, dt, ShootCalculation.Force);
         GameObject nextProyectile = bulletPool.GetBullet(elipticProyectilePrefab);
+
+        // Establecemos la masa
+        // TODO: Cambiarlo en la instancia
+        Rigidbody nextProyectileRb = nextProyectile.GetComponent<Rigidbody>();
+        nextProyectileRb.mass = gameManager.playerAttributes.massPerSecond * chargedAmount / 1000000;
+        // Y la fuerza a aplicar
+        float forceToApply = gameManager.playerAttributes.forcePerSecond.CurrentValue * chargedAmount;
         //
-            GeneralFunctions.ShootProjectileFromPool(nextProyectile, muzzlePoint.position, muzzlePoint.rotation,
+        //Debug.Log("Proyectile mass: " + proyectileRb.mass + ", force to apply: " + forceToApply);
+
+        //
+        GeneralFunctions.ShootProjectileFromPool(nextProyectile, muzzlePoint.position, muzzlePoint.rotation,
             muzzlePoint.forward, forceToApply, dt, ShootCalculation.Force);
         // TODO: Revisar diametro, densidad, etc
         Bullet bulletComponent = nextProyectile.GetComponent<Bullet>();
