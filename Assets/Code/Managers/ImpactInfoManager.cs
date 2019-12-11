@@ -66,40 +66,45 @@ public class ImpactInfoManager : MonoBehaviour {
         // TODO: Sacar los del player para manejar los de fuego rápido por separado
 
         // Cribamos valores bajos de momento
-        if (damageReceived < 1) return;
+        //if (damageReceived < 1) return;
         //
         Vector3 screenPosition = mainCamera.WorldToScreenPoint(point);
         if (screenPosition.z < 0) return;
 
         //
-        if (!CheckIfPlayerInRapidFire())
-        {
-            //
-            ImpactInfo newImpactInfo = new ImpactInfo();
-            newImpactInfo.damageValue = damageReceived;
-            //newImpactInfo.info = force + " N";
+        //if (!CheckIfPlayerInRapidFire())
+        //{
 
-            newImpactInfo.info = damageReceived + "";
-            newImpactInfo.extraInfo = extraInfo;
-            newImpactInfo.position = point;
-            newImpactInfo.screenPosition = screenPosition;
+        //
+        ImpactInfo newImpactInfo = new ImpactInfo();
+        newImpactInfo.damageValue = damageReceived;
+        //newImpactInfo.info = force + " N";
 
-            // TODO: Esto parece sobrar
-            // Asegurarse de que es necesario
-            if (newImpactInfo != null)
-                impactInfoList.Add(newImpactInfo);
-        }
-        else
-        {
-            rapidFireImpactInfo.damageValue += damageReceived;
-            rapidFireImpactInfo.info = Int32.Parse(rapidFireImpactInfo.info) + damageReceived + "";
-            rapidFireImpactInfo.extraInfo = extraInfo;
-            rapidFireImpactInfo.position = point;
-            rapidFireImpactInfo.screenPosition = screenPosition;
-            //
-            //rapidFireActive = true;
-            rapidFireImpactInfo.timeAlive = 0;
-        }
+        newImpactInfo.info = damageReceived + "";
+        newImpactInfo.extraInfo = extraInfo;
+        newImpactInfo.position = point;
+        newImpactInfo.screenPosition = screenPosition;
+        newImpactInfo.textColor = new Color(UnityEngine.Random.Range(0, 1.0f),
+                                                UnityEngine.Random.Range(0, 1.0f),
+                                                UnityEngine.Random.Range(0, 1.0f));
+
+        // TODO: Esto parece sobrar
+        // Asegurarse de que es necesario
+        if (newImpactInfo != null)
+            impactInfoList.Add(newImpactInfo);
+
+        //}
+        //else
+        //{
+        //    rapidFireImpactInfo.damageValue += damageReceived;
+        //    rapidFireImpactInfo.info = Int32.Parse(rapidFireImpactInfo.info) + damageReceived + "";
+        //    rapidFireImpactInfo.extraInfo = extraInfo;
+        //    rapidFireImpactInfo.position = point;
+        //    rapidFireImpactInfo.screenPosition = screenPosition;
+        //    //
+        //    //rapidFireActive = true;
+        //    rapidFireImpactInfo.timeAlive = 0;
+        //}
 
     }
     
@@ -139,4 +144,5 @@ public class ImpactInfo
     public string extraInfo;
     public Vector3 position;
     public Vector3 screenPosition = new Vector3(-100, 0);   //Valor simbolico para manejarlo
+    public Color textColor;
 }

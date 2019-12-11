@@ -7,12 +7,12 @@ public class FlyingEnemyBodyBehaviour : EnemyBaseBodyBehaviour
     //
     public float idealHeight;
 
-    public float liftForcePerSecond;
+    //public float liftForcePerSecond;
 
     protected override void Start()
     {
         // Ñapa
-        transform.position = new Vector3(transform.position.x, idealHeight, transform.position.z);
+        //transform.position = new Vector3(transform.position.x, idealHeight, transform.position.z);
         //
         base.Start();
     }
@@ -41,8 +41,11 @@ public class FlyingEnemyBodyBehaviour : EnemyBaseBodyBehaviour
             case Actions.EncirclingPlayerSideward:
             case Actions.EncirclingPlayerForward:
             case Actions.FacingPlayer:
+                //
+                float heightToUse = Mathf.Max(idealHeight, player.transform.position.y);
+                //
                 Vector3 currentPositon = transform.position;
-                currentPositon.y = idealHeight;
+                currentPositon.y = heightToUse;
                 transform.position = currentPositon;
                 break;
         }

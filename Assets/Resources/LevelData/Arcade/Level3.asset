@@ -16,7 +16,7 @@ MonoBehaviour:
     inGameName: Screechers first contact
     gameMode: 0
     victoryCondition: 1
-    enemiesToDefeat: 10
+    enemiesToDefeat: 50
     attackActionsAvailable: 3
     defenseActionsAvailable: 1
     jumpActionsAvailable: 1
@@ -28,7 +28,7 @@ MonoBehaviour:
       enemiesToSpawn: 9
       enemySpawnIncrement: 0
       timeBetweenSpawns: 5
-      maxActiveEnemies: 15
+      maxActiveEnemies: 25
     terrainElementsSettings:
     - terrainPrefab: {fileID: 3326227640253247155, guid: e805da38f2157cf44bd8ebbbe826ba67,
         type: 3}

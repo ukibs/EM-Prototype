@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4506054600807013290}
   - component: {fileID: 3240689117967253480}
   - component: {fileID: 5538520636394636694}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Energy Bomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,6 +175,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8801764043903978978, guid: f7f280437923289449a8d1374a3a8bf1,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 8265540234682333196, guid: f7f280437923289449a8d1374a3a8bf1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -250,6 +255,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Thunder vertical
       objectReference: {fileID: 0}
+    - target: {fileID: 4256336204906359834, guid: ba5a11c77d4188440b9a6e645c46ca5c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 4256336204906359837, guid: ba5a11c77d4188440b9a6e645c46ca5c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -305,6 +315,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4256336204769463359, guid: ba5a11c77d4188440b9a6e645c46ca5c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 4256336205329181064, guid: ba5a11c77d4188440b9a6e645c46ca5c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba5a11c77d4188440b9a6e645c46ca5c, type: 3}
 --- !u!4 &1618380505002871077 stripped
@@ -324,6 +344,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: 'vfx_SparksVariant_Loop '
+      objectReference: {fileID: 0}
+    - target: {fileID: 8534704712629419476, guid: f9a528cd81947cf4e912c916711f4c3c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 1511337679448918579, guid: f9a528cd81947cf4e912c916711f4c3c,
         type: 3}
@@ -379,6 +404,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8872082795508640073, guid: f9a528cd81947cf4e912c916711f4c3c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 7365771234680646652, guid: f9a528cd81947cf4e912c916711f4c3c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 6714142728897342657, guid: f9a528cd81947cf4e912c916711f4c3c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9a528cd81947cf4e912c916711f4c3c, type: 3}

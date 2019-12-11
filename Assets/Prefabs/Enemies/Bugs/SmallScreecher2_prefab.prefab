@@ -997,7 +997,7 @@ MonoBehaviour:
   active: 1
   markWhenNotTargeted: 0
   centralPointOffset: {x: 0, y: 0, z: 0}
-  inGameName: Size Category
+  inGameName: Small Screecher
   maxHealth: 100
   defense: 10
   bodyColliders: []
@@ -1045,9 +1045,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 1000
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -1080,7 +1080,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1134,14 +1134,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 50
   minimalLungeDistance: 15
-  minimalShootDistance: 300
+  minimalShootDistance: 500
   ofFootMaxTime: 5
   timeBetweenActionChecking: 1
   rotationSpeed: 360
   behaviour: 090000000100000000000000
   weapons: []
   idealHeight: 175
-  liftForcePerSecond: 0
 --- !u!1 &9191936437136735333
 GameObject:
   m_ObjectHideFlags: 0

@@ -264,31 +264,34 @@ public class ProvisionalHUD : MonoBehaviour {
             // TODO: Mirar si renta más cribarlo en el momento de construirlo
             if (impactInfoManager.ImpactInfoList[i].screenPosition.z > 0)
             {
+                //
+                guiSkin.customStyles[4].normal.textColor = impactInfoManager.ImpactInfoList[i].textColor;
+                //
                 GUI.Label(new Rect(impactInfoManager.ImpactInfoList[i].screenPosition.x,
                    Screen.height - impactInfoManager.ImpactInfoList[i].screenPosition.y,
-                   200, 100), impactInfoManager.ImpactInfoList[i].damageValue + "", guiSkin.label);
+                   200, 100), impactInfoManager.ImpactInfoList[i].damageValue + "", guiSkin.customStyles[4]);
                 // Mesanje aosicado a la entrada
                 if (impactInfoManager.ImpactInfoList[i].extraInfo != null)
                     GUI.Label(new Rect(impactInfoManager.ImpactInfoList[i].screenPosition.x,
                         Screen.height - impactInfoManager.ImpactInfoList[i].screenPosition.y + 20, 200, 100),
-                        impactInfoManager.ImpactInfoList[i].extraInfo, guiSkin.label);
+                        impactInfoManager.ImpactInfoList[i].extraInfo, guiSkin.customStyles[4]);
             }           
         }
 
         // El de fuego rápido
-        if(impactInfoManager.RapidFireImpactInfo.damageValue > 0)
-        {
-            //impactInfoManager.RapidFireImpactInfo.screenPosition =
-            //        mainCamera.WorldToScreenPoint(impactInfoManager.RapidFireImpactInfo.position);
+        //if(impactInfoManager.RapidFireImpactInfo.damageValue > 0)
+        //{
+        //    //impactInfoManager.RapidFireImpactInfo.screenPosition =
+        //    //        mainCamera.WorldToScreenPoint(impactInfoManager.RapidFireImpactInfo.position);
 
-            GUI.Label(new Rect(impactInfoManager.RapidFireImpactInfo.screenPosition.x,
-                       Screen.height - impactInfoManager.RapidFireImpactInfo.screenPosition.y,
-                       200, 100), impactInfoManager.RapidFireImpactInfo.damageValue + "", guiSkin.label);
+        //    GUI.Label(new Rect(impactInfoManager.RapidFireImpactInfo.screenPosition.x,
+        //               Screen.height - impactInfoManager.RapidFireImpactInfo.screenPosition.y,
+        //               200, 100), impactInfoManager.RapidFireImpactInfo.damageValue + "", guiSkin.label);
 
-            GUI.Label(new Rect(impactInfoManager.RapidFireImpactInfo.screenPosition.x,
-                            Screen.height - impactInfoManager.RapidFireImpactInfo.screenPosition.y + 20, 200, 100),
-                            impactInfoManager.RapidFireImpactInfo.extraInfo, guiSkin.label);
-        }
+        //    GUI.Label(new Rect(impactInfoManager.RapidFireImpactInfo.screenPosition.x,
+        //                    Screen.height - impactInfoManager.RapidFireImpactInfo.screenPosition.y + 20, 200, 100),
+        //                    impactInfoManager.RapidFireImpactInfo.extraInfo, guiSkin.label);
+        //}
         
     }
 

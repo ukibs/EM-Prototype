@@ -347,8 +347,8 @@ public class EnemyConsistency : Targeteable {
             currentHealth -= (int)damageReceived;
             ManageDamage(damageReceived, point);
             //
-            if(impactInfoManager != null)
-            impactInfoManager.SendImpactInfo(point, (int)damageReceived);
+            //if(impactInfoManager != null)
+            //impactInfoManager.SendImpactInfo(point, (int)damageReceived);
         }
         else
         {

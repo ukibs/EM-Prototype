@@ -25,6 +25,7 @@ public class WeakPoint : Targeteable
     private float currentHealthPoints;
     private CarolBaseHelp carolBaseHelp;
     private EnemyCollider enemyCollider;
+    private ImpactInfoManager impactInfoManager;
 
     #endregion
 
@@ -37,6 +38,7 @@ public class WeakPoint : Targeteable
         currentHealthPoints = maxHealthPoints;
         carolBaseHelp = FindObjectOfType<CarolBaseHelp>();
         enemyCollider = GetComponent<EnemyCollider>();
+        impactInfoManager = FindObjectOfType<ImpactInfoManager>();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -54,12 +56,15 @@ public class WeakPoint : Targeteable
             // TODO: Revisar esto
             carolBaseHelp.TriggerIt();
         }
+        
         //
         if(currentHealthPoints > 0)
         {
+            //
+            int damageReceived = 0;
             //currentHealthPoints--;
-            if(bulletComponent != null)
-                ManageImpact(impactingRigidbody, bulletComponent);
+            if (bulletComponent != null)
+                damageReceived = ManageImpact(impactingRigidbody, bulletComponent);
             else { /* Algo pondremos aqui*/ }
             //
             if (reactionOnDamage)
@@ -78,13 +83,22 @@ public class WeakPoint : Targeteable
                 //Destroy(this);
                 //Destroy(gameObject);
                 EnemyAnalyzer.Release();
+                impactInfoManager.SendImpactInfo(transform.position, damageReceived, "Weakpoint Destroyed");
             }
+            else
+            {
+                impactInfoManager.SendImpactInfo(transform.position, damageReceived);
+            }
+            //
+            //ImpactInfoManager
         }
         
     }
 
-    private void ManageImpact(Rigidbody impactingRigidbody, Bullet bulletComponent)
+    private int ManageImpact(Rigidbody impactingRigidbody, Bullet bulletComponent)
     {
+        //
+        float damageReceived = 0;
         // Primero determinamos penetración
         float penetrationValue = 
             GeneralFunctions.Navy1940PenetrationCalc(impactingRigidbody.mass, 
@@ -97,7 +111,7 @@ public class WeakPoint : Targeteable
             penetrationResult = 1 - (enemyCollider.armor / penetrationValue);
             //
             float kineticEnergy = GeneralFunctions.GetBodyKineticEnergy(impactingRigidbody);
-            float damageReceived = kineticEnergy * penetrationResult;
+            damageReceived = kineticEnergy * penetrationResult;
             //
             if(damageReceived < 1) carolBaseHelp.TriggerGeneralAdvice("NoPenetration");
             //
@@ -106,8 +120,10 @@ public class WeakPoint : Targeteable
         else
         {
             carolBaseHelp.TriggerGeneralAdvice("NoPenetration");
+            impactInfoManager.SendImpactInfo(transform.position, 0, "No Penetration");
         }
-        
+        //
+        return (int)damageReceived;
     }
 
     //

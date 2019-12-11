@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3240689117967253480}
   - component: {fileID: 5538520636394636694}
   - component: {fileID: 5515098343755460863}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Energy Missile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,6 +185,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: 'vfx_SparksVariant_Loop '
       objectReference: {fileID: 0}
+    - target: {fileID: 8534704712629419476, guid: f9a528cd81947cf4e912c916711f4c3c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 1511337679448918579, guid: f9a528cd81947cf4e912c916711f4c3c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -254,6 +259,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8872082795508640073, guid: f9a528cd81947cf4e912c916711f4c3c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 7365771234680646652, guid: f9a528cd81947cf4e912c916711f4c3c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 6714142728897342657, guid: f9a528cd81947cf4e912c916711f4c3c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9a528cd81947cf4e912c916711f4c3c, type: 3}
