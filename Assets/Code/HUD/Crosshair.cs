@@ -16,6 +16,8 @@ public class Crosshair : MonoBehaviour
     public float maxOmega = 180.0f;
     public float omega = 180.0f;
     public float alpha = 360.0f;
+
+    public Sprite[] interiorSprites;
     
     #endregion
 
@@ -38,6 +40,8 @@ public class Crosshair : MonoBehaviour
     private Vector3 idleInteriorRot = new Vector3(0.0f, 0.0f, 0.0f);
     private Vector3 idleExteriorCWRot = new Vector3(0.0f, 0.0f, 90.0f);
     private Vector3 idleExteriorCCWRot = new Vector3(0.0f, 0.0f, 0.0f);
+
+    private Image interiorImage;
     
     #endregion
 
@@ -78,6 +82,9 @@ public class Crosshair : MonoBehaviour
 
         // TODO: cambiar el switch a, en vez de funcionar con enteros, funcione con los tipos de ataque del usuario
 
+        //
+        Sprite spriteToUse = interiorSprites[(int)mRobotControl.ActiveAttackMode];
+        interiorImage.sprite = spriteToUse;
         //
         float maxScaleOffset = 30;
         float cosDegreesPerSecond = 10;
@@ -156,8 +163,8 @@ public class Crosshair : MonoBehaviour
         
         // Rotate the exterior part
         float maxOmega = 360.0f;
-        float omega = 180.0f;
-        float alpha = 360.0f;
+        //float omega = 180.0f;
+        //float alpha = 360.0f;
 
         // If the player is shooting
         int playerIsShooting = mRobotControl.CurrentActionCharging == ActionCharguing.Attack ? 1 : 0;
@@ -204,6 +211,7 @@ public class Crosshair : MonoBehaviour
 
         // Now set the initial attackMode
         //currentAttackMode = mRobotControl.ActiveAttackMode;
+        interiorImage = transform.GetChild(0).transform.GetChild(0).GetComponent<Image>();
     }
     
     #endregion

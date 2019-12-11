@@ -47,8 +47,10 @@ MonoBehaviour:
   guiSkin: {fileID: 11400000, guid: 0d7ecdc8ac800f94491b1d5df3fbf883, type: 2}
   overlayTexture: {fileID: 2800000, guid: 52237635bfebcb7429adde7f7a515393, type: 3}
   crossTexture: {fileID: 2800000, guid: fd175b746696ae045bc76117bcf6a6e0, type: 3}
-  interiorCrosshairTexture: {fileID: 2800000, guid: 1862e419ffcc5e3438e410c7b7396a25,
-    type: 3}
+  interiorCrosshairTextures:
+  - {fileID: 2800000, guid: 6c966b567d855404eb339c4f8ede7a55, type: 3}
+  - {fileID: 2800000, guid: 1b82e5922d39f3942aedc4d35c7aeec3, type: 3}
+  - {fileID: 2800000, guid: 1862e419ffcc5e3438e410c7b7396a25, type: 3}
   exteriorCrosshairTexture: {fileID: 2800000, guid: 6d368e829ddeea64fb4d10bf328e73e9,
     type: 3}
   crossPrefab: {fileID: 0}
@@ -64,7 +66,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 84ba6e5311b09a144a67aa58b3365212, type: 3}
   - {fileID: 2800000, guid: 3e09c98a41975ee46981e407e7abd28a, type: 3}
   - {fileID: 2800000, guid: b01b57f3fd7e5c940bbcf4d8f12bd54d, type: 3}
-  targetedEnemyEstimatedFuturePositionTexture: {fileID: 2800000, guid: 9d5d6ce2ecad855448c8d4392c05225f,
+  targetedEnemyEstimatedFuturePositionTexture: {fileID: 2800000, guid: 62bc183df4d802f4b9305f15cce60d64,
     type: 3}
   testingVelocityIcon: {fileID: 2800000, guid: e3d0ff31924015d4a923c058090e8be0, type: 3}
   chargeFrameTexture: {fileID: 2800000, guid: ee7e1cea0e1aedf46baea9c97ad3e33a, type: 3}
@@ -93,7 +95,7 @@ MonoBehaviour:
     type: 3}
   alertTexture: {fileID: 2800000, guid: ece55f8ab73783d4e846bdd3850eb79b, type: 3}
   damageIndicatorLifeTime: 2
-  radarTexture: {fileID: 2800000, guid: 5095e6d4c6ecb9b4ba2c34395262d1ff, type: 3}
+  radarTexture: {fileID: 2800000, guid: 5b786ed099dbf7b44ba07b935e0e538c, type: 3}
   radarRange: 500
   charguingActingTextures:
   - {fileID: 2800000, guid: 710e662367668bb4886ec3291d5669d9, type: 3}

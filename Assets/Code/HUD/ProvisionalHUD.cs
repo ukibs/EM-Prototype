@@ -14,7 +14,7 @@ public class ProvisionalHUD : MonoBehaviour {
 
     /************** DaniGMX: Crosshair ********************/
 
-    public Texture interiorCrosshairTexture;
+    public Texture[] interiorCrosshairTextures; // Sacaremos varias ahora
     public Texture exteriorCrosshairTexture;
     public GameObject crossPrefab;
 
@@ -563,7 +563,8 @@ public class ProvisionalHUD : MonoBehaviour {
          * and different screen ratios */
 
         // Draw center of the crosshair
-        GUI.DrawTexture(new Rect(Screen.width / 2 - 50, (Screen.height / 2) - 50, 100, 100), interiorCrosshairTexture);
+        GUI.DrawTexture(new Rect(Screen.width / 2 - 50, (Screen.height / 2) - 50, 100, 100), 
+            interiorCrosshairTextures[(int)robotControl.ActiveAttackMode]);
         //Draw exterior of the crosshair
         GUI.DrawTexture(new Rect(Screen.width / 2 - 50, (Screen.height / 2) - 50, 100, 100), exteriorCrosshairTexture);
         GUI.DrawTexture(new Rect(Screen.width / 2 + 50, (Screen.height / 2) - 50, -100, 100), exteriorCrosshairTexture);

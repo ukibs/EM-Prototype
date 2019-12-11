@@ -168,6 +168,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6834640052729235019, guid: 369bd1686c9873d4081bcee1b526988e,
         type: 3}
+      propertyPath: interiorSprites.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6834640052729235019, guid: 369bd1686c9873d4081bcee1b526988e,
+        type: 3}
       propertyPath: interiorScale
       value: 1
       objectReference: {fileID: 0}
@@ -181,6 +186,24 @@ PrefabInstance:
       propertyPath: rapidFireMaxScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6834640052729235019, guid: 369bd1686c9873d4081bcee1b526988e,
+        type: 3}
+      propertyPath: interiorSprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 6c966b567d855404eb339c4f8ede7a55,
+        type: 3}
+    - target: {fileID: 6834640052729235019, guid: 369bd1686c9873d4081bcee1b526988e,
+        type: 3}
+      propertyPath: interiorSprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 1b82e5922d39f3942aedc4d35c7aeec3,
+        type: 3}
+    - target: {fileID: 6834640052729235019, guid: 369bd1686c9873d4081bcee1b526988e,
+        type: 3}
+      propertyPath: interiorSprites.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 1862e419ffcc5e3438e410c7b7396a25,
+        type: 3}
     - target: {fileID: 3270690539066135356, guid: 369bd1686c9873d4081bcee1b526988e,
         type: 3}
       propertyPath: m_LocalRotation.z
