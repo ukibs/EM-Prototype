@@ -349,10 +349,17 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
         //
         Destroy(bodyPartBehaviour);
         previousSegment = null;
+        previousSegmentBehaviour = null;
         //
         GetHeadMaterial();
         // And tell your previous ones to reasign head reference
-        posteriorSegmentBehaviour.ReassignHead(this);
+        if (posteriorSegmentBehaviour)
+        {
+            posteriorSegmentBehaviour.ReassignHead(this);
+            //posteriorSegmentBehaviour = null;
+            //posteriorSegment = null;
+        }
+            
     }
     
     public void GetHeadMaterial()
@@ -378,10 +385,10 @@ public class GigaSegmentedBehaviour : BossBaseBehaviour
     private void CheckDeath()
     {
         //
-        //Debug.Log("Checking death -> Current lift force: " + currentLiftForce + ", Previous Segment Behaviour: " + previousSegmentBehaviour +
-        //    ", Posterior Segment Behaviour: " + posteriorSegmentBehaviour);
+        Debug.Log("Checking death -> Current lift force: " + currentLiftForce + ", Previous Segment Behaviour: " + previousSegmentBehaviour +
+            ", Posterior Segment Behaviour: " + posteriorSegmentBehaviour);
         //
-        if(currentLiftForce <= 50 && previousSegmentBehaviour == null && posteriorSegmentBehaviour == null)
+        if (currentLiftForce <= 50 && previousSegmentBehaviour == null && posteriorSegmentBehaviour == null)
         {
             // Aquí muere el segmento
 
