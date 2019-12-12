@@ -519,6 +519,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &454717938 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5934616345800814944, guid: 51c1c169171092049975701e96c3f0f6,
+    type: 3}
+  m_PrefabInstance: {fileID: 6372218188067787428}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &456427733
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1279,25 +1285,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e805da38f2157cf44bd8ebbbe826ba67, type: 3}
---- !u!1 &1205309528 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8031830104222373686, guid: aca223bd86275e946a8a3c09be1d7f17,
-    type: 3}
-  m_PrefabInstance: {fileID: 1699937595}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1205309529
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1205309528}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38e04d051a55cb143bd93b48db570b5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  zDistance: -2
 --- !u!1 &1205987814 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6786210232733957762, guid: d10498cac90453b4f93333b0d9d054b0,
@@ -1353,7 +1340,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 454717938}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &1365416337
@@ -1443,17 +1430,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8048433712323786730, guid: aca223bd86275e946a8a3c09be1d7f17,
-        type: 3}
-      propertyPath: m_UseGravity
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7991307769001849490, guid: aca223bd86275e946a8a3c09be1d7f17,
+    - target: {fileID: 7992583865510859764, guid: aca223bd86275e946a8a3c09be1d7f17,
         type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7992669006062313196, guid: aca223bd86275e946a8a3c09be1d7f17,
+    - target: {fileID: 8030992807055956486, guid: aca223bd86275e946a8a3c09be1d7f17,
         type: 3}
       propertyPath: m_Enabled
       value: 0

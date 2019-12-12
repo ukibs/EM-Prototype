@@ -15,14 +15,8 @@ EditorBuildSettings:
     path: Assets/Scenes/ProtLevel.unity
     guid: d54a1667f5df4294880c2db6b117952e
   - enabled: 0
-    path: Assets/Scenes/Old Menu.unity
-    guid: 0f3381bf877dcda479ad956cabb2ab3f
-  - enabled: 0
     path: Assets/Scenes/Cinematic Test.unity
     guid: ef0666a8ac874a047b9b73039900de01
-  - enabled: 0
-    path: Assets/Scenes/Unending Level Test.unity
-    guid: f815a5060e5aa7c4fa93a9a6a4aaf77c
   - enabled: 0
     path: Assets/Scenes/Testings/AntigravTest.unity
     guid: f059322f2dfd79c4ebaff1324b04718c

@@ -39,6 +39,32 @@ public class LevelSelectionItem : MapAndStatsItem
         mcInitialPositon = mainCamera.transform.position;
     }
 
+    protected void Update()
+    {
+        //
+        if (highLighted &&
+            (Input.GetButtonDown("Fire1") || Input.GetButtonDown("Jump")))
+        {
+            ButtonFunction();
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.transform.name.Equals("Map Player Variant"))
+        {
+            HighlightButton();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.transform.name.Equals("Map Player Variant"))
+        {
+            UnHighlightButton();
+        }
+    }
+
     private void OnGUI()
     {
         //
