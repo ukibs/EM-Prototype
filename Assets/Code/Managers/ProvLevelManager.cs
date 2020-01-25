@@ -337,6 +337,8 @@ public class ProvLevelManager : MonoBehaviour
     /// </summary>
     public void ConfirmVictory()
     {
+        // TODO: Hacerlo bien
+        gameManager.ProgressInGame();
         victory = true;
         EndLevel();
     }

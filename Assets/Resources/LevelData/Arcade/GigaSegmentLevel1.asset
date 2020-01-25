@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelInfo:
     inGameName: Get The Segment
+    description: 
     gameMode: 0
     victoryCondition: 4
     enemiesToDefeat: 1
@@ -36,7 +37,7 @@ MonoBehaviour:
       enemySpawnIncrement: 0
       timeBetweenSpawns: 1
       maxActiveEnemies: 160
-    - enemyPrefab: {fileID: 8576012526104695649, guid: 609f52d8e93daae439f55b2283e55996,
+    - enemyPrefab: {fileID: 8576012526104695649, guid: bbecddc7d0948034fbb2f430c2cf373d,
         type: 3}
       formationData: {fileID: 11400000, guid: f88550f285a6a154cb01560f3bba886c, type: 2}
       enemiesToSpawn: 9

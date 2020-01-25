@@ -23,6 +23,7 @@ public class LevelSelectionItem : MapAndStatsItem
 
     //public int levelNumber;
 
+    public int levelOrder;          // De momento lo menajmos aqui
     public LevelData levelData;
     public float yOffset = 40f;
 
@@ -37,6 +38,12 @@ public class LevelSelectionItem : MapAndStatsItem
 
         mainCamera = Camera.main;
         mcInitialPositon = mainCamera.transform.position;
+
+        //
+        if (GameManager.instance.GameProgression < levelOrder)
+            gameObject.SetActive(false);
+        else
+            Debug.Log("Level active");
     }
 
     protected void Update()
@@ -116,9 +123,29 @@ public class LevelSelectionItem : MapAndStatsItem
         {
             position = pos
         };
-        //
+        // Nombre del nivel
         GUI.Label(levelInfoRect, levelData.levelInfo.inGameName, guiSkin.customStyles[3]);
+        //
+        string message = "";
+        switch (levelData.levelInfo.victoryCondition)
+        {
+            case VictoryCondition.DefeatAnyEnemy:
+                message = "Defeat " + levelData.levelInfo.enemiesToDefeat + " enemies";
+                break;
+            case VictoryCondition.SlayTheBeast:
+                message = "Slay the beast";
+                break;
+        }
 
+        //
+        pos.y += yOffset;
+        levelInfoRect.position = pos;
+        GUI.Label(levelInfoRect, message, guiSkin.customStyles[1]);
+        //
+        pos.y += yOffset;
+        levelInfoRect.position = pos;
+        GUI.Label(levelInfoRect, levelData.levelInfo.description, guiSkin.customStyles[0]);
+        //
         pos.y += yOffset;
         levelInfoRect.position = pos;
         GUI.Label(levelInfoRect, "Expected enemies ", guiSkin.label);
@@ -127,7 +154,16 @@ public class LevelSelectionItem : MapAndStatsItem
         {
             pos.y += yOffset;
             levelInfoRect.position = pos;
-            GUI.Label(levelInfoRect, levelData.levelInfo.enemiesSpawnSettings[i].enemyPrefab.name, guiSkin.label);
+            // TODO: Sacar el nombre con el in-game name
+            EnemyConsistency enemyConsistency = levelData.levelInfo.enemiesSpawnSettings[i].enemyPrefab.GetComponent<EnemyConsistency>();
+            //
+            string nameToShow = "";
+            if (enemyConsistency != null && enemyConsistency.inGameName != "Size Category")
+                nameToShow = enemyConsistency.inGameName;
+            else
+                nameToShow = levelData.levelInfo.enemiesSpawnSettings[i].enemyPrefab.name;
+            //
+            GUI.Label(levelInfoRect, nameToShow, guiSkin.label);
             //GUI.Label(levelInfoRect, i + "", guiSkin.label);
         }
     }
@@ -142,6 +178,9 @@ public class LevelSelectionItem : MapAndStatsItem
 
         float counter = 1;
         float currentCounter = 0;
+
+        // Set the level number in the game manager
+        GameManager.instance.CurrentLevel = levelOrder;
         
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(level);
 

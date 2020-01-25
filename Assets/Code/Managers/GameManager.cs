@@ -108,7 +108,10 @@ public class GameManager : MonoBehaviour
     #region Properties
 
     public int CurrentExperience { get { return currentExperience; } }
-    public int GameProgression { get { return gameProgression; } }
+    public int GameProgression {
+        get { return gameProgression; }
+        set { gameProgression = value; }
+    }
     //public int CurrentLevel { set { currentLevel = value; } }
     public int TotalLevels { get { return levelsInfo.Length; } }
     public LevelInfo[] LevelsInfo { get { return levelsInfo; } }
@@ -117,6 +120,12 @@ public class GameManager : MonoBehaviour
     {
         get { return currentLevelInfo; }
         set { currentLevelInfo = value; }
+    }
+
+    public int CurrentLevel
+    {
+        get { return currentLevel; }
+        set { currentLevel = value; }
     }
 
     #endregion
@@ -136,10 +145,11 @@ public class GameManager : MonoBehaviour
             //Destroy this, this enforces our singleton pattern so there can only be one instance of SoundManager.
             Destroy(gameObject);
 
-        //Set SoundManager to DontDestroyOnLoad so that it won't be destroyed when reloading our scene.
+        //Set to DontDestroyOnLoad so that it won't be destroyed when reloading our scene.
         DontDestroyOnLoad(gameObject);
         //
         gameProgression = PlayerPrefs.GetInt("Game Progression", 0);
+        Debug.Log("Game progression: " + gameProgression);
         //
         if (levelsInfo == null)
         {
@@ -185,6 +195,15 @@ public class GameManager : MonoBehaviour
             //
             Debug.Log("Progressing: Current game progression: " + gameProgression);
         }
+    }
+
+    public void ResetProgress()
+    {
+        gameProgression = 0;
+        //
+        PlayerPrefs.SetInt("Game Progression", gameProgression);
+        //
+        Debug.Log("Progressing: Current game progression: " + gameProgression);
     }
 
     public void SelectLevel(int levelNumber)

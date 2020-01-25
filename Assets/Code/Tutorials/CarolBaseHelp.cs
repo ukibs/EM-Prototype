@@ -39,6 +39,7 @@ public class CarolBaseHelp : MonoBehaviour
     protected AudioSource audioSource;
     protected AudioObjectManager audioObjectManager;
     protected GameManager gameManager;
+    protected InputManager inputManager;
 
     protected RobotControl player;
 
@@ -46,6 +47,13 @@ public class CarolBaseHelp : MonoBehaviour
     // Con esta variable controlaremos el progreso del step
     // Ya sea tiempo o puntos destruidos
     protected float stepProgress = 0;
+
+    // Pausa de tuto
+    // Se quita con la tecla que toca
+    protected bool tutoPause = false;
+    protected bool tutoTriggered = false;
+    public Texture keyboardTexture;
+    public Texture gamepadTexture;
 
     protected CarolStep CurrentStep {
         get {
@@ -64,6 +72,7 @@ public class CarolBaseHelp : MonoBehaviour
         audioObjectManager = FindObjectOfType<AudioObjectManager>();
         gameManager = FindObjectOfType<GameManager>();
         player = FindObjectOfType<RobotControl>();
+        inputManager = FindObjectOfType<InputManager>();
         // Le damos al primer clip
         if(carolStepObjects.Length > 0)
             PlayClip(CurrentStep.audioClip);
@@ -81,6 +90,16 @@ public class CarolBaseHelp : MonoBehaviour
         // Lo ponemos aqui para que funcione en otras fases, pero habrá que revisarlo
         SearchForWeakPoint();
 
+        // De momento aqui en guarro
+        if(tutoPause == true)
+        {
+            if (inputManager.MarkObjectiveButton)
+            {
+                Time.timeScale = 1;
+                tutoPause = false;
+            }
+        }
+
     }
 
     private void OnGUI()
@@ -93,6 +112,23 @@ public class CarolBaseHelp : MonoBehaviour
             Rect textRect = new Rect(Screen.width * 55 / 1000, Screen.height * 20 / 100, 750, 30);
             //
             GUI.Label(textRect, CurrentStep.stepText, gUISkin.label);
+        }
+        //
+        if (tutoPause)
+        {
+            //Detect controllers on the beggining
+            if (Input.GetJoystickNames().Length > 0 && Input.GetJoystickNames()[0] != "")
+            {
+                GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), gamepadTexture);
+            }
+            else
+            {
+                GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), keyboardTexture);
+            }
+            //
+            //gUISkin.customStyles[1].normal.textColor = Color.red;
+            GUI.Label(new Rect(Screen.width * 1/4, Screen.height * 3/4, Screen.width * 1/2, Screen.height * 1/10), 
+                "Press the marked button", gUISkin.customStyles[2]);
         }
     }
 
@@ -227,6 +263,17 @@ public class CarolBaseHelp : MonoBehaviour
             if(tag == generalAdvices[i].carolStep.keyWord)
             {
                 PlayClip(generalAdvices[i].carolStep.audioClip);
+            }
+            // Control extra para tutorial
+            if(tag == "EnemiesIncoming" && tutoTriggered == false && 
+                //gameManager.GameProgression == 0)
+                gameManager.CurrentLevel == 0)
+            {
+                // Pausa de tuto
+                Time.timeScale = 0;
+                //GameControl.paused = true;
+                tutoTriggered = true;
+                tutoPause = true;
             }
         }
     }

@@ -535,6 +535,10 @@ public class GigaWormBehaviour : BossBaseBehaviour
         //
         if(mawStatus != MawStatus.Closed && hardEnough)
         {
+            //
+            gigaWormInsides.transform.position = new Vector3(
+                transform.position.x, gigaWormInsides.transform.position.y, transform.position.z);
+            //
             currentState = WormStatus.Stunned;
             GeneralFunctions.PlaySoundEffect(audioSource, stunnedClip);
             gigaWormInsides.ChangeShowersEmission();

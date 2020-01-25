@@ -24,6 +24,13 @@ public class Weapon
 {
     [Tooltip("Bullets per second.")]
     public float rateOfFire = 2;    // Bullets per second
+
+    // TODO: Impelentar esto
+    [Tooltip("Cooldown for weapons that shoot in bursts")]
+    public float cooldownDuration = 0;
+    [Tooltip("Shoots until starting cooldown")]
+    public int shootsUntilCooldown = 0;
+
     [Tooltip("Minimum range for weapon starting to attack.")]
     public float range = 50;
     public GameObject proyectilePrefab;

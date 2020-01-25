@@ -29,12 +29,13 @@ public class LevelInfo
 {
     //
     public string inGameName;
+    public string description;
     public GameMode gameMode;
     //
     public VictoryCondition victoryCondition;
     public int enemiesToDefeat;
     //public string enemyIdentifier;
-    //
+    // TODO: Quitaremos esto
     public int attackActionsAvailable;
     public int defenseActionsAvailable;
     public int jumpActionsAvailable;

@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelInfo:
     inGameName: Bomb jellyfishes
+    description: Your first engagement. We'll neutralize some of the weakest creatures
+      of the zone in order to warm up.
     gameMode: 0
     victoryCondition: 1
     enemiesToDefeat: 100

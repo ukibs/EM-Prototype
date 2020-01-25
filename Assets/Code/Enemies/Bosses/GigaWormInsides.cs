@@ -114,6 +114,7 @@ public class GigaWormInsides : MonoBehaviour
     void ShitPlayer()
     {
         //
+        PlayerReference.playerIntegrity.TranslationAllowed = true;
         //if(exitPoint.position.y < 0)
         //    player.transform.position = new Vector3(exitPoint.position.x, 0, exitPoint.position.z);
         //

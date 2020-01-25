@@ -110,7 +110,7 @@ public class WeakPoint : Targeteable
         {
             penetrationResult = 1 - (enemyCollider.armor / penetrationValue);
             //
-            float kineticEnergy = GeneralFunctions.GetBodyKineticEnergy(impactingRigidbody);
+            float kineticEnergy = GeneralFunctions.GetBulletKineticEnergy(impactingRigidbody);
             damageReceived = kineticEnergy * penetrationResult;
             //
             if(damageReceived < 1) carolBaseHelp.TriggerGeneralAdvice("NoPenetration");

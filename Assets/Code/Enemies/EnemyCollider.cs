@@ -194,7 +194,7 @@ public class EnemyCollider : MonoBehaviour
     void ManageBodyPartDamage(float penetrationResult, Rigidbody bulletRb)
     {
         //
-        int damageReceived = (int)(GeneralFunctions.GetBodyKineticEnergy(bulletRb) * penetrationResult);
+        int damageReceived = (int)(GeneralFunctions.GetBulletKineticEnergy(bulletRb) * penetrationResult);
         currentLocationHealth -= damageReceived;
         // Depende del efecto se gestionará de una forma u otra
         switch (onDamage)

@@ -341,7 +341,7 @@ public class EnemyConsistency : Targeteable {
             //Debug.Log("Received bullet impact with " + impactForce + " force against " + sideArmor + " armor. "
             //+ damageReceived + " damage received");
             //
-            float kineticEnergy = GeneralFunctions.GetBodyKineticEnergy(proyectileRb);
+            float kineticEnergy = GeneralFunctions.GetBulletKineticEnergy(proyectileRb);
             damageReceived = kineticEnergy * penetrationResult;
             //Debug.Log("Penetration result: " + penetrationResult + ", kinetic energy: " + kineticEnergy + ", damage received: " + damageReceived);
             currentHealth -= (int)damageReceived;

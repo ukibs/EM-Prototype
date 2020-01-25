@@ -317,8 +317,8 @@ public class EnemyManager : MonoBehaviour
             }
 
         }
-        else
-            Debug.Log("Zero enemies to spawn or no more room for enemies");
+        //else
+        //    Debug.Log("Zero enemies to spawn or no more room for enemies");
     }
 
     //

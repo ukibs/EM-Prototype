@@ -44,6 +44,12 @@ public class MainMenu : MonoBehaviour
     {
         if (videoClips.Length > 0)
             UpdateVideoStuff();
+        //
+        if (Input.GetKeyDown(KeyCode.Backspace))
+        {
+            GameManager.instance.GameProgression = 0;
+            Debug.Log("Progression reset");
+        }
     }
 
     private void UpdateVideoStuff()

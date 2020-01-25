@@ -406,6 +406,7 @@ GameObject:
   - component: {fileID: 114977535009352440}
   - component: {fileID: 951463442}
   - component: {fileID: 2801720779828614617}
+  - component: {fileID: -1208811015371168029}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -515,10 +516,13 @@ MonoBehaviour:
   idealDistanceFromFloor: 5
   maxRepulsionStrength: 10
   repulsionDamp: 0
+  jumpCooldown: 0.3
   dustEmitterStatic: {fileID: 3489418989879759979}
   dustEmitterMovement: {fileID: 4202477923620001233}
   jumpClip: {fileID: 8300000, guid: 1d47e24af160e804dbd7fc86a9c1448b, type: 3}
   additionalGravity: {x: 0, y: -20, z: 0}
+  maxAcceptableHeight: 500
+  extraFallingSpeed: {x: 0, y: -60, z: 0}
 --- !u!114 &114977535009352440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -658,6 +662,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-1208811015371168029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1437631460746018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f6510ce381d68d4d99ea93399c582de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1476412174784002
 GameObject:
   m_ObjectHideFlags: 0

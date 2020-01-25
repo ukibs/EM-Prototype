@@ -158,18 +158,19 @@ public class PlayerIntegrity : MonoBehaviour
             {
                 totalImpactForce = ApplyKineticShield(collidingRB, impactNormal, bulletComponent);
             }
-            else
-            {
-                // TODO: Habrá que ver como manejar esto
-                if (bulletComponent != null)
-                {
-                    totalImpactForce = GeneralFunctions.GetBodyKineticEnergy(totalImpactForce, collidingRB.mass);
-                }
-                else
-                {
-                    totalImpactForce = GeneralFunctions.GetCollisionForce(bodyRB, collidingRB);
-                }
-            }
+            // Esto en principio ya no lo utilizamos
+            //else
+            //{
+            //    // TODO: Habrá que ver como manejar esto
+            //    if (bulletComponent != null)
+            //    {
+            //        totalImpactForce = GeneralFunctions.GetBodyKineticEnergy(totalImpactForce, collidingRB.mass);
+            //    }
+            //    else
+            //    {
+            //        totalImpactForce = GeneralFunctions.GetCollisionForce(bodyRB, collidingRB);
+            //    }
+            //}
         }
 
         // TODO: Averiguar por qué falla
@@ -196,7 +197,7 @@ public class PlayerIntegrity : MonoBehaviour
         //
         float totalImpactForce;
         if (bulletComponent != null)
-            totalImpactForce = GeneralFunctions.GetBodyKineticEnergy(collidingRb);
+            totalImpactForce = GeneralFunctions.GetBulletKineticEnergy(collidingRb);
         else
             totalImpactForce = GeneralFunctions.GetCollisionForce(bodyRB, collidingRb);
         //
@@ -356,8 +357,7 @@ public class PlayerIntegrity : MonoBehaviour
             translationAllowed = false;
             return;
         }
-        //
-        Debug.Log("Stopping abnormal translation");
+        
         //
         float maxAcceptableTranslate = 50;
         //
@@ -368,6 +368,8 @@ public class PlayerIntegrity : MonoBehaviour
             currentHealth--;
             invulnerable = true;
             bodyRB.velocity = Vector3.zero;
+            //
+            Debug.Log("Stopping abnormal translation");
         }
         //
         previousPosition = transform.position;

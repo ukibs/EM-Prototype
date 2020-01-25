@@ -326,12 +326,23 @@ public static class GeneralFunctions
         if (selfRb == null)
             return 0;
 
+        //
+        RigidbodyExtraInfo selfRbExtraInfo = selfRb.GetComponent<RigidbodyExtraInfo>();
+
         // El otherRb puede ser nulo
         float otherImpactForce = 0;
         if (otherRb != null)
-            otherImpactForce = otherRb.velocity.magnitude * otherRb.mass;
+        {
+            RigidbodyExtraInfo otherRbExtraInfo = otherRb.GetComponent<RigidbodyExtraInfo>();
+
+            //otherImpactForce = otherRb.velocity.magnitude * otherRb.mass;
+            otherImpactForce = GeneralFunctions.GetBodyKineticEnergy(otherRb, otherRbExtraInfo);
+        }
+
+
         // El propio no puede serlo
-        float selfImpactForce = selfRb.velocity.magnitude * selfRb.mass;
+        //float selfImpactForce = selfRb.velocity.magnitude * selfRb.mass;
+        float selfImpactForce = GeneralFunctions.GetBodyKineticEnergy(selfRb, selfRbExtraInfo);
 
         //
         float impactForce = otherImpactForce + selfImpactForce;
@@ -389,7 +400,29 @@ public static class GeneralFunctions
     /// </summary>
     /// <param name="rb"></param>
     /// <returns></returns>
-    public static float GetBodyKineticEnergy(Rigidbody rb)
+    public static float GetBodyKineticEnergy(Rigidbody rb, RigidbodyExtraInfo rbExtraInfo)
+    {
+        //
+        if(rbExtraInfo == null)
+        {
+            Debug.Log("Asking kinetic energy of not prepared object: " + rb.name);
+            return 0;
+        }
+        //
+        float bodySpeedVariation = Math.Abs((rb.velocity - rbExtraInfo.PreviousVelocity).magnitude);
+        float bodyMass = rb.mass;
+
+        float bodyKE = bodyMass * Mathf.Pow(bodySpeedVariation, 2) / 2;
+
+        return bodyKE;
+    }
+
+    /// <summary>
+    /// Gives the kinetic energy of a bullet, assuming it compelty stops on impact
+    /// </summary>
+    /// <param name="rb"></param>
+    /// <returns></returns>
+    public static float GetBulletKineticEnergy(Rigidbody rb)
     {
         float bodySpeed = rb.velocity.magnitude;
         float bodyMass = rb.mass;
