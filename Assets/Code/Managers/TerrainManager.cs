@@ -109,9 +109,15 @@ public class TerrainManager : MonoBehaviour
                 //
                 Gizmos.DrawCube(activeBlocksMatrix[i, j].transform.position + (Vector3.up * (50 + heightModifier)),
                     new Vector3(100, 10, 100));
+                //
+                Vector3 positionThatShouldOccupy = activeBlocksMatrix[centralBlock, centralBlock].transform.position
+                    + new Vector3(blockSize * (i - centralBlock), 0, (blockSize * (j - centralBlock)));
+                Gizmos.DrawSphere(positionThatShouldOccupy, 50);
             }
         }
     }
+
+    #region Waypoint Methods
 
     //
     void GetNearestWaypointToPlayer()
@@ -247,6 +253,10 @@ public class TerrainManager : MonoBehaviour
         return (waypointToCheck.transform.position - nearestWaypointToPlayer.transform.position).magnitude;
     }
 
+    #endregion
+
+    #region Terrain Order Methods
+
     //
     bool CheckIfPlayerOverCentralBlock()
     {
@@ -255,7 +265,8 @@ public class TerrainManager : MonoBehaviour
         //
         Vector3 playerOffsetFromCentralBlock = playerTransform.position - activeBlocksMatrix[centralBlock, centralBlock].transform.position;
         // TODO: Hacerlo trabajar con variable de tamaño bloque
-        bool notOverCentralBlock = (Mathf.Abs(playerOffsetFromCentralBlock.x) > 100 || Mathf.Abs(playerOffsetFromCentralBlock.z) > 100);
+        bool notOverCentralBlock = (Mathf.Abs(playerOffsetFromCentralBlock.x) > blockSize / 2 || 
+            Mathf.Abs(playerOffsetFromCentralBlock.z) > blockSize / 2);
         //
         //if(notOverCentralBlock)
         //    Debug.Log("Central block offset: " + playerOffsetFromCentralBlock.x + ", " + playerOffsetFromCentralBlock.z);
@@ -307,9 +318,12 @@ public class TerrainManager : MonoBehaviour
         //
         //activeBlocks = new GameObject[squareSize * squareSize];
         activeBlocksMatrix = new GameObject[squareSize, squareSize];
+
+        // TODO: Variable repe, quitar una de las dos
         //centralBlock = (activeBlocks.Length - 1) / 2;
         halfMinusOne = (squareSize - 1) / 2;
         centralBlock = halfMinusOne;
+
         //
         playerTransform = FindObjectOfType<RobotControl>().transform;
         //
@@ -329,7 +343,7 @@ public class TerrainManager : MonoBehaviour
             //
             for (int j = 0; j < squareSize; j++)
             {
-                Vector3 nextPosition = new Vector3(i * 200 - (200 * halfMinusOne), 0, j * 200 - (200 * halfMinusOne));
+                Vector3 nextPosition = new Vector3(i * blockSize - (blockSize * halfMinusOne), 0, (j * blockSize - (blockSize * halfMinusOne)));
                 // TODO: Meter la variación acorde a la frecuencia
                 // Que el central de todos sea el 1º, para asegurarnos de que el player no aparece dentro de un bloque
                 GameObject prefabToUse;
@@ -429,14 +443,13 @@ public class TerrainManager : MonoBehaviour
             switch (displaceMentYSign)
             {
                 case -1:
-                    //     x = -1, n-1 -> 0
+                    //     z = -1, n-1 -> 0
                     sideToGet = squareSize - 1;
                     sideToPut = 0;
                     start = 1;
                     break;
                 case 1:
-                    //     x = 1, 0 -> n-1
-
+                    //     z = 1, 0 -> n-1
                     sideToGet = 0;
                     sideToPut = squareSize - 1;
                     end = squareSize - 1;
@@ -454,9 +467,9 @@ public class TerrainManager : MonoBehaviour
                     newActiveBlocksOrder[i, sideToPut] = activeBlocksMatrix[i, sideToGet];
 
                     // Y en el terreno
-                    Vector3 blockNewPosition = newActiveBlocksOrder[i, sideToPut].transform.position;
-                    blockNewPosition.z += blockSize * squareSize * displaceMentYSign;
-                    newActiveBlocksOrder[i, sideToPut].transform.position = blockNewPosition;
+                    //Vector3 blockNewPosition = newActiveBlocksOrder[i, sideToPut].transform.position;
+                    //blockNewPosition.z += blockSize * squareSize * displaceMentYSign;
+                    //newActiveBlocksOrder[i, sideToPut].transform.position = blockNewPosition;
 
                     // Reseteamos los elementos destruidos
                     DestructibleTerrain[] destructibleElements = newActiveBlocksOrder[i, sideToPut].GetComponentsInChildren<DestructibleTerrain>();
@@ -491,6 +504,7 @@ public class TerrainManager : MonoBehaviour
             sideToPut = 0;
             start = 0;
             end = squareSize;
+            // RECORDAR: La z va de atrás adelante
             switch (displacementXSign)
             {
                 case -1:
@@ -517,9 +531,9 @@ public class TerrainManager : MonoBehaviour
                     //
                     newActiveBlocksOrder[sideToPut, i] = activeBlocksMatrix[sideToGet, i];
                     //
-                    Vector3 blockNewPosition = newActiveBlocksOrder[sideToPut, i].transform.position;
-                    blockNewPosition.x += 200 * squareSize * displacementXSign;
-                    newActiveBlocksOrder[sideToPut, i].transform.position = blockNewPosition;
+                    //Vector3 blockNewPosition = newActiveBlocksOrder[sideToPut, i].transform.position;
+                    //blockNewPosition.x += 200 * squareSize * displacementXSign;
+                    //newActiveBlocksOrder[sideToPut, i].transform.position = blockNewPosition;
                     // TODO: Añadir chequeo de terreno destruido para que lo resetee
                     DestructibleTerrain[] destructibleElements = newActiveBlocksOrder[sideToPut, i].GetComponentsInChildren<DestructibleTerrain>();
                     for (int j = 0; j < destructibleElements.Length; j++)
@@ -535,18 +549,14 @@ public class TerrainManager : MonoBehaviour
                         newActiveBlocksOrder[i, j] = activeBlocksMatrix[i + displacementXSign, j];
                     }
                 }
-                //
+
+                // And then we implement the new order
                 activeBlocksMatrix = newActiveBlocksOrder;
             //}
         }
 
         //
-        //activeBlocksMatrix = newActiveBlocksOrder;
-        // Y marcmos el nuevo bloque central
-        //centralBlock = activeBlocksMatrix 
-
-        //
-        //CheckTerrainAlignment();
+        CheckTerrainAlignment();
         //
         AssignNeighbours();
     }
@@ -555,16 +565,49 @@ public class TerrainManager : MonoBehaviour
     void CheckTerrainAlignment()
     {
         //
+        //float playerX = playerTransform.position.x;
+        //float playerXSign = Mathf.Sign(playerX);
+        //int playerBlockX = (int)((playerX - (blockSize / 2 * -playerXSign)) / blockSize );
+        //Debug.Log("PlayerblockX: " + playerBlockX + ", sign: " + playerXSign + ", x: " + playerX);
+
+        //float playerZ = playerTransform.position.z;
+        //float playerZSign = Mathf.Sign(playerZ);
+        //int playerBlockZ = (int)((playerZ - (blockSize / 2 * -playerZSign)) / blockSize );
+        //// Debug.Log("Player block: " + playerBlockX + ", " + playerBlockZ);
+        ////
+        //Vector3 centralBlockNewPosition = new Vector3(playerBlockX * blockSize, 0, playerBlockZ * blockSize);
+        //activeBlocksMatrix[centralBlock, centralBlock].transform.position = centralBlockNewPosition;
+        //Debug.Log("Central block new position: " + centralBlockNewPosition);
 
         //
         for (int i = 0; i < squareSize; i++)
         {
-            for (int j = 0; i < squareSize; i++)
+            for (int j = 0; j < squareSize; j++)
             {
-                Vector3 blockIdealPosition = activeBlocksMatrix[centralBlock, centralBlock].transform.position
-                    + new Vector3(blockSize * (centralBlock - i), 0, blockSize * (centralBlock - j));
-                // De momento a la brava
-                activeBlocksMatrix[i, j].transform.position = blockIdealPosition;
+                //Vector3 nextPosition = new Vector3(i * 200 - (200 * halfMinusOne), 0, j * 200 - (200 * halfMinusOne));
+                if (i != centralBlock || j != centralBlock)
+                {
+                    //
+                    Vector3 centralBlockCurrentPosition = activeBlocksMatrix[centralBlock, centralBlock].transform.position;
+                    Vector3 positionToCentralBlock = new Vector3(blockSize * (i - centralBlock), 0, blockSize * (j - centralBlock));
+                    
+                    // 0, 0 -> -1000, 0, -1000
+                    // 5, 5 -> 0, 0, 0
+                    // 10, 10 -> 1000, 1000
+                    Vector3 blockIdealPosition = centralBlockCurrentPosition + positionToCentralBlock;
+                    
+                    // De momento a la brava
+                    if(activeBlocksMatrix[i, j].transform.position != blockIdealPosition)
+                    {
+                        //
+                        Debug.Log("Block " + i + "," + j + ": previous position: " + activeBlocksMatrix[i, j].transform.position
+                            + ", new position: " + blockIdealPosition + ", central block position: "
+                            + centralBlockCurrentPosition + ", position to central block: " + positionToCentralBlock);
+                        //
+                        activeBlocksMatrix[i, j].transform.position = blockIdealPosition;
+                    }
+                    
+                }
             }
         }
     }
@@ -585,4 +628,6 @@ public class TerrainManager : MonoBehaviour
                 allGameObjects[i].transform.position += directionToMove;
         }
     }
+
+    #endregion
 }

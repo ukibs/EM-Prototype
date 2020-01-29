@@ -414,6 +414,8 @@ public static class GeneralFunctions
 
         float bodyKE = bodyMass * Mathf.Pow(bodySpeedVariation, 2) / 2;
 
+        Debug.Log("Impact of " + rb.name + ", speed variation of " + bodySpeedVariation + ", impacting with a force of " + bodyKE + " Joules");
+
         return bodyKE;
     }
 
