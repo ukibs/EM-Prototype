@@ -47,3 +47,8 @@ MonoBehaviour:
       terrainRatio: 5
       terrainMax: 0
       terrainMin: 0
+    - terrainPrefab: {fileID: 8977643148632936667, guid: afc6bade08adf9f42b3ba8c664830385,
+        type: 3}
+      terrainRatio: 5
+      terrainMax: 0
+      terrainMin: 0
