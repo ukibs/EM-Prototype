@@ -72,50 +72,50 @@ public class TerrainManager : MonoBehaviour
     }
 
     //
-    private void OnDrawGizmos()
-    {
-        //
-        DrawTerrainOrder();
-        //
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(nearestWaypointToPlayer.transform.position, 10);
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    //
+    //    DrawTerrainOrder();
+    //    //
+    //    Gizmos.color = Color.yellow;
+    //    Gizmos.DrawSphere(nearestWaypointToPlayer.transform.position, 10);
+    //}
 
-    void DrawTerrainOrder()
-    {
-        // Vamos a pintar con un degradado para ver que coño pasa
-        Color currentPieceColor = new Color(1, 0, 1, 1f);
-        // Para chequear posibles repes en x,y
-        float baseHeightModifier = 5;
-        float heightModifier = 0;
-        for (int i = 0; i < squareSize; i++)
-        {
-            //
-            //currentPieceColor.r -= 1 / squareSize;
-            currentPieceColor.r -= 0.1f;
-            //
-            for (int j = 0; j < squareSize; j++)
-            {
-                //
-                heightModifier += baseHeightModifier;
-                //
-                //currentPieceColor.b -= 1 / squareSize;
-                currentPieceColor.b -= 0.1f;
-                //
-                if (i == centralBlock && j == centralBlock)
-                    Gizmos.color = new Color(0, 1, 0, 1f);
-                else
-                    Gizmos.color = currentPieceColor;
-                //
-                Gizmos.DrawCube(activeBlocksMatrix[i, j].transform.position + (Vector3.up * (50 + heightModifier)),
-                    new Vector3(100, 10, 100));
-                //
-                Vector3 positionThatShouldOccupy = activeBlocksMatrix[centralBlock, centralBlock].transform.position
-                    + new Vector3(blockSize * (i - centralBlock), 0, (blockSize * (j - centralBlock)));
-                Gizmos.DrawSphere(positionThatShouldOccupy, 50);
-            }
-        }
-    }
+    //void DrawTerrainOrder()
+    //{
+    //    // Vamos a pintar con un degradado para ver que coño pasa
+    //    Color currentPieceColor = new Color(1, 0, 1, 1f);
+    //    // Para chequear posibles repes en x,y
+    //    float baseHeightModifier = 5;
+    //    float heightModifier = 0;
+    //    for (int i = 0; i < squareSize; i++)
+    //    {
+    //        //
+    //        //currentPieceColor.r -= 1 / squareSize;
+    //        currentPieceColor.r -= 0.1f;
+    //        //
+    //        for (int j = 0; j < squareSize; j++)
+    //        {
+    //            //
+    //            heightModifier += baseHeightModifier;
+    //            //
+    //            //currentPieceColor.b -= 1 / squareSize;
+    //            currentPieceColor.b -= 0.1f;
+    //            //
+    //            if (i == centralBlock && j == centralBlock)
+    //                Gizmos.color = new Color(0, 1, 0, 1f);
+    //            else
+    //                Gizmos.color = currentPieceColor;
+    //            //
+    //            Gizmos.DrawCube(activeBlocksMatrix[i, j].transform.position + (Vector3.up * (50 + heightModifier)),
+    //                new Vector3(100, 10, 100));
+    //            //
+    //            Vector3 positionThatShouldOccupy = activeBlocksMatrix[centralBlock, centralBlock].transform.position
+    //                + new Vector3(blockSize * (i - centralBlock), 0, (blockSize * (j - centralBlock)));
+    //            Gizmos.DrawSphere(positionThatShouldOccupy, 50);
+    //        }
+    //    }
+    //}
 
     #region Waypoint Methods
 
@@ -596,13 +596,13 @@ public class TerrainManager : MonoBehaviour
                     // 10, 10 -> 1000, 1000
                     Vector3 blockIdealPosition = centralBlockCurrentPosition + positionToCentralBlock;
                     
-                    // De momento a la brava
+                    // 
                     if(activeBlocksMatrix[i, j].transform.position != blockIdealPosition)
                     {
                         //
-                        Debug.Log("Block " + i + "," + j + ": previous position: " + activeBlocksMatrix[i, j].transform.position
-                            + ", new position: " + blockIdealPosition + ", central block position: "
-                            + centralBlockCurrentPosition + ", position to central block: " + positionToCentralBlock);
+                        //Debug.Log("Block " + i + "," + j + ": previous position: " + activeBlocksMatrix[i, j].transform.position
+                        //    + ", new position: " + blockIdealPosition + ", central block position: "
+                        //    + centralBlockCurrentPosition + ", position to central block: " + positionToCentralBlock);
                         //
                         activeBlocksMatrix[i, j].transform.position = blockIdealPosition;
                     }
