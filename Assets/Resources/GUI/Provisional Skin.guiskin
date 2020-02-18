@@ -1407,8 +1407,8 @@ MonoBehaviour:
       m_Right: 0
       m_Top: 0
       m_Bottom: 0
-    m_Font: {fileID: 12800000, guid: e7a4599e335524e49bb66bff15edbd90, type: 3}
-    m_FontSize: 10
+    m_Font: {fileID: 12800000, guid: 8e168a0a0aadbf74a8217b95bf35490e, type: 3}
+    m_FontSize: 16
     m_FontStyle: 0
     m_Alignment: 0
     m_WordWrap: 0

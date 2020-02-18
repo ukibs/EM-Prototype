@@ -163,7 +163,7 @@ public class LevelSelectionItem : MapAndStatsItem
             else
                 nameToShow = levelData.levelInfo.enemiesSpawnSettings[i].enemyPrefab.name;
             //
-            GUI.Label(levelInfoRect, nameToShow, guiSkin.label);
+            GUI.Label(levelInfoRect, nameToShow, guiSkin.customStyles[0]);
             //GUI.Label(levelInfoRect, i + "", guiSkin.label);
         }
     }
