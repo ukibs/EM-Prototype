@@ -91,10 +91,11 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f2293e7ce65836145959a59dfac91fc9, type: 2}
+  - {fileID: 2100000, guid: 7475c0152fb3fbb48a312d226cc846bb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -162,16 +163,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 182231823908150193}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: fbf8c7721cd6c634caffa21d4d556651,
-        type: 3}
-      propertyPath: m_Name
-      value: Terrain Test Mesh Big
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: fbf8c7721cd6c634caffa21d4d556651,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: fbf8c7721cd6c634caffa21d4d556651,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -247,6 +238,16 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 679e0999839e55e44b313ffb6d5a810b, type: 2}
+    - target: {fileID: -927199367670048503, guid: fbf8c7721cd6c634caffa21d4d556651,
+        type: 3}
+      propertyPath: m_Name
+      value: Terrain Test Mesh Big
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: fbf8c7721cd6c634caffa21d4d556651,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fbf8c7721cd6c634caffa21d4d556651, type: 3}
 --- !u!1 &8348185115233484893 stripped
@@ -268,11 +269,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 182231823908150193}
     m_Modifications:
-    - target: {fileID: 7677212225491057269, guid: 5567600a799a1694faeed2a157cbb2bc,
-        type: 3}
-      propertyPath: m_Name
-      value: Waypoint1
-      objectReference: {fileID: 0}
     - target: {fileID: 2405348779426153843, guid: 5567600a799a1694faeed2a157cbb2bc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -328,6 +324,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7677212225491057269, guid: 5567600a799a1694faeed2a157cbb2bc,
+        type: 3}
+      propertyPath: m_Name
+      value: Waypoint1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5567600a799a1694faeed2a157cbb2bc, type: 3}
 --- !u!4 &4420489789855854085 stripped
@@ -343,11 +344,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 182231823908150193}
     m_Modifications:
-    - target: {fileID: 7677212225491057269, guid: 5567600a799a1694faeed2a157cbb2bc,
-        type: 3}
-      propertyPath: m_Name
-      value: Waypoint1 (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 2405348779426153843, guid: 5567600a799a1694faeed2a157cbb2bc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -403,6 +399,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7677212225491057269, guid: 5567600a799a1694faeed2a157cbb2bc,
+        type: 3}
+      propertyPath: m_Name
+      value: Waypoint1 (1)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5567600a799a1694faeed2a157cbb2bc, type: 3}
 --- !u!4 &96857925554803802 stripped
@@ -418,11 +419,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 182231823908150193}
     m_Modifications:
-    - target: {fileID: 7677212225491057269, guid: 5567600a799a1694faeed2a157cbb2bc,
-        type: 3}
-      propertyPath: m_Name
-      value: Waypoint1 (3)
-      objectReference: {fileID: 0}
     - target: {fileID: 2405348779426153843, guid: 5567600a799a1694faeed2a157cbb2bc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -478,6 +474,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7677212225491057269, guid: 5567600a799a1694faeed2a157cbb2bc,
+        type: 3}
+      propertyPath: m_Name
+      value: Waypoint1 (3)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5567600a799a1694faeed2a157cbb2bc, type: 3}
 --- !u!4 &1833237978572097173 stripped
@@ -493,11 +494,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 182231823908150193}
     m_Modifications:
-    - target: {fileID: 7677212225491057269, guid: 5567600a799a1694faeed2a157cbb2bc,
-        type: 3}
-      propertyPath: m_Name
-      value: Waypoint1 (2)
-      objectReference: {fileID: 0}
     - target: {fileID: 2405348779426153843, guid: 5567600a799a1694faeed2a157cbb2bc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -552,6 +548,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7677212225491057269, guid: 5567600a799a1694faeed2a157cbb2bc,
+        type: 3}
+      propertyPath: m_Name
+      value: Waypoint1 (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5567600a799a1694faeed2a157cbb2bc, type: 3}
