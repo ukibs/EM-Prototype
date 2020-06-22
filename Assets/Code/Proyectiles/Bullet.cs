@@ -274,6 +274,13 @@ public class Bullet : MonoBehaviour {
     //
     public void ReturnBulletToPool()
     {
+        //
+        if (bulletPool == null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        //
         rb.velocity = Vector3.zero;
         if (trailRenderer)
             trailRenderer.Clear();

@@ -61,6 +61,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -165,21 +166,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2191289606338140419}
     m_Modifications:
-    - target: {fileID: 8801764043903978978, guid: f7f280437923289449a8d1374a3a8bf1,
-        type: 3}
-      propertyPath: m_Name
-      value: AcidShot_Trail Blue
-      objectReference: {fileID: 0}
-    - target: {fileID: 8801764043903978978, guid: f7f280437923289449a8d1374a3a8bf1,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8801764043903978978, guid: f7f280437923289449a8d1374a3a8bf1,
-        type: 3}
-      propertyPath: m_Layer
-      value: 13
-      objectReference: {fileID: 0}
     - target: {fileID: 8265540234682333196, guid: f7f280437923289449a8d1374a3a8bf1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -235,6 +221,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8801764043903978978, guid: f7f280437923289449a8d1374a3a8bf1,
+        type: 3}
+      propertyPath: m_Name
+      value: AcidShot_Trail Blue
+      objectReference: {fileID: 0}
+    - target: {fileID: 8801764043903978978, guid: f7f280437923289449a8d1374a3a8bf1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8801764043903978978, guid: f7f280437923289449a8d1374a3a8bf1,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7f280437923289449a8d1374a3a8bf1, type: 3}
 --- !u!4 &8019853928760564338 stripped
@@ -250,6 +251,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2191289606338140419}
     m_Modifications:
+    - target: {fileID: 4256336204769463359, guid: ba5a11c77d4188440b9a6e645c46ca5c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 4256336204906359834, guid: ba5a11c77d4188440b9a6e645c46ca5c,
         type: 3}
       propertyPath: m_Name
@@ -315,11 +321,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4256336204769463359, guid: ba5a11c77d4188440b9a6e645c46ca5c,
-        type: 3}
-      propertyPath: m_Layer
-      value: 13
-      objectReference: {fileID: 0}
     - target: {fileID: 4256336205329181064, guid: ba5a11c77d4188440b9a6e645c46ca5c,
         type: 3}
       propertyPath: m_Layer
@@ -340,16 +341,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2191289606338140419}
     m_Modifications:
-    - target: {fileID: 8534704712629419476, guid: f9a528cd81947cf4e912c916711f4c3c,
-        type: 3}
-      propertyPath: m_Name
-      value: 'vfx_SparksVariant_Loop '
-      objectReference: {fileID: 0}
-    - target: {fileID: 8534704712629419476, guid: f9a528cd81947cf4e912c916711f4c3c,
-        type: 3}
-      propertyPath: m_Layer
-      value: 13
-      objectReference: {fileID: 0}
     - target: {fileID: 1511337679448918579, guid: f9a528cd81947cf4e912c916711f4c3c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -405,7 +396,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8872082795508640073, guid: f9a528cd81947cf4e912c916711f4c3c,
+    - target: {fileID: 6714142728897342657, guid: f9a528cd81947cf4e912c916711f4c3c,
         type: 3}
       propertyPath: m_Layer
       value: 13
@@ -415,7 +406,17 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 13
       objectReference: {fileID: 0}
-    - target: {fileID: 6714142728897342657, guid: f9a528cd81947cf4e912c916711f4c3c,
+    - target: {fileID: 8534704712629419476, guid: f9a528cd81947cf4e912c916711f4c3c,
+        type: 3}
+      propertyPath: m_Name
+      value: 'vfx_SparksVariant_Loop '
+      objectReference: {fileID: 0}
+    - target: {fileID: 8534704712629419476, guid: f9a528cd81947cf4e912c916711f4c3c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 8872082795508640073, guid: f9a528cd81947cf4e912c916711f4c3c,
         type: 3}
       propertyPath: m_Layer
       value: 13

@@ -16,7 +16,8 @@ GameObject:
   - component: {fileID: 114133439628236704}
   - component: {fileID: 3210826463883438631}
   - component: {fileID: 542411979029414197}
-  m_Layer: 0
+  - component: {fileID: 1789585102}
+  m_Layer: 12
   m_Name: Spheric Explosive Proyectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,6 +60,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -70,6 +72,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -123,7 +126,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cca406881df4e634db8e1b9dc80de919, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerBullet: 0
   diameter: 20
+  length: 0
   lifeTime: 10
   dangerousEnough: 0
   drawTrayectory: 0
@@ -137,6 +142,7 @@ MonoBehaviour:
     type: 3}
   impactOnPlayer: {fileID: 8300000, guid: 9f5a5612171a33b4d9a431afb8ac8aca, type: 3}
   impactOnEnemy: {fileID: 8300000, guid: 9f5a5612171a33b4d9a431afb8ac8aca, type: 3}
+  restarted: 0
 --- !u!96 &3210826463883438631
 TrailRenderer:
   serializedVersion: 2
@@ -152,6 +158,7 @@ TrailRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -163,6 +170,7 @@ TrailRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -259,3 +267,17 @@ MonoBehaviour:
     type: 3}
   fragmentsPerHeight: 4
   fragmentsPerWidth: 4
+  explosionClip: {fileID: 8300000, guid: c56a218742cb635489bbfef30efad2ee, type: 3}
+--- !u!114 &1789585102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952744711831650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d01d262403dca043affc33492595d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionRadius: 5

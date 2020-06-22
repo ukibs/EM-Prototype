@@ -47,6 +47,7 @@ public class ExplosiveBullet : MonoBehaviour
     private float explosionForce;
     //private float explosionForceOwnMeasure;
     private float shockWaveRange;
+    private bool exploding = false;
 
     private Rigidbody proyectileRb;
     private AudioObjectManager audioObjectManager;
@@ -94,6 +95,9 @@ public class ExplosiveBullet : MonoBehaviour
     //
     public void GenerateExplosion()
     {
+        //
+        if (exploding) return;
+        else exploding = true;
         // Primero aplicamos la onda de choque
         // Vamos a hacer que este daño vaya contra la "estrucura"
         Collider[] affectedColliders = Physics.OverlapSphere(transform.position, shockWaveRange);
@@ -102,7 +106,7 @@ public class ExplosiveBullet : MonoBehaviour
         {
             //
             Vector3 affectedColliderDirection = affectedColliders[i].transform.position - transform.position;
-            float receivedBlastForce = explosionForce / Mathf.Pow(affectedColliderDirection.magnitude, 2);
+            float receivedBlastForce = explosionForce / (1 + Mathf.Pow(affectedColliderDirection.magnitude, 2));
             Vector3 blastForceWithDirection = affectedColliderDirection.normalized * receivedBlastForce;
             //
             PlayerIntegrity playerIntegrity = affectedColliders[i].GetComponent<PlayerIntegrity>();
@@ -130,10 +134,11 @@ public class ExplosiveBullet : MonoBehaviour
         }
         //
         if(generatesFragments)
-            GenerateFragments();
+            GenerateFragments(fragmentsPerHeight, fragmentsPerWidth, 1/2);
         //
         //GeneralFunctions.PlaySoundEffect(audioObjectManager, explosionClip);
-        audioObjectManager.CreateAudioObject(explosionClip, transform.position);
+        if(audioObjectManager != null)
+            audioObjectManager.CreateAudioObject(explosionClip, transform.position);
         //
         //Destroy(gameObject);
         //proyectileRb.velocity = Vector3.zero;
@@ -143,32 +148,35 @@ public class ExplosiveBullet : MonoBehaviour
     }
 
     //
-    public void GenerateFragments()
+    public void GenerateFragments(int fragmentsPerHeight, int fragmentsPerWidth, float squareKCoefficient)
     {
-        //
+        // General calculations
         float angleOffsetInHeight = 360 / fragmentsPerHeight;
         float angleOffsetInWidth = 360 / fragmentsPerWidth;
-        //
-        float chargeMassRatio = explosiveLoad / proyectileRb.mass;
-        // TODO: Determinar también masa de los fragmentos
-        float squareKCoefficient = 1 / 3;
+        float chargeMassRatio = explosiveLoad / (proyectileRb.mass * 1000);
         float fragmentSpeed = Mathf.Sqrt(2 * explosionForce * chargeMassRatio / (1 + squareKCoefficient * chargeMassRatio));
-        //
+        // Calculations per fragment
+        int iterations = 0;
         for(int i = 0; i < fragmentsPerHeight; i++)
         {
             for(int j = 0; j < fragmentsPerWidth; j++)
             {
-                //RaycastHit hit;
+                //
+                Debug.Log("Current iteration: " + i + ", " + j);
+                //
                 Vector3 proyectileDirection = (Quaternion.AngleAxis((angleOffsetInHeight * i) + (angleOffsetInHeight/2), Vector3.right) *
-                                                Quaternion.AngleAxis((angleOffsetInWidth * j) + (angleOffsetInWidth/2), Vector3.up)) * Vector3.one;
-                //Debug.Log("Fragment " + i + ", " + j + ", direction: " + proyectileDirection);
-
+                                                Quaternion.AngleAxis((angleOffsetInWidth * j) + (angleOffsetInWidth/2), Vector3.up)) * 
+                                                Vector3.one;               
                 GameObject nextFragment = Instantiate(fragmentPrefab, transform.position, Quaternion.LookRotation(proyectileDirection));
                 Rigidbody fragmentRb = nextFragment.GetComponent<Rigidbody>();
-                //
-                // TODO: Determinar también masa de los fragmentos
                 fragmentRb.velocity = proyectileDirection.normalized * fragmentSpeed;
+                fragmentRb.mass = (proyectileRb.mass - explosiveLoad) / (fragmentsPerHeight * fragmentsPerWidth);
+
+                iterations++;
+                //
+                if (iterations > fragmentsPerHeight * fragmentsPerWidth) return;
             }
+            iterations++;
         }
     }
 

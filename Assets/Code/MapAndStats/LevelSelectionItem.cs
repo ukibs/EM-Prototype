@@ -180,7 +180,8 @@ public class LevelSelectionItem : MapAndStatsItem
         float currentCounter = 0;
 
         // Set the level number in the game manager
-        GameManager.instance.CurrentLevel = levelOrder;
+        //GameManager.instance.CurrentLevel = levelOrder;
+        GameManager.instance.CurrentLevelInfo = levelData.levelInfo;
         
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(level);
 

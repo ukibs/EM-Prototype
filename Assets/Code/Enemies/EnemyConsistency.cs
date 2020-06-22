@@ -88,7 +88,8 @@ public class EnemyConsistency : Targeteable {
     protected virtual void Start () {
         impactInfoManager = FindObjectOfType<ImpactInfoManager>();
         //currentChasisHealth = maxChasisHealth;
-        currentHealth = maxHealth;
+        //currentHealth = maxHealth + (maxHealth / 10 * GameManager.instance.difficultyFactor);
+        currentHealth = (int)GameManager.instance.ApplyDifficultyFactor(maxHealth, 10);
         //
         levelManager = FindObjectOfType<ProvLevelManager>();
         enemyManager = FindObjectOfType<EnemyManager>();

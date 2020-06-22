@@ -74,7 +74,7 @@ public class MapAndStatsManager : MonoBehaviour
         //
         if (Input.anyKeyDown)
         {
-            //SwitchSection();
+            SwitchSection();
         }
         //
         timeFromTransitionOrder += dt;

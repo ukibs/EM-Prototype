@@ -24,6 +24,7 @@ public class ProvLevelManager : MonoBehaviour
     //
     private int enemiesToDestroy;
     private int enemiesDestroyed = 0;
+    private float gameDuration = 0;
 
     private RobotControl robotControl;
     private VictoryCondition victoryCondition;
@@ -292,18 +293,42 @@ public class ProvLevelManager : MonoBehaviour
 
     public void EndLevel()
     {
+        // TODO: Chequeos de final de nivel
+        PlayerIntegrity playerIntegrity = FindObjectOfType<PlayerIntegrity>();
+
         //
-        if(victory == true)
+        if (victory == true)
         {
+            // Chequeos de tiempo y vida restante
+            float durationPerformance = DetermineDifficultyFactor(gameDuration, levelInfo.expectedDuration, 1.2f);
+            float healthPerformance = DetermineDifficultyFactor(playerIntegrity.CurrentHealth, gameManager.playerAttributes.maxHealth, 1);
+            float attempsPerformance = DetermineDifficultyFactor(gameManager.DefeatStreak, 3, 2);
+            gameManager.difficultyFactor += durationPerformance + healthPerformance + attempsPerformance;
             // De momento esto
             gameManager.ReceiveExperience(enemiesDestroyed);
+        }
+        else
+        {
+            gameManager.DefeatStreak++;
+            //if(gameManager.DefeatStreak > 5)
+            //{
+            //    float attempsPerformance = DetermineDifficultyFactor(gameManager.DefeatStreak, 3, 2);
+            //    gameManager.difficultyFactor += attempsPerformance;
+            //}
         }
         //
         finished = true;
         robotControl.InPlay = false;
+        
         //
         fade.direction = 1;
         fade.speed = 0.5f;
+    }
+
+    float DetermineDifficultyFactor(float valueObtained, float expectedValue, float factorWeight)
+    {
+        float valueOffset = valueObtained - expectedValue;
+        return valueOffset / expectedValue * factorWeight;
     }
 
     /// <summary>

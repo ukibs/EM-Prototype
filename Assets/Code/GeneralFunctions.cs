@@ -176,19 +176,12 @@ public static class GeneralFunctions
     Vector3 objectiveVelocity, float referenceWeaponMuzzleSpeed, float dt, float proyectileDrag = 0.1f)
     {
         Vector3 playerFutureEstimatedPosition = new Vector3();
-
-        // Determinamos la distancia para ver cuanto anticipar en función de nuestra muzzle speed
         float distanceToPlayer = (objectivePosition - selfPosition).magnitude;
-        // Let's check the calculations
         float timeWithoutDrag = distanceToPlayer / referenceWeaponMuzzleSpeed;
         Vector3 objectivePositionWithEstimation = objectivePosition + (objectiveVelocity * timeWithoutDrag);
-        // TODO: Sacar el drag del proyectil
-        float timeWithDrag = EstimateFlyingTimeWithDrag(selfPosition, objectivePositionWithEstimation, referenceWeaponMuzzleSpeed, proyectileDrag);
-        // Debug.Log("Time without drag: " + timeWithoutDrag + ", with drag: " + timeWithDrag);
-        float timeForBulletToReachObjective = timeWithDrag * 1;
-        
-        playerFutureEstimatedPosition = objectivePosition + (objectiveVelocity * timeForBulletToReachObjective);
-
+        float timeWithDrag = EstimateFlyingTimeWithDrag(selfPosition, objectivePositionWithEstimation, 
+                                                        referenceWeaponMuzzleSpeed, proyectileDrag);        
+        playerFutureEstimatedPosition = objectivePosition + (objectiveVelocity * timeWithDrag);
         return playerFutureEstimatedPosition;
     }
 
@@ -206,24 +199,11 @@ public static class GeneralFunctions
     /// <param name="objectivePoint"></param>
     /// <param name="muzzleSpeed"></param>
     /// <returns></returns>
-    public static float GetProyectileFallToObjective(Vector3 startPoint, Vector3 objectivePoint, float muzzleSpeed, float proyectileDrag = 0.1f)
+    public static float GetProyectileFallToObjective(Vector3 startPoint, Vector3 objectivePoint, float muzzleSpeed, 
+        float proyectileDrag = 0.1f)
     {
-        // TODO: Revisar que haga falta (o no) la velocidad inicial (en Y)
-        // La podemos sacar con la muzzleSpeed y la dirección hacia el objetivo
-        //Vector3 distanceToObjective = objectivePoint - startPoint;
-
-        // Con esto podemos sacar la velocidad en y para estimar
-        //Vector3 directionToObjective = distanceToObjective.normalized;
-        //Vector3 proyectile3dSpeed = directionToObjective * muzzleSpeed;
-
-        //float secondsToObjective = distanceToObjective.magnitude / muzzleSpeed; // Esto sería sin rozamiento
         float secondsToObjectiveWithDrag = EstimateFlyingTimeWithDrag(startPoint, objectivePoint, muzzleSpeed, proyectileDrag);
-
-        //Debug.Log("Seconds to reach objective: Without drag " + secondsToObjective + ", with drag " + secondsToObjectiveWithDrag);
-        
-        // TODO: Revisar esto
         float fallInThatTime = Physics.gravity.y * Mathf.Pow(secondsToObjectiveWithDrag, 2) / 2;
-
         return fallInThatTime;
     }
 
@@ -310,6 +290,25 @@ public static class GeneralFunctions
         result *= 0.75f;
 
         return result;
+    }
+
+    /// <summary>
+    /// Thompson's penetration formula of 1930
+    /// It works with armor thickness, proyectile diameter and impact angle
+    /// It returns the required kinetic energy to penetrate a determine thicness of armor
+    /// Remember: It already has de impact angle in count. Not more calculations with it are required
+    /// </summary>
+    /// <param name="armorThickness"></param>
+    /// <param name="proyectileDiameter"></param>
+    /// <param name="impactAngle"></param>
+    /// <returns></returns>
+    public static float Thompson1930PenetrationCalc(float armorThickness, float proyectileDiameter, float impactAngle)
+    {
+        float fCoefficient = 1.8288f * (armorThickness/proyectileDiameter - 0.45f) * ((float)Math.Pow(impactAngle, 2) + 2000) + 12192;
+        float requiredKE = 8.025f * (armorThickness * (float)Math.Pow(proyectileDiameter, 2) * (float)Math.Pow(fCoefficient, 2) /
+                            (float)Math.Pow(Mathf.Cos(impactAngle * Mathf.Deg2Rad), 2)); ;
+
+        return requiredKE;
     }
 
     /// <summary>
@@ -486,6 +485,16 @@ public static class GeneralFunctions
     public static float GetNewtonPenetration(float proyectileLenght, float proyectileDensity, float armorDensity)
     {
         return proyectileLenght * (proyectileDensity / armorDensity);
+    }
+
+    public static float GetArmorThiccnessWithAngle(float armorThickness, float incidenceAngle)
+    {
+        return armorThickness / Mathf.Cos(incidenceAngle);
+    }
+
+    public static float GetForceTransmitedWithAngle(float kineticEnergy, float incidenceAngle)
+    {
+        return kineticEnergy * (1 - Mathf.Pow(Mathf.Cos(incidenceAngle), 2));
     }
 
     // TODO: Creo que esto ya no se usa

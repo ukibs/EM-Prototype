@@ -141,11 +141,8 @@ public class EnemyWeapon : MonoBehaviour
         // And check if direct or indirect fire
         if (typeOfFire == TypeOfFire.Indirect)
         {
-            // TODO: Probar con el vector normalizado
-            // Lo que nos importa es la dirección
             Vector3 playerDirNormalized = anticipatedPlayerPosition.normalized;
             float angle = Mathf.Acos(playerDirNormalized.y) * Mathf.Rad2Deg;
-            //
             angle = 90 - angle;
             playerDirNormalized.y = Mathf.Cos(angle);
 

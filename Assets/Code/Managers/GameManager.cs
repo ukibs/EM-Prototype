@@ -88,6 +88,8 @@ public class GameManager : MonoBehaviour
 
     public PlayerAttributes playerAttributes;
 
+    public float difficultyFactor = 1;
+
     #endregion
 
     #region Private Attributes
@@ -95,13 +97,16 @@ public class GameManager : MonoBehaviour
     //private LevelStatus[] levelsStatus;
     private int currentExperience = 0;
     // TODO: Decidir como manejar esto
-    private int gameProgression = 0;
+    public int gameProgression = 0;
     // Usaremos -1 para diferenciar el infinito del resto
     private int currentLevel = 0;
     //
     private LevelInfo[] levelsInfo;
     //
     private LevelInfo currentLevelInfo;
+    //
+    private int victoryStreak;
+    private int defeatStreak;
 
     #endregion
 
@@ -112,7 +117,7 @@ public class GameManager : MonoBehaviour
         get { return gameProgression; }
         set { gameProgression = value; }
     }
-    //public int CurrentLevel { set { currentLevel = value; } }
+    public int CurrentLevel { set { currentLevel = value; } }
     public int TotalLevels { get { return levelsInfo.Length; } }
     public LevelInfo[] LevelsInfo { get { return levelsInfo; } }
     
@@ -122,10 +127,16 @@ public class GameManager : MonoBehaviour
         set { currentLevelInfo = value; }
     }
 
-    public int CurrentLevel
+    public int VictoryStreak
     {
-        get { return currentLevel; }
-        set { currentLevel = value; }
+        get { return victoryStreak; }
+        set { victoryStreak = value; }
+    }
+
+    public int DefeatStreak
+    {
+        get { return defeatStreak; }
+        set { defeatStreak = value; }
     }
 
     #endregion
@@ -209,6 +220,11 @@ public class GameManager : MonoBehaviour
     public void SelectLevel(int levelNumber)
     {
         currentLevel = levelNumber;
+    }
+
+    public float ApplyDifficultyFactor(float baseValue, float variationFactor)
+    {
+        return baseValue + (baseValue / variationFactor * difficultyFactor);
     }
 
     #endregion

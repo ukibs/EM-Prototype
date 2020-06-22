@@ -26,7 +26,7 @@ public class ProximityFuze : MonoBehaviour
             // TODO: Revisarlo cuando ocurra
             // Bien con timer para que mpiece a chequear
             // Bien con filto
-            if(Physics.OverlapSphere(transform.position, detectionRadius).Length > 0)
+            if(Physics.OverlapSphere(transform.position, detectionRadius).Length > 1)
             {
                 explosiveBullet.GenerateExplosion();
             }

@@ -34,6 +34,7 @@ public class LevelInfo
     //
     public VictoryCondition victoryCondition;
     public int enemiesToDefeat;
+    public float expectedDuration;
     //public string enemyIdentifier;
     // TODO: Quitaremos esto
     public int attackActionsAvailable;

@@ -232,9 +232,11 @@ public class EnemyManager : MonoBehaviour
 
         // NOTA: Control de error
         // De primeras no debería haber tamaño de spawn 0
+        int enemiesToSpawn = (int)GameManager.instance.ApplyDifficultyFactor(enemiesSpawnSettings[i].enemiesToSpawn, 1);
+        Debug.Log("Spawning enemies: " + enemiesSpawnSettings[i].enemiesToSpawn + ", " + enemiesToSpawn);
         // Aparte, ahora sale todo el grupo o no sale
-        if (enemiesSpawnSettings[i].enemiesToSpawn > 0
-            && enemiesSpawnSettings[i].enemiesToSpawn <= enemiesSpawnSettings[i].maxActiveEnemies - activeEnemies[i].Count)
+        if (/*enemiesSpawnSettings[i].*/enemiesToSpawn > 0
+            && /*enemiesSpawnSettings[i].enemiesToSpawn*/ enemiesToSpawn <= enemiesSpawnSettings[i].maxActiveEnemies - activeEnemies[i].Count)
         {
             // Si no hay enemigos activos de ese tipo, aviso de Carol
             if (activeEnemies[i].Count == 0)
@@ -247,15 +249,15 @@ public class EnemyManager : MonoBehaviour
                 //    enemiesSpawnSettings[i].formationData.formationInfo.formationType, 
                 //    enemiesSpawnSettings[i].formationData.formationInfo.distanceBetweenMembers);
                 newEnemyFormation = new EnemyFormation(enemiesSpawnSettings[i].formationData.formationInfo,
-                    enemiesSpawnSettings[i].enemiesToSpawn);
+                    /*enemiesSpawnSettings[i].*/enemiesToSpawn);
                 //
                 enemyFormations.Add(newEnemyFormation);
             }
             //
-            float memberSpawnAngle = 360 / enemiesSpawnSettings[i].enemiesToSpawn;
+            float memberSpawnAngle = 360 / /*enemiesSpawnSettings[i].*/enemiesToSpawn;
             float meberSpawnRadius = 10;
             // Sacamos a los enemigos
-            for (int j = 0; j < enemiesSpawnSettings[i].enemiesToSpawn; j++)
+            for (int j = 0; j < /*enemiesSpawnSettings[i].*/enemiesToSpawn; j++)
             {
                 // 
                 float memberSpawnCoordinates = memberSpawnAngle * j;

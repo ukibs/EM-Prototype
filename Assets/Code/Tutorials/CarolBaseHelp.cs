@@ -267,7 +267,7 @@ public class CarolBaseHelp : MonoBehaviour
             // Control extra para tutorial
             if(tag == "EnemiesIncoming" && tutoTriggered == false && 
                 //gameManager.GameProgression == 0)
-                gameManager.CurrentLevel == 0)
+                gameManager.GameProgression == 0)
             {
                 // Pausa de tuto
                 Time.timeScale = 0;
